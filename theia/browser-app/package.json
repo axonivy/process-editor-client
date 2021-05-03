@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "minimal-browser-app",
+  "name": "ivy-browser-app",
   "version": "0.1.0",
   "dependencies": {
     "@theia/core": "1.4.0",
@@ -15,15 +15,15 @@
     "@theia/process": "1.4.0",
     "@theia/terminal": "1.4.0",
     "@theia/workspace": "1.4.0",
-    "@eclipse-glsp-examples/minimal-theia": "0.8.0"
+    "@ivy-glsp/ivy-glsp-theia": "0.8.0"
   },
   "devDependencies": {
     "@theia/cli": "1.4.0"
   },
   "scripts": {
     "prepare": "theia build --mode development",
-    "start": "theia start --MINIMAL_GLSP=5007",
-    "start:debug": "theia start --MINIMAL_GLSP=5007 --loglevel=debug --DEBUG",
+    "start": "theia start --IVY_PROCESS_GLSP=5007",
+    "start:debug": "theia start --IVY_PROCESS_GLSP=5007 --loglevel=debug --DEBUG",
     "watch": "theia build --watch --mode development"
   },
   "theia": {

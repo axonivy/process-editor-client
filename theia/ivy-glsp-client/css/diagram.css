@@ -62,10 +62,6 @@ svg {
   stroke-width: 2px;
 }
 
-.minimal-node {
-  fill: lightsalmon;
-}
-
 .sprotty-node.mouseover {
   stroke-width: 3px;
   stroke: var(--theia-editorWidget-foreground);

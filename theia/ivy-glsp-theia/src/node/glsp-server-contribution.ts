@@ -20,15 +20,15 @@ import { injectable } from 'inversify';
 import * as net from 'net';
 import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
 
-import { MinimalLanguage } from '../common/minmal-language';
+import { IvyProcessLanguage } from '../common/ivy-process-language';
 
 @injectable()
-export class MinimalGLSPServerContribution extends BaseGLSPServerContribution {
-    readonly id = MinimalLanguage.Id;
-    readonly name = MinimalLanguage.Name;
+export class IvyGLSPServerContribution extends BaseGLSPServerContribution {
+    readonly id = IvyProcessLanguage.Id;
+    readonly name = IvyProcessLanguage.Name;
 
     start(clientConnection: IConnection): void {
-        const socketPort = getPort('MINIMAL_GLSP');
+        const socketPort = getPort('IVY_PROCESS_GLSP');
         if (!isNaN(socketPort)) {
             const socket = new net.Socket();
             const serverConnection = createSocketConnection(socket, socket, () => {

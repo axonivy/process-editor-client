@@ -22,17 +22,17 @@ import {
 import { ContainerModule, interfaces } from 'inversify';
 import { DiagramConfiguration } from 'sprotty-theia';
 
-import { MinimalDiagramConfiguration } from './diagram/minimal-diagram-configuration';
-import { MinimalDiagramManager } from './diagram/minimal-diagram-manager';
-import { MinimalGLSPDiagramClient } from './diagram/minimal-glsp-diagram-client';
-import { MinimalGLSPClientContribution } from './language/minimal-glsp-client-contribution';
+import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
+import { IvyDiagramManager } from './diagram/diagram-manager';
+import { IvyGLSPDiagramClient } from './diagram/glsp-diagram-client';
+import { IvyGLSPClientContribution } from './language/glsp-client-contribution';
 
 export default new ContainerModule((bind: interfaces.Bind) => {
-    bind(MinimalGLSPClientContribution).toSelf().inSingletonScope();
-    bind(GLSPClientContribution).toService(MinimalGLSPClientContribution);
-    bind(DiagramConfiguration).to(MinimalDiagramConfiguration).inSingletonScope();
-    bind(MinimalGLSPDiagramClient).toSelf().inSingletonScope();
-    registerDiagramManager(bind, MinimalDiagramManager);
+    bind(IvyGLSPClientContribution).toSelf().inSingletonScope();
+    bind(GLSPClientContribution).toService(IvyGLSPClientContribution);
+    bind(DiagramConfiguration).to(IvyDiagramConfiguration).inSingletonScope();
+    bind(IvyGLSPDiagramClient).toSelf().inSingletonScope();
+    registerDiagramManager(bind, IvyDiagramManager);
 
     // Optional default commands and menus
     registerDiagramLayoutCommands(bind);

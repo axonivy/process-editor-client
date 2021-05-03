@@ -13,6 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import creatMinimalDiagramContainer from './di.config';
-
-export { creatMinimalDiagramContainer };
+export namespace IvyProcessLanguage {
+    export const Id = 'Minimal';
+    export const Name = 'Minimal';
+    export const Label = 'Minimal diagram';
+    export const DiagramType = 'minimal-diagram';
+    export const FileExtension = '.mod';
+}

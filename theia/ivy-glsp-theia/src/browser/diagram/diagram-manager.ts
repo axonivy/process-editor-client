@@ -24,19 +24,19 @@ import { EditorManager } from '@theia/editor/lib/browser';
 import { inject, injectable } from 'inversify';
 import { TheiaFileSaver } from 'sprotty-theia';
 
-import { MinimalLanguage } from '../../common/minmal-language';
-import { MinimalGLSPDiagramClient } from './minimal-glsp-diagram-client';
+import { IvyProcessLanguage } from '../../common/ivy-process-language';
+import { IvyGLSPDiagramClient } from './glsp-diagram-client';
 
 @injectable()
-export class MinimalDiagramManager extends GLSPDiagramManager {
+export class IvyDiagramManager extends GLSPDiagramManager {
     iconClass = 'fa fa-project';
-    readonly diagramType = MinimalLanguage.DiagramType;
-    readonly label = MinimalLanguage.Label + ' Editor';
+    readonly diagramType = IvyProcessLanguage.DiagramType;
+    readonly label = IvyProcessLanguage.Label + ' Editor';
 
     private _diagramConnector: GLSPTheiaSprottyConnector;
 
     constructor(
-        @inject(MinimalGLSPDiagramClient) diagramClient: MinimalGLSPDiagramClient,
+        @inject(IvyGLSPDiagramClient) diagramClient: IvyGLSPDiagramClient,
         @inject(TheiaFileSaver) fileSaver: TheiaFileSaver,
         @inject(WidgetManager) widgetManager: WidgetManager,
         @inject(EditorManager) editorManager: EditorManager,
@@ -50,7 +50,7 @@ export class MinimalDiagramManager extends GLSPDiagramManager {
     }
 
     get fileExtensions(): string[] {
-        return [MinimalLanguage.FileExtension];
+        return [IvyProcessLanguage.FileExtension];
     }
     get diagramConnector(): GLSPTheiaSprottyConnector {
         return this._diagramConnector;

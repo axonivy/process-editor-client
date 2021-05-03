@@ -13,10 +13,24 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export namespace MinimalLanguage {
-    export const Id = 'Minimal';
-    export const Name = 'Minimal';
-    export const Label = 'Minimal diagram';
-    export const DiagramType = 'minimal-diagram';
-    export const FileExtension = '.mod';
+import 'sprotty-theia/css/theia-sprotty.css';
+
+import { TYPES } from '@eclipse-glsp/client';
+import { GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration/lib/browser';
+import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
+import { Container, injectable } from 'inversify';
+import { DiagramConfiguration } from 'sprotty-theia';
+
+import { IvyProcessLanguage as IvyProcessLanguage } from '../../common/ivy-process-language';
+
+@injectable()
+export class IvyDiagramConfiguration implements DiagramConfiguration {
+
+    diagramType: string = IvyProcessLanguage.DiagramType;
+
+    createContainer(widgetId: string): Container {
+        const container = createIvyDiagramContainer(widgetId);
+        container.bind(TYPES.ModelSource).to(GLSPTheiaDiagramServer).inSingletonScope();
+        return container;
+    }
 }

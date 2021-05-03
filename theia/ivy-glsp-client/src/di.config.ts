@@ -70,7 +70,7 @@ import {
     WorkflowEdgeView
 } from './workflow-views';
 
-const minimalDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
     bind(TYPES.ISnapper).to(GridSnapper);
@@ -112,7 +112,7 @@ export default function createContainer(widgetId: string): Container {
 
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
-        minimalDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
+        ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
         layoutCommandsModule);
 
     overrideViewerOptions(container, {

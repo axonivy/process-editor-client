@@ -1,12 +1,11 @@
 {
-  "name": "@eclipse-glsp-examples/minimal-glsp",
+  "name": "@ivy-glsp/ivy-glsp-client",
   "version": "0.8.0",
-  "description": "GLSP sprotty diagrams for the Minimal DSL",
+  "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Eclipse GLSP",
   "keywords": [
     "glsp",
-    "minimal",
     "diagram"
   ],
   "dependencies": {

@@ -22,7 +22,7 @@ import * as cp from 'child_process';
 import { inject, injectable } from 'inversify';
 
 @injectable()
-export class MinimalServerLauncher implements BackendApplicationContribution {
+export class IvyProcessServerLauncher implements BackendApplicationContribution {
     @inject(RawProcessFactory) protected readonly processFactory: RawProcessFactory;
     @inject(ProcessManager) protected readonly processManager: ProcessManager;
     @inject(ILogger) private readonly logger: ILogger;
@@ -57,13 +57,13 @@ export class MinimalServerLauncher implements BackendApplicationContribution {
 
     protected logError(data: string | Buffer): void {
         if (data) {
-            this.logger.error(`MinimalServerLauncher: ${data}`);
+            this.logger.error(`IvyProcessServerLauncher: ${data}`);
         }
     }
 
     protected logInfo(data: string | Buffer): void {
         if (data) {
-            this.logger.info(`MinimalServerLauncher: ${data}`);
+            this.logger.info(`IvyProcessServerLauncher: ${data}`);
         }
     }
 }

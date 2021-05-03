@@ -50,8 +50,8 @@
     "**/@theia/workspace": "1.4.0"
   },
   "workspaces": [
-    "minimal-glsp",
-    "minimal-theia",
+    "ivy-glsp-client",
+    "ivy-glsp-theia",
     "browser-app"
   ]
 }

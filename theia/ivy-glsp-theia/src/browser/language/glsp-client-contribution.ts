@@ -16,11 +16,11 @@
 import { BaseGLSPClientContribution } from '@eclipse-glsp/theia-integration/lib/browser';
 import { injectable } from 'inversify';
 
-import { MinimalLanguage } from '../../common/minmal-language';
+import { IvyProcessLanguage } from '../../common/ivy-process-language';
 
 @injectable()
-export class MinimalGLSPClientContribution extends BaseGLSPClientContribution {
-    readonly id = MinimalLanguage.Id;
-    readonly name = MinimalLanguage.Name;
-    readonly fileExtensions = [MinimalLanguage.FileExtension];
+export class IvyGLSPClientContribution extends BaseGLSPClientContribution {
+    readonly id = IvyProcessLanguage.Id;
+    readonly name = IvyProcessLanguage.Name;
+    readonly fileExtensions = [IvyProcessLanguage.FileExtension];
 }

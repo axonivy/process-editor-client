@@ -13,14 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { GLSPServerContribution } from '@eclipse-glsp/theia-integration/lib/node';
-import { BackendApplicationContribution } from '@theia/core/lib/node';
-import { ContainerModule } from 'inversify';
+import { GLSPDiagramClient } from '@eclipse-glsp/theia-integration/lib/browser';
+import { EditorManager } from '@theia/editor/lib/browser';
+import { inject, injectable } from 'inversify';
 
-import { MinimalGLSPServerContribution } from './minimal-glsp-server-contribution';
-import { MinimalServerLauncher } from './server-launcher';
+import { IvyGLSPClientContribution } from '../language/glsp-client-contribution';
 
-export default new ContainerModule(bind => {
-    bind(GLSPServerContribution).to(MinimalGLSPServerContribution).inSingletonScope();
-    bind(BackendApplicationContribution).to(MinimalServerLauncher);
-});
+@injectable()
+export class IvyGLSPDiagramClient extends GLSPDiagramClient {
+    constructor(
+        @inject(IvyGLSPClientContribution) glspCLientContribution: IvyGLSPClientContribution,
+        @inject(EditorManager) editorManager: EditorManager) {
+        super(glspCLientContribution, editorManager);
+    }
+}

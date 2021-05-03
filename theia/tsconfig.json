@@ -10,8 +10,8 @@
     ]
   },
   "include": [
-    "minimal-glsp/*/src",
-    "minimal-theia/*/src"
+    "ivy-glsp-client/*/src",
+    "ivy-glsp-theia/*/src"
   ],
   "exclude": [
     "node_modules",
