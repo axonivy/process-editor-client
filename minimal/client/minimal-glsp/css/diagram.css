@@ -1,0 +1,90 @@
+/********************************************************************************
+ * Copyright (c) 2020 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
+
+svg {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #bbb;
+}
+
+.sprotty-graph {
+  font-size: 10pt;
+  border: none;
+  height: 100%;
+}
+
+.sprotty-node {
+  stroke-width: 1px;
+  font-weight: bold;
+}
+
+.sprotty-node {
+  fill: var(--theia-editor-background);
+}
+
+.sprotty-node.sprotty-end-node {
+  stroke-width: 3px;
+}
+
+.sprotty-node.sprotty-task-node {
+  stroke-width: 1px;
+}
+
+.sprotty-label {
+  font-size: 12px;
+}
+.sprotty-icon {
+  background-color: var(--theia-editor-background);
+  border-radius: 3px;
+}
+.sprotty-icon i {
+  font-size: 16px;
+}
+.sprotty-node-decorator {
+  stroke: var(--theia-editor-foreground);
+  fill: var(--theia-editor-foreground);
+  text-anchor: middle;
+}
+.subproc .sprotty-node {
+  stroke-width: 2px;
+}
+
+.minimal-node {
+  fill: lightsalmon;
+}
+
+.sprotty-node.mouseover {
+  stroke-width: 3px;
+  stroke: var(--theia-editorWidget-foreground);
+}
+
+.sprotty-node.selected {
+  stroke-width: 3px;
+  stroke: var(--theia-menu-selectionBackground);
+}
+
+.comment .sprotty-node,
+.sprotty-edge-association {
+  stroke-dasharray: 5, 5;
+}
+
+.sprotty-missing {
+  stroke-width: 1;
+  stroke: #f00;
+  fill: #f00;
+  font-size: 14pt;
+  text-anchor: middle;
+}
