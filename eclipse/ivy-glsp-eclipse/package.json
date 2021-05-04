@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "@eclipse-glsp-examples/workflow-webapp",
+  "name": "@ivy-glsp/ivy-glsp-eclipse",
   "version": "0.9.0",
-  "description": "GLSP-based webapp for the Workflow example",
+  "description": "GLSP-based webapp for the Ivy GLSP client",
   "dependencies": {
     "@ivy-glsp/ivy-glsp-client": "0.8.0",
     "@eclipse-glsp/client": "0.8.1",

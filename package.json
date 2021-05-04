@@ -10,7 +10,7 @@
     "test": "yarn",
     "prepare": "lerna run prepare && yarn copyClient",
     "watch": "lerna run --parallel watch",
-    "copyClient": "copyfiles -f ./examples/workflow-webapp/app/* ../server/example/org.eclipse.glsp.ide.workflow.editor/diagram",
+    "copyClient": "copyfiles -f ./eclipse/ivy-glsp-eclipse/app/* ./server/diagram",
     "rebuild:browser": "theia rebuild:browser",
     "publish": "yarn && yarn publish:latest",
     "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
@@ -58,7 +58,7 @@
     "ivy-glsp-client",
     "theia/ivy-glsp-theia",
     "theia/browser-app",
-    "eclipse/examples/workflow-webapp",
+    "eclipse/ivy-glsp-eclipse",
     "eclipse/packages/ide"
   ]
 }
