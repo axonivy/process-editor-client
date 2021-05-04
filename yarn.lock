@@ -838,14 +838,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@eclipse-glsp-examples/workflow-glsp@0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp-examples/workflow-glsp/-/workflow-glsp-0.8.1.tgz#8fdaf2e8462de1c33aed325421f5a4955f3c2407"
-  integrity sha512-b5MHDn6q0GfUdAy30ai+0f/eKwVyyKJsOCNWC8wbyVYo08Ug3MDKdlBf04QfZyWtnAlck3sbKxnutr0yE9jBpQ==
-  dependencies:
-    "@eclipse-glsp/client" "0.8.1"
-    balloon-css "^0.5.0"
-
 "@eclipse-glsp/client@0.8.1":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-0.8.1.tgz#9b40aa0d68a35963fe5d570f28761c2ea2d6afde"
@@ -3314,11 +3306,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
-
-balloon-css@^0.5.0:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/balloon-css/-/balloon-css-0.5.2.tgz#9e2163565a136c9d4aa20e8400772ce3b738d3ff"
-  integrity sha512-zheJpzwyNrG4t39vusA67v3BYg1HTVXOF8cErPEHzWK88PEOFwgo6Ea9VHOgOWNMgeuOtFVtB73NE2NWl9uDyQ==
 
 base64-arraybuffer@^0.1.5:
   version "0.1.5"

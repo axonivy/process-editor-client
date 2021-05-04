@@ -4,7 +4,7 @@
   "version": "0.9.0",
   "description": "GLSP-based webapp for the Workflow example",
   "dependencies": {
-    "@eclipse-glsp-examples/workflow-glsp": "0.8.1",
+    "@ivy-glsp/ivy-glsp-client": "0.8.0",
     "@eclipse-glsp/client": "0.8.1",
     "@eclipse-glsp/protocol": "next",
     "@eclipse-glsp/ide": "0.9.0"

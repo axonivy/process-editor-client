@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 export namespace IvyProcessLanguage {
-    export const Id = 'Minimal';
-    export const Name = 'Minimal';
-    export const Label = 'Minimal diagram';
-    export const DiagramType = 'minimal-diagram';
+    export const Id = 'ivy-glsp-process';
+    export const Name = 'Ivy-Glsp';
+    export const Label = 'Ivy Process';
+    export const DiagramType = 'ivy-glsp-process';
     export const FileExtension = '.mod';
 }

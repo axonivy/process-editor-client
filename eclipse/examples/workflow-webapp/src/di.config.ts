@@ -15,13 +15,13 @@
  ********************************************************************************/
 import '../css/diagram.css';
 
-import { createWorkflowDiagramContainer } from '@eclipse-glsp-examples/workflow-glsp/lib';
 import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
+import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 
 export default function createContainer(widgetId: string): Container {
-    const container = createWorkflowDiagramContainer(widgetId);
+    const container = createIvyDiagramContainer(widgetId);
     container.bind(TYPES.ModelSource).to(EclipseGLSPDiagramServer).inSingletonScope();
     container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
