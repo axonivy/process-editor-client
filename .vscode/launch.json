@@ -8,12 +8,12 @@
       "type": "node",
       "request": "launch",
       "name": "Start Browser Backend",
-      "program": "${workspaceRoot}//browser-app/src-gen/backend/main.js",
+      "program": "${workspaceRoot}/theia/browser-app/src-gen/backend/main.js",
       "args": [
         "--port=3000",
         "--no-cluster",
         "--IVY_PROCESS_GLSP=5007",
-        "--app-project-path=${workspaceRoot}/browser-app"
+        "--app-project-path=${workspaceRoot}/theia/browser-app"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -21,9 +21,9 @@
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/browser-app/lib/**/*.js",
-        "${workspaceRoot}/ivy-glsp-theia/lib/**/*.js",
-        "${workspaceRoot}/workflow/browser-app/src-gen/**/*.js"
+        "${workspaceRoot}/theia/browser-app/lib/**/*.js",
+        "${workspaceRoot}/theia/ivy-glsp-theia/lib/**/*.js",
+        "${workspaceRoot}/theia/browser-app/src-gen/**/*.js"
       ],
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
@@ -41,14 +41,14 @@
       "type": "node",
       "request": "launch",
       "name": "Debug Browser Backend",
-      "program": "${workspaceRoot}//browser-app/src-gen/backend/main.js",
+      "program": "${workspaceRoot}/theia/browser-app/src-gen/backend/main.js",
       "args": [
         "--loglevel=debug",
         "--port=3000",
         "--no-cluster",
         "--IVY_PROCESS_GLSP=5007",
         "--DEBUG",
-        "--app-project-path=${workspaceRoot}/browser-app"
+        "--app-project-path=${workspaceRoot}/theia/browser-app"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -56,9 +56,9 @@
       "sourceMaps": true,
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/browser-app/lib/**/*.js",
-        "${workspaceRoot}/ivy-glsp-theia/lib/**/*.js",
-        "${workspaceRoot}/workflow/browser-app/src-gen/**/*.js"
+        "${workspaceRoot}/theia/browser-app/lib/**/*.js",
+        "${workspaceRoot}/theia/ivy-glsp-theia/lib/**/*.js",
+        "${workspaceRoot}/theia/browser-app/src-gen/**/*.js"
       ],
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
