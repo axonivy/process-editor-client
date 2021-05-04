@@ -14,70 +14,99 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-svg {
-  border-style: solid;
-  border-width: 1px;
-  border-color: #bbb;
+:root {
+  --glsp-editor-background: white;
+  --glsp-editor-foreground: black;
+  --glsp-editor-mouseover: #616161;
+  --glsp-editor-selected: #007095;
+  --glsp-foreground: #616161;
 }
 
+/* Graph */
 .sprotty-graph {
+  background: var(--glsp-editor-background);
   font-size: 10pt;
   border: none;
   height: 100%;
 }
 
+/* Nodes */
 .sprotty-node {
+  fill: var(--glsp-editor-background);
+  stroke: var(--glsp-editor-foreground);
   stroke-width: 1px;
   font-weight: bold;
-  fill: var(--theia-editor-background, white);
 }
-
-.sprotty-edge {
-  fill: none;
-}
-
-.sprotty-node.sprotty-end-node {
+.sprotty-node.mouseover {
   stroke-width: 3px;
+  stroke: var(--glsp-editor-mouseover);
 }
-
+.sprotty-node.selected {
+  stroke-width: 3px;
+  stroke: var(--glsp-editor-selected);
+}
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
-
-.sprotty-label {
-  font-size: 12px;
-}
-.sprotty-icon {
-  background-color: var(--theia-editor-background, white);
-  border-radius: 3px;
-}
-.sprotty-icon i {
-  font-size: 16px;
+.sprotty-node.sprotty-end-node {
+  stroke-width: 3px;
 }
 .sprotty-node-decorator {
-  stroke: var(--theia-editor-foreground, black);
-  fill: var(--theia-editor-foreground, black);
+  stroke: var(--glsp-editor-foreground);
+  fill: var(--glsp-editor-foreground);
   text-anchor: middle;
 }
 .subproc .sprotty-node {
   stroke-width: 2px;
 }
 
-.sprotty-node.mouseover {
+/* Edges */
+.sprotty-edge {
+  stroke: var(--glsp-editor-foreground);
+  fill: none;
+}
+.sprotty-edge.arrow {
+  fill: var(--glsp-editor-foreground);
+}
+.sprotty-edge > .sprotty-routing-handle {
+  r: 5px;
+  fill: var(--glsp-foreground);
+  stroke: none;
+  z-index: 1000;
+}
+.sprotty-edge > .sprotty-routing-handle[data-kind="line"] {
+  opacity: 0.35;
+}
+.sprotty-edge > .sprotty-routing-handle.selected {
+  fill: var(--glsp-editor-selected);
+}
+.sprotty-edge > .sprotty-routing-handle.mouseover {
+  stroke: var(--glsp-editor-selected);
+  stroke-width: 1;
+}
+.sprotty-edge.mouseover:not(.selected) {
   stroke-width: 3px;
-  stroke: var(--theia-editorWidget-foreground, #616161);
 }
 
-.sprotty-node.selected {
-  stroke-width: 3px;
-  stroke: var(--theia-menu-selectionBackground, #0074e8);
+/* Icon / Label*/
+.sprotty-label {
+  font-size: 12px;
+}
+.sprotty-icon {
+  background-color: var(--glsp-editor-background);
+  border-radius: 3px;
+}
+.sprotty-icon i {
+  font-size: 16px;
 }
 
+/* Comments */
 .comment .sprotty-node,
 .sprotty-edge-association {
   stroke-dasharray: 5, 5;
 }
 
+/* General */
 .sprotty-missing {
   stroke-width: 1;
   stroke: #f00;
