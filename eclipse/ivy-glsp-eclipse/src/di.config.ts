@@ -13,10 +13,22 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export namespace IvyProcessLanguage {
-    export const Id = 'ivy-glsp-process';
-    export const Name = 'Ivy-Glsp';
-    export const Label = 'Ivy Process';
-    export const DiagramType = 'ivy-glsp-process';
-    export const FileExtension = '.mod';
+import '../css/diagram.css';
+
+import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
+import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
+import { Container } from 'inversify';
+import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
+
+export default function createContainer(widgetId: string): Container {
+    const container = createIvyDiagramContainer(widgetId);
+    container.bind(TYPES.ModelSource).to(EclipseGLSPDiagramServer).inSingletonScope();
+    container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
+    container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
+
+    container.load(keepAliveModule);
+    container.load(eclipseCopyPasteModule);
+    container.load(eclipseDeleteModule);
+
+    return container;
 }

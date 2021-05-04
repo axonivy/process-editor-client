@@ -6,7 +6,7 @@ module.exports = {
         '../../configs/errors.eslintrc.json'
     ],
     ignorePatterns: [
-        '**/{node_modules,lib,server}'
+        '**/{app,css,node_modules,lib,server}'
     ],
     parserOptions: {
         tsconfigRootDir: __dirname,

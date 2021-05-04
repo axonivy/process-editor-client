@@ -7,7 +7,15 @@
       {
         "name": "tslint-language-service"
       }
-    ]
+    ],
+    "paths": {
+      "@eclipse-glsp-examples/workflow-webapp": [
+        "examples/workflow-webapp/src/*"
+      ],
+      "@eclipse-glsp/ide": [
+        "packages/ide/src/*"
+      ]
+    }
   },
   "include": [
     "ivy-glsp-client/*/src",

@@ -6,11 +6,6 @@
     "baseUrl": "."
   },
   "include": [
-    "src",
-    "server"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "src"
   ]
 }

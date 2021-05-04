@@ -47,5 +47,4 @@ lib
 !**/electron-app/package.json
 
 **/ivy-glsp-theia/server/**
-
-
+server/diagram

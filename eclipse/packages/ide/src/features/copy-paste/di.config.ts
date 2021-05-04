@@ -13,10 +13,15 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export namespace IvyProcessLanguage {
-    export const Id = 'ivy-glsp-process';
-    export const Name = 'Ivy-Glsp';
-    export const Label = 'Ivy Process';
-    export const DiagramType = 'ivy-glsp-process';
-    export const FileExtension = '.mod';
-}
+import { configureActionHandler } from '@eclipse-glsp/client';
+import { ContainerModule } from 'inversify';
+
+import { EclipseCopyPasteActionHandler } from './copy-paste';
+
+const eclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
+    configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
+    configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
+});
+
+export default eclipseCopyPasteModule;

@@ -1,0 +1,31 @@
+{
+  "private": true,
+  "name": "@ivy-glsp/ivy-glsp-eclipse",
+  "version": "0.9.0",
+  "description": "GLSP-based webapp for the Ivy GLSP client",
+  "dependencies": {
+    "@ivy-glsp/ivy-glsp-client": "0.8.0",
+    "@eclipse-glsp/client": "0.8.1",
+    "@eclipse-glsp/protocol": "next",
+    "@eclipse-glsp/ide": "0.9.0"
+  },
+  "devDependencies": {
+    "circular-dependency-plugin": "^2.0.0",
+    "core-js": "^2.5.1",
+    "css-loader": "^2.1.0",
+    "reflect-metadata": "^0.1.10",
+    "rimraf": "^2.6.1",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.9.2",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn build",
+    "clean": "rimraf lib app/bundle.js app/bundle.js.map",
+    "build": "tsc && webpack && yarn run lint",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
+    "watch": "tsc -w"
+  }
+}

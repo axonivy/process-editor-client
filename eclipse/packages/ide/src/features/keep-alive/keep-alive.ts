@@ -13,10 +13,27 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-export namespace IvyProcessLanguage {
-    export const Id = 'ivy-glsp-process';
-    export const Name = 'Ivy-Glsp';
-    export const Label = 'Ivy Process';
-    export const DiagramType = 'ivy-glsp-process';
-    export const FileExtension = '.mod';
+import { Action, IActionHandler, ILogger, TYPES } from '@eclipse-glsp/client';
+import { inject, injectable } from 'inversify';
+
+export class KeepAliveAction implements Action {
+    static KIND = 'keepAlive';
+    readonly kind = KeepAliveAction.KIND;
+}
+
+export function isKeepAliveAction(action: Action): action is KeepAliveAction {
+    return action.kind === KeepAliveAction.KIND;
+}
+
+@injectable()
+export class KeepAliveActionHandler implements IActionHandler {
+
+    @inject(TYPES.ILogger) protected logger: ILogger;
+
+    handle(action: Action): void {
+        if (isKeepAliveAction(action)) {
+            /* no op */
+            this.logger.info(this, 'Keep Alive Action received');
+        }
+    }
 }
