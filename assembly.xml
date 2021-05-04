@@ -10,7 +10,7 @@
 
     <fileSets>
         <fileSet>
-            <directory>server</directory>
+            <directory>server/diagram</directory>
             <outputDirectory>./</outputDirectory>
         </fileSet>
     </fileSets>
