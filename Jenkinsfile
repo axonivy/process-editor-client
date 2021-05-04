@@ -15,7 +15,6 @@ pipeline {
         script {
           docker.build('node').inside {
             sh 'yarn'
-            archiveArtifacts 'server/diagram/*'
           }
 
           if (env.BRANCH_NAME == 'master') {
@@ -23,6 +22,7 @@ pipeline {
               maven cmd: "clean deploy"
             }
           }          
+          archiveArtifacts 'target/glsp-client-*.zip'
         }
       }
     }
