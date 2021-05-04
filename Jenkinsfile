@@ -15,14 +15,15 @@ pipeline {
         script {
           docker.build('node').inside {
             sh 'yarn'
+            archiveArtifacts 'server/diagram/*'
           }
 
           if (env.BRANCH_NAME == 'master') {
             docker.image('maven:3.6.3-jdk-11').inside {
               maven cmd: "clean deploy"
             }
+            archiveArtifacts 'target/glsp-client-*.zip'
           }          
-          archiveArtifacts 'target/glsp-client-*.zip'
         }
       }
     }
