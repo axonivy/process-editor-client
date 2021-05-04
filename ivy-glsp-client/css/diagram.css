@@ -29,10 +29,11 @@ svg {
 .sprotty-node {
   stroke-width: 1px;
   font-weight: bold;
+  fill: var(--theia-editor-background, white);
 }
 
-.sprotty-node {
-  fill: var(--theia-editor-background);
+.sprotty-edge {
+  fill: none;
 }
 
 .sprotty-node.sprotty-end-node {
@@ -47,15 +48,15 @@ svg {
   font-size: 12px;
 }
 .sprotty-icon {
-  background-color: var(--theia-editor-background);
+  background-color: var(--theia-editor-background, white);
   border-radius: 3px;
 }
 .sprotty-icon i {
   font-size: 16px;
 }
 .sprotty-node-decorator {
-  stroke: var(--theia-editor-foreground);
-  fill: var(--theia-editor-foreground);
+  stroke: var(--theia-editor-foreground, black);
+  fill: var(--theia-editor-foreground, black);
   text-anchor: middle;
 }
 .subproc .sprotty-node {
@@ -64,12 +65,12 @@ svg {
 
 .sprotty-node.mouseover {
   stroke-width: 3px;
-  stroke: var(--theia-editorWidget-foreground);
+  stroke: var(--theia-editorWidget-foreground, #616161);
 }
 
 .sprotty-node.selected {
   stroke-width: 3px;
-  stroke: var(--theia-menu-selectionBackground);
+  stroke: var(--theia-menu-selectionBackground, #0074e8);
 }
 
 .comment .sprotty-node,
