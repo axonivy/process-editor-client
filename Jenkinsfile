@@ -14,7 +14,6 @@ pipeline {
       steps {
         script {
           docker.build('node').inside {
-            sh 'npm install --global yarn'
             sh 'yarn'
             archiveArtifacts 'server/diagram/*'
           }
