@@ -28,6 +28,7 @@ import {
     moveFeature,
     Nameable,
     nameFeature,
+    openFeature,
     popupFeature,
     RectangularNode,
     SEdge,
@@ -41,7 +42,7 @@ import {
 
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
-        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature];
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
     name = '';
     duration?: number;
     taskType?: string;
