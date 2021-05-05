@@ -72,3 +72,6 @@ function setWidgetId(mainWidgetId: string): void {
         mainWidget.id = mainWidgetId;
     }
 }
+
+const theme = urlParameters.theme || 'light';
+document.documentElement.dataset.theme = theme;
