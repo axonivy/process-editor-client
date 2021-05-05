@@ -1,7 +1,19 @@
-.sprotty {
+html {
   --glsp-editor-background: white;
   --glsp-editor-foreground: black;
   --glsp-editor-mouseover: #616161;
   --glsp-editor-selected: #007095;
   --glsp-foreground: #616161;
+}
+
+html[data-theme="dark"] {
+  --glsp-editor-background: #1e1e1e;
+  --glsp-editor-foreground: #d4d4d4;
+  --glsp-editor-mouseover: #cccccc;
+  --glsp-editor-selected: #264f78;
+  --glsp-foreground: #cccccc;
+}
+
+body {
+  color: var(--glsp-foreground);
 }
