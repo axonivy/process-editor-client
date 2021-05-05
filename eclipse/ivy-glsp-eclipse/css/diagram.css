@@ -1,46 +1,19 @@
-.sprotty-graph {
-    background: white;
-    /* rgb(179, 196, 202); */
+html {
+  --glsp-editor-background: white;
+  --glsp-editor-foreground: black;
+  --glsp-editor-mouseover: #616161;
+  --glsp-editor-selected: #007095;
+  --glsp-foreground: #616161;
 }
 
-.sprotty-node {
-    fill: #cdc;
-    stroke: rgb(0, 0, 0);
+html[data-theme="dark"] {
+  --glsp-editor-background: #1e1e1e;
+  --glsp-editor-foreground: #d4d4d4;
+  --glsp-editor-mouseover: #cccccc;
+  --glsp-editor-selected: #264f78;
+  --glsp-foreground: #cccccc;
 }
 
-.sprotty-edge {
-    stroke: black;
-}
-
-.sprotty-edge.arrow {
-    fill: black;
-}
-
-.sprotty-edge.selected {
-    stroke: #844;
-}
-
-.sprotty-edge.selected>.arrow {
-    fill: #844;
-    stroke: #844;
-}
-
-.sprotty-node:not(.selected) {
-    stroke: black;
-}
-
-.sprotty-node.forkOrJoin {
-    fill: black;
-}
-
-.sprotty-node.forkOrJoin.selected {
-    stroke: rgb(87, 87, 214);
-}
-
-polygon.sprotty-node {
-    stroke: black;
-}
-
-.sprotty-node.selected {
-    stroke: rgb(87, 87, 214);
+body {
+  color: var(--glsp-foreground);
 }
