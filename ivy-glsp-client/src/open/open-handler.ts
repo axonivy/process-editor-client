@@ -13,7 +13,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { Operation } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { Action, IActionDispatcher, IActionHandler, OpenAction, TYPES } from 'sprotty';
 
@@ -31,11 +30,11 @@ export class OpenInscriptionActionHandler implements IActionHandler {
     }
 
     handleOpen(elementId: string): void {
-        this.dispatcher.dispatch(new OpenInscriptionOperation(elementId));
+        this.dispatcher.dispatch(new OpenInscriptionAction(elementId));
     }
 }
 
-export class OpenInscriptionOperation implements Operation {
+export class OpenInscriptionAction implements Action {
     static readonly KIND = 'openInscription';
-    constructor(readonly elementIds: string, public readonly kind: string = OpenInscriptionOperation.KIND) { }
+    constructor(readonly elementId: string, public readonly kind: string = OpenInscriptionAction.KIND) { }
 }
