@@ -15,8 +15,14 @@
  ********************************************************************************/
 import '../css/diagram.css';
 
-import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
 import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
+import {
+    eclipseCopyPasteModule,
+    eclipseDeleteModule,
+    EclipseGLSPDiagramServer,
+    ivyOpenModule,
+    keepAliveModule
+} from '@ivy-glsp/ivy-glsp-ide';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 
@@ -29,6 +35,8 @@ export default function createContainer(widgetId: string): Container {
     container.load(keepAliveModule);
     container.load(eclipseCopyPasteModule);
     container.load(eclipseDeleteModule);
+    container.load(ivyOpenModule);
 
     return container;
 }
+

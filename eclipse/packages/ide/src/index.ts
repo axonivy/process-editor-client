@@ -16,8 +16,9 @@
 import eclipseCopyPasteModule from './features/copy-paste/di.config';
 import eclipseDeleteModule from './features/invoke-delete/di.config';
 import keepAliveModule from './features/keep-alive/di.config';
+import ivyOpenModule from './features/open/di.config';
 
 export * from './base/eclipse-glsp-diagram-server';
 export * from './utils/url-parameters';
 
-export { eclipseCopyPasteModule, eclipseDeleteModule, keepAliveModule };
+export { eclipseCopyPasteModule, eclipseDeleteModule, keepAliveModule, ivyOpenModule };

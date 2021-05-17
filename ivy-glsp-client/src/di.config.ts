@@ -38,6 +38,7 @@ import {
     LogLevel,
     modelHintsModule,
     modelSourceModule,
+    openModule,
     overrideViewerOptions,
     paletteModule,
     PreRenderedElement,
@@ -59,7 +60,6 @@ import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
 import { ActivityNode, EventNode, TaskNode } from './model';
-import ivyOpenModule from './open/di.config';
 import {
     AssociationEdgeView,
     EventNodeView,
@@ -111,7 +111,7 @@ export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
-        glspHoverModule, fadeModule, exportModule, expandModule, ivyOpenModule, buttonModule, modelSourceModule,
+        glspHoverModule, fadeModule, exportModule, expandModule, openModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
         layoutCommandsModule);
 

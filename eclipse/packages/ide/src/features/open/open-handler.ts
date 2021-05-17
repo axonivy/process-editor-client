@@ -22,7 +22,7 @@ export function isInvokeOpenAction(action: Action): action is OpenAction {
 
 @injectable()
 export class OpenInscriptionActionHandler implements IActionHandler {
-    @inject(TYPES.IActionDispatcher) protected dispatcher: IActionDispatcher;
+    @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
     handle(action: Action): void {
         if (isInvokeOpenAction(action)) {
             this.handleOpen(action.elementId);
@@ -30,7 +30,7 @@ export class OpenInscriptionActionHandler implements IActionHandler {
     }
 
     handleOpen(elementId: string): void {
-        this.dispatcher.dispatch(new OpenInscriptionAction(elementId));
+        this.actionDispatcher.dispatch(new OpenInscriptionAction(elementId));
     }
 }
 
