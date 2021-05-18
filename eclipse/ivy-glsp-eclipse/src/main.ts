@@ -22,8 +22,8 @@ import {
     InitializeClientSessionAction,
     RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
+import { getParameters } from '@ivy-glsp/ivy-glsp-ide';
 import { CenterAction, RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
