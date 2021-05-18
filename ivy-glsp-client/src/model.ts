@@ -43,6 +43,7 @@ import {
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
+
     name = '';
     duration?: number;
     taskType?: string;
@@ -102,6 +103,9 @@ export class WeightedEdge extends SEdge {
 }
 
 export class EventNode extends CircularNode {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+
     get isEndNode(): boolean {
         return this.type.startsWith('event:end');
     }
@@ -128,6 +132,9 @@ export class EventNode extends CircularNode {
 }
 
 export class ActivityNode extends DiamondNode {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+
     size = {
         width: 32,
         height: 32
