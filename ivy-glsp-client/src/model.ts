@@ -19,6 +19,7 @@ import {
     connectableFeature,
     deletableFeature,
     DiamondNode,
+    editFeature,
     fadeFeature,
     hoverFeedbackFeature,
     isEditableLabel,
@@ -143,6 +144,11 @@ export class ActivityNode extends DiamondNode {
     get isAlternative(): boolean {
         return this.type === 'activity:alternative';
     }
+}
+
+export class Edge extends SEdge {
+    static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
+        hoverFeedbackFeature, popupFeature];
 }
 
 export class Icon extends SShapeElement implements LayoutContainer {
