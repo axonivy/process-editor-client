@@ -58,6 +58,7 @@ import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
 import { ActivityNode, Edge, EventNode, TaskNode } from './model';
+import ivySmartActionModule from './smart-action/select/di.config';
 import {
     AssociationEdgeView,
     EventNodeView,
@@ -111,7 +112,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
-        layoutCommandsModule);
+        layoutCommandsModule, ivySmartActionModule);
 
     overrideViewerOptions(container, {
         baseDiv: widgetId,

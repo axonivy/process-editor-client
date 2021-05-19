@@ -41,8 +41,10 @@ import {
     withEditLabelFeature
 } from '@eclipse-glsp/client';
 
+import { smartActionFeature } from './smart-action/select/model';
+
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
-    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 
     name = '';
