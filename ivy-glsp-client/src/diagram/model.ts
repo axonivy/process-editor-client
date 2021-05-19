@@ -28,6 +28,10 @@ import {
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
 
+export class LaneNode extends RectangularNode {
+    static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
+}
+
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
