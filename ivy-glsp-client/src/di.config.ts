@@ -7,10 +7,12 @@ import {
     ConsoleLogger,
     defaultGLSPModule,
     defaultModule,
+    DeleteElementContextMenuItemProvider,
     edgeLayoutModule,
     expandModule,
     exportModule,
     fadeModule,
+    glspContextMenuModule,
     GLSPGraph,
     glspHoverModule,
     glspMouseToolModule,
@@ -58,6 +60,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
     bind(TYPES.ISnapper).to(GridSnapper);
+    bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     // configureModelElement(context, 'node', RectangularNode, RectangularNodeView);
@@ -97,7 +100,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
-        layoutCommandsModule, ivySmartActionModule);
+        layoutCommandsModule, ivySmartActionModule, glspContextMenuModule);
 
     overrideViewerOptions(container, {
         baseDiv: widgetId,

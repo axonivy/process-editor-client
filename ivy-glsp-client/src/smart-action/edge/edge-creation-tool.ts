@@ -59,7 +59,7 @@ export class SmartActionEdgeCreationTool extends BaseGLSPTool implements IAction
     }
 
     handle(action: Action): Action | void {
-        if (isTriggerElementTypeCreationAction(action)) {
+        if (isTriggerElementTypeCreationAction(action) && action instanceof SmartActionTriggerEdgeCreationAction) {
             this.triggerAction = action;
             return new EnableToolsAction([this.id]);
         }

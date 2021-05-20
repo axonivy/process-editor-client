@@ -17,7 +17,8 @@ import {
     GLSPClientContribution,
     registerCopyPasteContextMenu,
     registerDiagramLayoutCommands,
-    registerDiagramManager
+    registerDiagramManager,
+    registerMarkerNavigationCommands
 } from '@eclipse-glsp/theia-integration/lib/browser';
 import { ContainerModule, interfaces } from 'inversify';
 import { DiagramConfiguration } from 'sprotty-theia';
@@ -25,6 +26,7 @@ import { DiagramConfiguration } from 'sprotty-theia';
 import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
 import { IvyDiagramManager } from './diagram/diagram-manager';
 import { IvyGLSPDiagramClient } from './diagram/glsp-diagram-client';
+import { registerJumpIntoContextMenu } from './diagram/jump-into-menu';
 import { IvyGLSPClientContribution } from './language/glsp-client-contribution';
 
 export default new ContainerModule((bind: interfaces.Bind) => {
@@ -37,4 +39,6 @@ export default new ContainerModule((bind: interfaces.Bind) => {
     // Optional default commands and menus
     registerDiagramLayoutCommands(bind);
     registerCopyPasteContextMenu(bind);
+    registerMarkerNavigationCommands(bind);
+    registerJumpIntoContextMenu(bind);
 });
