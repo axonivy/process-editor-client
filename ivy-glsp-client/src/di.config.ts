@@ -43,7 +43,6 @@ import {
     PreRenderedElement,
     PreRenderedView,
     routingModule,
-    SEdge,
     SGraphView,
     SLabel,
     SRoutingHandle,
@@ -58,7 +57,7 @@ import {
 import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
-import { ActivityNode, EventNode, TaskNode } from './model';
+import { ActivityNode, Edge, EventNode, TaskNode } from './model';
 import {
     AssociationEdgeView,
     EventNodeView,
@@ -97,8 +96,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'node:email', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:subproc', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:embeddedproc', TaskNode, TaskNodeView);
-    configureModelElement(context, 'edge', SEdge, WorkflowEdgeView);
-    configureModelElement(context, 'edge:association', SEdge, AssociationEdgeView);
+    configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
+    configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);
     configureModelElement(context, 'html', HtmlRoot, HtmlRootView);
     configureModelElement(context, 'pre-rendered', PreRenderedElement, PreRenderedView);
