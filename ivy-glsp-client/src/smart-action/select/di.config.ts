@@ -17,13 +17,14 @@ import { configureCommand, configureView, GLSP_TYPES } from '@eclipse-glsp/clien
 import { ContainerModule } from 'inversify';
 
 import { SSmartActionHandle } from './model';
-import { SmartActionService } from './smart-action';
-import { SelectSmartFeedbackCommand } from './smart-action-feedback-action';
+import { SmartActionTool } from './smart-action-tool';
+import { HideSmartActionToolFeedbackCommand, ShowSmartActionToolFeedbackCommand } from './smart-action-tool-feedback';
 import { SSmartActionHandleView } from './view';
 
 const ivySmartActionModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(GLSP_TYPES.SelectionListener).to(SmartActionService);
-    configureCommand({ bind, isBound }, SelectSmartFeedbackCommand);
+    bind(GLSP_TYPES.IDefaultTool).to(SmartActionTool);
+    configureCommand({ bind, isBound }, ShowSmartActionToolFeedbackCommand);
+    configureCommand({ bind, isBound }, HideSmartActionToolFeedbackCommand);
     configureView({ bind, isBound }, SSmartActionHandle.TYPE, SSmartActionHandleView);
 });
 
