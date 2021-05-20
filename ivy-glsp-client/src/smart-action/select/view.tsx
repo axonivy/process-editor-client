@@ -20,6 +20,8 @@ import { IView, Point, RenderingContext, setAttr } from 'sprotty';
 
 import { isSmartable, SmartActionHandleLocation, SSmartActionHandle } from './model';
 
+const virtualize = require('snabbdom-virtualize/strings').default;
+
 const JSX = { createElement: snabbdom.svg };
 
 /**
@@ -32,12 +34,14 @@ export class SSmartActionHandleView implements IView {
     render(handle: SSmartActionHandle, context: RenderingContext): VNode {
         const position = this.getPosition(handle);
         if (position !== undefined) {
-            const node = <circle class-ivy-smart-action-handle={true} class-mouseover={handle.hoverFeedback}
-                cx={position.x} cy={position.y} r={this.getRadius()*10} />;
+            const node = <g>
+                <circle class-ivy-smart-action-handle={true} class-mouseover={handle.hoverFeedback}
+                    cx={position.x} cy={position.y} r={this.getRadius()}></circle>
+                {this.getIconDecorator(position)}
+            </g>;
             setAttr(node, 'data-kind', handle.location);
             return node;
         }
-        // Fallback: Create an empty group
         return <g />;
     }
 
@@ -45,19 +49,25 @@ export class SSmartActionHandleView implements IView {
         const parent = handle.parent;
         if (isSmartable(parent)) {
             if (handle.location === SmartActionHandleLocation.TopLeft) {
-                return { x: 0, y: 0 };
-            } else if (handle.location === SmartActionHandleLocation.TopRight) {
-                return { x: parent.bounds.width, y: 0 };
-            } else if (handle.location === SmartActionHandleLocation.BottomLeft) {
-                return { x: 0, y: parent.bounds.height };
-            } else if (handle.location === SmartActionHandleLocation.BottomRight) {
-                return { x: parent.bounds.width, y: parent.bounds.height };
+                return { x: 10, y: -20 };
             }
         }
         return undefined;
     }
 
+    protected getIconDecorator(position: Point): VNode {
+        const foreignObjectContents = virtualize('<i class="fas fa-trash"></i>');
+        const posDiff =  this.getRadius() / 2;
+        return <g>
+            <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
+                height={16} width={16} x={position.x - posDiff} y={position.y - posDiff}
+                class-sprotty-icon>
+                {foreignObjectContents}
+            </foreignObject>
+        </g>;
+    }
+
     getRadius(): number {
-        return 7;
+        return 14;
     }
 }

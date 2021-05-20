@@ -17,6 +17,7 @@ import {
     Action,
     CursorCSS,
     cursorFeedbackAction,
+    DeleteElementOperation,
     EdgeRouterRegistry,
     findParentByFeature,
     GLSP_TYPES,
@@ -51,7 +52,7 @@ export class SmartActionTool extends BaseGLSPTool {
         return SmartActionTool.ID;
     }
 
-    enable() {
+    enable(): void {
         // install change bounds listener for client-side resize updates and server-side updates
         this.smartActionListener = this.createSmartActionListener();
         this.mouseTool.register(this.smartActionListener);
@@ -62,7 +63,7 @@ export class SmartActionTool extends BaseGLSPTool {
         return new SmartActionListener(this);
     }
 
-    disable() {
+    disable(): void {
         this.mouseTool.deregister(this.smartActionListener);
         this.selectionService.deregister(this.smartActionListener);
         this.deregisterFeedback([new HideSmartActionToolFeedbackAction], this.smartActionListener);
@@ -93,6 +94,14 @@ export class SmartActionListener extends MouseListener implements SelectionListe
             this.activeSmartActionHandle = target;
         } else {
             this.setActiveSmartActionElement(target);
+        }
+        return [];
+    }
+
+    mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+        super.mouseUp(target, event);
+        if (this.activeSmartElement && target instanceof SSmartActionHandle && this.activeSmartActionHandle) {
+            return [new DeleteElementOperation([this.activeSmartElement.id])];
         }
         return [];
     }

@@ -55,11 +55,11 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
     }
 }
 
-export function addSmartActionHandles(element: SParentElement) {
+export function addSmartActionHandles(element: SParentElement): void {
     removeSmartActionHandles(element);
     element.add(new SSmartActionHandle(SmartActionHandleLocation.TopLeft));
 }
 
-export function removeSmartActionHandles(element: SParentElement) {
+export function removeSmartActionHandles(element: SParentElement): void {
     element.removeAll(child => child instanceof SSmartActionHandle);
 }

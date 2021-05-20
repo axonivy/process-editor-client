@@ -13,6 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import '../../../css/smart-action.css';
+
 import { configureCommand, configureView, GLSP_TYPES } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
