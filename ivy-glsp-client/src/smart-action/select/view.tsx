@@ -37,7 +37,7 @@ export class SSmartActionHandleView implements IView {
             const node = <g>
                 <circle class-ivy-smart-action-handle={true} class-mouseover={handle.hoverFeedback}
                     cx={position.x} cy={position.y} r={this.getRadius()}></circle>
-                {this.getIconDecorator(position)}
+                {this.getIconDecorator(handle, position)}
             </g>;
             setAttr(node, 'data-kind', handle.location);
             return node;
@@ -57,8 +57,9 @@ export class SSmartActionHandleView implements IView {
         return undefined;
     }
 
-    protected getIconDecorator(position: Point): VNode {
-        const foreignObjectContents = virtualize('<i class="fas fa-trash"></i>');
+    protected getIconDecorator(handle: SSmartActionHandle, position: Point): VNode {
+        const icon = handle.icon();
+        const foreignObjectContents = virtualize('<i class="fas fa-' + icon + '"></i>');
         const posDiff =  this.getRadius() / 2;
         return <g>
             <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'

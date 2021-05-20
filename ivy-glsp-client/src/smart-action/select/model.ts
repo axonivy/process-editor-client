@@ -60,17 +60,29 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
     mouseUp(target: SModelElement): Action[] {
         return [];
     }
+
+    public icon(): string {
+        return '';
+    }
 }
 
 export class SSmartActionDeleteHandle extends SSmartActionHandle {
     mouseUp(target: SModelElement): Action[] {
         return [new DeleteElementOperation([target.id])];
     }
+
+    public icon(): string {
+        return 'trash';
+    }
 }
 
 export class SSmartActionConnectHandle extends SSmartActionHandle {
     mouseUp(target: SModelElement): Action[] {
         return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
+    }
+
+    public icon(): string {
+        return 'long-arrow-alt-right';
     }
 }
 
