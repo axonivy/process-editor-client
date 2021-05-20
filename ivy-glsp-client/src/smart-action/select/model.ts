@@ -13,6 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
+import { Action, DeleteElementOperation } from '@eclipse-glsp/client';
 import {
     BoundsAware,
     Hoverable,
@@ -24,6 +25,8 @@ import {
     SModelElement,
     SParentElement
 } from 'sprotty';
+
+import { SmartActionTriggerEdgeCreationAction } from '../edge/edge-creation-tool';
 
 export const smartActionFeature = Symbol('smartActionFeature');
 
@@ -53,11 +56,28 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
     hasFeature(feature: symbol): boolean {
         return feature === hoverFeedbackFeature;
     }
+
+    mouseUp(target: SModelElement): Action[] {
+        return [];
+    }
+}
+
+export class SSmartActionDeleteHandle extends SSmartActionHandle {
+    mouseUp(target: SModelElement): Action[] {
+        return [new DeleteElementOperation([target.id])];
+    }
+}
+
+export class SSmartActionConnectHandle extends SSmartActionHandle {
+    mouseUp(target: SModelElement): Action[] {
+        return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
+    }
 }
 
 export function addSmartActionHandles(element: SParentElement): void {
     removeSmartActionHandles(element);
-    element.add(new SSmartActionHandle(SmartActionHandleLocation.TopLeft));
+    element.add(new SSmartActionDeleteHandle(SmartActionHandleLocation.TopLeft));
+    element.add(new SSmartActionConnectHandle(SmartActionHandleLocation.TopRight));
 }
 
 export function removeSmartActionHandles(element: SParentElement): void {

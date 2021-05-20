@@ -17,7 +17,6 @@ import {
     Action,
     CursorCSS,
     cursorFeedbackAction,
-    DeleteElementOperation,
     EdgeRouterRegistry,
     findParentByFeature,
     GLSP_TYPES,
@@ -101,7 +100,7 @@ export class SmartActionListener extends MouseListener implements SelectionListe
     mouseUp(target: SModelElement, event: MouseEvent): Action[] {
         super.mouseUp(target, event);
         if (this.activeSmartElement && target instanceof SSmartActionHandle && this.activeSmartActionHandle) {
-            return [new DeleteElementOperation([this.activeSmartElement.id])];
+            return this.activeSmartActionHandle.mouseUp(this.activeSmartElement);
         }
         return [];
     }

@@ -50,6 +50,8 @@ export class SSmartActionHandleView implements IView {
         if (isSmartable(parent)) {
             if (handle.location === SmartActionHandleLocation.TopLeft) {
                 return { x: 10, y: -20 };
+            } else if (handle.location === SmartActionHandleLocation.TopRight) {
+                return { x: 50, y: -20 };
             }
         }
         return undefined;
