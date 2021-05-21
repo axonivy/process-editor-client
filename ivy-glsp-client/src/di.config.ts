@@ -44,8 +44,7 @@ import {
 import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
-import ivySmartActionModule from './smart-action/di.config';
-import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode, SubTaskNode, TaskNode } from './workflow/model';
+import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode, SubTaskNode, TaskNode } from './diagram/model';
 import {
     ActivityNodeView,
     AlternateActivityNodeView,
@@ -60,7 +59,8 @@ import {
     TaskEventNodeView,
     TaskNodeView,
     WorkflowEdgeView
-} from './workflow/views';
+} from './diagram/views';
+import ivySmartActionModule from './smart-action/di.config';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
