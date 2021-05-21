@@ -1,10 +1,10 @@
 import { GLSPCommandHandler, TheiaSprottyContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
-import { JumpOperation } from '@ivy-glsp/ivy-glsp-client/lib/embedded/jump-operation';
+import { jumpFeature, JumpOperation } from '@ivy-glsp/ivy-glsp-client';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from 'inversify';
 
-export function registerJumpIntoContextMenu(bind: interfaces.Bind) {
+export function registerJumpIntoContextMenu(bind: interfaces.Bind): void {
     bind(CommandContribution).to(JumpIntoCommandContribution);
     bind(MenuContribution).to(JumpIntoMenuContribution);
 }
@@ -21,7 +21,7 @@ export class JumpIntoCommandContribution implements CommandContribution {
         commands.registerCommand({ id: JumpIntoNavigationCommands.JUMP_INTO, label: 'Jump into' },
             new GLSPCommandHandler(this.shell, {
                 actions: context => [new JumpOperation(context.selectedElements[0].id)],
-                isEnabled: context => context.selectedElements.filter(() => true).length === 1
+                isEnabled: context => context.selectedElements[0]?.hasFeature(jumpFeature)
             })
         );
         commands.registerCommand({ id: JumpIntoNavigationCommands.JUMP_OUT, label: 'Jump out' },
