@@ -19,7 +19,6 @@ import {
     RectangularNode,
     SEdge,
     selectFeature,
-    SModelElement,
     SRoutableElement,
     SShapeElement,
     WithEditableLabel,
@@ -81,10 +80,6 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
         }
         return undefined;
     }
-}
-
-export function isTaskNode(element: SModelElement): element is TaskNode {
-    return element instanceof TaskNode || false;
 }
 
 export class WeightedEdge extends SEdge {

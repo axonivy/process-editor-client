@@ -45,7 +45,7 @@ import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
 import { ActivityNode, Edge, EventNode, TaskNode } from './model';
-import ivySmartActionModule from './smart-action/select/di.config';
+import ivySmartActionModule from './smart-action/di.config';
 import {
     AssociationEdgeView,
     EventNodeView,
