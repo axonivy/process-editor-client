@@ -21,6 +21,7 @@ import { ActivityNode, EventNode, Icon, TaskNode } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: snabbdom.svg };
 
 @injectable()
