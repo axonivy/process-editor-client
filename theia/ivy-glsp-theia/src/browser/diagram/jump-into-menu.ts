@@ -1,12 +1,17 @@
-import { GLSPCommandHandler, TheiaSprottyContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
+import {
+    DiagramKeybindingContext,
+    GLSPCommandHandler,
+    TheiaSprottyContextMenu
+} from '@eclipse-glsp/theia-integration/lib/browser';
 import { jumpFeature, JumpOperation } from '@ivy-glsp/ivy-glsp-client';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
-import { ApplicationShell } from '@theia/core/lib/browser';
+import { ApplicationShell, KeybindingContribution, KeybindingRegistry } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from 'inversify';
 
 export function registerJumpIntoContextMenu(bind: interfaces.Bind): void {
     bind(CommandContribution).to(JumpIntoCommandContribution);
     bind(MenuContribution).to(JumpIntoMenuContribution);
+    bind(KeybindingContribution).to(JumpIntoKeybindingContribution);
 }
 
 export namespace JumpIntoNavigationCommands {
@@ -44,6 +49,24 @@ export class JumpIntoMenuContribution implements MenuContribution {
         menus.registerMenuAction(JumpIntoMenuContribution.JUMP, {
             commandId: JumpIntoNavigationCommands.JUMP_OUT,
             order: '1'
+        });
+    }
+}
+
+@injectable()
+export class JumpIntoKeybindingContribution implements KeybindingContribution {
+    @inject(DiagramKeybindingContext) protected readonly diagramKeybindingContext: DiagramKeybindingContext;
+
+    registerKeybindings(keybindings: KeybindingRegistry): void {
+        keybindings.registerKeybinding({
+            command: JumpIntoNavigationCommands.JUMP_INTO,
+            context: this.diagramKeybindingContext.id,
+            keybinding: 'j'
+        });
+        keybindings.registerKeybinding({
+            command: JumpIntoNavigationCommands.JUMP_OUT,
+            context: this.diagramKeybindingContext.id,
+            keybinding: 'shift+j'
         });
     }
 }
