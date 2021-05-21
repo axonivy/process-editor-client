@@ -29,7 +29,6 @@ import {
     paletteModule,
     PreRenderedElement,
     PreRenderedView,
-    RectangularNodeView,
     routingModule,
     SGraphView,
     SLabel,
@@ -64,6 +63,8 @@ import {
     ErrorEventNodeView,
     EventNodeView,
     ForeignLabelView,
+    LaneNodeView,
+    PoolNodeView,
     SignalEventNodeView,
     SubTaskNodeView,
     TaskEventNodeView,
@@ -101,8 +102,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'node:email', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:subproc', TaskNode, SubTaskNodeView);
     configureModelElement(context, 'node:embeddedproc', SubTaskNode, SubTaskNodeView);
-    configureModelElement(context, 'lane', LaneNode, RectangularNodeView);
-    configureModelElement(context, 'pool', LaneNode, RectangularNodeView);
+    configureModelElement(context, 'lane', LaneNode, LaneNodeView);
+    configureModelElement(context, 'pool', LaneNode, PoolNodeView);
     configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
     configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);

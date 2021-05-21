@@ -17,12 +17,33 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
-import { ActivityNode, EventNode, Icon, TaskNode } from './model';
+import { ActivityNode, EventNode, Icon, LaneNode, TaskNode } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: snabbdom.svg };
+
+export class LaneNodeView extends RectangularNodeView {
+    render(node: LaneNode, context: RenderingContext): VNode {
+        return <g class-lane>
+            <rect class-sprotty-node={true} x="0" y="0" width={Math.max(node.size.width, 0)} height={Math.max(node.size.height, 0)}></rect>
+            {this.getDecoratorLine(node)}
+            {context.renderChildren(node)}
+        </g>;
+    }
+
+    protected getDecoratorLine(node: LaneNode): VNode {
+        return <g></g>;
+    }
+
+}
+
+export class PoolNodeView extends LaneNodeView {
+    protected getDecoratorLine(node: LaneNode): VNode {
+        return <rect class-sprotty-node={true} x="0" y="0" width={30} height={Math.max(node.size.height, 0)}></rect>;
+    }
+}
 
 @injectable()
 export class EventNodeView extends CircularNodeView {
@@ -201,10 +222,14 @@ export class ForeignLabelView implements IView {
     render(model: SLabel, context: RenderingContext): VNode {
         const replacement = model.text.replace(/\n/g, '<br/>');
         const foreignObjectContents = virtualize('<div>' + replacement + '</div>');
+        let rotate = {};
+        if (model.edgePlacement?.rotate) {
+            rotate = {transform: 'rotate(270deg) translate(-260px, 0px);'};
+        }
         const node = <g>
             <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
                 height={model.bounds.height} width={model.bounds.width} x={0} y={0} z={10}
-                class-sprotty-label>
+                class-sprotty-label style={rotate}>
                 {foreignObjectContents}
             </foreignObject>
             {context.renderChildren(model)}
