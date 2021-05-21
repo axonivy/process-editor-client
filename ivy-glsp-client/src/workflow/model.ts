@@ -25,11 +25,11 @@ import {
     withEditLabelFeature
 } from '@eclipse-glsp/client';
 
-import { jumpFeature } from './jump/model';
-import { smartActionFeature } from './smart-action/select/model';
+import { smartActionFeature } from '../';
+import { jumpFeature } from '../jump/model';
 
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
-    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, jumpFeature,
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 
     name = '';
@@ -47,18 +47,6 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
             }
         }
         return undefined;
-    }
-
-    get isCommentBox(): boolean {
-        return this.type === 'node:comment';
-    }
-
-    get isCallSub(): boolean {
-        return this.type === 'node:embeddedproc';
-    }
-
-    get isSubProc(): boolean {
-        return this.type === 'node:subproc';
     }
 
     get icon(): string | undefined {
@@ -82,36 +70,25 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
     }
 }
 
-export class WeightedEdge extends SEdge {
-    probability?: string;
+export class SubTaskNode extends TaskNode {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, jumpFeature,
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }
 
 export class EventNode extends CircularNode {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+}
 
-    get isEndNode(): boolean {
-        return this.type.startsWith('event:end');
-    }
-
-    get isStartNode(): boolean {
-        return this.type.startsWith('event:start');
-    }
-
-    get isSignalNode(): boolean {
-        return this.type.endsWith(':signal');
-    }
-
-    get isErrorNode(): boolean {
-        return this.type.endsWith(':error');
-    }
-
+export class EndEventNode extends EventNode {
     canConnect(routable: SRoutableElement, role: string): boolean {
-        const canConnect = super.canConnect(routable, role);
-        const validNode = !this.isEndNode && !this.isStartNode
-            || this.isEndNode && role === 'target'
-            || !this.isEndNode && role === 'source';
-        return canConnect && validNode;
+        return super.canConnect(routable, role) && role !== 'source';
+    }
+}
+
+export class StartEventNode extends EventNode {
+    canConnect(routable: SRoutableElement, role: string): boolean {
+        return super.canConnect(routable, role) && role !== 'target';
     }
 }
 
@@ -123,10 +100,6 @@ export class ActivityNode extends DiamondNode {
         width: 32,
         height: 32
     };
-    strokeWidth = 1;
-    get isAlternative(): boolean {
-        return this.type === 'activity:alternative';
-    }
 }
 
 export class Edge extends SEdge {

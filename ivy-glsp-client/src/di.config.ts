@@ -44,17 +44,23 @@ import {
 import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
-import { ActivityNode, Edge, EventNode, TaskNode } from './model';
 import ivySmartActionModule from './smart-action/di.config';
+import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode, SubTaskNode, TaskNode } from './workflow/model';
 import {
+    ActivityNodeView,
+    AlternateActivityNodeView,
     AssociationEdgeView,
+    BoundaryErrorEventNodeView,
+    BoundarySignalEventNodeView,
+    ErrorEventNodeView,
     EventNodeView,
-    EventTaskNodeView,
     ForeignLabelView,
-    ForkOrJoinNodeView,
+    SignalEventNodeView,
+    SubTaskNodeView,
+    TaskEventNodeView,
     TaskNodeView,
     WorkflowEdgeView
-} from './workflow-views';
+} from './workflow/views';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -64,16 +70,16 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
     // configureModelElement(context, 'node', RectangularNode, RectangularNodeView);
-    configureModelElement(context, 'event:start', EventNode, EventNodeView);
-    configureModelElement(context, 'event:start:error', EventNode, EventNodeView);
-    configureModelElement(context, 'event:start:signal', EventNode, EventNodeView);
-    configureModelElement(context, 'event:end', EventNode, EventNodeView);
-    configureModelElement(context, 'event:end:error', EventNode, EventNodeView);
-    configureModelElement(context, 'event:task', EventNode, EventTaskNodeView);
-    configureModelElement(context, 'event:boundary:error', EventNode, EventTaskNodeView);
-    configureModelElement(context, 'event:boundary:signal', EventNode, EventTaskNodeView);
-    configureModelElement(context, 'activity:alternative', ActivityNode, ForkOrJoinNodeView);
-    configureModelElement(context, 'activity:gateway', ActivityNode, ForkOrJoinNodeView);
+    configureModelElement(context, 'event:start', StartEventNode, EventNodeView);
+    configureModelElement(context, 'event:start:error', StartEventNode, ErrorEventNodeView);
+    configureModelElement(context, 'event:start:signal', StartEventNode, SignalEventNodeView);
+    configureModelElement(context, 'event:end', EndEventNode, EventNodeView);
+    configureModelElement(context, 'event:end:error', EndEventNode, ErrorEventNodeView);
+    configureModelElement(context, 'event:task', EventNode, TaskEventNodeView);
+    configureModelElement(context, 'event:boundary:error', StartEventNode, BoundaryErrorEventNodeView);
+    configureModelElement(context, 'event:boundary:signal', StartEventNode, BoundarySignalEventNodeView);
+    configureModelElement(context, 'activity:alternative', ActivityNode, AlternateActivityNodeView);
+    configureModelElement(context, 'activity:gateway', ActivityNode, ActivityNodeView);
     configureModelElement(context, 'node', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:comment', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:script', TaskNode, TaskNodeView);
@@ -83,8 +89,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'node:rest', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:db', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:email', TaskNode, TaskNodeView);
-    configureModelElement(context, 'node:subproc', TaskNode, TaskNodeView);
-    configureModelElement(context, 'node:embeddedproc', TaskNode, TaskNodeView);
+    configureModelElement(context, 'node:subproc', TaskNode, SubTaskNodeView);
+    configureModelElement(context, 'node:embeddedproc', SubTaskNode, SubTaskNodeView);
     configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
     configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);
