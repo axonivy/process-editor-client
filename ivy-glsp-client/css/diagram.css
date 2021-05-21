@@ -86,7 +86,7 @@
 
 /* Comments */
 .comment .sprotty-node,
-.sprotty-edge-association {
+.association.sprotty-edge {
   stroke-dasharray: 5, 5;
 }
 

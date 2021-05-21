@@ -17,7 +17,7 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
-import { ActivityNode, EventNode, Icon, TaskNode, WeightedEdge } from './model';
+import { ActivityNode, EventNode, Icon, TaskNode } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
@@ -226,41 +226,8 @@ export class WorkflowEdgeView extends PolylineEdgeView {
 
 @injectable()
 export class AssociationEdgeView extends WorkflowEdgeView {
-    render(edge: Readonly<WeightedEdge>, context: RenderingContext): VNode {
-        const router = this.edgeRouterRegistry.get(edge.routerKind);
-        const route = router.route(edge);
-        if (route.length === 0) {
-            return this.renderDanglingEdge('Cannot compute route', edge, context);
-        }
-
-        return <g class-sprotty-edge={true}
-            class-sprotty-edge-association={true}
-            class-mouseover={edge.hoverFeedback}>
-            {this.renderLine(edge, route, context)}
-            {context.renderChildren(edge, { route })}
-        </g>;
-    }
-}
-
-@injectable()
-export class WeightedEdgeView extends WorkflowEdgeView {
-    render(edge: Readonly<WeightedEdge>, context: RenderingContext): VNode {
-        const router = this.edgeRouterRegistry.get(edge.routerKind);
-        const route = router.route(edge);
-        if (route.length === 0) {
-            return this.renderDanglingEdge('Cannot compute route', edge, context);
-        }
-
-        return <g class-sprotty-edge={true}
-            class-weighted={true}
-            class-low={edge.probability === 'low'}
-            class-medium={edge.probability === 'medium'}
-            class-high={edge.probability === 'high'}
-            class-mouseover={edge.hoverFeedback}>
-            {this.renderLine(edge, route, context)}
-            {this.renderAdditionals(edge, route, context)}
-            {context.renderChildren(edge, { route })}
-        </g>;
+    protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
+        return [];
     }
 }
 
