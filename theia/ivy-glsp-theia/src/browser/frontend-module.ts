@@ -27,6 +27,7 @@ import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
 import { IvyDiagramManager } from './diagram/diagram-manager';
 import { IvyGLSPDiagramClient } from './diagram/glsp-diagram-client';
 import { registerJumpIntoContextMenu } from './diagram/jump-into-menu';
+import { registerWrapToSubContextMenu } from './diagram/wrap-to-sub-menu';
 import { IvyGLSPClientContribution } from './language/glsp-client-contribution';
 
 export default new ContainerModule((bind: interfaces.Bind) => {
@@ -41,4 +42,5 @@ export default new ContainerModule((bind: interfaces.Bind) => {
     registerCopyPasteContextMenu(bind);
     registerMarkerNavigationCommands(bind);
     registerJumpIntoContextMenu(bind);
+    registerWrapToSubContextMenu(bind);
 });
