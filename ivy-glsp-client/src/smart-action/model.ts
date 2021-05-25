@@ -11,6 +11,8 @@ import {
     SParentElement
 } from 'sprotty';
 
+import { JumpOperation } from '../jump/jump';
+import { jumpFeature } from '../jump/model';
 import { SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
 export const smartActionFeature = Symbol('smartActionFeature');
@@ -71,10 +73,23 @@ export class SSmartActionConnectHandle extends SSmartActionHandle {
     }
 }
 
+export class SSmartActionJumpIntoHandler extends SSmartActionHandle {
+    mouseUp(target: SModelElement): Action[] {
+        return [new JumpOperation(target.id)];
+    }
+
+    public icon(): string {
+        return 'level-down-alt';
+    }
+}
+
 export function addSmartActionHandles(element: SParentElement): void {
     removeSmartActionHandles(element);
     element.add(new SSmartActionDeleteHandle(SmartActionHandleLocation.TopLeft));
     element.add(new SSmartActionConnectHandle(SmartActionHandleLocation.TopRight));
+    if (element.hasFeature(jumpFeature)) {
+        element.add(new SSmartActionJumpIntoHandler(SmartActionHandleLocation.BottomLeft));
+    }
 }
 
 export function removeSmartActionHandles(element: SParentElement): void {
