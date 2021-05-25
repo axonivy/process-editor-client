@@ -80,7 +80,6 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
-    // configureModelElement(context, 'node', RectangularNode, RectangularNodeView);
     configureModelElement(context, 'event:start', StartEventNode, EventNodeView);
     configureModelElement(context, 'event:start:error', StartEventNode, ErrorEventNodeView);
     configureModelElement(context, 'event:start:signal', StartEventNode, SignalEventNodeView);
