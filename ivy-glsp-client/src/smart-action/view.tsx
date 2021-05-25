@@ -33,6 +33,8 @@ export class SSmartActionHandleView implements IView {
                 return { x: 10, y: -20 };
             } else if (handle.location === SmartActionHandleLocation.TopRight) {
                 return { x: 50, y: -20 };
+            } else if (handle.location === SmartActionHandleLocation.BottomLeft) {
+                return { x: 90, y: -20 };
             }
         }
         return undefined;

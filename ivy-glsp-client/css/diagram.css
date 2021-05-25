@@ -22,6 +22,10 @@
   width: 100%;
   top: 50%;
 }
+.lane .sprotty-label,
+.lane .sprotty-node {
+  cursor: default;
+}
 
 /* Nodes */
 .sprotty-node {
@@ -29,6 +33,7 @@
   stroke: var(--glsp-editor-foreground);
   stroke-width: 1px;
   font-weight: bold;
+  cursor: pointer;
 }
 .sprotty-node.mouseover {
   stroke-width: 3px;
@@ -57,6 +62,7 @@
 .sprotty-edge {
   stroke: var(--glsp-editor-foreground);
   fill: none;
+  cursor: pointer;
 }
 .sprotty-edge.arrow {
   fill: var(--glsp-editor-foreground);
@@ -84,10 +90,12 @@
 /* Icon / Label*/
 .sprotty-label {
   font-size: 12px;
+  cursor: pointer;
 }
 .sprotty-icon {
   background-color: var(--glsp-editor-background);
   border-radius: 3px;
+  cursor: pointer;
 }
 .sprotty-icon i {
   font-size: 16px;

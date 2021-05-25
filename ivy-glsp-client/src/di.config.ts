@@ -71,6 +71,7 @@ import {
     TaskNodeView,
     WorkflowEdgeView
 } from './diagram/views';
+import ivyJumpOutModule from './jump/di.config';
 import ivySmartActionModule from './smart-action/di.config';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -118,7 +119,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
-        layoutCommandsModule, ivySmartActionModule, glspContextMenuModule);
+        layoutCommandsModule, ivySmartActionModule, glspContextMenuModule, ivyJumpOutModule);
 
     overrideViewerOptions(container, {
         baseDiv: widgetId,
