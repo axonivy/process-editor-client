@@ -222,14 +222,10 @@ export class ForeignLabelView implements IView {
     render(model: SLabel, context: RenderingContext): VNode {
         const replacement = model.text.replace(/\n/g, '<br/>');
         const foreignObjectContents = virtualize('<div>' + replacement + '</div>');
-        let rotate = {};
-        if (model.edgePlacement?.rotate) {
-            rotate = {transform: 'rotate(270deg) translate(-260px, 0px);'};
-        }
         const node = <g>
             <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
                 height={model.bounds.height} width={model.bounds.width} x={0} y={0} z={10}
-                class-sprotty-label style={rotate}>
+                class-sprotty-label>
                 {foreignObjectContents}
             </foreignObject>
             {context.renderChildren(model)}
