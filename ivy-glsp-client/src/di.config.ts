@@ -44,7 +44,16 @@ import {
 import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
-import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode, SubTaskNode, TaskNode } from './diagram/model';
+import {
+    ActivityNode,
+    Edge,
+    EndEventNode,
+    EventNode,
+    LaneNode,
+    StartEventNode,
+    SubTaskNode,
+    TaskNode
+} from './diagram/model';
 import {
     ActivityNodeView,
     AlternateActivityNodeView,
@@ -54,6 +63,8 @@ import {
     ErrorEventNodeView,
     EventNodeView,
     ForeignLabelView,
+    LaneNodeView,
+    PoolNodeView,
     SignalEventNodeView,
     SubTaskNodeView,
     TaskEventNodeView,
@@ -91,6 +102,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'node:email', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:subproc', TaskNode, SubTaskNodeView);
     configureModelElement(context, 'node:embeddedproc', SubTaskNode, SubTaskNodeView);
+    configureModelElement(context, 'lane', LaneNode, LaneNodeView);
+    configureModelElement(context, 'pool', LaneNode, PoolNodeView);
     configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
     configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);
