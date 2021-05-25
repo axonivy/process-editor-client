@@ -32,7 +32,7 @@
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
-.sprotty-node.sprotty-end-node {
+.end .sprotty-node {
   stroke-width: 3px;
 }
 .sprotty-node-decorator {
@@ -86,7 +86,7 @@
 
 /* Comments */
 .comment .sprotty-node,
-.sprotty-edge-association {
+.association.sprotty-edge {
   stroke-dasharray: 5, 5;
 }
 

@@ -11,7 +11,7 @@ import {
     SParentElement
 } from 'sprotty';
 
-import { SmartActionTriggerEdgeCreationAction } from '../edge/edge-creation-tool';
+import { SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
 export const smartActionFeature = Symbol('smartActionFeature');
 

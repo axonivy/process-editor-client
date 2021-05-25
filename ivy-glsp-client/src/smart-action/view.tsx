@@ -7,12 +7,8 @@ import { isSmartable, SmartActionHandleLocation, SSmartActionHandle } from './mo
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: snabbdom.svg };
-
-/**
-* This view is used for the invisible end of the feedback edge.
-* A feedback edge is shown as a visual feedback when creating edges.
-*/
 
 @injectable()
 export class SSmartActionHandleView implements IView {

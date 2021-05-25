@@ -1,9 +1,9 @@
-import '../../../css/smart-action.css';
+import '../../css/smart-action.css';
 
 import { configureActionHandler, configureCommand, configureView, GLSP_TYPES } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
-import { SmartActionEdgeCreationTool, SmartActionTriggerEdgeCreationAction } from '../edge/edge-creation-tool';
+import { SmartActionEdgeCreationTool, SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 import { SSmartActionHandle } from './model';
 import { SmartActionTool } from './smart-action-tool';
 import { HideSmartActionToolFeedbackCommand, ShowSmartActionToolFeedbackCommand } from './smart-action-tool-feedback';
