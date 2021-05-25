@@ -4,7 +4,7 @@ import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegist
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from 'inversify';
 
-export function registerCombineToEmbedContextMenu(bind: interfaces.Bind): void {
+export function registerWrapToSubContextMenu(bind: interfaces.Bind): void {
     bind(CommandContribution).to(WrapToSubContribution);
     bind(MenuContribution).to(WrapToSubMenuContribution);
 }
