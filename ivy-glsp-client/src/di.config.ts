@@ -18,7 +18,6 @@ import {
     glspMouseToolModule,
     glspSelectModule,
     glspServerCopyPasteModule,
-    GridSnapper,
     HtmlRoot,
     HtmlRootView,
     layoutCommandsModule,
@@ -72,11 +71,12 @@ import {
     WorkflowEdgeView
 } from './diagram/views';
 import ivySmartActionModule from './smart-action/di.config';
+import { IvyGridSnapper } from './snap';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
     rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
-    bind(TYPES.ISnapper).to(GridSnapper);
+    bind(TYPES.ISnapper).to(IvyGridSnapper);
     bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
     const context = { bind, unbind, isBound, rebind };
     configureModelElement(context, 'graph', GLSPGraph, SGraphView);
