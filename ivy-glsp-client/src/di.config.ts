@@ -53,6 +53,7 @@ import {
     SubTaskNode,
     TaskNode
 } from './diagram/model';
+import { IvyGridSnapper } from './diagram/snap';
 import {
     ActivityNodeView,
     AlternateActivityNodeView,
@@ -71,7 +72,6 @@ import {
     WorkflowEdgeView
 } from './diagram/views';
 import ivySmartActionModule from './smart-action/di.config';
-import { IvyGridSnapper } from './snap';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
     rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
