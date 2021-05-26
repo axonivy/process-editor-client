@@ -49,6 +49,7 @@ import {
     EndEventNode,
     EventNode,
     LaneNode,
+    RotateLabel,
     StartEventNode,
     SubTaskNode,
     TaskNode
@@ -65,6 +66,7 @@ import {
     ForeignLabelView,
     LaneNodeView,
     PoolNodeView,
+    RotateLabelView,
     SignalEventNodeView,
     SubTaskNodeView,
     TaskEventNodeView,
@@ -102,8 +104,9 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'node:email', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:subproc', TaskNode, SubTaskNodeView);
     configureModelElement(context, 'node:embeddedproc', SubTaskNode, SubTaskNodeView);
-    configureModelElement(context, 'lane', LaneNode, LaneNodeView);
-    configureModelElement(context, 'pool', LaneNode, PoolNodeView);
+    configureModelElement(context, 'lanes:lane', LaneNode, LaneNodeView);
+    configureModelElement(context, 'lanes:pool', LaneNode, PoolNodeView);
+    configureModelElement(context, 'lanes:label', RotateLabel, RotateLabelView);
     configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
     configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);

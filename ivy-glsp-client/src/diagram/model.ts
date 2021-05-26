@@ -19,6 +19,7 @@ import {
     RectangularNode,
     SEdge,
     selectFeature,
+    SLabel,
     SRoutableElement,
     SShapeElement,
     WithEditableLabel,
@@ -109,6 +110,10 @@ export class ActivityNode extends DiamondNode {
 export class Edge extends SEdge {
     static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
         hoverFeedbackFeature, popupFeature];
+}
+
+export class RotateLabel extends SLabel {
+    static readonly DEFAULT_FEATURES = [fadeFeature];
 }
 
 export class Icon extends SShapeElement implements LayoutContainer {
