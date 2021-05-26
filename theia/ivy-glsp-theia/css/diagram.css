@@ -1,4 +1,4 @@
-.sprotty {
+body {
   --glsp-editor-background: var(--theia-editor-background);
   --glsp-editor-foreground: var(--theia-editor-foreground);
   --glsp-editor-mouseover: var(--theia-editorWidget-foreground);
