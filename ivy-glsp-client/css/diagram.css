@@ -109,6 +109,9 @@
   border: 1px solid var(--glsp-editor-foreground);
   font-size: 13px;
 }
+.sprotty-popup-title {
+  font-weight: 700;
+}
 
 /* Comments */
 .comment .sprotty-node,
