@@ -18,7 +18,7 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
-import { ActivityNode, EventNode, Icon, LaneNode, TaskNode } from './model';
+import { GatewayNode, EventNode, Icon, LaneNode, TaskNode } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
@@ -170,8 +170,8 @@ export class SubTaskNodeView extends TaskNodeView {
 }
 
 @injectable()
-export class ActivityNodeView extends DiamondNodeView {
-    render(node: ActivityNode, context: RenderingContext): VNode {
+export class TaskGatewayNodeView extends DiamondNodeView {
+    render(node: GatewayNode, context: RenderingContext): VNode {
         const diamond = new Diamond({ height: Math.max(node.size.height, 0), width: Math.max(node.size.width, 0), x: 0, y: 0 });
         const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(diamond.leftPoint)}`;
         return <g>
@@ -183,7 +183,7 @@ export class ActivityNodeView extends DiamondNodeView {
         </g>;
     }
 
-    protected getDecorator(node: ActivityNode): VNode {
+    protected getDecorator(node: GatewayNode): VNode {
         const radius = this.getRadius(node);
         const startCoordinate = radius / 1.5;
         const endCoordinate = node.size.height - startCoordinate;
@@ -207,8 +207,8 @@ export class ActivityNodeView extends DiamondNodeView {
 }
 
 @injectable()
-export class AlternateActivityNodeView extends ActivityNodeView {
-    protected getDecorator(node: ActivityNode): VNode {
+export class AlternateGatewayNodeView extends TaskGatewayNodeView {
+    protected getDecorator(node: GatewayNode): VNode {
         const startCoordinate = node.size.height / 3;
         const endCoordinate = node.size.height - startCoordinate;
         return <g>

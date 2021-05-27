@@ -44,7 +44,7 @@ import { Container, ContainerModule } from 'inversify';
 
 import ivyDecorationModule from './decorator/di.config';
 import {
-    ActivityNode,
+    GatewayNode,
     Edge,
     EndEventNode,
     EventNode,
@@ -56,8 +56,8 @@ import {
 } from './diagram/model';
 import { IvyGridSnapper } from './diagram/snap';
 import {
-    ActivityNodeView,
-    AlternateActivityNodeView,
+    TaskGatewayNodeView,
+    AlternateGatewayNodeView,
     AssociationEdgeView,
     BoundaryErrorEventNodeView,
     BoundarySignalEventNodeView,
@@ -88,11 +88,11 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'event:start:signal', StartEventNode, SignalEventNodeView);
     configureModelElement(context, 'event:end', EndEventNode, EventNodeView);
     configureModelElement(context, 'event:end:error', EndEventNode, ErrorEventNodeView);
-    configureModelElement(context, 'event:task', EventNode, TaskEventNodeView);
+    configureModelElement(context, 'event:intermediate:task', EventNode, TaskEventNodeView);
     configureModelElement(context, 'event:boundary:error', StartEventNode, BoundaryErrorEventNodeView);
     configureModelElement(context, 'event:boundary:signal', StartEventNode, BoundarySignalEventNodeView);
-    configureModelElement(context, 'activity:alternative', ActivityNode, AlternateActivityNodeView);
-    configureModelElement(context, 'activity:gateway', ActivityNode, ActivityNodeView);
+    configureModelElement(context, 'gateway:alternative', GatewayNode, AlternateGatewayNodeView);
+    configureModelElement(context, 'gateway:task', GatewayNode, TaskGatewayNodeView);
     configureModelElement(context, 'node', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:comment', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:script', TaskNode, TaskNodeView);
