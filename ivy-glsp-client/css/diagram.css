@@ -19,6 +19,7 @@
 .lane .sprotty-label {
   text-anchor: middle;
   cursor: default;
+  fill: var(--glsp-editor-foreground);
 }
 .pool .sprotty-node,
 .lane .sprotty-node {
