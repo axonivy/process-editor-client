@@ -97,7 +97,7 @@ export class StartEventNode extends EventNode {
     }
 }
 
-export class ActivityNode extends DiamondNode {
+export class GatewayNode extends DiamondNode {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
 
