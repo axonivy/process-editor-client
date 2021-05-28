@@ -45,6 +45,7 @@
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
+.end\:error .sprotty-node,
 .end .sprotty-node {
   stroke-width: 3px;
 }
