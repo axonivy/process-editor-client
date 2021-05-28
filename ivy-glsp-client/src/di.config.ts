@@ -56,9 +56,6 @@ import {
 } from './diagram/model';
 import { IvyGridSnapper } from './diagram/snap';
 import {
-    TaskGatewayNodeView,
-    AlternateGatewayNodeView,
-    GatewayNodeView,
     AssociationEdgeView,
     BoundaryErrorEventNodeView,
     BoundarySignalEventNodeView,
@@ -74,6 +71,11 @@ import {
     TaskNodeView,
     WorkflowEdgeView
 } from './diagram/views';
+import {
+    TaskGatewayNodeView,
+    AlternateGatewayNodeView,
+    GatewayNodeView
+} from './diagram/gateviews';
 import ivyJumpOutModule from './jump/di.config';
 import ivySmartActionModule from './smart-action/di.config';
 
