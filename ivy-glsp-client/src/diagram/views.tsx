@@ -77,7 +77,7 @@ export class EventNodeView extends CircularNodeView {
 }
 
 @injectable()
-export class TaskEventNodeView extends EventNodeView {
+export class IntermediateEventNodeView extends EventNodeView {
     protected getTaskDecorator(node: EventNode): VNode {
         const radius = this.getRadius(node);
         return <circle class-sprotty-node={true} class-sprotty-task-node={true}
@@ -93,7 +93,7 @@ export class SignalEventNodeView extends EventNodeView {
 }
 
 @injectable()
-export class BoundarySignalEventNodeView extends TaskEventNodeView {
+export class BoundarySignalEventNodeView extends IntermediateEventNodeView {
     protected getDecoratorPath(): string {
         return 'M5,0 L10,10 l-10,0 Z';
     }
@@ -107,7 +107,7 @@ export class ErrorEventNodeView extends EventNodeView {
 }
 
 @injectable()
-export class BoundaryErrorEventNodeView extends TaskEventNodeView {
+export class BoundaryErrorEventNodeView extends IntermediateEventNodeView {
     protected getDecoratorPath(): string {
         return 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z';
     }
@@ -170,7 +170,7 @@ export class SubTaskNodeView extends TaskNodeView {
 }
 
 @injectable()
-export class TaskGatewayNodeView extends DiamondNodeView {
+export class GatewayNodeView extends DiamondNodeView {
     render(node: GatewayNode, context: RenderingContext): VNode {
         const diamond = new Diamond({ height: Math.max(node.size.height, 0), width: Math.max(node.size.width, 0), x: 0, y: 0 });
         const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(diamond.leftPoint)}`;
@@ -188,9 +188,6 @@ export class TaskGatewayNodeView extends DiamondNodeView {
         const startCoordinate = radius / 1.5;
         const endCoordinate = node.size.height - startCoordinate;
         return <g>
-            <circle class-sprotty-node={true} class-sprotty-task-node={true}
-                r={radius / 2} cx={radius} cy={radius}>
-            </circle>
             <line class-sprotty-node-decorator x1={radius} y1={startCoordinate} x2={radius} y2={endCoordinate} />
             <line class-sprotty-node-decorator x1={startCoordinate} y1={radius} x2={endCoordinate} y2={radius} />
         </g>;
@@ -203,6 +200,22 @@ export class TaskGatewayNodeView extends DiamondNodeView {
 
     protected svgStr(point: Point): string {
         return `${point.x},${point.y}`;
+    }
+}
+
+@injectable()
+export class TaskGatewayNodeView extends GatewayNodeView {
+    protected getDecorator(node: GatewayNode): VNode {
+        const radius = this.getRadius(node);
+        const startCoordinate = radius / 1.5;
+        const endCoordinate = node.size.height - startCoordinate;
+        return <g>
+            <circle class-sprotty-node={true} class-sprotty-task-node={true}
+                r={radius / 2} cx={radius} cy={radius}>
+            </circle>
+            <line class-sprotty-node-decorator x1={radius} y1={startCoordinate} x2={radius} y2={endCoordinate} />
+            <line class-sprotty-node-decorator x1={startCoordinate} y1={radius} x2={endCoordinate} y2={radius} />
+        </g>;
     }
 }
 

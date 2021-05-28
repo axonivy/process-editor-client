@@ -58,6 +58,7 @@ import { IvyGridSnapper } from './diagram/snap';
 import {
     TaskGatewayNodeView,
     AlternateGatewayNodeView,
+    GatewayNodeView,
     AssociationEdgeView,
     BoundaryErrorEventNodeView,
     BoundarySignalEventNodeView,
@@ -69,7 +70,7 @@ import {
     RotateLabelView,
     SignalEventNodeView,
     SubTaskNodeView,
-    TaskEventNodeView,
+    IntermediateEventNodeView,
     TaskNodeView,
     WorkflowEdgeView
 } from './diagram/views';
@@ -88,11 +89,13 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'event:start:signal', StartEventNode, SignalEventNodeView);
     configureModelElement(context, 'event:end', EndEventNode, EventNodeView);
     configureModelElement(context, 'event:end:error', EndEventNode, ErrorEventNodeView);
-    configureModelElement(context, 'event:intermediate:task', EventNode, TaskEventNodeView);
+    configureModelElement(context, 'event:intermediate', EventNode, IntermediateEventNodeView);
+    configureModelElement(context, 'event:intermediate:task', EventNode, IntermediateEventNodeView);
     configureModelElement(context, 'event:boundary:error', StartEventNode, BoundaryErrorEventNodeView);
     configureModelElement(context, 'event:boundary:signal', StartEventNode, BoundarySignalEventNodeView);
-    configureModelElement(context, 'gateway:alternative', GatewayNode, AlternateGatewayNodeView);
+    configureModelElement(context, 'gateway', GatewayNode, GatewayNodeView);
     configureModelElement(context, 'gateway:task', GatewayNode, TaskGatewayNodeView);
+    configureModelElement(context, 'gateway:alternative', GatewayNode, AlternateGatewayNodeView);
     configureModelElement(context, 'node', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:comment', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:script', TaskNode, TaskNodeView);
