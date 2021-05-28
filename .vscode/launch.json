@@ -31,10 +31,9 @@
     },
     {
       "name": "Launch Browser Frontend",
-      "type": "chrome",
+      "type": "firefox",
       "request": "launch",
       "url": "http://localhost:3000/",
-      "sourceMaps": true,
       "webRoot": "${workspaceRoot}/browser-app"
     },
     {
