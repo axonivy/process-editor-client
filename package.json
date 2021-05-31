@@ -7,14 +7,17 @@
     "node": ">=10.19.0 <13"
   },
   "scripts": {
-    "test": "yarn",
     "prepare": "lerna run prepare && yarn copyClient",
     "watch": "lerna run --parallel watch",
+    "build": "yarn install --ignore-scripts && lerna run build && yarn copyClient",
+    "lint": "lerna run lint --",
+    "test": "lerna run test",
+    "test:ci": "lerna run test:ci",
     "copyClient": "copyfiles -f ./eclipse/ivy-glsp-eclipse/app/* ./server/diagram",
-    "rebuild:browser": "theia rebuild:browser",
     "publish": "yarn && yarn publish:latest",
     "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
     "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
+    "rebuild:browser": "theia rebuild:browser",
     "start:browser": "yarn rebuild:browser && cd theia/browser-app && yarn start",
     "start:browser:debug": "yarn rebuild:browser && cd theia/browser-app && yarn start:debug --hostname 0.0.0.0"
   },
@@ -33,7 +36,9 @@
     "eslint-plugin-no-null": "^1.0.2",
     "lerna": "^2.2.0",
     "rimraf": "^2.6.1",
-    "typescript": "3.9.2"
+    "typescript": "3.9.2",
+    "ts-node": "^8.3.0",
+    "ignore-styles": "^5.0.1"
   },
   "resolutions": {
     "**/@theia/application-manager": "1.4.0",

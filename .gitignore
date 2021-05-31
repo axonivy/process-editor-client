@@ -48,3 +48,5 @@ lib
 
 **/ivy-glsp-theia/server/**
 server/diagram
+report.xml
+eslint.xml
