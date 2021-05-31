@@ -87,13 +87,13 @@ export class EventNode extends CircularNode {
 
 export class EndEventNode extends EventNode {
     canConnect(routable: SRoutableElement, role: string): boolean {
-        return super.canConnect(routable, role) && role !== 'source';
+        return super.canConnect(routable, role) && role === 'target';
     }
 }
 
 export class StartEventNode extends EventNode {
     canConnect(routable: SRoutableElement, role: string): boolean {
-        return super.canConnect(routable, role) && role !== 'target';
+        return super.canConnect(routable, role) && role === 'source';
     }
 }
 
