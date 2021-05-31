@@ -15,7 +15,7 @@ export class IvyDecorationPlacer extends DecorationPlacer {
 
     protected static readonly DECORATION_OFFSET: Point = { x: 8, y: 10 };
 
-    protected getPosition(element: SModelElement & Decoration): Point {
+    getPosition(element: SModelElement & Decoration): Point {
         if (element instanceof SChildElement && element.parent instanceof SRoutableElement) {
             return super.getPosition(element);
         }

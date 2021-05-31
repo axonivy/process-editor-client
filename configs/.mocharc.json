@@ -1,0 +1,15 @@
+{
+  "extension": [
+    "ts",
+    "tsx"
+  ],
+  "spec": "./src/**/*.spec.?(ts|tsx)",
+  "timeout": 10000,
+  "reporter": "spec",
+  "color": true,
+  "require": [
+    "ts-node/register",
+    "reflect-metadata/Reflect",
+    "ignore-styles"
+  ]
+}
