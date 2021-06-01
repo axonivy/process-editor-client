@@ -34,6 +34,9 @@
   font-weight: bold;
   cursor: pointer;
 }
+.executed .sprotty-node {
+  fill: yellow;
+}
 .sprotty-node.mouseover {
   stroke-width: 3px;
   stroke: var(--glsp-editor-mouseover);
