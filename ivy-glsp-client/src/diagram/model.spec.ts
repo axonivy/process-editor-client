@@ -13,7 +13,7 @@ describe('EventNodes', () => {
         expect(endNode.canConnect(routable, 'something')).to.be.false;
     });
 
-    it('start can only connect as target', () => {
+    it('start can only connect as source', () => {
         const startNode = new StartEventNode();
         expect(startNode.canConnect(routable, 'source')).to.be.true;
         expect(startNode.canConnect(routable, 'target')).to.be.false;
