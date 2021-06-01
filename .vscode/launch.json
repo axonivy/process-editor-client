@@ -30,8 +30,15 @@
       "outputCapture": "std"
     },
     {
-      "name": "Launch Browser Frontend",
+      "name": "Launch Browser (Firefox) Frontend",
       "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:3000/",
+      "webRoot": "${workspaceRoot}/browser-app"
+    },
+    {
+      "name": "Launch Browser (Chrome) Frontend",
+      "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000/",
       "webRoot": "${workspaceRoot}/browser-app"
