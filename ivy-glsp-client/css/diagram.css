@@ -35,7 +35,16 @@
   cursor: pointer;
 }
 .executed .sprotty-node {
-  fill: hsl(60deg 100% 50% / 50%);
+  fill: hsl(60 100% 50% / 50%);
+}
+.failed .sprotty-node {
+  fill: hsl(0 100% 50% / 50%);
+}
+.executed .sprotty-node.animate {
+  animation: background-pulse 1s infinite ease-in-out;
+}
+.failed .sprotty-node.animate {
+  animation: background-pulse-failed 1s infinite ease-in-out;
 }
 .sprotty-node.mouseover {
   stroke-width: 3px;
@@ -67,8 +76,15 @@
   fill: none;
   cursor: pointer;
 }
+.sprotty-edge.executed {
+  stroke: hsl(60deg 100% 30%);
+  filter: drop-shadow(0px 0px 5px hsl(60deg 100% 30%));
+}
 .sprotty-edge.arrow {
   fill: var(--glsp-editor-foreground);
+}
+.sprotty-edge.executed .arrow {
+  stroke: hsl(60deg 100% 30%);
 }
 .sprotty-edge > .sprotty-routing-handle {
   r: 5px;
@@ -96,7 +112,6 @@
   cursor: pointer;
 }
 .sprotty-icon {
-  background-color: var(--glsp-editor-background);
   border-radius: 3px;
   cursor: pointer;
 }
@@ -129,4 +144,28 @@
   fill: #f00;
   font-size: 14pt;
   text-anchor: middle;
+}
+
+@keyframes background-pulse {
+  0% {
+    fill: hsl(60 100% 50% / 50%);
+  }
+  50% {
+    fill: hsl(60 100% 30% / 50%);
+  }
+  100% {
+    fill: hsl(60 100% 50% / 50%);
+  }
+}
+
+@keyframes background-pulse-failed {
+  0% {
+    fill: hsl(0 100% 50% / 50%);
+  }
+  50% {
+    fill: hsl(0 100% 30% / 50%);
+  }
+  100% {
+    fill: hsl(0 100% 50% / 50%);
+  }
 }

@@ -49,7 +49,7 @@ export class EventNodeView extends CircularNodeView {
     render(node: EventNode, context: RenderingContext): VNode {
         const radius = this.getRadius(node);
         return <g>
-            <circle class-sprotty-node={true}
+            <circle class-sprotty-node={true} class-animate={node.animated}
                 class-mouseover={node.hoverFeedback} class-selected={node.selected}
                 r={radius} cx={radius} cy={radius}></circle>
             {this.getTaskDecorator(node)}
@@ -116,7 +116,7 @@ export class TaskNodeView extends RectangularNodeView {
     render(node: TaskNode, context: RenderingContext): VNode {
         const rcr = this.getRoundedCornerRadius(node);
         return <g>
-            <rect class-sprotty-node={true} class-task={true}
+            <rect class-sprotty-node={true} class-task={true} class-animate={node.animated}
                 class-mouseover={node.hoverFeedback} class-selected={node.selected}
                 x={0} y={0} rx={rcr} ry={rcr}
                 width={Math.max(0, node.bounds.width)} height={Math.max(0, node.bounds.height)}></rect>
@@ -135,10 +135,10 @@ export class TaskNodeView extends RectangularNodeView {
         if (!icon) {
             return <g></g>;
         }
-        const foreignObjectContents = virtualize('<i class="fa fa-fw ' + icon + '"></i>');
+        const foreignObjectContents = virtualize('<i class="fa ' + icon + '"></i>');
         return <g>
             <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
-                height={16} width={20} x={0} y={0}
+                height={16} width={20} x={2} y={2}
                 class-sprotty-icon>
                 {foreignObjectContents}
             </foreignObject>
