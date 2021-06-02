@@ -35,7 +35,7 @@
   cursor: pointer;
 }
 .executed .sprotty-node {
-  fill: yellow;
+  fill: hsl(60deg 100% 50% / 50%);
 }
 .sprotty-node.mouseover {
   stroke-width: 3px;
