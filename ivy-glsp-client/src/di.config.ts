@@ -22,6 +22,7 @@ import {
     HtmlRootView,
     layoutCommandsModule,
     LogLevel,
+    markerNavigatorModule,
     modelHintsModule,
     modelSourceModule,
     overrideViewerOptions,
@@ -42,12 +43,14 @@ import {
 } from '@eclipse-glsp/client';
 import { Container, ContainerModule } from 'inversify';
 
+import animateModule from './animate/di.config';
 import ivyDecorationModule from './decorator/di.config';
+import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './diagram/gateviews';
 import {
-    GatewayNode,
     Edge,
     EndEventNode,
     EventNode,
+    GatewayNode,
     LaneNode,
     RotateLabel,
     StartEventNode,
@@ -62,20 +65,15 @@ import {
     ErrorEventNodeView,
     EventNodeView,
     ForeignLabelView,
+    IntermediateEventNodeView,
     LaneNodeView,
     PoolNodeView,
     RotateLabelView,
     SignalEventNodeView,
     SubTaskNodeView,
-    IntermediateEventNodeView,
     TaskNodeView,
     WorkflowEdgeView
 } from './diagram/views';
-import {
-    TaskGatewayNodeView,
-    AlternateGatewayNodeView,
-    GatewayNodeView
-} from './diagram/gateviews';
 import ivyJumpOutModule from './jump/di.config';
 import ivySmartActionModule from './smart-action/di.config';
 
@@ -127,7 +125,7 @@ export default function createContainer(widgetId: string): Container {
     container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
-        layoutCommandsModule, ivySmartActionModule, glspContextMenuModule, ivyJumpOutModule);
+        layoutCommandsModule, ivySmartActionModule, glspContextMenuModule, ivyJumpOutModule, animateModule, markerNavigatorModule);
 
     overrideViewerOptions(container, {
         baseDiv: widgetId,

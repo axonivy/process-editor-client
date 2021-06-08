@@ -1,10 +1,4 @@
-import {
-    Diamond,
-    DiamondNodeView,
-    Point,
-    RenderingContext,
-    SShapeElement
-} from '@eclipse-glsp/client';
+import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
@@ -20,7 +14,7 @@ export class GatewayNodeView extends DiamondNodeView {
         const diamond = new Diamond({ height: Math.max(node.size.height, 0), width: Math.max(node.size.width, 0), x: 0, y: 0 });
         const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(diamond.leftPoint)}`;
         return <g>
-            <polygon class-sprotty-node={true}
+            <polygon class-sprotty-node={true} class-animate={node.animated}
                 class-mouseover={node.hoverFeedback} class-selected={node.selected}
                 points={points} />
             {this.getDecorator(node)}

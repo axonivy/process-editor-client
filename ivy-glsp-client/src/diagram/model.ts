@@ -33,6 +33,7 @@ import {
     withEditLabelFeature
 } from '@eclipse-glsp/client';
 
+import { Animateable, animateFeature } from '../animate/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
 
@@ -40,14 +41,15 @@ export class LaneNode extends RectangularNode {
     static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
 }
 
-export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel {
-    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature,
+export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 
     name = '';
     duration?: number;
     taskType?: string;
     reference?: string;
+    animated = false;
 
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     get editableLabel() {
@@ -87,9 +89,11 @@ export class SubTaskNode extends TaskNode {
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }
 
-export class EventNode extends CircularNode {
-    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+export class EventNode extends CircularNode implements Animateable {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+
+    animated = false;
 }
 
 export class EndEventNode extends EventNode {
@@ -104,10 +108,11 @@ export class StartEventNode extends EventNode {
     }
 }
 
-export class GatewayNode extends DiamondNode {
-    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature,
+export class GatewayNode extends DiamondNode implements Animateable {
+    static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
         moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
 
+    animated = false;
     size = {
         width: 32,
         height: 32
