@@ -70,5 +70,14 @@
       "internalConsoleOptions": "openOnSessionStart",
       "outputCapture": "std"
     },
+  ],
+  "compounds": [
+    {
+      "name": "Backend + Chrome Frontend",
+      "configurations": [
+        "Start Browser Backend",
+        "Launch Browser (Chrome) Frontend"
+      ]
+    }
   ]
 }

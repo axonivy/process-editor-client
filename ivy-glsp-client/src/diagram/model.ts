@@ -1,10 +1,15 @@
 import {
+    Bounds,
     boundsFeature,
+    center,
+    centerOfLine,
     CircularNode,
+    combine,
     connectableFeature,
     deletableFeature,
     DiamondNode,
     editFeature,
+    EMPTY_BOUNDS,
     fadeFeature,
     hoverFeedbackFeature,
     isEditableLabel,
@@ -15,6 +20,7 @@ import {
     Nameable,
     nameFeature,
     openFeature,
+    Point,
     popupFeature,
     RectangularNode,
     SEdge,
@@ -22,6 +28,7 @@ import {
     SLabel,
     SRoutableElement,
     SShapeElement,
+    translate,
     WithEditableLabel,
     withEditLabelFeature
 } from '@eclipse-glsp/client';
@@ -110,6 +117,22 @@ export class GatewayNode extends DiamondNode {
 export class Edge extends SEdge {
     static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
         hoverFeedbackFeature, popupFeature];
+
+    get bounds(): Bounds {
+        // this should also work for splines, which have the convex hull property
+        return this.routingPoints.reduce<Bounds>((bounds, routingPoint) => combine(bounds, {
+            x: routingPoint.x,
+            y: routingPoint.y,
+            width: 0,
+            height: 0
+        }), this.centerBounds());
+    }
+
+    private centerBounds(): Bounds {
+        const sourcePoint: Point = center(this.source?.bounds || EMPTY_BOUNDS);
+        const targetPoint: Point = center(this.target?.bounds || EMPTY_BOUNDS);
+        return translate(EMPTY_BOUNDS, centerOfLine(sourcePoint, targetPoint));
+    }
 }
 
 export class RotateLabel extends SLabel {
