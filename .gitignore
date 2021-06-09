@@ -43,6 +43,8 @@ lib
 **/browser-app/**
 !**/browser-app/package.json
 
+**/plugins/*.vsix
+
 **/electron-app/**
 !**/electron-app/package.json
 
