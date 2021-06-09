@@ -59,6 +59,7 @@
     "theia/ivy-glsp-theia",
     "theia/browser-app",
     "eclipse/ivy-glsp-eclipse",
-    "eclipse/packages/ide"
+    "eclipse/packages/ide",
+    "debug"
   ]
 }
