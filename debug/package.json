@@ -48,16 +48,24 @@
     "onDebug"
   ],
   "contributes": {
+    "languages": [
+      {
+        "id": "ivy-process",
+        "extensions": [
+          ".mod"
+        ]
+      }
+    ],
     "breakpoints": [
       {
-        "language": "markdown"
+        "language": "ivy-process"
       }
     ],
     "debuggers": [
       {
         "type": "process",
         "languages": [
-          "mod"
+          "ivy-process"
         ],
         "label": "Ivy Process Debug",
         "configurationAttributes": {
