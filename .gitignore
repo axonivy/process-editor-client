@@ -37,6 +37,7 @@ node_modules/.yarn-integrity
 .browser_modules
 
 lib
+out
 
 *.log
 

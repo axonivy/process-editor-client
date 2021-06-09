@@ -1,0 +1,102 @@
+{
+  "name": "ivy-process-debug",
+	"displayName": "Axon Ivy Process Debug Extension",
+	"description": "VS Code Debug extension for Axon Ivy Processes.",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.56.0"
+	},
+	"categories": [
+		"Debuggers"
+	],
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "await-notify": "1.0.1",
+    "vscode-debugadapter": "^1.46.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.56.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^12.11.7",
+    "eslint": "^7.19.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^4.1.3",
+    "vscode-test": "^1.5.0"
+  },
+  "main": "./out/extension.js",
+	"activationEvents": [
+        "onDebug"
+	],
+	"contributes": {
+		"breakpoints": [
+      {
+        "language": "markdown"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "process",
+        "languages": ["mod"],
+        "label": "Ivy Process Debug",
+        "configurationAttributes": {
+          "attach": {
+
+          },
+          "launch": {
+            "properties": {
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after launch.",
+                "default": true
+              },
+              "serverPort": {
+                "type": "number",
+                "description": "Port of the server to connect to",
+                "default": 4711
+              },
+              "serverHost": {
+                "type": "string",
+                "description": "Host of the server to connect to",
+                "default": "localhost"
+              },
+              "trace": {
+                "type": "boolean",
+                "description": "Enable logging of the Debug Adapter Protocol.",
+                "default": true
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "process",
+            "request": "attach",
+            "name": "Debug Ivy Process"
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "Ivy Process Debug: Attach",
+            "description": "A new configuration for attach a Ivy Process debugger.",
+            "body": {
+              "type": "process",
+              "request": "attach",
+              "name": "Debug Ivy Process"
+            }
+          }
+        ]
+      }
+    ]
+	}
+}
