@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "displayName": "Axon Ivy Process Debug Extension",
   "description": "VS Code Debug extension for Axon Ivy Processes.",
+  "publisher": "axonivy",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "engines": {
     "vscode": "^1.56.0"
@@ -10,6 +11,10 @@
   "categories": [
     "Debuggers"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/glsp-editor-client"
+  },
   "scripts": {
     "prepare": "yarn clean && yarn compile && yarn lint",
     "clean": "rimraf lib",

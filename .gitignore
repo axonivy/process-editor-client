@@ -37,12 +37,13 @@ node_modules/.yarn-integrity
 .browser_modules
 
 lib
-out
 
 *.log
 
 **/browser-app/**
 !**/browser-app/package.json
+
+**/plugins/*.vsix
 
 **/electron-app/**
 !**/electron-app/package.json
