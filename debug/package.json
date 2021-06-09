@@ -11,14 +11,13 @@
     "Debuggers"
   ],
   "scripts": {
-    "prepare": "yarn clean && yarn compile",
+    "prepare": "yarn clean && yarn compile && yarn lint",
     "clean": "rimraf lib",
     "vscode:prepublish": "yarn run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "lint2": "eslint src --ext ts",
+    "lint": "eslint src --ext ts",
     "test": "node ./lib/test/runTest.js"
   },
   "dependencies": {
