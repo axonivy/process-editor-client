@@ -15,16 +15,12 @@
  ********************************************************************************/
 import '../css/diagram.css';
 
-import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
-import {
-    eclipseCopyPasteModule,
-    eclipseDeleteModule,
-    EclipseGLSPDiagramServer,
-    ivyOpenModule,
-    keepAliveModule
-} from '@ivy-glsp/ivy-glsp-ide';
+import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
+import { createIvyDiagramContainer } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
+
+import ivyOpenModule from './open/di.config';
 
 export default function createContainer(widgetId: string): Container {
     const container = createIvyDiagramContainer(widgetId);

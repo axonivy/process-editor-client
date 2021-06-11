@@ -56,9 +56,9 @@ pipeline {
       steps { 
         script {
           docker.image('maven:3.6.3-jdk-11').inside {
-            maven cmd: "clean deploy"
+            maven cmd: "-f integration/eclipse/webview clean deploy"
           }
-          archiveArtifacts 'target/glsp-client-*.zip'
+          archiveArtifacts '**/target/glsp-client-*.zip'
         }
       }
     }

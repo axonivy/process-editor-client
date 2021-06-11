@@ -3,6 +3,7 @@ import '../css/diagram.css';
 import {
     boundsModule,
     buttonModule,
+    configureDefaultModelElements,
     configureModelElement,
     ConsoleLogger,
     defaultGLSPModule,
@@ -12,14 +13,13 @@ import {
     expandModule,
     exportModule,
     fadeModule,
+    GEdgeView,
     glspContextMenuModule,
-    GLSPGraph,
     glspHoverModule,
     glspMouseToolModule,
     glspSelectModule,
     glspServerCopyPasteModule,
-    HtmlRoot,
-    HtmlRootView,
+    glspViewportModule,
     layoutCommandsModule,
     LogLevel,
     markerNavigatorModule,
@@ -27,18 +27,12 @@ import {
     modelSourceModule,
     overrideViewerOptions,
     paletteModule,
-    PreRenderedElement,
-    PreRenderedView,
     routingModule,
-    SGraphView,
     SLabel,
-    SRoutingHandle,
-    SRoutingHandleView,
     toolFeedbackModule,
     toolsModule,
     TYPES,
     validationModule,
-    viewportModule,
     zorderModule
 } from '@eclipse-glsp/client';
 import { Container, ContainerModule } from 'inversify';
@@ -59,7 +53,6 @@ import {
 } from './diagram/model';
 import { IvyGridSnapper } from './diagram/snap';
 import {
-    AssociationEdgeView,
     BoundaryErrorEventNodeView,
     BoundarySignalEventNodeView,
     ErrorEventNodeView,
@@ -83,7 +76,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     bind(TYPES.ISnapper).to(IvyGridSnapper);
     bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
     const context = { bind, unbind, isBound, rebind };
-    configureModelElement(context, 'graph', GLSPGraph, SGraphView);
+
+    configureDefaultModelElements(context);
     configureModelElement(context, 'event:start', StartEventNode, EventNodeView);
     configureModelElement(context, 'event:start:error', StartEventNode, ErrorEventNodeView);
     configureModelElement(context, 'event:start:signal', StartEventNode, SignalEventNodeView);
@@ -96,7 +90,6 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'gateway', GatewayNode, GatewayNodeView);
     configureModelElement(context, 'gateway:task', GatewayNode, TaskGatewayNodeView);
     configureModelElement(context, 'gateway:alternative', GatewayNode, AlternateGatewayNodeView);
-    configureModelElement(context, 'node', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:comment', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:script', TaskNode, TaskNodeView);
     configureModelElement(context, 'node:hd', TaskNode, TaskNodeView);
@@ -111,26 +104,21 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureModelElement(context, 'lanes:pool', LaneNode, PoolNodeView);
     configureModelElement(context, 'lanes:label', RotateLabel, RotateLabelView);
     configureModelElement(context, 'edge', Edge, WorkflowEdgeView);
-    configureModelElement(context, 'edge:association', Edge, AssociationEdgeView);
+    configureModelElement(context, 'edge:association', Edge, GEdgeView);
     configureModelElement(context, 'label', SLabel, ForeignLabelView);
-    configureModelElement(context, 'html', HtmlRoot, HtmlRootView);
-    configureModelElement(context, 'pre-rendered', PreRenderedElement, PreRenderedView);
-    configureModelElement(context, 'routing-point', SRoutingHandle, SRoutingHandleView);
-    configureModelElement(context, 'volatile-routing-point', SRoutingHandle, SRoutingHandleView);
 });
 
 export default function createContainer(widgetId: string): Container {
     const container = new Container();
 
-    container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, viewportModule, toolsModule,
+    container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, glspViewportModule, toolsModule,
         glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule,
         ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
         layoutCommandsModule, ivySmartActionModule, glspContextMenuModule, ivyJumpOutModule, animateModule, markerNavigatorModule);
 
     overrideViewerOptions(container, {
         baseDiv: widgetId,
-        hiddenDiv: widgetId + '_hidden',
-        needsClientLayout: true
+        hiddenDiv: widgetId + '_hidden'
     });
 
     return container;

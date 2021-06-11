@@ -14,30 +14,37 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import { getPort } from '@eclipse-glsp/protocol';
-import { BaseGLSPServerContribution } from '@eclipse-glsp/theia-integration/lib/node';
-import { IConnection } from '@theia/languages/lib/node';
+import { JavaSocketServerContribution, JavaSocketServerLaunchOptions } from '@eclipse-glsp/theia-integration/lib/node';
 import { injectable } from 'inversify';
-import * as net from 'net';
-import { createSocketConnection } from 'vscode-ws-jsonrpc/lib/server';
+import { join } from 'path';
 
 import { IvyProcessLanguage } from '../common/ivy-process-language';
 
+export const DEFAULT_PORT = 5007;
+export const PORT_ARG_KEY = 'IVY_PROCESS_GLSP';
+export const SERVER_DIR = join(__dirname, '..', '..', 'server');
+
 @injectable()
-export class IvyGLSPServerContribution extends BaseGLSPServerContribution {
+export class IvyGLSPServerContribution extends JavaSocketServerContribution {
     readonly id = IvyProcessLanguage.Id;
     readonly name = IvyProcessLanguage.Name;
 
-    start(clientConnection: IConnection): void {
-        const socketPort = getPort('IVY_PROCESS_GLSP');
-        if (!isNaN(socketPort)) {
-            const socket = new net.Socket();
-            const serverConnection = createSocketConnection(socket, socket, () => {
-                socket.destroy();
-            });
-            this.forward(clientConnection, serverConnection);
-            socket.connect(socketPort);
-        } else {
-            console.error('Error when trying to connect to Workflow GLSP server');
+    createLaunchOptions(): Partial<JavaSocketServerLaunchOptions> {
+        return {
+            jarPath: '',
+            additionalArgs: ['--consoleLog', 'false',
+                '--fileLog', 'true',
+                '--logDir', SERVER_DIR],
+            serverPort: getPort(PORT_ARG_KEY, DEFAULT_PORT),
+            launchedExternally: true
+        };
+    }
+
+    async launch(): Promise<void> {
+        if (this.launchOptions.launchedExternally) {
+            this.resolveReady();
+            return this.onReady;
         }
+        return super.launch();
     }
 }

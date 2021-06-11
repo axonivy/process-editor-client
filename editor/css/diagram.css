@@ -137,6 +137,12 @@
   stroke-dasharray: 5, 5;
 }
 
+/* Tools */
+.sprotty-node.marquee {
+  fill: var(--glsp-editor-foreground);
+  opacity: 0.2;
+}
+
 /* General */
 .sprotty-missing {
   stroke-width: 1;

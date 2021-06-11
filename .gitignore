@@ -38,6 +38,8 @@ node_modules/.yarn-integrity
 
 lib
 
+pack
+
 *.log
 
 **/browser-app/**
@@ -49,6 +51,5 @@ lib
 !**/electron-app/package.json
 
 **/ivy-glsp-theia/server/**
-server/diagram
 report.xml
 eslint.xml

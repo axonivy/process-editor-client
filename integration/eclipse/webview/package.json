@@ -1,12 +1,12 @@
 {
   "private": true,
-  "name": "@ivy-glsp/ivy-glsp-eclipse",
+  "name": "@ivyteam/eclipse-integration",
   "version": "0.9.0",
   "description": "GLSP-based webapp for the Ivy GLSP client",
   "dependencies": {
-    "@ivy-glsp/ivy-glsp-client": "0.8.0",
-    "@ivy-glsp/ivy-glsp-ide": "0.9.0",
-    "@eclipse-glsp/client": "0.8.1",
+    "@ivyteam/process-editor": "0.9.0-1",
+    "@eclipse-glsp/ide": "0.9.0",
+    "@eclipse-glsp/client": "next",
     "@eclipse-glsp/protocol": "next"
   },
   "devDependencies": {
