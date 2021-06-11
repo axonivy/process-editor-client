@@ -23,6 +23,7 @@ import {
 import { ContainerModule, interfaces } from 'inversify';
 import { DiagramConfiguration } from 'sprotty-theia';
 
+import { registerBreakpointContextMenu } from './diagram/breakpoint-menu';
 import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
 import { IvyDiagramManager } from './diagram/diagram-manager';
 import { IvyGLSPDiagramClient } from './diagram/glsp-diagram-client';
@@ -43,4 +44,5 @@ export default new ContainerModule((bind: interfaces.Bind) => {
     registerMarkerNavigationCommands(bind);
     registerJumpIntoContextMenu(bind);
     registerWrapToSubContextMenu(bind);
+    registerBreakpointContextMenu(bind);
 });

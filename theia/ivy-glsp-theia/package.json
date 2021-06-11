@@ -15,9 +15,11 @@
   },
   "dependencies": {
     "@ivy-glsp/ivy-glsp-client": "0.8.0",
-    "@eclipse-glsp/theia-integration": "0.8.0"
+    "@eclipse-glsp/theia-integration": "0.8.0",
+    "@theia/debug": "1.4.0"
   },
   "devDependencies": {
+    "@types/vscode": "^1.56.0",
     "rimraf": "^2.6.1",
     "typescript": "3.9.2"
   },

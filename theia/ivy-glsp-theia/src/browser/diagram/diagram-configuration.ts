@@ -33,11 +33,13 @@ import {
 import { TheiaNavigateToTargetHandler } from '@eclipse-glsp/theia-integration/lib/browser/theia-navigate-to-target-handler';
 import { createIvyDiagramContainer } from '@ivy-glsp/ivy-glsp-client';
 import { SelectionService } from '@theia/core';
+import creatBreakpointContainer from '@theia/debug/lib/browser/debug-frontend-module';
 import { Container, inject, injectable } from 'inversify';
 import { DiagramConfiguration, TheiaSprottySelectionForwarder } from 'sprotty-theia';
 import { TheiaContextMenuService } from 'sprotty-theia/lib/sprotty/theia-sprotty-context-menu-service';
 
 import { IvyProcessLanguage as IvyProcessLanguage } from '../../common/ivy-process-language';
+import breakpointModule from '../breakpoint/di.config';
 
 @injectable()
 export class IvyDiagramConfiguration implements DiagramConfiguration {
@@ -61,6 +63,7 @@ export class IvyDiagramConfiguration implements DiagramConfiguration {
         // container.rebind(CommandPalette).to(TheiaCommandPalette);
         connectTheiaContextMenuService(container, this.contextMenuServiceFactory);
         connectTheiaMarkerManager(container, this.theiaMarkerManager, this.diagramType);
+        container.load(creatBreakpointContainer, breakpointModule);
         return container;
     }
 }
