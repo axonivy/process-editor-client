@@ -13,7 +13,8 @@
         "--port=3000",
         "--no-cluster",
         "--IVY_PROCESS_GLSP=5007",
-        "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
+        "--app-project-path=${workspaceRoot}/integration/theia/browser-app",
+        "--plugins=local-dir:./integration/theia/plugins",
       ],
       "env": {
         "NODE_ENV": "development"
