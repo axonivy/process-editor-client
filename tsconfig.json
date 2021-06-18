@@ -18,8 +18,9 @@
     }
   },
   "include": [
-    "editor/*/src",
-    "ivy-glsp-theia/*/src"
+    "editor/src",
+    "integration/eclipse/*/src",
+    "integration/theia/*/src"
   ],
   "exclude": [
     "node_modules",

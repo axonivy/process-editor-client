@@ -1,9 +1,9 @@
 import {
     angleOfPoint,
     CircularNodeView,
+    GEdgeView,
     IView,
     Point,
-    PolylineEdgeView,
     RectangularNodeView,
     RenderingContext,
     SEdge,
@@ -193,21 +193,15 @@ export class RotateLabelView extends SLabelView {
 }
 
 @injectable()
-export class WorkflowEdgeView extends PolylineEdgeView {
+export class WorkflowEdgeView extends GEdgeView {
     protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
+        const additionals = super.renderAdditionals(edge, segments, context);
         const p1 = segments[segments.length - 2];
         const p2 = segments[segments.length - 1];
-        return [
-            <path class-sprotty-edge={true} class-arrow={true} d="M 1.5,0 L 10,-4 L 10,4 Z"
-                transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />
-        ];
-    }
-}
-
-@injectable()
-export class AssociationEdgeView extends WorkflowEdgeView {
-    protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
-        return [];
+        const arrow = <path class-sprotty-edge={true} class-arrow={true} d='M 1.5,0 L 10,-4 L 10,4 Z'
+            transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`} />;
+        additionals.push(arrow);
+        return additionals;
     }
 }
 

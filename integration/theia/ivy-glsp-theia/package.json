@@ -1,6 +1,6 @@
 {
-  "name": "@ivy-glsp/ivy-glsp-theia",
-  "version": "0.8.0",
+  "name": "@ivyteam/theia-integration",
+  "version": "0.9.0",
   "keywords": [
     "theia-extension"
   ],
@@ -14,18 +14,19 @@
     "name": "Eclipse GLSP"
   },
   "dependencies": {
-    "@ivy-glsp/ivy-glsp-client": "0.8.0",
-    "@eclipse-glsp/theia-integration": "0.8.0"
+    "@ivyteam/process-editor": "0.9.0-1",
+    "@eclipse-glsp/theia-integration": "next"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",
+    "ts-node": "9.0.0",
     "typescript": "3.9.2"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn run build",
+    "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
-    "build": "tsc && yarn run lint",
-    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
+    "build": "tsc",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w"
   },
   "theiaExtensions": [

@@ -29,8 +29,8 @@ import { IvyGLSPDiagramClient } from './glsp-diagram-client';
 
 @injectable()
 export class IvyDiagramManager extends GLSPDiagramManager {
-    iconClass = 'fa fa-project';
     readonly diagramType = IvyProcessLanguage.DiagramType;
+    readonly iconClass = 'fa fa-project-diagram';
     readonly label = IvyProcessLanguage.Label + ' Editor';
 
     private _diagramConnector: GLSPTheiaSprottyConnector;

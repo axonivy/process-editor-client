@@ -1,5 +1,5 @@
 import { GLSPCommandHandler, TheiaSprottyContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
-import { WrapToSubOperation } from '@ivy-glsp/ivy-glsp-client';
+import { WrapToSubOperation } from '@ivyteam/process-editor';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
 import { inject, injectable, interfaces } from 'inversify';
