@@ -1,3 +1,4 @@
+import '../css/diagram.css';
 import '@eclipse-glsp/vscode-integration-webview/css/glsp-vscode.css';
 import 'reflect-metadata';
 

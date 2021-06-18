@@ -1,0 +1,7 @@
+body {
+  --glsp-editor-background: var(--vscode-editor-background);
+  --glsp-editor-foreground: var(--vscode-editor-foreground);
+  --glsp-editor-mouseover: var(--vscode-editorWidget-foreground);
+  --glsp-editor-selected: var(--vscode-menu-selectionBackground);
+  --glsp-foreground: var(--vscode-foreground);
+}
