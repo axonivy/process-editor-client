@@ -16,7 +16,7 @@ pipeline {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             docker.build('node').inside {
               sh 'yarn build'
-              archiveArtifacts 'server/diagram/*'
+              archiveArtifacts 'integration/eclipse/webview/app/*'
             }
           }
         }
