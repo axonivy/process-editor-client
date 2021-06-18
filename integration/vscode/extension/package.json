@@ -1,39 +1,136 @@
 {
   "name": "@ivyteam/vscode-integration",
   "version": "0.9.0",
-  "description": "An example graphical language used for modeling workflows",
-  "displayName": "Workflow GLSP Example",
-  "publisher": "Eclipse GLSP",
-  "homepage": "https://www.eclipse.org/glsp/",
-  "bugs": "https://github.com/eclipse-glsp/glsp/issues",
+  "description": "An VSCode extension to model Axon Ivy Processes and debug them",
+  "displayName": "Axon Ivy Process Editor (VSCode Extension)",
+  "publisher": "ivyTeam",
+  "homepage": "https://developer.axonivy.com/",
   "author": {
-    "name": "Eclipse GLSP"
+    "name": "Axon Ivy"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/eclipse-glsp/glsp-vscode-integration.git"
+    "url": "https://github.com/axonivy/glsp-editor-client"
   },
-  "contributors": [
-    {
-      "name": "Tobias Ortmayr",
-      "email": "tortmayr@eclipsesource.com",
-      "url": "https://www.eclipsesource.com"
-    }
-  ],
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Debuggers"
   ],
   "engines": {
     "vscode": "^1.54.0"
   },
+  "activationEvents": [
+    "*"
+  ],
+  "files": [
+    "lib",
+    "extension",
+    "server",
+    "webview"
+  ],
+  "main": "./lib/extension.js",
+  "dependencies": {
+    "await-notify": "1.0.1",
+    "vscode-debugadapter": "^1.46.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.54.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^8.0.0",
+    "path": "^0.12.7",
+    "rimraf": "^2.6.3",
+    "@eclipse-glsp/vscode-integration": "0.9.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^9.1.1",
+    "@ivyteam/vscode-integration-webview": "0.9.0",
+    "glob": "^7.1.6",
+    "mocha": "^8.2.1",
+    "typescript": "^3.1.3"
+  },
+  "scripts": {
+    "prepare": "yarn clean && yarn build && yarn lint",
+    "clean": "rimraf extension/lib extension/pack extension/server",
+    "watch": "tsc -w",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
+    "build": "tsc",
+    "publish": "vsce publish"
+  },
   "contributes": {
     "customEditors": [
       {
-        "viewType": "workflow.glspDiagram",
-        "displayName": "Workflow Diagram Editor",
+        "viewType": "ivy.glspDiagram",
+        "displayName": "Axon Ivy Process Editor",
         "selector": [
           {
             "filenamePattern": "*.mod"
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "id": "ivy-process",
+        "extensions": [
+          ".mod"
+        ]
+      }
+    ],
+    "breakpoints": [
+      {
+        "language": "ivy-process"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "process",
+        "languages": [
+          "ivy-process"
+        ],
+        "label": "Ivy Process Debug",
+        "configurationAttributes": {
+          "attach": {},
+          "launch": {
+            "properties": {
+              "stopOnEntry": {
+                "type": "boolean",
+                "description": "Automatically stop after launch.",
+                "default": true
+              },
+              "serverPort": {
+                "type": "number",
+                "description": "Port of the server to connect to",
+                "default": 4711
+              },
+              "serverHost": {
+                "type": "string",
+                "description": "Host of the server to connect to",
+                "default": "localhost"
+              },
+              "trace": {
+                "type": "boolean",
+                "description": "Enable logging of the Debug Adapter Protocol.",
+                "default": true
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "process",
+            "request": "attach",
+            "name": "Debug Ivy Process"
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "Ivy Process Debug: Attach",
+            "description": "A new configuration for attach a Ivy Process debugger.",
+            "body": {
+              "type": "process",
+              "request": "attach",
+              "name": "Debug Ivy Process"
+            }
           }
         ]
       }
@@ -78,34 +175,5 @@
         "when": "glsp-workflow-diagram-focused"
       }
     ]
-  },
-  "activationEvents": [
-    "*"
-  ],
-  "files": [
-    "lib",
-    "extension",
-    "server",
-    "webview"
-  ],
-  "main": "./lib/workflow-extension",
-  "devDependencies": {
-    "@types/vscode": "^1.54.0",
-    "@types/node": "^8.0.0",
-    "path": "^0.12.7",
-    "rimraf": "^2.6.3",
-    "@eclipse-glsp/vscode-integration": "0.9.0",
-    "ts-loader": "^6.2.1",
-    "ts-node": "^9.1.1",
-    "@ivyteam/vscode-integration-webview": "0.9.0",
-    "typescript": "^3.1.3"
-  },
-  "scripts": {
-    "prepare": "yarn clean && yarn build && yarn lint",
-    "clean": "rimraf extension/lib extension/pack extension/server",
-    "watch": "tsc -w",
-    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "build": "tsc",
-    "publish": "vsce publish"
   }
 }
