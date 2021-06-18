@@ -20,7 +20,8 @@ const config = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['ts-loader']
+                use: ['ts-loader'],
+                exclude: /node_modules/
             },
             {
                 test: /\.js$/,
