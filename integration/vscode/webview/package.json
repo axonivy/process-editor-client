@@ -48,6 +48,6 @@
     "clean": "rimraf lib pack",
     "build": "tsc && webpack --mode=development",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "watch": "tsc -w"
+    "watch": "webpack --watch"
   }
 }
