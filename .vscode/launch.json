@@ -32,7 +32,7 @@
         "--no-cluster",
         "--IVY_PROCESS_GLSP=5007",
         "--app-project-path=${workspaceRoot}/integration/theia/browser-app",
-        "--plugins=local-dir:./integration/theia/plugins",
+        "--plugins=local-dir:./integration/theia/plugins"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -53,14 +53,24 @@
       "type": "firefox",
       "request": "launch",
       "url": "http://localhost:3000/",
-      "webRoot": "${workspaceRoot}/browser-app"
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "webpack://ivyteam/ivy-glsp-theia",
+          "path": "${workspaceFolder}/integration/theia/ivy-glsp-theia"
+        },
+        {
+          "url": "webpack://ivyteam/editor",
+          "path": "${workspaceFolder}/editor"
+        }
+      ]
     },
     {
       "name": "Launch Browser (Chrome) Frontend",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000/",
-      "webRoot": "${workspaceRoot}/browser-app"
+      "webRoot": "${workspaceFolder}"
     },
     {
       "type": "node",
@@ -88,7 +98,7 @@
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
       "outputCapture": "std"
-    },
+    }
   ],
   "compounds": [
     {
