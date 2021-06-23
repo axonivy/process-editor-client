@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "VSCode Extension",
+      "name": "Start VSCode Extension",
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
@@ -20,19 +20,24 @@
       "env": {
         "GLSP_SERVER_DEBUG": "true",
         "GLSP_SERVER_PORT": "5007"
-      }
+      },
+      "presentation": {
+        "group": "VSCode Extension",
+        "order": 2
+      },
+      "preLaunchTask": "Watch VSCode Integration",
+      "postDebugTask": "Terminate All Tasks"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Start Browser Backend",
+      "name": "Start Theia Backend",
       "program": "${workspaceRoot}/integration/theia/browser-app/src-gen/backend/main.js",
       "args": [
         "--port=3000",
         "--no-cluster",
         "--IVY_PROCESS_GLSP=5007",
-        "--app-project-path=${workspaceRoot}/integration/theia/browser-app",
-        "--plugins=local-dir:./integration/theia/plugins"
+        "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -46,38 +51,19 @@
       ],
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
-      "outputCapture": "std"
-    },
-    {
-      "name": "Launch Browser (Firefox) Frontend",
-      "type": "firefox",
-      "request": "launch",
-      "url": "http://localhost:3000/",
-      "webRoot": "${workspaceFolder}",
-      "pathMappings": [
-        {
-          "url": "webpack://ivyteam/ivy-glsp-theia",
-          "path": "${workspaceFolder}/integration/theia/ivy-glsp-theia"
-        },
-        {
-          "url": "webpack://ivyteam/editor",
-          "path": "${workspaceFolder}/editor"
-        }
-      ]
-    },
-    {
-      "name": "Launch Browser (Chrome) Frontend",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000/",
-      "webRoot": "${workspaceFolder}"
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Theia",
+        "order": 1
+      }
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Browser Backend",
+      "name": "Debug Theia Backend",
       "program": "${workspaceRoot}/integration/theia/browser-app/src-gen/backend/main.js",
       "args": [
+        "--hostname=0.0.0.0",
         "--loglevel=debug",
         "--port=3000",
         "--no-cluster",
@@ -97,16 +83,105 @@
       ],
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
-      "outputCapture": "std"
+      "outputCapture": "std",
+      "presentation": {
+        "group": "Theia",
+        "order": 1
+      }
+    },
+    {
+      "name": "Launch Theia (Firefox) Frontend",
+      "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:3000/",
+      "webRoot": "${workspaceFolder}",
+      "pathMappings": [
+        {
+          "url": "webpack://ivyteam/ivy-glsp-theia",
+          "path": "${workspaceFolder}/integration/theia/ivy-glsp-theia"
+        },
+        {
+          "url": "webpack://ivyteam/editor",
+          "path": "${workspaceFolder}/editor"
+        }
+      ],
+      "presentation": {
+        "group": "Theia",
+        "order": 1
+      },
+      "preLaunchTask": "Watch Editor",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "name": "Launch Theia (Chrome) Frontend",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/",
+      "webRoot": "${workspaceFolder}",
+      "presentation": {
+        "group": "Theia",
+        "order": 1
+      },
+      "preLaunchTask": "Watch Editor",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Current Test",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "args": [
+        "--config",
+        "${workspaceFolder}/configs/.mocharc.json",
+        "${file}"
+      ],
+      "presentation": {
+        "group": "Tests",
+        "order": 3
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run All Tests",
+      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "args": [
+        "--config",
+        "${workspaceFolder}/configs/.mocharc.json",
+        "\"${workspaceFolder}/editor/src/**/*.spec.?(ts|tsx)\""
+      ],
+      "presentation": {
+        "group": "Tests",
+        "order": 3
+      }
     }
   ],
   "compounds": [
     {
-      "name": "Backend + Chrome Frontend",
+      "name": "Theia Backend + Chrome Frontend",
       "configurations": [
-        "Start Browser Backend",
-        "Launch Browser (Chrome) Frontend"
-      ]
+        "Start Theia Backend",
+        "Launch Theia (Chrome) Frontend"
+      ],
+      "presentation": {
+        "group": "Theia",
+        "order": 0
+      }
+    },
+    {
+      "name": "Theia Backend + Firefox Frontend",
+      "configurations": [
+        "Start Theia Backend",
+        "Launch Theia (Firefox) Frontend"
+      ],
+      "presentation": {
+        "group": "Theia",
+        "order": 0
+      }
     }
   ]
 }

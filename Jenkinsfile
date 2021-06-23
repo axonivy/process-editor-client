@@ -17,6 +17,10 @@ pipeline {
             docker.build('node').inside {
               sh 'configs/switch-to-mirror-repo.sh'
               sh 'yarn build'
+              sh 'configs/link-vscode-integration.sh'
+              dir ('integration/vscode') {
+                sh 'yarn build'
+              }
               archiveArtifacts 'integration/eclipse/webview/app/*'
             }
           }
@@ -31,6 +35,9 @@ pipeline {
             docker.build('node').inside {
               timeout(30){
                 sh "yarn lint -o eslint.xml -f checkstyle"
+                dir ('integration/vscode') {
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                }
               }
             }
           }

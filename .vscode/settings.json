@@ -31,5 +31,5 @@
     "typescript"
   ],
   "mochaExplorer.configFile": "configs/.mocharc.json",
-  "mochaExplorer.files": "ivy-glsp-client/src/**/*.spec.?(ts|tsx)"
+  "mochaExplorer.files": "editor/src/**/*.spec.?(ts|tsx)"
 }
