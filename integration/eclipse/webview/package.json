@@ -4,10 +4,10 @@
   "version": "0.9.0",
   "description": "GLSP-based webapp for the Ivy GLSP client",
   "dependencies": {
-    "@ivyteam/process-editor": "0.9.0-1",
-    "@eclipse-glsp/ide": "0.9.0",
     "@eclipse-glsp/client": "next",
-    "@eclipse-glsp/protocol": "next"
+    "@eclipse-glsp/ide": "0.9.0",
+    "@eclipse-glsp/protocol": "next",
+    "@ivyteam/process-editor": "0.9.0-1"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^2.0.0",
