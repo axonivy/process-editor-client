@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@ivyteam/vscode-integration",
   "version": "0.9.0",
   "description": "An VSCode extension to model Axon Ivy Processes and debug them",

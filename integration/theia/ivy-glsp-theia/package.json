@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@ivyteam/theia-integration",
   "version": "0.9.0",
   "keywords": [
@@ -14,8 +15,8 @@
     "name": "Eclipse GLSP"
   },
   "dependencies": {
-    "@ivyteam/process-editor": "0.9.0-1",
-    "@eclipse-glsp/theia-integration": "next"
+    "@eclipse-glsp/theia-integration": "next",
+    "@ivyteam/process-editor": "0.9.0-1"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",

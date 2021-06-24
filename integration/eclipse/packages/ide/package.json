@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@eclipse-glsp/ide",
   "version": "0.9.0",
   "description": "Glue code to integrate GLSP clients into Eclipse via a webapp",
