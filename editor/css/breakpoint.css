@@ -1,0 +1,6 @@
+.ivy-breakpoint-handle {
+  fill: red;
+}
+.ivy-breakpoint-handle.mouseover {
+  fill: rgba(255, 0, 0, 0.5);
+}

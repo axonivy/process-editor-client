@@ -31,7 +31,8 @@
     "ignore-styles": "^5.0.1"
   },
   "resolutions": {
-    "**/sprotty": "0.10.0-next.0e06051"
+    "**/sprotty": "0.10.0-next.0e06051",
+    "inversify": "5.0.1"
   },
   "eslintConfig": {
     "root": true

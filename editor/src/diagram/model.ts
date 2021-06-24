@@ -34,6 +34,7 @@ import {
 } from '@eclipse-glsp/client';
 
 import { Animateable, animateFeature } from '../animate/model';
+import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
 
@@ -43,7 +44,7 @@ export class LaneNode extends RectangularNode {
 
 export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
-        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
 
     name = '';
     duration?: number;
@@ -91,7 +92,7 @@ export class SubTaskNode extends TaskNode {
 
 export class EventNode extends CircularNode implements Animateable {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
 
     animated = false;
 }
@@ -110,7 +111,7 @@ export class StartEventNode extends EventNode {
 
 export class GatewayNode extends DiamondNode implements Animateable {
     static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature];
+        moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
 
     animated = false;
     size = {
