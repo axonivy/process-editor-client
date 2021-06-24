@@ -15,6 +15,7 @@ pipeline {
         script {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             docker.build('node').inside {
+              sh 'configs/switch-to-mirror-repo.sh'
               sh 'yarn build'
               archiveArtifacts 'integration/eclipse/webview/app/*'
             }
