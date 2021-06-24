@@ -14,36 +14,36 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
-    Action,
-    DeleteElementOperation,
-    EditorContextService,
-    IActionDispatcher,
-    IActionHandler,
-    TYPES
+  Action,
+  DeleteElementOperation,
+  EditorContextService,
+  IActionDispatcher,
+  IActionHandler,
+  TYPES
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 export class InvokeDeleteAction implements Action {
-    static KIND = 'invoke-delete';
-    readonly kind = InvokeDeleteAction.KIND;
+  static KIND = 'invoke-delete';
+  readonly kind = InvokeDeleteAction.KIND;
 }
 
 export function isInvokeDeleteAction(action: Action): action is InvokeDeleteAction {
-    return action.kind === InvokeDeleteAction.KIND;
+  return action.kind === InvokeDeleteAction.KIND;
 }
 
 @injectable()
 export class InvokeDeleteActionHandler implements IActionHandler {
-    @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
-    @inject(EditorContextService) protected editorContext: EditorContextService;
+  @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
+  @inject(EditorContextService) protected editorContext: EditorContextService;
 
-    handle(action: Action): void {
-        if (isInvokeDeleteAction(action)) {
-            this.handleDelete();
-        }
+  handle(action: Action): void {
+    if (isInvokeDeleteAction(action)) {
+      this.handleDelete();
     }
+  }
 
-    handleDelete(): void {
-        this.actionDispatcher.dispatch(new DeleteElementOperation(this.editorContext.get().selectedElementIds));
-    }
+  handleDelete(): void {
+    this.actionDispatcher.dispatch(new DeleteElementOperation(this.editorContext.get().selectedElementIds));
+  }
 }

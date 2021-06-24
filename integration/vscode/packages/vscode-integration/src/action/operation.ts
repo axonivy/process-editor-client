@@ -18,31 +18,31 @@ import { Action } from 'sprotty-vscode-protocol';
 export type Operation = Action;
 
 export class UndoOperation implements Operation {
-    static readonly KIND = 'glspUndo';
-    constructor(public readonly kind = UndoOperation.KIND) { }
+  static readonly KIND = 'glspUndo';
+  constructor(public readonly kind = UndoOperation.KIND) { }
 }
 
 export class RedoOperation implements Operation {
-    static readonly KIND = 'glspRedo';
-    constructor(public readonly kind = RedoOperation.KIND) { }
+  static readonly KIND = 'glspRedo';
+  constructor(public readonly kind = RedoOperation.KIND) { }
 }
 
 export class DeleteElementOperation implements Operation {
-    static readonly KIND = 'deleteElement';
-    constructor(readonly elementIds: string[], public readonly kind: string = DeleteElementOperation.KIND) { }
+  static readonly KIND = 'deleteElement';
+  constructor(readonly elementIds: string[], public readonly kind: string = DeleteElementOperation.KIND) { }
 
-    static is(action?: Action): action is DeleteElementOperation {
-        return action !== undefined && action.kind === DeleteElementOperation.KIND && 'elementIds' in action;
-    }
+  static is(action?: Action): action is DeleteElementOperation {
+    return action !== undefined && action.kind === DeleteElementOperation.KIND && 'elementIds' in action;
+  }
 }
 
 export class LayoutOperation implements Operation {
-    static readonly KIND = 'layout';
-    constructor(readonly elementIds: string[] = [], readonly kind = LayoutOperation.KIND) {
-    }
+  static readonly KIND = 'layout';
+  constructor(readonly elementIds: string[] = [], readonly kind = LayoutOperation.KIND) {
+  }
 
-    static is(action?: Action): action is LayoutOperation {
-        return action !== undefined && action.kind === LayoutOperation.KIND
-            && 'elementIds' in action;
-    }
+  static is(action?: Action): action is LayoutOperation {
+    return action !== undefined && action.kind === LayoutOperation.KIND
+      && 'elementIds' in action;
+  }
 }

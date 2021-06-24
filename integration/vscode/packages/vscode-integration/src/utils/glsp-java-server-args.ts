@@ -15,18 +15,18 @@
  ********************************************************************************/
 
 export namespace GLSPJavaServerArgs {
-    /**
-     * Utility function to create the additional launch args for a GLSP Java Server
-     * to enable file logging.
-     * @param logDir Path to the directy where the log files should be stored
-     * @param disableConsolelogging Flag to indicate wether default console logging should be disabled
-     */
-    export function enableFileLogging(logDir: string, disableConsolelogging = true): string[] {
-        const additionalArgs = ['--fileLog', 'true', '--logDir', logDir];
-        if (disableConsolelogging) {
-            additionalArgs.push('--consoleLog');
-            additionalArgs.push('false');
-        }
-        return additionalArgs;
+  /**
+   * Utility function to create the additional launch args for a GLSP Java Server
+   * to enable file logging.
+   * @param logDir Path to the directy where the log files should be stored
+   * @param disableConsolelogging Flag to indicate wether default console logging should be disabled
+   */
+  export function enableFileLogging(logDir: string, disableConsolelogging = true): string[] {
+    const additionalArgs = ['--fileLog', 'true', '--logDir', logDir];
+    if (disableConsolelogging) {
+      additionalArgs.push('--consoleLog');
+      additionalArgs.push('false');
     }
+    return additionalArgs;
+  }
 }

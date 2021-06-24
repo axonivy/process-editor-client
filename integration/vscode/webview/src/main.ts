@@ -10,15 +10,15 @@ import { Container } from 'inversify';
 import { SprottyDiagramIdentifier } from 'sprotty-vscode-webview';
 
 export class IvyGLSPStarter extends GLSPStarter {
-    createContainer(diagramIdentifier: SprottyDiagramIdentifier): Container {
-        const container = createIvyDiagramContainer(diagramIdentifier.clientId);
-        container.load(breakpointModule);
-        return container;
-    }
+  createContainer(diagramIdentifier: SprottyDiagramIdentifier): Container {
+    const container = createIvyDiagramContainer(diagramIdentifier.clientId);
+    container.load(breakpointModule);
+    return container;
+  }
 
-    protected get extensionActionKinds(): string[] {
-        return [NavigateToExternalTargetAction.KIND, BreakpointAction.KIND];
-    }
+  protected get extensionActionKinds(): string[] {
+    return [NavigateToExternalTargetAction.KIND, BreakpointAction.KIND];
+  }
 }
 
 new IvyGLSPStarter();

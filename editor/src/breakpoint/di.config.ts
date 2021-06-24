@@ -11,11 +11,11 @@ import { ShowBreakpointAction, ShowBreakpointActionHandler } from './show-breakp
 import { SBreakpointHandleView } from './view';
 
 const breakpointModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(TYPES.MouseListener).to(BreakpointListener);
-    bind(ShowBreakpointActionHandler).toSelf().inSingletonScope();
-    configureActionHandler({ bind, isBound }, ShowBreakpointAction.KIND, ShowBreakpointActionHandler);
-    configureCommand({ bind, isBound }, BreakpointFeedbackCommand);
-    configureView({ bind, isBound }, SBreakpointHandle.TYPE, SBreakpointHandleView);
+  bind(TYPES.MouseListener).to(BreakpointListener);
+  bind(ShowBreakpointActionHandler).toSelf().inSingletonScope();
+  configureActionHandler({ bind, isBound }, ShowBreakpointAction.KIND, ShowBreakpointActionHandler);
+  configureCommand({ bind, isBound }, BreakpointFeedbackCommand);
+  configureView({ bind, isBound }, SBreakpointHandle.TYPE, SBreakpointHandleView);
 });
 
 export default breakpointModule;

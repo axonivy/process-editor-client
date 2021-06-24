@@ -17,23 +17,23 @@ import { Action, IActionHandler, ILogger, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 export class KeepAliveAction implements Action {
-    static KIND = 'keepAlive';
-    readonly kind = KeepAliveAction.KIND;
+  static KIND = 'keepAlive';
+  readonly kind = KeepAliveAction.KIND;
 }
 
 export function isKeepAliveAction(action: Action): action is KeepAliveAction {
-    return action.kind === KeepAliveAction.KIND;
+  return action.kind === KeepAliveAction.KIND;
 }
 
 @injectable()
 export class KeepAliveActionHandler implements IActionHandler {
 
-    @inject(TYPES.ILogger) protected logger: ILogger;
+  @inject(TYPES.ILogger) protected logger: ILogger;
 
-    handle(action: Action): void {
-        if (isKeepAliveAction(action)) {
-            /* no op */
-            this.logger.info(this, 'Keep Alive Action received');
-        }
+  handle(action: Action): void {
+    if (isKeepAliveAction(action)) {
+      /* no op */
+      this.logger.info(this, 'Keep Alive Action received');
     }
+  }
 }

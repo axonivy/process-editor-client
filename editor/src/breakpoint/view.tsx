@@ -10,17 +10,17 @@ const JSX = { createElement: snabbdom.svg };
 
 @injectable()
 export class SBreakpointHandleView implements IView {
-    render(handle: SBreakpointHandle, context: RenderingContext): VNode {
-        if (isBoundsAware(handle.parent)) {
-            return <g>
-                <circle class-ivy-breakpoint-handle={true} class-mouseover={handle.hoverFeedback}
-                    cx={this.getRadius() * -1} cy={0} r={this.getRadius()}></circle>
-            </g>;
-        }
-        return <g />;
+  render(handle: SBreakpointHandle, context: RenderingContext): VNode {
+    if (isBoundsAware(handle.parent)) {
+      return <g>
+        <circle class-ivy-breakpoint-handle={true} class-mouseover={handle.hoverFeedback}
+          cx={this.getRadius() * -1} cy={0} r={this.getRadius()}></circle>
+      </g>;
     }
+    return <g />;
+  }
 
-    getRadius(): number {
-        return 7;
-    }
+  getRadius(): number {
+    return 7;
+  }
 }

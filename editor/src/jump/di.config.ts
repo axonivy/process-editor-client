@@ -9,10 +9,10 @@ import { SJumpOutHandle } from './model';
 import { SJumpOutHandleView } from './view';
 
 const ivyJumpOutModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(GLSP_TYPES.IDefaultTool).to(JumpOutTool);
-    configureCommand({ bind, isBound }, ShowJumpOutToolFeedbackCommand);
-    configureCommand({ bind, isBound }, HideJumpOutToolFeedbackCommand);
-    configureView({ bind, isBound }, SJumpOutHandle.TYPE, SJumpOutHandleView);
+  bind(GLSP_TYPES.IDefaultTool).to(JumpOutTool);
+  configureCommand({ bind, isBound }, ShowJumpOutToolFeedbackCommand);
+  configureCommand({ bind, isBound }, HideJumpOutToolFeedbackCommand);
+  configureView({ bind, isBound }, SJumpOutHandle.TYPE, SJumpOutHandleView);
 });
 
 export default ivyJumpOutModule;

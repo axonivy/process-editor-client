@@ -16,11 +16,11 @@
 import { DiagramServer, NavigateToExternalTargetAction, TYPES } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import {
-    SprottyDiagramIdentifier,
-    SprottyStarter,
-    VscodeDiagramServer,
-    VscodeDiagramWidget,
-    VscodeDiagramWidgetFactory
+  SprottyDiagramIdentifier,
+  SprottyStarter,
+  VscodeDiagramServer,
+  VscodeDiagramWidget,
+  VscodeDiagramWidgetFactory
 } from 'sprotty-vscode-webview';
 
 import { GLSPVscodeExtensionActionHandler } from './extension-action-handler';
@@ -28,30 +28,30 @@ import { GLSPVscodeDiagramWidget } from './glsp-vscode-diagram-widget';
 import { GLSPVscodeDiagramServer } from './glsp-vscode-diagramserver';
 
 export abstract class GLSPStarter extends SprottyStarter {
-    protected addVscodeBindings(container: Container, diagramIdentifier: SprottyDiagramIdentifier): void {
-        container.bind(GLSPVscodeDiagramWidget).toSelf().inSingletonScope();
-        container.bind(VscodeDiagramWidget).toService(GLSPVscodeDiagramWidget);
-        container.bind(VscodeDiagramWidgetFactory).toFactory(
-            context => () => context.container.get<GLSPVscodeDiagramWidget>(GLSPVscodeDiagramWidget));
-        container.bind(SprottyDiagramIdentifier).toConstantValue(diagramIdentifier);
-        container.bind(GLSPVscodeDiagramServer).toSelf().inSingletonScope();
-        container.bind(VscodeDiagramServer).toService(GLSPVscodeDiagramServer);
-        container.bind(TYPES.ModelSource).toService(GLSPVscodeDiagramServer);
-        container.bind(DiagramServer).toService(GLSPVscodeDiagramServer);
+  protected addVscodeBindings(container: Container, diagramIdentifier: SprottyDiagramIdentifier): void {
+    container.bind(GLSPVscodeDiagramWidget).toSelf().inSingletonScope();
+    container.bind(VscodeDiagramWidget).toService(GLSPVscodeDiagramWidget);
+    container.bind(VscodeDiagramWidgetFactory).toFactory(
+      context => () => context.container.get<GLSPVscodeDiagramWidget>(GLSPVscodeDiagramWidget));
+    container.bind(SprottyDiagramIdentifier).toConstantValue(diagramIdentifier);
+    container.bind(GLSPVscodeDiagramServer).toSelf().inSingletonScope();
+    container.bind(VscodeDiagramServer).toService(GLSPVscodeDiagramServer);
+    container.bind(TYPES.ModelSource).toService(GLSPVscodeDiagramServer);
+    container.bind(DiagramServer).toService(GLSPVscodeDiagramServer);
 
-        this.configureExtensionActionHandler(container, diagramIdentifier);
-    }
+    this.configureExtensionActionHandler(container, diagramIdentifier);
+  }
 
-    protected configureExtensionActionHandler(container: Container, diagramIdentifier: SprottyDiagramIdentifier): void {
-        const extensionActionHandler = new GLSPVscodeExtensionActionHandler(this.extensionActionKinds, diagramIdentifier);
-        container.bind(GLSPVscodeExtensionActionHandler).toConstantValue(extensionActionHandler);
-        container.bind(TYPES.IActionHandlerInitializer).toService(GLSPVscodeExtensionActionHandler);
-    }
+  protected configureExtensionActionHandler(container: Container, diagramIdentifier: SprottyDiagramIdentifier): void {
+    const extensionActionHandler = new GLSPVscodeExtensionActionHandler(this.extensionActionKinds, diagramIdentifier);
+    container.bind(GLSPVscodeExtensionActionHandler).toConstantValue(extensionActionHandler);
+    container.bind(TYPES.IActionHandlerInitializer).toService(GLSPVscodeExtensionActionHandler);
+  }
 
-    /**
-     *  All kinds of actions that should (also) be delegated to and handled by the vscode extension
-     */
-    protected get extensionActionKinds(): string[] {
-        return [NavigateToExternalTargetAction.KIND];
-    }
+  /**
+   *  All kinds of actions that should (also) be delegated to and handled by the vscode extension
+   */
+  protected get extensionActionKinds(): string[] {
+    return [NavigateToExternalTargetAction.KIND];
+  }
 }

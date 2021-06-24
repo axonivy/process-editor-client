@@ -1,12 +1,7 @@
-#Link Editor
+# Axon Ivy Process Editor - VS Code integration
 
--   run yarn on root location
--   run yarn link in editor dir
--   run yarn link in node_modules/inversify
--   run yarn link in node_modules/sprotty
--   go to intergration/vscode repo
--   run yarn
--   run yarn link @ivyteam/process-editor
--   run yarn link inversify
--   run yarn link sprotty
--   run yarn
+This package contains the VS Code integration for the Axon Ivy (GLSP-based) process editor.
+
+## More information
+
+For more information about how to build and run this integration checkout the repository [README.md](../../README.md)

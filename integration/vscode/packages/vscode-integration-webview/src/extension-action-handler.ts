@@ -24,22 +24,22 @@ import { vscodeApi } from 'sprotty-vscode-webview/lib/vscode-api';
  */
 export class GLSPVscodeExtensionActionHandler implements IActionHandler, IActionHandlerInitializer {
 
-    constructor(protected readonly actionKinds: string[],
-        protected readonly diagramIdentifier: SprottyDiagramIdentifier) {
-    }
+  constructor(protected readonly actionKinds: string[],
+    protected readonly diagramIdentifier: SprottyDiagramIdentifier) {
+  }
 
-    initialize(registry: ActionHandlerRegistry): void {
-        this.actionKinds.forEach(kind => registry.register(kind, this));
-    }
+  initialize(registry: ActionHandlerRegistry): void {
+    this.actionKinds.forEach(kind => registry.register(kind, this));
+  }
 
-    handle(action: Action): void | Action | ICommand {
-        if (this.actionKinds.includes(action.kind)) {
-            const message = {
-                clientId: this.diagramIdentifier.clientId,
-                action,
-                __localDispatch: true
-            };
-            vscodeApi.postMessage(message);
-        }
+  handle(action: Action): void | Action | ICommand {
+    if (this.actionKinds.includes(action.kind)) {
+      const message = {
+        clientId: this.diagramIdentifier.clientId,
+        action,
+        __localDispatch: true
+      };
+      vscodeApi.postMessage(message);
     }
+  }
 }

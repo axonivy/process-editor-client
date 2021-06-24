@@ -19,25 +19,25 @@ import { injectable } from 'inversify';
 @injectable()
 export class EclipseGLSPDiagramServer extends GLSPDiagramServer {
 
-    private isServerStatusAction(action: Action): action is ServerStatusAction {
-        return ServerStatusAction.KIND === action.kind && 'severity' in action && 'message' in action;
-    }
+  private isServerStatusAction(action: Action): action is ServerStatusAction {
+    return ServerStatusAction.KIND === action.kind && 'severity' in action && 'message' in action;
+  }
 
-    handleLocally(action: Action): boolean {
-        if (this.isServerStatusAction(action)) {
-            return this.handleServerStatusAction(action);
-        }
-        return super.handleLocally(action);
+  handleLocally(action: Action): boolean {
+    if (this.isServerStatusAction(action)) {
+      return this.handleServerStatusAction(action);
     }
+    return super.handleLocally(action);
+  }
 
-    protected handleServerStatusAction(_action: ServerStatusAction): boolean {
-        /* send to server */
-        return true;
-    }
+  protected handleServerStatusAction(_action: ServerStatusAction): boolean {
+    /* send to server */
+    return true;
+  }
 
-    protected handleServerMessageAction(_action: ServerMessageAction): boolean {
-        /* send to server */
-        return true;
-    }
+  protected handleServerMessageAction(_action: ServerMessageAction): boolean {
+    /* send to server */
+    return true;
+  }
 
 }
