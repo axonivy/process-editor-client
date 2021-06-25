@@ -4,21 +4,27 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build app packages",
+      "label": "Build Editor",
       "type": "shell",
       "group": {
         "kind": "build",
         "isDefault": true
       },
+      "command": "yarn ",
       "presentation": {
         "reveal": "always",
         "panel": "new"
       },
-      "command": "yarn ",
-      "problemMatcher": []
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
     },
     {
-      "label": "Watch all packages",
+      "label": "Watch Editor",
       "type": "shell",
       "group": "build",
       "command": "yarn watch",
@@ -26,29 +32,64 @@
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": []
+      "isBackground": true,
+      "problemMatcher": [
+        "$tsc-watch",
+        "$ts-webpack-watch"
+      ]
     },
     {
-      "label": "Start client Backend (Theia)",
+      "label": "Build VSCode Integration",
       "type": "shell",
-      "group": "test",
-      "command": "cd browser-app && yarn start",
+      "group": "build",
+      "command": "yarn --cwd integration/vscode ",
       "presentation": {
         "reveal": "always",
         "panel": "new"
       },
-      "problemMatcher": []
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
     },
     {
-      "label": "Debug client Backend (Theia)",
+      "label": "Watch VSCode Integration",
       "type": "shell",
-      "group": "test",
-      "command": "cd browser-app && yarn start:debug",
+      "group": "build",
+      "command": "yarn --cwd integration/vscode watch",
       "presentation": {
         "reveal": "always",
         "panel": "new"
       },
+      "isBackground": true,
+      "problemMatcher": [
+        "$tsc-watch",
+        "$ts-webpack-watch"
+      ]
+    },
+    {
+      "label": "Link VSCode Integration",
+      "type": "shell",
+      "group": "build",
+      "command": "configs/link-vscode-integration.sh",
       "problemMatcher": []
+    },
+    {
+      "label": "Terminate All Tasks",
+      "command": "echo ${input:terminate}",
+      "type": "shell",
+      "problemMatcher": [],
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
     }
   ]
 }

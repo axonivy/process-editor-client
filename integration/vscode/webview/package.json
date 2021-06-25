@@ -40,6 +40,6 @@
     "clean": "rimraf lib pack",
     "build": "tsc && webpack --mode=development --config=webpack.config.js",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch --info-verbosity verbose"
   }
 }
