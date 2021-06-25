@@ -16,43 +16,43 @@
 import * as vscode from 'vscode';
 
 export function disposeAll(toDispose: vscode.Disposable[]): void {
-    while (toDispose.length) {
-        const disposable = toDispose.pop();
-        if (disposable) {
-            disposable.dispose();
-        }
+  while (toDispose.length) {
+    const disposable = toDispose.pop();
+    if (disposable) {
+      disposable.dispose();
     }
+  }
 }
 
 export abstract class Disposable implements vscode.Disposable {
 
-    private _isDisposed = false;
+  private _isDisposed = false;
 
-    protected disposables: vscode.Disposable[] = [];
+  protected disposables: vscode.Disposable[] = [];
 
-    protected _onDidDispose: vscode.EventEmitter<void>;
+  protected _onDidDispose: vscode.EventEmitter<void>;
 
-    constructor() {
-        this._onDidDispose = this.addDisposable(new vscode.EventEmitter<void>());
+  constructor() {
+    this._onDidDispose = this.addDisposable(new vscode.EventEmitter<void>());
+  }
+
+  get onDidDispose(): vscode.Event<void> {
+    return this._onDidDispose.event;
+  }
+  protected addDisposable<T extends vscode.Disposable>(disposable: T): T {
+    if (this._isDisposed) {
+      disposable.dispose();
+    } else {
+      this.disposables.push(disposable);
     }
+    return disposable;
+  }
 
-    get onDidDispose(): vscode.Event<void> {
-        return this._onDidDispose.event;
+  dispose(): any {
+    if (!this._isDisposed) {
+      this._onDidDispose.fire();
+      this._isDisposed = true;
+      disposeAll(this.disposables);
     }
-    protected addDisposable<T extends vscode.Disposable>(disposable: T): T {
-        if (this._isDisposed) {
-            disposable.dispose();
-        } else {
-            this.disposables.push(disposable);
-        }
-        return disposable;
-    }
-
-    dispose(): any {
-        if (!this._isDisposed) {
-            this._onDidDispose.fire();
-            this._isDisposed = true;
-            disposeAll(this.disposables);
-        }
-    }
+  }
 }

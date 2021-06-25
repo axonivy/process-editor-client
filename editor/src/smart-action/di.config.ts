@@ -10,14 +10,14 @@ import { HideSmartActionToolFeedbackCommand, ShowSmartActionToolFeedbackCommand 
 import { SSmartActionHandleView } from './view';
 
 const ivySmartActionModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(GLSP_TYPES.IDefaultTool).to(SmartActionTool);
-    configureCommand({ bind, isBound }, ShowSmartActionToolFeedbackCommand);
-    configureCommand({ bind, isBound }, HideSmartActionToolFeedbackCommand);
-    configureView({ bind, isBound }, SSmartActionHandle.TYPE, SSmartActionHandleView);
+  bind(GLSP_TYPES.IDefaultTool).to(SmartActionTool);
+  configureCommand({ bind, isBound }, ShowSmartActionToolFeedbackCommand);
+  configureCommand({ bind, isBound }, HideSmartActionToolFeedbackCommand);
+  configureView({ bind, isBound }, SSmartActionHandle.TYPE, SSmartActionHandleView);
 
-    bind(SmartActionEdgeCreationTool).toSelf().inSingletonScope();
-    bind(GLSP_TYPES.ITool).toService(SmartActionEdgeCreationTool);
-    configureActionHandler({ bind, isBound }, SmartActionTriggerEdgeCreationAction.KIND, SmartActionEdgeCreationTool);
+  bind(SmartActionEdgeCreationTool).toSelf().inSingletonScope();
+  bind(GLSP_TYPES.ITool).toService(SmartActionEdgeCreationTool);
+  configureActionHandler({ bind, isBound }, SmartActionTriggerEdgeCreationAction.KIND, SmartActionEdgeCreationTool);
 });
 
 export default ivySmartActionModule;

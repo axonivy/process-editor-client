@@ -4,7 +4,7 @@ import { ActionHandlerRegistry } from 'sprotty';
 
 @injectable()
 export class IvyDiagramServer extends GLSPTheiaDiagramServer {
-    initialize(registry: ActionHandlerRegistry): void {
-        super.initialize(registry);
-    }
+  initialize(registry: ActionHandlerRegistry): void {
+    super.initialize(registry);
+  }
 }

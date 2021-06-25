@@ -1,5 +1,3 @@
-
-
 ### Eclipse ###
 .metadata
 bin/
@@ -12,7 +10,6 @@ local.properties
 .loadpath
 .recommenders
 
-
 ### Maven ###
 target/
 pom.xml.tag
@@ -24,14 +21,9 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
-
-
 .temp
 
-*.log
-
 ## Web ##
-
 node_modules
 node_modules/.yarn-integrity
 .browser_modules
@@ -45,11 +37,10 @@ pack
 **/browser-app/**
 !**/browser-app/package.json
 
-**/plugins/*.vsix
+*.vsix
 
 **/electron-app/**
 !**/electron-app/package.json
 
-**/ivy-glsp-theia/server/**
 report.xml
 eslint.xml

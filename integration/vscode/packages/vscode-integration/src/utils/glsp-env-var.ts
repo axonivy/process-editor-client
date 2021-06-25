@@ -14,19 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 export namespace GLSPEnvVariable {
-    export const SERVER_DEBUG = 'GLSP_SERVER_DEBUG';
-    export const SERVER_PORT = 'GLSP_SERVER_PORT';
+  export const SERVER_DEBUG = 'GLSP_SERVER_DEBUG';
+  export const SERVER_PORT = 'GLSP_SERVER_PORT';
 
-    export function isServerDebug(): boolean {
-        const envVar = process.env[SERVER_DEBUG];
-        return envVar !== undefined && JSON.parse(envVar);
-    }
+  export function isServerDebug(): boolean {
+    const envVar = process.env[SERVER_DEBUG];
+    return envVar !== undefined && JSON.parse(envVar);
+  }
 
-    export function getServerPort(): number | undefined {
-        const envVar = process.env[SERVER_PORT];
-        if (envVar) {
-            return JSON.parse(envVar);
-        }
-        return;
+  export function getServerPort(): number | undefined {
+    const envVar = process.env[SERVER_PORT];
+    if (envVar) {
+      return JSON.parse(envVar);
     }
+    return;
+  }
 }

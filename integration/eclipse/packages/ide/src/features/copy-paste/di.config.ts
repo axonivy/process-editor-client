@@ -19,9 +19,9 @@ import { ContainerModule } from 'inversify';
 import { EclipseCopyPasteActionHandler } from './copy-paste';
 
 const eclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
-    configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
+  configureActionHandler({ bind, isBound }, 'invoke-copy', EclipseCopyPasteActionHandler);
+  configureActionHandler({ bind, isBound }, 'invoke-cut', EclipseCopyPasteActionHandler);
+  configureActionHandler({ bind, isBound }, 'invoke-paste', EclipseCopyPasteActionHandler);
 });
 
 export default eclipseCopyPasteModule;

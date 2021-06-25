@@ -19,7 +19,7 @@ import { ContainerModule } from 'inversify';
 import { InvokeDeleteActionHandler } from './invoke-delete';
 
 const eclipseDeleteModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, 'invoke-delete', InvokeDeleteActionHandler);
+  configureActionHandler({ bind, isBound }, 'invoke-delete', InvokeDeleteActionHandler);
 });
 
 export default eclipseDeleteModule;

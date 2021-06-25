@@ -14,19 +14,19 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 import {
-    Action,
-    EditorContextService,
-    GLSP_TYPES,
-    IActionDispatcher,
-    IActionHandler,
-    IAsyncClipboardService,
-    TYPES,
-    ViewerOptions
+  Action,
+  EditorContextService,
+  GLSP_TYPES,
+  IActionDispatcher,
+  IActionHandler,
+  IAsyncClipboardService,
+  TYPES,
+  ViewerOptions
 } from '@eclipse-glsp/client';
 import {
-    CutOperation,
-    PasteOperation,
-    RequestClipboardDataAction
+  CutOperation,
+  PasteOperation,
+  RequestClipboardDataAction
 } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-actions';
 import { inject, injectable } from 'inversify';
 
@@ -37,50 +37,50 @@ import { inject, injectable } from 'inversify';
 
 @injectable()
 export class EclipseCopyPasteActionHandler implements IActionHandler {
-    @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
-    @inject(TYPES.ViewerOptions) protected viewerOptions: ViewerOptions;
-    @inject(GLSP_TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
-    @inject(EditorContextService) protected editorContext: EditorContextService;
+  @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
+  @inject(TYPES.ViewerOptions) protected viewerOptions: ViewerOptions;
+  @inject(GLSP_TYPES.IAsyncClipboardService) protected clipboadService: IAsyncClipboardService;
+  @inject(EditorContextService) protected editorContext: EditorContextService;
 
-    handle(action: Action): void {
-        switch (action.kind) {
-            case 'invoke-copy':
-                this.handleCopy();
-                break;
-            case 'invoke-paste':
-                this.handlePaste();
-                break;
-            case 'invoke-cut':
-                this.handleCut();
-                break;
-        }
+  handle(action: Action): void {
+    switch (action.kind) {
+      case 'invoke-copy':
+        this.handleCopy();
+        break;
+      case 'invoke-paste':
+        this.handlePaste();
+        break;
+      case 'invoke-cut':
+        this.handleCut();
+        break;
     }
+  }
 
-    handleCopy(): void {
-        if (this.shouldCopy()) {
-            this.actionDispatcher
-                .request(RequestClipboardDataAction.create(this.editorContext.get()));
-        } else {
-            this.clipboadService.clear();
-        }
+  handleCopy(): void {
+    if (this.shouldCopy()) {
+      this.actionDispatcher
+        .request(RequestClipboardDataAction.create(this.editorContext.get()));
+    } else {
+      this.clipboadService.clear();
     }
+  }
 
-    handleCut(): void {
-        if (this.shouldCopy()) {
-            this.handleCopy();
-            this.actionDispatcher.dispatch(new CutOperation(this.editorContext.get()));
-        }
+  handleCut(): void {
+    if (this.shouldCopy()) {
+      this.handleCopy();
+      this.actionDispatcher.dispatch(new CutOperation(this.editorContext.get()));
     }
+  }
 
-    handlePaste(): void {
-        // In the Eclipse Integration case, the server manages its own clipboard.
-        // Just pass an empty clipboard data to remain compliant with the API.
-        const clipboardData = {};
-        this.actionDispatcher.dispatch(new PasteOperation(clipboardData, this.editorContext.get()));
-    }
+  handlePaste(): void {
+    // In the Eclipse Integration case, the server manages its own clipboard.
+    // Just pass an empty clipboard data to remain compliant with the API.
+    const clipboardData = {};
+    this.actionDispatcher.dispatch(new PasteOperation(clipboardData, this.editorContext.get()));
+  }
 
-    protected shouldCopy(): boolean | null {
-        return this.editorContext.get().selectedElementIds.length > 0 && document.activeElement instanceof SVGElement
-            && document.activeElement.parentElement && document.activeElement.parentElement.id === this.viewerOptions.baseDiv;
-    }
+  protected shouldCopy(): boolean | null {
+    return this.editorContext.get().selectedElementIds.length > 0 && document.activeElement instanceof SVGElement
+      && document.activeElement.parentElement && document.activeElement.parentElement.id === this.viewerOptions.baseDiv;
+  }
 }

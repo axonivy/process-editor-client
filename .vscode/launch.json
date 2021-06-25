@@ -46,7 +46,7 @@
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
         "${workspaceRoot}/integration/theia/browser-app/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/ivy-glsp-theia/lib/**/*.js",
+        "${workspaceRoot}/integration/theia/extension/lib/**/*.js",
         "${workspaceRoot}/integration/theia/browser-app/src-gen/**/*.js"
       ],
       "smartStep": true,
@@ -78,7 +78,7 @@
       "outFiles": [
         "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
         "${workspaceRoot}/integration/theia/browser-app/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/ivy-glsp-theia/lib/**/*.js",
+        "${workspaceRoot}/integration/theia/extension/lib/**/*.js",
         "${workspaceRoot}/integration/theia/browser-app/src-gen/**/*.js"
       ],
       "smartStep": true,
@@ -97,8 +97,8 @@
       "webRoot": "${workspaceFolder}",
       "pathMappings": [
         {
-          "url": "webpack://ivyteam/ivy-glsp-theia",
-          "path": "${workspaceFolder}/integration/theia/ivy-glsp-theia"
+          "url": "webpack://ivyteam/extension",
+          "path": "${workspaceFolder}/integration/theia/extension"
         },
         {
           "url": "webpack://ivyteam/editor",

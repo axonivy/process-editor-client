@@ -2,34 +2,37 @@
   "private": true,
   "name": "@ivyteam/vscode-integration",
   "version": "0.9.0",
-  "description": "An VSCode extension to model Axon Ivy Processes and debug them",
-  "displayName": "Axon Ivy Process Editor (VSCode Extension)",
-  "publisher": "ivyTeam",
+  "description": "VSCode extension to model Axon Ivy Processes and debug them",
+  "displayName": "Axon Ivy Process Editor",
+  "publisher": "ivyteam",
+  "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
-  "author": {
-    "name": "Axon Ivy"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
+  "keywords": [
+    "vscode-extension",
+    "glsp",
+    "diagram",
+    "axonivy",
+    "ivyteam",
+    "process",
+    "bpmn"
+  ],
   "categories": [
     "Programming Languages",
     "Debuggers"
   ],
+  "preview": true,
+  "icon": "assets/ivy-logo.png",
   "engines": {
     "vscode": "^1.54.0"
   },
   "activationEvents": [
-    "*"
+    "onCustomEditor:ivy.glspDiagram",
+    "onDebug"
   ],
-  "files": [
-    "lib",
-    "extension",
-    "server",
-    "webview"
-  ],
-  "main": "./lib/extension.js",
   "dependencies": {
     "await-notify": "1.0.1",
     "vscode-debugadapter": "^1.46.0"
@@ -57,6 +60,13 @@
     "build": "tsc",
     "publish": "vsce publish"
   },
+  "files": [
+    "lib",
+    "extension",
+    "server",
+    "webview"
+  ],
+  "main": "./lib/extension.js",
   "contributes": {
     "customEditors": [
       {

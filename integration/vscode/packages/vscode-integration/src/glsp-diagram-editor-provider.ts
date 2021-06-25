@@ -22,77 +22,77 @@ import { GLSPWebView, GLSPWebViewRegistry } from './glsp-webview';
 import { disposeAll } from './utils/disposable';
 
 export class GlspDiagramEditorProvider implements vscode.CustomEditorProvider<GlspDiagramDocument> {
-    public static VIEW_TYPE = 'glspDiagram';
-    readonly webviewRegistry: GLSPWebViewRegistry;
-    private _onDidChangeCustomDocument: vscode.EventEmitter<vscode.CustomDocumentEditEvent<GlspDiagramDocument>>;
+  public static VIEW_TYPE = 'glspDiagram';
+  readonly webviewRegistry: GLSPWebViewRegistry;
+  private _onDidChangeCustomDocument: vscode.EventEmitter<vscode.CustomDocumentEditEvent<GlspDiagramDocument>>;
 
-    constructor(protected readonly context: vscode.ExtensionContext,
-        protected readonly editorContext: GlspDiagramEditorContext) {
-        this.webviewRegistry = new GLSPWebViewRegistry();
-        this._onDidChangeCustomDocument = new vscode.EventEmitter<vscode.CustomDocumentEditEvent<GlspDiagramDocument>>();
-    }
+  constructor(protected readonly context: vscode.ExtensionContext,
+    protected readonly editorContext: GlspDiagramEditorContext) {
+    this.webviewRegistry = new GLSPWebViewRegistry();
+    this._onDidChangeCustomDocument = new vscode.EventEmitter<vscode.CustomDocumentEditEvent<GlspDiagramDocument>>();
+  }
 
-    get onDidChangeCustomDocument(): vscode.Event<vscode.CustomDocumentEditEvent<GlspDiagramDocument>> {
-        return this._onDidChangeCustomDocument.event;
-    }
+  get onDidChangeCustomDocument(): vscode.Event<vscode.CustomDocumentEditEvent<GlspDiagramDocument>> {
+    return this._onDidChangeCustomDocument.event;
+  }
 
-    saveCustomDocument(document: GlspDiagramDocument, cancellation: vscode.CancellationToken): Thenable<void> {
-        return document.save(cancellation);
-    }
+  saveCustomDocument(document: GlspDiagramDocument, cancellation: vscode.CancellationToken): Thenable<void> {
+    return document.save(cancellation);
+  }
 
-    saveCustomDocumentAs(document: GlspDiagramDocument, destination: vscode.Uri, cancellation: vscode.CancellationToken): Thenable<void> {
-        return document.saveAs(destination, cancellation);
-    }
-    revertCustomDocument(document: GlspDiagramDocument, cancellation: vscode.CancellationToken): Thenable<void> {
-        return document.revert(cancellation);
-    }
+  saveCustomDocumentAs(document: GlspDiagramDocument, destination: vscode.Uri, cancellation: vscode.CancellationToken): Thenable<void> {
+    return document.saveAs(destination, cancellation);
+  }
+  revertCustomDocument(document: GlspDiagramDocument, cancellation: vscode.CancellationToken): Thenable<void> {
+    return document.revert(cancellation);
+  }
 
-    backupCustomDocument(document: GlspDiagramDocument, context: vscode.CustomDocumentBackupContext, cancellation: vscode.CancellationToken):
-        Thenable<vscode.CustomDocumentBackup> {
-        return document.backup(context.destination, cancellation);
-    }
-    async openCustomDocument(uri: vscode.Uri, openContext: vscode.CustomDocumentOpenContext, token: vscode.CancellationToken): Promise<GlspDiagramDocument> {
-        const document = await GlspDiagramDocument.create(uri, openContext.backupId);
+  backupCustomDocument(document: GlspDiagramDocument, context: vscode.CustomDocumentBackupContext, cancellation: vscode.CancellationToken):
+    Thenable<vscode.CustomDocumentBackup> {
+    return document.backup(context.destination, cancellation);
+  }
+  async openCustomDocument(uri: vscode.Uri, openContext: vscode.CustomDocumentOpenContext, token: vscode.CancellationToken): Promise<GlspDiagramDocument> {
+    const document = await GlspDiagramDocument.create(uri, openContext.backupId);
 
-        const listeners: vscode.Disposable[] = [];
-        listeners.push(document.onDidChange(e => {
-            this._onDidChangeCustomDocument.fire({
-                document,
-                ...e
-            });
+    const listeners: vscode.Disposable[] = [];
+    listeners.push(document.onDidChange(e => {
+      this._onDidChangeCustomDocument.fire({
+        document,
+        ...e
+      });
 
-        }));
-        document.onDidDispose(() => disposeAll(listeners));
-        return document;
-    }
-    resolveCustomEditor(document: GlspDiagramDocument, webviewPanel: vscode.WebviewPanel, token: vscode.CancellationToken): void | Thenable<void> {
-        const identifier = this.createDiagramIdentifier(document);
-        const webview = this.editorContext.createWebview(webviewPanel, identifier);
-        this.webviewRegistry.add(document.uri, webview);
-        webview.addActionHandler(document);
-        this.editorContext.registerActionHandlers(webview);
-        document.initialize(identifier, webview);
+    }));
+    document.onDidDispose(() => disposeAll(listeners));
+    return document;
+  }
+  resolveCustomEditor(document: GlspDiagramDocument, webviewPanel: vscode.WebviewPanel, token: vscode.CancellationToken): void | Thenable<void> {
+    const identifier = this.createDiagramIdentifier(document);
+    const webview = this.editorContext.createWebview(webviewPanel, identifier);
+    this.webviewRegistry.add(document.uri, webview);
+    webview.addActionHandler(document);
+    this.editorContext.registerActionHandlers(webview);
+    document.initialize(identifier, webview);
 
-        return webview.connect();
-    }
+    return webview.connect();
+  }
 
-    protected createDiagramIdentifier(document: GlspDiagramDocument): SprottyDiagramIdentifier {
-        const diagramType = this.editorContext.diagramType;
-        const clientId = diagramType + '_' + GLSPWebView.viewCount++;
-        return {
-            diagramType,
-            uri: serializeUri(document.uri),
-            clientId
-        };
-    }
+  protected createDiagramIdentifier(document: GlspDiagramDocument): SprottyDiagramIdentifier {
+    const diagramType = this.editorContext.diagramType;
+    const clientId = diagramType + '_' + GLSPWebView.viewCount++;
+    return {
+      diagramType,
+      uri: serializeUri(document.uri),
+      clientId
+    };
+  }
 
 }
 
 export function serializeUri(uri: vscode.Uri): string {
-    let uriString = uri.toString();
-    const match = uriString.match(/file:\/\/\/([a-z])%3A/i);
-    if (match) {
-        uriString = 'file:///' + match[1] + ':' + uriString.substring(match[0].length);
-    }
-    return uriString;
+  let uriString = uri.toString();
+  const match = uriString.match(/file:\/\/\/([a-z])%3A/i);
+  if (match) {
+    uriString = 'file:///' + match[1] + ':' + uriString.substring(match[0].length);
+  }
+  return uriString;
 }

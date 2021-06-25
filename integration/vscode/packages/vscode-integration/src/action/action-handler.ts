@@ -19,11 +19,11 @@ import { Action } from 'sprotty-vscode-protocol';
  * Used to locally intercept and handle actions in the VS Code extension.
  */
 export interface ExtensionActionHandler {
-    readonly kinds: string[];
+  readonly kinds: string[];
 
-    /**
-     * @returns true when the action should be further progagated to the glsp server or the
-     * webview
-     */
-    handleAction(action: Action): Thenable<boolean>;
+  /**
+   * @returns true when the action should be further progagated to the glsp server or the
+   * webview
+   */
+  handleAction(action: Action): Thenable<boolean>;
 }

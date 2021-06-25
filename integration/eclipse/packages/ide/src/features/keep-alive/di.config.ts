@@ -19,7 +19,7 @@ import { ContainerModule } from 'inversify';
 import { KeepAliveAction, KeepAliveActionHandler } from './keep-alive';
 
 const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
-    configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
+  configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
 });
 
 export default keepAliveModule;

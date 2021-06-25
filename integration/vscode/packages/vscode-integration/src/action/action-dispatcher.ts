@@ -17,14 +17,14 @@ import { Action } from 'sprotty-vscode-protocol';
 import { GLSPWebViewRegistry } from 'src/glsp-webview';
 
 export interface ExtensionActionDispatcher {
-    dispatch(action: Action): void;
+  dispatch(action: Action): void;
 }
 
 export namespace ExtensionActionDispatcher {
-    export function dispatch(registry: GLSPWebViewRegistry, action: Action): void {
-        const activeWebview = registry.getActiveWebview();
-        if (activeWebview) {
-            activeWebview.dispatch(action);
-        }
+  export function dispatch(registry: GLSPWebViewRegistry, action: Action): void {
+    const activeWebview = registry.getActiveWebview();
+    if (activeWebview) {
+      activeWebview.dispatch(action);
     }
+  }
 }

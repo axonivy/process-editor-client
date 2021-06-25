@@ -1,3 +1,7 @@
-# Workflow webapp example
+# Axon Ivy Process Editor - Eclipse IDE integration webview
 
-This package contains the webapp used as eclipse integration for the glsp client of the workflow example language.
+This package contains the Eclipse IDE integration webview for the Axon Ivy (GLSP-based) process editor.
+
+## More information
+
+For more information checkout the repository [README.md](../../../README.md)

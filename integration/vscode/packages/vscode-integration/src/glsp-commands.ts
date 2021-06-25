@@ -20,27 +20,27 @@ import { ExtensionActionDispatcher } from './action';
 import { GLSPWebViewRegistry } from './glsp-webview';
 
 export interface GLSPCommandOptions {
-    readonly command: string;
-    readonly extensionPrefix: string;
-    readonly registry: GLSPWebViewRegistry;
-    readonly action: Action;
-    readonly context: vscode.ExtensionContext;
+  readonly command: string;
+  readonly extensionPrefix: string;
+  readonly registry: GLSPWebViewRegistry;
+  readonly action: Action;
+  readonly context: vscode.ExtensionContext;
 }
 export namespace GLSPCommand {
-    export const FIT_TO_SCREEN = 'diagram.fit';
-    export const CENTER = 'diagram.center';
-    export const LAYOUT = 'diagram.layout';
+  export const FIT_TO_SCREEN = 'diagram.fit';
+  export const CENTER = 'diagram.center';
+  export const LAYOUT = 'diagram.layout';
 
-    export function commandId(extensionPrefix: string, commandKey: string): string {
-        return `${extensionPrefix}.${commandKey}`;
-    }
+  export function commandId(extensionPrefix: string, commandKey: string): string {
+    return `${extensionPrefix}.${commandKey}`;
+  }
 
-    export function registerActionCommand(options: GLSPCommandOptions): void {
-        options.context.subscriptions.push(
-            vscode.commands.registerCommand(commandId(options.extensionPrefix, options.command),
-                () => ExtensionActionDispatcher.dispatch(options.registry, options.action))
-        );
-    }
+  export function registerActionCommand(options: GLSPCommandOptions): void {
+    options.context.subscriptions.push(
+      vscode.commands.registerCommand(commandId(options.extensionPrefix, options.command),
+        () => ExtensionActionDispatcher.dispatch(options.registry, options.action))
+    );
+  }
 
 }
 

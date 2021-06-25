@@ -5,9 +5,9 @@ import { AnimateAction, AnimateActionHandler } from './animate-action-handler';
 import { AnimateFeedbackCommand } from './animate-feedback-action';
 
 const animateModule = new ContainerModule((bind, _unbind, isBound) => {
-    bind(AnimateActionHandler).toSelf().inSingletonScope();
-    configureActionHandler({ bind, isBound }, AnimateAction.KIND, AnimateActionHandler);
-    configureCommand({ bind, isBound }, AnimateFeedbackCommand);
+  bind(AnimateActionHandler).toSelf().inSingletonScope();
+  configureActionHandler({ bind, isBound }, AnimateAction.KIND, AnimateActionHandler);
+  configureCommand({ bind, isBound }, AnimateFeedbackCommand);
 });
 
 export default animateModule;

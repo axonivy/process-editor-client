@@ -16,16 +16,16 @@
 import * as vscode from 'vscode';
 
 export function waitForEventWithTimeout<E>(event: vscode.Event<E>, timeout: number, eventName?: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
-            listener.dispose();
-            reject(new Error('Timeout waiting for ' + eventName || event.toString()));
-        }, timeout);
+  return new Promise((resolve, reject) => {
+    const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
+      listener.dispose();
+      reject(new Error('Timeout waiting for ' + eventName || event.toString()));
+    }, timeout);
 
-        const listener = event((e: E) => {
-            clearTimeout(timer);
-            listener.dispose();
-            resolve();
-        });
+    const listener = event((e: E) => {
+      clearTimeout(timer);
+      listener.dispose();
+      resolve();
     });
+  });
 }

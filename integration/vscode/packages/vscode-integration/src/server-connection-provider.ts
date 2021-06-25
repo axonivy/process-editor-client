@@ -17,5 +17,5 @@ import { MaybePromise } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 
 export interface ServerConnectionProvider {
-    createConnection(): MaybePromise<MessageConnection>;
+  createConnection(): MaybePromise<MessageConnection>;
 }
