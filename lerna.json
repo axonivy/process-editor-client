@@ -1,15 +1,19 @@
 {
-  "lerna": "2.4.0",
-  "version": "0.8.0",
+  "version": "0.9.3-s14",
   "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {
     "run": {
       "stream": true
     },
+    "version": {
+      "gitTagVersion": true,
+      "push": false
+    },
     "publish": {
       "forcePublish": true,
-      "skipGit": true,
+      "gitTagVersion": false,
+      "push": false,
       "registry": "https://npm-registry.ivyteam.io/repository/private/"
     }
   }

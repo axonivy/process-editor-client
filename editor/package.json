@@ -1,6 +1,6 @@
 {
   "name": "@ivyteam/process-editor",
-  "version": "0.9.0-1",
+  "version": "0.9.3-s14",
   "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -47,5 +47,6 @@
     "css"
   ],
   "main": "lib/index",
-  "types": "lib/index"
+  "types": "lib/index",
+  "gitHead": "333816b1e34fd37d297c07b34e86c97784455ff5"
 }
