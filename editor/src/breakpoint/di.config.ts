@@ -5,9 +5,9 @@ import { ContainerModule } from 'inversify';
 import { configureActionHandler, configureCommand, TYPES } from 'sprotty';
 
 import { BreakpointListener } from './breakpoint';
+import { ShowBreakpointAction, ShowBreakpointActionHandler } from './breakpoint-action-handler';
 import { BreakpointFeedbackCommand } from './breakpoint-feedback-action';
 import { SBreakpointHandle } from './model';
-import { ShowBreakpointAction, ShowBreakpointActionHandler } from './show-breakpoint-action-handler';
 import { SBreakpointHandleView } from './view';
 
 const breakpointModule = new ContainerModule((bind, _unbind, isBound) => {

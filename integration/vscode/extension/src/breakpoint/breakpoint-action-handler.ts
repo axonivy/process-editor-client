@@ -1,6 +1,5 @@
 import { Action } from '@eclipse-glsp/client';
-import { BreakpointAction, isBreakpointAction } from '@ivyteam/process-editor/lib/breakpoint/breakpoint';
-import { ShowBreakpointAction } from '@ivyteam/process-editor/lib/breakpoint/show-breakpoint-action-handler';
+import { BreakpointAction, isBreakpointAction, ShowBreakpointAction } from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
 import * as vscode from 'vscode';
 

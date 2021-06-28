@@ -6,8 +6,7 @@ import { IvyGLSPClientContribution } from '../language/glsp-client-contribution'
 
 @injectable()
 export class IvyGLSPDiagramClient extends GLSPDiagramClient {
-  constructor(
-    @inject(IvyGLSPClientContribution) glspCLientContribution: IvyGLSPClientContribution,
+  constructor(@inject(IvyGLSPClientContribution) glspCLientContribution: IvyGLSPClientContribution,
     @inject(EditorManager) editorManager: EditorManager) {
     super(glspCLientContribution, editorManager);
   }

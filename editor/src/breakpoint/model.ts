@@ -27,10 +27,6 @@ export class SBreakpointHandle extends SChildElement implements Hoverable {
   mouseUp(target: SModelElement): Action[] {
     return [];
   }
-
-  public icon(): string {
-    return '';
-  }
 }
 
 export function addBreakpointHandles(element: SParentElement): void {
