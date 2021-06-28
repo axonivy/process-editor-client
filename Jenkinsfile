@@ -70,7 +70,7 @@ pipeline {
     stage('Deploy (master only)') {
       when {
         allOf {
-          // branch 'master' 
+          branch 'master' 
           expression {return currentBuild.currentResult == 'SUCCESS' && params.publish}
         }
       }
