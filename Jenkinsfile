@@ -79,6 +79,8 @@ pipeline {
           docker.build('node').inside {
             sh "git config --global user.name '${params.gitUserName}'"
             sh "git config --global user.email '${params.gitUserMail}'"
+            def releaseBranch = "release-${params.nextVersion}"
+            sh "git checkout -b ${releaseBranch} ${env.BRANCH_NAME}"
             sh "echo //npm-registry.ivyteam.io/repository/private/:_authToken=${env.NPM_TOKEN} > .npmrc"
             sh "yarn lerna version ${params.nextVersion} --yes && yarn publish:package"
             sh "rm .npmrc"
@@ -94,7 +96,7 @@ pipeline {
             withEnv(['GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no']) {
               sshagent(credentials: ['github-axonivy']) {
                 sh "git remote set-url origin git@github.com:axonivy/glsp-editor-client.git"
-                sh "git push -u origin ${env.BRANCH_NAME}"
+                sh "git push -u origin ${releaseBranch}"
                 sh "git push origin v${params.nextVersion}"
               }
             }
