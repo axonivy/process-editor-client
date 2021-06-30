@@ -7,13 +7,15 @@ import {
   FeedbackActionDispatcher,
   GLSP_TYPES,
   glspMouseToolModule,
+  LocalModelSource,
   modelSourceModule,
   moveFeature,
   Point,
   selectFeature,
   SModelElement,
   SModelRoot,
-  SNode
+  SNode,
+  TYPES
 } from '@eclipse-glsp/client';
 import {
   SelectFeedbackAction,
@@ -63,6 +65,7 @@ function createContainer(): Container {
   container.bind(SelectionService).toSelf().inSingletonScope();
   container.bind(GLSP_TYPES.SelectionService).toService(SelectionService);
   container.bind(GLSP_TYPES.IDefaultTool).to(SmartActionTool);
+  container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, SelectFeedbackCommand);
   return container;
