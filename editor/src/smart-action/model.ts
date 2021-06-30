@@ -48,7 +48,7 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
     return [];
   }
 
-  public icon(): string {
+  get icon(): string {
     return '';
   }
 }
@@ -58,7 +58,7 @@ export class SSmartActionDeleteHandle extends SSmartActionHandle {
     return [new DeleteElementOperation([target.id])];
   }
 
-  public icon(): string {
+  get icon(): string {
     return 'trash';
   }
 }
@@ -68,7 +68,7 @@ export class SSmartActionConnectHandle extends SSmartActionHandle {
     return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
   }
 
-  public icon(): string {
+  get icon(): string {
     return 'long-arrow-alt-right';
   }
 }
@@ -78,7 +78,7 @@ export class SSmartActionJumpIntoHandler extends SSmartActionHandle {
     return [new JumpOperation(target.id)];
   }
 
-  public icon(): string {
+  get icon(): string {
     return 'level-down-alt';
   }
 }

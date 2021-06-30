@@ -21,6 +21,13 @@
       "dom",
       "es2017"
     ],
-    "sourceMap": true
+    "sourceMap": true,
+    "types": [
+      "node",
+      "reflect-metadata"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   }
 }

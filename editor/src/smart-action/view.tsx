@@ -41,7 +41,7 @@ export class SSmartActionHandleView implements IView {
   }
 
   protected getIconDecorator(handle: SSmartActionHandle, position: Point): VNode {
-    const icon = handle.icon();
+    const icon = handle.icon;
     const foreignObjectContents = virtualize('<i class="fas fa-' + icon + '"></i>');
     const posDiff = this.getRadius() / 2;
     return <g>
