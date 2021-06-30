@@ -13,7 +13,6 @@ import { TaskNode } from '../diagram/model';
 import { IvyDecorationPlacer } from './decoration-placer';
 
 describe('IvyDecorationPlacer', () => {
-
   const placer = new IvyDecorationPlacer();
 
   it('elemnt should return origin point', () => {

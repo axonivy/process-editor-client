@@ -23,19 +23,7 @@ export class BreakpointFeedbackCommand extends Command {
   }
 
   execute(context: CommandExecutionContext): SModelRoot {
-    const model = context.root;
-    this.action.showBreakpointElementIds.forEach(id => {
-      const element = model.index.getById(id);
-      if (element instanceof SChildElement && isBreakable(element)) {
-        this.showBreakpoints.push(element);
-      }
-    });
-    this.action.hideBreakpointElementIds.forEach(id => {
-      const element = model.index.getById(id);
-      if (element instanceof SChildElement && isBreakable(element)) {
-        this.hideBreakpoints.push(element);
-      }
-    });
+    this.analyzeFeedbackAction(context.root);
     return this.redo(context);
   }
 
@@ -51,5 +39,20 @@ export class BreakpointFeedbackCommand extends Command {
       removeBreakpointHandles(element);
     }
     return context.root;
+  }
+
+  analyzeFeedbackAction(model: SModelRoot): void {
+    this.action.showBreakpointElementIds.forEach(id => {
+      const element = model.index.getById(id);
+      if (element instanceof SChildElement && isBreakable(element)) {
+        this.showBreakpoints.push(element);
+      }
+    });
+    this.action.hideBreakpointElementIds.forEach(id => {
+      const element = model.index.getById(id);
+      if (element instanceof SChildElement && isBreakable(element)) {
+        this.hideBreakpoints.push(element);
+      }
+    });
   }
 }

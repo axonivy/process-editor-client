@@ -20,8 +20,7 @@ export class IvyDiagramManager extends GLSPDiagramManager {
 
   private _diagramConnector: GLSPTheiaSprottyConnector;
 
-  constructor(
-    @inject(IvyGLSPDiagramClient) diagramClient: IvyGLSPDiagramClient,
+  constructor(@inject(IvyGLSPDiagramClient) diagramClient: IvyGLSPDiagramClient,
     @inject(TheiaFileSaver) fileSaver: TheiaFileSaver,
     @inject(WidgetManager) widgetManager: WidgetManager,
     @inject(EditorManager) editorManager: EditorManager,

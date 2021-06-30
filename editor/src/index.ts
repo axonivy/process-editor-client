@@ -9,3 +9,4 @@ export * from './jump/model';
 export * from './smart-action/model';
 export * from './operations';
 export * from './breakpoint/breakpoint';
+export * from './breakpoint/breakpoint-action-handler';

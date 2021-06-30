@@ -6,7 +6,7 @@
       "1tbs"
     ],
     "comma-dangle": "warn",
-    "indent": [
+    "@typescript-eslint/indent": [
       "warn",
       2,
       {

@@ -34,11 +34,8 @@ export class HideJumpOutToolFeedbackCommand extends FeedbackCommand {
   @inject(TYPES.Action) protected action: HideJumpOutToolFeedbackAction;
 
   execute(context: CommandExecutionContext): CommandReturn {
-    const index = context.root.index;
-    index
-      .all()
-      .filter(() => true)
-      .forEach(removeJumpOutHandles);
-    return context.root;
+    const root = context.root;
+    removeJumpOutHandles(root);
+    return root;
   }
 }

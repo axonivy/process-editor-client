@@ -6,7 +6,6 @@ import { TaskNode } from './model';
 import { IvyGridSnapper } from './snap';
 
 describe('IvyGridSnapper', () => {
-
   const snapper = new IvyGridSnapper();
 
   it('element with no size should snap to grid', () => {

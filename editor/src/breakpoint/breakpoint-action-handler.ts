@@ -21,9 +21,7 @@ export class ShowBreakpointActionHandler implements IActionHandler {
   @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
 
   handle(action: Action): Action | void {
-    console.log('action recived' + action);
     if (isShowBreakpointAction(action)) {
-      console.log('show breakpoint action' + action.elementIds);
       const showBreakpointIds = action.elementIds;
       const hideBreakpointIds: string[] = [];
       for (const id of this.breakpointElementIDs) {
