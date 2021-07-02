@@ -63,10 +63,14 @@ export class EventNodeView extends CircularNodeView {
   }
 
   protected getDecorator(node: EventNode): VNode {
-    return <svg height={14} width={14} x={8} y={8} viewBox={'0 0 10 10'}
-      class-sprotty-node-decorator={true}>
-      <path fill={'none'} d={this.getDecoratorPath()}></path>
-    </svg>;
+    const decoratorPath = this.getDecoratorPath();
+    if (decoratorPath && decoratorPath !== '') {
+      return <svg height={14} width={14} x={8} y={8} viewBox={'0 0 10 10'}
+        class-sprotty-node-decorator={true}>
+        <path fill={'none'} d={decoratorPath}></path>
+      </svg>;
+    }
+    return <g></g>;
   }
 
   protected getDecoratorPath(): string {

@@ -15,7 +15,7 @@ export class SJumpOutHandleView implements IView {
   render(handle: SJumpOutHandle, context: RenderingContext): VNode {
     const position = this.getPosition(handle);
     if (position !== undefined) {
-      const node = <g>
+      const node = <g class-jump-out-handle>
         {this.getIconDecorator(handle, position)}
       </g>;
       return node;

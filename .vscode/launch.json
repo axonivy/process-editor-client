@@ -137,6 +137,12 @@
         "${workspaceFolder}/configs/.mocharc.json",
         "${file}"
       ],
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.json"
+      },
+      "sourceMaps": true,
+      "smartStep": true,
+      "outputCapture": "std",
       "presentation": {
         "group": "Tests",
         "order": 3
@@ -154,6 +160,12 @@
         "${workspaceFolder}/configs/.mocharc.json",
         "\"${workspaceFolder}/editor/src/**/*.spec.?(ts|tsx)\""
       ],
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.json"
+      },
+      "sourceMaps": true,
+      "smartStep": true,
+      "outputCapture": "std",
       "presentation": {
         "group": "Tests",
         "order": 3
