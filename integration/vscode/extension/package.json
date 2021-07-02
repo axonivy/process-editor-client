@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@ivyteam/vscode-integration",
+  "name": "ivyteam-vscode-process-editor",
   "version": "0.9.0",
   "description": "VSCode extension to model Axon Ivy Processes and debug them",
   "displayName": "Axon Ivy Process Editor",
