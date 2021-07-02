@@ -23,7 +23,7 @@ let givenFile = getParameters()['file'];
 if (givenFile === undefined) {
   const loc = window.location.pathname;
   const currentDir = loc.substring(0, loc.lastIndexOf('/'));
-  givenFile = resolve(join(currentDir, '..', 'app', 'example.mod'));
+  givenFile = resolve(join(currentDir, '..', 'app', 'demo-project', 'processes', 'test.mod'));
 }
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);

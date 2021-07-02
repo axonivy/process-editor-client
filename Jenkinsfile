@@ -103,8 +103,10 @@ pipeline {
           }
           docker.image('maven:3.6.3-jdk-11').inside {
             maven cmd: "-f integration/eclipse/webview clean deploy"
+            maven cmd: "-f integration/standalone clean deploy"
           }
           archiveArtifacts 'integration/eclipse/webview/target/glsp-client-*.zip'
+          archiveArtifacts 'integration/standalone/target/glsp-client-standalone*.zip'
         }
       }
     }
