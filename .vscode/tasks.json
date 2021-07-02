@@ -71,10 +71,24 @@
       ]
     },
     {
-      "label": "Link VSCode Integration",
+      "label": "Build Standalone Integration",
       "type": "shell",
       "group": "build",
-      "command": "configs/link-vscode-integration.sh",
+      "command": "yarn --cwd integration/standalone ",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ]
+    },
+    {
+      "label": "Link Integrations",
+      "type": "shell",
+      "group": "build",
+      "command": "configs/link-integrations.sh",
       "problemMatcher": []
     },
     {

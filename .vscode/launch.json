@@ -22,11 +22,22 @@
         "GLSP_SERVER_PORT": "5007"
       },
       "presentation": {
-        "group": "VSCode Extension",
-        "order": 2
+        "group": "3. VSCode Extension",
+        "order": 1
       },
       "preLaunchTask": "Watch VSCode Integration",
       "postDebugTask": "Terminate All Tasks"
+    },
+    {
+      "name": "Launch Standalone (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "file": "${workspaceFolder}/integration/standalone/app/diagram.html",
+      "webRoot": "${workspaceFolder}",
+      "presentation": {
+        "group": "4. Standalone",
+        "order": 1
+      }
     },
     {
       "type": "node",
@@ -53,8 +64,8 @@
       "internalConsoleOptions": "openOnSessionStart",
       "outputCapture": "std",
       "presentation": {
-        "group": "Theia",
-        "order": 1
+        "group": "2. Theia",
+        "order": 3
       }
     },
     {
@@ -85,8 +96,8 @@
       "internalConsoleOptions": "openOnSessionStart",
       "outputCapture": "std",
       "presentation": {
-        "group": "Theia",
-        "order": 1
+        "group": "2. Theia",
+        "order": 4
       }
     },
     {
@@ -106,8 +117,8 @@
         }
       ],
       "presentation": {
-        "group": "Theia",
-        "order": 1
+        "group": "2. Theia",
+        "order": 6
       },
       "preLaunchTask": "Watch Editor",
       "postDebugTask": "Terminate All Tasks"
@@ -119,8 +130,8 @@
       "url": "http://localhost:3000/",
       "webRoot": "${workspaceFolder}",
       "presentation": {
-        "group": "Theia",
-        "order": 1
+        "group": "2. Theia",
+        "order": 5
       },
       "preLaunchTask": "Watch Editor",
       "postDebugTask": "Terminate All Tasks"
@@ -144,8 +155,8 @@
       "smartStep": true,
       "outputCapture": "std",
       "presentation": {
-        "group": "Tests",
-        "order": 3
+        "group": "1. Tests",
+        "order": 1
       }
     },
     {
@@ -167,8 +178,8 @@
       "smartStep": true,
       "outputCapture": "std",
       "presentation": {
-        "group": "Tests",
-        "order": 3
+        "group": "1. Tests",
+        "order": 2
       }
     }
   ],
@@ -180,8 +191,8 @@
         "Launch Theia (Chrome) Frontend"
       ],
       "presentation": {
-        "group": "Theia",
-        "order": 0
+        "group": "2. Theia",
+        "order": 1
       }
     },
     {
@@ -191,8 +202,8 @@
         "Launch Theia (Firefox) Frontend"
       ],
       "presentation": {
-        "group": "Theia",
-        "order": 0
+        "group": "2. Theia",
+        "order": 2
       }
     }
   ]
