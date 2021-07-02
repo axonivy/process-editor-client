@@ -28,8 +28,12 @@ pipeline {
             docker.build('node').inside {
               sh 'yarn build'
               sh 'configs/link-integrations.sh'
-              sh 'yarn build --cwd integration/vscode'
-              sh 'yarn build --cwd integration/standalone'
+              dir ('integration/vscode') {
+                sh 'yarn build'
+              }
+              dir ('integration/standalone') {
+                sh 'yarn build'
+              }
               archiveArtifacts 'integration/eclipse/webview/app/*'
             }
           }
@@ -44,8 +48,12 @@ pipeline {
             docker.build('node').inside {
               timeout(30){
                 sh "yarn lint -o eslint.xml -f checkstyle"
-                sh 'yarn lint -o eslint.xml -f checkstyle --cwd integration/vscode'
-                sh 'yarn lint -o eslint.xml -f checkstyle --cwd integration/standalone'
+                dir ('integration/vscode') {
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                }
+                dir ('integration/standalone') {
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                }
               }
             }
           }
@@ -102,9 +110,15 @@ pipeline {
             sh "yarn lerna version ${params.nextVersion} --yes && yarn publish:package"
             sh "rm .npmrc"
             
-            sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion} --cwd integration/vscode/webview"
-            sh "yarn --cwd integration/vscode"
-            sh "yarn --cwd integration/standalone"
+            dir ('integration/vscode/webview') {
+              sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
+            }
+            dir ('integration/vscode') {
+              sh "yarn"
+            }
+            dir ('integration/standalone') {
+              sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
+            }
             
             sh "git commit --all --amend --no-edit"
 
