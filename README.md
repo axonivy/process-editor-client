@@ -20,6 +20,7 @@ However, it's of course also possible to use another text editor.
 - `integration/eclipse`: Eclipse IDE integraion of the process editor
 - `integration/theia`: Theia IDE integraion of the process editor
 - `integration/vscode`: VS Code extension of the process editor
+- `integration/standalone`: Standalone integration of the process editor
 
 ---
 
@@ -42,8 +43,15 @@ yarn
   cd integration/vscode
   yarn
   ```
+  
+- **Standalone Integration**:
+  Run:
+  ```bash
+  cd integration/standalone
+  yarn
+  ```
 
-  > If the build fails or you want to work with the latest editor source you can link the current source into the integration by run the **Link VSCode Integration** task inside VS Code or by run `configs/link-vscode-integration.sh`
+  > If the build fails or you want to work with the latest editor source you can link the current source into the integration by run the **Link Integrations** task inside VS Code or by run `configs/link-integrations.sh`
 
 ## Running the process editor
 
@@ -60,6 +68,10 @@ The simplest way to start the process editor is by download a [Axon Ivy Designer
 
 - **VSCode Integration**:
   To start the VS Code integration you can start the specific launch config directly inside the VS Code.
+  
+- **Standalone Integration**:
+  To start the Standalone integration you can start the specific launch config directly inside the VS Code or open the diagram.html in a browser with a given process mod file as parameter:
+  `integration/standalone/app/diagram.html?file=<path-to-your-project>/processes/<your-process-file>.mod`
 
 ---
 
