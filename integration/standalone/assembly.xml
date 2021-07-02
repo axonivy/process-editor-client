@@ -3,7 +3,7 @@
     <id>bundle</id>
 
     <formats>
-        <format>zip</format>
+        <format>jar</format>
     </formats>
 
     <includeBaseDirectory>false</includeBaseDirectory>
@@ -11,7 +11,7 @@
     <fileSets>
         <fileSet>
             <directory>app</directory>
-            <outputDirectory>./</outputDirectory>
+            <outputDirectory>./META-INF/resources/process-editor</outputDirectory>
             <excludes>
                 <exclude>bundle.js.map</exclude>
             </excludes>

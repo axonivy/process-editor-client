@@ -27,10 +27,9 @@ pipeline {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             docker.build('node').inside {
               sh 'yarn build'
-              sh 'configs/link-vscode-integration.sh'
-              dir ('integration/vscode') {
-                sh 'yarn build'
-              }
+              sh 'configs/link-integrations.sh'
+              sh 'yarn build --cwd integration/vscode'
+              sh 'yarn build --cwd integration/standalone'
               archiveArtifacts 'integration/eclipse/webview/app/*'
             }
           }
@@ -45,9 +44,8 @@ pipeline {
             docker.build('node').inside {
               timeout(30){
                 sh "yarn lint -o eslint.xml -f checkstyle"
-                dir ('integration/vscode') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
-                }
+                sh 'yarn lint -o eslint.xml -f checkstyle --cwd integration/vscode'
+                sh 'yarn lint -o eslint.xml -f checkstyle --cwd integration/standalone'
               }
             }
           }
@@ -71,6 +69,25 @@ pipeline {
       when {
         allOf {
           branch 'master' 
+          expression {return currentBuild.currentResult == 'SUCCESS'}
+        }
+      }
+      steps { 
+        script {
+          docker.image('maven:3.6.3-jdk-11').inside {
+            maven cmd: "-f integration/eclipse/webview clean deploy"
+            maven cmd: "-f integration/standalone clean deploy"
+          }
+          archiveArtifacts 'integration/eclipse/webview/target/glsp-client-*.zip'
+          archiveArtifacts 'integration/standalone/target/glsp-client-standalone*.zip'
+        }
+      }
+    }
+
+    stage('Publish (master only)') {
+      when {
+        allOf {
+          branch 'master' 
           expression {return currentBuild.currentResult == 'SUCCESS' && params.publish}
         }
       }
@@ -85,28 +102,21 @@ pipeline {
             sh "yarn lerna version ${params.nextVersion} --yes && yarn publish:package"
             sh "rm .npmrc"
             
-            dir ('integration/vscode/webview') {
-              sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
-            }
-            dir ('integration/vscode') {
-              sh "yarn"
-              sh "git commit --all --amend --no-edit"
-              sh "git tag -f v${params.nextVersion}"
-            }
+            sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion} --cwd integration/vscode/webview"
+            sh "yarn --cwd integration/vscode"
+            sh "yarn --cwd integration/standalone"
+            
+            sh "git commit --all --amend --no-edit"
+
             withEnv(['GIT_SSH_COMMAND=ssh -o StrictHostKeyChecking=no']) {
               sshagent(credentials: ['github-axonivy']) {
+                sh "git tag -f v${params.nextVersion}"
                 sh "git remote set-url origin git@github.com:axonivy/glsp-editor-client.git"
                 sh "git push -u origin ${releaseBranch}"
                 sh "git push origin v${params.nextVersion}"
               }
             }
           }
-          docker.image('maven:3.6.3-jdk-11').inside {
-            maven cmd: "-f integration/eclipse/webview clean deploy"
-            maven cmd: "-f integration/standalone clean deploy"
-          }
-          archiveArtifacts 'integration/eclipse/webview/target/glsp-client-*.zip'
-          archiveArtifacts 'integration/standalone/target/glsp-client-standalone*.zip'
         }
       }
     }
