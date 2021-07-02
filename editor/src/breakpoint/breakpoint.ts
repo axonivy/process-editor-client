@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import { Action, findParentByFeature, isOpenable, MouseListener, SModelElement } from 'sprotty';
 
 export class BreakpointAction implements Action {

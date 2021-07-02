@@ -1,8 +1,7 @@
 import '../../css/breakpoint.css';
 
-import { configureView } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
-import { configureActionHandler, configureCommand, TYPES } from 'sprotty';
+import { configureActionHandler, configureCommand, configureView, TYPES } from 'sprotty';
 
 import { BreakpointListener } from './breakpoint';
 import { ShowBreakpointAction, ShowBreakpointActionHandler } from './breakpoint-action-handler';
