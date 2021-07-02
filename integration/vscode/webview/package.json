@@ -1,5 +1,4 @@
 {
-  "private": "true",
   "name": "@ivyteam/vscode-integration-webview",
   "version": "0.9.0",
   "description": "VSCode extension webview for the Axon Ivy (GLSP-based) process editor",
