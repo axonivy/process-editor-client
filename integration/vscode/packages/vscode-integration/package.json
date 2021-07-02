@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@eclipse-glsp/vscode-integration",
   "version": "0.9.0",
   "description": "Glue code to integrate GLSP diagrams in VSCode extensions (extension part)",
