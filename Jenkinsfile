@@ -83,8 +83,8 @@ pipeline {
       steps {
         script {
           docker.image('maven:3.6.3-jdk-11').inside {
-            maven cmd: '-f integration/eclipse/webview clean deploy'
-            maven cmd: '-f integration/standalone clean deploy'
+            maven cmd: '-f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+            maven cmd: '-f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
           archiveArtifacts 'integration/eclipse/webview/target/glsp-client-*.zip'
           archiveArtifacts 'integration/standalone/target/glsp-client-standalone*.jar'
