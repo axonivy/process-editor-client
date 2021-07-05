@@ -41,7 +41,7 @@
     "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
-    "build": "tsc && webpack",
+    "build": "yarn install --ignore-scripts && tsc && webpack",
     "watch": "tsc -w -p ./tsconfig.json"
   }
 }
