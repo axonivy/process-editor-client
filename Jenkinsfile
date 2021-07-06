@@ -35,6 +35,7 @@ pipeline {
                 sh 'yarn build'
               }
               archiveArtifacts 'integration/eclipse/webview/app/*'
+              archiveArtifacts 'integration/standalone/app/*'
             }
           }
         }
