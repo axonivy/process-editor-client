@@ -1,45 +1,45 @@
 .sprotty-graph {
-    background: rgb(179, 196, 202);
+  background: rgb(179, 196, 202);
 }
 
 .sprotty-node {
-    fill: #cdc;
-    stroke: rgb(0, 0, 0);
+  fill: #cdc;
+  stroke: rgb(0, 0, 0);
 }
 
 .sprotty-edge {
-    stroke: black;
+  stroke: black;
 }
 
 .sprotty-edge.arrow {
-    fill: black;
+  fill: black;
 }
 
 .sprotty-edge.selected {
-    stroke: #844;
+  stroke: #844;
 }
 
 .sprotty-edge.selected>.arrow {
-    fill: #844;
-    stroke: #844;
+  fill: #844;
+  stroke: #844;
 }
 
 .sprotty-node:not(.selected) {
-    stroke: black;
+  stroke: black;
 }
 
 .forkOrJoin>.sprotty-node {
-    fill: black;
+  fill: black;
 }
 
 .forkOrJoin>.sprotty-node.selected {
-    stroke: rgb(87, 87, 214);
+  stroke: rgb(87, 87, 214);
 }
 
 polygon.sprotty-node {
-    stroke: black;
+  stroke: black;
 }
 
 .sprotty-node.selected {
-    stroke: rgb(87, 87, 214);
+  stroke: rgb(87, 87, 214);
 }
