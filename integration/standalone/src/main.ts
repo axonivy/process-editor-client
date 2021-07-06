@@ -13,10 +13,13 @@ import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 import createContainer from './di.config';
 import { getParameters } from './url-parameters';
 
-const port = 5008;
+let severAndPort = getParameters()['server'];
+if (severAndPort === undefined) {
+  severAndPort = 'localhost:5008';
+}
 const id = 'ivy-glsp-process';
 const name = 'Ivy Process';
-const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
+const websocket = new WebSocket(`ws://${severAndPort}/${id}`);
 const container = createContainer();
 
 let givenFile = getParameters()['file'];
