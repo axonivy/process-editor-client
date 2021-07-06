@@ -13,7 +13,8 @@ const config = {
   },
   mode: 'development',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
+    symlinks: false
   },
   module: {
     rules: [
