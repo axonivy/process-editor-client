@@ -1,4 +1,4 @@
-import { GLSPWebView } from '../../packages/vscode-integration/lib';
+import { GLSPWebView } from '@eclipse-glsp/vscode-integration';
 
 export class IvyWebView extends GLSPWebView {
 

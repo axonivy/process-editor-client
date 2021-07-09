@@ -39,7 +39,6 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*",
       "webview",
       "extension"
     ]

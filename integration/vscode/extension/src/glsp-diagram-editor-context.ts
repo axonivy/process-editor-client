@@ -36,7 +36,7 @@ export class IvyGlspDiagramEditorContext extends GlspDiagramEditorContext {
   }
 
   createWebview(webviewPanel: vscode.WebviewPanel, identifier: SprottyDiagramIdentifier): GLSPWebView {
-    const webview = new IvyWebView({
+    return new IvyWebView({
       editorContext: this,
       identifier,
       localResourceRoots: [
@@ -45,7 +45,6 @@ export class IvyGlspDiagramEditorContext extends GlspDiagramEditorContext {
       scriptUri: this.getExtensionFileUri('pack', 'webview.js'),
       webviewPanel
     });
-    return webview;
   }
 
   registerActionHandlers(webview: GLSPWebView): void {

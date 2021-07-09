@@ -1,10 +1,10 @@
 import { Action } from '@eclipse-glsp/client';
+import { ExtensionActionHandler } from '@eclipse-glsp/vscode-integration';
 import { BreakpointAction, isBreakpointAction } from '@ivyteam/process-editor/lib/breakpoint/breakpoint';
 import { ShowBreakpointAction } from '@ivyteam/process-editor/lib/breakpoint/breakpoint-action-handler';
 import { injectable } from 'inversify';
 import * as vscode from 'vscode';
 
-import { ExtensionActionHandler } from '../../../packages/vscode-integration/lib';
 import { IvyWebView } from '../ivy-webview';
 
 @injectable()
