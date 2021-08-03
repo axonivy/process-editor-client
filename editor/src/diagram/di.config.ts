@@ -9,7 +9,21 @@ import {
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
-import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateviews';
+import { SubTaskNodeView, TaskNodeView } from './activities/activity-views';
+import {
+  BoundaryErrorEventNodeView,
+  BoundarySignalEventNodeView,
+  EndPageEventNodeView,
+  ErrorEventNodeView,
+  EventNodeView,
+  IntermediateEventNodeView,
+  IntermediateTaskEventNodeView,
+  IntermediateWaitEventNodeView,
+  ProgramEventNodeView,
+  SignalEventNodeView
+} from './events/event-views';
+import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
+import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   Edge,
   EndEventNode,
@@ -23,25 +37,7 @@ import {
 } from './model';
 import { IvyGridSnapper } from './snap';
 import { EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes, NodeTypes } from './view-types';
-import {
-  BoundaryErrorEventNodeView,
-  BoundarySignalEventNodeView,
-  EndPageEventNodeView,
-  ErrorEventNodeView,
-  EventNodeView,
-  ForeignLabelView,
-  IntermediateEventNodeView,
-  IntermediateTaskEventNodeView,
-  IntermediateWaitEventNodeView,
-  LaneNodeView,
-  PoolNodeView,
-  ProgramEventNodeView,
-  RotateLabelView,
-  SignalEventNodeView,
-  SubTaskNodeView,
-  TaskNodeView,
-  WorkflowEdgeView
-} from './views';
+import { ForeignLabelView, WorkflowEdgeView } from './views';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
