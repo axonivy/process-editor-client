@@ -45,6 +45,14 @@ describe('TaskNodes', () => {
     expect(node.icon).to.be.equals('fa-database');
     node.type = 'node:email';
     expect(node.icon).to.be.equals('fa-envelope');
+    node.type = 'node:web';
+    expect(node.icon).to.be.equals('fa-tv');
+    node.type = 'node:trigger';
+    expect(node.icon).to.be.equals('fa-share-square');
+    node.type = 'node:program';
+    expect(node.icon).to.be.equals('fa-scroll');
+    node.type = 'node:thirdparty';
+    expect(node.icon).to.be.equals('fa-puzzle-piece');
   });
 });
 
