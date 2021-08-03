@@ -52,17 +52,18 @@ export class EventNodeView extends CircularNodeView {
       <circle class-sprotty-node={true} class-animate={node.animated}
         class-mouseover={node.hoverFeedback} class-selected={node.selected}
         r={radius} cx={radius} cy={radius}></circle>
-      {this.getTaskDecorator(node)}
-      {this.getDecorator(node)}
+      {this.getTaskDecorator(radius)}
+      {this.getDecorator()}
+      {this.getIconDecorator()}
       {context.renderChildren(node)}
     </g>;
   }
 
-  protected getTaskDecorator(node: EventNode): VNode {
+  protected getTaskDecorator(radius: number): VNode {
     return <g></g>;
   }
 
-  protected getDecorator(node: EventNode): VNode {
+  private getDecorator(): VNode {
     const decoratorPath = this.getDecoratorPath();
     if (decoratorPath && decoratorPath !== '') {
       return <svg height={14} width={14} x={8} y={8} viewBox={'0 0 10 10'}
@@ -76,14 +77,60 @@ export class EventNodeView extends CircularNodeView {
   protected getDecoratorPath(): string {
     return '';
   }
+
+  protected getIconDecorator(): VNode {
+    const icon = this.getIcon();
+    if (!icon) {
+      return <g></g>;
+    }
+    const foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
+    return <g>
+      <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
+        height={14} width={18} x={7} y={8}
+        class-sprotty-icon-small>
+        {foreignObjectContents}
+      </foreignObject>
+    </g>;
+  }
+
+  protected getIcon(): string | undefined {
+    return undefined;
+  }
 }
 
 @injectable()
 export class IntermediateEventNodeView extends EventNodeView {
-  protected getTaskDecorator(node: EventNode): VNode {
-    const radius = this.getRadius(node);
+  protected getTaskDecorator(radius: number): VNode {
     return <circle class-sprotty-node={true} class-sprotty-task-node={true}
       r={radius - 3} cx={radius} cy={radius}></circle>;
+  }
+}
+
+@injectable()
+export class ProgramEventNodeView extends EventNodeView {
+  protected getIcon(): string {
+    return 'fa-scroll';
+  }
+}
+
+@injectable()
+export class IntermediateTaskEventNodeView extends IntermediateEventNodeView {
+  protected getIcon(): string | undefined {
+    return 'fa-desktop';
+  }
+}
+
+@injectable()
+export class IntermediateWaitEventNodeView extends IntermediateEventNodeView {
+  protected getIcon(): string | undefined {
+    return 'fa-scroll';
+  }
+}
+
+@injectable()
+export class EndPageEventNodeView extends EventNodeView {
+  protected getIcon(): string {
+    return 'fa-desktop';
   }
 }
 
@@ -139,7 +186,7 @@ export class TaskNodeView extends RectangularNodeView {
     if (!icon) {
       return <g></g>;
     }
-    const foreignObjectContents = virtualize('<i class="fa ' + icon + '"></i>');
+    const foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={16} width={20} x={2} y={2}
@@ -173,7 +220,7 @@ export class SubTaskNodeView extends TaskNodeView {
 export class ForeignLabelView implements IView {
   render(model: SLabel, context: RenderingContext): VNode {
     const replacement = model.text.replace(/\n/g, '<br/>');
-    const foreignObjectContents = virtualize('<div>' + replacement + '</div>');
+    const foreignObjectContents = virtualize(`<div>${replacement}</div>`);
     const node = <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={model.bounds.height} width={model.bounds.width} x={0} y={0} z={10}

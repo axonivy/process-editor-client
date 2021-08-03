@@ -57,6 +57,7 @@
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
+.end\:page .sprotty-node,
 .end\:error .sprotty-node,
 .end .sprotty-node {
   stroke-width: 3px;
@@ -117,6 +118,9 @@
 }
 .sprotty-icon i {
   font-size: 16px;
+}
+.sprotty-icon-small i {
+  font-size: 12px;
 }
 
 /* Tooltip */
