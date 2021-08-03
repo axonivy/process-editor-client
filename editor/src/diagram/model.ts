@@ -1,4 +1,5 @@
 import {
+  Args,
   Bounds,
   boundsFeature,
   center,
@@ -23,6 +24,7 @@ import {
   Point,
   popupFeature,
   RectangularNode,
+  SArgumentable,
   SEdge,
   selectFeature,
   SLabel,
@@ -37,13 +39,13 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
-import { ActivityTypes } from './view-types';
+import StandardIcons from './icons';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
 }
 
-export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
 
@@ -52,6 +54,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   taskType?: string;
   reference?: string;
   animated = false;
+  args: Args;
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   get editableLabel() {
@@ -65,32 +68,9 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     return undefined;
   }
 
-  get icon(): string | undefined {
-    switch (this.type) {
-      case ActivityTypes.SCRIPT:
-        return 'fa-cog';
-      case ActivityTypes.HD:
-        return 'fa-desktop';
-      case ActivityTypes.USER:
-        return 'fa-user';
-      case ActivityTypes.SOAP:
-        return 'fa-globe';
-      case ActivityTypes.REST:
-        return 'fa-exchange-alt';
-      case ActivityTypes.DB:
-        return 'fa-database';
-      case ActivityTypes.EMAIL:
-        return 'fa-envelope';
-      case ActivityTypes.WEB_PAGE:
-        return 'fa-tv';
-      case ActivityTypes.TRIGGER:
-        return 'fa-share-square';
-      case ActivityTypes.PROGRAMM:
-        return 'fa-scroll';
-      case ActivityTypes.THIRD_PARTY:
-        return 'fa-puzzle-piece';
-    }
-    return undefined;
+  get icon(): string {
+    const iconUrl = this.args.iconUrl as string;
+    return StandardIcons[iconUrl];
   }
 }
 
