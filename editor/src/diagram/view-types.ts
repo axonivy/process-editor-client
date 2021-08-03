@@ -31,6 +31,10 @@ export namespace NodeTypes {
   export const EMAIL = DEFAULT + ':email';
   export const SUB_PROCESS = DEFAULT + ':subproc';
   export const EMBEDDED_PROCESS = DEFAULT + ':embeddedproc';
+  export const WEB_PAGE = DEFAULT + ':web';
+  export const TRIGGER = DEFAULT + ':trigger';
+  export const PROGRAMM = DEFAULT + ':program';
+  export const THIRD_PARTY = DEFAULT + ':thirdparty';
 }
 
 export namespace LaneTypes {

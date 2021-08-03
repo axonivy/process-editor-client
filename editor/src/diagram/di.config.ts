@@ -70,6 +70,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, NodeTypes.EMAIL, TaskNode, TaskNodeView);
   configureModelElement(context, NodeTypes.SUB_PROCESS, TaskNode, SubTaskNodeView);
   configureModelElement(context, NodeTypes.EMBEDDED_PROCESS, SubTaskNode, SubTaskNodeView);
+  configureModelElement(context, NodeTypes.WEB_PAGE, TaskNode, TaskNodeView);
+  configureModelElement(context, NodeTypes.TRIGGER, TaskNode, TaskNodeView);
+  configureModelElement(context, NodeTypes.PROGRAMM, TaskNode, TaskNodeView);
+  configureModelElement(context, NodeTypes.THIRD_PARTY, TaskNode, TaskNodeView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);

@@ -37,6 +37,7 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
+import { NodeTypes } from './view-types';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
@@ -66,20 +67,28 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
 
   get icon(): string | undefined {
     switch (this.type) {
-      case 'node:script':
+      case NodeTypes.SCRIPT:
         return 'fa-cog';
-      case 'node:hd':
+      case NodeTypes.HD:
         return 'fa-desktop';
-      case 'node:user':
+      case NodeTypes.USER:
         return 'fa-user';
-      case 'node:soap':
+      case NodeTypes.SOAP:
         return 'fa-globe';
-      case 'node:rest':
+      case NodeTypes.REST:
         return 'fa-exchange-alt';
-      case 'node:db':
+      case NodeTypes.DB:
         return 'fa-database';
-      case 'node:email':
+      case NodeTypes.EMAIL:
         return 'fa-envelope';
+      case NodeTypes.WEB_PAGE:
+        return 'fa-tv';
+      case NodeTypes.TRIGGER:
+        return 'fa-share-square';
+      case NodeTypes.PROGRAMM:
+        return 'fa-scroll';
+      case NodeTypes.THIRD_PARTY:
+        return 'fa-puzzle-piece';
     }
     return undefined;
   }
