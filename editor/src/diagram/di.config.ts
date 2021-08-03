@@ -9,7 +9,7 @@ import {
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
-import { SubTaskNodeView, TaskNodeView } from './activities/activity-views';
+import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import {
   BoundaryErrorEventNodeView,
   BoundarySignalEventNodeView,
@@ -28,6 +28,7 @@ import {
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
+  ActivityNode,
   Edge,
   EndEventNode,
   EventNode,
@@ -35,11 +36,10 @@ import {
   LaneNode,
   RotateLabel,
   StartEventNode,
-  SubTaskNode,
-  TaskNode
+  SubActivityNode
 } from './model';
 import { IvyGridSnapper } from './snap';
-import { EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes, NodeTypes } from './view-types';
+import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
 import { ForeignLabelView, WorkflowEdgeView } from './views';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -71,20 +71,20 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.TASK, GatewayNode, TaskGatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
-  configureModelElement(context, NodeTypes.COMMENT, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.SCRIPT, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.HD, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.USER, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.SOAP, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.REST, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.DB, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.EMAIL, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.SUB_PROCESS, TaskNode, SubTaskNodeView);
-  configureModelElement(context, NodeTypes.EMBEDDED_PROCESS, SubTaskNode, SubTaskNodeView);
-  configureModelElement(context, NodeTypes.WEB_PAGE, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.TRIGGER, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.PROGRAMM, TaskNode, TaskNodeView);
-  configureModelElement(context, NodeTypes.THIRD_PARTY, TaskNode, TaskNodeView);
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.SOAP, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.REST, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
+  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, SubActivityNode, SubActivityNodeView);
+  configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);

@@ -1,7 +1,7 @@
 import { SEdge, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
-import { Edge, EndEventNode, EventNode, StartEventNode, TaskNode } from './model';
+import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode } from './model';
 
 describe('EventNodes', () => {
   const routable = new SEdge();
@@ -28,9 +28,9 @@ describe('EventNodes', () => {
   });
 });
 
-describe('TaskNodes', () => {
+describe('ActivityNodes', () => {
   it('Correct Icons are returned for the different node types', () => {
-    const node = new TaskNode();
+    const node = new ActivityNode();
     node.type = 'node:script';
     expect(node.icon).to.be.equals('fa-cog');
     node.type = 'node:hd';
@@ -58,9 +58,9 @@ describe('TaskNodes', () => {
 
 function createEdgeModel(): Edge {
   const root = new SModelRoot();
-  const source = new TaskNode();
+  const source = new ActivityNode();
   source.bounds = { x: 10, y: 10, width: 20, height: 10 };
-  const target = new TaskNode();
+  const target = new ActivityNode();
   target.bounds = { x: 50, y: 10, width: 20, height: 10 };
   const edge = new Edge();
   root.add(edge);

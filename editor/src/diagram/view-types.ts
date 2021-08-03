@@ -27,7 +27,7 @@ export namespace GatewayTypes {
   export const ALTERNATIVE = DEFAULT + ':alternative';
 }
 
-export namespace NodeTypes {
+export namespace ActivityTypes {
   export const DEFAULT = 'node';
   export const COMMENT = DEFAULT + ':comment';
   export const SCRIPT = DEFAULT + ':script';

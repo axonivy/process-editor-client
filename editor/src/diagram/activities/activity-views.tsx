@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
-import { TaskNode } from '../model';
+import { ActivityNode } from '../model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
@@ -11,8 +11,8 @@ const virtualize = require('snabbdom-virtualize/strings').default;
 const JSX = { createElement: snabbdom.svg };
 
 @injectable()
-export class TaskNodeView extends RectangularNodeView {
-  render(node: TaskNode, context: RenderingContext): VNode {
+export class ActivityNodeView extends RectangularNodeView {
+  render(node: ActivityNode, context: RenderingContext): VNode {
     const rcr = this.getRoundedCornerRadius(node);
     return <g>
       <rect class-sprotty-node={true} class-task={true} class-animate={node.animated}
@@ -25,11 +25,11 @@ export class TaskNodeView extends RectangularNodeView {
     </g>;
   }
 
-  protected getNodeDecorator(node: TaskNode): VNode {
+  protected getNodeDecorator(node: ActivityNode): VNode {
     return <g></g>;
   }
 
-  protected getIconDecorator(node: TaskNode): VNode {
+  protected getIconDecorator(node: ActivityNode): VNode {
     const icon = node.icon;
     if (!icon) {
       return <g></g>;
@@ -50,8 +50,8 @@ export class TaskNodeView extends RectangularNodeView {
 }
 
 @injectable()
-export class SubTaskNodeView extends TaskNodeView {
-  protected getNodeDecorator(node: TaskNode): VNode {
+export class SubActivityNodeView extends ActivityNodeView {
+  protected getNodeDecorator(node: ActivityNode): VNode {
     const diameter = 10;
     const radius = diameter / 2;
     const padding = 2;

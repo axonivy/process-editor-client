@@ -37,13 +37,13 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
-import { NodeTypes } from './view-types';
+import { ActivityTypes } from './view-types';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
 }
 
-export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
 
@@ -67,34 +67,34 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
 
   get icon(): string | undefined {
     switch (this.type) {
-      case NodeTypes.SCRIPT:
+      case ActivityTypes.SCRIPT:
         return 'fa-cog';
-      case NodeTypes.HD:
+      case ActivityTypes.HD:
         return 'fa-desktop';
-      case NodeTypes.USER:
+      case ActivityTypes.USER:
         return 'fa-user';
-      case NodeTypes.SOAP:
+      case ActivityTypes.SOAP:
         return 'fa-globe';
-      case NodeTypes.REST:
+      case ActivityTypes.REST:
         return 'fa-exchange-alt';
-      case NodeTypes.DB:
+      case ActivityTypes.DB:
         return 'fa-database';
-      case NodeTypes.EMAIL:
+      case ActivityTypes.EMAIL:
         return 'fa-envelope';
-      case NodeTypes.WEB_PAGE:
+      case ActivityTypes.WEB_PAGE:
         return 'fa-tv';
-      case NodeTypes.TRIGGER:
+      case ActivityTypes.TRIGGER:
         return 'fa-share-square';
-      case NodeTypes.PROGRAMM:
+      case ActivityTypes.PROGRAMM:
         return 'fa-scroll';
-      case NodeTypes.THIRD_PARTY:
+      case ActivityTypes.THIRD_PARTY:
         return 'fa-puzzle-piece';
     }
     return undefined;
   }
 }
 
-export class SubTaskNode extends TaskNode {
+export class SubActivityNode extends ActivityNode {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, jumpFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }

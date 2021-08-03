@@ -24,7 +24,7 @@ import { Container } from 'inversify';
 import { describe, it } from 'mocha';
 
 import ivyDiagramModule from './di.config';
-import { EdgeTypes, EventTypes, NodeTypes } from './view-types';
+import { ActivityTypes, EdgeTypes, EventTypes } from './view-types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -51,8 +51,8 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   children.push({ id: 'start', type: EventTypes.START, position: { x: 100, y: 100 }, size: { width: 30, height: 30 } });
   children.push({ id: 'end', type: EventTypes.END, position: { x: 200, y: 100 }, size: { width: 30, height: 30 } });
-  children.push({ id: 'comment', type: NodeTypes.COMMENT, position: { x: 600, y: 100 }, size: { width: 150, height: 50 } });
-  children.push({ id: 'script', type: NodeTypes.SCRIPT, position: { x: 600, y: 150 }, size: { width: 150, height: 50 } });
+  children.push({ id: 'comment', type: ActivityTypes.COMMENT, position: { x: 600, y: 100 }, size: { width: 150, height: 50 } });
+  children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: { width: 150, height: 50 } });
 
   children.push({ id: 'edge', type: EdgeTypes.DEFAULT, sourceId: 'start', targetId: 'end' });
   children.push({ id: 'edgeWithRoutes', type: EdgeTypes.DEFAULT, sourceId: 'start', targetId: 'end', routingPoints: [{ x: 150, y: 500 }] });
