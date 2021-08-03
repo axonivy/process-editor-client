@@ -14,13 +14,16 @@ import {
   BoundaryErrorEventNodeView,
   BoundarySignalEventNodeView,
   EndPageEventNodeView,
+  EndSubEventNodeView,
   ErrorEventNodeView,
   EventNodeView,
   IntermediateEventNodeView,
   IntermediateTaskEventNodeView,
   IntermediateWaitEventNodeView,
   ProgramEventNodeView,
-  SignalEventNodeView
+  SignalEventNodeView,
+  StartSubEventNodeView,
+  WsEventNodeView
 } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
@@ -50,9 +53,13 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.START_ERROR, StartEventNode, ErrorEventNodeView);
   configureModelElement(context, EventTypes.START_SIGNAL, StartEventNode, SignalEventNodeView);
   configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, ProgramEventNodeView);
+  configureModelElement(context, EventTypes.START_SUB, StartEventNode, StartSubEventNodeView);
+  configureModelElement(context, EventTypes.START_WS, StartEventNode, WsEventNodeView);
   configureModelElement(context, EventTypes.END, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_ERROR, EndEventNode, ErrorEventNodeView);
   configureModelElement(context, EventTypes.END_PAGE, EndEventNode, EndPageEventNodeView);
+  configureModelElement(context, EventTypes.END_SUB, EndEventNode, EndSubEventNodeView);
+  configureModelElement(context, EventTypes.END_WS, EndEventNode, WsEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateTaskEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateWaitEventNodeView);

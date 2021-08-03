@@ -23,9 +23,13 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'startError', type: EventTypes.START_ERROR, position: { x: 100, y: 150 }, size: eventNodeSize });
   children.push({ id: 'startSignal', type: EventTypes.START_SIGNAL, position: { x: 100, y: 200 }, size: eventNodeSize });
   children.push({ id: 'startProgram', type: EventTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize });
+  children.push({ id: 'startSub', type: EventTypes.START_SUB, position: { x: 100, y: 30 }, size: eventNodeSize });
+  children.push({ id: 'startWs', type: EventTypes.START_WS, position: { x: 100, y: 350 }, size: eventNodeSize });
   children.push({ id: 'end', type: EventTypes.END, position: { x: 200, y: 100 }, size: eventNodeSize });
   children.push({ id: 'endError', type: EventTypes.END_ERROR, position: { x: 200, y: 150 }, size: eventNodeSize });
   children.push({ id: 'endPage', type: EventTypes.END_PAGE, position: { x: 200, y: 200 }, size: eventNodeSize });
+  children.push({ id: 'endSub', type: EventTypes.END_SUB, position: { x: 200, y: 250 }, size: eventNodeSize });
+  children.push({ id: 'endWs', type: EventTypes.END_WS, position: { x: 200, y: 300 }, size: eventNodeSize });
   children.push({ id: 'intermediate', type: EventTypes.INTERMEDIATE, position: { x: 300, y: 100 }, size: eventNodeSize });
   children.push({ id: 'intermediateTask', type: EventTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
   children.push({ id: 'intermediateWait', type: EventTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
@@ -86,6 +90,22 @@ describe('EventNodeView', () => {
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
+  it('render start sub event node', () => {
+    const view = viewRegistry.get(EventTypes.START_SUB);
+    const vnode = view.render(graph.index.getById('startSub') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g><g>'
+      + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render start ws event node', () => {
+    const view = viewRegistry.get(EventTypes.START_WS);
+    const vnode = view.render(graph.index.getById('startWs') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g><g>'
+      + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
   it('render end event node', () => {
     const view = viewRegistry.get(EventTypes.END);
     const vnode = view.render(graph.index.getById('end') as SNode, context);
@@ -104,6 +124,22 @@ describe('EventNodeView', () => {
   it('render end page event node', () => {
     const view = viewRegistry.get(EventTypes.END_PAGE);
     const vnode = view.render(graph.index.getById('endPage') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g><g>'
+      + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render end sub event node', () => {
+    const view = viewRegistry.get(EventTypes.END_SUB);
+    const vnode = view.render(graph.index.getById('endSub') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g><g>'
+      + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render end ws event node', () => {
+    const view = viewRegistry.get(EventTypes.END_WS);
+    const vnode = view.render(graph.index.getById('endWs') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g><g>'
       + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);

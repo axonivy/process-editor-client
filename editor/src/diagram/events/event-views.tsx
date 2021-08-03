@@ -49,7 +49,7 @@ export class EventNodeView extends CircularNodeView {
     if (!icon) {
       return <g></g>;
     }
-    const foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
+    const foreignObjectContents = virtualize(`<i class="fa fa-fw ${icon}"></i>`);
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={14} width={18} x={7} y={8}
@@ -65,17 +65,38 @@ export class EventNodeView extends CircularNodeView {
 }
 
 @injectable()
-export class IntermediateEventNodeView extends EventNodeView {
-  protected getTaskDecorator(radius: number): VNode {
-    return <circle class-sprotty-node={true} class-sprotty-task-node={true}
-      r={radius - 3} cx={radius} cy={radius}></circle>;
+export class ProgramEventNodeView extends EventNodeView {
+  protected getIcon(): string {
+    return 'fa-scroll';
   }
 }
 
 @injectable()
-export class ProgramEventNodeView extends EventNodeView {
+export class StartSubEventNodeView extends EventNodeView {
   protected getIcon(): string {
-    return 'fa-scroll';
+    return 'fa-share';
+  }
+}
+
+@injectable()
+export class EndSubEventNodeView extends EventNodeView {
+  protected getIcon(): string {
+    return 'fa-reply';
+  }
+}
+
+@injectable()
+export class WsEventNodeView extends EventNodeView {
+  protected getIcon(): string {
+    return 'fa-globe';
+  }
+}
+
+@injectable()
+export class IntermediateEventNodeView extends EventNodeView {
+  protected getTaskDecorator(radius: number): VNode {
+    return <circle class-sprotty-node={true} class-sprotty-task-node={true}
+      r={radius - 3} cx={radius} cy={radius}></circle>;
   }
 }
 

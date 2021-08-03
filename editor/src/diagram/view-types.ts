@@ -5,9 +5,13 @@ export namespace EventTypes {
   export const START_ERROR = START + ':error';
   export const START_SIGNAL = START + ':signal';
   export const START_PROGRAM = START + ':program';
+  export const START_SUB = START + ':sub';
+  export const START_WS = START + ':ws';
   export const END = DEFAULT + ':end';
   export const END_ERROR = END + ':error';
   export const END_PAGE = END + ':page';
+  export const END_SUB = END + ':sub';
+  export const END_WS = END + ':ws';
   export const INTERMEDIATE = DEFAULT + ':intermediate';
   export const INTERMEDIATE_TASK = INTERMEDIATE + ':task';
   export const INTERMEDIATE_WAIT = INTERMEDIATE + ':wait';
