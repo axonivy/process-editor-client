@@ -18,6 +18,9 @@ const StandardIcons: { [icon: string]: string } = {
 };
 
 const resolveIcon = (iconUri: string): string | undefined => {
+  if (!iconUri) {
+    return iconUri;
+  }
   if (iconUri.includes('webContent')) {
     return iconUri;
   } else if (iconUri.startsWith('ext:')) {
