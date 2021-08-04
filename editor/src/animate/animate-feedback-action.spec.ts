@@ -42,7 +42,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Animate Feedback Action', () => {
+describe('AnimateFeedbackAction', () => {
   let actionDispatcher: ActionDispatcher;
 
   beforeEach(() => {

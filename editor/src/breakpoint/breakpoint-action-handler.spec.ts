@@ -26,7 +26,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Show Breakpoint Action Handler', () => {
+describe('ShowBreakpointActionHandler', () => {
   let actionDispatcher: ActionDispatcher;
   let feedbackDispatcher: FeedbackActionDispatcher;
 

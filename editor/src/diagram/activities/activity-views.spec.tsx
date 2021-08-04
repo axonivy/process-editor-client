@@ -23,19 +23,19 @@ function createModel(graphFactory: SModelFactory): SGraph {
     id: 'comment', type: ActivityTypes.COMMENT, position: { x: 600, y: 100 }, size: taskNodeSize,
     children: [{ id: 'commentLabel', type: LabelType.DEFAULT, text: 'comment', position: { x: 0, y: 0 }, size: { width: 100, height: 30 } }]
   });
-  children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: taskNodeSize });
-  children.push({ id: 'hd', type: ActivityTypes.HD, position: { x: 600, y: 200 }, size: taskNodeSize });
-  children.push({ id: 'user', type: ActivityTypes.USER, position: { x: 600, y: 250 }, size: taskNodeSize });
-  children.push({ id: 'soap', type: ActivityTypes.SOAP, position: { x: 600, y: 300 }, size: taskNodeSize });
-  children.push({ id: 'rest', type: ActivityTypes.REST, position: { x: 600, y: 350 }, size: taskNodeSize });
-  children.push({ id: 'db', type: ActivityTypes.DB, position: { x: 600, y: 400 }, size: taskNodeSize });
-  children.push({ id: 'email', type: ActivityTypes.EMAIL, position: { x: 600, y: 450 }, size: taskNodeSize });
-  children.push({ id: 'subProcess', type: ActivityTypes.SUB_PROCESS, position: { x: 600, y: 500 }, size: taskNodeSize });
-  children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize });
-  children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize });
-  children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize });
-  children.push({ id: 'program', type: ActivityTypes.PROGRAMM, position: { x: 600, y: 700 }, size: taskNodeSize });
-  children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
+  children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: taskNodeSize, args: { iconUri: 'std:Step' } });
+  children.push({ id: 'hd', type: ActivityTypes.HD, position: { x: 600, y: 200 }, size: taskNodeSize, args: { iconUri: 'std:UserDialog' } });
+  children.push({ id: 'user', type: ActivityTypes.USER, position: { x: 600, y: 250 }, size: taskNodeSize, args: { iconUri: 'std:User' } });
+  children.push({ id: 'soap', type: ActivityTypes.SOAP, position: { x: 600, y: 300 }, size: taskNodeSize, args: { iconUri: 'std:WebService' } });
+  children.push({ id: 'rest', type: ActivityTypes.REST, position: { x: 600, y: 350 }, size: taskNodeSize, args: { iconUri: 'std:RestClient' } });
+  children.push({ id: 'db', type: ActivityTypes.DB, position: { x: 600, y: 400 }, size: taskNodeSize, args: { iconUri: 'std:Database' } });
+  children.push({ id: 'email', type: ActivityTypes.EMAIL, position: { x: 600, y: 450 }, size: taskNodeSize, args: { iconUri: 'std:Mail' } });
+  children.push({ id: 'subProcess', type: ActivityTypes.SUB_PROCESS, position: { x: 600, y: 500 }, size: taskNodeSize, args: { iconUri: 'std:NoDecorator' } });
+  children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize, args: { iconUri: 'std:NoDecorator' } });
+  children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize, args: { iconUri: 'std:Page' } });
+  children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize, args: { iconUri: 'std:Trigger' } });
+  children.push({ id: 'program', type: ActivityTypes.PROGRAMM, position: { x: 600, y: 700 }, size: taskNodeSize, args: { iconUri: 'std:Program' } });
+  children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize, args: { iconUri: 'std:Rule' } });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -49,7 +49,7 @@ describe('ActivityNodeView', () => {
     [context, graphFactory, graph, viewRegistry] = setupViewTestContainer(createModel);
   });
 
-  it('render full graph', () => {
+  it('render full activity graph', () => {
     const graphVNode = context.renderElement(graph);
     expect(toHTML(graphVNode)).to.not.include('sprotty_unknown')
       .and.not.include('sprotty-missing');

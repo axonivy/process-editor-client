@@ -68,7 +68,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Smart action tool feedback', () => {
+describe('SmartActionToolFeedback', () => {
   let actionDispatcher: ActionDispatcher;
 
   beforeEach(() => {

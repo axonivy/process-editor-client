@@ -69,7 +69,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 
   get icon(): string {
-    const iconUri = this.args.iconUri as string;
+    const iconUri = this.args?.iconUri as string;
     return StandardIcons[iconUri];
   }
 }
