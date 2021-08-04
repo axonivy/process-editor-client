@@ -33,7 +33,7 @@ describe('ActivityNodes', () => {
     const node = new ActivityNode();
     node.args = {};
     node.args.iconUri = 'std:User';
-    expect(node.icon).to.be.equals('fa-user');
+    expect(node.icon.res).to.be.equals('fa-user');
   });
 });
 
