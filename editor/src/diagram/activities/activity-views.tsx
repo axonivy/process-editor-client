@@ -3,6 +3,7 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
+import { IconStyle } from '../icons';
 import { ActivityNode } from '../model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
@@ -31,14 +32,14 @@ export class ActivityNodeView extends RectangularNodeView {
 
   protected getIconDecorator(node: ActivityNode): VNode {
     const icon = node.icon;
-    if (!icon) {
+    if (icon.style === IconStyle.NO) {
       return <g></g>;
     }
     let foreignObjectContents;
-    if (icon.startsWith('fa')) {
-      foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
+    if (icon.style === IconStyle.FA) {
+      foreignObjectContents = virtualize(`<i class="fa ${icon.res}"></i>`);
     } else {
-      foreignObjectContents = virtualize(`<img src="${icon}"></i>`);
+      foreignObjectContents = virtualize(`<img src="${icon.res}"></i>`);
     }
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'

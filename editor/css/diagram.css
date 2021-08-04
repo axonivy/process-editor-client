@@ -129,6 +129,11 @@
 .sprotty-icon-small i {
   font-size: 12px;
 }
+.sprotty-icon-small img {
+  height: 14px;
+  width: 16px;
+  object-fit: contain;
+}
 
 /* Tooltip */
 .sprotty-popup {
