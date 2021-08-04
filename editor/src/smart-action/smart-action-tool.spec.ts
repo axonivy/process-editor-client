@@ -71,7 +71,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Smart action tool', () => {
+describe('SmartActionTool', () => {
   let root: SModelRoot;
   let selectionService: SelectionService;
   let feedbackDispatcher: FeedbackActionDispatcher;

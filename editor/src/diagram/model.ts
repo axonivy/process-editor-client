@@ -1,4 +1,5 @@
 import {
+  Args,
   Bounds,
   boundsFeature,
   center,
@@ -23,6 +24,7 @@ import {
   Point,
   popupFeature,
   RectangularNode,
+  SArgumentable,
   SEdge,
   selectFeature,
   SLabel,
@@ -37,12 +39,13 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
+import StandardIcons from './icons';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
 }
 
-export class TaskNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
 
@@ -51,6 +54,7 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
   taskType?: string;
   reference?: string;
   animated = false;
+  args: Args;
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   get editableLabel() {
@@ -64,28 +68,13 @@ export class TaskNode extends RectangularNode implements Nameable, WithEditableL
     return undefined;
   }
 
-  get icon(): string | undefined {
-    switch (this.type) {
-      case 'node:script':
-        return 'fa-cog';
-      case 'node:hd':
-        return 'fa-desktop';
-      case 'node:user':
-        return 'fa-user';
-      case 'node:soap':
-        return 'fa-globe';
-      case 'node:rest':
-        return 'fa-exchange-alt';
-      case 'node:db':
-        return 'fa-database';
-      case 'node:email':
-        return 'fa-envelope';
-    }
-    return undefined;
+  get icon(): string {
+    const iconUri = this.args?.iconUri as string;
+    return StandardIcons[iconUri];
   }
 }
 
-export class SubTaskNode extends TaskNode {
+export class SubActivityNode extends ActivityNode {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, jumpFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }

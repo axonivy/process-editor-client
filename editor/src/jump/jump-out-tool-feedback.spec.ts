@@ -52,7 +52,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Jump out tool', () => {
+describe('JumpOutTool', () => {
   let actionDispatcher: ActionDispatcher;
   let node: SChildElement;
 

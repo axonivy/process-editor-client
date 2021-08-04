@@ -37,7 +37,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('Breakpoint Feedback Action', () => {
+describe('BreakpointFeedbackAction', () => {
   let actionDispatcher: ActionDispatcher;
 
   beforeEach(() => {

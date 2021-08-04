@@ -9,7 +9,7 @@ import {
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { TaskNode } from '../diagram/model';
+import { ActivityNode } from '../diagram/model';
 import { IvyDecorationPlacer } from './decoration-placer';
 
 describe('IvyDecorationPlacer', () => {
@@ -22,7 +22,7 @@ describe('IvyDecorationPlacer', () => {
 
   it('resizable element should has position bottom left', () => {
     const root = new SModelRoot();
-    const element = new TaskNode();
+    const element = new ActivityNode();
     element.size = { width: 30, height: 30 };
     element.position = { x: 40, y: 20 };
     element.features = createFeatureSet([boundsFeature]);

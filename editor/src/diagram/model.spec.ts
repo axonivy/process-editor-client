@@ -1,7 +1,7 @@
 import { SEdge, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
-import { Edge, EndEventNode, EventNode, StartEventNode, TaskNode } from './model';
+import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode } from './model';
 
 describe('EventNodes', () => {
   const routable = new SEdge();
@@ -28,31 +28,20 @@ describe('EventNodes', () => {
   });
 });
 
-describe('TaskNodes', () => {
+describe('ActivityNodes', () => {
   it('Correct Icons are returned for the different node types', () => {
-    const node = new TaskNode();
-    node.type = 'node:script';
-    expect(node.icon).to.be.equals('fa-cog');
-    node.type = 'node:hd';
-    expect(node.icon).to.be.equals('fa-desktop');
-    node.type = 'node:user';
+    const node = new ActivityNode();
+    node.args = {};
+    node.args.iconUri = 'std:User';
     expect(node.icon).to.be.equals('fa-user');
-    node.type = 'node:soap';
-    expect(node.icon).to.be.equals('fa-globe');
-    node.type = 'node:rest';
-    expect(node.icon).to.be.equals('fa-exchange-alt');
-    node.type = 'node:db';
-    expect(node.icon).to.be.equals('fa-database');
-    node.type = 'node:email';
-    expect(node.icon).to.be.equals('fa-envelope');
   });
 });
 
 function createEdgeModel(): Edge {
   const root = new SModelRoot();
-  const source = new TaskNode();
+  const source = new ActivityNode();
   source.bounds = { x: 10, y: 10, width: 20, height: 10 };
-  const target = new TaskNode();
+  const target = new ActivityNode();
   target.bounds = { x: 50, y: 10, width: 20, height: 10 };
   const edge = new Edge();
   root.add(edge);
