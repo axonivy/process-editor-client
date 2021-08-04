@@ -39,7 +39,7 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
-import resolveIcon from './icons';
+import { NodeIcon, resolveIcon } from './icons';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
@@ -68,7 +68,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     return undefined;
   }
 
-  get icon(): string | undefined {
+  get icon(): NodeIcon {
     const iconUri = this.args?.iconUri as string;
     return resolveIcon(iconUri);
   }
@@ -79,11 +79,17 @@ export class SubActivityNode extends ActivityNode {
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }
 
-export class EventNode extends CircularNode implements Animateable {
+export class EventNode extends CircularNode implements Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
 
   animated = false;
+  args: Args;
+
+  get icon(): NodeIcon {
+    const iconUri = this.args?.iconUri as string;
+    return resolveIcon(iconUri);
+  }
 }
 
 export class EndEventNode extends EventNode {
