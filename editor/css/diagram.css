@@ -121,6 +121,11 @@
 .sprotty-icon i {
   font-size: 16px;
 }
+.sprotty-icon img {
+  height: 16px;
+  width: 20px;
+  object-fit: contain;
+}
 .sprotty-icon-small i {
   font-size: 12px;
 }

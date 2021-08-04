@@ -39,7 +39,7 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
-import StandardIcons from './icons';
+import resolveIcon from './icons';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
@@ -68,9 +68,9 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     return undefined;
   }
 
-  get icon(): string {
+  get icon(): string | undefined {
     const iconUri = this.args?.iconUri as string;
-    return StandardIcons[iconUri];
+    return resolveIcon(iconUri);
   }
 }
 
