@@ -31,28 +31,9 @@ describe('EventNodes', () => {
 describe('ActivityNodes', () => {
   it('Correct Icons are returned for the different node types', () => {
     const node = new ActivityNode();
-    node.type = 'node:script';
-    expect(node.icon).to.be.equals('fa-cog');
-    node.type = 'node:hd';
-    expect(node.icon).to.be.equals('fa-desktop');
-    node.type = 'node:user';
+    node.args = {};
+    node.args.iconUri = 'std:User';
     expect(node.icon).to.be.equals('fa-user');
-    node.type = 'node:soap';
-    expect(node.icon).to.be.equals('fa-globe');
-    node.type = 'node:rest';
-    expect(node.icon).to.be.equals('fa-exchange-alt');
-    node.type = 'node:db';
-    expect(node.icon).to.be.equals('fa-database');
-    node.type = 'node:email';
-    expect(node.icon).to.be.equals('fa-envelope');
-    node.type = 'node:web';
-    expect(node.icon).to.be.equals('fa-tv');
-    node.type = 'node:trigger';
-    expect(node.icon).to.be.equals('fa-share-square');
-    node.type = 'node:program';
-    expect(node.icon).to.be.equals('fa-scroll');
-    node.type = 'node:thirdparty';
-    expect(node.icon).to.be.equals('fa-puzzle-piece');
   });
 });
 
