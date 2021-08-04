@@ -17,4 +17,16 @@ const StandardIcons: { [icon: string]: string } = {
   'std:Script': 'fa-scroll'
 };
 
-export default StandardIcons;
+const resolveIcon = (iconUri: string): string | undefined => {
+  if (!iconUri) {
+    return iconUri;
+  }
+  if (iconUri.includes('webContent')) {
+    return iconUri;
+  } else if (iconUri.startsWith('ext:')) {
+    return 'fa-puzzle-piece';
+  }
+  return StandardIcons[iconUri];
+};
+
+export default resolveIcon;

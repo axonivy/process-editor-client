@@ -71,7 +71,7 @@ describe('EdgeView', () => {
     [context, graphFactory, graph, viewRegistry] = setupViewTestContainer(createModel);
   });
 
-  it('render full graph', () => {
+  it('render full edge graph', () => {
     const graphVNode = context.renderElement(graph);
     expect(toHTML(graphVNode)).to.not.include('sprotty_unknown')
       .and.not.include('sprotty-missing');

@@ -34,7 +34,12 @@ export class ActivityNodeView extends RectangularNodeView {
     if (!icon) {
       return <g></g>;
     }
-    const foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
+    let foreignObjectContents;
+    if (icon.startsWith('fa')) {
+      foreignObjectContents = virtualize(`<i class="fa ${icon}"></i>`);
+    } else {
+      foreignObjectContents = virtualize(`<img src="${icon}"></i>`);
+    }
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={16} width={20} x={2} y={2}
