@@ -4,26 +4,19 @@ import {
   DeleteElementContextMenuItemProvider,
   GEdgeView,
   LogLevel,
+  moveFeature,
+  selectFeature,
   SLabel,
   TYPES
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
+import { jumpFeature } from '../jump/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
-import {
-  ActivityNode,
-  Edge,
-  EndEventNode,
-  EventNode,
-  GatewayNode,
-  LaneNode,
-  RotateLabel,
-  StartEventNode,
-  SubActivityNode
-} from './model';
+import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, RotateLabel, StartEventNode } from './model';
 import { IvyGridSnapper } from './snap';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
 import { ForeignLabelView, WorkflowEdgeView } from './views';
@@ -66,11 +59,12 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
-  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, SubActivityNode, SubActivityNodeView);
+  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.LABEL, SLabel, ForeignLabelView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
@@ -79,7 +73,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView);
+  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 });
 
 export default ivyDiagramModule;
