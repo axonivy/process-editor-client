@@ -10,19 +10,16 @@ import {
   exportModule,
   fadeModule,
   glspContextMenuModule,
-  glspEditLabelModule,
   glspHoverModule,
   glspMouseToolModule,
   glspSelectModule,
   glspServerCopyPasteModule,
   glspViewportModule,
-  labelEditUiModule,
   layoutCommandsModule,
   markerNavigatorModule,
   modelHintsModule,
   modelSourceModule,
   overrideViewerOptions,
-  paletteModule,
   routingModule,
   toolFeedbackModule,
   toolsModule,
@@ -37,14 +34,42 @@ import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import ivyJumpOutModule from './jump/di.config';
 import ivySmartActionModule from './smart-action/di.config';
+import ivyToolPaletteModule from './tool-palette/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
 
-  container.load(validationModule, defaultModule, glspMouseToolModule, defaultGLSPModule, glspSelectModule, boundsModule, glspViewportModule, toolsModule,
-    baseViewModule, glspHoverModule, fadeModule, exportModule, expandModule, buttonModule, modelSourceModule, labelEditUiModule, glspEditLabelModule,
-    ivyDiagramModule, toolFeedbackModule, modelHintsModule, glspServerCopyPasteModule, paletteModule, routingModule, ivyDecorationModule, edgeLayoutModule, zorderModule,
-    layoutCommandsModule, ivySmartActionModule, glspContextMenuModule, ivyJumpOutModule, animateModule, markerNavigatorModule);
+  container.load(validationModule,
+    defaultModule,
+    glspMouseToolModule,
+    defaultGLSPModule,
+    glspSelectModule,
+    boundsModule,
+    glspViewportModule,
+    toolsModule,
+    baseViewModule,
+    glspHoverModule,
+    fadeModule,
+    exportModule,
+    expandModule,
+    buttonModule,
+    modelSourceModule,
+    ivyDiagramModule,
+    toolFeedbackModule,
+    modelHintsModule,
+    glspServerCopyPasteModule,
+    routingModule,
+    /* paletteModule,*/
+    ivyToolPaletteModule,
+    ivyDecorationModule,
+    edgeLayoutModule,
+    zorderModule,
+    layoutCommandsModule,
+    ivySmartActionModule,
+    glspContextMenuModule,
+    ivyJumpOutModule,
+    animateModule,
+    markerNavigatorModule);
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,
