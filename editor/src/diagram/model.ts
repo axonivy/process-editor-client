@@ -14,8 +14,6 @@ import {
   fadeFeature,
   hoverFeedbackFeature,
   isEditableLabel,
-  layoutableChildFeature,
-  LayoutContainer,
   layoutContainerFeature,
   moveFeature,
   Nameable,
@@ -29,7 +27,6 @@ import {
   selectFeature,
   SLabel,
   SRoutableElement,
-  SShapeElement,
   translate,
   WithEditableLabel,
   withEditLabelFeature
@@ -37,7 +34,6 @@ import {
 
 import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { jumpFeature } from '../jump/model';
 import { smartActionFeature } from '../smart-action/model';
 import { NodeIcon, resolveIcon } from './icons';
 
@@ -72,11 +68,6 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     const iconUri = this.args?.iconUri as string;
     return resolveIcon(iconUri);
   }
-}
-
-export class SubActivityNode extends ActivityNode {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, jumpFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature];
 }
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable {
@@ -138,15 +129,4 @@ export class Edge extends SEdge {
 
 export class RotateLabel extends SLabel {
   static readonly DEFAULT_FEATURES = [fadeFeature];
-}
-
-export class Icon extends SShapeElement implements LayoutContainer {
-  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, layoutableChildFeature, fadeFeature];
-
-  layout: string;
-  layoutOptions?: { [key: string]: string | number | boolean };
-  size = {
-    width: 32,
-    height: 32
-  };
 }
