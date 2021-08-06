@@ -9,6 +9,7 @@ import {
   connectableFeature,
   deletableFeature,
   DiamondNode,
+  EditableLabel,
   editFeature,
   EMPTY_BOUNDS,
   fadeFeature,
@@ -23,6 +24,7 @@ import {
   popupFeature,
   RectangularNode,
   SArgumentable,
+  SChildElement,
   SEdge,
   selectFeature,
   SLabel,
@@ -36,6 +38,7 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { smartActionFeature } from '../smart-action/model';
 import { NodeIcon, resolveIcon } from './icons';
+import { ActivityTypes } from './view-types';
 
 export class LaneNode extends RectangularNode {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
@@ -52,14 +55,10 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   animated = false;
   args: Args;
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  get editableLabel() {
-    const headerComp = this.children.find(element => element.type === 'comp:header');
-    if (headerComp) {
-      const label = headerComp.children.find(element => element.type === 'label:heading');
-      if (label && isEditableLabel(label)) {
-        return label;
-      }
+  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+    const label = this.children.find(element => element.type === ActivityTypes.LABEL);
+    if (label && isEditableLabel(label)) {
+      return label;
     }
     return undefined;
   }
