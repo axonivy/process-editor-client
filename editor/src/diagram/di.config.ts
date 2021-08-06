@@ -2,6 +2,7 @@ import {
   configureModelElement,
   ConsoleLogger,
   DeleteElementContextMenuItemProvider,
+  editLabelFeature,
   GEdgeView,
   LogLevel,
   moveFeature,
@@ -64,16 +65,16 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.LABEL, SLabel, ForeignLabelView);
+  configureModelElement(context, ActivityTypes.LABEL, SLabel, ForeignLabelView, { enable: [editLabelFeature] });
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
-  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
+  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView, { enable: [editLabelFeature] });
 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView, { enable: [editLabelFeature, selectFeature, moveFeature] });
 });
 
 export default ivyDiagramModule;
