@@ -69,7 +69,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
-  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
+  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView, { enable: [editLabelFeature] });
 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);

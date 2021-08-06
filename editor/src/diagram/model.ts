@@ -38,10 +38,18 @@ import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { smartActionFeature } from '../smart-action/model';
 import { NodeIcon, resolveIcon } from './icons';
-import { ActivityTypes } from './view-types';
+import { ActivityTypes, LaneTypes } from './view-types';
 
-export class LaneNode extends RectangularNode {
+export class LaneNode extends RectangularNode implements WithEditableLabel {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
+
+  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+    const label = this.children.find(element => element.type === LaneTypes.LABEL);
+    if (label && isEditableLabel(label)) {
+      return label;
+    }
+    return undefined;
+  }
 }
 
 export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
