@@ -158,6 +158,9 @@
   fill: var(--glsp-editor-foreground);
   opacity: 0.2;
 }
+.node-creation-mode .sprotty-node {
+  cursor: copy;
+}
 
 /* General */
 .sprotty-missing {

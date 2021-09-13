@@ -24,6 +24,8 @@ export namespace EventTypes {
 export namespace GatewayTypes {
   export const DEFAULT = 'gateway';
   export const TASK = DEFAULT + ':task';
+  export const JOIN = DEFAULT + ':join';
+  export const SPLIT = DEFAULT + ':split';
   export const ALTERNATIVE = DEFAULT + ':alternative';
 }
 

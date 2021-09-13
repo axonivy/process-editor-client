@@ -96,7 +96,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
     this.modelRootId = root.id;
-    this.containerElement.style.maxHeight = PALETTE_HEIGHT;
+    this.containerElement.style.maxHeight = '50px';
   }
 
   protected addMinimizePaletteButton(): void {
@@ -391,7 +391,8 @@ export function compare(a: PaletteItem, b: PaletteItem): number {
 
 export function createIcon(cssClasses: string[]): HTMLElement {
   const icon = document.createElement('i');
-  icon.classList.add(...cssClasses);
+  const classes = cssClasses.map(cssClass => cssClass.split(' ')).flat();
+  icon.classList.add(...classes);
   return icon;
 }
 
@@ -402,7 +403,7 @@ export function createToolGroup(item: PaletteItem): HTMLElement {
   const header = document.createElement('div');
   header.classList.add('group-header');
   if (item.icon) {
-    header.appendChild(createIcon(['fas', item.icon]));
+    header.appendChild(createIcon([item.icon]));
   }
   header.insertAdjacentText('beforeend', item.label);
   header.ondblclick = _ev => {

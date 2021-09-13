@@ -49,6 +49,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureModelElement(context, GatewayTypes.DEFAULT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.TASK, GatewayNode, TaskGatewayNodeView);
+  configureModelElement(context, GatewayTypes.JOIN, GatewayNode, GatewayNodeView);
+  configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
   configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView);
