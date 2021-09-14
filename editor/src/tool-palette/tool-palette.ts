@@ -99,30 +99,30 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.containerElement.style.maxHeight = '50px';
   }
 
-  protected addMinimizePaletteButton(): void {
-    const baseDiv = document.getElementById(this.options.baseDiv);
-    const minPaletteDiv = document.createElement('div');
-    minPaletteDiv.classList.add('minimize-palette-button');
-    if (baseDiv) {
-      const insertedDiv = baseDiv.insertBefore(minPaletteDiv, baseDiv.firstChild);
-      const minimizeIcon = createIcon(['fas', CHEVRON_DOWN]);
-      this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-      minimizeIcon.onclick = _event => {
-        const body = document.getElementsByClassName('palette-body')[0] as HTMLElement;
-        if (this.isPaletteMaximized()) {
-          body.style.maxHeight = '0px';
-        } else {
-          body.style.maxHeight = PALETTE_HEIGHT;
-        }
-        this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
-        changeCSSClass(minimizeIcon, PALETTE_ICON);
-        changeCSSClass(minimizeIcon, 'fa');
-        changeCSSClass(minimizeIcon, 'fas');
-        changeCSSClass(minimizeIcon, CHEVRON_DOWN);
-      };
-      insertedDiv.appendChild(minimizeIcon);
-    }
-  }
+  // protected addMinimizePaletteButton(): void {
+  //   const baseDiv = document.getElementById(this.options.baseDiv);
+  //   const minPaletteDiv = document.createElement('div');
+  //   minPaletteDiv.classList.add('minimize-palette-button');
+  //   if (baseDiv) {
+  //     const insertedDiv = baseDiv.insertBefore(minPaletteDiv, baseDiv.firstChild);
+  //     const minimizeIcon = createIcon(['fas', CHEVRON_DOWN]);
+  //     this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
+  //     minimizeIcon.onclick = _event => {
+  //       const body = document.getElementsByClassName('palette-body')[0] as HTMLElement;
+  //       if (this.isPaletteMaximized()) {
+  //         body.style.maxHeight = '0px';
+  //       } else {
+  //         body.style.maxHeight = PALETTE_HEIGHT;
+  //       }
+  //       this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
+  //       changeCSSClass(minimizeIcon, PALETTE_ICON);
+  //       changeCSSClass(minimizeIcon, 'fa');
+  //       changeCSSClass(minimizeIcon, 'fas');
+  //       changeCSSClass(minimizeIcon, CHEVRON_DOWN);
+  //     };
+  //     insertedDiv.appendChild(minimizeIcon);
+  //   }
+  // }
 
   protected updateMinimizePaletteButtonTooltip(button: HTMLDivElement): void {
     if (this.isPaletteMaximized()) {
@@ -134,7 +134,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   protected isPaletteMaximized(): boolean {
     const body = document.getElementsByClassName('palette-body')[0] as HTMLElement;
-    return body && body.style.maxHeight !== '0px';
+    return body && !body.classList.contains('collapsed');// style.maxHeight !== '0px';
   }
 
   protected createBody(): void {
@@ -166,13 +166,49 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   protected createHeader(): void {
-    this.addMinimizePaletteButton();
+    // this.addMinimizePaletteButton();
     const headerCompartment = document.createElement('div');
     headerCompartment.classList.add('palette-header');
-    headerCompartment.append(this.createHeaderTitle());
+    // headerCompartment.append(this.createHeaderTitle());
     headerCompartment.appendChild(this.createHeaderTools());
+    headerCompartment.appendChild(this.createElementPickers());
     headerCompartment.appendChild(this.searchField = this.createHeaderSearchField());
     this.containerElement.appendChild(headerCompartment);
+  }
+
+  private createElementPickers(): HTMLElement {
+    const elementPickers = document.createElement('div');
+    elementPickers.classList.add('element-pickers');
+
+    this.paletteItems.sort(compare)
+      .forEach(item => {
+        if (item.children && item.icon) {
+          const button = document.createElement('span');
+          button.appendChild(createIcon([item.icon, 'fa-xs']));
+          button.id = 'btn_ele_picker_' + item.id;
+          button.title = item.label;
+          // button.onclick = this.onClickStaticToolButton(this.defaultToolsButton);
+          button.onclick = _event => {
+            const body = document.getElementsByClassName('palette-body')[0] as HTMLElement;
+            if (this.isPaletteMaximized()) {
+              body.classList.add('collapsed');// style.maxHeight = '0px';
+            } else {
+              body.classList.remove('collapsed');// style.maxHeight = PALETTE_HEIGHT;
+            }
+            this.changeActiveButton(button);
+            // this.updateMinimizePaletteButtonTooltip(minPaletteDiv);
+            // changeCSSClass(minimizeIcon, PALETTE_ICON);
+            // changeCSSClass(minimizeIcon, 'fa');
+            // changeCSSClass(minimizeIcon, 'fas');
+            // changeCSSClass(minimizeIcon, CHEVRON_DOWN);
+          };
+          elementPickers.appendChild(button);
+          // return button;
+          // const group = createToolGroup(item);
+        }
+      });
+
+    return elementPickers;
   }
 
   private createHeaderTools(): HTMLElement {
@@ -182,8 +218,8 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.defaultToolsButton = this.createDefaultToolButton();
     headerTools.appendChild(this.defaultToolsButton);
 
-    const deleteToolButton = this.createMouseDeleteToolButton();
-    headerTools.appendChild(deleteToolButton);
+    // const deleteToolButton = this.createMouseDeleteToolButton();
+    // headerTools.appendChild(deleteToolButton);
 
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
@@ -192,8 +228,8 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     headerTools.appendChild(validateActionButton);
 
     // Create button for Search
-    const searchIcon = this.createSearchButton();
-    headerTools.appendChild(searchIcon);
+    // const searchIcon = this.createSearchButton();
+    // headerTools.appendChild(searchIcon);
 
     return headerTools;
   }
@@ -260,19 +296,22 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     return searchField;
   }
 
-  protected createHeaderTitle(): HTMLElement {
-    const header = document.createElement('div');
-    header.classList.add('header-icon');
-    header.appendChild(createIcon(['fa', 'fa-palette']));
-    header.insertAdjacentText('beforeend', 'Palette');
-    return header;
-  }
+  // protected createHeaderTitle(): HTMLElement {
+  //   const header = document.createElement('div');
+  //   header.classList.add('header-icon');
+  //   header.appendChild(createIcon(['fa', 'fa-palette']));
+  //   header.insertAdjacentText('beforeend', 'Palette');
+  //   return header;
+  // }
 
   protected createToolButton(item: PaletteItem, index: number): HTMLElement {
     const button = document.createElement('div');
     button.tabIndex = index;
     button.classList.add('tool-button');
-    button.innerHTML = item.label;
+    if (item.icon) {
+      button.appendChild(createIcon(['fa', item.icon]));
+    }
+    button.insertAdjacentText('beforeend', item.label);
     button.onclick = this.onClickCreateToolButton(button, item);
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;

@@ -27,9 +27,11 @@
 /* Css for header compartment */
 
 .palette-header {
+  display: flex;
+  justify-content: space-between;
   padding: 0.4em;
   text-align: left;
-  font-size: 1.15em;
+  font-size: 1.5em;
   font-weight: bold;
   background: #cccccc;
   border: 1px solid rgba(60, 60, 60, 0.6);
@@ -40,17 +42,24 @@
   margin-right: 0.2em;
 }
 
-.header-tools i {
+.header-tools i,
+.element-pickers span {
   border: 1px solid #cccccc;
-  padding: 0.2em;
+  padding: 0.4em;
   margin-right: 0.2em;
 }
+.element-pickers span {
+  display: inline-block;
+  line-height: 0;
+}
 
-.header-tools i:hover {
+.header-tools i:hover,
+.element-pickers span:hover {
   background: #dfdfdf;
 }
 
-.header-tools .clicked {
+.header-tools .clicked,
+.element-pickers .clicked {
   background: #bddaef;
   border: 1px solid rgba(60, 60, 60, 0.6);
 }
@@ -60,9 +69,15 @@
 .palette-body {
   float: right;
   width: 180px;
+  max-height: 500px;
   background: rgba(100, 100, 100, 0.2);
   border: 1px solid rgba(60, 60, 60, 0.6);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.palette-body.collapsed {
+  max-height: 0;
+  border: none;
 }
 
 .tool-group {
@@ -87,7 +102,8 @@
   background: #aaaaaa;
 }
 
-.group-header i {
+.group-header i,
+.tool-button i {
   padding: 0.4em;
 }
 

@@ -11,7 +11,8 @@
   background: var(--glsp-editor-background);
   font-size: 10pt;
   border: none;
-  height: 100%;
+  height: calc(100% - 50px);
+  margin-top: 50px;
 }
 
 /* Pool / Lane */
