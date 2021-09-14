@@ -1,17 +1,23 @@
 @import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
 /* Css for main container */
 
+:root {
+  --glsp-tool-palette-background: #eee;
+  --glsp-tool-palette-forground: black;
+  --glsp-tool-palette-selection: #bddaef;
+  --glsp-tool-palette-hover: #dfdfdf;
+  --glsp-tool-palette-border: #cecece;
+  --glsp-tool-palette-group-background: #ededee;
+}
+
 .ivy-tool-palette {
   position: absolute;
   text-align: center;
   width: 100%;
   display: block;
   z-index: 1000;
-  border-style: solid;
-  border-width: 0px;
-  border-color: #bbb;
-  border-radius: 5px;
-  color: black;
+  border: none;
+  color: var(--glsp-tool-palette-forground);
   user-select: none;
   /* supported by Chrome and Opera */
   -webkit-user-select: none;
@@ -33,9 +39,14 @@
   text-align: left;
   font-size: 1.5em;
   font-weight: bold;
-  background: #cccccc;
-  border: 1px solid rgba(60, 60, 60, 0.6);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: var(--glsp-tool-palette-background);
+  border: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.palette-header i {
+  width: 1em;
+  text-align: center;
 }
 
 .header-icon i {
@@ -44,7 +55,7 @@
 
 .header-tools i,
 .element-pickers span {
-  border: 1px solid #cccccc;
+  border: none;
   padding: 0.4em;
   margin-right: 0.2em;
 }
@@ -55,13 +66,13 @@
 
 .header-tools i:hover,
 .element-pickers span:hover {
-  background: #dfdfdf;
+  background: var(--glsp-tool-palette-hover);
 }
 
 .header-tools .clicked,
 .element-pickers .clicked {
-  background: #bddaef;
-  border: 1px solid rgba(60, 60, 60, 0.6);
+  background: var(--glsp-tool-palette-selection);
+  border: none;
 }
 
 /*Css for palette body compartment */
@@ -71,7 +82,7 @@
   width: 180px;
   max-height: 500px;
   background: rgba(100, 100, 100, 0.2);
-  border: 1px solid rgba(60, 60, 60, 0.6);
+  border: 1px solid var(--glsp-tool-palette-border);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -82,7 +93,11 @@
 
 .tool-group {
   text-align: left;
-  background: #ededee;
+  background: var(--glsp-tool-palette-group-background);
+}
+
+.tool-group.collapsed .tool-button {
+  display: none;
 }
 
 .fa-rotate-45 {
@@ -95,11 +110,11 @@
 
 .group-header {
   font-weight: bold;
-  background: #cccccc;
+  background: inherit;
 }
 
 .group-header:hover {
-  background: #aaaaaa;
+  background: var(--glsp-tool-palette-hover);
 }
 
 .group-header i,
@@ -108,20 +123,16 @@
 }
 
 .tool-button {
-  background: #ededee;
+  background: var(--glsp-tool-palette-background);
   padding: 0.4em;
 }
 
 .tool-button:hover {
-  background: #dfdfdf;
+  background: var(--glsp-tool-palette-hover);
 }
 
 .tool-button.clicked {
-  background: #bddaef;
-}
-
-.tool-button.collapsed {
-  display: none;
+  background: var(--glsp-tool-palette-selection);
 }
 
 .collapsible-palette {
@@ -137,10 +148,11 @@
 }
 
 .search-input {
-  background: #dfdfdf;
-  color: black;
-  border: v#BDDAEF;
+  background: var(--glsp-tool-palette-background);
+  color: var(--glsp-tool-palette-forground);
+  border: none;
   padding-left: 3px;
-  width: 150px;
-  margin-left: 5px;
+  width: 100%;
+  margin-left: 0;
+  box-sizing: border-box;
 }

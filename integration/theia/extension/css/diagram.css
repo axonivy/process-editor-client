@@ -4,4 +4,11 @@ body {
   --glsp-editor-mouseover: var(--theia-editorWidget-foreground);
   --glsp-editor-selected: var(--theia-menu-selectionBackground);
   --glsp-foreground: var(--theia-foreground);
+
+  --glsp-tool-palette-background: var(--theia-activityBar-background);
+  --glsp-tool-palette-forground: var(--glsp-foreground);
+  --glsp-tool-palette-selection: var(--theia-editor-selectionBackground);
+  --glsp-tool-palette-hover: var(--theia-editor-selectionHighlightBackground);
+  --glsp-tool-palette-border: var(--theia-dropdown-border);
+  --glsp-tool-palette-group-background: var(--theia-badge-background);
 }
