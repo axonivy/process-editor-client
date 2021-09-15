@@ -11,8 +11,7 @@
   background: var(--glsp-editor-background);
   font-size: 10pt;
   border: none;
-  height: calc(100% - 50px);
-  margin-top: 50px;
+  height: 100%;
 }
 
 /* Pool / Lane */
@@ -127,10 +126,10 @@
   width: 20px;
   object-fit: contain;
 }
-.sprotty-icon-small i {
+.sprotty-icon.icon-small i {
   font-size: 12px;
 }
-.sprotty-icon-small img {
+.sprotty-icon.icon-small img {
   height: 14px;
   width: 16px;
   object-fit: contain;
@@ -161,6 +160,17 @@
 }
 .node-creation-mode .sprotty-node {
   cursor: copy;
+}
+.edge-creation-select-target-mode .sprotty-node,
+.edge-creation-select-target-mode .sprotty-icon,
+.edge-creation-select-target-mode .node-child-label {
+  cursor: crosshair;
+}
+.edge-modification-not-allowed-mode .sprotty-node,
+.edge-modification-not-allowed-mode .sprotty-icon,
+.edge-modification-not-allowed-mode .node-child-label,
+.edge-modification-not-allowed-mode .sprotty-label {
+  cursor: no-drop;
 }
 
 /* General */

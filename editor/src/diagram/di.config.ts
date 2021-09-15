@@ -1,12 +1,14 @@
 import {
   configureModelElement,
   ConsoleLogger,
+  DefaultTypes,
   DeleteElementContextMenuItemProvider,
   editLabelFeature,
   GEdgeView,
   LogLevel,
   moveFeature,
   selectFeature,
+  SGraphView,
   SLabel,
   TYPES
 } from '@eclipse-glsp/client';
@@ -17,7 +19,17 @@ import { ActivityNodeView, SubActivityNodeView } from './activities/activity-vie
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
-import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, RotateLabel, StartEventNode } from './model';
+import {
+  ActivityNode,
+  Edge,
+  EndEventNode,
+  EventNode,
+  GatewayNode,
+  IvyGLSPGraph,
+  LaneNode,
+  RotateLabel,
+  StartEventNode
+} from './model';
 import { IvyGridSnapper } from './snap';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
 import { ForeignLabelView, WorkflowEdgeView } from './views';
@@ -28,6 +40,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   bind(TYPES.ISnapper).to(IvyGridSnapper);
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
   const context = { bind, unbind, isBound, rebind };
+
+  configureModelElement(context, DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);
 
   configureModelElement(context, EventTypes.START, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_ERROR, StartEventNode, EventNodeView);

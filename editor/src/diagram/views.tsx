@@ -3,6 +3,8 @@ import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
+import { ActivityTypes } from './view-types';
+
 const virtualize = require('snabbdom-virtualize/strings').default;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -16,7 +18,8 @@ export class ForeignLabelView implements IView {
     const node = <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={model.bounds.height} width={model.bounds.width} x={0} y={0} z={10}
-        class-sprotty-label>
+        class-sprotty-label
+        class-node-child-label={model.parent.type.startsWith(ActivityTypes.DEFAULT)}>
         {foreignObjectContents}
       </foreignObject>
       {context.renderChildren(model)}

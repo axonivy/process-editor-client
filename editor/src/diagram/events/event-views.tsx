@@ -49,7 +49,7 @@ export class EventNodeView extends CircularNodeView {
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
         height={14} width={18} x={7} y={8}
-        class-sprotty-icon-small>
+        class-sprotty-icon class-icon-small>
         {foreignObjectContents}
       </foreignObject>
     </g>;

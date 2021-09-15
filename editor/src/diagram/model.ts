@@ -13,6 +13,7 @@ import {
   editFeature,
   EMPTY_BOUNDS,
   fadeFeature,
+  GLSPGraph,
   hoverFeedbackFeature,
   isEditableLabel,
   layoutContainerFeature,
@@ -39,6 +40,10 @@ import { breakpointFeature } from '../breakpoint/model';
 import { smartActionFeature } from '../smart-action/model';
 import { NodeIcon, resolveIcon } from './icons';
 import { ActivityTypes, LaneTypes } from './view-types';
+
+export class IvyGLSPGraph extends GLSPGraph {
+  scroll = { x: 0, y: -50 };
+}
 
 export class LaneNode extends RectangularNode implements WithEditableLabel {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
