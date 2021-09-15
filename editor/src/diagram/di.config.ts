@@ -7,6 +7,7 @@ import {
   GEdgeView,
   LogLevel,
   moveFeature,
+  popupFeature,
   selectFeature,
   SGraphView,
   SLabel,
@@ -67,7 +68,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature] });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView);

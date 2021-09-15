@@ -1,7 +1,9 @@
 import {
   EditModeListener,
   EditorContextService,
+  GLSP_TYPES,
   GLSPActionDispatcher,
+  IFeedbackActionDispatcher,
   isSetContextActionsAction,
   RequestContextActions,
   RequestMarkersAction,
@@ -23,6 +25,8 @@ import {
 } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
+import { JumpOperation } from '../jump/operation';
+import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
 import { PaletteItem } from './palette-item';
 
 const CLICKED_CSS_CLASS = 'clicked';
@@ -39,6 +43,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   static readonly ID = 'ivy-tool-palette';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
 
@@ -52,6 +57,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected itemsDiv?: HTMLElement;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
+  protected jumpOutToolButton: HTMLElement;
   protected searchField: HTMLInputElement;
   modelRootId: string;
 
@@ -83,6 +89,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
     this.modelRootId = root.id;
     this.containerElement.style.maxHeight = '50px';
+    this.feedbackDispatcher.registerFeedback(this, [new ShowJumpOutToolFeedbackAction()]);
   }
 
   protected createBody(): void {
@@ -203,6 +210,9 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const validateActionButton = this.createValidateButton();
     headerTools.appendChild(validateActionButton);
 
+    this.jumpOutToolButton = this.createJumpOutToolButton();
+    headerTools.appendChild(this.jumpOutToolButton);
+
     return headerTools;
   }
 
@@ -236,6 +246,22 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       this.actionDispatcher.dispatch(new RequestMarkersAction(modelIds));
     };
     return validateActionButton;
+  }
+
+  protected createJumpOutToolButton(): HTMLElement {
+    const jumpOutToolButton = createIcon(['fas', 'fa-level-up-alt', 'fa-xs']);
+    jumpOutToolButton.title = 'Jump out';
+    jumpOutToolButton.style.display = 'none';
+    jumpOutToolButton.onclick = _event => this.actionDispatcher.dispatch(new JumpOperation(''));
+    return jumpOutToolButton;
+  }
+
+  public showJumpOutBtn(): void {
+    this.jumpOutToolButton.style.display = 'inline-block';
+  }
+
+  public hideJumpOutBtn(): void {
+    this.jumpOutToolButton.style.display = 'none';
   }
 
   protected createPaletteItemSearchField(): HTMLInputElement {

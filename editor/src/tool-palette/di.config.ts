@@ -1,3 +1,12 @@
+import '../../css/tool-palette.css';
+
+import { configureActionHandler, configureCommand, EnableDefaultToolsAction } from '@eclipse-glsp/client';
+import { ContainerModule } from 'inversify';
+import { TYPES } from 'sprotty';
+
+import { ShowJumpOutToolFeedbackCommand } from './jump-out-tool-feedback';
+import { EnableToolPaletteAction, ToolPalette } from './tool-palette';
+
 /********************************************************************************
  * Copyright (c) 2019 EclipseSource and others.
  *
@@ -13,19 +22,12 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import '../../css/tool-palette.css';
-
-import { configureActionHandler, EnableDefaultToolsAction } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
-import { TYPES } from 'sprotty';
-
-import { EnableToolPaletteAction, ToolPalette } from './tool-palette';
-
 const ivyToolPaletteModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ToolPalette).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(ToolPalette);
   configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolPalette);
   configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolPalette);
+  configureCommand({ bind, isBound }, ShowJumpOutToolFeedbackCommand);
 });
 
 export default ivyToolPaletteModule;

@@ -32,7 +32,6 @@ import { Container } from 'inversify';
 import animateModule from './animate/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
-import ivyJumpOutModule from './jump/di.config';
 import ivySmartActionModule from './smart-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
 
@@ -67,7 +66,6 @@ export default function createContainer(widgetId: string): Container {
     layoutCommandsModule,
     ivySmartActionModule,
     glspContextMenuModule,
-    ivyJumpOutModule,
     animateModule,
     markerNavigatorModule);
 

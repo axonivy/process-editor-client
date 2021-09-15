@@ -11,8 +11,8 @@ import {
   SParentElement
 } from 'sprotty';
 
-import { JumpOperation } from '../jump/jump';
 import { jumpFeature } from '../jump/model';
+import { JumpOperation } from '../jump/operation';
 import { SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
 export const smartActionFeature = Symbol('smartActionFeature');

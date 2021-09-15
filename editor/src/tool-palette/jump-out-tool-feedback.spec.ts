@@ -3,79 +3,61 @@ import {
   CommandExecutionContext,
   CommandReturn,
   configureCommand,
+  defaultGLSPModule,
   defaultModule,
   EMPTY_BOUNDS,
   FeedbackActionDispatcher,
   GLSP_TYPES,
+  glspSelectModule,
   InitializeCanvasBoundsAction,
-  SChildElement,
-  SModelRoot,
+  LocalModelSource,
+  modelSourceModule,
   TYPES
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
-import {
-  HideJumpOutToolFeedbackAction,
-  HideJumpOutToolFeedbackCommand,
-  ShowJumpOutToolFeedbackAction,
-  ShowJumpOutToolFeedbackCommand
-} from './jump-out-tool-feedback';
-import { SJumpOutHandle } from './model';
+import ivyToolPaletteModule from '../tool-palette/di.config';
+import { ShowJumpOutToolFeedbackAction, ShowJumpOutToolFeedbackCommand } from './jump-out-tool-feedback';
 
-let root: SModelRoot;
+let feedbackActive = false;
 
 @injectable()
 class ShowJumpOutToolFeedbackCommandMock extends ShowJumpOutToolFeedbackCommand {
   execute(context: CommandExecutionContext): CommandReturn {
+    const root = context.root;
     root.id = this.action.elementId ?? '';
-    context.root = root;
-    return super.execute(context);
-  }
-}
-
-@injectable()
-class HideJumpOutToolFeedbackCommandMock extends HideJumpOutToolFeedbackCommand {
-  execute(context: CommandExecutionContext): CommandReturn {
-    context.root = root;
-    return super.execute(context);
+    feedbackActive = this.showJumpOutBtn(root);
+    return root;
   }
 }
 
 function createContainer(): Container {
   const container = new Container();
-  container.load(defaultModule);
+  container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, ivyToolPaletteModule);
+  container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, ShowJumpOutToolFeedbackCommandMock);
-  configureCommand(container, HideJumpOutToolFeedbackCommandMock);
   return container;
 }
 
 describe('JumpOutTool', () => {
   let actionDispatcher: ActionDispatcher;
-  let node: SChildElement;
 
   beforeEach(() => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
-    root = new SModelRoot();
-    node = new SChildElement();
-    root.add(node);
   });
 
   it('Is not shown on main process (contains no "-")', async () => {
     await actionDispatcher.dispatch(new ShowJumpOutToolFeedbackAction('foo'));
-    expect(root.children).to.have.lengthOf(1).and.include(node);
+    expect(feedbackActive).to.be.false;
   });
 
   it('Is shown on root if root pid contains "-"', async () => {
     await actionDispatcher.dispatch(new ShowJumpOutToolFeedbackAction('foo-f1'));
-    expect(root.children).to.have.lengthOf(2);
-    expect(root.children[1]).to.be.an.instanceOf(SJumpOutHandle);
-
-    await actionDispatcher.dispatch(new HideJumpOutToolFeedbackAction());
-    expect(root.children).to.have.lengthOf(1).and.include(node);
+    expect(feedbackActive).to.be.true;
   });
 });
