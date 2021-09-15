@@ -49,10 +49,6 @@
   text-align: center;
 }
 
-.header-icon i {
-  margin-right: 0.2em;
-}
-
 .header-tools i,
 .element-pickers span {
   border: none;

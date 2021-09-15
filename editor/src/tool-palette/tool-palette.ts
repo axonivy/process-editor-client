@@ -10,6 +10,7 @@ import {
   RequestMarkersAction,
   SetContextActions
 } from '@eclipse-glsp/client';
+import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { MarqueeMouseTool } from '@eclipse-glsp/client/lib/features/tools/marquee-mouse-tool';
 import { inject, injectable, postConstruct } from 'inversify';
 import {
@@ -27,6 +28,7 @@ import {
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { JumpOperation } from '../jump/operation';
+import { WrapToSubOperation } from '../operations';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
 
 const CLICKED_CSS_CLASS = 'clicked';
@@ -39,13 +41,14 @@ export class EnableToolPaletteAction implements Action {
 }
 
 @injectable()
-export class ToolPalette extends AbstractUIExtension implements IActionHandler, EditModeListener {
+export class ToolPalette extends AbstractUIExtension implements IActionHandler, EditModeListener, SelectionListener {
   static readonly ID = 'ivy-tool-palette';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
+  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
   // @inject(TYPES.ModelRendererFactory) private readonly render: ModelRenderer;
   // @inject(TYPES.ViewRegistry) private readonly viewRegistry: ViewRegistry;
@@ -58,6 +61,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected jumpOutToolButton: HTMLElement;
+  protected wrapToSubToolButton: HTMLElement;
   protected searchField: HTMLInputElement;
   modelRootId: string;
 
@@ -90,6 +94,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.modelRootId = root.id;
     this.containerElement.style.maxHeight = '50px';
     this.feedbackDispatcher.registerFeedback(this, [new ShowJumpOutToolFeedbackAction()]);
+    this.selectionService.register(this);
   }
 
   protected createBody(): void {
@@ -149,6 +154,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const headerCompartment = document.createElement('div');
     headerCompartment.classList.add('palette-header');
     headerCompartment.appendChild(this.createHeaderTools());
+    headerCompartment.appendChild(this.createDynamicTools());
     headerCompartment.appendChild(this.createElementPickers());
     this.containerElement.appendChild(headerCompartment);
   }
@@ -210,9 +216,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const validateActionButton = this.createValidateButton();
     headerTools.appendChild(validateActionButton);
 
-    this.jumpOutToolButton = this.createJumpOutToolButton();
-    headerTools.appendChild(this.jumpOutToolButton);
-
     return headerTools;
   }
 
@@ -248,12 +251,34 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     return validateActionButton;
   }
 
+  private createDynamicTools(): HTMLElement {
+    const dynamicTools = document.createElement('div');
+    dynamicTools.classList.add('header-tools', 'dynamic-tools');
+
+    this.jumpOutToolButton = this.createJumpOutToolButton();
+    dynamicTools.appendChild(this.jumpOutToolButton);
+
+    this.wrapToSubToolButton = this.createWrapToSubToolButton();
+    dynamicTools.appendChild(this.wrapToSubToolButton);
+
+    return dynamicTools;
+  }
+
   protected createJumpOutToolButton(): HTMLElement {
     const jumpOutToolButton = createIcon(['fas', 'fa-level-up-alt', 'fa-xs']);
     jumpOutToolButton.title = 'Jump out';
     jumpOutToolButton.style.display = 'none';
     jumpOutToolButton.onclick = _event => this.actionDispatcher.dispatch(new JumpOperation(''));
     return jumpOutToolButton;
+  }
+
+  protected createWrapToSubToolButton(): HTMLElement {
+    const wrapToSubToolButton = createIcon(['fas', 'fa-compress-arrows-alt', 'fa-xs']);
+    wrapToSubToolButton.title = 'Wrap to embedded process';
+    wrapToSubToolButton.style.display = 'none';
+    wrapToSubToolButton.onclick = _event => this.actionDispatcher.dispatch(
+      new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]));
+    return wrapToSubToolButton;
   }
 
   public showJumpOutBtn(): void {
@@ -342,6 +367,15 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   editModeChanged(_oldValue: string, _newValue: string): void {
     this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, !this.editorContext.isReadonly));
+  }
+
+  selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+    console.log(selectedElements);
+    if (selectedElements.length > 0) {
+      this.wrapToSubToolButton.style.display = 'inline-block';
+    } else {
+      this.wrapToSubToolButton.style.display = 'none';
+    }
   }
 
   protected clearOnEscape(event: KeyboardEvent): void {
