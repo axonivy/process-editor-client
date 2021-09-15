@@ -86,7 +86,7 @@ describe('EventNodeView', () => {
     const view = viewRegistry.get(EventTypes.START_PROGRAM);
     const vnode = view.render(graph.index.getById('startProgram') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g>'
-      + '<foreignObject class="sprotty-icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+      + '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 

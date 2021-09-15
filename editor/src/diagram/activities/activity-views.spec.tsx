@@ -62,7 +62,7 @@ describe('ActivityNodeView', () => {
     const view = viewRegistry.get(ActivityTypes.COMMENT);
     const vnode = view.render(graph.index.getById('comment') as SNode, context);
     const expectation = '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g><g></g><g id="sprotty_commentLabel">'
-      + '<foreignObject class="sprotty-label" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="30" width="100" x="0" y="0" z="10" /></g></g>';
+      + '<foreignObject class="sprotty-label node-child-label" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="30" width="100" x="0" y="0" z="10" /></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
