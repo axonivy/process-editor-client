@@ -5,6 +5,7 @@ import {
   GLSPActionDispatcher,
   IFeedbackActionDispatcher,
   isSetContextActionsAction,
+  PaletteItem,
   RequestContextActions,
   RequestMarkersAction,
   SetContextActions
@@ -27,7 +28,6 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { JumpOperation } from '../jump/operation';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
-import { PaletteItem } from './palette-item';
 
 const CLICKED_CSS_CLASS = 'clicked';
 const COLLAPSED_CSS = 'collapsed';
