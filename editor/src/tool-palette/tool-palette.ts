@@ -42,6 +42,10 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
 
+  // @inject(TYPES.ModelRendererFactory) private readonly render: ModelRenderer;
+  // @inject(TYPES.ViewRegistry) private readonly viewRegistry: ViewRegistry;
+  // @inject(TYPES.PatcherProvider) patcherProvider: PatcherProvider;
+
   protected paletteItems: PaletteItem[];
   protected paletteItemsCopy: PaletteItem[] = [];
   protected bodyDiv?: HTMLElement;
@@ -82,7 +86,24 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   protected createBody(): void {
+    // const ele = new EventNode();
+    // ele.id = 'id';
+    // ele.type = 'type';
+    // ele.bounds = { x: 0, y: 0, width: 20, height: 20 };
+    // ele.args = { iconUri: 'std:NoDecorator' };
+    // this.render.renderChildren = (element: any): any => [];
+    // const vnode = this.viewRegistry.get(ActivityTypes.DB).render(ele, this.render);
     const bodyDiv = document.createElement('div');
+    // const svg = document.createElement('svg');
+    // svg.style.width = '25px';
+    // svg.style.height = '25px';
+    // svg.style.display = 'block';
+    // const g = document.createElement('g');
+    // svg.appendChild(g);
+    // bodyDiv.appendChild(svg);
+    // if (vnode) {
+    //   this.patcherProvider.patcher(g, vnode);
+    // }
     this.containerElement.appendChild(bodyDiv);
     bodyDiv.classList.add('palette-body', 'collapsible-palette', COLLAPSED_CSS);
     bodyDiv.appendChild(this.searchField = this.createPaletteItemSearchField());
@@ -131,24 +152,39 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
     this.paletteItems.sort(compare)
       .forEach(item => {
-        if (item.children && item.icon) {
-          const button = document.createElement('span');
-          button.appendChild(createIcon([item.icon, 'fa-xs']));
-          button.id = 'btn_ele_picker_' + item.id;
-          button.title = item.label;
-          button.onclick = _event => {
-            if (this.lastActivebutton === button && !this.bodyDiv?.classList.contains(COLLAPSED_CSS)) {
-              this.changeActiveButton(this.defaultToolsButton);
-            } else {
-              this.changeActiveButton(button);
-              this.showGroup(item.id);
-            }
-          };
-          elementPickers.appendChild(button);
+        if (item.icon && item.children) {
+          if (item.children.length > 1) {
+            elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
+          } else {
+            elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
+          }
         }
       });
 
     return elementPickers;
+  }
+
+  private createElementActionBtn(itemId: string, icon: string, child: PaletteItem): HTMLElement {
+    const button = this.createElementPickerBtn(itemId, icon, child.label);
+    button.onclick = this.onClickCreateToolButton(button, child);
+    button.onkeydown = ev => this.clearToolOnEscape(ev);
+    return button;
+  }
+
+  private createElementPickerBtn(itemId: string, icon: string, label: string): HTMLElement {
+    const button = document.createElement('span');
+    button.appendChild(createIcon([icon, 'fa-xs']));
+    button.id = 'btn_ele_picker_' + itemId;
+    button.title = label;
+    button.onclick = _event => {
+      if (this.lastActivebutton === button && !this.bodyDiv?.classList.contains(COLLAPSED_CSS)) {
+        this.changeActiveButton(this.defaultToolsButton);
+      } else {
+        this.changeActiveButton(button);
+        this.showGroup(itemId);
+      }
+    };
+    return button;
   }
 
   private createHeaderTools(): HTMLElement {
