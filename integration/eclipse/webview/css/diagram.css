@@ -1,4 +1,4 @@
-html {
+html body {
   --glsp-editor-background: white;
   --glsp-editor-foreground: black;
   --glsp-editor-mouseover: #616161;
@@ -13,7 +13,7 @@ html {
   --glsp-tool-palette-group-background: #c4c4c4;
 }
 
-html[data-theme="dark"] {
+html[data-theme="dark"] body {
   --glsp-editor-background: #1e1e1e;
   --glsp-editor-foreground: #d4d4d4;
   --glsp-editor-mouseover: #cccccc;
