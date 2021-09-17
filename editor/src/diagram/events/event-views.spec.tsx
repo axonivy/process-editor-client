@@ -3,9 +3,12 @@ import 'reflect-metadata';
 import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
+import { VNode } from 'snabbdom/vnode';
 
+import { IconStyle, NodeIcon, NoIcon } from '../icons';
 import { EventTypes } from '../view-types';
 import setupViewTestContainer from '../views.spec';
+import { EventNodeView } from './event-views';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -25,11 +28,16 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'startProgram', type: EventTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize, args: { iconUri: 'std:Program' } });
   children.push({ id: 'startSub', type: EventTypes.START_SUB, position: { x: 100, y: 30 }, size: eventNodeSize });
   children.push({ id: 'startWs', type: EventTypes.START_WS, position: { x: 100, y: 350 }, size: eventNodeSize });
+  children.push({ id: 'startHd', type: EventTypes.START_HD, position: { x: 100, y: 400 }, size: eventNodeSize });
+  children.push({ id: 'startHdMethod', type: EventTypes.START_HD_METHOD, position: { x: 100, y: 450 }, size: eventNodeSize });
+  children.push({ id: 'startHdEvent', type: EventTypes.START_HD_EVENT, position: { x: 100, y: 500 }, size: eventNodeSize });
   children.push({ id: 'end', type: EventTypes.END, position: { x: 200, y: 100 }, size: eventNodeSize });
   children.push({ id: 'endError', type: EventTypes.END_ERROR, position: { x: 200, y: 150 }, size: eventNodeSize });
   children.push({ id: 'endPage', type: EventTypes.END_PAGE, position: { x: 200, y: 200 }, size: eventNodeSize });
   children.push({ id: 'endSub', type: EventTypes.END_SUB, position: { x: 200, y: 250 }, size: eventNodeSize });
   children.push({ id: 'endWs', type: EventTypes.END_WS, position: { x: 200, y: 300 }, size: eventNodeSize });
+  children.push({ id: 'endHd', type: EventTypes.END_HD, position: { x: 200, y: 350 }, size: eventNodeSize });
+  children.push({ id: 'endHdExit', type: EventTypes.END_HD_EXIT, position: { x: 200, y: 400 }, size: eventNodeSize });
   children.push({ id: 'intermediate', type: EventTypes.INTERMEDIATE, position: { x: 300, y: 100 }, size: eventNodeSize });
   children.push({ id: 'intermediateTask', type: EventTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
   children.push({ id: 'intermediateWait', type: EventTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
@@ -39,6 +47,70 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
   return graph;
 }
+
+describe('EventNode Icon', () => {
+  class EventNodeViewMock extends EventNodeView {
+    public getIconNode(icon: NodeIcon, radius: number): VNode {
+      return this.getIconDecorator(icon, radius);
+    }
+  }
+
+  const mock = new EventNodeViewMock();
+
+  it('no icon', () => {
+    const node = mock.getIconNode(NoIcon, 15);
+    expect(node.sel).to.be.equals('g');
+    expect(node.children).to.be.empty;
+  });
+
+  it('svg icon', () => {
+    const node = mock.getIconNode({ res: 'bla', style: IconStyle.SVG }, 20);
+    expect(node.sel).to.be.equals('svg');
+    expect(node.children).to.be.not.empty;
+    assertIconBounds(node.data, 14, 14, 13, 13);
+
+    const child = node.children![0] as any;
+    expect(child.sel).to.be.equals('path');
+    expect(child.data.attrs.d).to.be.equals('bla');
+  });
+
+  it('fa icon', () => {
+    const node = mock.getIconNode({ res: 'fa-info', style: IconStyle.FA }, 25);
+    expect(node.sel).to.be.equals('g');
+    expect(node.children).to.be.not.empty;
+
+    const foreignObject = node.children![0] as any;
+    expect(foreignObject.sel).to.be.equals('foreignObject');
+    assertIconBounds(foreignObject.data, 14, 18, 17, 18);
+    expect(foreignObject.children).to.be.not.empty;
+
+    const icon = foreignObject.children![0] as any;
+    expect(icon.sel).to.be.equals('i');
+    expect(icon.data.class).to.be.deep.equals({ fa: true, 'fa-fw': true, 'fa-info': true });
+  });
+
+  it('img icon', () => {
+    const node = mock.getIconNode({ res: 'url', style: IconStyle.IMG }, 30);
+    expect(node.sel).to.be.equals('g');
+    expect(node.children).to.be.not.empty;
+
+    const foreignObject = node.children![0] as any;
+    expect(foreignObject.sel).to.be.equals('foreignObject');
+    assertIconBounds(foreignObject.data, 14, 18, 22, 23);
+    expect(foreignObject.children).to.be.not.empty;
+
+    const icon = foreignObject.children![0] as any;
+    expect(icon.sel).to.be.equals('img');
+    expect(icon.data.attrs.src).to.be.equals('url');
+  });
+
+  function assertIconBounds(data: any, height: number, width: number, x: number, y: number): void {
+    expect(data.attrs.height).to.be.equals(height);
+    expect(data.attrs.width).to.be.equals(width);
+    expect(data.attrs.x).to.be.equals(x);
+    expect(data.attrs.y).to.be.equals(y);
+  }
+});
 
 describe('EventNodeView', () => {
   let context: ModelRenderer;
@@ -104,6 +176,27 @@ describe('EventNodeView', () => {
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
+  it('render start hd event node', () => {
+    const view = viewRegistry.get(EventTypes.START_HD);
+    const vnode = view.render(graph.index.getById('startHd') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render start hd method event node', () => {
+    const view = viewRegistry.get(EventTypes.START_HD_METHOD);
+    const vnode = view.render(graph.index.getById('startHdMethod') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render start hd event event node', () => {
+    const view = viewRegistry.get(EventTypes.START_HD_EVENT);
+    const vnode = view.render(graph.index.getById('startHdEvent') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
   it('render end event node', () => {
     const view = viewRegistry.get(EventTypes.END);
     const vnode = view.render(graph.index.getById('end') as SNode, context);
@@ -135,6 +228,20 @@ describe('EventNodeView', () => {
   it('render end ws event node', () => {
     const view = viewRegistry.get(EventTypes.END_WS);
     const vnode = view.render(graph.index.getById('endWs') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render end hd event node', () => {
+    const view = viewRegistry.get(EventTypes.END_HD);
+    const vnode = view.render(graph.index.getById('endHd') as SNode, context);
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render end hd exit event node', () => {
+    const view = viewRegistry.get(EventTypes.END_HD_EXIT);
+    const vnode = view.render(graph.index.getById('endHdExit') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });

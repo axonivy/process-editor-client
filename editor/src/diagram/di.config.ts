@@ -50,11 +50,16 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_SUB, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_WS, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD_METHOD, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD_EVENT, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_ERROR, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_PAGE, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_SUB, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_WS, EndEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.END_HD, EndEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.END_HD_EXIT, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView);
