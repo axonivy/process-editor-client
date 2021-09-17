@@ -27,6 +27,7 @@ import {
 } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
+import { IconStyle, resolveIcon } from '../diagram/icons';
 import { JumpOperation } from '../jump/operation';
 import { WrapToSubOperation } from '../operations';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
@@ -49,10 +50,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
-
-  // @inject(TYPES.ModelRendererFactory) private readonly render: ModelRenderer;
-  // @inject(TYPES.ViewRegistry) private readonly viewRegistry: ViewRegistry;
-  // @inject(TYPES.PatcherProvider) patcherProvider: PatcherProvider;
 
   protected paletteItems: PaletteItem[];
   protected paletteItemsCopy: PaletteItem[] = [];
@@ -98,24 +95,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   protected createBody(): void {
-    // const ele = new EventNode();
-    // ele.id = 'id';
-    // ele.type = 'type';
-    // ele.bounds = { x: 0, y: 0, width: 20, height: 20 };
-    // ele.args = { iconUri: 'std:NoDecorator' };
-    // this.render.renderChildren = (element: any): any => [];
-    // const vnode = this.viewRegistry.get(ActivityTypes.DB).render(ele, this.render);
     const bodyDiv = document.createElement('div');
-    // const svg = document.createElement('svg');
-    // svg.style.width = '25px';
-    // svg.style.height = '25px';
-    // svg.style.display = 'block';
-    // const g = document.createElement('g');
-    // svg.appendChild(g);
-    // bodyDiv.appendChild(svg);
-    // if (vnode) {
-    //   this.patcherProvider.patcher(g, vnode);
-    // }
     this.containerElement.appendChild(bodyDiv);
     bodyDiv.classList.add('palette-body', 'collapsible-palette', COLLAPSED_CSS);
     bodyDiv.appendChild(this.searchField = this.createPaletteItemSearchField());
@@ -207,9 +187,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.defaultToolsButton = this.createDefaultToolButton();
     headerTools.appendChild(this.defaultToolsButton);
 
-    // const deleteToolButton = this.createMouseDeleteToolButton();
-    // headerTools.appendChild(deleteToolButton);
-
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
 
@@ -226,13 +203,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     button.onclick = this.onClickStaticToolButton(this.defaultToolsButton);
     return button;
   }
-
-  // protected createMouseDeleteToolButton(): HTMLElement {
-  //   const deleteToolButton = createIcon(['fas', 'fa-eraser', 'fa-xs']);
-  //   deleteToolButton.title = 'Enable deletion tool';
-  //   deleteToolButton.onclick = this.onClickStaticToolButton(deleteToolButton, MouseDeleteTool.ID);
-  //   return deleteToolButton;
-  // }
 
   protected createMarqueeToolButton(): HTMLElement {
     const marqueeToolButton = createIcon(['far', 'fa-object-group', 'fa-xs']);
@@ -304,13 +274,29 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const button = document.createElement('div');
     button.tabIndex = index;
     button.classList.add('tool-button');
-    if (item.icon) {
-      button.appendChild(createIcon(['fa', item.icon]));
-    }
+    button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
     button.onclick = this.onClickCreateToolButton(button, item);
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;
+  }
+
+  private appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+    if (item.icon) {
+      const icon = resolveIcon(item.icon);
+      if (icon.style === IconStyle.FA) {
+        return createIcon(['fa', 'fa-fw', icon.res]);
+      }
+      if (icon.style === IconStyle.SVG) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 10 10');
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', icon.res);
+        svg.appendChild(path);
+        return svg;
+      }
+    }
+    return document.createElement('span');
   }
 
   protected onClickCreateToolButton(button: HTMLElement, item: PaletteItem) {

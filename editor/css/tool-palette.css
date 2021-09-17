@@ -113,14 +113,14 @@
   background: var(--glsp-tool-palette-hover);
 }
 
-.group-header i,
-.tool-button i {
+.group-header i {
   padding: 0.4em;
 }
 
 .tool-button {
   background: var(--glsp-tool-palette-background);
   padding: 0.4em;
+  height: 15px;
 }
 
 .tool-button:hover {
@@ -129,6 +129,21 @@
 
 .tool-button.clicked {
   background: var(--glsp-tool-palette-selection);
+}
+.tool-button i,
+.tool-button span {
+  padding-right: 0.4em;
+  width: 1.25em;
+  display: inline-block;
+}
+.tool-button svg {
+  padding-right: 0.4em;
+  width: 1.25em;
+  height: 1em;
+  fill: none;
+  stroke: var(--glsp-editor-foreground);
+  top: 1px;
+  position: relative;
 }
 
 .collapsible-palette {
