@@ -3,7 +3,7 @@ import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 import { IView, Point, RenderingContext, setAttr } from 'sprotty';
 
-import { isSmartable, SmartActionHandleLocation, SSmartActionHandle } from './model';
+import { isSmartable, QuickActionHandleLocation, SSmartActionHandle } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
@@ -29,12 +29,12 @@ export class SSmartActionHandleView implements IView {
   protected getPosition(handle: SSmartActionHandle): Point | undefined {
     const parent = handle.parent;
     if (isSmartable(parent)) {
-      if (handle.location === SmartActionHandleLocation.TopLeft) {
-        return { x: 10, y: -20 };
-      } else if (handle.location === SmartActionHandleLocation.Right) {
-        return { x: 50, y: -20 };
-      } else if (handle.location === SmartActionHandleLocation.BottomLeft) {
-        return { x: 90, y: -20 };
+      if (handle.location === QuickActionHandleLocation.TopLeft) {
+        return { x: -16 + (handle.position * 32), y: -20 };
+      } else if (handle.location === QuickActionHandleLocation.Right) {
+        return { x: parent.bounds.width + 20, y: -16 + (handle.position * 32) };
+      } else if (handle.location === QuickActionHandleLocation.BottomLeft) {
+        return { x: -16 + (handle.position * 32), y: parent.bounds.height + 20 };
       }
     }
     return undefined;

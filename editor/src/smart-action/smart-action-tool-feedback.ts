@@ -6,6 +6,7 @@ import {
   isSmartable,
   IVY_TYPES,
   QuickAction,
+  QuickActionHandleLocation,
   QuickActionProvider,
   removeSmartActionHandles,
   SSmartActionHandle
@@ -24,7 +25,7 @@ export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
   static readonly KIND = 'showSmartActionToolFeedback';
 
   @inject(TYPES.Action) protected action: ShowSmartActionToolFeedbackAction;
-  @multiInject(IVY_TYPES.QuickActionProvider) protected quickActions: QuickActionProvider[];
+  @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
@@ -36,15 +37,17 @@ export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
     if (isNotUndefined(this.action.elementId)) {
       const element = index.getById(this.action.elementId);
       if (isNotUndefined(element) && isSmartable(element)) {
-        this.quickActions
+        const quickActions = this.quickActionProviders
           .map(provider => provider.quickActionForElement(element))
-          .filter((quick): quick is QuickAction => !!quick)
-          .forEach(quick => element.add(new SSmartActionHandle(quick.icon, quick.location, 1, quick.action)));
+          .filter((quick): quick is QuickAction => !!quick);
+        [QuickActionHandleLocation.TopLeft, QuickActionHandleLocation.Right, QuickActionHandleLocation.BottomLeft].forEach(loc => {
+          quickActions.filter(quick => quick.location === loc)
+            .sort((a, b) => a.sorting.localeCompare(b.sorting))
+            .forEach((quick, position) =>
+              element.add(new SSmartActionHandle(quick.icon, quick.location, position, quick.action)));
+        });
       }
     }
-    // if (isNotUndefined(element) && isSmartable(element)) {
-    //   addSmartActionHandles(element);
-    // }
     return context.root;
   }
 }

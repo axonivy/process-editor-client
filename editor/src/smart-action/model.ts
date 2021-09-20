@@ -28,7 +28,7 @@ export function isSmartable(element: SModelElement): element is SParentElement &
   return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(smartActionFeature);
 }
 
-export enum SmartActionHandleLocation {
+export enum QuickActionHandleLocation {
   TopLeft = 'top-left',
   Right = 'right',
   BottomLeft = 'bottom-left'
@@ -38,7 +38,7 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
   static readonly TYPE = 'smart-action-handle';
 
   constructor(public readonly icon: string,
-    public readonly location: SmartActionHandleLocation,
+    public readonly location: QuickActionHandleLocation,
     public readonly position: number,
     public readonly action: Action,
     public readonly type = SSmartActionHandle.TYPE,
@@ -99,7 +99,7 @@ export class JumpQuickActionProvider implements QuickActionProvider {
 
 export interface QuickAction {
   icon: string;
-  location: SmartActionHandleLocation;
+  location: QuickActionHandleLocation;
   sorting: string;
   action: Action;
 }
@@ -107,7 +107,7 @@ export interface QuickAction {
 class DeleteQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-trash',
-    public readonly location = SmartActionHandleLocation.TopLeft,
+    public readonly location = QuickActionHandleLocation.TopLeft,
     public readonly sorting = 'A',
     public readonly action = new DeleteElementOperation([elementId])) {
   }
@@ -116,7 +116,7 @@ class DeleteQuickAction implements QuickAction {
 class ConnectQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-long-arrow-alt-right',
-    public readonly location = SmartActionHandleLocation.Right,
+    public readonly location = QuickActionHandleLocation.Right,
     public readonly sorting = 'A',
     public readonly action = new SmartActionTriggerEdgeCreationAction('edge', elementId)) {
   }
@@ -125,7 +125,7 @@ class ConnectQuickAction implements QuickAction {
 class JumpQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-level-down-alt',
-    public readonly location = SmartActionHandleLocation.BottomLeft,
+    public readonly location = QuickActionHandleLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new JumpOperation(elementId)) {
   }

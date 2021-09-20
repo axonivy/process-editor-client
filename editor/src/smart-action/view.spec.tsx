@@ -21,7 +21,7 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { describe } from 'mocha';
 
-import { smartActionFeature, SmartActionHandleLocation, SSmartActionHandle } from './model';
+import { QuickActionHandleLocation, smartActionFeature, SSmartActionHandle } from './model';
 import { SSmartActionHandleView } from './view';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -38,7 +38,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const node = {
     id: 'node', type: DefaultTypes.NODE, position: { x: 100, y: 100 }, size: { width: 200, height: 50 },
     features: createFeatureSet([selectFeature, smartActionFeature]),
-    children: [{ id: 'smartActionHandle', type: SSmartActionHandle.TYPE, location: SmartActionHandleLocation.TopLeft }]
+    children: [{ id: 'smartActionHandle', type: SSmartActionHandle.TYPE, location: QuickActionHandleLocation.TopLeft }]
   };
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: [node] }) as SGraph;
   return graph;
