@@ -55,54 +55,6 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
   }
 }
 
-// export class SSmartActionDeleteHandle extends SSmartActionHandle {
-//   mouseUp(target: SModelElement): Action[] {
-//     return [new DeleteElementOperation([target.id])];
-//   }
-
-//   get icon(): string {
-//     return 'trash';
-//   }
-// }
-
-// export class SSmartActionConnectHandle extends SSmartActionHandle {
-//   mouseUp(target: SModelElement): Action[] {
-//     return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
-//   }
-
-//   get icon(): string {
-//     return 'long-arrow-alt-right';
-//   }
-// }
-
-// export class SSmartActionJumpIntoHandler extends SSmartActionHandle {
-//   mouseUp(target: SModelElement): Action[] {
-//     return [new JumpOperation(target.id)];
-//   }
-
-//   get icon(): string {
-//     return 'level-down-alt';
-//   }
-// }
-
-export function addSmartActionHandles(element: SParentElement): void {
-  // add sorting for smart action
-  // add position (right etc)
-  // add icon
-  removeSmartActionHandles(element);
-  // isDeletable(element) {
-  //   element.add(new SSmartActionHandle('fa-trash', SmartActionHandleLocation.TopLeft,
-  //     1, new DeleteElementOperation([element.id])));
-  // }
-  // element.add(new SSmartActionHandle('fa-trash', SmartActionHandleLocation.TopLeft,
-  //   1, new DeleteElementOperation([element.id])));
-  //   element.add(new SSmartActionDeleteHandle(SmartActionHandleLocation.TopLeft));
-  //   element.add(new SSmartActionConnectHandle(SmartActionHandleLocation.TopRight));
-  //   if (element.hasFeature(jumpFeature)) {
-  //     element.add(new SSmartActionJumpIntoHandler(SmartActionHandleLocation.BottomLeft));
-  //   }
-}
-
 export function removeSmartActionHandles(element: SParentElement): void {
   element.removeAll(child => child instanceof SSmartActionHandle);
 }

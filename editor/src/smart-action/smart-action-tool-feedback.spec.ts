@@ -5,6 +5,7 @@ import {
   configureCommand,
   createFeatureSet,
   defaultModule,
+  deletableFeature,
   EMPTY_BOUNDS,
   FeedbackActionDispatcher,
   GLSP_TYPES,
@@ -23,10 +24,11 @@ import { describe, it } from 'mocha';
 import { jumpFeature } from '../jump/model';
 import { SmartActionEdgeCreationTool } from './edge/edge-creation-tool';
 import {
+  DeleteQuickActionProvider,
+  IVY_TYPES,
+  JumpQuickActionProvider,
   smartActionFeature,
-  SSmartActionConnectHandle,
-  SSmartActionDeleteHandle,
-  SSmartActionJumpIntoHandler
+  SSmartActionHandle
 } from './model';
 import {
   HideSmartActionToolFeedbackAction,
@@ -55,7 +57,7 @@ class HideSmartActionToolFeedbackCommandMock extends HideSmartActionToolFeedback
 }
 
 class SmartableNode extends SNode implements Selectable {
-  features = createFeatureSet([smartActionFeature, selectFeature]);
+  features = createFeatureSet([smartActionFeature, selectFeature, deletableFeature]);
 }
 
 function createContainer(): Container {
@@ -65,6 +67,9 @@ function createContainer(): Container {
   container.bind(SmartActionEdgeCreationTool).toSelf().inSingletonScope();
   configureCommand(container, ShowSmartActionToolFeedbackCommandMock);
   configureCommand(container, HideSmartActionToolFeedbackCommandMock);
+
+  container.bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
+  container.bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
   return container;
 }
 
@@ -93,9 +98,8 @@ describe('SmartActionToolFeedback', () => {
     root.add(node);
 
     await actionDispatcher.dispatch(new ShowSmartActionToolFeedbackAction('smartable'));
-    expect(node.children).to.have.lengthOf(2);
-    expect(node.children[0]).to.be.instanceOf(SSmartActionDeleteHandle);
-    expect(node.children[1]).to.be.instanceOf(SSmartActionConnectHandle);
+    expect(node.children).to.have.lengthOf(1);
+    expect(node.children[0]).to.be.instanceOf(SSmartActionHandle);
 
     await actionDispatcher.dispatch(new HideSmartActionToolFeedbackAction());
     expect(node.children).to.be.empty;
@@ -108,10 +112,8 @@ describe('SmartActionToolFeedback', () => {
     root.add(node);
 
     await actionDispatcher.dispatch(new ShowSmartActionToolFeedbackAction('sub'));
-    expect(node.children).to.have.lengthOf(3);
-    expect(node.children[0]).to.be.instanceOf(SSmartActionDeleteHandle);
-    expect(node.children[1]).to.be.instanceOf(SSmartActionConnectHandle);
-    expect(node.children[2]).to.be.instanceOf(SSmartActionJumpIntoHandler);
+    expect(node.children).to.have.lengthOf(1);
+    expect(node.children[0]).to.be.instanceOf(SSmartActionHandle);
 
     await actionDispatcher.dispatch(new HideSmartActionToolFeedbackAction());
     expect(node.children).to.be.empty;
