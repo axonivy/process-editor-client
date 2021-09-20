@@ -1,12 +1,15 @@
 import {
   configureModelElement,
   ConsoleLogger,
+  DefaultTypes,
   DeleteElementContextMenuItemProvider,
   editLabelFeature,
   GEdgeView,
   LogLevel,
   moveFeature,
+  popupFeature,
   selectFeature,
+  SGraphView,
   SLabel,
   TYPES
 } from '@eclipse-glsp/client';
@@ -17,7 +20,17 @@ import { ActivityNodeView, SubActivityNodeView } from './activities/activity-vie
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
-import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, RotateLabel, StartEventNode } from './model';
+import {
+  ActivityNode,
+  Edge,
+  EndEventNode,
+  EventNode,
+  GatewayNode,
+  IvyGLSPGraph,
+  LaneNode,
+  RotateLabel,
+  StartEventNode
+} from './model';
 import { IvyGridSnapper } from './snap';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
 import { ForeignLabelView, WorkflowEdgeView } from './views';
@@ -29,17 +42,24 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
   const context = { bind, unbind, isBound, rebind };
 
+  configureModelElement(context, DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);
+
   configureModelElement(context, EventTypes.START, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_ERROR, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_SIGNAL, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_SUB, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_WS, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD_METHOD, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_HD_EVENT, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_ERROR, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_PAGE, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_SUB, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_WS, EndEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.END_HD, EndEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.END_HD_EXIT, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView);
@@ -49,9 +69,11 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureModelElement(context, GatewayTypes.DEFAULT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.TASK, GatewayNode, TaskGatewayNodeView);
+  configureModelElement(context, GatewayTypes.JOIN, GatewayNode, GatewayNodeView);
+  configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature] });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView);

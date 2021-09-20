@@ -28,6 +28,10 @@ const StandardIcons: { [icon: string]: NodeIcon } = {
   'std:CallAndWait': { res: 'fa-scroll', style: IconStyle.FA },
   'std:SubEnd': { res: 'fa-reply', style: IconStyle.FA },
   'std:SubStart': { res: 'fa-share', style: IconStyle.FA },
+  'std:Init': { res: 'fa-arrow-right', style: IconStyle.FA },
+  'std:Method': { res: 'fa-arrow-circle-right', style: IconStyle.FA },
+  'std:Event': { res: 'fa-caret-square-right', style: IconStyle.FA },
+  'std:Exit': { res: 'fa-window-close', style: IconStyle.FA },
   'std:Signal': { res: 'M5,0 L10,10 l-10,0 Z', style: IconStyle.SVG },
   'std:Error': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG }
 };

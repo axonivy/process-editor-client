@@ -4,4 +4,11 @@ body {
   --glsp-editor-mouseover: var(--vscode-editorWidget-foreground);
   --glsp-editor-selected: var(--vscode-menu-selectionBackground);
   --glsp-foreground: var(--vscode-foreground);
+
+  --glsp-tool-palette-background: var(--vscode-activityBar-background);
+  --glsp-tool-palette-forground: var(--glsp-foreground);
+  --glsp-tool-palette-selection: var(--vscode-editor-selectionBackground);
+  --glsp-tool-palette-hover: var(--vscode-editor-selectionHighlightBackground);
+  --glsp-tool-palette-border: var(--vscode-dropdown-border);
+  --glsp-tool-palette-group-background: var(--vscode-badge-background);
 }

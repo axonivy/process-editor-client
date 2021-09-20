@@ -57,11 +57,7 @@
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
-.end\:ws .sprotty-node,
-.end\:sub .sprotty-node,
-.end\:page .sprotty-node,
-.end\:error .sprotty-node,
-.end .sprotty-node {
+g[class^="end"] .sprotty-node {
   stroke-width: 3px;
 }
 .sprotty-node-decorator {
@@ -126,10 +122,10 @@
   width: 20px;
   object-fit: contain;
 }
-.sprotty-icon-small i {
+.sprotty-icon.icon-small i {
   font-size: 12px;
 }
-.sprotty-icon-small img {
+.sprotty-icon.icon-small img {
   height: 14px;
   width: 16px;
   object-fit: contain;
@@ -157,6 +153,20 @@
 .sprotty-node.marquee {
   fill: var(--glsp-editor-foreground);
   opacity: 0.2;
+}
+.node-creation-mode .sprotty-node {
+  cursor: copy;
+}
+.edge-creation-select-target-mode .sprotty-node,
+.edge-creation-select-target-mode .sprotty-icon,
+.edge-creation-select-target-mode .node-child-label {
+  cursor: crosshair;
+}
+.edge-modification-not-allowed-mode .sprotty-node,
+.edge-modification-not-allowed-mode .sprotty-icon,
+.edge-modification-not-allowed-mode .node-child-label,
+.edge-modification-not-allowed-mode .sprotty-label {
+  cursor: no-drop;
 }
 
 /* General */

@@ -115,7 +115,7 @@
   "overrides": [
     {
       "files": [
-        "*.spec.ts"
+        "*.spec.?(ts|tsx)"
       ],
       "rules": {
         "no-unused-expressions": "off"

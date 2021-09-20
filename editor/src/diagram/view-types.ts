@@ -7,11 +7,16 @@ export namespace EventTypes {
   export const START_PROGRAM = START + ':program';
   export const START_SUB = START + ':sub';
   export const START_WS = START + ':ws';
+  export const START_HD = START + ':hd';
+  export const START_HD_METHOD = START_HD + ':method';
+  export const START_HD_EVENT = START_HD + ':event';
   export const END = DEFAULT + ':end';
   export const END_ERROR = END + ':error';
   export const END_PAGE = END + ':page';
   export const END_SUB = END + ':sub';
   export const END_WS = END + ':ws';
+  export const END_HD = END + ':hd';
+  export const END_HD_EXIT = END_HD + ':exit';
   export const INTERMEDIATE = DEFAULT + ':intermediate';
   export const INTERMEDIATE_TASK = INTERMEDIATE + ':task';
   export const INTERMEDIATE_WAIT = INTERMEDIATE + ':wait';
@@ -24,6 +29,8 @@ export namespace EventTypes {
 export namespace GatewayTypes {
   export const DEFAULT = 'gateway';
   export const TASK = DEFAULT + ':task';
+  export const JOIN = DEFAULT + ':join';
+  export const SPLIT = DEFAULT + ':split';
   export const ALTERNATIVE = DEFAULT + ':alternative';
 }
 

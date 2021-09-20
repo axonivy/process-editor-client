@@ -24,6 +24,10 @@ describe('StandardIcons', () => {
     expect(resolveIcon('std:CallAndWait')).to.be.deep.equals({ res: 'fa-scroll', style: IconStyle.FA });
     expect(resolveIcon('std:SubEnd')).to.be.deep.equals({ res: 'fa-reply', style: IconStyle.FA });
     expect(resolveIcon('std:SubStart')).to.be.deep.equals({ res: 'fa-share', style: IconStyle.FA });
+    expect(resolveIcon('std:Init')).to.be.deep.equals({ res: 'fa-arrow-right', style: IconStyle.FA });
+    expect(resolveIcon('std:Method')).to.be.deep.equals({ res: 'fa-arrow-circle-right', style: IconStyle.FA });
+    expect(resolveIcon('std:Event')).to.be.deep.equals({ res: 'fa-caret-square-right', style: IconStyle.FA });
+    expect(resolveIcon('std:Exit')).to.be.deep.equals({ res: 'fa-window-close', style: IconStyle.FA });
     expect(resolveIcon('std:Signal')).to.be.deep.equals({ res: 'M5,0 L10,10 l-10,0 Z', style: IconStyle.SVG });
     expect(resolveIcon('std:Error')).to.be.deep.equals({ res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG });
   });

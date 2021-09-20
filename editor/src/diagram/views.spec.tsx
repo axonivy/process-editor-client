@@ -1,10 +1,7 @@
 import 'reflect-metadata';
 
 import {
-  configureModelElement,
   defaultModule,
-  DefaultTypes,
-  GLSPGraph,
   graphModule,
   IVNodePostprocessor,
   ModelRenderer,
@@ -14,7 +11,6 @@ import {
   SEdge,
   selectModule,
   SGraph,
-  SGraphView,
   SModelFactory,
   TYPES,
   ViewRegistry
@@ -38,7 +34,6 @@ global.document = document;
 const setupViewTestContainer = (modelFactory: any): [ModelRenderer, SModelFactory, any, ViewRegistry] => {
   const container = new Container();
   container.load(defaultModule, selectModule, moveModule, graphModule, routingModule, ivyDiagramModule);
-  configureModelElement(container, DefaultTypes.GRAPH, GLSPGraph, SGraphView);
   const postprocessors = container.getAll<IVNodePostprocessor>(TYPES.IVNodePostprocessor);
   const context = container.get<ModelRendererFactory>(TYPES.ModelRendererFactory)('hidden', postprocessors);
   const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
