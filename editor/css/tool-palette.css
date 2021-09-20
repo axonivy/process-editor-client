@@ -1,5 +1,4 @@
 @import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
-/* Css for main container */
 
 :root {
   --glsp-tool-palette-background: #eee;
@@ -19,18 +18,11 @@
   border: none;
   color: var(--glsp-tool-palette-forground);
   user-select: none;
-  /* supported by Chrome and Opera */
   -webkit-user-select: none;
-  /* Safari */
   -khtml-user-select: none;
-  /* Konqueror HTML */
   -moz-user-select: none;
-  /* Firefox */
   -ms-user-select: none;
-  /* Internet Explorer/Edge */
 }
-
-/* Css for header compartment */
 
 .palette-header {
   display: flex;
@@ -70,8 +62,6 @@
   background: var(--glsp-tool-palette-selection);
   border: none;
 }
-
-/*Css for palette body compartment */
 
 .palette-body {
   float: right;

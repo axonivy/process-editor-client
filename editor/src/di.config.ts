@@ -58,7 +58,6 @@ export default function createContainer(widgetId: string): Container {
     modelHintsModule,
     glspServerCopyPasteModule,
     routingModule,
-    /* paletteModule,*/
     ivyToolPaletteModule,
     ivyDecorationModule,
     edgeLayoutModule,
