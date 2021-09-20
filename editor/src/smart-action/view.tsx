@@ -31,7 +31,7 @@ export class SSmartActionHandleView implements IView {
     if (isSmartable(parent)) {
       if (handle.location === SmartActionHandleLocation.TopLeft) {
         return { x: 10, y: -20 };
-      } else if (handle.location === SmartActionHandleLocation.TopRight) {
+      } else if (handle.location === SmartActionHandleLocation.Right) {
         return { x: 50, y: -20 };
       } else if (handle.location === SmartActionHandleLocation.BottomLeft) {
         return { x: 90, y: -20 };
@@ -42,7 +42,7 @@ export class SSmartActionHandleView implements IView {
 
   protected getIconDecorator(handle: SSmartActionHandle, position: Point): VNode {
     const icon = handle.icon;
-    const foreignObjectContents = virtualize('<i class="fas fa-' + icon + '"></i>');
+    const foreignObjectContents = virtualize('<i class="fas ' + icon + '"></i>');
     const posDiff = this.getRadius() / 2;
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'

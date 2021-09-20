@@ -4,7 +4,13 @@ import { configureActionHandler, configureCommand, configureView, GLSP_TYPES } f
 import { ContainerModule } from 'inversify';
 
 import { SmartActionEdgeCreationTool, SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
-import { SSmartActionHandle } from './model';
+import {
+  ConnectQuickActionProvider,
+  DeleteQuickActionProvider,
+  IVY_TYPES,
+  JumpQuickActionProvider,
+  SSmartActionHandle
+} from './model';
 import { SmartActionTool } from './smart-action-tool';
 import { HideSmartActionToolFeedbackCommand, ShowSmartActionToolFeedbackCommand } from './smart-action-tool-feedback';
 import { SSmartActionHandleView } from './view';
@@ -18,6 +24,10 @@ const ivySmartActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(SmartActionEdgeCreationTool).toSelf().inSingletonScope();
   bind(GLSP_TYPES.ITool).toService(SmartActionEdgeCreationTool);
   configureActionHandler({ bind, isBound }, SmartActionTriggerEdgeCreationAction.KIND, SmartActionEdgeCreationTool);
+
+  bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
+  bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
+  bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
 });
 
 export default ivySmartActionModule;

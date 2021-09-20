@@ -1,17 +1,21 @@
 import { Action, DeleteElementOperation } from '@eclipse-glsp/client';
+import { injectable } from 'inversify';
 import {
   BoundsAware,
   Hoverable,
   hoverFeedbackFeature,
   isBoundsAware,
+  isDeletable,
   isSelectable,
   SChildElement,
+  SEdge,
   Selectable,
   SModelElement,
+  SNode,
   SParentElement
 } from 'sprotty';
 
-import { jumpFeature } from '../jump/model';
+import { isJumpable } from '../jump/model';
 import { JumpOperation } from '../jump/operation';
 import { SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
@@ -26,17 +30,19 @@ export function isSmartable(element: SModelElement): element is SParentElement &
 
 export enum SmartActionHandleLocation {
   TopLeft = 'top-left',
-  TopRight = 'top-right',
-  BottomLeft = 'bottom-left',
-  BottomRight = 'bottom-right'
+  Right = 'right',
+  BottomLeft = 'bottom-left'
 }
 
 export class SSmartActionHandle extends SChildElement implements Hoverable {
   static readonly TYPE = 'smart-action-handle';
 
-  constructor(public readonly location?: SmartActionHandleLocation,
-    public readonly type: string = SSmartActionHandle.TYPE,
-    public readonly hoverFeedback: boolean = false) {
+  constructor(public readonly icon: string,
+    public readonly location: SmartActionHandleLocation,
+    public readonly position: number,
+    public readonly action: Action,
+    public readonly type = SSmartActionHandle.TYPE,
+    public readonly hoverFeedback = false) {
     super();
   }
 
@@ -45,53 +51,130 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
   }
 
   mouseUp(target: SModelElement): Action[] {
-    return [];
-  }
-
-  get icon(): string {
-    return '';
+    return [this.action];
   }
 }
 
-export class SSmartActionDeleteHandle extends SSmartActionHandle {
-  mouseUp(target: SModelElement): Action[] {
-    return [new DeleteElementOperation([target.id])];
-  }
+// export class SSmartActionDeleteHandle extends SSmartActionHandle {
+//   mouseUp(target: SModelElement): Action[] {
+//     return [new DeleteElementOperation([target.id])];
+//   }
 
-  get icon(): string {
-    return 'trash';
-  }
-}
+//   get icon(): string {
+//     return 'trash';
+//   }
+// }
 
-export class SSmartActionConnectHandle extends SSmartActionHandle {
-  mouseUp(target: SModelElement): Action[] {
-    return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
-  }
+// export class SSmartActionConnectHandle extends SSmartActionHandle {
+//   mouseUp(target: SModelElement): Action[] {
+//     return [new SmartActionTriggerEdgeCreationAction('edge', target.id)];
+//   }
 
-  get icon(): string {
-    return 'long-arrow-alt-right';
-  }
-}
+//   get icon(): string {
+//     return 'long-arrow-alt-right';
+//   }
+// }
 
-export class SSmartActionJumpIntoHandler extends SSmartActionHandle {
-  mouseUp(target: SModelElement): Action[] {
-    return [new JumpOperation(target.id)];
-  }
+// export class SSmartActionJumpIntoHandler extends SSmartActionHandle {
+//   mouseUp(target: SModelElement): Action[] {
+//     return [new JumpOperation(target.id)];
+//   }
 
-  get icon(): string {
-    return 'level-down-alt';
-  }
-}
+//   get icon(): string {
+//     return 'level-down-alt';
+//   }
+// }
 
 export function addSmartActionHandles(element: SParentElement): void {
+  // add sorting for smart action
+  // add position (right etc)
+  // add icon
   removeSmartActionHandles(element);
-  element.add(new SSmartActionDeleteHandle(SmartActionHandleLocation.TopLeft));
-  element.add(new SSmartActionConnectHandle(SmartActionHandleLocation.TopRight));
-  if (element.hasFeature(jumpFeature)) {
-    element.add(new SSmartActionJumpIntoHandler(SmartActionHandleLocation.BottomLeft));
-  }
+  // isDeletable(element) {
+  //   element.add(new SSmartActionHandle('fa-trash', SmartActionHandleLocation.TopLeft,
+  //     1, new DeleteElementOperation([element.id])));
+  // }
+  // element.add(new SSmartActionHandle('fa-trash', SmartActionHandleLocation.TopLeft,
+  //   1, new DeleteElementOperation([element.id])));
+  //   element.add(new SSmartActionDeleteHandle(SmartActionHandleLocation.TopLeft));
+  //   element.add(new SSmartActionConnectHandle(SmartActionHandleLocation.TopRight));
+  //   if (element.hasFeature(jumpFeature)) {
+  //     element.add(new SSmartActionJumpIntoHandler(SmartActionHandleLocation.BottomLeft));
+  //   }
 }
 
 export function removeSmartActionHandles(element: SParentElement): void {
   element.removeAll(child => child instanceof SSmartActionHandle);
+}
+
+export const IVY_TYPES = {
+  QuickActionProvider: Symbol.for('QuickActionProvider')
+};
+
+export interface QuickActionProvider {
+  quickActionForElement(element: SModelElement): QuickAction | undefined;
+}
+
+@injectable()
+export class DeleteQuickActionProvider implements QuickActionProvider {
+  quickActionForElement(element: SModelElement): QuickAction | undefined {
+    if (isDeletable(element)) {
+      return new DeleteQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+@injectable()
+export class ConnectQuickActionProvider implements QuickActionProvider {
+  quickActionForElement(element: SModelElement): QuickAction | undefined {
+    if (element instanceof SNode && element.canConnect(new SEdge(), 'source')) {
+      return new ConnectQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+@injectable()
+export class JumpQuickActionProvider implements QuickActionProvider {
+  quickActionForElement(element: SModelElement): QuickAction | undefined {
+    if (isJumpable(element)) {
+      return new JumpQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+export interface QuickAction {
+  icon: string;
+  location: SmartActionHandleLocation;
+  sorting: string;
+  action: Action;
+}
+
+class DeleteQuickAction implements QuickAction {
+  constructor(public readonly elementId: string,
+    public readonly icon = 'fa-trash',
+    public readonly location = SmartActionHandleLocation.TopLeft,
+    public readonly sorting = 'A',
+    public readonly action = new DeleteElementOperation([elementId])) {
+  }
+}
+
+class ConnectQuickAction implements QuickAction {
+  constructor(public readonly elementId: string,
+    public readonly icon = 'fa-long-arrow-alt-right',
+    public readonly location = SmartActionHandleLocation.Right,
+    public readonly sorting = 'A',
+    public readonly action = new SmartActionTriggerEdgeCreationAction('edge', elementId)) {
+  }
+}
+
+class JumpQuickAction implements QuickAction {
+  constructor(public readonly elementId: string,
+    public readonly icon = 'fa-level-down-alt',
+    public readonly location = SmartActionHandleLocation.BottomLeft,
+    public readonly sorting = 'A',
+    public readonly action = new JumpOperation(elementId)) {
+  }
 }
