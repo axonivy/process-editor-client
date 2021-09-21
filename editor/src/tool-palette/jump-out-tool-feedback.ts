@@ -1,6 +1,6 @@
 import { FeedbackCommand } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Action, CommandExecutionContext, CommandReturn, SModelRoot, TYPES } from 'sprotty';
+import { Action, CommandExecutionContext, CommandReturn, SModelRoot, TYPES, UIExtensionRegistry } from 'sprotty';
 
 import { ToolPalette } from './tool-palette';
 
@@ -13,14 +13,15 @@ export class ShowJumpOutToolFeedbackCommand extends FeedbackCommand {
   static readonly KIND = 'showJumpOutToolFeedback';
 
   @inject(TYPES.Action) protected action: ShowJumpOutToolFeedbackAction;
-  @inject(TYPES.IUIExtension) private toolPalette: ToolPalette;
+  @inject(TYPES.UIExtensionRegistry) private registry: UIExtensionRegistry;
 
   execute(context: CommandExecutionContext): CommandReturn {
+    const toolPalette = this.registry.get(ToolPalette.ID) as ToolPalette;
     const root = context.root;
     if (this.showJumpOutBtn(root)) {
-      this.toolPalette.showJumpOutBtn();
+      toolPalette.showJumpOutBtn();
     } else {
-      this.toolPalette.hideJumpOutBtn();
+      toolPalette.hideJumpOutBtn();
     }
     return context.root;
   }

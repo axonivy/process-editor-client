@@ -1,9 +1,10 @@
 .ivy-quick-action-handle {
   fill: transparent;
-  stroke: var(--glsp-editor-foreground);
+  /* stroke: var(--glsp-editor-foreground); */
   cursor: pointer;
 }
 
 .ivy-quick-action-handle.mouseover {
-  stroke-width: 2px;
+  /* stroke-width: 2px; */
+  fill: var(--glsp-tool-palette-hover);
 }

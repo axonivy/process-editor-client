@@ -16,8 +16,9 @@ export class QuickActionHandleView implements IView {
     const position = this.getPosition(handle);
     if (position !== undefined) {
       const node = <g>
-        <circle class-ivy-quick-action-handle={true} class-mouseover={handle.hoverFeedback}
-          cx={position.x} cy={position.y} r={this.getRadius()}></circle>
+        <rect class-ivy-quick-action-handle={true} class-mouseover={handle.hoverFeedback}
+          x={position.x - 10} y={position.y - 10}
+          width={24} height={22}></rect>
         {this.getIconDecorator(handle, position)}
       </g>;
       setAttr(node, 'data-kind', handle.location);
@@ -44,11 +45,11 @@ export class QuickActionHandleView implements IView {
 
   protected getIconDecorator(handle: QuickActionHandle, position: Point): VNode {
     const icon = handle.icon;
-    const foreignObjectContents = virtualize('<i class="fas ' + icon + '"></i>');
+    const foreignObjectContents = virtualize('<i class="fas fa-fw ' + icon + '"></i>');
     const posDiff = this.getRadius() / 2;
     return <g>
       <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
-        height={16} width={16} x={position.x - posDiff} y={position.y - posDiff}
+        height={16} width={20} x={position.x - posDiff} y={position.y - posDiff}
         class-sprotty-icon>
         {foreignObjectContents}
       </foreignObject>
@@ -56,6 +57,6 @@ export class QuickActionHandleView implements IView {
   }
 
   getRadius(): number {
-    return 14;
+    return 16;
   }
 }
