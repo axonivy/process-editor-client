@@ -84,7 +84,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, smartActionFeature];
 
   animated = false;
   args: Args;
@@ -109,7 +109,7 @@ export class StartEventNode extends EventNode {
 
 export class GatewayNode extends DiamondNode implements Animateable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, smartActionFeature];
 
   animated = false;
   size = {

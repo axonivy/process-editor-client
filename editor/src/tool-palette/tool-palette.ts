@@ -356,7 +356,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    console.log(selectedElements);
     if (selectedElements.length > 0) {
       this.wrapToSubToolButton.style.display = 'inline-block';
     } else {

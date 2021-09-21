@@ -5,7 +5,6 @@ import { Action, CommandExecutionContext, CommandReturn, TYPES } from 'sprotty';
 import {
   isSmartable,
   IVY_TYPES,
-  QuickAction,
   QuickActionHandleLocation,
   QuickActionProvider,
   removeSmartActionHandles,
@@ -39,8 +38,8 @@ export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
       if (isNotUndefined(element) && isSmartable(element)) {
         const quickActions = this.quickActionProviders
           .map(provider => provider.quickActionForElement(element))
-          .filter((quick): quick is QuickAction => !!quick);
-        [QuickActionHandleLocation.TopLeft, QuickActionHandleLocation.Right, QuickActionHandleLocation.BottomLeft].forEach(loc => {
+          .filter(isNotUndefined);
+        Object.values(QuickActionHandleLocation).forEach(loc => {
           quickActions.filter(quick => quick.location === loc)
             .sort((a, b) => a.sorting.localeCompare(b.sorting))
             .forEach((quick, position) =>

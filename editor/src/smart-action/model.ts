@@ -80,7 +80,9 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 @injectable()
 export class ConnectQuickActionProvider implements QuickActionProvider {
   quickActionForElement(element: SModelElement): QuickAction | undefined {
-    if (element instanceof SNode && element.canConnect(new SEdge(), 'source')) {
+    const edge = new SEdge();
+    edge.type = 'edge';
+    if (element instanceof SNode && element.canConnect(edge, 'source')) {
       return new ConnectQuickAction(element.id);
     }
     return undefined;
