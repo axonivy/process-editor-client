@@ -7,6 +7,6 @@ export { createIvyDiagramContainer, breakpointModule };
 export * from './jump/operation';
 export * from './jump/model';
 export * from './quick-action/model';
-export * from './operations';
+export * from './wrap/actions';
 export * from './breakpoint/breakpoint';
 export * from './breakpoint/breakpoint-action-handler';

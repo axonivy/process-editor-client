@@ -29,7 +29,7 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { IconStyle, resolveIcon } from '../diagram/icons';
 import { JumpOperation } from '../jump/operation';
-import { WrapToSubOperation } from '../operations';
+import { WrapToSubOperation } from '../wrap/actions';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
 
 const CLICKED_CSS_CLASS = 'clicked';

@@ -30,11 +30,13 @@ export class QuickActionHandleView implements IView {
     const parent = handle.parent;
     if (isQuickActionAware(parent)) {
       if (handle.location === QuickActionHandleLocation.TopLeft) {
-        return { x: -16 + (handle.position * 32), y: -20 };
+        return { x: -20 + (handle.position * 32), y: -20 };
+      } else if (handle.location === QuickActionHandleLocation.Left) {
+        return { x: -20, y: parent.bounds.height / 2 };
       } else if (handle.location === QuickActionHandleLocation.Right) {
         return { x: parent.bounds.width + 20, y: -20 + (handle.position * 32) };
       } else if (handle.location === QuickActionHandleLocation.BottomLeft) {
-        return { x: -16 + (handle.position * 32), y: parent.bounds.height + 20 };
+        return { x: -20 + (handle.position * 32), y: parent.bounds.height + 20 };
       }
     }
     return undefined;

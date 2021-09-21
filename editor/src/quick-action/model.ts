@@ -1,4 +1,4 @@
-import { Action, DeleteElementOperation } from '@eclipse-glsp/client';
+import { Action, DeleteElementOperation, isOpenable, OpenAction } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import {
   BoundsAware,
@@ -30,6 +30,7 @@ export function isQuickActionAware(element: SModelElement): element is SParentEl
 
 export enum QuickActionHandleLocation {
   TopLeft = 'top-left',
+  Left = 'left',
   Right = 'right',
   BottomLeft = 'bottom-left'
 }
@@ -78,6 +79,16 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 }
 
 @injectable()
+export class InscribeQuickActionProvider implements QuickActionProvider {
+  quickActionForElement(element: SModelElement): QuickAction | undefined {
+    if (isOpenable(element)) {
+      return new InscribeQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+@injectable()
 export class ConnectQuickActionProvider implements QuickActionProvider {
   quickActionForElement(element: SModelElement): QuickAction | undefined {
     const edge = new SEdge();
@@ -112,6 +123,15 @@ class DeleteQuickAction implements QuickAction {
     public readonly location = QuickActionHandleLocation.TopLeft,
     public readonly sorting = 'A',
     public readonly action = new DeleteElementOperation([elementId])) {
+  }
+}
+
+class InscribeQuickAction implements QuickAction {
+  constructor(public readonly elementId: string,
+    public readonly icon = 'fa-pen',
+    public readonly location = QuickActionHandleLocation.TopLeft,
+    public readonly sorting = 'B',
+    public readonly action = new OpenAction(elementId)) {
   }
 }
 

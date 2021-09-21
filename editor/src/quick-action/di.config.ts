@@ -7,6 +7,7 @@ import { QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } fro
 import {
   ConnectQuickActionProvider,
   DeleteQuickActionProvider,
+  InscribeQuickActionProvider,
   IVY_TYPES,
   JumpQuickActionProvider,
   QuickActionHandle
@@ -26,6 +27,7 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, QuickActionTriggerEdgeCreationAction.KIND, QuickActionEdgeCreationTool);
 
   bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
+  bind(IVY_TYPES.QuickActionProvider).to(InscribeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
 });

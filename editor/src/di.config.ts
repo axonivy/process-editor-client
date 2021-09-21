@@ -34,6 +34,7 @@ import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import ivyQuickActionModule from './quick-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
+import ivyWrapModule from './wrap/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -64,6 +65,7 @@ export default function createContainer(widgetId: string): Container {
     zorderModule,
     layoutCommandsModule,
     ivyQuickActionModule,
+    ivyWrapModule,
     glspContextMenuModule,
     animateModule,
     markerNavigatorModule);

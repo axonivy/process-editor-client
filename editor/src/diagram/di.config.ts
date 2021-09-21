@@ -16,6 +16,7 @@ import {
 import { ContainerModule } from 'inversify';
 
 import { jumpFeature } from '../jump/model';
+import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
@@ -82,7 +83,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
-  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
+  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature, unwrapFeature] });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
