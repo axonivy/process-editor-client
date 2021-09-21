@@ -21,8 +21,8 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { describe } from 'mocha';
 
-import { QuickActionHandleLocation, smartActionFeature, SSmartActionHandle } from './model';
-import { SSmartActionHandleView } from './view';
+import { quickActionFeature, QuickActionHandle, QuickActionHandleLocation } from './model';
+import { QuickActionHandleView } from './view';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -30,15 +30,15 @@ const toHTML = require('snabbdom-to-html');
 function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule, baseViewModule, selectModule, moveModule, graphModule, routingModule);
-  configureView(container, SSmartActionHandle.TYPE, SSmartActionHandleView);
+  configureView(container, QuickActionHandle.TYPE, QuickActionHandleView);
   return container;
 }
 
 function createModel(graphFactory: SModelFactory): SGraph {
   const node = {
     id: 'node', type: DefaultTypes.NODE, position: { x: 100, y: 100 }, size: { width: 200, height: 50 },
-    features: createFeatureSet([selectFeature, smartActionFeature]),
-    children: [{ id: 'smartActionHandle', type: SSmartActionHandle.TYPE, location: QuickActionHandleLocation.TopLeft }]
+    features: createFeatureSet([selectFeature, quickActionFeature]),
+    children: [{ id: 'quickActionHandle', type: QuickActionHandle.TYPE, location: QuickActionHandleLocation.TopLeft }]
   };
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: [node] }) as SGraph;
   return graph;
@@ -59,10 +59,10 @@ describe('GeneralView', () => {
     graph = createModel(graphFactory);
   });
 
-  it('render smart action handle', () => {
-    const view = viewRegistry.get(SSmartActionHandle.TYPE);
-    const vnode = view.render(graph.index.getById('smartActionHandle') as SSmartActionHandle, context);
-    const expectation = '<g data-kind="top-left"><circle class="ivy-smart-action-handle" cx="10" cy="-20" r="14" /><g>'
+  it('render quick action handle', () => {
+    const view = viewRegistry.get(QuickActionHandle.TYPE);
+    const vnode = view.render(graph.index.getById('quickActionHandle') as QuickActionHandle, context);
+    const expectation = '<g data-kind="top-left"><circle class="ivy-quick-action-handle" cx="10" cy="-20" r="14" /><g>'
       + '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="16" x="3" y="-27" /></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
@@ -72,7 +72,7 @@ describe('GeneralView', () => {
     const expectation = '<svg id="sprotty_graph" class="sprotty-graph" tabindex="0">'
       + '<g transform="scale(1) translate(0,0)"><g id="sprotty_node" transform="translate(100, 100)">'
       + '<rect class="sprotty-node" x="0" y="0" width="200" height="50" />'
-      + '<g id="sprotty_smartActionHandle" data-kind="top-left"><circle class="ivy-smart-action-handle" cx="10" cy="-20" r="14" /><g>'
+      + '<g id="sprotty_quickActionHandle" data-kind="top-left"><circle class="ivy-quick-action-handle" cx="10" cy="-20" r="14" /><g>'
       + '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="16" x="3" y="-27" /></g></g></g></g></svg>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });

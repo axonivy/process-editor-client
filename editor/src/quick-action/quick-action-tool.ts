@@ -19,52 +19,52 @@ import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-
 import { inject, injectable, optional } from 'inversify';
 import { ILogger, SModelRoot, TYPES } from 'sprotty';
 
-import { SSmartActionHandle } from './model';
-import { HideSmartActionToolFeedbackAction, ShowSmartActionToolFeedbackAction } from './smart-action-tool-feedback';
+import { QuickActionHandle } from './model';
+import { HideQuickActionToolFeedbackAction, ShowQuickActionToolFeedbackAction } from './quick-action-tool-feedback';
 
 @injectable()
-export class SmartActionTool extends BaseGLSPTool {
-  static ID = 'ivy.smart-action-tool';
+export class QuickActionTool extends BaseGLSPTool {
+  static ID = 'ivy.quick-action-tool';
 
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
   @inject(EdgeRouterRegistry) @optional() readonly edgeRouterRegistry?: EdgeRouterRegistry;
   @inject(TYPES.ISnapper) @optional() readonly snapper?: ISnapper;
   @inject(GLSP_TYPES.IMovementRestrictor) @optional() readonly movementRestrictor?: IMovementRestrictor;
-  protected smartActionListener: MouseListener & SelectionListener;
+  protected quickActionListener: MouseListener & SelectionListener;
 
   get id(): string {
-    return SmartActionTool.ID;
+    return QuickActionTool.ID;
   }
 
   enable(): void {
     // install change bounds listener for client-side resize updates and server-side updates
-    this.smartActionListener = this.createSmartActionListener();
-    this.mouseTool.register(this.smartActionListener);
-    this.selectionService.register(this.smartActionListener);
+    this.quickActionListener = this.createQuickActionListener();
+    this.mouseTool.register(this.quickActionListener);
+    this.selectionService.register(this.quickActionListener);
   }
 
-  protected createSmartActionListener(): MouseListener & SelectionListener {
-    return new SmartActionListener(this);
+  protected createQuickActionListener(): MouseListener & SelectionListener {
+    return new QuickActionListener(this);
   }
 
   disable(): void {
-    this.mouseTool.deregister(this.smartActionListener);
-    this.selectionService.deregister(this.smartActionListener);
-    this.deregisterFeedback([new HideSmartActionToolFeedbackAction], this.smartActionListener);
+    this.mouseTool.deregister(this.quickActionListener);
+    this.selectionService.deregister(this.quickActionListener);
+    this.deregisterFeedback([new HideQuickActionToolFeedbackAction], this.quickActionListener);
   }
 }
 
 @injectable()
-export class SmartActionListener extends MouseListener implements SelectionListener {
+export class QuickActionListener extends MouseListener implements SelectionListener {
 
   @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
   @inject(TYPES.ILogger) protected logger: ILogger;
 
-  protected activeSmartElement?: SModelElement;
-  protected activeSmartActionHandle?: SSmartActionHandle;
+  protected activeQuickActionElement?: SModelElement;
+  protected activeQuickActionHandle?: QuickActionHandle;
 
-  constructor(protected tool: SmartActionTool) {
+  constructor(protected tool: QuickActionTool) {
     super();
   }
 
@@ -74,25 +74,25 @@ export class SmartActionListener extends MouseListener implements SelectionListe
       return [];
     }
     // check if we have a resize handle (only single-selection)
-    if (this.activeSmartElement && target instanceof SSmartActionHandle) {
-      this.activeSmartActionHandle = target;
+    if (this.activeQuickActionElement && target instanceof QuickActionHandle) {
+      this.activeQuickActionHandle = target;
     } else {
-      this.setActiveSmartActionElement(target);
+      this.setActiveQuickActionElement(target);
     }
     return [];
   }
 
   mouseUp(target: SModelElement, event: MouseEvent): Action[] {
     super.mouseUp(target, event);
-    if (this.activeSmartElement && target instanceof SSmartActionHandle && this.activeSmartActionHandle) {
-      return this.activeSmartActionHandle.mouseUp(this.activeSmartElement);
+    if (this.activeQuickActionElement && target instanceof QuickActionHandle && this.activeQuickActionHandle) {
+      return this.activeQuickActionHandle.mouseUp(this.activeQuickActionElement);
     }
     return [];
   }
 
   selectionChanged(root: SModelRoot, selectedElements: string[]): void {
-    if (this.activeSmartElement) {
-      if (selectedElements.includes(this.activeSmartElement.id)) {
+    if (this.activeQuickActionElement) {
+      if (selectedElements.includes(this.activeQuickActionElement.id)) {
         // our active element is still selected, nothing to do
         return;
       }
@@ -100,7 +100,7 @@ export class SmartActionListener extends MouseListener implements SelectionListe
       // try to find some other selected element and mark that active
       for (const elementId of selectedElements.reverse()) {
         const element = root.index.getById(elementId);
-        if (element && this.setActiveSmartActionElement(element)) {
+        if (element && this.setActiveQuickActionElement(element)) {
           return;
         }
       }
@@ -108,27 +108,27 @@ export class SmartActionListener extends MouseListener implements SelectionListe
     }
   }
 
-  protected setActiveSmartActionElement(target: SModelElement): boolean {
+  protected setActiveQuickActionElement(target: SModelElement): boolean {
     // check if we have a selected, moveable element (multi-selection allowed)
     const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
     if (isSelected(moveableElement)) {
       // only allow one element to have the element resize handles
-      this.activeSmartElement = moveableElement;
-      this.tool.dispatchFeedback([new ShowSmartActionToolFeedbackAction(this.activeSmartElement.id)], this);
+      this.activeQuickActionElement = moveableElement;
+      this.tool.dispatchFeedback([new ShowQuickActionToolFeedbackAction(this.activeQuickActionElement.id)], this);
       return true;
     }
     return false;
   }
 
   protected reset(): void {
-    if (this.activeSmartElement) {
-      this.tool.dispatchFeedback([new HideSmartActionToolFeedbackAction()], this);
+    if (this.activeQuickActionElement) {
+      this.tool.dispatchFeedback([new HideQuickActionToolFeedbackAction()], this);
     }
     this.tool.dispatchActions([cursorFeedbackAction(CursorCSS.DEFAULT)]);
     this.resetPosition();
   }
 
   protected resetPosition(): void {
-    this.activeSmartActionHandle = undefined;
+    this.activeQuickActionHandle = undefined;
   }
 }

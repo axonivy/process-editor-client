@@ -3,39 +3,39 @@ import { inject, injectable, multiInject } from 'inversify';
 import { Action, CommandExecutionContext, CommandReturn, TYPES } from 'sprotty';
 
 import {
-  isSmartable,
+  isQuickActionAware,
   IVY_TYPES,
+  QuickActionHandle,
   QuickActionHandleLocation,
   QuickActionProvider,
-  removeSmartActionHandles,
-  SSmartActionHandle
+  removeQuickActionHandles
 } from './model';
 
-export class ShowSmartActionToolFeedbackAction implements Action {
-  constructor(readonly elementId?: string, public readonly kind: string = ShowSmartActionToolFeedbackCommand.KIND) { }
+export class ShowQuickActionToolFeedbackAction implements Action {
+  constructor(readonly elementId?: string, public readonly kind: string = ShowQuickActionToolFeedbackCommand.KIND) { }
 }
 
-export class HideSmartActionToolFeedbackAction implements Action {
-  constructor(public readonly kind: string = HideSmartActionToolFeedbackCommand.KIND) { }
+export class HideQuickActionToolFeedbackAction implements Action {
+  constructor(public readonly kind: string = HideQuickActionToolFeedbackCommand.KIND) { }
 }
 
 @injectable()
-export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
-  static readonly KIND = 'showSmartActionToolFeedback';
+export class ShowQuickActionToolFeedbackCommand extends FeedbackCommand {
+  static readonly KIND = 'showQuickActionToolFeedback';
 
-  @inject(TYPES.Action) protected action: ShowSmartActionToolFeedbackAction;
+  @inject(TYPES.Action) protected action: ShowQuickActionToolFeedbackAction;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
     index
       .all()
-      .filter(isSmartable)
-      .forEach(removeSmartActionHandles);
+      .filter(isQuickActionAware)
+      .forEach(removeQuickActionHandles);
 
     if (isNotUndefined(this.action.elementId)) {
       const element = index.getById(this.action.elementId);
-      if (isNotUndefined(element) && isSmartable(element)) {
+      if (isNotUndefined(element) && isQuickActionAware(element)) {
         const quickActions = this.quickActionProviders
           .map(provider => provider.quickActionForElement(element))
           .filter(isNotUndefined);
@@ -43,7 +43,7 @@ export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
           quickActions.filter(quick => quick.location === loc)
             .sort((a, b) => a.sorting.localeCompare(b.sorting))
             .forEach((quick, position) =>
-              element.add(new SSmartActionHandle(quick.icon, quick.location, position, quick.action)));
+              element.add(new QuickActionHandle(quick.icon, quick.location, position, quick.action)));
         });
       }
     }
@@ -52,17 +52,17 @@ export class ShowSmartActionToolFeedbackCommand extends FeedbackCommand {
 }
 
 @injectable()
-export class HideSmartActionToolFeedbackCommand extends FeedbackCommand {
-  static readonly KIND = 'hideSmartActionToolFeedback';
+export class HideQuickActionToolFeedbackCommand extends FeedbackCommand {
+  static readonly KIND = 'hideQuickActionToolFeedback';
 
-  @inject(TYPES.Action) protected action: HideSmartActionToolFeedbackAction;
+  @inject(TYPES.Action) protected action: HideQuickActionToolFeedbackAction;
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
     index
       .all()
-      .filter(isSmartable)
-      .forEach(removeSmartActionHandles);
+      .filter(isQuickActionAware)
+      .forEach(removeQuickActionHandles);
     return context.root;
   }
 }

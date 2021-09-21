@@ -26,9 +26,9 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
-import { smartActionFeature } from './model';
-import { SmartActionListener, SmartActionTool } from './smart-action-tool';
-import { HideSmartActionToolFeedbackAction, ShowSmartActionToolFeedbackAction } from './smart-action-tool-feedback';
+import { quickActionFeature } from './model';
+import { QuickActionListener, QuickActionTool } from './quick-action-tool';
+import { HideQuickActionToolFeedbackAction, ShowQuickActionToolFeedbackAction } from './quick-action-tool-feedback';
 
 function getNode(nodeId: string, model: SModelRoot): SNode {
   return model.index.getById(nodeId) as SNode;
@@ -39,8 +39,8 @@ function createNode(id: string, type: string, position: Point): SNode {
   node.id = id;
   node.type = type;
   node.position = position;
-  node.selected = true; // Needs to be true for smart action tool and the selection service does not mark the selection on the same model
-  node.features = createFeatureSet([selectFeature, boundsFeature, moveFeature, smartActionFeature]);
+  node.selected = true; // Needs to be true for quick action tool and the selection service does not mark the selection on the same model
+  node.features = createFeatureSet([selectFeature, boundsFeature, moveFeature, quickActionFeature]);
   return node;
 }
 
@@ -53,9 +53,9 @@ function createRoot(children: SNode[]): SModelRoot {
 }
 
 @injectable()
-class SmartActionListenerMock extends SmartActionListener {
+class QuickActionListenerMock extends QuickActionListener {
   set activeElement(element: SModelElement) {
-    this.activeSmartElement = element;
+    this.activeQuickActionElement = element;
   }
 }
 
@@ -64,14 +64,14 @@ function createContainer(): Container {
   container.load(defaultModule, glspMouseToolModule, defaultGLSPModule, modelSourceModule);
   container.bind(SelectionService).toSelf().inSingletonScope();
   container.bind(GLSP_TYPES.SelectionService).toService(SelectionService);
-  container.bind(GLSP_TYPES.IDefaultTool).to(SmartActionTool);
+  container.bind(GLSP_TYPES.IDefaultTool).to(QuickActionTool);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, SelectFeedbackCommand);
   return container;
 }
 
-describe('SmartActionTool', () => {
+describe('QuickActionTool', () => {
   let root: SModelRoot;
   let selectionService: SelectionService;
   let feedbackDispatcher: FeedbackActionDispatcher;
@@ -85,37 +85,37 @@ describe('SmartActionTool', () => {
     root = createRoot([node2, node1, node0]);
 
     selectionService = container.get<SelectionService>(GLSP_TYPES.SelectionService);
-    const smartActionTool = container.get<SmartActionTool>(GLSP_TYPES.IDefaultTool);
-    const smartActionListener = new SmartActionListenerMock(smartActionTool);
-    selectionService.register(smartActionListener);
-    smartActionListener.activeElement = getNode('node0', root);
+    const quickActionTool = container.get<QuickActionTool>(GLSP_TYPES.IDefaultTool);
+    const quickActionListener = new QuickActionListenerMock(quickActionTool);
+    selectionService.register(quickActionListener);
+    quickActionListener.activeElement = getNode('node0', root);
 
     feedbackDispatcher = container.get<FeedbackActionDispatcher>(GLSP_TYPES.IFeedbackActionDispatcher);
   });
 
   it('Feedback is registred on element selection', () => {
     selectionService.updateSelection(root, ['node1'], []);
-    assertShowSmartActionFeedback(['node1']);
+    assertShowQuickActionFeedback(['node1']);
 
     selectionService.updateSelection(root, ['node0'], ['node1']);
-    assertShowSmartActionFeedback(['node0']);
+    assertShowQuickActionFeedback(['node0']);
 
     selectionService.updateSelection(root, ['node1'], ['node0']);
-    assertShowSmartActionFeedback(['node1']);
+    assertShowQuickActionFeedback(['node1']);
 
     selectionService.updateSelection(root, [], ['node1', 'node0']);
-    assertHideSmartActionFeedback();
+    assertHideQuickActionFeedback();
   });
 
-  it('Multi selection is not covered by smart action tool', () => {
+  it('Multi selection is not covered by quick action tool', () => {
     selectionService.updateSelection(root, ['node1', 'node2'], []);
-    assertShowSmartActionFeedback(['node1', 'node2']);
+    assertShowQuickActionFeedback(['node1', 'node2']);
 
     selectionService.updateSelection(root, [], ['node1', 'node2']);
-    assertHideSmartActionFeedback();
+    assertHideQuickActionFeedback();
   });
 
-  function assertHideSmartActionFeedback(): void {
+  function assertHideQuickActionFeedback(): void {
     const feedbacks = feedbackDispatcher.getRegisteredFeedback();
     expect(feedbacks).to.have.lengthOf(2);
 
@@ -123,10 +123,10 @@ describe('SmartActionTool', () => {
     const selectAction = feedbacks[0] as SelectFeedbackAction;
     expect(selectAction.selectedElementsIDs).to.be.deep.equals([]);
 
-    expect(feedbacks[1]).to.be.instanceOf(HideSmartActionToolFeedbackAction);
+    expect(feedbacks[1]).to.be.instanceOf(HideQuickActionToolFeedbackAction);
   }
 
-  function assertShowSmartActionFeedback(element: string[]): void {
+  function assertShowQuickActionFeedback(element: string[]): void {
     const feedbacks = feedbackDispatcher.getRegisteredFeedback();
     expect(feedbacks).to.have.lengthOf(2);
 
@@ -135,9 +135,9 @@ describe('SmartActionTool', () => {
     // all elements selected
     expect(selectAction.selectedElementsIDs).to.be.deep.equals(element);
 
-    expect(feedbacks[1]).to.be.instanceOf(ShowSmartActionToolFeedbackAction);
-    const smartAction = feedbacks[1] as ShowSmartActionToolFeedbackAction;
-    // only last element has smart actions
-    expect(smartAction.elementId).to.be.equals(element.reverse()[0]);
+    expect(feedbacks[1]).to.be.instanceOf(ShowQuickActionToolFeedbackAction);
+    const quickAction = feedbacks[1] as ShowQuickActionToolFeedbackAction;
+    // only last element has quick actions
+    expect(quickAction.elementId).to.be.equals(element.reverse()[0]);
   }
 });

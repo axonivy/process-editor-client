@@ -22,25 +22,25 @@ import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
 import { jumpFeature } from '../jump/model';
-import { SmartActionEdgeCreationTool } from './edge/edge-creation-tool';
+import { QuickActionEdgeCreationTool } from './edge/edge-creation-tool';
 import {
   DeleteQuickActionProvider,
   IVY_TYPES,
   JumpQuickActionProvider,
-  smartActionFeature,
-  SSmartActionHandle
+  quickActionFeature,
+  QuickActionHandle
 } from './model';
 import {
-  HideSmartActionToolFeedbackAction,
-  HideSmartActionToolFeedbackCommand,
-  ShowSmartActionToolFeedbackAction,
-  ShowSmartActionToolFeedbackCommand
-} from './smart-action-tool-feedback';
+  HideQuickActionToolFeedbackAction,
+  HideQuickActionToolFeedbackCommand,
+  ShowQuickActionToolFeedbackAction,
+  ShowQuickActionToolFeedbackCommand
+} from './quick-action-tool-feedback';
 
 let root: SModelRoot;
 
 @injectable()
-class ShowSmartActionToolFeedbackCommandMock extends ShowSmartActionToolFeedbackCommand {
+class ShowQuickActionToolFeedbackCommandMock extends ShowQuickActionToolFeedbackCommand {
   execute(context: CommandExecutionContext): CommandReturn {
     root.id = this.action.elementId ?? '';
     context.root = root;
@@ -49,31 +49,31 @@ class ShowSmartActionToolFeedbackCommandMock extends ShowSmartActionToolFeedback
 }
 
 @injectable()
-class HideSmartActionToolFeedbackCommandMock extends HideSmartActionToolFeedbackCommand {
+class HideQuickActionToolFeedbackCommandMock extends HideQuickActionToolFeedbackCommand {
   execute(context: CommandExecutionContext): CommandReturn {
     context.root = root;
     return super.execute(context);
   }
 }
 
-class SmartableNode extends SNode implements Selectable {
-  features = createFeatureSet([smartActionFeature, selectFeature, deletableFeature]);
+class QuickActionAwareNode extends SNode implements Selectable {
+  features = createFeatureSet([quickActionFeature, selectFeature, deletableFeature]);
 }
 
 function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
-  container.bind(SmartActionEdgeCreationTool).toSelf().inSingletonScope();
-  configureCommand(container, ShowSmartActionToolFeedbackCommandMock);
-  configureCommand(container, HideSmartActionToolFeedbackCommandMock);
+  container.bind(QuickActionEdgeCreationTool).toSelf().inSingletonScope();
+  configureCommand(container, ShowQuickActionToolFeedbackCommandMock);
+  configureCommand(container, HideQuickActionToolFeedbackCommandMock);
 
   container.bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
   container.bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
   return container;
 }
 
-describe('SmartActionToolFeedback', () => {
+describe('QuickActionToolFeedback', () => {
   let actionDispatcher: ActionDispatcher;
 
   beforeEach(() => {
@@ -83,39 +83,39 @@ describe('SmartActionToolFeedback', () => {
     root = new SModelRoot();
   });
 
-  it('Is not shown on not smartable element', async () => {
+  it('Is not shown on not quick action aware element', async () => {
     const node = new SChildElement();
-    node.id = 'notsmartable';
+    node.id = 'noQuickActions';
     root.add(node);
 
-    await actionDispatcher.dispatch(new ShowSmartActionToolFeedbackAction('notsmartable'));
+    await actionDispatcher.dispatch(new ShowQuickActionToolFeedbackAction('noQuickActions'));
     expect(node.children).to.be.empty;
   });
 
-  it('Is shown on smartable elment', async () => {
-    const node = new SmartableNode();
-    node.id = 'smartable';
+  it('Is shown on quick action aware elment', async () => {
+    const node = new QuickActionAwareNode();
+    node.id = 'quickActions';
     root.add(node);
 
-    await actionDispatcher.dispatch(new ShowSmartActionToolFeedbackAction('smartable'));
+    await actionDispatcher.dispatch(new ShowQuickActionToolFeedbackAction('quickActions'));
     expect(node.children).to.have.lengthOf(1);
-    expect(node.children[0]).to.be.instanceOf(SSmartActionHandle);
+    expect(node.children[0]).to.be.instanceOf(QuickActionHandle);
 
-    await actionDispatcher.dispatch(new HideSmartActionToolFeedbackAction());
+    await actionDispatcher.dispatch(new HideQuickActionToolFeedbackAction());
     expect(node.children).to.be.empty;
   });
 
   it('Is shown with additional jump into sub action on sub elment', async () => {
-    const node = new SmartableNode();
+    const node = new QuickActionAwareNode();
     node.id = 'sub';
-    node.features = createFeatureSet([smartActionFeature, jumpFeature, selectFeature]);
+    node.features = createFeatureSet([quickActionFeature, jumpFeature, selectFeature]);
     root.add(node);
 
-    await actionDispatcher.dispatch(new ShowSmartActionToolFeedbackAction('sub'));
+    await actionDispatcher.dispatch(new ShowQuickActionToolFeedbackAction('sub'));
     expect(node.children).to.have.lengthOf(1);
-    expect(node.children[0]).to.be.instanceOf(SSmartActionHandle);
+    expect(node.children[0]).to.be.instanceOf(QuickActionHandle);
 
-    await actionDispatcher.dispatch(new HideSmartActionToolFeedbackAction());
+    await actionDispatcher.dispatch(new HideQuickActionToolFeedbackAction());
     expect(node.children).to.be.empty;
   });
 });

@@ -3,7 +3,7 @@ import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 import { IView, Point, RenderingContext, setAttr } from 'sprotty';
 
-import { isSmartable, QuickActionHandleLocation, SSmartActionHandle } from './model';
+import { isQuickActionAware, QuickActionHandle, QuickActionHandleLocation } from './model';
 
 const virtualize = require('snabbdom-virtualize/strings').default;
 
@@ -11,12 +11,12 @@ const virtualize = require('snabbdom-virtualize/strings').default;
 const JSX = { createElement: snabbdom.svg };
 
 @injectable()
-export class SSmartActionHandleView implements IView {
-  render(handle: SSmartActionHandle, context: RenderingContext): VNode {
+export class QuickActionHandleView implements IView {
+  render(handle: QuickActionHandle, context: RenderingContext): VNode {
     const position = this.getPosition(handle);
     if (position !== undefined) {
       const node = <g>
-        <circle class-ivy-smart-action-handle={true} class-mouseover={handle.hoverFeedback}
+        <circle class-ivy-quick-action-handle={true} class-mouseover={handle.hoverFeedback}
           cx={position.x} cy={position.y} r={this.getRadius()}></circle>
         {this.getIconDecorator(handle, position)}
       </g>;
@@ -26,9 +26,9 @@ export class SSmartActionHandleView implements IView {
     return <g />;
   }
 
-  protected getPosition(handle: SSmartActionHandle): Point | undefined {
+  protected getPosition(handle: QuickActionHandle): Point | undefined {
     const parent = handle.parent;
-    if (isSmartable(parent)) {
+    if (isQuickActionAware(parent)) {
       if (handle.location === QuickActionHandleLocation.TopLeft) {
         return { x: -16 + (handle.position * 32), y: -20 };
       } else if (handle.location === QuickActionHandleLocation.Right) {
@@ -40,7 +40,7 @@ export class SSmartActionHandleView implements IView {
     return undefined;
   }
 
-  protected getIconDecorator(handle: SSmartActionHandle, position: Point): VNode {
+  protected getIconDecorator(handle: QuickActionHandle, position: Point): VNode {
     const icon = handle.icon;
     const foreignObjectContents = virtualize('<i class="fas ' + icon + '"></i>');
     const posDiff = this.getRadius() / 2;

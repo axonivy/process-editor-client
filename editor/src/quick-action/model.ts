@@ -17,15 +17,15 @@ import {
 
 import { isJumpable } from '../jump/model';
 import { JumpOperation } from '../jump/operation';
-import { SmartActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
+import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
-export const smartActionFeature = Symbol('smartActionFeature');
+export const quickActionFeature = Symbol('quickActionFeature');
 
-export interface Smartable extends BoundsAware, Selectable {
+export interface QuickActionAware extends BoundsAware, Selectable {
 }
 
-export function isSmartable(element: SModelElement): element is SParentElement & Smartable {
-  return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(smartActionFeature);
+export function isQuickActionAware(element: SModelElement): element is SParentElement & QuickActionAware {
+  return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(quickActionFeature);
 }
 
 export enum QuickActionHandleLocation {
@@ -34,14 +34,14 @@ export enum QuickActionHandleLocation {
   BottomLeft = 'bottom-left'
 }
 
-export class SSmartActionHandle extends SChildElement implements Hoverable {
-  static readonly TYPE = 'smart-action-handle';
+export class QuickActionHandle extends SChildElement implements Hoverable {
+  static readonly TYPE = 'quick-action-handle';
 
   constructor(public readonly icon: string,
     public readonly location: QuickActionHandleLocation,
     public readonly position: number,
     public readonly action: Action,
-    public readonly type = SSmartActionHandle.TYPE,
+    public readonly type = QuickActionHandle.TYPE,
     public readonly hoverFeedback = false) {
     super();
   }
@@ -55,8 +55,8 @@ export class SSmartActionHandle extends SChildElement implements Hoverable {
   }
 }
 
-export function removeSmartActionHandles(element: SParentElement): void {
-  element.removeAll(child => child instanceof SSmartActionHandle);
+export function removeQuickActionHandles(element: SParentElement): void {
+  element.removeAll(child => child instanceof QuickActionHandle);
 }
 
 export const IVY_TYPES = {
@@ -120,7 +120,7 @@ class ConnectQuickAction implements QuickAction {
     public readonly icon = 'fa-long-arrow-alt-right',
     public readonly location = QuickActionHandleLocation.Right,
     public readonly sorting = 'A',
-    public readonly action = new SmartActionTriggerEdgeCreationAction('edge', elementId)) {
+    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
   }
 }
 

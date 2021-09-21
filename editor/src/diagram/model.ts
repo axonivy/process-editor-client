@@ -37,7 +37,7 @@ import {
 
 import { Animateable, animateFeature } from '../animate/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { smartActionFeature } from '../smart-action/model';
+import { quickActionFeature } from '../quick-action/model';
 import { NodeIcon, resolveIcon } from './icons';
 import { ActivityTypes, LaneTypes } from './view-types';
 
@@ -58,7 +58,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
 }
 
 export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
+  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, quickActionFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
 
   name = '';
@@ -84,7 +84,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, smartActionFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
 
   animated = false;
   args: Args;
@@ -109,7 +109,7 @@ export class StartEventNode extends EventNode {
 
 export class GatewayNode extends DiamondNode implements Animateable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, smartActionFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
 
   animated = false;
   size = {
