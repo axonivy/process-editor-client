@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import { injectable } from 'inversify';
-import { Action, findParentByFeature, isOpenable, MouseListener, SModelElement } from 'sprotty';
+import { Action, SModelElement } from 'sprotty';
 
 import { QuickAction, QuickActionHandleLocation, QuickActionProvider } from '../quick-action/model';
 import { isBreakable } from './model';
@@ -11,16 +11,6 @@ export class BreakpointAction implements Action {
   kind = BreakpointAction.KIND;
 
   constructor(public readonly elementId: string) {
-  }
-}
-
-export class BreakpointListener extends MouseListener {
-  doubleClick(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
-    const openableTarget = findParentByFeature(target, isOpenable);
-    if (openableTarget !== undefined) {
-      return [new BreakpointAction(openableTarget.id)];
-    }
-    return [];
   }
 }
 
