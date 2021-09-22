@@ -1,4 +1,7 @@
 import {
+  AlignElementsAction,
+  Alignment,
+  DeleteElementOperation,
   EditModeListener,
   EditorContextService,
   GLSP_TYPES,
@@ -57,8 +60,11 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected itemsDiv?: HTMLElement;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
+  protected deleteToolButton: HTMLElement;
   protected jumpOutToolButton: HTMLElement;
   protected wrapToSubToolButton: HTMLElement;
+  protected horizontalAlignButton: HTMLElement;
+  protected verticalAlignButton: HTMLElement;
   protected searchField: HTMLInputElement;
   modelRootId: string;
 
@@ -225,38 +231,47 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
-    this.jumpOutToolButton = this.createJumpOutToolButton();
+    this.deleteToolButton = this.createDynamicToolButton('fa-trash', 'Delete',
+      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]));
+    dynamicTools.appendChild(this.deleteToolButton);
+
+    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out',
+      () => new JumpOperation(''));
     dynamicTools.appendChild(this.jumpOutToolButton);
 
-    this.wrapToSubToolButton = this.createWrapToSubToolButton();
+    this.wrapToSubToolButton = this.createDynamicToolButton('fa-compress-arrows-alt', 'Wrap to embedded process',
+      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]));
     dynamicTools.appendChild(this.wrapToSubToolButton);
+
+    this.horizontalAlignButton = this.createDynamicToolButton('fa-arrows-alt-h', 'Align horizontal',
+      () => new AlignElementsAction([...this.selectionService.getSelectedElementIDs()], Alignment.Middle));
+    dynamicTools.appendChild(this.horizontalAlignButton);
+
+    this.verticalAlignButton = this.createDynamicToolButton('fa-arrows-alt-v', 'Align vertical',
+      () => new AlignElementsAction([...this.selectionService.getSelectedElementIDs()], Alignment.Center));
+    dynamicTools.appendChild(this.verticalAlignButton);
 
     return dynamicTools;
   }
 
-  protected createJumpOutToolButton(): HTMLElement {
-    const jumpOutToolButton = createIcon(['fas', 'fa-level-up-alt', 'fa-xs']);
-    jumpOutToolButton.title = 'Jump out';
-    jumpOutToolButton.style.display = 'none';
-    jumpOutToolButton.onclick = _event => this.actionDispatcher.dispatch(new JumpOperation(''));
-    return jumpOutToolButton;
+  protected createDynamicToolButton(icon: string, title: string, action: () => Action): HTMLElement {
+    const button = createIcon(['fas', icon, 'fa-xs']);
+    button.title = title;
+    button.style.display = 'none';
+    button.onclick = _event => this.actionDispatcher.dispatch(action());
+    return button;
   }
 
-  protected createWrapToSubToolButton(): HTMLElement {
-    const wrapToSubToolButton = createIcon(['fas', 'fa-compress-arrows-alt', 'fa-xs']);
-    wrapToSubToolButton.title = 'Wrap to embedded process';
-    wrapToSubToolButton.style.display = 'none';
-    wrapToSubToolButton.onclick = _event => this.actionDispatcher.dispatch(
-      new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]));
-    return wrapToSubToolButton;
+  private showDynamicBtn(btn: HTMLElement, show: boolean): void {
+    btn.style.display = show ? 'inline-block' : 'none';
   }
 
   public showJumpOutBtn(): void {
-    this.jumpOutToolButton.style.display = 'inline-block';
+    this.showDynamicBtn(this.jumpOutToolButton, true);
   }
 
   public hideJumpOutBtn(): void {
-    this.jumpOutToolButton.style.display = 'none';
+    this.showDynamicBtn(this.jumpOutToolButton, false);
   }
 
   protected createPaletteItemSearchField(): HTMLInputElement {
@@ -356,11 +371,10 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    if (selectedElements.length > 0) {
-      this.wrapToSubToolButton.style.display = 'inline-block';
-    } else {
-      this.wrapToSubToolButton.style.display = 'none';
-    }
+    this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
+    this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
+    this.showDynamicBtn(this.horizontalAlignButton, selectedElements.length > 1);
+    this.showDynamicBtn(this.verticalAlignButton, selectedElements.length > 1);
   }
 
   protected clearOnEscape(event: KeyboardEvent): void {
