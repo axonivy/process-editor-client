@@ -11,4 +11,7 @@ body {
   --glsp-tool-palette-hover: var(--theia-editor-selectionHighlightBackground);
   --glsp-tool-palette-border: var(--theia-dropdown-border);
   --glsp-tool-palette-group-background: var(--theia-badge-background);
+
+  --glsp-quick-action-handle-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-hover);
 }

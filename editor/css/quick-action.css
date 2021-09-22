@@ -1,10 +1,13 @@
+:root {
+  --glsp-quick-action-handle-background: #eee;
+  --glsp-quick-action-handle-hover: #dfdfdf;
+}
+
 .ivy-quick-action-handle {
-  fill: transparent;
-  /* stroke: var(--glsp-editor-foreground); */
+  fill: var(--glsp-quick-action-handle-background);
   cursor: pointer;
 }
 
 .ivy-quick-action-handle.mouseover {
-  /* stroke-width: 2px; */
-  fill: var(--glsp-tool-palette-hover);
+  fill: var(--glsp-quick-action-handle-hover);
 }
