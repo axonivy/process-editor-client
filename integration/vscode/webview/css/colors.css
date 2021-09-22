@@ -13,5 +13,5 @@ body {
   --glsp-tool-palette-group-background: var(--vscode-badge-background);
 
   --glsp-quick-action-handle-background: var(--glsp-tool-palette-background);
-  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-hover);
+  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-selection);
 }
