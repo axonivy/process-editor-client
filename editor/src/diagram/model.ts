@@ -36,6 +36,7 @@ import {
 } from '@eclipse-glsp/client';
 
 import { Animateable, animateFeature } from '../animate/model';
+import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { quickActionFeature } from '../quick-action/model';
 import { NodeIcon, resolveIcon } from './icons';
@@ -59,7 +60,8 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
 
 export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, quickActionFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature,
+    errorBoundaryFeature];
 
   name = '';
   duration?: number;

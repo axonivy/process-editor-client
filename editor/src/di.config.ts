@@ -32,6 +32,7 @@ import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { Container } from 'inversify';
 
 import animateModule from './animate/di.config';
+import ivyBoundaryModule from './boundary/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import ivyQuickActionModule from './quick-action/di.config';
@@ -68,6 +69,7 @@ export default function createContainer(widgetId: string): Container {
     edgeLayoutModule,
     zorderModule,
     layoutCommandsModule,
+    ivyBoundaryModule,
     ivyQuickActionModule,
     ivyWrapModule,
     glspContextMenuModule,

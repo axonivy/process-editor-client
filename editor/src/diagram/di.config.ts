@@ -15,6 +15,8 @@ import {
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
+import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';
+import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
@@ -74,10 +76,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature] });
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature, breakpointFeature, errorBoundaryFeature] });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, { enable: [signalBoundaryFeature] });
   configureModelElement(context, ActivityTypes.SOAP, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.REST, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
