@@ -10,7 +10,6 @@ import {
   popupFeature,
   selectFeature,
   SGraphView,
-  SLabel,
   TYPES
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
@@ -31,6 +30,7 @@ import {
   GatewayNode,
   IvyGLSPGraph,
   LaneNode,
+  MulitlineEditableLabel,
   RotateLabel,
   StartEventNode
 } from './model';
@@ -90,7 +90,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.LABEL, SLabel, ForeignLabelView, { enable: [editLabelFeature] });
+  configureModelElement(context, ActivityTypes.LABEL, MulitlineEditableLabel, ForeignLabelView, { enable: [editLabelFeature] });
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
@@ -99,7 +99,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView, { enable: [editLabelFeature, selectFeature, moveFeature] });
+  configureModelElement(context, LabelType.DEFAULT, MulitlineEditableLabel, ForeignLabelView, { enable: [editLabelFeature, selectFeature, moveFeature] });
 });
 
 export default ivyDiagramModule;

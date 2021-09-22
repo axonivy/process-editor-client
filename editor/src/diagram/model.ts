@@ -9,18 +9,21 @@ import {
   connectableFeature,
   deletableFeature,
   DiamondNode,
+  Dimension,
   EditableLabel,
   editFeature,
   EMPTY_BOUNDS,
   fadeFeature,
   GLSPGraph,
   hoverFeedbackFeature,
+  isBoundsAware,
   isEditableLabel,
   layoutContainerFeature,
   moveFeature,
   Nameable,
   nameFeature,
   openFeature,
+  ORIGIN_POINT,
   Point,
   popupFeature,
   RectangularNode,
@@ -141,6 +144,29 @@ export class Edge extends SEdge {
   }
 }
 
-export class RotateLabel extends SLabel {
+export class RotateLabel extends SLabel implements EditableLabel {
   static readonly DEFAULT_FEATURES = [fadeFeature];
+
+  readonly isMultiLine = true;
+  get editControlDimension(): Dimension {
+    return { width: this.bounds.height, height: this.bounds.width };
+  }
+}
+
+export class MulitlineEditableLabel extends SLabel implements EditableLabel {
+  static readonly DEFAULT_FEATURES = [fadeFeature];
+
+  readonly isMultiLine = true;
+  get editControlDimension(): Dimension {
+    if (isBoundsAware(this.parent)) {
+      return { width: this.parent.bounds.width, height: this.parent.bounds.height };
+    }
+    return { width: this.bounds.width, height: this.bounds.height };
+  }
+  get editControlPositionCorrection(): Point {
+    if (isBoundsAware(this.parent)) {
+      return { x: -this.bounds.x, y: -this.bounds.y };
+    }
+    return ORIGIN_POINT;
+  }
 }
