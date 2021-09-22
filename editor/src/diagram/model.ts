@@ -12,6 +12,7 @@ import {
   Dimension,
   EditableLabel,
   editFeature,
+  editLabelFeature,
   EMPTY_BOUNDS,
   fadeFeature,
   GLSPGraph,
@@ -145,7 +146,7 @@ export class Edge extends SEdge {
 }
 
 export class RotateLabel extends SLabel implements EditableLabel {
-  static readonly DEFAULT_FEATURES = [fadeFeature];
+  static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
 
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {
@@ -154,7 +155,7 @@ export class RotateLabel extends SLabel implements EditableLabel {
 }
 
 export class MulitlineEditableLabel extends SLabel implements EditableLabel {
-  static readonly DEFAULT_FEATURES = [fadeFeature];
+  static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
 
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {

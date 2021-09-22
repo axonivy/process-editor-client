@@ -8,7 +8,6 @@ import {
   IActionDispatcher,
   IFeedbackActionDispatcher,
   IMovementRestrictor,
-  isBoundsAwareMoveable,
   ISnapper,
   isSelected,
   MouseListener,
@@ -19,7 +18,7 @@ import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-
 import { inject, injectable, optional } from 'inversify';
 import { ILogger, SModelRoot, TYPES } from 'sprotty';
 
-import { QuickActionHandle } from './model';
+import { isQuickActionAware, QuickActionHandle } from './model';
 import { HideQuickActionToolFeedbackAction, ShowQuickActionToolFeedbackAction } from './quick-action-tool-feedback';
 
 @injectable()
@@ -73,7 +72,6 @@ export class QuickActionListener extends MouseListener implements SelectionListe
     if (event.button !== 0) {
       return [];
     }
-    // check if we have a resize handle (only single-selection)
     if (this.activeQuickActionElement && target instanceof QuickActionHandle) {
       this.activeQuickActionHandle = target;
     } else {
@@ -93,11 +91,9 @@ export class QuickActionListener extends MouseListener implements SelectionListe
   selectionChanged(root: SModelRoot, selectedElements: string[]): void {
     if (this.activeQuickActionElement) {
       if (selectedElements.includes(this.activeQuickActionElement.id)) {
-        // our active element is still selected, nothing to do
         return;
       }
 
-      // try to find some other selected element and mark that active
       for (const elementId of selectedElements.reverse()) {
         const element = root.index.getById(elementId);
         if (element && this.setActiveQuickActionElement(element)) {
@@ -109,11 +105,9 @@ export class QuickActionListener extends MouseListener implements SelectionListe
   }
 
   protected setActiveQuickActionElement(target: SModelElement): boolean {
-    // check if we have a selected, moveable element (multi-selection allowed)
-    const moveableElement = findParentByFeature(target, isBoundsAwareMoveable);
-    if (isSelected(moveableElement)) {
-      // only allow one element to have the element resize handles
-      this.activeQuickActionElement = moveableElement;
+    const quickActionAwareElement = findParentByFeature(target, isQuickActionAware);
+    if (isSelected(quickActionAwareElement)) {
+      this.activeQuickActionElement = quickActionAwareElement;
       this.tool.dispatchFeedback([new ShowQuickActionToolFeedbackAction(this.activeQuickActionElement.id)], this);
       return true;
     }
