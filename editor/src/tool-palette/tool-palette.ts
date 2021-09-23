@@ -1,6 +1,4 @@
 import {
-  AlignElementsAction,
-  Alignment,
   DeleteElementOperation,
   EditModeListener,
   EditorContextService,
@@ -19,8 +17,10 @@ import { inject, injectable, postConstruct } from 'inversify';
 import {
   AbstractUIExtension,
   Action,
+  CenterAction,
   EnableDefaultToolsAction,
   EnableToolsAction,
+  FitToScreenAction,
   IActionHandler,
   ICommand,
   IToolManager,
@@ -34,6 +34,7 @@ import { IconStyle, resolveIcon } from '../diagram/icons';
 import { JumpOperation } from '../jump/operation';
 import { WrapToSubOperation } from '../wrap/actions';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
+import { AutoAlignOperation } from './operation';
 
 const CLICKED_CSS_CLASS = 'clicked';
 const COLLAPSED_CSS = 'collapsed';
@@ -63,7 +64,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected deleteToolButton: HTMLElement;
   protected jumpOutToolButton: HTMLElement;
   protected wrapToSubToolButton: HTMLElement;
-  protected horizontalAlignButton: HTMLElement;
+  protected autoAlignButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
   protected searchField: HTMLInputElement;
   modelRootId: string;
@@ -196,8 +197,17 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
 
-    const validateActionButton = this.createValidateButton();
+    const validateActionButton = this.createDynamicToolButton('fa-check-square', 'Validate model',
+      () => new RequestMarkersAction([this.modelRootId]), true);
     headerTools.appendChild(validateActionButton);
+
+    const fitToScreenButton = this.createDynamicToolButton('fa-desktop', 'Fit to screen',
+      () => new FitToScreenAction([...this.selectionService.getSelectedElementIDs()]), true);
+    headerTools.appendChild(fitToScreenButton);
+
+    const centerActionButton = this.createDynamicToolButton('fa-vector-square', 'Center',
+      () => new CenterAction([...this.selectionService.getSelectedElementIDs()]), true);
+    headerTools.appendChild(centerActionButton);
 
     return headerTools;
   }
@@ -217,47 +227,33 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     return marqueeToolButton;
   }
 
-  protected createValidateButton(): HTMLElement {
-    const validateActionButton = createIcon(['fas', 'fa-check-square', 'fa-xs']);
-    validateActionButton.title = 'Validate model';
-    validateActionButton.onclick = _event => {
-      const modelIds: string[] = [this.modelRootId];
-      this.actionDispatcher.dispatch(new RequestMarkersAction(modelIds));
-    };
-    return validateActionButton;
-  }
-
   private createDynamicTools(): HTMLElement {
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
     this.deleteToolButton = this.createDynamicToolButton('fa-trash', 'Delete',
-      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]));
+      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]), false);
     dynamicTools.appendChild(this.deleteToolButton);
 
     this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out',
-      () => new JumpOperation(''));
+      () => new JumpOperation(''), false);
     dynamicTools.appendChild(this.jumpOutToolButton);
 
     this.wrapToSubToolButton = this.createDynamicToolButton('fa-compress-arrows-alt', 'Wrap to embedded process',
-      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]));
+      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]), false);
     dynamicTools.appendChild(this.wrapToSubToolButton);
 
-    this.horizontalAlignButton = this.createDynamicToolButton('fa-arrows-alt-h', 'Align horizontal',
-      () => new AlignElementsAction([...this.selectionService.getSelectedElementIDs()], Alignment.Middle));
-    dynamicTools.appendChild(this.horizontalAlignButton);
-
-    this.verticalAlignButton = this.createDynamicToolButton('fa-arrows-alt-v', 'Align vertical',
-      () => new AlignElementsAction([...this.selectionService.getSelectedElementIDs()], Alignment.Center));
-    dynamicTools.appendChild(this.verticalAlignButton);
+    this.autoAlignButton = this.createDynamicToolButton('fa-arrows-alt', 'Auto align',
+      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    dynamicTools.appendChild(this.autoAlignButton);
 
     return dynamicTools;
   }
 
-  protected createDynamicToolButton(icon: string, title: string, action: () => Action): HTMLElement {
+  protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean): HTMLElement {
     const button = createIcon(['fas', icon, 'fa-xs']);
     button.title = title;
-    button.style.display = 'none';
+    this.showDynamicBtn(button, visible);
     button.onclick = _event => this.actionDispatcher.dispatch(action());
     return button;
   }
@@ -373,8 +369,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
     this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
-    this.showDynamicBtn(this.horizontalAlignButton, selectedElements.length > 1);
-    this.showDynamicBtn(this.verticalAlignButton, selectedElements.length > 1);
+    this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
   }
 
   protected clearOnEscape(event: KeyboardEvent): void {
