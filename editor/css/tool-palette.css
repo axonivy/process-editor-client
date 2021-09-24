@@ -17,6 +17,7 @@
   z-index: 1000;
   border: none;
   color: var(--glsp-tool-palette-forground);
+  font-size: 13px;
   user-select: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
