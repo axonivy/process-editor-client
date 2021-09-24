@@ -15,7 +15,6 @@ import {
   glspMouseToolModule,
   glspSelectModule,
   glspServerCopyPasteModule,
-  glspViewportModule,
   labelEditUiModule,
   layoutCommandsModule,
   markerNavigatorModule,
@@ -37,6 +36,7 @@ import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import ivyQuickActionModule from './quick-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
+import ivyViewportModule from './viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 
 export default function createContainer(widgetId: string): Container {
@@ -48,7 +48,7 @@ export default function createContainer(widgetId: string): Container {
     defaultGLSPModule,
     glspSelectModule,
     boundsModule,
-    glspViewportModule,
+    ivyViewportModule,
     toolsModule,
     baseViewModule,
     glspHoverModule,

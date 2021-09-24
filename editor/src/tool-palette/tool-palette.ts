@@ -32,6 +32,7 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { IconStyle, resolveIcon } from '../diagram/icons';
 import { JumpOperation } from '../jump/operation';
+import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
 import { AutoAlignOperation } from './operation';
@@ -201,11 +202,15 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       () => new RequestMarkersAction([this.modelRootId]), true);
     headerTools.appendChild(validateActionButton);
 
-    const fitToScreenButton = this.createDynamicToolButton('fa-desktop', 'Fit to screen',
-      () => new FitToScreenAction([...this.selectionService.getSelectedElementIDs()]), true);
+    const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen',
+      () => new OriginViewportAction(), true);
+    headerTools.appendChild(originViewportButton);
+
+    const fitToScreenButton = this.createDynamicToolButton('fa-vector-square', 'Fit to screen',
+      () => new FitToScreenAction([]), true);
     headerTools.appendChild(fitToScreenButton);
 
-    const centerActionButton = this.createDynamicToolButton('fa-vector-square', 'Center',
+    const centerActionButton = this.createDynamicToolButton('fa-crosshairs', 'Center',
       () => new CenterAction([...this.selectionService.getSelectedElementIDs()]), true);
     headerTools.appendChild(centerActionButton);
 
