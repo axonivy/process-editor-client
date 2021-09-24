@@ -3,7 +3,7 @@ import '../../css/breakpoint.css';
 import { ContainerModule } from 'inversify';
 import { configureActionHandler, configureCommand, configureView } from 'sprotty';
 
-import { IVY_TYPES } from '../quick-action/model';
+import { IVY_TYPES } from '../quick-action/quick-action';
 import { BreakpointQuickActionProvider } from './breakpoint';
 import { ShowBreakpointAction, ShowBreakpointActionHandler } from './breakpoint-action-handler';
 import { BreakpointFeedbackCommand } from './breakpoint-feedback-action';

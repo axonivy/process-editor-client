@@ -3,11 +3,15 @@
   --glsp-quick-action-handle-hover: #dfdfdf;
 }
 
-.ivy-quick-action-handle {
-  fill: var(--glsp-quick-action-handle-background);
+.quick-actions-container i {
+  width: 24px;
+  height: 22px;
+  background-color: var(--glsp-quick-action-handle-background);
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
   cursor: pointer;
 }
-
-.ivy-quick-action-handle.mouseover {
-  fill: var(--glsp-quick-action-handle-hover);
+.quick-actions-container i:hover {
+  background-color: var(--glsp-quick-action-handle-hover);
 }
