@@ -33,8 +33,6 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
-  private multiQuickAction = false;
-
   public id(): string {
     return QuickActionUI.ID;
   }
@@ -54,7 +52,6 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
     if (selectedElements.length >= 1) {
-      this.multiQuickAction = selectedElements.length > 1;
       this.actionDispatcherProvider().then(actionDispatcher =>
         actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, selectedElements)));
     } else {
@@ -65,7 +62,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
-    if (this.multiQuickAction) {
+    if (contextElementIds.length > 1) {
       this.showMultiQuickActionUi(containerElement);
     } else {
       const element = getQuickActionsElement(contextElementIds, root)[0];
@@ -74,12 +71,13 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private showMultiQuickActionUi(containerElement: HTMLElement): void {
-    const elements = this.selectionService.getSelectedElements() as SShapeElement[];
-    const selectionBounds = elements.filter(e => !(e instanceof SRoutableElement))
-      .map(e => getAbsoluteBounds(e))
+    const elements = (this.selectionService.getSelectedElements() as SShapeElement[])
+      .filter(e => !(e instanceof SRoutableElement));
+    const selectionBounds = elements.map(e => getAbsoluteBounds(e))
       .reduce((b1, b2) => combine(b1, b2));
     containerElement.style.left = `${selectionBounds.x}px`;
     containerElement.style.top = `${selectionBounds.y}px`;
+
     const selectionDiv = document.createElement('div');
     selectionDiv.className = 'multi-selection-box';
     selectionDiv.style.height = `${selectionBounds.height + 10}px`;
@@ -87,7 +85,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     containerElement.appendChild(selectionDiv);
 
     const quickActions = this.quickActionProviders
-      .map(provider => provider.multiQuickAction(this.selectionService.getSelectedElements()))
+      .map(provider => provider.multiQuickAction(elements))
       .filter(isNotUndefined);
     this.createQuickActions(containerElement, selectionBounds, quickActions);
   }
