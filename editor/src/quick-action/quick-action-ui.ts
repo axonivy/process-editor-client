@@ -78,11 +78,11 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
     const element = getQuickActionsElement(contextElementIds, root)[0];
-    const elementBounds = getAbsoluteClientBounds(element, this.domHelper, this.viewerOptions);
-    containerElement.style.left = `${elementBounds.x}px`;
-    containerElement.style.top = `${elementBounds.y}px`;
-
     if (isNotUndefined(element)) {
+      const elementBounds = getAbsoluteClientBounds(element, this.domHelper, this.viewerOptions);
+      containerElement.style.left = `${elementBounds.x}px`;
+      containerElement.style.top = `${elementBounds.y}px`;
+
       const quickActions = this.quickActionProviders
         .map(provider => provider.quickActionForElement(element))
         .filter(isNotUndefined);
