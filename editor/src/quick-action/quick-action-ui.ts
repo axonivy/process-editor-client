@@ -1,9 +1,9 @@
 import {
   AbstractUIExtension,
   Action,
-  Bounds,
   BoundsAware,
-  getAbsoluteClientBounds,
+  Dimension,
+  getAbsoluteBounds,
   GLSP_TYPES,
   IActionDispatcherProvider,
   isNotUndefined,
@@ -12,39 +12,20 @@ import {
   SetUIExtensionVisibilityAction,
   SModelElement,
   SModelRoot,
-  TYPES,
-  ViewerOptions
+  TYPES
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
-import { DOMHelper } from 'sprotty/lib/base/views/dom-helper';
 
 import { createIcon } from '../tool-palette/tool-palette';
 import { isQuickActionAware } from './model';
 import { IVY_TYPES, QuickActionLocation, QuickActionProvider } from './quick-action';
 
-/********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
   static readonly ID = 'quickActionsUi';
 
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
-  @inject(TYPES.ViewerOptions) protected viewerOptions: ViewerOptions;
-  @inject(TYPES.DOMHelper) protected domHelper: DOMHelper;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
@@ -79,9 +60,9 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     containerElement.innerHTML = '';
     const element = getQuickActionsElement(contextElementIds, root)[0];
     if (isNotUndefined(element)) {
-      const elementBounds = getAbsoluteClientBounds(element, this.domHelper, this.viewerOptions);
-      containerElement.style.left = `${elementBounds.x}px`;
-      containerElement.style.top = `${elementBounds.y}px`;
+      const absoluteBounds = getAbsoluteBounds(element);
+      containerElement.style.left = `${absoluteBounds.x}px`;
+      containerElement.style.top = `${absoluteBounds.y}px`;
 
       const quickActions = this.quickActionProviders
         .map(provider => provider.quickActionForElement(element))
@@ -90,7 +71,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
         quickActions.filter(quick => quick.location === loc)
           .sort((a, b) => a.sorting.localeCompare(b.sorting))
           .forEach((quick, position) => {
-            const buttonPos = this.getPosition(elementBounds, quick.location, position);
+            const buttonPos = this.getPosition(absoluteBounds, quick.location, position);
             containerElement.appendChild(this.createQuickActionBtn(quick.icon, quick.title, buttonPos, quick.action));
           });
       });
@@ -106,15 +87,15 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     return button;
   }
 
-  protected getPosition(parentBounds: Bounds, location: QuickActionLocation, position: number): Point {
+  protected getPosition(parentDimension: Dimension, location: QuickActionLocation, position: number): Point {
     if (location === QuickActionLocation.TopLeft) {
       return { x: -30 + (position * 32), y: -30 };
     } else if (location === QuickActionLocation.Left) {
-      return { x: -30, y: parentBounds.height / 2 - 11 };
+      return { x: -30, y: parentDimension.height / 2 - 11 };
     } else if (location === QuickActionLocation.Right) {
-      return { x: parentBounds.width + 10, y: -30 + (position * 32) };
+      return { x: parentDimension.width + 10, y: -30 + (position * 32) };
     } else if (location === QuickActionLocation.BottomLeft) {
-      return { x: -30 + (position * 32), y: parentBounds.height + 10 };
+      return { x: -30 + (position * 32), y: parentDimension.height + 10 };
     }
     return ORIGIN_POINT;
   }

@@ -145,18 +145,22 @@ export class Edge extends SEdge {
   }
 }
 
-export class RotateLabel extends SLabel implements EditableLabel {
+export class MulitlineEditLabel extends SLabel implements EditableLabel {
   static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
 
   readonly isMultiLine = true;
+  get editControlDimension(): Dimension {
+    return { width: this.bounds.width + 25, height: this.bounds.height };
+  }
+}
+
+export class RotateLabel extends MulitlineEditLabel {
   get editControlDimension(): Dimension {
     return { width: this.bounds.height, height: this.bounds.width };
   }
 }
 
-export class MulitlineEditableLabel extends SLabel implements EditableLabel {
-  static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
-
+export class ActivityLabel extends MulitlineEditLabel {
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {
     if (isBoundsAware(this.parent)) {
