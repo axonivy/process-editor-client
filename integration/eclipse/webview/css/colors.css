@@ -11,6 +11,9 @@ html body {
   --glsp-tool-palette-hover: #dfdfdf;
   --glsp-tool-palette-border: #cecece;
   --glsp-tool-palette-group-background: #c4c4c4;
+
+  --glsp-quick-action-handle-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-hover);
 }
 
 html[data-theme="dark"] body {

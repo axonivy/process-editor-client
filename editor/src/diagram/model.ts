@@ -9,18 +9,22 @@ import {
   connectableFeature,
   deletableFeature,
   DiamondNode,
+  Dimension,
   EditableLabel,
   editFeature,
+  editLabelFeature,
   EMPTY_BOUNDS,
   fadeFeature,
   GLSPGraph,
   hoverFeedbackFeature,
+  isBoundsAware,
   isEditableLabel,
   layoutContainerFeature,
   moveFeature,
   Nameable,
   nameFeature,
   openFeature,
+  ORIGIN_POINT,
   Point,
   popupFeature,
   RectangularNode,
@@ -36,8 +40,9 @@ import {
 } from '@eclipse-glsp/client';
 
 import { Animateable, animateFeature } from '../animate/model';
+import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { smartActionFeature } from '../smart-action/model';
+import { quickActionFeature } from '../quick-action/model';
 import { NodeIcon, resolveIcon } from './icons';
 import { ActivityTypes, LaneTypes } from './view-types';
 
@@ -58,8 +63,9 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
 }
 
 export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, smartActionFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature];
+  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, quickActionFeature, animateFeature,
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature,
+    errorBoundaryFeature];
 
   name = '';
   duration?: number;
@@ -84,7 +90,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
 
   animated = false;
   args: Args;
@@ -109,7 +115,7 @@ export class StartEventNode extends EventNode {
 
 export class GatewayNode extends DiamondNode implements Animateable {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
 
   animated = false;
   size = {
@@ -139,6 +145,29 @@ export class Edge extends SEdge {
   }
 }
 
-export class RotateLabel extends SLabel {
-  static readonly DEFAULT_FEATURES = [fadeFeature];
+export class RotateLabel extends SLabel implements EditableLabel {
+  static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
+
+  readonly isMultiLine = true;
+  get editControlDimension(): Dimension {
+    return { width: this.bounds.height, height: this.bounds.width };
+  }
+}
+
+export class MulitlineEditableLabel extends SLabel implements EditableLabel {
+  static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
+
+  readonly isMultiLine = true;
+  get editControlDimension(): Dimension {
+    if (isBoundsAware(this.parent)) {
+      return { width: this.parent.bounds.width, height: this.parent.bounds.height };
+    }
+    return { width: this.bounds.width, height: this.bounds.height };
+  }
+  get editControlPositionCorrection(): Point {
+    if (isBoundsAware(this.parent)) {
+      return { x: -this.bounds.x, y: -this.bounds.y };
+    }
+    return ORIGIN_POINT;
+  }
 }

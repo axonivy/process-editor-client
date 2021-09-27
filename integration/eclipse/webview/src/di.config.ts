@@ -1,4 +1,4 @@
-import '../css/diagram.css';
+import '../css/colors.css';
 
 import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
 import { createIvyDiagramContainer } from '@ivyteam/process-editor';

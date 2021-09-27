@@ -50,7 +50,7 @@ export namespace ActivityTypes {
   export const TRIGGER = DEFAULT + ':trigger';
   export const PROGRAMM = DEFAULT + ':program';
   export const THIRD_PARTY = DEFAULT + ':thirdparty';
-  export const LABEL = DEFAULT + ':label';
+  export const LABEL = DEFAULT + '-label';
 }
 
 export namespace LaneTypes {

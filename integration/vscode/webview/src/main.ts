@@ -1,4 +1,4 @@
-import '../css/diagram.css';
+import '../css/colors.css';
 import '@eclipse-glsp/vscode-integration-webview/css/glsp-vscode.css';
 import 'reflect-metadata';
 

@@ -10,11 +10,12 @@ import {
   exportModule,
   fadeModule,
   glspContextMenuModule,
+  glspEditLabelModule,
   glspHoverModule,
   glspMouseToolModule,
   glspSelectModule,
   glspServerCopyPasteModule,
-  glspViewportModule,
+  labelEditUiModule,
   layoutCommandsModule,
   markerNavigatorModule,
   modelHintsModule,
@@ -30,10 +31,13 @@ import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { Container } from 'inversify';
 
 import animateModule from './animate/di.config';
+import ivyBoundaryModule from './boundary/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
-import ivySmartActionModule from './smart-action/di.config';
+import ivyQuickActionModule from './quick-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
+import ivyViewportModule from './viewport/di.config';
+import ivyWrapModule from './wrap/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -44,7 +48,7 @@ export default function createContainer(widgetId: string): Container {
     defaultGLSPModule,
     glspSelectModule,
     boundsModule,
-    glspViewportModule,
+    ivyViewportModule,
     toolsModule,
     baseViewModule,
     glspHoverModule,
@@ -53,6 +57,8 @@ export default function createContainer(widgetId: string): Container {
     expandModule,
     buttonModule,
     modelSourceModule,
+    labelEditUiModule,
+    glspEditLabelModule,
     ivyDiagramModule,
     toolFeedbackModule,
     modelHintsModule,
@@ -63,7 +69,9 @@ export default function createContainer(widgetId: string): Container {
     edgeLayoutModule,
     zorderModule,
     layoutCommandsModule,
-    ivySmartActionModule,
+    ivyBoundaryModule,
+    ivyQuickActionModule,
+    ivyWrapModule,
     glspContextMenuModule,
     animateModule,
     markerNavigatorModule);

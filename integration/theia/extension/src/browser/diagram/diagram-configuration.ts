@@ -1,4 +1,4 @@
-import '../../../css/diagram.css';
+import '../../../css/colors.css';
 import 'sprotty-theia/css/theia-sprotty.css';
 
 import {

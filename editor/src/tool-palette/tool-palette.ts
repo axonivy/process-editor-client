@@ -1,4 +1,5 @@
 import {
+  DeleteElementOperation,
   EditModeListener,
   EditorContextService,
   GLSP_TYPES,
@@ -16,8 +17,10 @@ import { inject, injectable, postConstruct } from 'inversify';
 import {
   AbstractUIExtension,
   Action,
+  CenterAction,
   EnableDefaultToolsAction,
   EnableToolsAction,
+  FitToScreenAction,
   IActionHandler,
   ICommand,
   IToolManager,
@@ -29,8 +32,10 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { IconStyle, resolveIcon } from '../diagram/icons';
 import { JumpOperation } from '../jump/operation';
-import { WrapToSubOperation } from '../operations';
+import { OriginViewportAction } from '../viewport/original-viewport';
+import { WrapToSubOperation } from '../wrap/actions';
 import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
+import { AutoAlignOperation } from './operation';
 
 const CLICKED_CSS_CLASS = 'clicked';
 const COLLAPSED_CSS = 'collapsed';
@@ -57,8 +62,11 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected itemsDiv?: HTMLElement;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
+  protected deleteToolButton: HTMLElement;
   protected jumpOutToolButton: HTMLElement;
   protected wrapToSubToolButton: HTMLElement;
+  protected autoAlignButton: HTMLElement;
+  protected verticalAlignButton: HTMLElement;
   protected searchField: HTMLInputElement;
   modelRootId: string;
 
@@ -190,8 +198,21 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
 
-    const validateActionButton = this.createValidateButton();
+    const validateActionButton = this.createDynamicToolButton('fa-check-square', 'Validate model',
+      () => new RequestMarkersAction([this.modelRootId]), true);
     headerTools.appendChild(validateActionButton);
+
+    const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen',
+      () => new OriginViewportAction(), true);
+    headerTools.appendChild(originViewportButton);
+
+    const fitToScreenButton = this.createDynamicToolButton('fa-vector-square', 'Fit to screen',
+      () => new FitToScreenAction([]), true);
+    headerTools.appendChild(fitToScreenButton);
+
+    const centerActionButton = this.createDynamicToolButton('fa-crosshairs', 'Center',
+      () => new CenterAction([...this.selectionService.getSelectedElementIDs()]), true);
+    headerTools.appendChild(centerActionButton);
 
     return headerTools;
   }
@@ -211,52 +232,47 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     return marqueeToolButton;
   }
 
-  protected createValidateButton(): HTMLElement {
-    const validateActionButton = createIcon(['fas', 'fa-check-square', 'fa-xs']);
-    validateActionButton.title = 'Validate model';
-    validateActionButton.onclick = _event => {
-      const modelIds: string[] = [this.modelRootId];
-      this.actionDispatcher.dispatch(new RequestMarkersAction(modelIds));
-    };
-    return validateActionButton;
-  }
-
   private createDynamicTools(): HTMLElement {
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
-    this.jumpOutToolButton = this.createJumpOutToolButton();
+    this.deleteToolButton = this.createDynamicToolButton('fa-trash', 'Delete',
+      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    dynamicTools.appendChild(this.deleteToolButton);
+
+    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out',
+      () => new JumpOperation(''), false);
     dynamicTools.appendChild(this.jumpOutToolButton);
 
-    this.wrapToSubToolButton = this.createWrapToSubToolButton();
+    this.wrapToSubToolButton = this.createDynamicToolButton('fa-compress-arrows-alt', 'Wrap to embedded process',
+      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]), false);
     dynamicTools.appendChild(this.wrapToSubToolButton);
+
+    this.autoAlignButton = this.createDynamicToolButton('fa-arrows-alt', 'Auto align',
+      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    dynamicTools.appendChild(this.autoAlignButton);
 
     return dynamicTools;
   }
 
-  protected createJumpOutToolButton(): HTMLElement {
-    const jumpOutToolButton = createIcon(['fas', 'fa-level-up-alt', 'fa-xs']);
-    jumpOutToolButton.title = 'Jump out';
-    jumpOutToolButton.style.display = 'none';
-    jumpOutToolButton.onclick = _event => this.actionDispatcher.dispatch(new JumpOperation(''));
-    return jumpOutToolButton;
+  protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean): HTMLElement {
+    const button = createIcon(['fas', icon, 'fa-xs']);
+    button.title = title;
+    this.showDynamicBtn(button, visible);
+    button.onclick = _event => this.actionDispatcher.dispatch(action());
+    return button;
   }
 
-  protected createWrapToSubToolButton(): HTMLElement {
-    const wrapToSubToolButton = createIcon(['fas', 'fa-compress-arrows-alt', 'fa-xs']);
-    wrapToSubToolButton.title = 'Wrap to embedded process';
-    wrapToSubToolButton.style.display = 'none';
-    wrapToSubToolButton.onclick = _event => this.actionDispatcher.dispatch(
-      new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]));
-    return wrapToSubToolButton;
+  private showDynamicBtn(btn: HTMLElement, show: boolean): void {
+    btn.style.display = show ? 'inline-block' : 'none';
   }
 
   public showJumpOutBtn(): void {
-    this.jumpOutToolButton.style.display = 'inline-block';
+    this.showDynamicBtn(this.jumpOutToolButton, true);
   }
 
   public hideJumpOutBtn(): void {
-    this.jumpOutToolButton.style.display = 'none';
+    this.showDynamicBtn(this.jumpOutToolButton, false);
   }
 
   protected createPaletteItemSearchField(): HTMLInputElement {
@@ -356,12 +372,9 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    console.log(selectedElements);
-    if (selectedElements.length > 0) {
-      this.wrapToSubToolButton.style.display = 'inline-block';
-    } else {
-      this.wrapToSubToolButton.style.display = 'none';
-    }
+    this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
+    this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
+    this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
   }
 
   protected clearOnEscape(event: KeyboardEvent): void {

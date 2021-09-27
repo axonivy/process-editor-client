@@ -28,24 +28,24 @@ import {
  * Tool to create connections in a Diagram, by selecting a source and target node.
  */
 @injectable()
-export class SmartActionEdgeCreationTool extends BaseGLSPTool implements IActionHandler {
-  static ID = 'smart-action-edge-creation-tool';
+export class QuickActionEdgeCreationTool extends BaseGLSPTool implements IActionHandler {
+  static ID = 'quick-action-edge-creation-tool';
 
   @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry;
 
-  protected triggerAction: SmartActionTriggerEdgeCreationAction;
-  protected creationToolMouseListener: SmartActionEdgeCreationToolMouseListener;
+  protected triggerAction: QuickActionTriggerEdgeCreationAction;
+  protected creationToolMouseListener: QuickActionEdgeCreationToolMouseListener;
   protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
   get id(): string {
-    return SmartActionEdgeCreationTool.ID;
+    return QuickActionEdgeCreationTool.ID;
   }
 
   enable(): void {
     if (this.triggerAction === undefined) {
       throw new TypeError(`Could not enable tool ${this.id}.The triggerAction cannot be undefined.`);
     }
-    this.creationToolMouseListener = new SmartActionEdgeCreationToolMouseListener(this.triggerAction, this);
+    this.creationToolMouseListener = new QuickActionEdgeCreationToolMouseListener(this.triggerAction, this);
     this.mouseTool.register(this.creationToolMouseListener);
     this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener(this.anchorRegistry);
     this.mouseTool.register(this.feedbackEndMovingMouseListener);
@@ -59,7 +59,7 @@ export class SmartActionEdgeCreationTool extends BaseGLSPTool implements IAction
   }
 
   handle(action: Action): Action | void {
-    if (isTriggerElementTypeCreationAction(action) && action instanceof SmartActionTriggerEdgeCreationAction) {
+    if (isTriggerElementTypeCreationAction(action) && action instanceof QuickActionTriggerEdgeCreationAction) {
       this.triggerAction = action;
       return new EnableToolsAction([this.id]);
     }
@@ -67,14 +67,14 @@ export class SmartActionEdgeCreationTool extends BaseGLSPTool implements IAction
 }
 
 @injectable()
-export class SmartActionEdgeCreationToolMouseListener extends DragAwareMouseListener {
+export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseListener {
   protected source?: string;
   protected target?: string;
   protected currentTarget?: SModelElement;
   protected allowedTarget = false;
   protected proxyEdge: SEdge;
 
-  constructor(protected triggerAction: SmartActionTriggerEdgeCreationAction, protected tool: SmartActionEdgeCreationTool) {
+  constructor(protected triggerAction: QuickActionTriggerEdgeCreationAction, protected tool: QuickActionEdgeCreationTool) {
     super();
     this.proxyEdge = new SEdge();
     this.proxyEdge.type = triggerAction.elementTypeId;
@@ -148,10 +148,10 @@ export class SmartActionEdgeCreationToolMouseListener extends DragAwareMouseList
   }
 }
 
-export class SmartActionTriggerEdgeCreationAction extends TriggerElementCreationAction {
-  static readonly KIND = 'smartActionTriggerEdgeCreation';
+export class QuickActionTriggerEdgeCreationAction extends TriggerElementCreationAction {
+  static readonly KIND = 'quickActionTriggerEdgeCreation';
 
   constructor(public readonly elementTypeId: string, public readonly sourceId: string) {
-    super(elementTypeId, undefined, SmartActionTriggerEdgeCreationAction.KIND);
+    super(elementTypeId, undefined, QuickActionTriggerEdgeCreationAction.KIND);
   }
 }

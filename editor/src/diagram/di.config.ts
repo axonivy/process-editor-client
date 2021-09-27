@@ -3,19 +3,20 @@ import {
   ConsoleLogger,
   DefaultTypes,
   DeleteElementContextMenuItemProvider,
-  editLabelFeature,
   GEdgeView,
   LogLevel,
   moveFeature,
   popupFeature,
   selectFeature,
   SGraphView,
-  SLabel,
   TYPES
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
+import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';
+import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
+import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
@@ -28,6 +29,7 @@ import {
   GatewayNode,
   IvyGLSPGraph,
   LaneNode,
+  MulitlineEditableLabel,
   RotateLabel,
   StartEventNode
 } from './model';
@@ -73,30 +75,30 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature] });
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature, breakpointFeature, errorBoundaryFeature] });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, { enable: [signalBoundaryFeature] });
   configureModelElement(context, ActivityTypes.SOAP, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.REST, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
-  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
+  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature, unwrapFeature] });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.LABEL, SLabel, ForeignLabelView, { enable: [editLabelFeature] });
+  configureModelElement(context, ActivityTypes.LABEL, MulitlineEditableLabel, ForeignLabelView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
-  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView, { enable: [editLabelFeature] });
+  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, SLabel, ForeignLabelView, { enable: [editLabelFeature, selectFeature, moveFeature] });
+  configureModelElement(context, LabelType.DEFAULT, MulitlineEditableLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 });
 
 export default ivyDiagramModule;

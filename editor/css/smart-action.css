@@ -1,9 +1,0 @@
-.ivy-smart-action-handle {
-  fill: transparent;
-  stroke: var(--glsp-editor-foreground);
-  cursor: pointer;
-}
-
-.ivy-smart-action-handle.mouseover {
-  stroke-width: 2px;
-}

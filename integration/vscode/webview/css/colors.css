@@ -11,4 +11,7 @@ body {
   --glsp-tool-palette-hover: var(--vscode-editor-selectionHighlightBackground);
   --glsp-tool-palette-border: var(--vscode-dropdown-border);
   --glsp-tool-palette-group-background: var(--vscode-badge-background);
+
+  --glsp-quick-action-handle-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-selection);
 }
