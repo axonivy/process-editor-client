@@ -1,7 +1,7 @@
 import { Operation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-import { QuickAction, QuickActionHandleLocation, QuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, QuickActionProvider } from '../quick-action/quick-action';
 import { isUnwrapable } from './model';
 
 export class WrapToSubOperation implements Operation {
@@ -32,7 +32,7 @@ class UnwrapQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-expand-arrows-alt',
     public readonly title = 'Unwrap embedded subprocess',
-    public readonly location = QuickActionHandleLocation.BottomLeft,
+    public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
     public readonly action = new UnwrapSubOperation(elementId)) {
   }

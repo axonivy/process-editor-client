@@ -14,7 +14,7 @@ import { isJumpable } from '../jump/model';
 import { JumpOperation } from '../jump/operation';
 import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
-export enum QuickActionHandleLocation {
+export enum QuickActionLocation {
   TopLeft = 'top-left',
   Left = 'left',
   Right = 'right',
@@ -74,7 +74,7 @@ export class JumpQuickActionProvider implements QuickActionProvider {
 export interface QuickAction {
   icon: string;
   title: string;
-  location: QuickActionHandleLocation;
+  location: QuickActionLocation;
   sorting: string;
   action: Action;
 }
@@ -83,7 +83,7 @@ class DeleteQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-trash',
     public readonly title = 'Delete',
-    public readonly location = QuickActionHandleLocation.TopLeft,
+    public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
     public readonly action = new DeleteElementOperation([elementId])) {
   }
@@ -93,7 +93,7 @@ class InscribeQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-pen',
     public readonly title = 'Edit',
-    public readonly location = QuickActionHandleLocation.TopLeft,
+    public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
     public readonly action = new OpenAction(elementId)) {
   }
@@ -103,7 +103,7 @@ class ConnectQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-long-arrow-alt-right',
     public readonly title = 'Connect',
-    public readonly location = QuickActionHandleLocation.Right,
+    public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
     public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
   }
@@ -113,7 +113,7 @@ class JumpQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-level-down-alt',
     public readonly title = 'Jump',
-    public readonly location = QuickActionHandleLocation.BottomLeft,
+    public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new JumpOperation(elementId)) {
   }

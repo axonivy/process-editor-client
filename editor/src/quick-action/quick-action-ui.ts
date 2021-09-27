@@ -1,18 +1,3 @@
-/********************************************************************************
- * Copyright (c) 2019-2020 EclipseSource and others.
- *
- * This program and the accompanying materials are made available under the
- * terms of the Eclipse Public License v. 2.0 which is available at
- * http://www.eclipse.org/legal/epl-2.0.
- *
- * This Source Code may also be made available under the following Secondary
- * Licenses when the conditions for such availability set forth in the Eclipse
- * Public License v. 2.0 are satisfied: GNU General Public License, version 2
- * with the GNU Classpath Exception which is available at
- * https://www.gnu.org/software/classpath/license.html.
- *
- * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- ********************************************************************************/
 import {
   AbstractUIExtension,
   Action,
@@ -36,8 +21,23 @@ import { DOMHelper } from 'sprotty/lib/base/views/dom-helper';
 
 import { createIcon } from '../tool-palette/tool-palette';
 import { isQuickActionAware } from './model';
-import { IVY_TYPES, QuickActionHandleLocation, QuickActionProvider } from './quick-action';
+import { IVY_TYPES, QuickActionLocation, QuickActionProvider } from './quick-action';
 
+/********************************************************************************
+ * Copyright (c) 2019-2020 EclipseSource and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0 which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the Eclipse
+ * Public License v. 2.0 are satisfied: GNU General Public License, version 2
+ * with the GNU Classpath Exception which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ ********************************************************************************/
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
   static readonly ID = 'quickActionsUi';
@@ -86,7 +86,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       const quickActions = this.quickActionProviders
         .map(provider => provider.quickActionForElement(element))
         .filter(isNotUndefined);
-      Object.values(QuickActionHandleLocation).forEach(loc => {
+      Object.values(QuickActionLocation).forEach(loc => {
         quickActions.filter(quick => quick.location === loc)
           .sort((a, b) => a.sorting.localeCompare(b.sorting))
           .forEach((quick, position) => {
@@ -106,14 +106,14 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     return button;
   }
 
-  protected getPosition(parentBounds: Bounds, location: QuickActionHandleLocation, position: number): Point {
-    if (location === QuickActionHandleLocation.TopLeft) {
+  protected getPosition(parentBounds: Bounds, location: QuickActionLocation, position: number): Point {
+    if (location === QuickActionLocation.TopLeft) {
       return { x: -30 + (position * 32), y: -30 };
-    } else if (location === QuickActionHandleLocation.Left) {
+    } else if (location === QuickActionLocation.Left) {
       return { x: -30, y: parentBounds.height / 2 - 11 };
-    } else if (location === QuickActionHandleLocation.Right) {
+    } else if (location === QuickActionLocation.Right) {
       return { x: parentBounds.width + 10, y: -30 + (position * 32) };
-    } else if (location === QuickActionHandleLocation.BottomLeft) {
+    } else if (location === QuickActionLocation.BottomLeft) {
       return { x: -30 + (position * 32), y: parentBounds.height + 10 };
     }
     return ORIGIN_POINT;

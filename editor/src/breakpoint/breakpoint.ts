@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { Action, SModelElement } from 'sprotty';
 
-import { QuickAction, QuickActionHandleLocation, QuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, QuickActionProvider } from '../quick-action/quick-action';
 import { isBreakable } from './model';
 
 export class BreakpointAction implements Action {
@@ -33,7 +33,7 @@ class BreakpointQuickAction implements QuickAction {
   constructor(public readonly elementId: string,
     public readonly icon = 'fa-bug',
     public readonly title = 'Toggle Breakpoint',
-    public readonly location = QuickActionHandleLocation.Left,
+    public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',
     public readonly action = new BreakpointAction(elementId)) {
   }
