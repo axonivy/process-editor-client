@@ -22,6 +22,7 @@ import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
+  ActivityLabel,
   ActivityNode,
   Edge,
   EndEventNode,
@@ -29,7 +30,7 @@ import {
   GatewayNode,
   IvyGLSPGraph,
   LaneNode,
-  MulitlineEditableLabel,
+  MulitlineEditLabel,
   RotateLabel,
   StartEventNode
 } from './model';
@@ -89,7 +90,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.LABEL, MulitlineEditableLabel, ForeignLabelView);
+  configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
@@ -98,7 +99,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, MulitlineEditableLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  configureModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 });
 
 export default ivyDiagramModule;
