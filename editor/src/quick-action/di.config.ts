@@ -5,6 +5,7 @@ import { ContainerModule } from 'inversify';
 
 import { QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 import {
+  AutoAlignQuickActionProvider,
   ConnectQuickActionProvider,
   DeleteQuickActionProvider,
   InscribeQuickActionProvider,
@@ -25,6 +26,7 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(IVY_TYPES.QuickActionProvider).to(InscribeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
+  bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
 });
 
 export default ivyQuickActionModule;

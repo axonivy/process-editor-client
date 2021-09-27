@@ -157,15 +157,13 @@ g[class^="end"] .sprotty-node {
 .node-creation-mode .sprotty-node {
   cursor: copy;
 }
-.edge-creation-select-target-mode .sprotty-node,
-.edge-creation-select-target-mode .sprotty-icon,
+.marquee-mode [class^="sprotty-"],
+.edge-creation-select-target-mode [class^="sprotty-"],
 .edge-creation-select-target-mode .node-child-label {
   cursor: crosshair;
 }
-.edge-modification-not-allowed-mode .sprotty-node,
-.edge-modification-not-allowed-mode .sprotty-icon,
-.edge-modification-not-allowed-mode .node-child-label,
-.edge-modification-not-allowed-mode .sprotty-label {
+.edge-modification-not-allowed-mode [class^="sprotty-"],
+.edge-modification-not-allowed-mode .node-child-label {
   cursor: no-drop;
 }
 

@@ -1,7 +1,12 @@
 import { Operation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-import { QuickAction, QuickActionLocation, QuickActionProvider } from '../quick-action/quick-action';
+import {
+  MultipleQuickActionProvider,
+  QuickAction,
+  QuickActionLocation,
+  SingleQuickActionProvider
+} from '../quick-action/quick-action';
 import { isUnwrapable } from './model';
 
 export class WrapToSubOperation implements Operation {
@@ -19,8 +24,8 @@ export class UnwrapSubOperation implements Operation {
 }
 
 @injectable()
-export class UnwrapQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isUnwrapable(element)) {
       return new UnwrapQuickAction(element.id);
     }
@@ -35,5 +40,26 @@ class UnwrapQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
     public readonly action = new UnwrapSubOperation(elementId)) {
+  }
+}
+
+@injectable()
+export class WrapQuickActionProvider extends MultipleQuickActionProvider {
+  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+    const elementIds = elements.map(e => e.id);
+    if (elementIds.length > 0) {
+      return new WrapQuickAction(elementIds);
+    }
+    return undefined;
+  }
+}
+
+class WrapQuickAction implements QuickAction {
+  constructor(public readonly elementIds: string[],
+    public readonly icon = 'fa-compress-arrows-alt',
+    public readonly title = 'Wrap to embedded process',
+    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly sorting = 'B',
+    public readonly action = new WrapToSubOperation(elementIds)) {
   }
 }

@@ -12,8 +12,9 @@ html body {
   --glsp-tool-palette-border: #cecece;
   --glsp-tool-palette-group-background: #c4c4c4;
 
-  --glsp-quick-action-handle-background: var(--glsp-tool-palette-background);
-  --glsp-quick-action-handle-hover: var(--glsp-tool-palette-hover);
+  --glsp-multiselect-box-border: var(--glsp-editor-selected);
+  --glsp-quick-action-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
 }
 
 html[data-theme="dark"] body {
