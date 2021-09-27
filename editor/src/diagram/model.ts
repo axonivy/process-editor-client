@@ -150,7 +150,7 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {
-    return { width: this.bounds.width * 1.2, height: this.bounds.height };
+    return { width: this.bounds.width + 25, height: this.bounds.height };
   }
 }
 
