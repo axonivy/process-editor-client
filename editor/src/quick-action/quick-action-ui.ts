@@ -9,6 +9,8 @@ import {
   GLSP_TYPES,
   IActionDispatcherProvider,
   isNotUndefined,
+  MouseListener,
+  MouseTool,
   ORIGIN_POINT,
   Point,
   SetUIExtensionVisibilityAction,
@@ -31,6 +33,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(GLSP_TYPES.MouseTool) protected mouseTool: MouseTool;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   public id(): string {
@@ -44,6 +47,8 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   @postConstruct()
   postConstruct(): void {
     this.selectionService.register(this);
+    const mouseListener = new QuickActionUiMouseListener(this);
+    this.mouseTool.register(mouseListener);
   }
 
   protected initializeContents(containerElement: HTMLElement): void {
@@ -52,12 +57,21 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
     if (selectedElements.length >= 1) {
-      this.actionDispatcherProvider().then(actionDispatcher =>
-        actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, selectedElements)));
+      this.showUi();
     } else {
-      this.actionDispatcherProvider().then(actionDispatcher =>
-        actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
+      this.hideUi();
     }
+  }
+
+  public showUi(): void {
+    this.actionDispatcherProvider().then(actionDispatcher =>
+      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true,
+        [...this.selectionService.getSelectedElementIDs()])));
+  }
+
+  public hideUi(): void {
+    this.actionDispatcherProvider().then(actionDispatcher =>
+      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
   }
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
@@ -134,6 +148,38 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       return { x: -30 + (position * 32), y: parentDimension.height + 10 };
     }
     return ORIGIN_POINT;
+  }
+}
+
+export class QuickActionUiMouseListener extends MouseListener {
+  mouseActive: boolean;
+  constructor(private quickActionUi: QuickActionUI) {
+    super();
+  }
+
+  mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+    this.mouseActive = true;
+    return [];
+  }
+
+  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+    if (this.mouseActive) {
+      this.quickActionUi.hideUi();
+    }
+    return [];
+  }
+
+  mouseUp(target: SModelElement, event: MouseEvent): Action[] {
+    this.mouseActive = false;
+    if (this.mouseActive) {
+      this.quickActionUi.showUi();
+    }
+    return [];
+  }
+
+  wheel(target: SModelElement, event: WheelEvent): Action[] {
+    this.quickActionUi.showUi();
+    return [];
   }
 }
 
