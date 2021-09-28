@@ -1,17 +1,27 @@
 :root {
-  --glsp-quick-action-handle-background: #eee;
-  --glsp-quick-action-handle-hover: #dfdfdf;
+  --glsp-multiselect-box-border: #007095;
+  --glsp-quick-action-background: #eee;
+  --glsp-quick-action-hover: #dfdfdf;
 }
 
 .quick-actions-container i {
   width: 24px;
   height: 22px;
-  background-color: var(--glsp-quick-action-handle-background);
+  background-color: var(--glsp-quick-action-background);
   font-size: 16px;
   line-height: 24px;
   position: absolute;
   cursor: pointer;
 }
 .quick-actions-container i:hover {
-  background-color: var(--glsp-quick-action-handle-hover);
+  background-color: var(--glsp-quick-action-hover);
+}
+
+.multi-selection-box {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  border: 1px dashed var(--glsp-multiselect-box-border);
+  background: none;
+  pointer-events: none;
 }

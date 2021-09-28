@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { injectable } from 'inversify';
 import { Action, SModelElement } from 'sprotty';
 
-import { QuickAction, QuickActionLocation, QuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isBreakable } from './model';
 
 export class BreakpointAction implements Action {
@@ -20,8 +20,8 @@ export function isBreakpointAction(action: Action): action is BreakpointAction {
 }
 
 @injectable()
-export class BreakpointQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class BreakpointQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isBreakable(element)) {
       return new BreakpointQuickAction(element.id);
     }

@@ -12,6 +12,7 @@ import { injectable } from 'inversify';
 
 import { isJumpable } from '../jump/model';
 import { JumpOperation } from '../jump/operation';
+import { AutoAlignOperation } from '../tool-palette/operation';
 import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
 export enum QuickActionLocation {
@@ -26,22 +27,48 @@ export const IVY_TYPES = {
 };
 
 export interface QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined;
+  singleQuickAction(element: SModelElement): QuickAction | undefined;
+  multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
+}
+
+@injectable()
+export abstract class SingleQuickActionProvider implements QuickActionProvider {
+  abstract singleQuickAction(element: SModelElement): QuickAction | undefined;
+  multiQuickAction(elements: SModelElement[]): undefined {
+    return undefined;
+  }
+}
+
+@injectable()
+export abstract class MultipleQuickActionProvider implements QuickActionProvider {
+  abstract multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
+  singleQuickAction(element: SModelElement): undefined {
+    return undefined;
+  }
 }
 
 @injectable()
 export class DeleteQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isDeletable(element)) {
-      return new DeleteQuickAction(element.id);
+      return new DeleteQuickAction([element.id]);
+    }
+    return undefined;
+  }
+
+  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+    const elementIds = elements.filter(e => isDeletable(e))
+      .map(e => e.id);
+    if (elementIds.length > 0) {
+      return new DeleteQuickAction(elementIds);
     }
     return undefined;
   }
 }
 
 @injectable()
-export class InscribeQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class InscribeQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isOpenable(element)) {
       return new InscribeQuickAction(element.id);
     }
@@ -50,8 +77,8 @@ export class InscribeQuickActionProvider implements QuickActionProvider {
 }
 
 @injectable()
-export class ConnectQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class ConnectQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     const edge = new SEdge();
     edge.type = 'edge';
     if (element instanceof SNode && element.canConnect(edge, 'source')) {
@@ -62,10 +89,21 @@ export class ConnectQuickActionProvider implements QuickActionProvider {
 }
 
 @injectable()
-export class JumpQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class JumpQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isJumpable(element)) {
       return new JumpQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+@injectable()
+export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
+  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+    const elementIds = elements.map(e => e.id);
+    if (elementIds.length > 0) {
+      return new AutoAlignQuickAction(elementIds);
     }
     return undefined;
   }
@@ -80,12 +118,12 @@ export interface QuickAction {
 }
 
 class DeleteQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(public readonly elementIds: string[],
     public readonly icon = 'fa-trash',
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
-    public readonly action = new DeleteElementOperation([elementId])) {
+    public readonly action = new DeleteElementOperation(elementIds)) {
   }
 }
 
@@ -116,5 +154,15 @@ class JumpQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new JumpOperation(elementId)) {
+  }
+}
+
+class AutoAlignQuickAction implements QuickAction {
+  constructor(public readonly elementIds: string[],
+    public readonly icon = 'fa-arrows-alt',
+    public readonly title = 'Auto Align',
+    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly sorting = 'Z',
+    public readonly action = new AutoAlignOperation(elementIds)) {
   }
 }

@@ -1,7 +1,9 @@
 import {
   AbstractUIExtension,
   Action,
+  Bounds,
   BoundsAware,
+  combine,
   Dimension,
   getAbsoluteBounds,
   GLSP_TYPES,
@@ -12,6 +14,8 @@ import {
   SetUIExtensionVisibilityAction,
   SModelElement,
   SModelRoot,
+  SRoutableElement,
+  SShapeElement,
   TYPES
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
@@ -19,7 +23,7 @@ import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
 import { createIcon } from '../tool-palette/tool-palette';
 import { isQuickActionAware } from './model';
-import { IVY_TYPES, QuickActionLocation, QuickActionProvider } from './quick-action';
+import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
@@ -47,7 +51,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    if (selectedElements.length === 1) {
+    if (selectedElements.length >= 1) {
       this.actionDispatcherProvider().then(actionDispatcher =>
         actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, selectedElements)));
     } else {
@@ -58,24 +62,56 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
-    const element = getQuickActionsElement(contextElementIds, root)[0];
+    if (contextElementIds.length > 1) {
+      this.showMultiQuickActionUi(containerElement);
+    } else {
+      const element = getQuickActionsElement(contextElementIds, root)[0];
+      this.showSingleQuickActionUi(containerElement, element);
+    }
+  }
+
+  private showMultiQuickActionUi(containerElement: HTMLElement): void {
+    const elements = (this.selectionService.getSelectedElements() as SShapeElement[])
+      .filter(e => !(e instanceof SRoutableElement));
+    const selectionBounds = elements.map(e => getAbsoluteBounds(e))
+      .reduce((b1, b2) => combine(b1, b2));
+    containerElement.style.left = `${selectionBounds.x}px`;
+    containerElement.style.top = `${selectionBounds.y}px`;
+
+    const selectionDiv = document.createElement('div');
+    selectionDiv.className = 'multi-selection-box';
+    selectionDiv.style.height = `${selectionBounds.height + 10}px`;
+    selectionDiv.style.width = `${selectionBounds.width + 10}px`;
+    containerElement.appendChild(selectionDiv);
+
+    const quickActions = this.quickActionProviders
+      .map(provider => provider.multiQuickAction(elements))
+      .filter(isNotUndefined);
+    this.createQuickActions(containerElement, selectionBounds, quickActions);
+  }
+
+  private showSingleQuickActionUi(containerElement: HTMLElement, element: SModelElement & BoundsAware): void {
     if (isNotUndefined(element)) {
       const absoluteBounds = getAbsoluteBounds(element);
       containerElement.style.left = `${absoluteBounds.x}px`;
       containerElement.style.top = `${absoluteBounds.y}px`;
 
       const quickActions = this.quickActionProviders
-        .map(provider => provider.quickActionForElement(element))
+        .map(provider => provider.singleQuickAction(element))
         .filter(isNotUndefined);
-      Object.values(QuickActionLocation).forEach(loc => {
-        quickActions.filter(quick => quick.location === loc)
-          .sort((a, b) => a.sorting.localeCompare(b.sorting))
-          .forEach((quick, position) => {
-            const buttonPos = this.getPosition(absoluteBounds, quick.location, position);
-            containerElement.appendChild(this.createQuickActionBtn(quick.icon, quick.title, buttonPos, quick.action));
-          });
-      });
+      this.createQuickActions(containerElement, absoluteBounds, quickActions);
     }
+  }
+
+  private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[]): void {
+    Object.values(QuickActionLocation).forEach(loc => {
+      quickActions.filter(quick => quick.location === loc)
+        .sort((a, b) => a.sorting.localeCompare(b.sorting))
+        .forEach((quick, position) => {
+          const buttonPos = this.getPosition(absoluteBounds, quick.location, position);
+          containerElement.appendChild(this.createQuickActionBtn(quick.icon, quick.title, buttonPos, quick.action));
+        });
+    });
   }
 
   private createQuickActionBtn(icon: string, title: string, position: Point, action: Action): HTMLElement {

@@ -1,7 +1,7 @@
 import { Operation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-import { QuickAction, QuickActionLocation, QuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { canAddErrorBoundary, canAddSignalBoundary } from './model';
 
 export class AttachBoundaryOperation implements Operation {
@@ -13,8 +13,8 @@ export class AttachBoundaryOperation implements Operation {
 }
 
 @injectable()
-export class AttachErrorBoundaryQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class AttachErrorBoundaryQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (canAddErrorBoundary(element)) {
       return new AttachErrorBoundaryQuickAction(element.id);
     }
@@ -33,8 +33,8 @@ class AttachErrorBoundaryQuickAction implements QuickAction {
 }
 
 @injectable()
-export class AttachSignalBoundaryQuickActionProvider implements QuickActionProvider {
-  quickActionForElement(element: SModelElement): QuickAction | undefined {
+export class AttachSignalBoundaryQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (canAddSignalBoundary(element)) {
       return new AttachSignalBoundaryQuickAction(element.id);
     }
