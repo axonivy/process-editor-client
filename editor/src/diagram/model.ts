@@ -33,6 +33,7 @@ import {
   SEdge,
   selectFeature,
   SLabel,
+  SParentElement,
   SRoutableElement,
   translate,
   WithEditableLabel,
@@ -44,21 +45,17 @@ import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { quickActionFeature } from '../quick-action/model';
 import { NodeIcon, resolveIcon } from './icons';
-import { ActivityTypes, LaneTypes } from './view-types';
+import { ActivityTypes, LabelType, LaneTypes } from './view-types';
 
 export class IvyGLSPGraph extends GLSPGraph {
   scroll = { x: 0, y: -50 };
 }
 
 export class LaneNode extends RectangularNode implements WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature];
+  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature, withEditLabelFeature];
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
-    const label = this.children.find(element => element.type === LaneTypes.LABEL);
-    if (label && isEditableLabel(label)) {
-      return label;
-    }
-    return undefined;
+    return findEditableLabel(this, LaneTypes.LABEL);
   }
 }
 
@@ -75,11 +72,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   args: Args;
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
-    const label = this.children.find(element => element.type === ActivityTypes.LABEL);
-    if (label && isEditableLabel(label)) {
-      return label;
-    }
-    return undefined;
+    return findEditableLabel(this, ActivityTypes.LABEL);
   }
 
   get icon(): NodeIcon {
@@ -88,9 +81,10 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 }
 
-export class EventNode extends CircularNode implements Animateable, SArgumentable {
+export class EventNode extends CircularNode implements Animateable, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature,
+    withEditLabelFeature];
 
   animated = false;
   args: Args;
@@ -98,6 +92,10 @@ export class EventNode extends CircularNode implements Animateable, SArgumentabl
   get icon(): NodeIcon {
     const iconUri = this.args?.iconUri as string;
     return resolveIcon(iconUri);
+  }
+
+  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+    return findEditableLabel(this, LabelType.DEFAULT);
   }
 }
 
@@ -113,20 +111,25 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements Animateable {
+export class GatewayNode extends DiamondNode implements Animateable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature];
+    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature,
+    withEditLabelFeature];
 
   animated = false;
   size = {
     width: 32,
     height: 32
   };
+
+  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+    return findEditableLabel(this, LabelType.DEFAULT);
+  }
 }
 
-export class Edge extends SEdge {
+export class Edge extends SEdge implements WithEditableLabel {
   static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
-    hoverFeedbackFeature, popupFeature];
+    hoverFeedbackFeature, popupFeature, withEditLabelFeature];
 
   get bounds(): Bounds {
     // this should also work for splines, which have the convex hull property
@@ -143,6 +146,10 @@ export class Edge extends SEdge {
     const targetPoint: Point = center(this.target?.bounds || EMPTY_BOUNDS);
     return translate(EMPTY_BOUNDS, centerOfLine(sourcePoint, targetPoint));
   }
+
+  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+    return findEditableLabel(this, LabelType.DEFAULT);
+  }
 }
 
 export class MulitlineEditLabel extends SLabel implements EditableLabel {
@@ -150,7 +157,11 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {
-    return { width: this.bounds.width + 25, height: this.bounds.height };
+    return { width: Math.max(this.bounds.width + 25, 50), height: Math.max(this.bounds.height, 16) };
+  }
+
+  get editControlPositionCorrection(): Point {
+    return { x: -2, y: -3 };
   }
 }
 
@@ -174,4 +185,12 @@ export class ActivityLabel extends MulitlineEditLabel {
     }
     return ORIGIN_POINT;
   }
+}
+
+function findEditableLabel(element: SParentElement, type: string): (SChildElement & EditableLabel) | undefined {
+  const label = element.children.find(e => e.type === type);
+  if (label && isEditableLabel(label)) {
+    return label;
+  }
+  return undefined;
 }
