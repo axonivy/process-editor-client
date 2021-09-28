@@ -101,8 +101,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
 @injectable()
 export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
-    const elementIds = elements.filter(e => isDeletable(e))
-      .map(e => e.id);
+    const elementIds = elements.map(e => e.id);
     if (elementIds.length > 0) {
       return new AutoAlignQuickAction(elementIds);
     }
