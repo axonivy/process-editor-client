@@ -1,10 +1,10 @@
 import { ContainerModule } from 'inversify';
-import { configureActionHandler, OpenAction, OpenMouseListener, TYPES } from 'sprotty';
+import { configureActionHandler, OpenAction, TYPES } from 'sprotty';
 
-import { OpenInscriptionActionHandler } from './open-handler';
+import { OpenInscriptionActionHandler, OpenInscriptionKeyListener } from './open-handler';
 
 const ivyOpenModule = new ContainerModule((bind, _unbind, isBound) => {
-  bind(TYPES.MouseListener).to(OpenMouseListener);
+  bind(TYPES.KeyListener).to(OpenInscriptionKeyListener);
   configureActionHandler({ bind, isBound }, OpenAction.KIND, OpenInscriptionActionHandler);
 });
 
