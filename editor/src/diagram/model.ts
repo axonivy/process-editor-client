@@ -129,7 +129,7 @@ export class GatewayNode extends DiamondNode implements Animateable, WithEditabl
 
 export class Edge extends SEdge implements WithEditableLabel {
   static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
-    hoverFeedbackFeature, popupFeature, withEditLabelFeature];
+    hoverFeedbackFeature, openFeature, popupFeature, withEditLabelFeature];
 
   get bounds(): Bounds {
     // this should also work for splines, which have the convex hull property
