@@ -17,7 +17,6 @@ import {
   SModelElement,
   SModelRoot,
   SRoutableElement,
-  SShapeElement,
   TYPES
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
@@ -77,16 +76,15 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
     if (contextElementIds.length > 1) {
-      this.showMultiQuickActionUi(containerElement);
+      this.showMultiQuickActionUi(containerElement, getElements(contextElementIds, root));
     } else {
-      const element = getQuickActionsElement(contextElementIds, root)[0];
+      const element = getFirstQuickActionElement(contextElementIds, root);
       this.showSingleQuickActionUi(containerElement, element);
     }
   }
 
-  private showMultiQuickActionUi(containerElement: HTMLElement): void {
-    const elements = (this.selectionService.getSelectedElements() as SShapeElement[])
-      .filter(e => !(e instanceof SRoutableElement));
+  private showMultiQuickActionUi(containerElement: HTMLElement, contextElements: SModelElement[]): void {
+    const elements = contextElements.filter(e => !(e instanceof SRoutableElement));
     const selectionBounds = elements.map(e => getAbsoluteBounds(e))
       .reduce((b1, b2) => combine(b1, b2));
     containerElement.style.left = `${selectionBounds.x}px`;
@@ -183,6 +181,10 @@ export class QuickActionUiMouseListener extends MouseListener {
   }
 }
 
-function getQuickActionsElement(contextElementIds: string[], root: Readonly<SModelRoot>): (SModelElement & BoundsAware)[] {
-  return contextElementIds.map(id => root.index.getById(id)).filter(isQuickActionAware);
+function getElements(contextElementIds: string[], root: Readonly<SModelRoot>): (SModelElement)[] {
+  return contextElementIds.map(id => root.index.getById(id)).filter(isNotUndefined);
+}
+
+function getFirstQuickActionElement(contextElementIds: string[], root: Readonly<SModelRoot>): SModelElement & BoundsAware {
+  return getElements(contextElementIds, root).filter(isQuickActionAware)[0];
 }
