@@ -3,12 +3,9 @@ import 'reflect-metadata';
 import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { VNode } from 'snabbdom/vnode';
 
-import { IconStyle, NodeIcon, NoIcon } from '../icons';
 import { EventTypes } from '../view-types';
 import setupViewTestContainer from '../views.spec';
-import { EventNodeView } from './event-views';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -47,70 +44,6 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
   return graph;
 }
-
-describe('EventNode Icon', () => {
-  class EventNodeViewMock extends EventNodeView {
-    public getIconNode(icon: NodeIcon, radius: number): VNode {
-      return this.getIconDecorator(icon, radius);
-    }
-  }
-
-  const mock = new EventNodeViewMock();
-
-  it('no icon', () => {
-    const node = mock.getIconNode(NoIcon, 15);
-    expect(node.sel).to.be.equals('g');
-    expect(node.children).to.be.empty;
-  });
-
-  it('svg icon', () => {
-    const node = mock.getIconNode({ res: 'bla', style: IconStyle.SVG }, 20);
-    expect(node.sel).to.be.equals('svg');
-    expect(node.children).to.be.not.empty;
-    assertIconBounds(node.data, 14, 14, 13, 13);
-
-    const child = node.children![0] as any;
-    expect(child.sel).to.be.equals('path');
-    expect(child.data.attrs.d).to.be.equals('bla');
-  });
-
-  it('fa icon', () => {
-    const node = mock.getIconNode({ res: 'fa-info', style: IconStyle.FA }, 25);
-    expect(node.sel).to.be.equals('g');
-    expect(node.children).to.be.not.empty;
-
-    const foreignObject = node.children![0] as any;
-    expect(foreignObject.sel).to.be.equals('foreignObject');
-    assertIconBounds(foreignObject.data, 14, 18, 17, 18);
-    expect(foreignObject.children).to.be.not.empty;
-
-    const icon = foreignObject.children![0] as any;
-    expect(icon.sel).to.be.equals('i');
-    expect(icon.data.class).to.be.deep.equals({ fa: true, 'fa-fw': true, 'fa-info': true });
-  });
-
-  it('img icon', () => {
-    const node = mock.getIconNode({ res: 'url', style: IconStyle.IMG }, 30);
-    expect(node.sel).to.be.equals('g');
-    expect(node.children).to.be.not.empty;
-
-    const foreignObject = node.children![0] as any;
-    expect(foreignObject.sel).to.be.equals('foreignObject');
-    assertIconBounds(foreignObject.data, 14, 18, 22, 23);
-    expect(foreignObject.children).to.be.not.empty;
-
-    const icon = foreignObject.children![0] as any;
-    expect(icon.sel).to.be.equals('img');
-    expect(icon.data.attrs.src).to.be.equals('url');
-  });
-
-  function assertIconBounds(data: any, height: number, width: number, x: number, y: number): void {
-    expect(data.attrs.height).to.be.equals(height);
-    expect(data.attrs.width).to.be.equals(width);
-    expect(data.attrs.x).to.be.equals(x);
-    expect(data.attrs.y).to.be.equals(y);
-  }
-});
 
 describe('EventNodeView', () => {
   let context: ModelRenderer;

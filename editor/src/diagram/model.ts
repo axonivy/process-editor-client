@@ -44,7 +44,6 @@ import { Animateable, animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { quickActionFeature } from '../quick-action/model';
-import { NodeIcon, resolveIcon } from './icons';
 import { ActivityTypes, LabelType, LaneTypes } from './view-types';
 
 export class IvyGLSPGraph extends GLSPGraph {
@@ -75,9 +74,8 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     return findEditableLabel(this, ActivityTypes.LABEL);
   }
 
-  get icon(): NodeIcon {
-    const iconUri = this.args?.iconUri as string;
-    return resolveIcon(iconUri);
+  get icon(): string {
+    return this.args?.iconUri as string;
   }
 }
 
@@ -89,9 +87,8 @@ export class EventNode extends CircularNode implements Animateable, SArgumentabl
   animated = false;
   args: Args;
 
-  get icon(): NodeIcon {
-    const iconUri = this.args?.iconUri as string;
-    return resolveIcon(iconUri);
+  get icon(): string {
+    return this.args?.iconUri as string;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -111,16 +108,21 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements Animateable, WithEditableLabel {
+export class GatewayNode extends DiamondNode implements Animateable, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
     moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature,
     withEditLabelFeature];
 
   animated = false;
+  args: Args;
   size = {
     width: 32,
     height: 32
   };
+
+  get icon(): string {
+    return this.args?.iconUri as string;
+  }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LabelType.DEFAULT);

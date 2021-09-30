@@ -20,8 +20,8 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   const gatewayNodeSize = { width: 32, height: 32 };
   children.push({ id: 'gateway', type: GatewayTypes.DEFAULT, position: { x: 500, y: 100 }, size: gatewayNodeSize });
-  children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize });
-  children.push({ id: 'gatewayAlternative', type: GatewayTypes.ALTERNATIVE, position: { x: 500, y: 200 }, size: gatewayNodeSize });
+  children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize, args: { iconUri: 'std:Tasks' } });
+  children.push({ id: 'gatewayAlternative', type: GatewayTypes.ALTERNATIVE, position: { x: 500, y: 200 }, size: gatewayNodeSize, args: { iconUri: 'std:Alternative' } });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -47,28 +47,25 @@ describe('GatewayNodeView', () => {
   it('render gateway node', () => {
     const view = viewRegistry.get(GatewayTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('gateway') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" /><g>'
-      + '<line class="sprotty-node-decorator" x1="16" y1="11" x2="16" y2="21" />'
-      + '<line class="sprotty-node-decorator" x1="11" y1="16" x2="21" y2="16" /></g></g>';
+    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render gateway task node', () => {
     const view = viewRegistry.get(GatewayTypes.TASK);
     const vnode = view.render(graph.index.getById('gatewayTask') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" /><g>'
-      + '<circle class="sprotty-node sprotty-task-node" r="8" cx="16" cy="16" />'
-      + '<line class="sprotty-node-decorator" x1="16" y1="11" x2="16" y2="21" />'
-      + '<line class="sprotty-node-decorator" x1="11" y1="16" x2="21" y2="16" /></g></g>';
+    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />'
+      + '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">'
+      + '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render gateway alternative node', () => {
     const view = viewRegistry.get(GatewayTypes.ALTERNATIVE);
     const vnode = view.render(graph.index.getById('gatewayAlternative') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" /><g>'
-      + '<line class="sprotty-node-decorator" x1="11" y1="11" x2="21" y2="21" />'
-      + '<line class="sprotty-node-decorator" x1="11" y1="21" x2="21" y2="11" /></g></g>';
+    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />'
+      + '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">'
+      + '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });

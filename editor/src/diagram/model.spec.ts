@@ -28,15 +28,6 @@ describe('EventNodes', () => {
   });
 });
 
-describe('ActivityNodes', () => {
-  it('Correct Icons are returned for the different node types', () => {
-    const node = new ActivityNode();
-    node.args = {};
-    node.args.iconUri = 'std:User';
-    expect(node.icon.res).to.be.equals('fa-user');
-  });
-});
-
 function createEdgeModel(): Edge {
   const root = new SModelRoot();
   const source = new ActivityNode();

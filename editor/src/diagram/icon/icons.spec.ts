@@ -30,6 +30,10 @@ describe('StandardIcons', () => {
     expect(resolveIcon('std:Exit')).to.be.deep.equals({ res: 'fa-window-close', style: IconStyle.FA });
     expect(resolveIcon('std:Signal')).to.be.deep.equals({ res: 'M5,0 L10,10 l-10,0 Z', style: IconStyle.SVG });
     expect(resolveIcon('std:Error')).to.be.deep.equals({ res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG });
+    expect(resolveIcon('std:Alternative')).to.be.deep.equals({ res: 'M2,2 L8,8 M2,8 L8,2', style: IconStyle.SVG });
+    expect(resolveIcon('std:Join')).to.be.deep.equals({ res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG });
+    expect(resolveIcon('std:Split')).to.be.deep.equals({ res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG });
+    expect(resolveIcon('std:Tasks')).to.be.deep.equals({ res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG });
   });
 
   it('external icons are replaced by generic icon', () => {
