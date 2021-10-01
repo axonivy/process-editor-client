@@ -30,7 +30,7 @@ import {
 } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
-import { IconStyle, resolveIcon } from '../diagram/icons';
+import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { JumpOperation } from '../jump/operation';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';

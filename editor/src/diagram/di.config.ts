@@ -19,7 +19,7 @@ import { jumpFeature } from '../jump/model';
 import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
-import { AlternateGatewayNodeView, GatewayNodeView, TaskGatewayNodeView } from './gateways/gateway-views';
+import { GatewayNodeView } from './gateways/gateway-views';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   ActivityLabel,
@@ -71,10 +71,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
 
   configureModelElement(context, GatewayTypes.DEFAULT, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.TASK, GatewayNode, TaskGatewayNodeView);
+  configureModelElement(context, GatewayTypes.TASK, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.JOIN, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, AlternateGatewayNodeView);
+  configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, GatewayNodeView);
 
   configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature, breakpointFeature, errorBoundaryFeature] });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
