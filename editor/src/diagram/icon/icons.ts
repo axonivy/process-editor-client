@@ -44,7 +44,7 @@ export const resolveIcon = (iconUri: string): NodeIcon => {
   if (!iconUri) {
     return NoIcon;
   }
-  if (iconUri.includes('webContent')) {
+  if (iconUri.includes('/faces/javax.faces.resource')) {
     return { res: iconUri, style: IconStyle.IMG };
   } else if (iconUri.startsWith('ext:')) {
     return { res: 'fa-puzzle-piece', style: IconStyle.FA };
