@@ -38,8 +38,8 @@ describe('Event and Gateway Icons', () => {
   });
 
   it('img icon', () => {
-    const node = getIconDecorator('webContent:url', 30);
-    assertImgIcon(node, { height: 14, width: 18, x: 22, y: 23 }, 'webContent:url');
+    const node = getIconDecorator('/faces/javax.faces.resource/url', 30);
+    assertImgIcon(node, { height: 14, width: 18, x: 22, y: 23 }, '/faces/javax.faces.resource/url');
   });
 });
 
@@ -57,8 +57,8 @@ describe('Activity Icons', () => {
   });
 
   it('img icon', () => {
-    const node = getActivityIconDecorator('webContent:url');
-    assertImgIcon(node, { height: 16, width: 20, x: 2, y: 2 }, 'webContent:url');
+    const node = getActivityIconDecorator('/faces/javax.faces.resource/url');
+    assertImgIcon(node, { height: 16, width: 20, x: 2, y: 2 }, '/faces/javax.faces.resource/url');
   });
 });
 

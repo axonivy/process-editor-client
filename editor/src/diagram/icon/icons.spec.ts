@@ -41,8 +41,8 @@ describe('StandardIcons', () => {
   });
 
   it('resource icons are the same as delivered from the server', () => {
-    expect(resolveIcon('res:/webContent/layouts/images/ivy_favicon_48.png'))
-      .to.be.deep.equals({ res: 'res:/webContent/layouts/images/ivy_favicon_48.png', style: IconStyle.IMG });
+    expect(resolveIcon('res:/faces/javax.faces.resource/layouts/images/ivy_favicon_48.png'))
+      .to.be.deep.equals({ res: 'res:/faces/javax.faces.resource/layouts/images/ivy_favicon_48.png', style: IconStyle.IMG });
     expect(resolveIcon('http://localhost:8081/designer/faces/javax.faces.resource/layouts/images/ivy_favicon_48.png?ln=xpertivy-1-webContent'))
       .to.be.deep.equals({ res: 'http://localhost:8081/designer/faces/javax.faces.resource/layouts/images/ivy_favicon_48.png?ln=xpertivy-1-webContent', style: IconStyle.IMG });
   });
