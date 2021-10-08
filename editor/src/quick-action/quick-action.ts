@@ -10,8 +10,8 @@ import {
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
+import { JumpAction } from '../jump/action';
 import { isJumpable } from '../jump/model';
-import { JumpOperation } from '../jump/operation';
 import { AutoAlignOperation } from '../tool-palette/operation';
 import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
@@ -153,7 +153,7 @@ class JumpQuickAction implements QuickAction {
     public readonly title = 'Jump',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new JumpOperation(elementId)) {
+    public readonly action = new JumpAction(elementId)) {
   }
 }
 
