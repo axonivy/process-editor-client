@@ -31,11 +31,12 @@ import {
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
-import { JumpOperation } from '../jump/operation';
+import { JumpAction } from '../jump/action';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
-import { ShowJumpOutToolFeedbackAction } from './jump-out-tool-feedback';
+import { CustomIconToggleAction } from './action';
 import { AutoAlignOperation } from './operation';
+import { ToolPaletteFeedbackAction } from './tool-palette-feedback';
 
 const CLICKED_CSS_CLASS = 'clicked';
 const COLLAPSED_CSS = 'collapsed';
@@ -62,6 +63,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected itemsDiv?: HTMLElement;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
+  protected toggleCustomIconsButton: HTMLElement;
   protected deleteToolButton: HTMLElement;
   protected jumpOutToolButton: HTMLElement;
   protected wrapToSubToolButton: HTMLElement;
@@ -98,7 +100,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
     this.modelRootId = root.id;
     this.containerElement.style.maxHeight = '50px';
-    this.feedbackDispatcher.registerFeedback(this, [new ShowJumpOutToolFeedbackAction()]);
+    this.feedbackDispatcher.registerFeedback(this, [new ToolPaletteFeedbackAction()]);
     this.selectionService.register(this);
   }
 
@@ -214,6 +216,10 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       () => new CenterAction([...this.selectionService.getSelectedElementIDs()]), true);
     headerTools.appendChild(centerActionButton);
 
+    this.toggleCustomIconsButton = this.createDynamicToolButton('fa-image', 'Toggle custom icons',
+      () => new CustomIconToggleAction(!this.toggleCustomIconsButton.classList.contains('active')), true);
+    headerTools.appendChild(this.toggleCustomIconsButton);
+
     return headerTools;
   }
 
@@ -241,7 +247,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     dynamicTools.appendChild(this.deleteToolButton);
 
     this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out',
-      () => new JumpOperation(''), false);
+      () => new JumpAction(''), false);
     dynamicTools.appendChild(this.jumpOutToolButton);
 
     this.wrapToSubToolButton = this.createDynamicToolButton('fa-compress-arrows-alt', 'Wrap to embedded process',
@@ -267,12 +273,16 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     btn.style.display = show ? 'inline-block' : 'none';
   }
 
-  public showJumpOutBtn(): void {
-    this.showDynamicBtn(this.jumpOutToolButton, true);
+  public showJumpOutBtn(show: boolean): void {
+    this.showDynamicBtn(this.jumpOutToolButton, show);
   }
 
-  public hideJumpOutBtn(): void {
-    this.showDynamicBtn(this.jumpOutToolButton, false);
+  public toggleCustomIconBtn(active: boolean): void {
+    if (active) {
+      this.toggleCustomIconsButton.classList.add('active');
+    } else {
+      this.toggleCustomIconsButton.classList.remove('active');
+    }
   }
 
   protected createPaletteItemSearchField(): HTMLInputElement {

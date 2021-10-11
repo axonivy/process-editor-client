@@ -4,7 +4,7 @@ import createIvyDiagramContainer from './di.config';
 export { createIvyDiagramContainer, breakpointModule };
 
 /* Features */
-export * from './jump/operation';
+export * from './jump/action';
 export * from './jump/model';
 export * from './quick-action/model';
 export * from './wrap/actions';
