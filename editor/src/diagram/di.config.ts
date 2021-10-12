@@ -1,4 +1,5 @@
 import {
+  configureActionHandler,
   configureModelElement,
   ConsoleLogger,
   DefaultTypes,
@@ -20,6 +21,7 @@ import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { GatewayNodeView } from './gateways/gateway-views';
+import { CustomIconToggleAction, CustomIconToggleActionHandler } from './icon/custom-icon-toggle-action-handler';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   ActivityLabel,
@@ -43,6 +45,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
   bind(TYPES.ISnapper).to(IvyGridSnapper);
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
+
+  bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
+  configureActionHandler({ bind, isBound }, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
+
   const context = { bind, unbind, isBound, rebind };
 
   configureModelElement(context, DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);

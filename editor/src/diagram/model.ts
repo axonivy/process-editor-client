@@ -77,6 +77,10 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   get icon(): string {
     return this.args?.iconUri as string;
   }
+
+  get customIcon(): string {
+    return this.args?.customIconUri as string ?? this.icon;
+  }
 }
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable, WithEditableLabel {
@@ -89,6 +93,10 @@ export class EventNode extends CircularNode implements Animateable, SArgumentabl
 
   get icon(): string {
     return this.args?.iconUri as string;
+  }
+
+  get customIcon(): string {
+    return this.args?.customIconUri as string ?? this.icon;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -122,6 +130,10 @@ export class GatewayNode extends DiamondNode implements Animateable, SArgumentab
 
   get icon(): string {
     return this.args?.iconUri as string;
+  }
+
+  get customIcon(): string {
+    return this.args?.customIconUri as string ?? this.icon;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {

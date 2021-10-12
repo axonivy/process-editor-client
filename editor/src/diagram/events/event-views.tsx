@@ -1,8 +1,9 @@
 import { CircularNodeView, RenderingContext } from '@eclipse-glsp/client';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
+import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getIconDecorator } from '../icon/views';
 import { EventNode } from '../model';
 
@@ -11,6 +12,8 @@ const JSX = { createElement: snabbdom.svg };
 
 @injectable()
 export class EventNodeView extends CircularNodeView {
+  @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
+
   render(node: EventNode, context: RenderingContext): VNode {
     const radius = this.getRadius(node);
     return <g>
@@ -18,7 +21,7 @@ export class EventNodeView extends CircularNodeView {
         class-mouseover={node.hoverFeedback} class-selected={node.selected}
         r={radius} cx={radius} cy={radius}></circle>
       {this.getEventDecorator(radius)}
-      {getIconDecorator(node.icon, radius)}
+      {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
       {context.renderChildren(node)}
     </g>;
   }

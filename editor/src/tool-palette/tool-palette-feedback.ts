@@ -1,7 +1,8 @@
-import { FeedbackCommand, hasArguments } from '@eclipse-glsp/client';
+import { FeedbackCommand } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { Action, CommandExecutionContext, CommandReturn, SModelRoot, TYPES, UIExtensionRegistry } from 'sprotty';
 
+import { CustomIconToggleActionHandler } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { ToolPalette } from './tool-palette';
 
 export class ToolPaletteFeedbackAction implements Action {
@@ -14,6 +15,7 @@ export class ToolPaletteFeedbackCommand extends FeedbackCommand {
 
   @inject(TYPES.Action) protected action: ToolPaletteFeedbackAction;
   @inject(TYPES.UIExtensionRegistry) private registry: UIExtensionRegistry;
+  @inject(CustomIconToggleActionHandler) private handler: CustomIconToggleActionHandler;
 
   execute(context: CommandExecutionContext): CommandReturn {
     const toolPalette = this.registry.get(ToolPalette.ID) as ToolPalette;
@@ -28,9 +30,6 @@ export class ToolPaletteFeedbackCommand extends FeedbackCommand {
   }
 
   showCustomIcons(root: SModelRoot): boolean {
-    if (hasArguments(root)) {
-      return root.args['customIcons'] as boolean ?? true;
-    }
-    return false;
+    return this.handler.isShowCustomIcons;
   }
 }

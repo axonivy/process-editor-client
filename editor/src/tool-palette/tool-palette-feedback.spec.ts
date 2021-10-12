@@ -22,6 +22,7 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
+import { CustomIconToggleActionHandler } from '../diagram/icon/custom-icon-toggle-action-handler';
 import ivyToolPaletteModule from './di.config';
 import { ToolPaletteFeedbackAction, ToolPaletteFeedbackCommand } from './tool-palette-feedback';
 
@@ -43,18 +44,21 @@ function createContainer(): Container {
   container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, ivyToolPaletteModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
   configureCommand(container, ToolPaletteFeedbackCommandMock);
   return container;
 }
 
 describe('ToolPaletteFeedback', () => {
   let actionDispatcher: ActionDispatcher;
+  let customIconHandler: CustomIconToggleActionHandler;
 
   beforeEach(() => {
     const container = createContainer();
     const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
     root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph & SArgumentable;
     root.args = {};
+    customIconHandler = container.get<CustomIconToggleActionHandler>(CustomIconToggleActionHandler);
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
   });
@@ -74,7 +78,7 @@ describe('ToolPaletteFeedback', () => {
     await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
     expect(customIconsBtn).to.be.true;
 
-    root.args['customIcons'] = false;
+    customIconHandler.setShowCustomIcons = false;
     await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
     expect(customIconsBtn).to.be.false;
   });
