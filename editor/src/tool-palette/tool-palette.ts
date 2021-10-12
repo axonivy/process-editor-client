@@ -30,11 +30,11 @@ import {
 } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
+import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { JumpAction } from '../jump/action';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
-import { CustomIconToggleAction } from './action';
 import { AutoAlignOperation } from './operation';
 import { ToolPaletteFeedbackAction } from './tool-palette-feedback';
 

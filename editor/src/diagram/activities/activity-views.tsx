@@ -1,8 +1,9 @@
 import { RectangularNodeView, RenderingContext, SShapeElement } from '@eclipse-glsp/client';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
+import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getActivityIconDecorator } from '../icon/views';
 import { ActivityNode } from '../model';
 
@@ -11,6 +12,8 @@ const JSX = { createElement: snabbdom.svg };
 
 @injectable()
 export class ActivityNodeView extends RectangularNodeView {
+  @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
+
   render(node: ActivityNode, context: RenderingContext): VNode {
     const rcr = this.getRoundedCornerRadius(node);
     return <g>
@@ -18,7 +21,7 @@ export class ActivityNodeView extends RectangularNodeView {
         class-mouseover={node.hoverFeedback} class-selected={node.selected}
         x={0} y={0} rx={rcr} ry={rcr}
         width={Math.max(0, node.bounds.width)} height={Math.max(0, node.bounds.height)}></rect>
-      {getActivityIconDecorator(node.icon)}
+      {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
       {this.getNodeDecorator(node)}
       {context.renderChildren(node)}
     </g>;

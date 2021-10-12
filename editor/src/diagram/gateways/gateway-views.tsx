@@ -1,8 +1,9 @@
 import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement } from '@eclipse-glsp/client';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
 
+import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getIconDecorator } from '../icon/views';
 import { GatewayNode } from '../model';
 
@@ -11,6 +12,8 @@ const JSX = { createElement: snabbdom.svg };
 
 @injectable()
 export class GatewayNodeView extends DiamondNodeView {
+  @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
+
   render(node: GatewayNode, context: RenderingContext): VNode {
     const diamond = new Diamond({ height: Math.max(node.size.height, 0), width: Math.max(node.size.width, 0), x: 0, y: 0 });
     const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(diamond.leftPoint)}`;
@@ -19,7 +22,7 @@ export class GatewayNodeView extends DiamondNodeView {
       <polygon class-sprotty-node={true} class-animate={node.animated}
         class-mouseover={node.hoverFeedback} class-selected={node.selected}
         points={points} />
-      {getIconDecorator(node.icon, radius)}
+      {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
       {context.renderChildren(node)}
     </g>;
   }
