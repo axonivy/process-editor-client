@@ -38,6 +38,10 @@ export class SLaneResizeHandle extends SChildElement implements Hoverable {
   }
 }
 
+export function isLaneResizeHandle(element: SModelElement): element is SParentElement {
+  return element instanceof SLaneResizeHandle;
+}
+
 export function addLaneResizeHandles(element: SParentElement): void {
   removeLaneResizeHandles(element);
   element.add(new SLaneResizeHandle(LaneResizeHandleLocation.Top));

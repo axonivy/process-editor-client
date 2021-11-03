@@ -180,10 +180,10 @@ export class QuickActionUiMouseListener extends MouseListener {
   }
 
   mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-    this.mouseActive = false;
     if (this.mouseActive) {
       this.quickActionUi.showUi();
     }
+    this.mouseActive = false;
     return [];
   }
 

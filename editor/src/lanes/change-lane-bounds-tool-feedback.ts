@@ -84,8 +84,8 @@ export class LaneFeedbackMoveMouseListener extends MouseListener {
 
   mouseDown(target: SModelElement, event: MouseEvent): Action[] {
     if (event.button === 0 && !(target instanceof SLaneResizeHandle)) {
-      const moveable = findParentByFeature(target, isMoveable);
-      if (moveable !== undefined) {
+      const lane = findParentByFeature(target, isLaneResizable);
+      if (lane !== undefined) {
         this.startDragPosition = { x: event.pageX, y: event.pageY };
       } else {
         this.startDragPosition = undefined;

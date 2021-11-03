@@ -27,13 +27,15 @@
   fill: transparent;
   stroke: gray;
 }
+.lane-resize-handle {
+  cursor: row-resize;
+}
 .lane-resize-handle line {
   stroke: #66a;
   stroke-width: 2px;
 }
-.lane-resize-handle.mouseover {
+.lane-resize-handle.mouseover line {
   stroke-width: 3px;
-  cursor: row-resize;
 }
 .lane-resize-handle .lane-resize-mouse-handle {
   fill: transparent;

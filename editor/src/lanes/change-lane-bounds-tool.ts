@@ -271,7 +271,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
       // snap our delta and only send update if the position actually changes
       // otherwise accumulate delta until we do snap to an update
-      const positionUpdate = this.snap(this.positionDelta, target, !event.shiftKey);
+      const positionUpdate = this.snap(this.positionDelta, target, false/* !event.shiftKey*/);
       if (positionUpdate.x === 0 && positionUpdate.y === 0) {
         return undefined;
       }
@@ -318,18 +318,18 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
   protected handleLaneOffset(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
     return this.createSetBoundsAction(resizeElement,
-      resizeElement.bounds.x + positionUpdate.x,
+      resizeElement.bounds.x,
       resizeElement.bounds.y + positionUpdate.y,
-      resizeElement.bounds.width - positionUpdate.x,
-      resizeElement.bounds.height - positionUpdate.y);
+      resizeElement.bounds.width,
+      resizeElement.bounds.height);
   }
 
   protected handleLaneWidth(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
     return this.createSetBoundsAction(resizeElement,
       resizeElement.bounds.x,
-      resizeElement.bounds.y + positionUpdate.y,
-      resizeElement.bounds.width + positionUpdate.x,
-      resizeElement.bounds.height - positionUpdate.y);
+      resizeElement.bounds.y,
+      resizeElement.bounds.width,
+      resizeElement.bounds.height + positionUpdate.y);
   }
 
   protected createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {

@@ -1,4 +1,3 @@
-import { GLSPScrollMouseListener } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 import {
   CenterCommand,
@@ -15,6 +14,7 @@ import {
 } from 'sprotty';
 
 import { OriginViewportCommand } from './original-viewport';
+import { IvyScrollMouseListener } from './scroll-mouse-listener';
 
 const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, CenterCommand);
@@ -24,11 +24,11 @@ const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, SetViewportCommand);
   bind(TYPES.KeyListener).to(CenterKeyboardListener);
   bind(TYPES.MouseListener).to(ZoomMouseListener);
-  bind(GLSPScrollMouseListener).toSelf().inSingletonScope();
-  bind(TYPES.MouseListener).toService(GLSPScrollMouseListener);
+  bind(IvyScrollMouseListener).toSelf().inSingletonScope();
+  bind(TYPES.MouseListener).toService(IvyScrollMouseListener);
 
-  configureActionHandler({ bind, isBound }, EnableToolsAction.KIND, GLSPScrollMouseListener);
-  configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, GLSPScrollMouseListener);
+  configureActionHandler({ bind, isBound }, EnableToolsAction.KIND, IvyScrollMouseListener);
+  configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, IvyScrollMouseListener);
 });
 
 export default ivyViewportModule;
