@@ -10,8 +10,6 @@ import {
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-import { JumpAction } from '../jump/action';
-import { isJumpable } from '../jump/model';
 import { AutoAlignOperation } from '../tool-palette/operation';
 import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
@@ -89,16 +87,6 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
 }
 
 @injectable()
-export class JumpQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (isJumpable(element)) {
-      return new JumpQuickAction(element.id);
-    }
-    return undefined;
-  }
-}
-
-@injectable()
 export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
@@ -144,16 +132,6 @@ class ConnectQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
     public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
-  }
-}
-
-class JumpQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
-    public readonly icon = 'fa-level-down-alt',
-    public readonly title = 'Jump',
-    public readonly location = QuickActionLocation.BottomLeft,
-    public readonly sorting = 'A',
-    public readonly action = new JumpAction(elementId)) {
   }
 }
 

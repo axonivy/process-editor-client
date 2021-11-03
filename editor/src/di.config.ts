@@ -34,6 +34,8 @@ import animateModule from './animate/di.config';
 import ivyBoundaryModule from './boundary/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
+import ivyJumpModule from './jump/di.config';
+import ivyLaneModule from './lanes/di.config';
 import ivyQuickActionModule from './quick-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
 import ivyViewportModule from './viewport/di.config';
@@ -72,6 +74,8 @@ export default function createContainer(widgetId: string): Container {
     ivyBoundaryModule,
     ivyQuickActionModule,
     ivyWrapModule,
+    ivyJumpModule,
+    ivyLaneModule,
     glspContextMenuModule,
     animateModule,
     markerNavigatorModule);
