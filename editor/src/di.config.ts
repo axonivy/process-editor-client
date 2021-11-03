@@ -24,8 +24,7 @@ import {
   routingModule,
   toolFeedbackModule,
   toolsModule,
-  validationModule,
-  zorderModule
+  validationModule
 } from '@eclipse-glsp/client';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { Container } from 'inversify';
@@ -40,6 +39,7 @@ import ivyQuickActionModule from './quick-action/di.config';
 import ivyToolPaletteModule from './tool-palette/di.config';
 import ivyViewportModule from './viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
+import ivyZorderModule from './zorder/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -69,7 +69,7 @@ export default function createContainer(widgetId: string): Container {
     ivyToolPaletteModule,
     ivyDecorationModule,
     edgeLayoutModule,
-    zorderModule,
+    ivyZorderModule,
     layoutCommandsModule,
     ivyBoundaryModule,
     ivyQuickActionModule,
