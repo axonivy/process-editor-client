@@ -53,7 +53,7 @@ describe('LaneNodeView', () => {
     const vnode = view.render(graph.index.getById('pool') as SNode, context);
     const expectation = '<g><rect class="sprotty-node" x="0" y="0" width="800" height="500" />'
       + '<rect class="sprotty-node" x="0" y="0" width="30" height="500" />'
-      + '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan /></text></g>';
+      + '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -61,7 +61,7 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.LANE);
     const vnode = view.render(graph.index.getById('lane') as SNode, context);
     const expectation = '<g><rect class="sprotty-node" x="0" y="0" width="770" height="500" /><g></g>'
-      + '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan /></text></g>';
+      + '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });
