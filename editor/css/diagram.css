@@ -27,6 +27,17 @@
   fill: transparent;
   stroke: gray;
 }
+.lane-resize-handle line {
+  stroke: #66a;
+  stroke-width: 2px;
+}
+.lane-resize-handle.mouseover {
+  stroke-width: 3px;
+  cursor: row-resize;
+}
+.lane-resize-handle .lane-resize-mouse-handle {
+  fill: transparent;
+}
 
 /* Nodes */
 .sprotty-node {

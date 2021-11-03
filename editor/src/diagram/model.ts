@@ -43,6 +43,7 @@ import {
 import { Animateable, animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
+import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../quick-action/model';
 import { ActivityTypes, LabelType, LaneTypes } from './view-types';
 
@@ -52,7 +53,7 @@ export class IvyGLSPGraph extends GLSPGraph {
 
 export class LaneNode extends RectangularNode implements WithEditableLabel {
   static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature, withEditLabelFeature, selectFeature, quickActionFeature,
-    deletableFeature, openFeature];
+    deletableFeature, openFeature, laneResizeFeature];
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);
