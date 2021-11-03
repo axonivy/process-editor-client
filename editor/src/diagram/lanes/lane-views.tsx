@@ -12,7 +12,7 @@ const JSX = { createElement: snabbdom.svg };
 export class LaneNodeView extends RectangularNodeView {
   render(node: LaneNode, context: RenderingContext): VNode {
     return <g>
-      <rect class-sprotty-node={true} x="0" y="0" width={Math.max(node.size.width, 0)} height={Math.max(node.size.height, 0)}></rect>
+      <rect class-sprotty-node={true} class-selected={node.selected} x="0" y="0" width={Math.max(node.size.width, 0)} height={Math.max(node.size.height, 0)}></rect>
       {this.getDecoratorLine(node)}
       {context.renderChildren(node)}
     </g>;

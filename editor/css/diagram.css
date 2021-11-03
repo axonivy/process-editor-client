@@ -21,9 +21,11 @@
   cursor: default;
   fill: var(--glsp-editor-foreground);
 }
-.pool .sprotty-node,
-.lane .sprotty-node {
+.pool > .sprotty-node,
+.lane > .sprotty-node {
   cursor: default;
+  fill: transparent;
+  stroke: gray;
 }
 
 /* Nodes */

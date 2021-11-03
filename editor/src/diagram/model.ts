@@ -51,10 +51,15 @@ export class IvyGLSPGraph extends GLSPGraph {
 }
 
 export class LaneNode extends RectangularNode implements WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature, withEditLabelFeature];
+  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature, withEditLabelFeature, selectFeature, quickActionFeature,
+    deletableFeature, openFeature];
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);
+  }
+
+  canConnect(routable: SRoutableElement, role: string): boolean {
+    return false;
   }
 }
 
