@@ -4,6 +4,7 @@ html body {
   --glsp-editor-mouseover: #616161;
   --glsp-editor-selected: #007095;
   --glsp-foreground: #616161;
+  --glsp-errorBackground: #f2dede:
 
   --glsp-tool-palette-background: #eee;
   --glsp-tool-palette-forground: var(--glsp-foreground);
@@ -23,6 +24,7 @@ html[data-theme="dark"] body {
   --glsp-editor-mouseover: #cccccc;
   --glsp-editor-selected: #264f78;
   --glsp-foreground: #cccccc;
+  --glsp-errorBackground: #5a1d1d:
 
   --glsp-tool-palette-background: #333;
   --glsp-tool-palette-forground: var(--glsp-foreground);

@@ -4,6 +4,7 @@ body {
   --glsp-editor-mouseover: var(--theia-editorWidget-foreground);
   --glsp-editor-selected: var(--theia-menu-selectionBackground);
   --glsp-foreground: var(--theia-foreground);
+  --glsp-errorBackground: var(--theia-inputValidation-errorBackground);
 
   --glsp-tool-palette-background: var(--theia-activityBar-background);
   --glsp-tool-palette-forground: var(--glsp-foreground);

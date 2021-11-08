@@ -4,6 +4,7 @@
   --glsp-editor-mouseover: #616161;
   --glsp-editor-selected: #007095;
   --glsp-foreground: #616161;
+  --glsp-errorBackground: #f2dede;
 }
 
 /* Graph */
@@ -189,6 +190,9 @@ g[class^="end"] .sprotty-node {
   fill: #f00;
   font-size: 14pt;
   text-anchor: middle;
+}
+.movement-not-allowed .sprotty-node {
+  fill: var(--theia-inputValidation-errorBackground);
 }
 
 @keyframes background-pulse {

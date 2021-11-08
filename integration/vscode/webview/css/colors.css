@@ -4,6 +4,7 @@ body {
   --glsp-editor-mouseover: var(--vscode-editorWidget-foreground);
   --glsp-editor-selected: var(--vscode-menu-selectionBackground);
   --glsp-foreground: var(--vscode-foreground);
+  --glsp-errorBackground: var(--vscode-inputValidation-errorBackground):
 
   --glsp-tool-palette-background: var(--vscode-activityBar-background);
   --glsp-tool-palette-forground: var(--glsp-foreground);
