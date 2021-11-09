@@ -1,4 +1,4 @@
-import { RectangularNodeView, RenderingContext, SLabel, SLabelView } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import * as snabbdom from 'snabbdom-jsx';
 import { VNode } from 'snabbdom/vnode';
@@ -27,7 +27,8 @@ export class LaneNodeView extends RectangularNodeView {
 @injectable()
 export class PoolNodeView extends LaneNodeView {
   protected getDecoratorLine(node: LaneNode): VNode {
-    return <rect class-sprotty-node={true} x="0" y="0" width={30} height={Math.max(node.size.height, 0)}></rect>;
+    const poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
+    return <rect class-sprotty-node={true} x="0" y="0" width={poolLaneSpace} height={Math.max(node.size.height, 0)}></rect>;
   }
 }
 
@@ -37,7 +38,7 @@ export class RotateLabelView extends SLabelView {
     const rotate = `rotate(270) translate(-${label.bounds.height / 2} ${label.bounds.width / 2})`;
     return <text class-sprotty-label={true} transform={rotate}>
       {label.text.split('\n').map((line, index) =>
-        <tspan dy={index === 0 ? 0 : '1.2em'} x={0}>{line}</tspan>)}
+        <tspan dy={index === 0 ? 0 : '1.2em'} x={0} style={line ? {} : { visibility: 'hidden' }}>{line ? line : '.'}</tspan>)}
     </text>;
   }
 }
