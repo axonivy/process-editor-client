@@ -9,8 +9,7 @@ import {
   ConnectQuickActionProvider,
   DeleteQuickActionProvider,
   InscribeQuickActionProvider,
-  IVY_TYPES,
-  JumpQuickActionProvider
+  IVY_TYPES
 } from './quick-action';
 import { QuickActionUI } from './quick-action-ui';
 
@@ -25,7 +24,6 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(InscribeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
-  bind(IVY_TYPES.QuickActionProvider).to(JumpQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
 });
 

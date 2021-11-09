@@ -4,7 +4,6 @@ import {
   Bounds,
   BoundsAware,
   combine,
-  Dimension,
   getAbsoluteBounds,
   GLSP_TYPES,
   IActionDispatcherProvider,
@@ -22,6 +21,7 @@ import {
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
+import { LaneNode } from '../diagram/model';
 import { createIcon } from '../tool-palette/tool-palette';
 import { isQuickActionAware } from './model';
 import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
@@ -99,7 +99,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     const quickActions = this.quickActionProviders
       .map(provider => provider.multiQuickAction(elements))
       .filter(isNotUndefined);
-    this.createQuickActions(containerElement, selectionBounds, quickActions);
+    this.createQuickActions(containerElement, selectionBounds, quickActions, false);
   }
 
   private showSingleQuickActionUi(containerElement: HTMLElement, element: SModelElement & BoundsAware): void {
@@ -111,16 +111,16 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       const quickActions = this.quickActionProviders
         .map(provider => provider.singleQuickAction(element))
         .filter(isNotUndefined);
-      this.createQuickActions(containerElement, absoluteBounds, quickActions);
+      this.createQuickActions(containerElement, absoluteBounds, quickActions, element instanceof LaneNode);
     }
   }
 
-  private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[]): void {
+  private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[], inline: boolean): void {
     Object.values(QuickActionLocation).forEach(loc => {
       quickActions.filter(quick => quick.location === loc)
         .sort((a, b) => a.sorting.localeCompare(b.sorting))
         .forEach((quick, position) => {
-          const buttonPos = this.getPosition(absoluteBounds, quick.location, position);
+          const buttonPos = this.getPosition(absoluteBounds, quick.location, position, inline);
           containerElement.appendChild(this.createQuickActionBtn(quick.icon, quick.title, buttonPos, quick.action));
         });
     });
@@ -135,7 +135,14 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     return button;
   }
 
-  protected getPosition(parentDimension: Dimension, location: QuickActionLocation, position: number): Point {
+  protected getPosition(parentDimension: Bounds, location: QuickActionLocation, position: number, inline: boolean): Point {
+    if (inline) {
+      if (location === QuickActionLocation.TopLeft) {
+        return { x: 3 + (position * 32), y: 3 };
+      } else if (location === QuickActionLocation.BottomLeft) {
+        return { x: 3 + (position * 32), y: parentDimension.height - 27 };
+      }
+    }
     if (location === QuickActionLocation.TopLeft) {
       return { x: -30 + (position * 32), y: -30 };
     } else if (location === QuickActionLocation.Left) {
@@ -168,10 +175,10 @@ export class QuickActionUiMouseListener extends MouseListener {
   }
 
   mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-    this.mouseActive = false;
     if (this.mouseActive) {
       this.quickActionUi.showUi();
     }
+    this.mouseActive = false;
     return [];
   }
 

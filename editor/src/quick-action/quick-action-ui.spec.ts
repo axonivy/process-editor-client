@@ -27,9 +27,11 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { before, describe, it } from 'mocha';
 
-import { ActivityNode, EndEventNode, EventNode, GatewayNode } from '../diagram/model';
-import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes } from '../diagram/view-types';
+import { ActivityNode, EndEventNode, EventNode, GatewayNode, LaneNode } from '../diagram/model';
+import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
+import ivyJumpModule from '../jump/di.config';
 import { jumpFeature } from '../jump/model';
+import ivyLaneModule from '../lanes/di.config';
 import ivyQuickActionModule from './di.config';
 import { quickActionFeature } from './model';
 import { QuickActionUI } from './quick-action-ui';
@@ -42,7 +44,8 @@ global.document = document;
 
 function createContainer(): Container {
   const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyQuickActionModule);
+  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule,
+    ivyQuickActionModule, ivyJumpModule, ivyLaneModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
@@ -84,6 +87,10 @@ function createRoot(graphFactory: SModelFactory): SGraph {
   root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 },
     ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
   root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end'));
+  root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 },
+    LaneNode.DEFAULT_FEATURES));
+  root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 },
+    LaneNode.DEFAULT_FEATURES));
   return root;
 }
 
@@ -158,6 +165,21 @@ describe('QuickActionUi', () => {
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
     assertQuickAction(uiDiv.children[1], 'Edit', 'fa-pen', { x: 2, y: -30 });
     assertQuickAction(uiDiv.children[2], 'Connect', 'fa-long-arrow-alt-right', { x: 42, y: -30 });
+  });
+
+  it('ui is rendered for pool', () => {
+    quickActionUi.show(root, 'pool');
+    const uiDiv = getQuickActionDiv();
+    assertQuickActionUi(uiDiv, 2, { x: 0, y: 0 });
+    assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: 3, y: 3 });
+    assertQuickAction(uiDiv.children[1], 'Create Lane', 'fa-columns fa-rotate-270', { x: 3, y: 73 });
+  });
+
+  it('ui is rendered for lane', () => {
+    quickActionUi.show(root, 'lane');
+    const uiDiv = getQuickActionDiv();
+    assertQuickActionUi(uiDiv, 1, { x: 0, y: 100 });
+    assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: 3, y: 3 });
   });
 
   it('multi selection ui is rendered', () => {
