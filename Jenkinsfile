@@ -123,8 +123,17 @@ pipeline {
             dir ('integration/vscode') {
               sh 'yarn'
             }
-            dir ('integration/standalone') {
+            dir ('integration/eclipse/webview') {
               sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
+            }
+            dir ('integration/eclipse') {
+              sh 'yarn'
+            }
+            dir ('integration/theia/extension') {
+              sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
+            }
+            dir ('integration/theia') {
+              sh 'yarn'
             }
 
             sh 'git commit --all --amend --no-edit'
