@@ -31,7 +31,10 @@ pipeline {
               dir ('integration/vscode') {
                 sh 'yarn build'
               }
-              dir ('integration/standalone') {
+              dir ('integration/eclipse') {
+                sh 'yarn build'
+              }
+              dir ('integration/theia') {
                 sh 'yarn build'
               }
               archiveArtifacts 'integration/eclipse/webview/app/*'
@@ -52,7 +55,10 @@ pipeline {
                 dir ('integration/vscode') {
                   sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
-                dir ('integration/standalone') {
+                dir ('integration/eclipse') {
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                }
+                dir ('integration/theia') {
                   sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
               }

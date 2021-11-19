@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "parent",
+  "name": "theia-parent",
   "version": "0.9.0",
   "engines": {
     "yarn": "1.0.x || >=1.2.1",
@@ -13,11 +13,9 @@
     "lint": "lerna run lint --",
     "test": "lerna run test",
     "test:ci": "lerna run test:ci",
-    "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
-    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
-    "rebuild:browser": "theia rebuild:browser",
-    "start:browser": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start",
-    "start:browser:debug": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start:debug --hostname 0.0.0.0"
+    "publish": "yarn && yarn publish:latest",
+    "publish:next": "lerna publish --exact --canary=next --npm-tag=next --yes",
+    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.16.0",
@@ -26,19 +24,22 @@
     "eslint-plugin-header": "^3.0.0",
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-no-null": "^1.0.2",
-    "lerna": "^4.0.0",
+    "ignore-styles": "^5.0.1",
+    "lerna": "^2.2.0",
     "rimraf": "^2.6.1",
-    "typescript": "3.9.2",
     "ts-node": "^8.3.0",
-    "ignore-styles": "^5.0.1"
+    "typescript": "3.9.2"
   },
   "resolutions": {
     "**/sprotty": "0.10.0-next.0e06051"
   },
+  "eslintConfig": {
+    "root": true
+  },
   "workspaces": {
     "packages": [
-      "editor",
-      "integration/standalone"
+      "browser-app",
+      "extension"
     ]
   }
 }

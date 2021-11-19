@@ -1,0 +1,19 @@
+{
+  "extends": "../../configs/base.tsconfig",
+  "compilerOptions": {
+    "skipLibCheck": false,
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "name": "tslint-language-service"
+      }
+    ]
+  },
+  "include": [
+    "extension/src"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
