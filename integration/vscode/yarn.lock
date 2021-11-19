@@ -63,10 +63,10 @@
   resolved "https://npm-registry.ivyteam.io/repository/npm/@improved/node/-/node-1.1.1.tgz#7be3d401b7cd2f848d5bb8713d2826b84fc51817"
   integrity sha512-ePDxG9UuU9Kobk90ZUjtmDW8IT9U7aRb1/Rl9683MRNM+ur0ocHL2v7TPH2ajTiVSBUFbbeW8vKIt9jrb0JIAA==
 
-"@ivyteam/process-editor@0.9.3-s26":
-  version "0.9.3-s26"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-0.9.3-s26.tgz#67169b2bf0610c5dbfe8b51ead5660b481c9413c"
-  integrity sha512-45kmHoacXj9i/NCqrryrVfFoWYQbAMUpugoXLWjDDXfHipdbUbfSDTG29xu8EgqaLO3e/FwDmDKr0nl3UjstOQ==
+"@ivyteam/process-editor@0.9.3-s33":
+  version "0.9.3-s33"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-0.9.3-s33.tgz#0e864d2a9b93299f13ef35138bb481992dadca33"
+  integrity sha512-yVgme8qAU1T74NK7gS8nY1HvnKniPEb0Y+jSdlCDXwgA/20+fhGoyJNBmHu1XMuHDbyWH1lpc42CMrX7qnIzkg==
   dependencies:
     "@eclipse-glsp/client" next
 

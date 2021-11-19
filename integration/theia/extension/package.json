@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/theia-integration": "next",
-    "@ivyteam/process-editor": "^0.9.3-s26"
+    "@ivyteam/process-editor": "0.9.3-s33"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",

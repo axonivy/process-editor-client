@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/vscode-integration-webview": "next",
-    "@ivyteam/process-editor": "0.9.3-s26"
+    "@ivyteam/process-editor": "0.9.3-s33"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^5.0.2",

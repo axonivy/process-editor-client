@@ -9,7 +9,7 @@
     "@eclipse-glsp/client": "next",
     "@eclipse-glsp/ide": "^0.9.3-s26",
     "@eclipse-glsp/protocol": "next",
-    "@ivyteam/process-editor": "^0.9.3-s26"
+    "@ivyteam/process-editor": "0.9.3-s33"
   },
   "devDependencies": {
     "circular-dependency-plugin": "^2.0.0",

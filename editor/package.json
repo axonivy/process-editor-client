@@ -1,6 +1,6 @@
 {
   "name": "@ivyteam/process-editor",
-  "version": "0.9.3-s26",
+  "version": "0.9.3-s33",
   "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -25,14 +25,14 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "12.20.00",
     "chai": "^4.2.0",
+    "jsdom": "^15.1.1",
     "mocha": "^6.2.0",
     "mocha-jenkins-reporter": "0.4.5",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^2.6.1",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.5",
     "snabbdom-to-html": "^6.0.0",
-    "jsdom": "^15.1.1"
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
