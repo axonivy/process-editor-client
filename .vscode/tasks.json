@@ -50,10 +50,7 @@
       "problemMatcher": [
         "$tsc",
         "$eslint-stylish"
-      ],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
+      ]
     },
     {
       "label": "Watch VSCode Integration",
@@ -71,10 +68,24 @@
       ]
     },
     {
-      "label": "Build Standalone Integration",
+      "label": "Build Eclipse Integration",
       "type": "shell",
       "group": "build",
-      "command": "yarn --cwd integration/standalone ",
+      "command": "yarn --cwd integration/eclipse ",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ]
+    },
+    {
+      "label": "Build Theia Integration",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn --cwd integration/theia ",
       "presentation": {
         "reveal": "always",
         "panel": "new"
