@@ -50,10 +50,7 @@
       "problemMatcher": [
         "$tsc",
         "$eslint-stylish"
-      ],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
+      ]
     },
     {
       "label": "Watch VSCode Integration",
