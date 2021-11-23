@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Bounds } from 'sprotty';
 
 import { getActivityIconDecorator, getIconDecorator } from './views';

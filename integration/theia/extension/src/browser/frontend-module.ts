@@ -1,31 +1,38 @@
-import {
-  GLSPClientContribution,
-  registerCopyPasteContextMenu,
-  registerDiagramLayoutCommands,
-  registerDiagramManager,
-  registerMarkerNavigationCommands
-} from '@eclipse-glsp/theia-integration/lib/browser';
-import { ContainerModule, interfaces } from 'inversify';
+import { ContainerContext, GLSPClientContribution, GLSPTheiaFrontendModule } from '@eclipse-glsp/theia-integration';
+import { CommandContribution, MenuContribution } from '@theia/core';
+import { KeybindingContribution } from '@theia/core/lib/browser';
 import { DiagramConfiguration } from 'sprotty-theia';
 
+import { IvyProcessLanguage } from '../common/ivy-process-language';
 import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
-import { IvyDiagramManager } from './diagram/diagram-manager';
-import { IvyGLSPDiagramClient } from './diagram/glsp-diagram-client';
-import { registerJumpIntoContextMenu } from './diagram/jump-into-menu';
-import { registerWrapToSubContextMenu } from './diagram/wrap-to-sub-menu';
-import { IvyGLSPClientContribution } from './language/glsp-client-contribution';
+import {
+  JumpIntoCommandContribution,
+  JumpIntoKeybindingContribution,
+  JumpIntoMenuContribution
+} from './diagram/jump-into-menu';
+import { WrapToSubContribution, WrapToSubMenuContribution } from './diagram/wrap-to-sub-menu';
+import { IvyGLSPClientContribution } from './glsp-client-contribution';
 
-export default new ContainerModule((bind: interfaces.Bind) => {
-  bind(IvyGLSPClientContribution).toSelf().inSingletonScope();
-  bind(GLSPClientContribution).toService(IvyGLSPClientContribution);
-  bind(DiagramConfiguration).to(IvyDiagramConfiguration).inSingletonScope();
-  bind(IvyGLSPDiagramClient).toSelf().inSingletonScope();
-  registerDiagramManager(bind, IvyDiagramManager);
+export class IvyTheiaFrontendModule extends GLSPTheiaFrontendModule {
+  protected enableCopyPaste = true;
 
-  // Optional default commands and menus
-  registerDiagramLayoutCommands(bind);
-  registerCopyPasteContextMenu(bind);
-  registerMarkerNavigationCommands(bind);
-  registerJumpIntoContextMenu(bind);
-  registerWrapToSubContextMenu(bind);
-});
+  bindDiagramConfiguration(context: ContainerContext): void {
+    context.bind(DiagramConfiguration).to(IvyDiagramConfiguration);
+  }
+  readonly diagramLanguage = IvyProcessLanguage;
+
+  configure(context: ContainerContext): void {
+    context.bind(CommandContribution).to(JumpIntoCommandContribution);
+    context.bind(MenuContribution).to(JumpIntoMenuContribution);
+    context.bind(KeybindingContribution).to(JumpIntoKeybindingContribution);
+
+    context.bind(CommandContribution).to(WrapToSubContribution);
+    context.bind(MenuContribution).to(WrapToSubMenuContribution);
+  }
+
+  bindGLSPClientContribution(context: ContainerContext): void {
+    context.bind(GLSPClientContribution).to(IvyGLSPClientContribution);
+  }
+}
+
+export default new IvyTheiaFrontendModule();

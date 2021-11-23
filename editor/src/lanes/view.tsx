@@ -1,12 +1,11 @@
 import { injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
-import { IView, Point, RenderingContext, setAttr } from 'sprotty';
+import { VNode } from 'snabbdom';
+import { IView, Point, RenderingContext, setAttr, svg } from 'sprotty';
 
 import { isLaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class SLaneResizeHandleView implements IView {

@@ -1,13 +1,12 @@
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
+import { svg } from '@eclipse-glsp/client';
+import { VNode } from 'snabbdom';
 import { Bounds } from 'sprotty';
+import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { IconStyle, resolveIcon } from './icons';
 
-const virtualize = require('snabbdom-virtualize/strings').default;
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 export function getActivityIconDecorator(iconUri: string): VNode {
   const svgBounds = { height: 14, width: 14, x: 2, y: 2 };

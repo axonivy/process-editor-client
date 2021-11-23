@@ -1,17 +1,7 @@
-import {
-  Action,
-  DeleteElementOperation,
-  isDeletable,
-  isOpenable,
-  OpenAction,
-  SEdge,
-  SModelElement,
-  SNode
-} from '@eclipse-glsp/client';
+import { Action, DeleteElementOperation, isDeletable, isOpenable, OpenAction, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 import { AutoAlignOperation } from '../tool-palette/operation';
-import { QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 
 export enum QuickActionLocation {
   TopLeft = 'top-left',
@@ -75,18 +65,6 @@ export class InscribeQuickActionProvider extends SingleQuickActionProvider {
 }
 
 @injectable()
-export class ConnectQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
-    const edge = new SEdge();
-    edge.type = 'edge';
-    if (element instanceof SNode && element.canConnect(edge, 'source')) {
-      return new ConnectQuickAction(element.id);
-    }
-    return undefined;
-  }
-}
-
-@injectable()
 export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
@@ -122,16 +100,6 @@ class InscribeQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
     public readonly action = new OpenAction(elementId)) {
-  }
-}
-
-class ConnectQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
-    public readonly icon = 'fa-long-arrow-alt-right',
-    public readonly title = 'Connect',
-    public readonly location = QuickActionLocation.Right,
-    public readonly sorting = 'A',
-    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
   }
 }
 

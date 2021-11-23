@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-
 import { injectable } from 'inversify';
 import { Action, SModelElement } from 'sprotty';
 

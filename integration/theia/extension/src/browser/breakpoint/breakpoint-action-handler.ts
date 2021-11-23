@@ -1,6 +1,6 @@
 import { Action } from '@eclipse-glsp/client';
 import { BreakpointAction, isBreakpointAction, ShowBreakpointAction } from '@ivyteam/process-editor';
-import { injectable } from 'inversify';
+import { injectable } from '@theia/core/shared/inversify';
 import { IActionHandler } from 'sprotty';
 
 @injectable()

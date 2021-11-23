@@ -1,12 +1,11 @@
-import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 import { LaneNode } from '../model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class LaneNodeView extends RectangularNodeView {

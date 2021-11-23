@@ -2,7 +2,6 @@ import {
   configureActionHandler,
   configureModelElement,
   ConsoleLogger,
-  DefaultTypes,
   DeleteElementContextMenuItemProvider,
   GEdgeView,
   LogLevel,
@@ -12,6 +11,7 @@ import {
   SGraphView,
   TYPES
 } from '@eclipse-glsp/client';
+import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { ContainerModule } from 'inversify';
 
 import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';

@@ -14,7 +14,7 @@
     "downlevelIteration": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2017",
     "jsx": "react",
     "lib": [
       "es6",

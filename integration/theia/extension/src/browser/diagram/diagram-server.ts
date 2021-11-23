@@ -1,5 +1,5 @@
-import { GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration/lib/browser';
-import { injectable } from 'inversify';
+import { GLSPTheiaDiagramServer } from '@eclipse-glsp/theia-integration';
+import { injectable } from '@theia/core/shared/inversify';
 import { ActionHandlerRegistry } from 'sprotty';
 
 @injectable()

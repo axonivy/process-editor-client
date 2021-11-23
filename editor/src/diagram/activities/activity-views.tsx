@@ -1,14 +1,13 @@
-import { RectangularNodeView, RenderingContext, SShapeElement } from '@eclipse-glsp/client';
+import { RectangularNodeView, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getActivityIconDecorator } from '../icon/views';
 import { ActivityNode } from '../model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class ActivityNodeView extends RectangularNodeView {

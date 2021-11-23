@@ -30,8 +30,7 @@
     "vscode": "^1.54.0"
   },
   "activationEvents": [
-    "onCustomEditor:ivy.glspDiagram",
-    "onDebug"
+    "*"
   ],
   "dependencies": {
     "await-notify": "1.0.1",
@@ -50,7 +49,8 @@
     "@ivyteam/vscode-integration-webview": "0.9.0",
     "glob": "^7.1.6",
     "mocha": "^8.2.1",
-    "typescript": "^3.1.3"
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.4.3"
   },
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
@@ -66,7 +66,7 @@
     "server",
     "webview"
   ],
-  "main": "./lib/extension.js",
+  "main": "./lib/index",
   "contributes": {
     "customEditors": [
       {

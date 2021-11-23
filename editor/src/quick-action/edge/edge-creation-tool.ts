@@ -7,6 +7,7 @@ import {
   FeedbackEdgeEndMovingMouseListener,
   isTriggerElementTypeCreationAction,
   RemoveFeedbackEdgeAction,
+  SNode,
   TriggerElementCreationAction
 } from '@eclipse-glsp/client';
 import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
@@ -23,6 +24,8 @@ import {
   SEdge,
   SModelElement
 } from 'sprotty';
+
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 
 /**
  * Tool to create connections in a Diagram, by selecting a source and target node.
@@ -66,7 +69,6 @@ export class QuickActionEdgeCreationTool extends BaseGLSPTool implements IAction
   }
 }
 
-@injectable()
 export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseListener {
   protected source?: string;
   protected target?: string;
@@ -153,5 +155,27 @@ export class QuickActionTriggerEdgeCreationAction extends TriggerElementCreation
 
   constructor(public readonly elementTypeId: string, public readonly sourceId: string) {
     super(elementTypeId, undefined, QuickActionTriggerEdgeCreationAction.KIND);
+  }
+}
+
+@injectable()
+export class ConnectQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
+    const edge = new SEdge();
+    edge.type = 'edge';
+    if (element instanceof SNode && element.canConnect(edge, 'source')) {
+      return new ConnectQuickAction(element.id);
+    }
+    return undefined;
+  }
+}
+
+class ConnectQuickAction implements QuickAction {
+  constructor(public readonly elementId: string,
+    public readonly icon = 'fa-long-arrow-alt-right',
+    public readonly title = 'Connect',
+    public readonly location = QuickActionLocation.Right,
+    public readonly sorting = 'A',
+    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
   }
 }

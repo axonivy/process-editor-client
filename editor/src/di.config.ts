@@ -1,33 +1,16 @@
 import '../css/diagram.css';
 
 import {
-  boundsModule,
-  buttonModule,
-  defaultGLSPModule,
-  defaultModule,
-  edgeLayoutModule,
-  expandModule,
-  exportModule,
-  fadeModule,
-  glspContextMenuModule,
-  glspEditLabelModule,
-  glspHoverModule,
-  glspMouseToolModule,
-  glspSelectModule,
-  glspServerCopyPasteModule,
-  labelEditUiModule,
-  layoutCommandsModule,
-  markerNavigatorModule,
-  modelHintsModule,
-  modelSourceModule,
+  DEFAULT_MODULES,
+  glspDecorationModule,
+  glspViewportModule,
+  openModule,
   overrideViewerOptions,
-  routingModule,
-  toolFeedbackModule,
-  toolsModule,
-  validationModule
+  zorderModule
 } from '@eclipse-glsp/client';
+import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
-import { Container } from 'inversify';
+import { Container, ContainerModule } from 'inversify';
 
 import animateModule from './animate/di.config';
 import ivyBoundaryModule from './boundary/di.config';
@@ -43,42 +26,20 @@ import ivyZorderModule from './zorder/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
-
-  container.load(validationModule,
-    defaultModule,
-    glspMouseToolModule,
-    defaultGLSPModule,
-    glspSelectModule,
-    boundsModule,
-    ivyViewportModule,
-    toolsModule,
+  container.load(...DEFAULT_MODULES.filter(isNotOverridenModule),
     baseViewModule,
-    glspHoverModule,
-    fadeModule,
-    exportModule,
-    expandModule,
-    buttonModule,
-    modelSourceModule,
-    labelEditUiModule,
-    glspEditLabelModule,
     ivyDiagramModule,
-    toolFeedbackModule,
-    modelHintsModule,
-    glspServerCopyPasteModule,
-    routingModule,
     ivyToolPaletteModule,
     ivyDecorationModule,
-    edgeLayoutModule,
-    ivyZorderModule,
-    layoutCommandsModule,
+    ivyViewportModule,
     ivyBoundaryModule,
     ivyQuickActionModule,
     ivyWrapModule,
     ivyJumpModule,
+    ivyZorderModule,
     ivyLaneModule,
-    glspContextMenuModule,
-    animateModule,
-    markerNavigatorModule);
+    animateModule
+  );
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,
@@ -86,4 +47,12 @@ export default function createContainer(widgetId: string): Container {
   });
 
   return container;
+}
+
+function isNotOverridenModule(module: ContainerModule): boolean {
+  return module !== toolPaletteModule &&
+    module !== glspDecorationModule &&
+    module !== glspViewportModule &&
+    module !== zorderModule &&
+    module !== openModule;
 }

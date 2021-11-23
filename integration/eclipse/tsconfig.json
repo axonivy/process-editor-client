@@ -10,7 +10,6 @@
     ]
   },
   "include": [
-    "packages/ide/src",
     "webview/src"
   ],
   "exclude": [

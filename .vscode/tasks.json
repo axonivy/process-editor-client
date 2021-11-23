@@ -13,7 +13,7 @@
       "command": "yarn ",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
       "problemMatcher": [
         "$tsc",
@@ -30,7 +30,7 @@
       "command": "yarn watch",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
       "isBackground": true,
       "problemMatcher": [
@@ -45,7 +45,7 @@
       "command": "yarn --cwd integration/vscode ",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
       "problemMatcher": [
         "$tsc",
@@ -59,7 +59,7 @@
       "command": "yarn --cwd integration/vscode watch",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
       "isBackground": true,
       "problemMatcher": [
@@ -89,6 +89,34 @@
       "presentation": {
         "reveal": "always",
         "panel": "new"
+      },
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ]
+    },
+    {
+      "label": "Build Theia Integration",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn --cwd integration/theia ",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": [
+        "$tsc",
+        "$eslint-stylish"
+      ]
+    },
+    {
+      "label": "Build Eclipse Integration",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn --cwd integration/eclipse ",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
       },
       "problemMatcher": [
         "$tsc",
