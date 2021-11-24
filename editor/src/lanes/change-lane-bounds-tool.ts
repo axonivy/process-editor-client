@@ -121,7 +121,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
       // rely on the FeedbackMoveMouseListener to update the element bounds of selected elements
       // consider resize handles ourselves
       const actions: Action[] = [
-        cursorFeedbackAction(CursorCSS.RESIZE_NWSE),
+        cursorFeedbackAction(CursorCSS.DEFAULT),
         applyCssClasses(this.activeResizeHandle, ChangeLaneBoundsListener.CSS_CLASS_ACTIVE)
       ];
       const positionUpdate = this.updatePosition(target, event);
@@ -263,14 +263,14 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
       // snap our delta and only send update if the position actually changes
       // otherwise accumulate delta until we do snap to an update
-      const positionUpdate = this.snap(this.positionDelta, target, false/* !event.shiftKey*/);
+      const positionUpdate = this.snap(this.positionDelta, target, !event.altKey);
       if (positionUpdate.x === 0 && positionUpdate.y === 0) {
         return undefined;
       }
 
-      // we update our position so we need to reset our delta
-      this.positionDelta.x = 0;
-      this.positionDelta.y = 0;
+      // we update our position so we update our delta by the snapped position
+      this.positionDelta.x -= positionUpdate.x;
+      this.positionDelta.y -= positionUpdate.y;
       return positionUpdate;
     }
     return undefined;
@@ -353,9 +353,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   }
 
   protected snap(position: Point, element: SModelElement, isSnap: boolean): Point {
-    return isSnap && this.tool.snapper
-      ? this.tool.snapper.snap(position, element)
-      : { x: position.x, y: position.y };
+    return isSnap && this.tool.snapper ? this.tool.snapper.snap(position, element) : { x: position.x, y: position.y };
   }
 
   protected isValidSize(element: SModelElement & BoundsAware, size: Dimension): boolean {
