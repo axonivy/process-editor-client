@@ -12,7 +12,6 @@ import { IvyDiagramServer } from './diagram-server';
 
 @injectable()
 export class IvyDiagramConfiguration extends GLSPDiagramConfiguration {
-
   diagramType: string = IvyProcessLanguage.diagramType;
 
   doCreateContainer(widgetId: string): Container {

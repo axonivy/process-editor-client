@@ -9,13 +9,11 @@ export class ShowBreakpointAction implements Action {
   static readonly KIND = 'showBreakpoints';
   kind = ShowBreakpointAction.KIND;
 
-  constructor(public readonly elementIds: string[] = []) {
-  }
+  constructor(public readonly elementIds: string[] = []) {}
 }
 
 @injectable()
 export class ShowBreakpointActionHandler implements IActionHandler {
-
   private breakpointElementIDs: Set<string> = new Set();
 
   @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
@@ -39,6 +37,5 @@ export class ShowBreakpointActionHandler implements IActionHandler {
 }
 
 export function isShowBreakpointAction(action: Action): action is ShowBreakpointAction {
-  return action !== undefined && (action.kind === ShowBreakpointAction.KIND)
-    && (action as ShowBreakpointAction).elementIds !== undefined;
+  return action !== undefined && action.kind === ShowBreakpointAction.KIND && (action as ShowBreakpointAction).elementIds !== undefined;
 }

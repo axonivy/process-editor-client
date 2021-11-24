@@ -5,11 +5,11 @@ import { Action, CommandExecutionContext, CommandReturn, TYPES } from 'sprotty';
 import { addLaneResizeHandles, isLaneResizable, removeLaneResizeHandles } from './model';
 
 export class ShowChangeLaneBoundsToolFeedbackAction implements Action {
-  constructor(readonly elementId?: string, public readonly kind: string = ShowChangeLaneBoundsToolFeedbackCommand.KIND) { }
+  constructor(readonly elementId?: string, public readonly kind: string = ShowChangeLaneBoundsToolFeedbackCommand.KIND) {}
 }
 
 export class HideChangeLaneBoundsToolFeedbackAction implements Action {
-  constructor(public readonly kind: string = HideChangeLaneBoundsToolFeedbackCommand.KIND) { }
+  constructor(public readonly kind: string = HideChangeLaneBoundsToolFeedbackCommand.KIND) {}
 }
 
 @injectable()
@@ -20,10 +20,7 @@ export class ShowChangeLaneBoundsToolFeedbackCommand extends FeedbackCommand {
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
-    index
-      .all()
-      .filter(isLaneResizable)
-      .forEach(removeLaneResizeHandles);
+    index.all().filter(isLaneResizable).forEach(removeLaneResizeHandles);
 
     if (isNotUndefined(this.action.elementId)) {
       const resizeElement = index.getById(this.action.elementId);
@@ -43,10 +40,7 @@ export class HideChangeLaneBoundsToolFeedbackCommand extends FeedbackCommand {
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
-    index
-      .all()
-      .filter(isLaneResizable)
-      .forEach(removeLaneResizeHandles);
+    index.all().filter(isLaneResizable).forEach(removeLaneResizeHandles);
     return context.root;
   }
 }

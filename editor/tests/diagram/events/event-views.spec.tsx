@@ -55,8 +55,7 @@ describe('EventNodeView', () => {
 
   it('render full event graph', () => {
     const graphVNode = context.renderElement(graph);
-    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown')
-      .and.not.include('sprotty-missing');
+    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
     expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
@@ -72,24 +71,27 @@ describe('EventNodeView', () => {
   it('render start error event node', () => {
     const view = viewRegistry.get(EventTypes.START_ERROR);
     const vnode = view.render(graph.index.getById('startError') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>'
-      + '<svg class="sprotty-node-decorator" height="14" width="14" x="8" y="8" viewBox="0 0 10 10"><path fill="none" d="M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z" /></svg></g>';
+    const expectation =
+      '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>' +
+      '<svg class="sprotty-node-decorator" height="14" width="14" x="8" y="8" viewBox="0 0 10 10"><path fill="none" d="M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start signal event node', () => {
     const view = viewRegistry.get(EventTypes.START_SIGNAL);
     const vnode = view.render(graph.index.getById('startSignal') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>'
-      + '<svg class="sprotty-node-decorator" height="14" width="14" x="8" y="8" viewBox="0 0 10 10"><path fill="none" d="M5,0 L10,10 l-10,0 Z" /></svg></g>';
+    const expectation =
+      '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>' +
+      '<svg class="sprotty-node-decorator" height="14" width="14" x="8" y="8" viewBox="0 0 10 10"><path fill="none" d="M5,0 L10,10 l-10,0 Z" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start program event node', () => {
     const view = viewRegistry.get(EventTypes.START_PROGRAM);
     const vnode = view.render(graph.index.getById('startProgram') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g>'
-      + '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
+    const expectation =
+      '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g>' +
+      '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" /></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -180,48 +182,42 @@ describe('EventNodeView', () => {
   it('render intermediate event node', () => {
     const view = viewRegistry.get(EventTypes.INTERMEDIATE);
     const vnode = view.render(graph.index.getById('intermediate') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render intermediate task event node', () => {
     const view = viewRegistry.get(EventTypes.INTERMEDIATE_TASK);
     const vnode = view.render(graph.index.getById('intermediateTask') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render intermediate wait event node', () => {
     const view = viewRegistry.get(EventTypes.INTERMEDIATE_WAIT);
     const vnode = view.render(graph.index.getById('intermediateWait') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render intermediate call and wait event node', () => {
     const view = viewRegistry.get(EventTypes.INTERMEDIATE_CALL_AND_WAIT);
     const vnode = view.render(graph.index.getById('intermediateCallAndWait') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render boundary error event node', () => {
     const view = viewRegistry.get(EventTypes.BOUNDARY_ERROR);
     const vnode = view.render(graph.index.getById('boundaryError') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render boundary signal event node', () => {
     const view = viewRegistry.get(EventTypes.BOUNDARY_SIGNAL);
     const vnode = view.render(graph.index.getById('boundarySignal') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />'
-      + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
+    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });

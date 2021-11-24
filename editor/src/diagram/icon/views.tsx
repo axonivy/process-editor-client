@@ -26,10 +26,18 @@ function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, small
     return <g></g>;
   }
   if (icon.style === IconStyle.SVG) {
-    return <svg height={svgBounds.height} width={svgBounds.width} x={svgBounds.x} y={svgBounds.y}
-      viewBox={'0 0 10 10'} class-sprotty-node-decorator={true}>
-      <path fill={'none'} d={icon.res}></path>
-    </svg>;
+    return (
+      <svg
+        height={svgBounds.height}
+        width={svgBounds.width}
+        x={svgBounds.x}
+        y={svgBounds.y}
+        viewBox={'0 0 10 10'}
+        class-sprotty-node-decorator={true}
+      >
+        <path fill={'none'} d={icon.res}></path>
+      </svg>
+    );
   }
   let foreignObjectContents;
   if (icon.style === IconStyle.FA) {
@@ -37,11 +45,19 @@ function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, small
   } else {
     foreignObjectContents = virtualize(`<img src="${icon.res}"></img>`);
   }
-  return <g>
-    <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
-      height={bounds.height} width={bounds.width} x={bounds.x} y={bounds.y}
-      class-sprotty-icon class-icon-small={smallIcon}>
-      {foreignObjectContents}
-    </foreignObject>
-  </g>;
+  return (
+    <g>
+      <foreignObject
+        requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
+        height={bounds.height}
+        width={bounds.width}
+        x={bounds.x}
+        y={bounds.y}
+        class-sprotty-icon
+        class-icon-small={smallIcon}
+      >
+        {foreignObjectContents}
+      </foreignObject>
+    </g>
+  );
 }

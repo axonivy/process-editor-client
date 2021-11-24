@@ -1,18 +1,8 @@
 import { injectable } from 'inversify';
-import {
-  Decoration,
-  DecorationPlacer,
-  isSizeable,
-  ORIGIN_POINT,
-  Point,
-  SChildElement,
-  SModelElement,
-  SRoutableElement
-} from 'sprotty';
+import { Decoration, DecorationPlacer, isSizeable, ORIGIN_POINT, Point, SChildElement, SModelElement, SRoutableElement } from 'sprotty';
 
 @injectable()
 export class IvyDecorationPlacer extends DecorationPlacer {
-
   protected static readonly DECORATION_OFFSET: Point = { x: 8, y: 10 };
 
   getPosition(element: SModelElement & Decoration): Point {
@@ -33,5 +23,4 @@ export class IvyDecorationPlacer extends DecorationPlacer {
     }
     return ORIGIN_POINT;
   }
-
 }

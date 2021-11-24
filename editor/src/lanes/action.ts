@@ -16,11 +16,12 @@ export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
 }
 
 class CreateLaneQuickAction implements QuickAction {
-  constructor(public readonly poolId: string,
+  constructor(
+    public readonly poolId: string,
     public readonly icon = 'fa-columns fa-rotate-270',
     public readonly title = 'Create Lane',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new CreateNodeOperation(LaneTypes.LANE, undefined, poolId)) {
-  }
+    public readonly action = new CreateNodeOperation(LaneTypes.LANE, undefined, poolId)
+  ) {}
 }

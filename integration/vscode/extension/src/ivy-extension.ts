@@ -14,7 +14,6 @@ import IvyEditorProvider from './ivy-editor-provider';
 
 const DEFAULT_SERVER_PORT = '5007';
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
-
   // Wrap server with quickstart component
   const workflowServer = new SocketGlspVscodeServer({
     clientId: 'ivy-glsp-process',

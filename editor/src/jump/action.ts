@@ -7,8 +7,7 @@ import { isJumpable } from './model';
 export class JumpAction implements Action {
   static readonly KIND = 'jumpInto';
 
-  constructor(public readonly elementId: string,
-    public readonly kind: string = JumpAction.KIND) { }
+  constructor(public readonly elementId: string, public readonly kind: string = JumpAction.KIND) {}
 }
 
 @injectable()
@@ -22,11 +21,12 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
 }
 
 class JumpQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly icon = 'fa-level-down-alt',
     public readonly title = 'Jump',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new JumpAction(elementId)) {
-  }
+    public readonly action = new JumpAction(elementId)
+  ) {}
 }

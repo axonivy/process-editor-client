@@ -52,8 +52,17 @@ export class IvyGLSPGraph extends GLSPGraph {
 }
 
 export class LaneNode extends RectangularNode implements WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [boundsFeature, layoutContainerFeature, fadeFeature, nameFeature, withEditLabelFeature, selectFeature, quickActionFeature,
-    deletableFeature, laneResizeFeature];
+  static readonly DEFAULT_FEATURES = [
+    boundsFeature,
+    layoutContainerFeature,
+    fadeFeature,
+    nameFeature,
+    withEditLabelFeature,
+    selectFeature,
+    quickActionFeature,
+    deletableFeature,
+    laneResizeFeature
+  ];
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);
@@ -65,9 +74,24 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
 }
 
 export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, quickActionFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, nameFeature, withEditLabelFeature, openFeature, breakpointFeature,
-    errorBoundaryFeature];
+  static readonly DEFAULT_FEATURES = [
+    connectableFeature,
+    deletableFeature,
+    selectFeature,
+    boundsFeature,
+    quickActionFeature,
+    animateFeature,
+    moveFeature,
+    layoutContainerFeature,
+    fadeFeature,
+    hoverFeedbackFeature,
+    popupFeature,
+    nameFeature,
+    withEditLabelFeature,
+    openFeature,
+    breakpointFeature,
+    errorBoundaryFeature
+  ];
 
   name = '';
   duration?: number;
@@ -85,14 +109,27 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 
   get customIcon(): string {
-    return this.args?.customIconUri as string ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.icon;
   }
 }
 
 export class EventNode extends CircularNode implements Animateable, SArgumentable, WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature,
-    withEditLabelFeature];
+  static readonly DEFAULT_FEATURES = [
+    connectableFeature,
+    deletableFeature,
+    selectFeature,
+    boundsFeature,
+    animateFeature,
+    moveFeature,
+    layoutContainerFeature,
+    fadeFeature,
+    hoverFeedbackFeature,
+    popupFeature,
+    openFeature,
+    breakpointFeature,
+    quickActionFeature,
+    withEditLabelFeature
+  ];
 
   animated = false;
   args: Args;
@@ -102,7 +139,7 @@ export class EventNode extends CircularNode implements Animateable, SArgumentabl
   }
 
   get customIcon(): string {
-    return this.args?.customIconUri as string ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.icon;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -123,9 +160,22 @@ export class StartEventNode extends EventNode {
 }
 
 export class GatewayNode extends DiamondNode implements Animateable, SArgumentable, WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [connectableFeature, deletableFeature, selectFeature, boundsFeature, animateFeature,
-    moveFeature, layoutContainerFeature, fadeFeature, hoverFeedbackFeature, popupFeature, openFeature, breakpointFeature, quickActionFeature,
-    withEditLabelFeature];
+  static readonly DEFAULT_FEATURES = [
+    connectableFeature,
+    deletableFeature,
+    selectFeature,
+    boundsFeature,
+    animateFeature,
+    moveFeature,
+    layoutContainerFeature,
+    fadeFeature,
+    hoverFeedbackFeature,
+    popupFeature,
+    openFeature,
+    breakpointFeature,
+    quickActionFeature,
+    withEditLabelFeature
+  ];
 
   animated = false;
   args: Args;
@@ -139,7 +189,7 @@ export class GatewayNode extends DiamondNode implements Animateable, SArgumentab
   }
 
   get customIcon(): string {
-    return this.args?.customIconUri as string ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.icon;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -148,17 +198,29 @@ export class GatewayNode extends DiamondNode implements Animateable, SArgumentab
 }
 
 export class Edge extends SEdge implements WithEditableLabel {
-  static readonly DEFAULT_FEATURES = [editFeature, deletableFeature, selectFeature, fadeFeature,
-    hoverFeedbackFeature, openFeature, popupFeature, withEditLabelFeature];
+  static readonly DEFAULT_FEATURES = [
+    editFeature,
+    deletableFeature,
+    selectFeature,
+    fadeFeature,
+    hoverFeedbackFeature,
+    openFeature,
+    popupFeature,
+    withEditLabelFeature
+  ];
 
   get bounds(): Bounds {
     // this should also work for splines, which have the convex hull property
-    return this.routingPoints.reduce<Bounds>((bounds, routingPoint) => combine(bounds, {
-      x: routingPoint.x,
-      y: routingPoint.y,
-      width: 0,
-      height: 0
-    }), this.centerBounds());
+    return this.routingPoints.reduce<Bounds>(
+      (bounds, routingPoint) =>
+        combine(bounds, {
+          x: routingPoint.x,
+          y: routingPoint.y,
+          width: 0,
+          height: 0
+        }),
+      this.centerBounds()
+    );
   }
 
   private centerBounds(): Bounds {

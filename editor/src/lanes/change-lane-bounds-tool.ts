@@ -40,10 +40,7 @@ import {
   TYPES
 } from 'sprotty';
 
-import {
-  HideChangeLaneBoundsToolFeedbackAction,
-  ShowChangeLaneBoundsToolFeedbackAction
-} from './change-lane-bounds-tool-feedback';
+import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
 import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 
 @injectable()
@@ -76,7 +73,7 @@ export class ChangeLaneBoundsTool extends BaseGLSPTool {
     this.selectionService.deregister(this.changeBoundsListener);
     this.mouseTool.deregister(this.feedbackMoveMouseListener);
     this.deregisterFeedback([], this.feedbackMoveMouseListener);
-    this.deregisterFeedback([new HideChangeLaneBoundsToolFeedbackAction], this.changeBoundsListener);
+    this.deregisterFeedback([new HideChangeLaneBoundsToolFeedbackAction()], this.changeBoundsListener);
   }
 }
 
@@ -242,7 +239,12 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     this.lastDragPosition = { x: event.pageX, y: event.pageY };
     if (this.activeResizeHandle) {
       const resizeElement = findParentByFeature(this.activeResizeHandle, isLaneResizable);
-      this.initialBounds = { x: resizeElement!.bounds.x, y: resizeElement!.bounds.y, width: resizeElement!.bounds.width, height: resizeElement!.bounds.height };
+      this.initialBounds = {
+        x: resizeElement!.bounds.x,
+        y: resizeElement!.bounds.y,
+        width: resizeElement!.bounds.width,
+        height: resizeElement!.bounds.height
+      };
     }
   }
 
@@ -279,7 +281,6 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   protected reset(): void {
     if (this.activeResizeElement && isLaneResizable(this.activeResizeElement)) {
       this.tool.dispatchFeedback([new HideChangeLaneBoundsToolFeedbackAction()], this);
-
     }
     this.tool.dispatchActions([cursorFeedbackAction(CursorCSS.DEFAULT)]);
     this.resetPosition();
@@ -309,19 +310,23 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   }
 
   protected handleLaneOffset(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
-    return this.createSetBoundsAction(resizeElement,
+    return this.createSetBoundsAction(
+      resizeElement,
       resizeElement.bounds.x,
       resizeElement.bounds.y + positionUpdate.y,
       resizeElement.bounds.width,
-      resizeElement.bounds.height);
+      resizeElement.bounds.height
+    );
   }
 
   protected handleLaneWidth(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
-    return this.createSetBoundsAction(resizeElement,
+    return this.createSetBoundsAction(
+      resizeElement,
       resizeElement.bounds.x,
       resizeElement.bounds.y,
       resizeElement.bounds.width,
-      resizeElement.bounds.height + positionUpdate.y);
+      resizeElement.bounds.height + positionUpdate.y
+    );
   }
 
   protected createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {

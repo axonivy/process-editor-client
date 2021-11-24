@@ -40,8 +40,7 @@ describe('EdgeView', () => {
 
   it('render full edge graph', () => {
     const graphVNode = context.renderElement(graph);
-    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown')
-      .and.not.include('sprotty-missing');
+    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
     expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
@@ -50,26 +49,29 @@ describe('EdgeView', () => {
   it('render edge', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('edge') as SEdge, context);
-    const expectation = '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />'
-      + '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
+    const expectation =
+      '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
+      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render edge with routing points', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('edgeWithRoutes') as SEdge, context);
-    const expectation = '<g class="sprotty-edge"><path d="M 116.35803619063778,129.93839809701555 L 150,500 L 212.5028714424112,129.79068453341068" />'
-      + '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) '
-      + 'translate(212.5028714424112 129.79068453341068)" /></g>';
+    const expectation =
+      '<g class="sprotty-edge"><path d="M 116.35803619063778,129.93839809701555 L 150,500 L 212.5028714424112,129.79068453341068" />' +
+      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
+      'translate(212.5028714424112 129.79068453341068)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render edge with padding', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('edgeWithPadding') as SEdge, context);
-    const expectation = '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />'
-      + '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />'
-      + '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
+    const expectation =
+      '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
+      '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />' +
+      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 

@@ -5,11 +5,7 @@ import { DiagramConfiguration } from 'sprotty-theia';
 
 import { IvyProcessLanguage } from '../common/ivy-process-language';
 import { IvyDiagramConfiguration } from './diagram/diagram-configuration';
-import {
-  JumpIntoCommandContribution,
-  JumpIntoKeybindingContribution,
-  JumpIntoMenuContribution
-} from './diagram/jump-into-menu';
+import { JumpIntoCommandContribution, JumpIntoKeybindingContribution, JumpIntoMenuContribution } from './diagram/jump-into-menu';
 import { WrapToSubContribution, WrapToSubMenuContribution } from './diagram/wrap-to-sub-menu';
 import { IvyGLSPClientContribution } from './glsp-client-contribution';
 

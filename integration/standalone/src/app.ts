@@ -1,9 +1,4 @@
-import {
-  configureServerActions,
-  EnableToolPaletteAction,
-  GLSPDiagramServer,
-  RequestTypeHintsAction
-} from '@eclipse-glsp/client';
+import { configureServerActions, EnableToolPaletteAction, GLSPDiagramServer, RequestTypeHintsAction } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 import { join, resolve } from 'path';
 import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
@@ -58,4 +53,3 @@ async function initialize(client: GLSPClient): Promise<void> {
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');
-

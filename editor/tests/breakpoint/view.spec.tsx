@@ -35,7 +35,10 @@ function createContainer(): Container {
 
 function createModel(graphFactory: SModelFactory): SGraph {
   const node = {
-    id: 'node', type: DefaultTypes.NODE, position: { x: 100, y: 100 }, size: { width: 200, height: 50 },
+    id: 'node',
+    type: DefaultTypes.NODE,
+    position: { x: 100, y: 100 },
+    size: { width: 200, height: 50 },
     children: [{ id: 'breakpoint', type: SBreakpointHandle.TYPE }]
   };
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: [node] }) as SGraph;
@@ -66,10 +69,10 @@ describe('GeneralView', () => {
 
   it('render full graph', () => {
     const vnode = context.renderElement(graph);
-    const expectation = '<svg id="sprotty_graph" class="sprotty-graph" tabindex="0"><g transform="scale(1) translate(0,0)">'
-      + '<g id="sprotty_node" transform="translate(100, 100)"><rect class="sprotty-node" x="0" y="0" width="200" height="50" />'
-      + '<g id="sprotty_breakpoint"><circle class="ivy-breakpoint-handle" cx="-7" cy="0" r="7" /></g></g></g></svg>';
+    const expectation =
+      '<svg id="sprotty_graph" class="sprotty-graph" tabindex="0"><g transform="scale(1) translate(0,0)">' +
+      '<g id="sprotty_node" transform="translate(100, 100)"><rect class="sprotty-node" x="0" y="0" width="200" height="50" />' +
+      '<g id="sprotty_breakpoint"><circle class="ivy-breakpoint-handle" cx="-7" cy="0" r="7" /></g></g></g></svg>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
-
 });

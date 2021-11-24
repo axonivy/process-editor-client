@@ -15,14 +15,22 @@ export class EventNodeView extends CircularNodeView {
 
   render(node: EventNode, context: RenderingContext): VNode {
     const radius = this.getRadius(node);
-    return <g>
-      <circle class-sprotty-node={true} class-animate={node.animated}
-        class-mouseover={node.hoverFeedback} class-selected={node.selected}
-        r={radius} cx={radius} cy={radius}></circle>
-      {this.getEventDecorator(radius)}
-      {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
-      {context.renderChildren(node)}
-    </g>;
+    return (
+      <g>
+        <circle
+          class-sprotty-node={true}
+          class-animate={node.animated}
+          class-mouseover={node.hoverFeedback}
+          class-selected={node.selected}
+          r={radius}
+          cx={radius}
+          cy={radius}
+        ></circle>
+        {this.getEventDecorator(radius)}
+        {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
+        {context.renderChildren(node)}
+      </g>
+    );
   }
 
   protected getEventDecorator(radius: number): VNode {
@@ -33,7 +41,6 @@ export class EventNodeView extends CircularNodeView {
 @injectable()
 export class IntermediateEventNodeView extends EventNodeView {
   protected getEventDecorator(radius: number): VNode {
-    return <circle class-sprotty-node={true} class-sprotty-task-node={true}
-      r={radius - 3} cx={radius} cy={radius}></circle>;
+    return <circle class-sprotty-node={true} class-sprotty-task-node={true} r={radius - 3} cx={radius} cy={radius}></circle>;
   }
 }

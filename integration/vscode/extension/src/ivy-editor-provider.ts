@@ -18,9 +18,7 @@ export default class IvyEditorProvider extends GlspEditorProvider {
     const webview = webviewPanel.webview;
     const extensionUri = this.extensionContext.extensionUri;
     const webviewScriptSourceUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'pack', 'webview.js'));
-    const codiconsUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(extensionUri, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css')
-    );
+    const codiconsUri = webview.asWebviewUri(vscode.Uri.joinPath(extensionUri, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css'));
 
     webviewPanel.webview.options = {
       enableScripts: true

@@ -27,7 +27,8 @@ import ivyZorderModule from './zorder/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
-  container.load(...DEFAULT_MODULES.filter(isNotOverridenModule),
+  container.load(
+    ...DEFAULT_MODULES.filter(isNotOverridenModule),
     baseViewModule,
     ivyDiagramModule,
     ivyToolPaletteModule,
@@ -52,9 +53,11 @@ export default function createContainer(widgetId: string): Container {
 }
 
 function isNotOverridenModule(module: ContainerModule): boolean {
-  return module !== toolPaletteModule &&
+  return (
+    module !== toolPaletteModule &&
     module !== glspDecorationModule &&
     module !== glspViewportModule &&
     module !== zorderModule &&
-    module !== openModule;
+    module !== openModule
+  );
 }

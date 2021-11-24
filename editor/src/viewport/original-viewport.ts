@@ -5,8 +5,7 @@ export class OriginViewportAction implements Action {
   static readonly KIND = 'originViewport';
   readonly kind = OriginViewportAction.KIND;
 
-  constructor(public readonly animate: boolean = true) {
-  }
+  constructor(public readonly animate: boolean = true) {}
 }
 
 export class OriginViewportCommand extends BoundsAwareViewportCommand {

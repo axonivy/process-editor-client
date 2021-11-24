@@ -95,7 +95,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
   nonDraggingMouseUp(_element: SModelElement, event: MouseEvent): Action[] {
     const result: Action[] = [];
     if (event.button === 0) {
-      if (this.currentTarget/* && this.allowedTarget*/) {
+      if (this.currentTarget /* && this.allowedTarget*/) {
         this.target = this.currentTarget.id;
       }
       if (this.source && this.target) {
@@ -131,8 +131,9 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
           this.allowedTarget = this.isAllowedTarget(newCurrentTarget);
         }
         if (this.allowedTarget) {
-          const action = !this.isSourceSelected() ? cursorFeedbackAction(CursorCSS.EDGE_CREATION_SOURCE) :
-            cursorFeedbackAction(CursorCSS.EDGE_CREATION_TARGET);
+          const action = !this.isSourceSelected()
+            ? cursorFeedbackAction(CursorCSS.EDGE_CREATION_SOURCE)
+            : cursorFeedbackAction(CursorCSS.EDGE_CREATION_TARGET);
           return [action];
         }
       }
@@ -171,11 +172,12 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
 }
 
 class ConnectQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly icon = 'fa-long-arrow-alt-right',
     public readonly title = 'Connect',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
-    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)) {
-  }
+    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)
+  ) {}
 }

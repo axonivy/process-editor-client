@@ -12,11 +12,19 @@ export class SLaneResizeHandleView implements IView {
   render(handle: SLaneResizeHandle, context: RenderingContext): VNode {
     const position = this.getPosition(handle);
     if (position !== undefined) {
-      const node = <svg class-lane-resize-handle={true} class-mouseover={handle.hoverFeedback}
-        x={position.x - 20} y={position.y - 10} width={40} height={20}>
-        <rect x={0} y={0} height={20} width={40} class-lane-resize-mouse-handle={true} />
-        <line x1={0} y1={10} x2={40} y2={10} />;
-      </svg>;
+      const node = (
+        <svg
+          class-lane-resize-handle={true}
+          class-mouseover={handle.hoverFeedback}
+          x={position.x - 20}
+          y={position.y - 10}
+          width={40}
+          height={20}
+        >
+          <rect x={0} y={0} height={20} width={40} class-lane-resize-mouse-handle={true} />
+          <line x1={0} y1={10} x2={40} y2={10} />;
+        </svg>
+      );
       setAttr(node, 'data-kind', handle.location);
       return node;
     }

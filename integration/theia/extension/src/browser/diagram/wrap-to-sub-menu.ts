@@ -17,7 +17,8 @@ export namespace WrapToSubCommands {
 export class WrapToSubContribution implements CommandContribution {
   @inject(ApplicationShell) protected readonly shell: ApplicationShell;
   registerCommands(commands: CommandRegistry): void {
-    commands.registerCommand({ id: WrapToSubCommands.WRAP, label: 'Wrap' },
+    commands.registerCommand(
+      { id: WrapToSubCommands.WRAP, label: 'Wrap' },
       new GLSPCommandHandler(this.shell, {
         actions: context => [new WrapToSubOperation(context.selectedElements.map(e => e.id))],
         isEnabled: context => context.selectedElements.length > 0

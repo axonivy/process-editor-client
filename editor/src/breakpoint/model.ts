@@ -15,8 +15,7 @@ export function isBreaked(element: SModelElement | undefined): element is SModel
 export class SBreakpointHandle extends SChildElement implements Hoverable {
   static readonly TYPE = 'breakpoint-handle';
 
-  constructor(public readonly type: string = SBreakpointHandle.TYPE,
-    public readonly hoverFeedback: boolean = false) {
+  constructor(public readonly type: string = SBreakpointHandle.TYPE, public readonly hoverFeedback: boolean = false) {
     super();
   }
 

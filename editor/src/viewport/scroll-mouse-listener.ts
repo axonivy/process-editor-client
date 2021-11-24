@@ -6,7 +6,6 @@ import { isLaneResizeHandle } from '../lanes/model';
 
 @injectable()
 export class IvyScrollMouseListener extends GLSPScrollMouseListener {
-
   mouseDown(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
     const lane = findParentByFeature(target, isLaneResizeHandle);
     if (lane) {

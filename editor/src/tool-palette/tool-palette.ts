@@ -108,7 +108,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const bodyDiv = document.createElement('div');
     this.containerElement.appendChild(bodyDiv);
     bodyDiv.classList.add('palette-body', 'collapsible-palette', COLLAPSED_CSS);
-    bodyDiv.appendChild(this.searchField = this.createPaletteItemSearchField());
+    bodyDiv.appendChild((this.searchField = this.createPaletteItemSearchField()));
     this.bodyDiv = bodyDiv;
     this.createItemsDiv(bodyDiv);
   }
@@ -116,16 +116,15 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   private createItemsDiv(bodyDiv: HTMLElement): void {
     const itemsDiv = document.createElement('div');
     let tabIndex = 0;
-    this.paletteItems.sort(compare)
-      .forEach(item => {
-        if (item.children) {
-          const group = createToolGroup(item);
-          item.children.sort(compare).forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
-          itemsDiv.appendChild(group);
-        } else {
-          itemsDiv.appendChild(this.createToolButton(item, tabIndex++));
-        }
-      });
+    this.paletteItems.sort(compare).forEach(item => {
+      if (item.children) {
+        const group = createToolGroup(item);
+        item.children.sort(compare).forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
+        itemsDiv.appendChild(group);
+      } else {
+        itemsDiv.appendChild(this.createToolButton(item, tabIndex++));
+      }
+    });
     if (this.paletteItems.length === 0) {
       const noResultsDiv = document.createElement('div');
       noResultsDiv.innerText = 'No results found.';
@@ -153,16 +152,15 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
 
-    this.paletteItems.sort(compare)
-      .forEach(item => {
-        if (item.icon && item.children) {
-          if (item.children.length > 1) {
-            elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
-          } else {
-            elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
-          }
+    this.paletteItems.sort(compare).forEach(item => {
+      if (item.icon && item.children) {
+        if (item.children.length > 1) {
+          elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
+        } else {
+          elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
         }
-      });
+      }
+    });
 
     return elementPickers;
   }
@@ -200,24 +198,34 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
 
-    const validateActionButton = this.createDynamicToolButton('fa-check-square', 'Validate model',
-      () => new RequestMarkersAction([this.modelRootId]), true);
+    const validateActionButton = this.createDynamicToolButton(
+      'fa-check-square',
+      'Validate model',
+      () => new RequestMarkersAction([this.modelRootId]),
+      true
+    );
     headerTools.appendChild(validateActionButton);
 
-    const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen',
-      () => new OriginViewportAction(), true);
+    const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen', () => new OriginViewportAction(), true);
     headerTools.appendChild(originViewportButton);
 
-    const fitToScreenButton = this.createDynamicToolButton('fa-vector-square', 'Fit to screen',
-      () => new FitToScreenAction([]), true);
+    const fitToScreenButton = this.createDynamicToolButton('fa-vector-square', 'Fit to screen', () => new FitToScreenAction([]), true);
     headerTools.appendChild(fitToScreenButton);
 
-    const centerActionButton = this.createDynamicToolButton('fa-crosshairs', 'Center',
-      () => new CenterAction([...this.selectionService.getSelectedElementIDs()]), true);
+    const centerActionButton = this.createDynamicToolButton(
+      'fa-crosshairs',
+      'Center',
+      () => new CenterAction([...this.selectionService.getSelectedElementIDs()]),
+      true
+    );
     headerTools.appendChild(centerActionButton);
 
-    this.toggleCustomIconsButton = this.createDynamicToolButton('fa-image', 'Toggle custom icons',
-      () => new CustomIconToggleAction(!this.toggleCustomIconsButton.classList.contains('active')), true);
+    this.toggleCustomIconsButton = this.createDynamicToolButton(
+      'fa-image',
+      'Toggle custom icons',
+      () => new CustomIconToggleAction(!this.toggleCustomIconsButton.classList.contains('active')),
+      true
+    );
     headerTools.appendChild(this.toggleCustomIconsButton);
 
     return headerTools;
@@ -242,20 +250,31 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
-    this.deleteToolButton = this.createDynamicToolButton('fa-trash', 'Delete',
-      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    this.deleteToolButton = this.createDynamicToolButton(
+      'fa-trash',
+      'Delete',
+      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]),
+      false
+    );
     dynamicTools.appendChild(this.deleteToolButton);
 
-    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out',
-      () => new JumpAction(''), false);
+    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out', () => new JumpAction(''), false);
     dynamicTools.appendChild(this.jumpOutToolButton);
 
-    this.wrapToSubToolButton = this.createDynamicToolButton('fa-compress-arrows-alt', 'Wrap to embedded process',
-      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    this.wrapToSubToolButton = this.createDynamicToolButton(
+      'fa-compress-arrows-alt',
+      'Wrap to embedded process',
+      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]),
+      false
+    );
     dynamicTools.appendChild(this.wrapToSubToolButton);
 
-    this.autoAlignButton = this.createDynamicToolButton('fa-arrows-alt', 'Auto align',
-      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]), false);
+    this.autoAlignButton = this.createDynamicToolButton(
+      'fa-arrows-alt',
+      'Auto align',
+      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]),
+      false
+    );
     dynamicTools.appendChild(this.autoAlignButton);
 
     return dynamicTools;
@@ -485,6 +504,5 @@ export function createToolGroup(item: PaletteItem): HTMLElement {
 }
 
 export function changeCSSClass(element: Element, css: string): void {
-  element.classList.contains(css) ? element.classList.remove(css) :
-    element.classList.add(css);
+  element.classList.contains(css) ? element.classList.remove(css) : element.classList.add(css);
 }
