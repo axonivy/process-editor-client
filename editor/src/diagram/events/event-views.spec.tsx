@@ -4,17 +4,12 @@ import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@ecli
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
+import setup from '../test-helper';
 import { EventTypes } from '../view-types';
 import setupViewTestContainer from '../views.spec';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM('')).window;
-global.document = document;
 
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
@@ -50,6 +45,10 @@ describe('EventNodeView', () => {
   let graphFactory: SModelFactory;
   let graph: SGraph;
   let viewRegistry: ViewRegistry;
+
+  before(() => {
+    setup();
+  });
 
   beforeEach(() => {
     [context, graphFactory, graph, viewRegistry] = setupViewTestContainer(createModel);

@@ -35,7 +35,7 @@ function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, small
   if (icon.style === IconStyle.FA) {
     foreignObjectContents = virtualize(`<i class="fa fa-fw ${icon.res}"></i>`);
   } else {
-    foreignObjectContents = virtualize(`<img src="${icon.res}"></i>`);
+    foreignObjectContents = virtualize(`<img src="${icon.res}"></img>`);
   }
   return <g>
     <foreignObject requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'

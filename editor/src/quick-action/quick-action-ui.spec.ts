@@ -28,6 +28,7 @@ import { Container } from 'inversify';
 import { before, describe, it } from 'mocha';
 
 import { ActivityNode, EndEventNode, EventNode, GatewayNode, LaneNode } from '../diagram/model';
+import setup from '../diagram/test-helper';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
 import ivyJumpModule from '../jump/di.config';
 import { jumpFeature } from '../jump/model';
@@ -35,12 +36,6 @@ import ivyLaneModule from '../lanes/di.config';
 import ivyQuickActionModule from './di.config';
 import { quickActionFeature } from './model';
 import { QuickActionUI } from './quick-action-ui';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM('')).window;
-global.document = document;
 
 function createContainer(): Container {
   const container = new Container();
@@ -97,6 +92,10 @@ function createRoot(graphFactory: SModelFactory): SGraph {
 describe('QuickActionUi', () => {
   let quickActionUi: QuickActionUI;
   let root: SModelRoot;
+
+  before(() => {
+    setup();
+  });
 
   before(() => {
     const container = createContainer();
