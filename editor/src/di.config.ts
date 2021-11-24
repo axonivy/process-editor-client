@@ -2,6 +2,7 @@ import '../css/diagram.css';
 
 import {
   DEFAULT_MODULES,
+  GLSP_TYPES,
   glspDecorationModule,
   glspViewportModule,
   openModule,
@@ -40,6 +41,7 @@ export default function createContainer(widgetId: string): Container {
     ivyLaneModule,
     animateModule
   );
+  container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,
