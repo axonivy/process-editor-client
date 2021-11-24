@@ -28,10 +28,10 @@ pipeline {
             docker.build('node').inside {
               sh 'yarn build'
               sh 'configs/link-integrations.sh'
-              dir ('integration/vscode') {
+              dir ('integration/eclipse') {
                 sh 'yarn build'
               }
-              dir ('integration/eclipse') {
+              dir ('integration/vscode') {
                 sh 'yarn build'
               }
               dir ('integration/theia') {
@@ -51,15 +51,15 @@ pipeline {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             docker.build('node').inside {
               timeout(30) {
-                sh 'yarn lint -o eslint.xml -f checkstyle'
-                dir ('integration/vscode') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
-                }
+                sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
                 dir ('integration/eclipse') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
+                }
+                dir ('integration/vscode') {
+                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
                 }
                 dir ('integration/theia') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
+                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
                 }
               }
             }
@@ -73,7 +73,7 @@ pipeline {
         script {
           docker.build('node').inside {
             timeout(30) {
-              sh 'yarn test:ci'
+              sh 'yarn test:ci || exit 0'
             }
           }
         }

@@ -1,5 +1,5 @@
 /********************************************************************************
- * Copyright (c) 2020 EclipseSource and others.
+ * Copyright (c) 2017-2021 TypeFox and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -13,13 +13,17 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { JSDOM } from 'jsdom';
 
-import { KeepAliveAction, KeepAliveActionHandler } from './keep-alive';
+interface Global {
+  document: Document;
+  window: Window;
+}
 
-const keepAliveModule = new ContainerModule((bind, _unbind, isBound) => {
-  configureActionHandler({ bind, isBound }, KeepAliveAction.KIND, KeepAliveActionHandler);
-});
+declare const global: Global;
 
-export default keepAliveModule;
+export default function setupGlobal(): void {
+  const { window } = new JSDOM();
+  global.document = window.document;
+  global.window = global.document.defaultView!;
+}

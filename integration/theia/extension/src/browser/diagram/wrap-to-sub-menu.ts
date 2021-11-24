@@ -1,8 +1,8 @@
-import { GLSPCommandHandler, TheiaSprottyContextMenu } from '@eclipse-glsp/theia-integration/lib/browser';
+import { GLSPCommandHandler, TheiaSprottyContextMenu } from '@eclipse-glsp/theia-integration';
 import { WrapToSubOperation } from '@ivyteam/process-editor';
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry } from '@theia/core';
 import { ApplicationShell } from '@theia/core/lib/browser';
-import { inject, injectable, interfaces } from 'inversify';
+import { inject, injectable, interfaces } from '@theia/core/shared/inversify';
 
 export function registerWrapToSubContextMenu(bind: interfaces.Bind): void {
   bind(CommandContribution).to(WrapToSubContribution);

@@ -2,18 +2,17 @@ import 'reflect-metadata';
 
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 import { Bounds } from 'sprotty';
 
+import setup from '../test-helper';
 import { getActivityIconDecorator, getIconDecorator } from './views';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM('')).window;
-global.document = document;
-
 describe('Event and Gateway Icons', () => {
+  before(() => {
+    setup();
+  });
+
   it('no icon', () => {
     let node = getIconDecorator('', 15);
     assertNoIcon(node);
@@ -44,6 +43,10 @@ describe('Event and Gateway Icons', () => {
 });
 
 describe('Activity Icons', () => {
+  before(() => {
+    setup();
+  });
+
   it('no icon', () => {
     let node = getActivityIconDecorator('');
     assertNoIcon(node);

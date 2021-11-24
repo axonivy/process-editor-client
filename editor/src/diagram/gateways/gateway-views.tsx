@@ -1,14 +1,13 @@
-import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement } from '@eclipse-glsp/client';
+import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
 
 import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getIconDecorator } from '../icon/views';
 import { GatewayNode } from '../model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class GatewayNodeView extends DiamondNodeView {

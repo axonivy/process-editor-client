@@ -1,2 +1,2 @@
-app/bundle.js
-app/bundle.js.map
+app/*
+!app/diagram.html

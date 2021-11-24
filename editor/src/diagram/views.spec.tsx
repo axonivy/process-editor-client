@@ -20,16 +20,11 @@ import { Container } from 'inversify';
 import { describe, it } from 'mocha';
 
 import ivyDiagramModule from './di.config';
+import setup from './test-helper';
 import { ActivityTypes, EdgeTypes, EventTypes } from './view-types';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const { document } = (new JSDOM('')).window;
-global.document = document;
 
 const setupViewTestContainer = (modelFactory: any): [ModelRenderer, SModelFactory, any, ViewRegistry] => {
   const container = new Container();
@@ -61,6 +56,10 @@ describe('EdgeView', () => {
   let graphFactory: SModelFactory;
   let graph: SGraph;
   let viewRegistry: ViewRegistry;
+
+  before(() => {
+    setup();
+  });
 
   beforeEach(() => {
     [context, graphFactory, graph, viewRegistry] = setupViewTestContainer(createModel);

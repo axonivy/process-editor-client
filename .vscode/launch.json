@@ -34,6 +34,19 @@
       "request": "launch",
       "file": "${workspaceFolder}/integration/standalone/app/diagram.html",
       "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
+      "presentation": {
+        "group": "4. Standalone",
+        "order": 1
+      }
+    },
+    {
+      "name": "Launch Eclipse Integration (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "file": "${workspaceFolder}/integration/eclipse/webview/app/diagram.html",
+      "webRoot": "${workspaceFolder}",
+      "sourceMaps": true,
       "presentation": {
         "group": "4. Standalone",
         "order": 1
@@ -128,7 +141,8 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000/",
-      "webRoot": "${workspaceFolder}",
+      "webRoot": "${workspaceFolder}/integration/theia/browser-app",
+      "sourceMaps": true,
       "presentation": {
         "group": "2. Theia",
         "order": 5

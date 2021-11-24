@@ -1,12 +1,11 @@
 import { injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
-import { isBoundsAware, IView, RenderingContext } from 'sprotty';
+import { VNode } from 'snabbdom';
+import { isBoundsAware, IView, RenderingContext, svg } from 'sprotty';
 
 import { SBreakpointHandle } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class SBreakpointHandleView implements IView {

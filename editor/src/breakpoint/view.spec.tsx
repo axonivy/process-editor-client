@@ -1,7 +1,6 @@
 import {
   configureView,
   defaultModule,
-  DefaultTypes,
   graphModule,
   IVNodePostprocessor,
   ModelRenderer,
@@ -16,6 +15,7 @@ import {
   ViewRegistry
 } from '@eclipse-glsp/client';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
+import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { expect } from 'chai';
 import { Container } from 'inversify';
 import { describe } from 'mocha';

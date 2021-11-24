@@ -120,7 +120,10 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     if (this.isMouseDrag && this.activeResizeHandle) {
       // rely on the FeedbackMoveMouseListener to update the element bounds of selected elements
       // consider resize handles ourselves
-      const actions: Action[] = [cursorFeedbackAction(CursorCSS.RESIZE), applyCssClasses(this.activeResizeHandle, ChangeLaneBoundsListener.CSS_CLASS_ACTIVE)];
+      const actions: Action[] = [
+        cursorFeedbackAction(CursorCSS.RESIZE_NWSE),
+        applyCssClasses(this.activeResizeHandle, ChangeLaneBoundsListener.CSS_CLASS_ACTIVE)
+      ];
       const positionUpdate = this.updatePosition(target, event);
       if (positionUpdate) {
         const resizeActions = this.handleResizeOnClient(positionUpdate);

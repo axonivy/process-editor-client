@@ -1,7 +1,9 @@
-export namespace IvyProcessLanguage {
-  export const Id = 'ivy-glsp-process';
-  export const Name = 'Ivy-Glsp';
-  export const Label = 'Ivy Process';
-  export const DiagramType = 'ivy-glsp-process';
-  export const FileExtension = '.mod';
-}
+import { GLSPDiagramLanguage } from '@eclipse-glsp/theia-integration';
+
+export const IvyProcessLanguage: GLSPDiagramLanguage = {
+  contributionId: 'ivy-glsp-process',
+  label: 'Ivy Process',
+  diagramType: 'ivy-glsp-process',
+  fileExtensions: ['.mod'],
+  iconClass: 'fa fa-project-diagram'
+};

@@ -1,14 +1,22 @@
-import { angleOfPoint, GEdgeView, IView, Point, RenderingContext, SEdge, SLabel, toDegrees } from '@eclipse-glsp/client';
+import {
+  angleOfPoint,
+  GEdgeView,
+  IView,
+  Point,
+  RenderingContext,
+  SEdge,
+  SLabel,
+  svg,
+  toDegrees
+} from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import * as snabbdom from 'snabbdom-jsx';
-import { VNode } from 'snabbdom/vnode';
+import { VNode } from 'snabbdom';
+import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { ActivityTypes } from './view-types';
 
-const virtualize = require('snabbdom-virtualize/strings').default;
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const JSX = { createElement: snabbdom.svg };
+const JSX = { createElement: svg };
 
 @injectable()
 export class ForeignLabelView implements IView {

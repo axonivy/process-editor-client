@@ -1,12 +1,10 @@
-import 'reflect-metadata';
-
 import {
+  configureServerActions,
   EnableToolPaletteAction,
   GLSPDiagramServer,
-  InitializeClientSessionAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 import { join, resolve } from 'path';
 import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 
@@ -18,7 +16,7 @@ if (severAndPort === undefined) {
   severAndPort = 'localhost:5008';
 }
 const id = 'ivy-glsp-process';
-const name = 'Ivy Process';
+const diagramType = 'ivy-glsp-process';
 const websocket = new WebSocket(`ws://${severAndPort}/${id}`);
 const container = createContainer();
 
@@ -32,22 +30,32 @@ if (givenFile === undefined) {
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile;
 
-const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
-
 websocket.onopen = () => {
   const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new BaseJsonrpcGLSPClient({ id, name, connectionProvider });
-  diagramServer.connect(glspClient).then(client => {
-    client.initializeServer({ applicationId: ApplicationIdProvider.get() });
-    actionDispatcher.dispatch(new InitializeClientSessionAction(diagramServer.clientId));
-    actionDispatcher.dispatch(new RequestModelAction({
-      sourceUri: `file://${givenFile}`,
-      diagramType: 'ivy-glsp-process'
-    }));
-    actionDispatcher.dispatch(new RequestTypeHintsAction('ivy-glsp-process'));
-    actionDispatcher.dispatch(new EnableToolPaletteAction());
-  });
+  const glspClient = new BaseJsonrpcGLSPClient({ id, connectionProvider });
+  initialize(glspClient);
 };
+
+async function initialize(client: GLSPClient): Promise<void> {
+  await diagramServer.connect(client);
+  const result = await client.initializeServer({
+    applicationId: ApplicationIdProvider.get(),
+    protocolVersion: GLSPClient.protocolVersion
+  });
+  await configureServerActions(result, diagramType, container);
+
+  const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
+
+  await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
+  actionDispatcher.dispatch(
+    new RequestModelAction({
+      sourceUri: `file://${givenFile}`,
+      diagramType
+    })
+  );
+  actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
+  actionDispatcher.dispatch(new EnableToolPaletteAction());
+}
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');
 

@@ -1,11 +1,9 @@
 import '../../../css/colors.css';
 import 'sprotty-theia/css/theia-sprotty.css';
 
-import {
-  GLSPTheiaDiagramConfiguration
-} from '@eclipse-glsp/theia-integration/lib/browser/diagram/glsp-theia-diagram-configuration';
+import { configureDiagramServer, GLSPDiagramConfiguration } from '@eclipse-glsp/theia-integration';
 import { BreakpointAction, breakpointModule, createIvyDiagramContainer } from '@ivyteam/process-editor';
-import { Container, injectable } from 'inversify';
+import { Container, injectable } from '@theia/core/shared/inversify';
 import { configureActionHandler } from 'sprotty';
 
 import { IvyProcessLanguage as IvyProcessLanguage } from '../../common/ivy-process-language';
@@ -13,13 +11,13 @@ import { BreakpointActionHandler } from '../breakpoint/breakpoint-action-handler
 import { IvyDiagramServer } from './diagram-server';
 
 @injectable()
-export class IvyDiagramConfiguration extends GLSPTheiaDiagramConfiguration {
+export class IvyDiagramConfiguration extends GLSPDiagramConfiguration {
 
-  diagramType: string = IvyProcessLanguage.DiagramType;
+  diagramType: string = IvyProcessLanguage.diagramType;
 
   doCreateContainer(widgetId: string): Container {
     const container = createIvyDiagramContainer(widgetId);
-    this.configureDiagramServer(container, IvyDiagramServer);
+    configureDiagramServer(container, IvyDiagramServer);
     configureActionHandler(container, BreakpointAction.KIND, BreakpointActionHandler);
     container.load(breakpointModule);
     return container;
