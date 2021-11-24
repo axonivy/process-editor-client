@@ -38,7 +38,9 @@
       "presentation": {
         "group": "4. Standalone",
         "order": 1
-      }
+      },
+      "preLaunchTask": "Watch Editor",
+      "postDebugTask": "Terminate All Tasks"
     },
     {
       "name": "Launch Eclipse Integration (Chrome)",
@@ -147,7 +149,7 @@
         "group": "2. Theia",
         "order": 5
       },
-      "preLaunchTask": "Watch Editor",
+      "preLaunchTask": "Watch Theia Integration",
       "postDebugTask": "Terminate All Tasks"
     },
     {

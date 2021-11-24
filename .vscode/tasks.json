@@ -96,31 +96,18 @@
       ]
     },
     {
-      "label": "Build Theia Integration",
+      "label": "Watch Theia Integration",
       "type": "shell",
       "group": "build",
-      "command": "yarn --cwd integration/theia ",
+      "command": "yarn --cwd integration/theia watch",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
       },
+      "isBackground": true,
       "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ]
-    },
-    {
-      "label": "Build Eclipse Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/eclipse ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
+        "$tsc-watch",
+        "$ts-webpack-watch"
       ]
     },
     {
