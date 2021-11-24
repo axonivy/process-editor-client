@@ -20,8 +20,8 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { describe } from 'mocha';
 
-import { SBreakpointHandle } from './model';
-import { SBreakpointHandleView } from './view';
+import { SBreakpointHandle } from '../../src/breakpoint/model';
+import { SBreakpointHandleView } from '../../src/breakpoint/view';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');

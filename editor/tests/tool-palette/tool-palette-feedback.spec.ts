@@ -22,9 +22,9 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
-import { CustomIconToggleActionHandler } from '../diagram/icon/custom-icon-toggle-action-handler';
-import ivyToolPaletteModule from './di.config';
-import { ToolPaletteFeedbackAction, ToolPaletteFeedbackCommand } from './tool-palette-feedback';
+import { CustomIconToggleActionHandler } from '../../src/diagram/icon/custom-icon-toggle-action-handler';
+import ivyToolPaletteModule from '../../src/tool-palette/di.config';
+import { ToolPaletteFeedbackAction, ToolPaletteFeedbackCommand } from '../../src/tool-palette/tool-palette-feedback';
 
 let root: SModelRoot & SArgumentable;
 let jumpOutBtn = false;

@@ -5,12 +5,12 @@ import { describe, it } from 'mocha';
 import { VNode } from 'snabbdom';
 import { Bounds } from 'sprotty';
 
-import setup from '../test-helper';
-import { getActivityIconDecorator, getIconDecorator } from './views';
+import { getActivityIconDecorator, getIconDecorator } from '../../../src/diagram/icon/views';
+import { setupGlobal } from '../../test-helper';
 
 describe('Event and Gateway Icons', () => {
   before(() => {
-    setup();
+    setupGlobal();
   });
 
   it('no icon', () => {
@@ -44,7 +44,7 @@ describe('Event and Gateway Icons', () => {
 
 describe('Activity Icons', () => {
   before(() => {
-    setup();
+    setupGlobal();
   });
 
   it('no icon', () => {

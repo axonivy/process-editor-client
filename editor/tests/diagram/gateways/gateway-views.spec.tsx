@@ -4,9 +4,8 @@ import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@ecli
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import setup from '../test-helper';
-import { GatewayTypes } from '../view-types';
-import setupViewTestContainer from '../views.spec';
+import { GatewayTypes } from '../../../src/diagram/view-types';
+import { setupGlobal, setupViewTestContainer } from '../../test-helper';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -27,7 +26,7 @@ describe('GatewayNodeView', () => {
   let viewRegistry: ViewRegistry;
 
   before(() => {
-    setup();
+    setupGlobal();
   });
 
   beforeEach(() => {

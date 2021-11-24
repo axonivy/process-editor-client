@@ -13,8 +13,8 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { describe, it } from 'mocha';
 
-import { ShowBreakpointAction, ShowBreakpointActionHandler } from './breakpoint-action-handler';
-import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './breakpoint-feedback-action';
+import { ShowBreakpointAction, ShowBreakpointActionHandler } from '../../src/breakpoint/breakpoint-action-handler';
+import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from '../../src/breakpoint/breakpoint-feedback-action';
 
 function createContainer(): Container {
   const container = new Container();
