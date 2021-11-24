@@ -1,8 +1,8 @@
 import {
   angleOfPoint,
-  GEdgeView,
   IView,
   Point,
+  PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
   SEdge,
   SLabel,
@@ -37,7 +37,7 @@ export class ForeignLabelView implements IView {
 }
 
 @injectable()
-export class WorkflowEdgeView extends GEdgeView {
+export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
   protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
     const additionals = super.renderAdditionals(edge, segments, context);
     const p1 = segments[segments.length - 2];
