@@ -31,7 +31,7 @@
     "typescript"
   ],
   "mochaExplorer.configFile": "configs/.mocharc.json",
-  "mochaExplorer.files": "editor/src/**/*.spec.?(ts|tsx)",
+  "mochaExplorer.files": "editor/tests/**/*.spec.?(ts|tsx)",
   "mochaExplorer.env": {
     "TS_NODE_PROJECT": "editor/tsconfig.json"
   }

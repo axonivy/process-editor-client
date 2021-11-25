@@ -1,7 +1,7 @@
 import { SEdge, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
-import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode } from './model';
+import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode } from '../../src/diagram/model';
 
 describe('EventNodes', () => {
   const routable = new SEdge();

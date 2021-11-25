@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { IconStyle, NoIcon, resolveIcon } from './icons';
+import { IconStyle, NoIcon, resolveIcon } from '../../../src/diagram/icon/icons';
 
 describe('StandardIcons', () => {
   it('standard icons are correctly mapped to fontawesome icons', () => {

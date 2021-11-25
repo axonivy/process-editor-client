@@ -1,41 +1,14 @@
 import 'reflect-metadata';
 
-import {
-  defaultModule,
-  graphModule,
-  IVNodePostprocessor,
-  ModelRenderer,
-  ModelRendererFactory,
-  moveModule,
-  routingModule,
-  SEdge,
-  selectModule,
-  SGraph,
-  SModelFactory,
-  TYPES,
-  ViewRegistry
-} from '@eclipse-glsp/client';
+import { ModelRenderer, SEdge, SGraph, SModelFactory, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { Container } from 'inversify';
 import { describe, it } from 'mocha';
 
-import ivyDiagramModule from './di.config';
-import setup from './test-helper';
-import { ActivityTypes, EdgeTypes, EventTypes } from './view-types';
+import { ActivityTypes, EdgeTypes, EventTypes } from '../../src/diagram/view-types';
+import { setupGlobal, setupViewTestContainer } from '../test-helper';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
-
-const setupViewTestContainer = (modelFactory: any): [ModelRenderer, SModelFactory, any, ViewRegistry] => {
-  const container = new Container();
-  container.load(defaultModule, selectModule, moveModule, graphModule, routingModule, ivyDiagramModule);
-  const postprocessors = container.getAll<IVNodePostprocessor>(TYPES.IVNodePostprocessor);
-  const context = container.get<ModelRendererFactory>(TYPES.ModelRendererFactory)('hidden', postprocessors);
-  const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
-  const viewRegistry = container.get<ViewRegistry>(TYPES.ViewRegistry);
-  const graph = modelFactory(graphFactory);
-  return [context, graphFactory, graph, viewRegistry];
-};
 
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
@@ -58,7 +31,7 @@ describe('EdgeView', () => {
   let viewRegistry: ViewRegistry;
 
   before(() => {
-    setup();
+    setupGlobal();
   });
 
   beforeEach(() => {
@@ -107,5 +80,3 @@ describe('EdgeView', () => {
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });
-
-export default setupViewTestContainer;

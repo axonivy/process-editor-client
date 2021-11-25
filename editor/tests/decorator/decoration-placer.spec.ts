@@ -9,8 +9,8 @@ import {
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { ActivityNode } from '../diagram/model';
-import { IvyDecorationPlacer } from './decoration-placer';
+import { IvyDecorationPlacer } from '../../src/decorator/decoration-placer';
+import { ActivityNode } from '../../src/diagram/model';
 
 describe('IvyDecorationPlacer', () => {
   const placer = new IvyDecorationPlacer();

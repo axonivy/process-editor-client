@@ -16,8 +16,8 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
-import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
-import { Animateable, animateFeature } from './model';
+import { AnimateFeedbackAction, AnimateFeedbackCommand } from '../../src/animate/animate-feedback-action';
+import { Animateable, animateFeature } from '../../src/animate/model';
 
 let root: SModelRoot;
 

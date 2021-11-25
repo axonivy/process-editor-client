@@ -27,15 +27,15 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { before, describe, it } from 'mocha';
 
-import { ActivityNode, EndEventNode, EventNode, GatewayNode, LaneNode } from '../diagram/model';
-import setup from '../diagram/test-helper';
-import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
-import ivyJumpModule from '../jump/di.config';
-import { jumpFeature } from '../jump/model';
-import ivyLaneModule from '../lanes/di.config';
-import ivyQuickActionModule from './di.config';
-import { quickActionFeature } from './model';
-import { QuickActionUI } from './quick-action-ui';
+import { ActivityNode, EndEventNode, EventNode, GatewayNode, LaneNode } from '../../src/diagram/model';
+import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
+import ivyJumpModule from '../../src/jump/di.config';
+import { jumpFeature } from '../../src/jump/model';
+import ivyLaneModule from '../../src/lanes/di.config';
+import ivyQuickActionModule from '../../src/quick-action/di.config';
+import { quickActionFeature } from '../../src/quick-action/model';
+import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
+import { setupGlobal } from '../test-helper';
 
 function createContainer(): Container {
   const container = new Container();
@@ -94,7 +94,7 @@ describe('QuickActionUi', () => {
   let root: SModelRoot;
 
   before(() => {
-    setup();
+    setupGlobal();
   });
 
   before(() => {

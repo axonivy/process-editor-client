@@ -2,8 +2,8 @@ import { SModelElement } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { ActivityNode } from './model';
-import { IvyGridSnapper } from './snap';
+import { ActivityNode } from '../../src/diagram/model';
+import { IvyGridSnapper } from '../../src/diagram/snap';
 
 describe('IvyGridSnapper', () => {
   const snapper = new IvyGridSnapper();
