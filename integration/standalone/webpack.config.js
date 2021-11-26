@@ -50,7 +50,6 @@ module.exports = {
     new CircularDependencyPlugin({
       exclude: /(node_modules|examples)\/./,
       failOnError: false
-    }),
-    new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/])
+    })
   ]
 };
