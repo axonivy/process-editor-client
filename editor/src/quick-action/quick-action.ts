@@ -45,8 +45,7 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
   }
 
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
-    const elementIds = elements.filter(e => isDeletable(e))
-      .map(e => e.id);
+    const elementIds = elements.filter(e => isDeletable(e)).map(e => e.id);
     if (elementIds.length > 0) {
       return new DeleteQuickAction(elementIds);
     }
@@ -84,31 +83,34 @@ export interface QuickAction {
 }
 
 class DeleteQuickAction implements QuickAction {
-  constructor(public readonly elementIds: string[],
+  constructor(
+    public readonly elementIds: string[],
     public readonly icon = 'fa-trash',
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
-    public readonly action = new DeleteElementOperation(elementIds)) {
-  }
+    public readonly action = new DeleteElementOperation(elementIds)
+  ) {}
 }
 
 class InscribeQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly icon = 'fa-pen',
     public readonly title = 'Edit',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
-    public readonly action = new OpenAction(elementId)) {
-  }
+    public readonly action = new OpenAction(elementId)
+  ) {}
 }
 
 class AutoAlignQuickAction implements QuickAction {
-  constructor(public readonly elementIds: string[],
+  constructor(
+    public readonly elementIds: string[],
     public readonly icon = 'fa-arrows-alt',
     public readonly title = 'Auto Align',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'Z',
-    public readonly action = new AutoAlignOperation(elementIds)) {
-  }
+    public readonly action = new AutoAlignOperation(elementIds)
+  ) {}
 }

@@ -7,9 +7,11 @@ import { canAddErrorBoundary, canAddSignalBoundary } from './model';
 export class AttachBoundaryOperation implements Operation {
   static readonly KIND = 'attachBoundary';
 
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly eventKind: string,
-    public readonly kind: string = AttachBoundaryOperation.KIND) { }
+    public readonly kind: string = AttachBoundaryOperation.KIND
+  ) {}
 }
 
 @injectable()
@@ -23,13 +25,14 @@ export class AttachErrorBoundaryQuickActionProvider extends SingleQuickActionPro
 }
 
 class AttachErrorBoundaryQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly icon = 'fa-bolt',
     public readonly title = 'Attach Error',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'E',
-    public readonly action = new AttachBoundaryOperation(elementId, 'error')) {
-  }
+    public readonly action = new AttachBoundaryOperation(elementId, 'error')
+  ) {}
 }
 
 @injectable()
@@ -43,11 +46,12 @@ export class AttachSignalBoundaryQuickActionProvider extends SingleQuickActionPr
 }
 
 class AttachSignalBoundaryQuickAction implements QuickAction {
-  constructor(public readonly elementId: string,
+  constructor(
+    public readonly elementId: string,
     public readonly icon = 'fa-satellite-dish',
     public readonly title = 'Attach Signal',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'S',
-    public readonly action = new AttachBoundaryOperation(elementId, 'signal')) {
-  }
+    public readonly action = new AttachBoundaryOperation(elementId, 'signal')
+  ) {}
 }

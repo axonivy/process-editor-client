@@ -6,7 +6,7 @@ import { CustomIconToggleActionHandler } from '../diagram/icon/custom-icon-toggl
 import { ToolPalette } from './tool-palette';
 
 export class ToolPaletteFeedbackAction implements Action {
-  constructor(readonly elementId?: string, public readonly kind: string = ToolPaletteFeedbackCommand.KIND) { }
+  constructor(readonly elementId?: string, public readonly kind: string = ToolPaletteFeedbackCommand.KIND) {}
 }
 
 @injectable()

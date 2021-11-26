@@ -44,7 +44,6 @@ function createEdgeModel(): Edge {
 }
 
 describe('Edges', () => {
-
   it('Bounds of empty edge are equals empty bounds', () => {
     const root = new SModelRoot();
     const emptyEdge = new Edge();

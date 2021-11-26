@@ -32,15 +32,18 @@ export class OpenInscriptionActionHandler implements IActionHandler {
 
 export class OpenInscriptionAction implements Action {
   static readonly KIND = 'openInscription';
-  constructor(readonly elementId: string, public readonly kind: string = OpenInscriptionAction.KIND) { }
+  constructor(readonly elementId: string, public readonly kind: string = OpenInscriptionAction.KIND) {}
 }
 
 export class OpenInscriptionKeyListener extends KeyListener {
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
     if (event.key === 'Enter') {
-      const openableElements = toArray(element.index.all()
-        .filter(e => isSelectable(e) && e.selected)
-        .filter(e => isOpenable(e)));
+      const openableElements = toArray(
+        element.index
+          .all()
+          .filter(e => isSelectable(e) && e.selected)
+          .filter(e => isOpenable(e))
+      );
       if (openableElements.length === 1) {
         return [new OpenInscriptionAction(openableElements[0].id)];
       }
@@ -48,4 +51,3 @@ export class OpenInscriptionKeyListener extends KeyListener {
     return [];
   }
 }
-

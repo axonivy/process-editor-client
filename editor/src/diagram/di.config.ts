@@ -82,7 +82,9 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, GatewayNodeView);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, { disable: [popupFeature, breakpointFeature, errorBoundaryFeature] });
+  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, {
+    disable: [popupFeature, breakpointFeature, errorBoundaryFeature]
+  });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, { enable: [signalBoundaryFeature] });
@@ -91,7 +93,9 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
-  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature, unwrapFeature] });
+  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, {
+    enable: [jumpFeature, unwrapFeature]
+  });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);

@@ -15,15 +15,23 @@ export class GatewayNodeView extends DiamondNodeView {
 
   render(node: GatewayNode, context: RenderingContext): VNode {
     const diamond = new Diamond({ height: Math.max(node.size.height, 0), width: Math.max(node.size.width, 0), x: 0, y: 0 });
-    const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(diamond.leftPoint)}`;
+    const points = `${this.svgStr(diamond.topPoint)} ${this.svgStr(diamond.rightPoint)} ${this.svgStr(diamond.bottomPoint)} ${this.svgStr(
+      diamond.leftPoint
+    )}`;
     const radius = this.getRadius(node);
-    return <g>
-      <polygon class-sprotty-node={true} class-animate={node.animated}
-        class-mouseover={node.hoverFeedback} class-selected={node.selected}
-        points={points} />
-      {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
-      {context.renderChildren(node)}
-    </g>;
+    return (
+      <g>
+        <polygon
+          class-sprotty-node={true}
+          class-animate={node.animated}
+          class-mouseover={node.hoverFeedback}
+          class-selected={node.selected}
+          points={points}
+        />
+        {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
+        {context.renderChildren(node)}
+      </g>
+    );
   }
 
   protected getRadius(node: SShapeElement): number {

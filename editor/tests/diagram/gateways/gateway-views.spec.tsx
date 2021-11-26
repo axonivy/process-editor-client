@@ -35,8 +35,7 @@ describe('GatewayNodeView', () => {
 
   it('render full gateway graph', () => {
     const graphVNode = context.renderElement(graph);
-    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown')
-      .and.not.include('sprotty-missing');
+    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
     expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
@@ -52,18 +51,20 @@ describe('GatewayNodeView', () => {
   it('render gateway task node', () => {
     const view = viewRegistry.get(GatewayTypes.TASK);
     const vnode = view.render(graph.index.getById('gatewayTask') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />'
-      + '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">'
-      + '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg></g>';
+    const expectation =
+      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
+      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
+      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render gateway alternative node', () => {
     const view = viewRegistry.get(GatewayTypes.ALTERNATIVE);
     const vnode = view.render(graph.index.getById('gatewayAlternative') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />'
-      + '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">'
-      + '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg></g>';
+    const expectation =
+      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
+      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
+      '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });

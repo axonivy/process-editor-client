@@ -7,8 +7,8 @@ export class BreakpointFeedbackAction {
   constructor(
     public readonly showBreakpointElementIds: string[] = [],
     public readonly hideBreakpointElementIds: string[] = [],
-    public readonly kind: string = BreakpointFeedbackCommand.KIND) {
-  }
+    public readonly kind: string = BreakpointFeedbackCommand.KIND
+  ) {}
 }
 
 @injectable()

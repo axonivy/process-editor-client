@@ -64,13 +64,16 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   public showUi(): void {
     this.actionDispatcherProvider().then(actionDispatcher =>
-      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true,
-        [...this.selectionService.getSelectedElementIDs()])));
+      actionDispatcher.dispatch(
+        new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()])
+      )
+    );
   }
 
   public hideUi(): void {
     this.actionDispatcherProvider().then(actionDispatcher =>
-      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
+      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false))
+    );
   }
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
@@ -85,8 +88,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private showMultiQuickActionUi(containerElement: HTMLElement, elements: SModelElement[]): void {
-    const selectionBounds = elements.map(e => getAbsoluteBounds(e))
-      .reduce((b1, b2) => combine(b1, b2));
+    const selectionBounds = elements.map(e => getAbsoluteBounds(e)).reduce((b1, b2) => combine(b1, b2));
     containerElement.style.left = `${selectionBounds.x}px`;
     containerElement.style.top = `${selectionBounds.y}px`;
 
@@ -96,9 +98,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     selectionDiv.style.width = `${selectionBounds.width + 10}px`;
     containerElement.appendChild(selectionDiv);
 
-    const quickActions = this.quickActionProviders
-      .map(provider => provider.multiQuickAction(elements))
-      .filter(isNotUndefined);
+    const quickActions = this.quickActionProviders.map(provider => provider.multiQuickAction(elements)).filter(isNotUndefined);
     this.createQuickActions(containerElement, selectionBounds, quickActions, false);
   }
 
@@ -108,16 +108,15 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       containerElement.style.left = `${absoluteBounds.x}px`;
       containerElement.style.top = `${absoluteBounds.y}px`;
 
-      const quickActions = this.quickActionProviders
-        .map(provider => provider.singleQuickAction(element))
-        .filter(isNotUndefined);
+      const quickActions = this.quickActionProviders.map(provider => provider.singleQuickAction(element)).filter(isNotUndefined);
       this.createQuickActions(containerElement, absoluteBounds, quickActions, element instanceof LaneNode);
     }
   }
 
   private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[], inline: boolean): void {
     Object.values(QuickActionLocation).forEach(loc => {
-      quickActions.filter(quick => quick.location === loc)
+      quickActions
+        .filter(quick => quick.location === loc)
         .sort((a, b) => a.sorting.localeCompare(b.sorting))
         .forEach((quick, position) => {
           const buttonPos = this.getPosition(absoluteBounds, quick.location, position, inline);
@@ -138,19 +137,19 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   protected getPosition(parentDimension: Bounds, location: QuickActionLocation, position: number, inline: boolean): Point {
     if (inline) {
       if (location === QuickActionLocation.TopLeft) {
-        return { x: 3 + (position * 32), y: 3 };
+        return { x: 3 + position * 32, y: 3 };
       } else if (location === QuickActionLocation.BottomLeft) {
-        return { x: 3 + (position * 32), y: parentDimension.height - 27 };
+        return { x: 3 + position * 32, y: parentDimension.height - 27 };
       }
     }
     if (location === QuickActionLocation.TopLeft) {
-      return { x: -30 + (position * 32), y: -30 };
+      return { x: -30 + position * 32, y: -30 };
     } else if (location === QuickActionLocation.Left) {
       return { x: -30, y: parentDimension.height / 2 - 11 };
     } else if (location === QuickActionLocation.Right) {
-      return { x: parentDimension.width + 10, y: -30 + (position * 32) };
+      return { x: parentDimension.width + 10, y: -30 + position * 32 };
     } else if (location === QuickActionLocation.BottomLeft) {
-      return { x: -30 + (position * 32), y: parentDimension.height + 10 };
+      return { x: -30 + position * 32, y: parentDimension.height + 10 };
     }
     return ORIGIN_POINT;
   }
@@ -188,7 +187,7 @@ export class QuickActionUiMouseListener extends MouseListener {
   }
 }
 
-function getElements(contextElementIds: string[], root: Readonly<SModelRoot>): (SModelElement)[] {
+function getElements(contextElementIds: string[], root: Readonly<SModelRoot>): SModelElement[] {
   return contextElementIds.map(id => root.index.getById(id)).filter(isNotUndefined);
 }
 

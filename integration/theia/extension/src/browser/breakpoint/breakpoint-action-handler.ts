@@ -5,7 +5,6 @@ import { IActionHandler } from 'sprotty';
 
 @injectable()
 export class BreakpointActionHandler implements IActionHandler {
-
   readonly kinds: string[] = [BreakpointAction.KIND];
 
   private breakpoints: string[] = [];
@@ -23,5 +22,4 @@ export class BreakpointActionHandler implements IActionHandler {
     }
     return;
   }
-
 }

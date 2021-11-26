@@ -72,7 +72,7 @@
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
-g[class^="end"] .sprotty-node {
+g[class^='end'] .sprotty-node {
   stroke-width: 3px;
 }
 .sprotty-node-decorator {
@@ -106,7 +106,7 @@ g[class^="end"] .sprotty-node {
   stroke: none;
   z-index: 1000;
 }
-.sprotty-edge > .sprotty-routing-handle[data-kind="line"] {
+.sprotty-edge > .sprotty-routing-handle[data-kind='line'] {
   opacity: 0.35;
 }
 .sprotty-edge > .sprotty-routing-handle.selected {
@@ -172,12 +172,12 @@ g[class^="end"] .sprotty-node {
 .node-creation-mode .sprotty-node {
   cursor: copy;
 }
-.marquee-mode [class^="sprotty-"],
-.edge-creation-select-target-mode [class^="sprotty-"],
+.marquee-mode [class^='sprotty-'],
+.edge-creation-select-target-mode [class^='sprotty-'],
 .edge-creation-select-target-mode .node-child-label {
   cursor: crosshair;
 }
-.edge-modification-not-allowed-mode [class^="sprotty-"],
+.edge-modification-not-allowed-mode [class^='sprotty-'],
 .edge-modification-not-allowed-mode .node-child-label {
   cursor: no-drop;
 }

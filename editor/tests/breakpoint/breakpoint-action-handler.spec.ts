@@ -38,7 +38,6 @@ describe('ShowBreakpointActionHandler', () => {
   });
 
   it('Action handler creates the correct BreakpointFeedbackAction', async () => {
-
     await actionDispatcher.dispatch(new ShowBreakpointAction(['foo']));
     let action = getAndAssertBreakpointFeedbackAction();
     expect(action.showBreakpointElementIds).to.include('foo');

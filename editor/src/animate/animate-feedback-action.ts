@@ -8,8 +8,8 @@ export class AnimateFeedbackAction {
   constructor(
     public readonly animatedIDs: string[] = [],
     public readonly deAnimatedIDs: string[] = [],
-    public readonly kind: string = AnimateFeedbackCommand.KIND) {
-  }
+    public readonly kind: string = AnimateFeedbackCommand.KIND
+  ) {}
 }
 
 @injectable()

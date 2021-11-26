@@ -1,11 +1,4 @@
-import {
-  boundsFeature,
-  createFeatureSet,
-  getOrCreateSIssueMarker,
-  ORIGIN_POINT,
-  SModelElement,
-  SModelRoot
-} from '@eclipse-glsp/client';
+import { boundsFeature, createFeatureSet, getOrCreateSIssueMarker, ORIGIN_POINT, SModelElement, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
@@ -30,5 +23,4 @@ describe('IvyDecorationPlacer', () => {
     const marker = getOrCreateSIssueMarker(element);
     expect(placer.getPosition(marker)).to.deep.equals({ x: -8, y: 20 });
   });
-
 });

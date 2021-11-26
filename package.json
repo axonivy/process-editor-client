@@ -30,7 +30,8 @@
     "lerna": "^4.0.0",
     "rimraf": "^2.6.1",
     "ts-node": "^8.3.0",
-    "typescript": "3.9.2"
+    "typescript": "3.9.2",
+    "prettier": "^2.4.1"
   },
   "resolutions": {
     "**/sprotty": "0.10.0"

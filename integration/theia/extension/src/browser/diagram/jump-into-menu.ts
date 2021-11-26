@@ -19,13 +19,15 @@ export namespace JumpIntoNavigationCommands {
 export class JumpIntoCommandContribution implements CommandContribution {
   @inject(ApplicationShell) protected readonly shell: ApplicationShell;
   registerCommands(commands: CommandRegistry): void {
-    commands.registerCommand({ id: JumpIntoNavigationCommands.JUMP_INTO, label: 'Jump into' },
+    commands.registerCommand(
+      { id: JumpIntoNavigationCommands.JUMP_INTO, label: 'Jump into' },
       new GLSPCommandHandler(this.shell, {
         actions: context => [new JumpAction(context.selectedElements[0].id)],
         isEnabled: context => context.selectedElements[0]?.hasFeature(jumpFeature)
       })
     );
-    commands.registerCommand({ id: JumpIntoNavigationCommands.JUMP_OUT, label: 'Jump out' },
+    commands.registerCommand(
+      { id: JumpIntoNavigationCommands.JUMP_OUT, label: 'Jump out' },
       new GLSPCommandHandler(this.shell, {
         actions: context => [new JumpAction('')],
         isEnabled: context => context.modelRoot.id.includes('-')

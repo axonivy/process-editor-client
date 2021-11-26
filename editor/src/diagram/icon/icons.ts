@@ -5,7 +5,10 @@ export enum IconStyle {
   NO
 }
 
-export interface NodeIcon { res: string; style: IconStyle }
+export interface NodeIcon {
+  res: string;
+  style: IconStyle;
+}
 export const NoIcon = { res: '', style: IconStyle.NO };
 
 const StandardIcons: { [icon: string]: NodeIcon } = {

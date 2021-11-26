@@ -4,32 +4,43 @@
 // - Linux: $HOME/.config/Code/User/settings.json
 // - Mac: $HOME/Library/Application Support/Code/User/settings.json
 {
-  "typescriptHero.imports.organizeOnSave": true,
-  "typescriptHero.imports.disableImportsSorting": false,
-  "typescriptHero.imports.stringQuoteStyle": "'",
-  "typescriptHero.imports.insertSemicolons": true,
-  "typescriptHero.imports.multiLineTrailingComma": false,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "eslint.validate": ["javascript", "typescript"],
+  "prettier.prettierPath": "node_modules/prettier",
   "search.exclude": {
     "**/node_modules": true,
     "**/lib": true
   },
-  "editor.insertSpaces": true,
-  "[typescript]": {
-    "editor.tabSize": 2
-  },
-  "[json]": {
-    "editor.tabSize": 2
-  },
   "task.autoDetect": "off",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.validate": [
-    "javascript",
-    "typescript"
-  ],
+  "editor.insertSpaces": true,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "mochaExplorer.configFile": "configs/.mocharc.json",
   "mochaExplorer.files": "editor/tests/**/*.spec.?(ts|tsx)",
   "mochaExplorer.env": {

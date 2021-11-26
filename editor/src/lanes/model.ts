@@ -12,8 +12,7 @@ import {
 
 export const laneResizeFeature = Symbol('laneResizeFeature');
 
-export interface LaneResizable extends BoundsAware, Selectable {
-}
+export interface LaneResizable extends BoundsAware, Selectable {}
 
 export function isLaneResizable(element: SModelElement): element is SParentElement & LaneResizable {
   return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(laneResizeFeature);
@@ -21,15 +20,17 @@ export function isLaneResizable(element: SModelElement): element is SParentEleme
 
 export enum LaneResizeHandleLocation {
   Top = 'top',
-  Bottom = 'bottom',
+  Bottom = 'bottom'
 }
 
 export class SLaneResizeHandle extends SChildElement implements Hoverable {
   static readonly TYPE = 'lane-resize-handle';
 
-  constructor(public readonly location?: LaneResizeHandleLocation,
+  constructor(
+    public readonly location?: LaneResizeHandleLocation,
     public readonly type: string = SLaneResizeHandle.TYPE,
-    public readonly hoverFeedback: boolean = false) {
+    public readonly hoverFeedback: boolean = false
+  ) {
     super();
   }
 

@@ -4,10 +4,7 @@ import { ContainerModule } from 'inversify';
 import { IVY_TYPES } from '../quick-action/quick-action';
 import { CreateLaneQuickActionProvider } from './action';
 import { ChangeLaneBoundsTool } from './change-lane-bounds-tool';
-import {
-  HideChangeLaneBoundsToolFeedbackCommand,
-  ShowChangeLaneBoundsToolFeedbackCommand
-} from './change-lane-bounds-tool-feedback';
+import { HideChangeLaneBoundsToolFeedbackCommand, ShowChangeLaneBoundsToolFeedbackCommand } from './change-lane-bounds-tool-feedback';
 import { SLaneResizeHandle } from './model';
 import { SLaneResizeHandleView } from './view';
 

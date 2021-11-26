@@ -39,8 +39,7 @@ import { setupGlobal } from '../test-helper';
 
 function createContainer(): Container {
   const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule,
-    ivyQuickActionModule, ivyJumpModule, ivyLaneModule);
+  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyQuickActionModule, ivyJumpModule, ivyLaneModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
@@ -69,23 +68,15 @@ function createEdge(id: string, type: string, sourceId: string, targetId: string
 
 function createRoot(graphFactory: SModelFactory): SGraph {
   const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph;
-  root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 },
-    ActivityNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('sub', ActivityTypes.EMBEDDED_PROCESS, { x: 300, y: 100, width: 200, height: 50 },
-    ActivityNode.DEFAULT_FEATURES, { enable: [jumpFeature] }));
-  root.add(createDefaultNode('alternative', GatewayTypes.ALTERNATIVE, { x: 100, y: 200, width: 32, height: 32 },
-    GatewayNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 },
-    EventNode.DEFAULT_FEATURES));
-  root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 },
-    EventNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 },
-    ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
+  root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('sub', ActivityTypes.EMBEDDED_PROCESS, { x: 300, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { enable: [jumpFeature] }));
+  root.add(createDefaultNode('alternative', GatewayTypes.ALTERNATIVE, { x: 100, y: 200, width: 32, height: 32 }, GatewayNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
+  root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
   root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end'));
-  root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 },
-    LaneNode.DEFAULT_FEATURES));
-  root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 },
-    LaneNode.DEFAULT_FEATURES));
+  root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
+  root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   return root;
 }
 
@@ -221,6 +212,4 @@ function assertQuickAction(child: Element, title: string, icon: string, position
   expect(quickAction.title).to.be.equals(title);
   expect(quickAction.style.top).to.be.equals(`${position.y}px`);
   expect(quickAction.style.left).to.be.equals(`${position.x}px`);
-
 }
-

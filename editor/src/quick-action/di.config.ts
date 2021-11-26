@@ -3,17 +3,8 @@ import '../../css/quick-action.css';
 import { configureActionHandler, GLSP_TYPES, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
-import {
-  ConnectQuickActionProvider,
-  QuickActionEdgeCreationTool,
-  QuickActionTriggerEdgeCreationAction
-} from './edge/edge-creation-tool';
-import {
-  AutoAlignQuickActionProvider,
-  DeleteQuickActionProvider,
-  InscribeQuickActionProvider,
-  IVY_TYPES
-} from './quick-action';
+import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
+import { AutoAlignQuickActionProvider, DeleteQuickActionProvider, InscribeQuickActionProvider, IVY_TYPES } from './quick-action';
 import { QuickActionUI } from './quick-action-ui';
 
 const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
