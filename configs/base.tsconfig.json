@@ -16,18 +16,9 @@
     "moduleResolution": "node",
     "target": "es2017",
     "jsx": "react",
-    "lib": [
-      "es6",
-      "dom",
-      "es2019"
-    ],
+    "lib": ["es6", "dom", "es2019"],
     "sourceMap": true,
-    "types": [
-      "node",
-      "reflect-metadata"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "types": ["node", "reflect-metadata"],
+    "typeRoots": ["node_modules/@types"]
   }
 }

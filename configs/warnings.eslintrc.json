@@ -1,10 +1,6 @@
 {
   "rules": {
-    // https://eslint.org/docs/rules/
-    "brace-style": [
-      "warn",
-      "1tbs"
-    ],
+    "brace-style": ["warn", "1tbs"],
     "comma-dangle": "warn",
     "@typescript-eslint/indent": [
       "warn",
@@ -16,7 +12,8 @@
     "no-invalid-this": "warn",
     "no-new-wrappers": "warn",
     "no-return-await": "warn",
-    "no-shadow": [
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": [
       "warn",
       {
         "hoist": "all"
@@ -36,17 +33,10 @@
       "warn",
       "always",
       {
-        "exceptions": [
-          "*",
-          "+",
-          "-",
-          "/",
-          "!"
-        ]
+        "exceptions": ["*", "+", "-", "/", "!"]
       }
     ],
     "use-isnan": "warn",
-    // @typescript-eslint/eslint-plugin
     "@typescript-eslint/explicit-function-return-type": [
       "warn",
       {

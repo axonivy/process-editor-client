@@ -1,15 +1,9 @@
 {
   "rules": {
-    // https://eslint.org/docs/rules/
-    // Possible Errors
     "no-inner-declarations": "off",
-    // Best Practices
     "curly": "error",
     "eol-last": "error",
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    "eqeqeq": ["error", "smart"],
     "guard-for-in": "error",
     "no-caller": "error",
     "no-eval": "error",
@@ -19,13 +13,7 @@
         "builtinGlobals": false
       }
     ],
-    "no-restricted-imports": [
-      "error",
-      "..",
-      "../index",
-      "../..",
-      "../../index"
-    ],
+    "no-restricted-imports": ["error", "..", "../index", "../..", "../../index"],
     "no-sequences": "error",
     "no-throw-literal": "error",
     "no-unused-expressions": [
@@ -35,10 +23,8 @@
         "allowTernary": true
       }
     ],
-    // Variables
-    "no-unused-vars": "off", // typescript-eslint rule activated instead
-    "no-use-before-define": "off", // typescript-eslint rule activated instead
-    // Stylistic Issues
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
     "max-len": [
       "error",
       {
@@ -52,7 +38,7 @@
       }
     ],
     "no-underscore-dangle": "off",
-    "quotes": "off", // typescript-eslint rule activated instead
+    "quotes": "off",
     "space-before-function-paren": [
       "error",
       {
@@ -61,19 +47,9 @@
         "asyncArrow": "always"
       }
     ],
-    "one-var": [
-      "error",
-      "never"
-    ],
-    // ECMAScript6
-    "arrow-body-style": [
-      "error",
-      "as-needed"
-    ],
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
+    "one-var": ["error", "never"],
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"],
     "no-var": "error",
     "prefer-const": [
       "error",
@@ -81,8 +57,6 @@
         "destructuring": "all"
       }
     ],
-    // @typescript-eslint/eslint-plugin
-    "@typescript-eslint/class-name-casing": "error",
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-misused-new": "error",
@@ -101,22 +75,15 @@
         "avoidEscape": true
       }
     ],
-    "@typescript-eslint/semi": [
-      "error",
-      "always"
-    ],
-    // eslint-plugin-import
+    "@typescript-eslint/semi": ["error", "always"],
     "import/no-unresolved": "off",
-    "import/export": "off", // we have multiple exports due to namespaces, enums and classes that share the same name
+    "import/export": "off",
     "import/no-deprecated": "error",
-    // eslint-plugin-no-null
     "no-null/no-null": "error"
   },
   "overrides": [
     {
-      "files": [
-        "*.spec.?(ts|tsx)"
-      ],
+      "files": ["*.spec.?(ts|tsx)"],
       "rules": {
         "no-unused-expressions": "off"
       }

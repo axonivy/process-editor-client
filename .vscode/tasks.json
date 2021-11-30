@@ -15,10 +15,7 @@
         "reveal": "always",
         "panel": "dedicated"
       },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ],
+      "problemMatcher": ["$tsc", "$eslint-stylish"],
       "runOptions": {
         "runOn": "folderOpen"
       }
@@ -33,10 +30,7 @@
         "panel": "dedicated"
       },
       "isBackground": true,
-      "problemMatcher": [
-        "$tsc-watch",
-        "$ts-webpack-watch"
-      ]
+      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
       "label": "Build VSCode Integration",
@@ -47,10 +41,7 @@
         "reveal": "always",
         "panel": "dedicated"
       },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ]
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
     },
     {
       "label": "Watch VSCode Integration",
@@ -62,10 +53,7 @@
         "panel": "dedicated"
       },
       "isBackground": true,
-      "problemMatcher": [
-        "$tsc-watch",
-        "$ts-webpack-watch"
-      ]
+      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
       "label": "Build Eclipse Integration",
@@ -74,12 +62,9 @@
       "command": "yarn --cwd integration/eclipse ",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ]
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
     },
     {
       "label": "Build Theia Integration",
@@ -88,12 +73,9 @@
       "command": "yarn --cwd integration/theia ",
       "presentation": {
         "reveal": "always",
-        "panel": "new"
+        "panel": "dedicated"
       },
-      "problemMatcher": [
-        "$tsc",
-        "$eslint-stylish"
-      ]
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
     },
     {
       "label": "Watch Theia Integration",
@@ -105,10 +87,7 @@
         "panel": "dedicated"
       },
       "isBackground": true,
-      "problemMatcher": [
-        "$tsc-watch",
-        "$ts-webpack-watch"
-      ]
+      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
       "label": "Link Integrations",
@@ -121,7 +100,7 @@
       "label": "Terminate All Tasks",
       "command": "echo ${input:terminate}",
       "type": "shell",
-      "problemMatcher": [],
+      "problemMatcher": []
     }
   ],
   "inputs": [
