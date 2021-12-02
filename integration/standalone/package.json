@@ -10,7 +10,8 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@ivyteam/process-editor": "^0.9.3-s26"
+    "@ivyteam/process-editor": "^0.9.3-s26",
+    "@eclipse-glsp/ide": "next"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
