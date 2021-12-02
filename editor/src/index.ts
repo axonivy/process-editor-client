@@ -1,7 +1,8 @@
 import breakpointModule from './breakpoint/di.config';
 import createIvyDiagramContainer from './di.config';
+import ivyKeyListenerModule from './key-listener/di.config';
 
-export { createIvyDiagramContainer, breakpointModule };
+export { createIvyDiagramContainer, breakpointModule, ivyKeyListenerModule };
 
 /* Features */
 export * from './jump/action';

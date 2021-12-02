@@ -49,10 +49,27 @@
     autocompleter "5.1.0"
     sprotty next
 
+"@eclipse-glsp/ide@next":
+  version "0.10.0-next.6c24d6a0"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/ide/-/ide-0.10.0-next.6c24d6a0.tgz#7050da3e33b4b1ceeeaebc1c7d4ef1a1c0d921e6"
+  integrity sha512-x8Ffz3obdMHUUa7wOfJrjUBVdZqMZlfBEV32Tci19OLmkFg7O4mkRbT09evmsF+cdKhSTgH0aEotXFb+B4J5nw==
+  dependencies:
+    "@eclipse-glsp/client" next
+    "@eclipse-glsp/protocol" next
+
 "@eclipse-glsp/protocol@0.9.0-next.65bdcf24":
   version "0.9.0-next.65bdcf24"
   resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/protocol/-/protocol-0.9.0-next.65bdcf24.tgz#636d2878f64ea6c71f7651606051f60a4f92a3f3"
   integrity sha512-Dg3Uz0KCy9MfXUaAqFCaaYff+ouTnIVWSXdKpeloEQ56RBQEsdX4sWVMq3jqW5H3ZQnmXYNv0qXqlP0DijEIew==
+  dependencies:
+    inversify "^5.0.1"
+    uuid "7.0.3"
+    vscode-ws-jsonrpc "0.2.0"
+
+"@eclipse-glsp/protocol@next":
+  version "0.9.0-next.e99d24cc"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/protocol/-/protocol-0.9.0-next.e99d24cc.tgz#7b651e179695729b6b355d0633075413818db452"
+  integrity sha512-Rp63pQNDh/LpB7vjHgef7i8rJz9Meio+p9mpgIHipA8uJoW7fkCLa55fApk7Gf6GMWTB93Z28gPJc4wEJsD6bQ==
   dependencies:
     inversify "^5.0.1"
     uuid "7.0.3"
