@@ -5,7 +5,8 @@ import { createIvyDiagramContainer, ivyKeyListenerModule } from '@ivyteam/proces
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 
-import ivyOpenModule from './open/di.config';
+import ivyOpenInscriptionModule from './open-inscription/di.config';
+import ivyOpenDecoratorBrowserModule from './open-decorator-browser/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -16,7 +17,8 @@ export default function createContainer(widgetId: string): Container {
   container.load(keepAliveModule);
   container.load(eclipseCopyPasteModule);
   container.load(eclipseDeleteModule);
-  container.load(ivyOpenModule);
+  container.load(ivyOpenInscriptionModule);
+  container.load(ivyOpenDecoratorBrowserModule);
 
   const agent = userAgent();
   // saidly there is now nice name reported

@@ -45,6 +45,7 @@ import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../quick-action/model';
+import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, LabelType, LaneTypes } from './view-types';
 
 export class IvyGLSPGraph extends GLSPGraph {
@@ -73,7 +74,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
   }
 }
 
-export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, SArgumentable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, WithCustomIcon, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -113,7 +114,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 }
 
-export class EventNode extends CircularNode implements Animateable, SArgumentable, WithEditableLabel {
+export class EventNode extends CircularNode implements Animateable, WithCustomIcon, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -159,7 +160,7 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements Animateable, SArgumentable, WithEditableLabel {
+export class GatewayNode extends DiamondNode implements Animateable, WithCustomIcon, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
