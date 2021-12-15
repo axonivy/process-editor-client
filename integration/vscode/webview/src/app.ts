@@ -1,3 +1,4 @@
+import '../css/colors.css';
 import '@eclipse-glsp/vscode-integration-webview/css/glsp-vscode.css';
 
 import { GLSPStarter } from '@eclipse-glsp/vscode-integration-webview';
