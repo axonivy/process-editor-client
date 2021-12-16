@@ -120,41 +120,37 @@ describe('QuickActionUi', () => {
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 3, { x: 100, y: 100 });
+    assertQuickActionUi(uiDiv, 2, { x: 100, y: 100 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Edit', 'fa-pen', { x: 2, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-long-arrow-alt-right', { x: 210, y: -30 });
+    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
   });
 
   it('ui is rendered for activity embedded element', () => {
     quickActionUi.show(root, 'sub');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 4, { x: 300, y: 100 });
+    assertQuickActionUi(uiDiv, 3, { x: 300, y: 100 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Edit', 'fa-pen', { x: 2, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-long-arrow-alt-right', { x: 210, y: -30 });
-    assertQuickAction(uiDiv.children[3], 'Jump', 'fa-level-down-alt', { x: -30, y: 60 });
+    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Jump', 'fa-level-down-alt', { x: -30, y: 60 });
   });
 
   it('ui is rendered for event element', () => {
     quickActionUi.show(root, 'start');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 3, { x: 200, y: 200 });
+    assertQuickActionUi(uiDiv, 2, { x: 200, y: 200 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Edit', 'fa-pen', { x: 2, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-long-arrow-alt-right', { x: 40, y: -30 });
+    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-long-arrow-alt-right', { x: 40, y: 0 });
 
     quickActionUi.show(root, 'end');
-    assertQuickActionUi(uiDiv, 2, { x: 300, y: 200 });
+    assertQuickActionUi(uiDiv, 1, { x: 300, y: 200 });
   });
 
   it('ui is rendered for gateway element', () => {
     quickActionUi.show(root, 'alternative');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 3, { x: 100, y: 200 });
+    assertQuickActionUi(uiDiv, 2, { x: 100, y: 200 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Edit', 'fa-pen', { x: 2, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-long-arrow-alt-right', { x: 42, y: -30 });
+    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-long-arrow-alt-right', { x: 42, y: 0 });
   });
 
   it('ui is rendered for pool', () => {

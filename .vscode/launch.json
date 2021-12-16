@@ -9,9 +9,7 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}/integration/vscode/extension"
-      ],
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}/integration/vscode/extension"],
       "outFiles": [
         "${workspaceFolder}/integration/vscode/extension/lib/*.js",
         "${workspaceFolder}/packages/vscode-integration/lib/**/*.js"
@@ -52,7 +50,9 @@
       "presentation": {
         "group": "4. Standalone",
         "order": 1
-      }
+      },
+      "preLaunchTask": "Watch Eclipse Integration",
+      "postDebugTask": "Terminate All Tasks"
     },
     {
       "type": "node",
@@ -159,11 +159,7 @@
       "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
-      "args": [
-        "--config",
-        "${workspaceFolder}/configs/.mocharc.json",
-        "${file}"
-      ],
+      "args": ["--config", "${workspaceFolder}/configs/.mocharc.json", "${file}"],
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.json"
       },
@@ -202,10 +198,7 @@
   "compounds": [
     {
       "name": "Theia Backend + Chrome Frontend",
-      "configurations": [
-        "Start Theia Backend",
-        "Launch Theia (Chrome) Frontend"
-      ],
+      "configurations": ["Start Theia Backend", "Launch Theia (Chrome) Frontend"],
       "presentation": {
         "group": "2. Theia",
         "order": 1
@@ -213,10 +206,7 @@
     },
     {
       "name": "Theia Backend + Firefox Frontend",
-      "configurations": [
-        "Start Theia Backend",
-        "Launch Theia (Firefox) Frontend"
-      ],
+      "configurations": ["Start Theia Backend", "Launch Theia (Firefox) Frontend"],
       "presentation": {
         "group": "2. Theia",
         "order": 2

@@ -147,7 +147,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     } else if (location === QuickActionLocation.Left) {
       return { x: -30, y: parentDimension.height / 2 - 11 };
     } else if (location === QuickActionLocation.Right) {
-      return { x: parentDimension.width + 10, y: -30 + position * 32 };
+      return { x: parentDimension.width + 10, y: position * 32 };
     } else if (location === QuickActionLocation.BottomLeft) {
       return { x: -30 + position * 32, y: parentDimension.height + 10 };
     }

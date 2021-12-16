@@ -1,4 +1,4 @@
-import { Action, DeleteElementOperation, isDeletable, isOpenable, OpenAction, SModelElement } from '@eclipse-glsp/client';
+import { Action, DeleteElementOperation, isDeletable, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 import { AutoAlignOperation } from '../tool-palette/operation';
@@ -54,16 +54,6 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 }
 
 @injectable()
-export class InscribeQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (isOpenable(element)) {
-      return new InscribeQuickAction(element.id);
-    }
-    return undefined;
-  }
-}
-
-@injectable()
 export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
@@ -90,17 +80,6 @@ class DeleteQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
     public readonly action = new DeleteElementOperation(elementIds)
-  ) {}
-}
-
-class InscribeQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly icon = 'fa-pen',
-    public readonly title = 'Edit',
-    public readonly location = QuickActionLocation.TopLeft,
-    public readonly sorting = 'B',
-    public readonly action = new OpenAction(elementId)
   ) {}
 }
 
