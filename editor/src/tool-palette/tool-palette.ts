@@ -8,7 +8,6 @@ import {
   isSetContextActionsAction,
   PaletteItem,
   RequestContextActions,
-  RequestMarkersAction,
   SetContextActions
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
@@ -197,14 +196,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
-
-    const validateActionButton = this.createDynamicToolButton(
-      'fa-check-square',
-      'Validate model',
-      () => new RequestMarkersAction([this.modelRootId]),
-      true
-    );
-    headerTools.appendChild(validateActionButton);
 
     const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen', () => new OriginViewportAction(), true);
     headerTools.appendChild(originViewportButton);
