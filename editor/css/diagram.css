@@ -151,11 +151,24 @@ g[class^='end'] .sprotty-node {
   background: var(--glsp-editor-background);
   color: var(--glsp-editor-foreground);
   border-radius: 5px;
-  border: 1px solid var(--glsp-editor-foreground);
+  border: 1px solid gray;
   font-size: 13px;
 }
 .sprotty-popup-title {
   font-weight: 700;
+}
+.sprotty-popup-title ul {
+  padding: 0;
+}
+.sprotty-popup-title li {
+  list-style: none;
+  font-weight: normal;
+  line-height: 16px;
+  padding: 3px;
+}
+.sprotty-popup-title .codicon {
+  float: left;
+  margin-right: 3px;
 }
 
 /* Comments */

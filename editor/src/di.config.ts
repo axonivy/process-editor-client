@@ -7,7 +7,8 @@ import {
   glspViewportModule,
   openModule,
   overrideViewerOptions,
-  zorderModule
+  zorderModule,
+  glspHoverModule
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -24,6 +25,7 @@ import ivyToolPaletteModule from './tool-palette/di.config';
 import ivyViewportModule from './viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
+import ivyHoverModule from './hover/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -40,7 +42,8 @@ export default function createContainer(widgetId: string): Container {
     ivyJumpModule,
     ivyZorderModule,
     ivyLaneModule,
-    animateModule
+    animateModule,
+    ivyHoverModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
@@ -58,6 +61,7 @@ function isNotOverridenModule(module: ContainerModule): boolean {
     module !== glspDecorationModule &&
     module !== glspViewportModule &&
     module !== zorderModule &&
-    module !== openModule
+    module !== openModule &&
+    module !== glspHoverModule
   );
 }

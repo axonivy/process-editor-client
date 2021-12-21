@@ -1,5 +1,3 @@
-import '../css/diagram.css';
-
 import { GLSPDiagramServer } from '@eclipse-glsp/client';
 import { eclipseCopyPasteModule } from '@eclipse-glsp/ide';
 import { createIvyDiagramContainer, ivyKeyListenerModule } from '@ivyteam/process-editor';

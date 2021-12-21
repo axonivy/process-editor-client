@@ -15,4 +15,9 @@ body {
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
   --glsp-quick-action-background: var(--glsp-tool-palette-background);
   --glsp-quick-action-hover: var(--glsp-tool-palette-selection);
+
+  --glsp-issue-background: var(--vscode-editor-background);
+  --glsp-error-foreground: var(--vscode-editorError-foreground);
+  --glsp-warning-foreground: var(--vscode-editorWarning-foreground);
+  --glsp-info-foreground: var(--vscode-editorInfo-foreground);
 }

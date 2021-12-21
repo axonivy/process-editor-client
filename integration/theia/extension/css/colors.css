@@ -15,4 +15,9 @@ body {
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
   --glsp-quick-action-background: var(--glsp-tool-palette-background);
   --glsp-quick-action-hover: var(--glsp-tool-palette-selection);
+
+  --glsp-issue-background: var(--theia-editor-background);
+  --glsp-error-foreground: var(--theia-editorError-foreground);
+  --glsp-warning-foreground: var(--theia-editorWarning-foreground);
+  --glsp-info-foreground: var(--theia-editorInfo-foreground);
 }
