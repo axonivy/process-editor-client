@@ -54,7 +54,9 @@ export class IvyHoverMouseListener extends HoverMouseListener {
 
   protected createIssueMessage(marker: GIssueMarker): string {
     return (
-      '<ul>' + marker.issues.map(i => '<li><i class="codicon codicon-' + i.severity + '"></i>' + i.message + '</li>').join('') + '</ul>'
+      '<ul>' +
+      marker.issues.map(i => '<li><i class="codicon codicon-' + i.severity + '"></i><span>' + i.message + '</span></li>').join('') +
+      '</ul>'
     );
   }
 

@@ -165,10 +165,15 @@ g[class^='end'] .sprotty-node {
   font-weight: normal;
   line-height: 16px;
   padding: 3px;
+  display: inline-flex;
 }
-.sprotty-popup-title .codicon {
+.sprotty-popup-title li .codicon {
   float: left;
   margin-right: 3px;
+}
+.sprotty-popup-title li span {
+  position: relative;
+  top: 1px;
 }
 
 /* Comments */
