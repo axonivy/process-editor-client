@@ -1,8 +1,9 @@
 import { SChildElement } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
+import { addCssClass, removeCssClass } from '../utils/element-css-classes';
 
-import { Animateable, isAnimateable } from './model';
+import { isAnimateable } from './model';
 
 export class AnimateFeedbackAction {
   constructor(
@@ -15,9 +16,10 @@ export class AnimateFeedbackAction {
 @injectable()
 export class AnimateFeedbackCommand extends Command {
   static readonly KIND = 'elementAnimateFeedback';
+  static readonly CSS_CLASS = 'animate';
 
-  protected animated: (SChildElement & Animateable)[] = [];
-  protected deanimated: (SChildElement & Animateable)[] = [];
+  protected animated: SChildElement[] = [];
+  protected deanimated: SChildElement[] = [];
 
   constructor(@inject(TYPES.Action) protected readonly action: AnimateFeedbackAction) {
     super();
@@ -42,20 +44,20 @@ export class AnimateFeedbackCommand extends Command {
 
   undo(context: CommandExecutionContext): SModelRoot {
     for (const element of this.animated) {
-      element.animated = false;
+      removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     for (const element of this.deanimated) {
-      element.animated = true;
+      addCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     return context.root;
   }
 
   redo(context: CommandExecutionContext): SModelRoot {
     for (const element of this.deanimated) {
-      element.animated = false;
+      removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     for (const element of this.animated) {
-      element.animated = true;
+      addCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     return context.root;
   }

@@ -19,7 +19,6 @@ export class EventNodeView extends CircularNodeView {
       <g>
         <circle
           class-sprotty-node={true}
-          class-animate={node.animated}
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           r={radius}

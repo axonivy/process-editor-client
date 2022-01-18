@@ -1,13 +1,6 @@
-import {
-  Action,
-  CenterAction,
-  GLSP_TYPES,
-  IActionDispatcher,
-  IActionHandler,
-  IFeedbackActionDispatcher,
-  TYPES
-} from '@eclipse-glsp/client';
+import { Action, GLSP_TYPES, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
+import { MoveIntoViewportAction } from '../viewport/move-into-viewport';
 
 import { AnimateFeedbackAction } from './animate-feedback-action';
 
@@ -31,7 +24,7 @@ export class AnimateActionHandler implements IActionHandler {
         this.animateElementIDs.add(id);
         const animateFeedback = new AnimateFeedbackAction([...this.animateElementIDs]);
         this.feedbackDispatcher.registerFeedback(this, [animateFeedback]);
-        this.actionDispatcher.dispatch(new CenterAction([id]));
+        this.actionDispatcher.dispatch(new MoveIntoViewportAction([id]));
         setTimeout(() => {
           this.animateElementIDs.delete(id);
           this.feedbackDispatcher.registerFeedback(this, [new AnimateFeedbackAction([...this.animateElementIDs], [id])]);

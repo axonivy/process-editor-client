@@ -21,13 +21,7 @@ export class GatewayNodeView extends DiamondNodeView {
     const radius = this.getRadius(node);
     return (
       <g>
-        <polygon
-          class-sprotty-node={true}
-          class-animate={node.animated}
-          class-mouseover={node.hoverFeedback}
-          class-selected={node.selected}
-          points={points}
-        />
+        <polygon class-sprotty-node={true} class-mouseover={node.hoverFeedback} class-selected={node.selected} points={points} />
         {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
         {context.renderChildren(node)}
       </g>

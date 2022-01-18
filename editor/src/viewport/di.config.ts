@@ -12,6 +12,7 @@ import {
   TYPES,
   ZoomMouseListener
 } from 'sprotty';
+import { MoveIntoViewportCommand } from './move-into-viewport';
 
 import { OriginViewportCommand } from './original-viewport';
 import { IvyScrollMouseListener } from './scroll-mouse-listener';
@@ -20,6 +21,7 @@ const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, CenterCommand);
   configureCommand({ bind, isBound }, FitToScreenCommand);
   configureCommand({ bind, isBound }, OriginViewportCommand);
+  configureCommand({ bind, isBound }, MoveIntoViewportCommand);
   configureCommand({ bind, isBound }, GetViewportCommand);
   configureCommand({ bind, isBound }, SetViewportCommand);
   bind(TYPES.KeyListener).to(CenterKeyboardListener);

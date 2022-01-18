@@ -55,10 +55,10 @@
 .failed .sprotty-node {
   fill: hsl(0 100% 50% / 50%);
 }
-.executed .sprotty-node.animate {
+.executed.animate .sprotty-node {
   animation: background-pulse 1s infinite ease-in-out;
 }
-.failed .sprotty-node.animate {
+.failed.animate .sprotty-node {
   animation: background-pulse-failed 1s infinite ease-in-out;
 }
 .sprotty-node.mouseover {

@@ -14,7 +14,7 @@ import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { Container, ContainerModule } from 'inversify';
 
-import animateModule from './animate/di.config';
+import ivyAnimateModule from './animate/di.config';
 import ivyBoundaryModule from './boundary/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
@@ -42,7 +42,7 @@ export default function createContainer(widgetId: string): Container {
     ivyJumpModule,
     ivyZorderModule,
     ivyLaneModule,
-    animateModule,
+    ivyAnimateModule,
     ivyHoverModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
