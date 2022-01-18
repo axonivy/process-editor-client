@@ -1,9 +1,5 @@
 import { expect } from 'chai';
 import { describe } from 'mocha';
-// import { Container } from 'inversify';
-// import defaultModule from 'sprotty/lib/base/di.config';
-// import viewPortModule from '../../src/viewport/di.config';
-// import { CommandActionHandlerInitializer, defaultGLSPModule, TYPES } from '@eclipse-glsp/client';
 import { moveIntoViewport } from '../../src/viewport/move-into-viewport';
 
 describe('MoveIntoViewportCommand', () => {
