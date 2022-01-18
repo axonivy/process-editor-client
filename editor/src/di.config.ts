@@ -26,6 +26,7 @@ import ivyViewportModule from './viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
 import ivyHoverModule from './hover/di.config';
+import ivyExecutionModule from './execution/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -43,7 +44,8 @@ export default function createContainer(widgetId: string): Container {
     ivyZorderModule,
     ivyLaneModule,
     ivyAnimateModule,
-    ivyHoverModule
+    ivyHoverModule,
+    ivyExecutionModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
