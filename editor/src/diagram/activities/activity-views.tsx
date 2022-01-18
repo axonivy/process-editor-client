@@ -20,7 +20,6 @@ export class ActivityNodeView extends RectangularNodeView {
         <rect
           class-sprotty-node={true}
           class-task={true}
-          class-animate={node.animated}
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           x={0}

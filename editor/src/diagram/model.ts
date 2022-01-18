@@ -40,7 +40,7 @@ import {
   withEditLabelFeature
 } from '@eclipse-glsp/client';
 
-import { Animateable, animateFeature } from '../animate/model';
+import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { laneResizeFeature } from '../lanes/model';
@@ -74,7 +74,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
   }
 }
 
-export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, Animateable, WithCustomIcon, SArgumentable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, WithCustomIcon, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -98,7 +98,6 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   duration?: number;
   taskType?: string;
   reference?: string;
-  animated = false;
   args: Args;
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -114,7 +113,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 }
 
-export class EventNode extends CircularNode implements Animateable, WithCustomIcon, SArgumentable, WithEditableLabel {
+export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -132,7 +131,6 @@ export class EventNode extends CircularNode implements Animateable, WithCustomIc
     withEditLabelFeature
   ];
 
-  animated = false;
   args: Args;
 
   get icon(): string {
@@ -160,7 +158,7 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements Animateable, WithCustomIcon, SArgumentable, WithEditableLabel {
+export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumentable, WithEditableLabel {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -178,7 +176,6 @@ export class GatewayNode extends DiamondNode implements Animateable, WithCustomI
     withEditLabelFeature
   ];
 
-  animated = false;
   args: Args;
   size = {
     width: 32,

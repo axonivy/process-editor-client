@@ -17,7 +17,7 @@ import { Container, injectable } from 'inversify';
 import { describe, it } from 'mocha';
 
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from '../../src/animate/animate-feedback-action';
-import { Animateable, animateFeature } from '../../src/animate/model';
+import { animateFeature } from '../../src/animate/model';
 
 let root: SModelRoot;
 
@@ -29,8 +29,7 @@ class AnimateFeedbackCommandMock extends AnimateFeedbackCommand {
   }
 }
 
-class AnimationNode extends SChildElement implements Animateable {
-  animated = false;
+class AnimationNode extends SChildElement {
   features = createFeatureSet([animateFeature]);
 }
 
@@ -58,9 +57,9 @@ describe('AnimateFeedbackAction', () => {
     root.add(node);
 
     await actionDispatcher.dispatch(new AnimateFeedbackAction(['foo']));
-    expect(node.animated).to.be.true;
+    expect(node.cssClasses).to.include('animate');
 
     await actionDispatcher.dispatch(new AnimateFeedbackAction([], ['foo']));
-    expect(node.animated).to.be.false;
+    expect(node.cssClasses).to.not.include('animate');
   });
 });
