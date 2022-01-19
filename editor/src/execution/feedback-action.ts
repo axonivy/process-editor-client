@@ -1,7 +1,7 @@
 import { SChildElement } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
-import { addCssClass, removeCssClass } from '../utils/element-css-classes';
+import { addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 import { ElementExecution } from './action';
 
 import { isExecutable } from './model';
@@ -50,26 +50,14 @@ export class ExecutedFeedbackCommand extends Command {
   }
 
   undo(context: CommandExecutionContext): SModelRoot {
-    this.removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
-    this.removeCssClassOfElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
+    removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
+    removeCssClassOfElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
     return context.root;
   }
 
   redo(context: CommandExecutionContext): SModelRoot {
-    this.addCssClassToElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
-    this.addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
+    addCssClassToElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
+    addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
     return context.root;
-  }
-
-  addCssClassToElements(elements: SChildElement[], cssClass: string): void {
-    for (const element of elements) {
-      addCssClass(element, cssClass);
-    }
-  }
-
-  removeCssClassOfElements(elements: SChildElement[], cssClass: string): void {
-    for (const element of elements) {
-      removeCssClass(element, cssClass);
-    }
   }
 }

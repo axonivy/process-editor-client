@@ -51,7 +51,7 @@ describe('AnimateFeedbackAction', () => {
     root = new SModelRoot();
   });
 
-  it('Animate attribute is set on element', async () => {
+  it('Animate css class is set on element', async () => {
     const node = new AnimationNode();
     node.id = 'foo';
     root.add(node);
