@@ -39,6 +39,7 @@ import {
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
+import { Executable, executionFeature } from '../execution/model';
 
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
@@ -74,7 +75,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
   }
 }
 
-export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, WithCustomIcon, SArgumentable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, WithCustomIcon, SArgumentable, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -91,7 +92,8 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     withEditLabelFeature,
     openFeature,
     breakpointFeature,
-    errorBoundaryFeature
+    errorBoundaryFeature,
+    executionFeature
   ];
 
   name = '';
@@ -113,7 +115,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 }
 
-export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel {
+export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -128,7 +130,8 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
     openFeature,
     breakpointFeature,
     quickActionFeature,
-    withEditLabelFeature
+    withEditLabelFeature,
+    executionFeature
   ];
 
   args: Args;
@@ -158,7 +161,7 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumentable, WithEditableLabel {
+export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -173,7 +176,8 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     openFeature,
     breakpointFeature,
     quickActionFeature,
-    withEditLabelFeature
+    withEditLabelFeature,
+    executionFeature
   ];
 
   args: Args;
@@ -195,7 +199,7 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
   }
 }
 
-export class Edge extends SEdge implements WithEditableLabel {
+export class Edge extends SEdge implements WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     editFeature,
     deletableFeature,
@@ -204,7 +208,8 @@ export class Edge extends SEdge implements WithEditableLabel {
     hoverFeedbackFeature,
     openFeature,
     popupFeature,
-    withEditLabelFeature
+    withEditLabelFeature,
+    executionFeature
   ];
 
   get bounds(): Bounds {
