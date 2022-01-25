@@ -70,6 +70,7 @@ export interface QuickAction {
   location: QuickActionLocation;
   sorting: string;
   action: Action;
+  readonlySupport?: boolean;
 }
 
 class DeleteQuickAction implements QuickAction {

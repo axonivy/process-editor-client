@@ -27,6 +27,7 @@ class JumpQuickAction implements QuickAction {
     public readonly title = 'Jump',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new JumpAction(elementId)
+    public readonly action = new JumpAction(elementId),
+    public readonly readonlySupport = true
   ) {}
 }

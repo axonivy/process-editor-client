@@ -6,6 +6,11 @@
   --glsp-foreground: #616161;
 }
 
+html,
+body {
+  overflow: hidden;
+}
+
 /* Graph */
 .sprotty-graph {
   background: var(--glsp-editor-background);

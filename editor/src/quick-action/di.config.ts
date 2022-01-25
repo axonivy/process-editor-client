@@ -1,7 +1,7 @@
 import '../../css/quick-action.css';
 
 import { configureActionHandler, GLSP_TYPES, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 import { AutoAlignQuickActionProvider, DeleteQuickActionProvider, IVY_TYPES } from './quick-action';
@@ -11,13 +11,20 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(QuickActionUI).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(QuickActionUI);
 
-  bind(QuickActionEdgeCreationTool).toSelf().inSingletonScope();
-  bind(GLSP_TYPES.ITool).toService(QuickActionEdgeCreationTool);
-  configureActionHandler({ bind, isBound }, QuickActionTriggerEdgeCreationAction.KIND, QuickActionEdgeCreationTool);
-
-  bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
-  bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
-  bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
+  configureQuickActionEdgeTool({ bind, isBound });
+  configureQuickActionProviders({ bind });
 });
+
+export function configureQuickActionEdgeTool(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
+  context.bind(QuickActionEdgeCreationTool).toSelf().inSingletonScope();
+  context.bind(GLSP_TYPES.ITool).toService(QuickActionEdgeCreationTool);
+  configureActionHandler(context, QuickActionTriggerEdgeCreationAction.KIND, QuickActionEdgeCreationTool);
+}
+
+export function configureQuickActionProviders(context: { bind: interfaces.Bind }): void {
+  context.bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
+  context.bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
+  context.bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
+}
 
 export default ivyQuickActionModule;

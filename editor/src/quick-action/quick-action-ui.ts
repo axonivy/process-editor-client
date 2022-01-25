@@ -4,6 +4,7 @@ import {
   Bounds,
   BoundsAware,
   combine,
+  EditorContextService,
   getAbsoluteBounds,
   GLSP_TYPES,
   IActionDispatcherProvider,
@@ -33,6 +34,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
   @inject(GLSP_TYPES.MouseTool) protected mouseTool: MouseTool;
+  @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   public id(): string {
@@ -116,19 +118,20 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[], inline: boolean): void {
     Object.values(QuickActionLocation).forEach(loc => {
       quickActions
-        .filter(quick => quick.location === loc)
+        .filter(quickAction => !this.isReadonly() || quickAction.readonlySupport)
+        .filter(quickAction => quickAction.location === loc)
         .sort((a, b) => a.sorting.localeCompare(b.sorting))
-        .forEach((quick, position) => {
-          const buttonPos = this.getPosition(absoluteBounds, quick.location, position, inline);
-          containerElement.appendChild(this.createQuickActionBtn(quick.icon, quick.title, buttonPos, quick.action));
+        .forEach((quickAction, position) => {
+          const buttonPos = this.getPosition(absoluteBounds, quickAction.location, position, inline);
+          containerElement.appendChild(this.createQuickActionBtn(quickAction, buttonPos));
         });
     });
   }
 
-  private createQuickActionBtn(icon: string, title: string, position: Point, action: Action): HTMLElement {
-    const button = createIcon(['fa', icon, 'fa-xs', 'fa-fw']);
-    button.title = title;
-    button.onclick = () => this.actionDispatcherProvider().then(dispatcher => dispatcher.dispatch(action));
+  private createQuickActionBtn(quickAction: QuickAction, position: Point): HTMLElement {
+    const button = createIcon(['fa', quickAction.icon, 'fa-xs', 'fa-fw']);
+    button.title = quickAction.title;
+    button.onclick = () => this.actionDispatcherProvider().then(dispatcher => dispatcher.dispatch(quickAction.action));
     button.style.left = `${position.x}px`;
     button.style.top = `${position.y}px`;
     return button;
@@ -152,6 +155,10 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       return { x: -30 + position * 32, y: parentDimension.height + 10 };
     }
     return ORIGIN_POINT;
+  }
+
+  protected isReadonly(): boolean {
+    return this.editorContext.isReadonly;
   }
 }
 

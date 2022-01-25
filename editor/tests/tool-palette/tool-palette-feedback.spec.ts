@@ -16,7 +16,8 @@ import {
   SGraph,
   SModelFactory,
   SModelRoot,
-  TYPES
+  TYPES,
+  glspMouseToolModule
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
@@ -41,7 +42,7 @@ class ToolPaletteFeedbackCommandMock extends ToolPaletteFeedbackCommand {
 
 function createContainer(): Container {
   const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, ivyToolPaletteModule);
+  container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, glspMouseToolModule, ivyToolPaletteModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   container.bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();

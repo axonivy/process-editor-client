@@ -11,7 +11,6 @@ import {
   SetContextActions
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { MarqueeMouseTool } from '@eclipse-glsp/client/lib/features/tools/marquee-mouse-tool';
 import { inject, injectable, postConstruct } from 'inversify';
 import {
   AbstractUIExtension,
@@ -34,6 +33,7 @@ import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { JumpAction } from '../jump/action';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
+import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { AutoAlignOperation } from './operation';
 import { ToolPaletteFeedbackAction } from './tool-palette-feedback';
 
@@ -149,6 +149,9 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   private createElementPickers(): HTMLElement {
     const elementPickers = document.createElement('div');
+    if (this.editorContext.isReadonly) {
+      return elementPickers;
+    }
     elementPickers.classList.add('element-pickers');
 
     this.paletteItems.sort(compare).forEach(item => {
@@ -233,13 +236,16 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected createMarqueeToolButton(): HTMLElement {
     const marqueeToolButton = createIcon(['far', 'fa-object-group', 'fa-xs']);
     marqueeToolButton.title = 'Enable marquee tool';
-    marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, MarqueeMouseTool.ID);
+    marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, IvyMarqueeMouseTool.ID);
     return marqueeToolButton;
   }
 
   private createDynamicTools(): HTMLElement {
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
+
+    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out', () => new JumpAction(''), false);
+    dynamicTools.appendChild(this.jumpOutToolButton);
 
     this.deleteToolButton = this.createDynamicToolButton(
       'fa-trash',
@@ -248,9 +254,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       false
     );
     dynamicTools.appendChild(this.deleteToolButton);
-
-    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out', () => new JumpAction(''), false);
-    dynamicTools.appendChild(this.jumpOutToolButton);
 
     this.wrapToSubToolButton = this.createDynamicToolButton(
       'fa-compress-arrows-alt',
@@ -347,12 +350,10 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   protected onClickStaticToolButton(button: HTMLElement, toolId?: string) {
     return (_ev: MouseEvent) => {
-      if (!this.editorContext.isReadonly) {
-        const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
-        this.actionDispatcher.dispatch(action);
-        this.changeActiveButton(button);
-        button.focus();
-      }
+      const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
+      this.actionDispatcher.dispatch(action);
+      this.changeActiveButton(button);
+      button.focus();
     };
   }
 
@@ -378,7 +379,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       this.actionDispatcher.requestUntil(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
           this.paletteItems = response.actions.map(e => e as PaletteItem);
-          this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, !this.editorContext.isReadonly));
+          this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, true));
         }
       });
     } else if (action instanceof EnableDefaultToolsAction) {
@@ -388,10 +389,13 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
-    this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, !this.editorContext.isReadonly));
+    this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, true));
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+    if (this.editorContext.isReadonly) {
+      return;
+    }
     this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
