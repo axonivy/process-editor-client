@@ -32,6 +32,7 @@ class BreakpointQuickAction implements QuickAction {
     public readonly title = 'Toggle Breakpoint',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',
-    public readonly action = new BreakpointAction(elementId)
+    public readonly action = new BreakpointAction(elementId),
+    public readonly readonlySupport = true
   ) {}
 }

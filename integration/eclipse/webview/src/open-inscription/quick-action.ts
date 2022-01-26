@@ -19,6 +19,7 @@ class InscribeQuickAction implements QuickAction {
     public readonly title = 'Edit',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
-    public readonly action = new OpenAction(elementId)
+    public readonly action = new OpenAction(elementId),
+    public readonly readonlySupport = true
   ) {}
 }

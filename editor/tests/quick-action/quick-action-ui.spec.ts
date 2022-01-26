@@ -1,17 +1,14 @@
 import {
-  ActionDispatcher,
   Bounds,
   createFeatureSet,
   CustomFeatures,
   defaultGLSPModule,
   defaultModule,
   Dimension,
-  EMPTY_BOUNDS,
   FeedbackActionDispatcher,
   GLSP_TYPES,
   glspMouseToolModule,
   glspSelectModule,
-  InitializeCanvasBoundsAction,
   LocalModelSource,
   modelSourceModule,
   Point,
@@ -32,10 +29,27 @@ import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '.
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
 import ivyLaneModule from '../../src/lanes/di.config';
-import ivyQuickActionModule from '../../src/quick-action/di.config';
+import ivyQuickActionModule, { configureQuickActionProviders } from '../../src/quick-action/di.config';
 import { quickActionFeature } from '../../src/quick-action/model';
 import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
 import { setupGlobal } from '../test-helper';
+
+class QuickActionUIReadonly extends QuickActionUI {
+  protected isReadonly(): boolean {
+    return true;
+  }
+}
+
+function createContainerReadonly(): Container {
+  const container = new Container();
+  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyJumpModule, ivyLaneModule);
+  container.bind(TYPES.ModelSource).to(LocalModelSource);
+  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(QuickActionUIReadonly).toSelf().inSingletonScope();
+  container.bind(TYPES.IUIExtension).toService(QuickActionUIReadonly);
+  configureQuickActionProviders(container);
+  return container;
+}
 
 function createContainer(): Container {
   const container = new Container();
@@ -43,6 +57,21 @@ function createContainer(): Container {
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
+}
+
+function createRoot(container: Container): SGraph {
+  const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
+  const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph;
+  root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('sub', ActivityTypes.EMBEDDED_PROCESS, { x: 300, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { enable: [jumpFeature] }));
+  root.add(createDefaultNode('alternative', GatewayTypes.ALTERNATIVE, { x: 100, y: 200, width: 32, height: 32 }, GatewayNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
+  root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
+  root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
+  root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end'));
+  root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
+  root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
+  return root;
 }
 
 function createDefaultNode(id: string, type: string, bounds: Bounds, defaultFeatures: symbol[], customFeatues?: CustomFeatures): SNode {
@@ -57,6 +86,7 @@ function createNode(node: SNode, id: string, type: string, bounds: Bounds, defau
   node.features = createFeatureSet(defaultFeatures, customFeatues);
   return node;
 }
+
 function createEdge(id: string, type: string, sourceId: string, targetId: string): SEdge {
   const edge = new SEdge();
   edge.id = id;
@@ -66,38 +96,47 @@ function createEdge(id: string, type: string, sourceId: string, targetId: string
   return edge;
 }
 
-function createRoot(graphFactory: SModelFactory): SGraph {
-  const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph;
-  root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('sub', ActivityTypes.EMBEDDED_PROCESS, { x: 300, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { enable: [jumpFeature] }));
-  root.add(createDefaultNode('alternative', GatewayTypes.ALTERNATIVE, { x: 100, y: 200, width: 32, height: 32 }, GatewayNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
-  root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
-  root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
-  root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end'));
-  root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
-  root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
-  return root;
+function setupSprottyDiv(): void {
+  setupGlobal();
+  const baseDiv = document.createElement('div') as HTMLElement;
+  baseDiv.id = 'sprotty';
+  document.body.appendChild(baseDiv);
 }
+
+describe('QuickActionUiReadonly', () => {
+  let quickActionUi: QuickActionUI;
+  let root: SModelRoot;
+
+  before(() => {
+    setupSprottyDiv();
+    const container = createContainerReadonly();
+    quickActionUi = container.get<QuickActionUI>(QuickActionUIReadonly);
+    root = createRoot(container);
+  });
+
+  it('ui is rendered for activity element', () => {
+    quickActionUi.show(root, 'foo');
+    const uiDiv = getQuickActionDiv();
+    assertQuickActionUi(uiDiv, 0, { x: 100, y: 100 });
+  });
+
+  it('ui is rendered for activity embedded element', () => {
+    quickActionUi.show(root, 'sub');
+    const uiDiv = getQuickActionDiv();
+    assertQuickActionUi(uiDiv, 1, { x: 300, y: 100 });
+    assertQuickAction(uiDiv.children[0], 'Jump', 'fa-level-down-alt', { x: -30, y: 60 });
+  });
+});
 
 describe('QuickActionUi', () => {
   let quickActionUi: QuickActionUI;
   let root: SModelRoot;
 
   before(() => {
-    setupGlobal();
-  });
-
-  before(() => {
+    setupSprottyDiv();
     const container = createContainer();
-    const actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
     quickActionUi = container.get<QuickActionUI>(QuickActionUI);
-    const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
-    root = createRoot(graphFactory);
-    const baseDiv = document.createElement('div') as HTMLElement;
-    baseDiv.id = 'sprotty';
-    document.body.appendChild(baseDiv);
+    root = createRoot(container);
   });
 
   it('ui is not rendered by default', () => {
@@ -178,11 +217,11 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'start', 'end', 'foo');
     assertMultiQuickActionUi(uiDiv, 2, { height: 140, width: 240 }, { x: 100, y: 100 });
   });
-
-  function getQuickActionDiv(): HTMLElement {
-    return document.getElementById('sprotty_quickActionsUi') as HTMLElement;
-  }
 });
+
+function getQuickActionDiv(): HTMLElement {
+  return document.getElementById('sprotty_quickActionsUi') as HTMLElement;
+}
 
 function assertMultiQuickActionUi(uiDiv: HTMLElement, childCount: number, dimension: Dimension, position?: Point): void {
   assertQuickActionUi(uiDiv, childCount + 1, position);
