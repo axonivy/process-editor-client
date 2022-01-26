@@ -6,14 +6,17 @@ import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 import createContainer from './di.config';
 import { getParameters } from './url-parameters';
 
-let severAndPort = getParameters()['server'];
-if (severAndPort === undefined) {
-  severAndPort = 'localhost:5008';
+let server = getParameters()['server'];
+if (server === undefined) {
+  server = 'localhost:8081/designer';
 }
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
-const websocket = new WebSocket(`ws://${severAndPort}/${id}`);
+const websocket = new WebSocket(`ws://${server}/${id}`);
 const container = createContainer();
+
+const app = server.slice(server.lastIndexOf('/') + 1);
+const pmv = getParameters()['pmv'];
 
 let givenFile = getParameters()['file'];
 if (givenFile === undefined) {
@@ -45,6 +48,8 @@ async function initialize(client: GLSPClient): Promise<void> {
   actionDispatcher.dispatch(
     new RequestModelAction({
       sourceUri: `file://${givenFile}`,
+      app: app,
+      pmv: pmv,
       diagramType
     })
   );

@@ -30,7 +30,7 @@
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/integration/standalone/app/diagram.html",
+      "file": "${workspaceFolder}/integration/standalone/app/diagram.html?server=localhost:8081/designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.mod",
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "presentation": {
