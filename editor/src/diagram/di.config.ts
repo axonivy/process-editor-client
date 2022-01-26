@@ -1,3 +1,5 @@
+import '../../css/diagram.css';
+
 import {
   configureActionHandler,
   configureModelElement,

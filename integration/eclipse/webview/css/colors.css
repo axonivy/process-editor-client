@@ -1,4 +1,4 @@
-html body {
+html[data-theme='light'] body {
   --glsp-editor-background: white;
   --glsp-editor-foreground: black;
   --glsp-editor-mouseover: #616161;
@@ -17,6 +17,9 @@ html body {
   --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
 
   --glsp-issue-background: var(--glsp-editor-background);
+  --glsp-error-foreground: #e51400;
+  --glsp-warning-foreground: #bf8803;
+  --glsp-info-foreground: #75beff;
 }
 
 html[data-theme='dark'] body {
@@ -33,11 +36,12 @@ html[data-theme='dark'] body {
   --glsp-tool-palette-border: #3c3c3c;
   --glsp-tool-palette-group-background: #4d4d4d;
 
+  --glsp-multiselect-box-border: var(--glsp-editor-selected);
+  --glsp-quick-action-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
+
+  --glsp-issue-background: var(--glsp-editor-background);
   --glsp-error-foreground: #f48771;
   --glsp-warning-foreground: #cca700;
   --glsp-info-foreground: #75beff;
-}
-
-body {
-  color: var(--glsp-foreground);
 }

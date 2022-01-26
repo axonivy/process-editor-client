@@ -1,14 +1,5 @@
 @import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
 
-:root {
-  --glsp-tool-palette-background: #eee;
-  --glsp-tool-palette-forground: black;
-  --glsp-tool-palette-selection: #bddaef;
-  --glsp-tool-palette-hover: #dfdfdf;
-  --glsp-tool-palette-border: #cecece;
-  --glsp-tool-palette-group-background: #c4c4c4;
-}
-
 .ivy-tool-palette {
   position: absolute;
   text-align: center;

@@ -1,0 +1,43 @@
+:root {
+  --glsp-editor-background: white;
+  --glsp-editor-foreground: black;
+  --glsp-editor-mouseover: #616161;
+  --glsp-editor-selected: #007095;
+  --glsp-foreground: #616161;
+
+  --glsp-tool-palette-background: #eee;
+  --glsp-tool-palette-forground: var(--glsp-foreground);
+  --glsp-tool-palette-selection: #bddaef;
+  --glsp-tool-palette-hover: #dfdfdf;
+  --glsp-tool-palette-border: #cecece;
+  --glsp-tool-palette-group-background: #c4c4c4;
+
+  --glsp-multiselect-box-border: var(--glsp-editor-selected);
+  --glsp-quick-action-background: var(--glsp-tool-palette-background);
+  --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
+
+  --glsp-issue-background: var(--glsp-editor-background);
+  --glsp-error-foreground: #e51400;
+  --glsp-warning-foreground: #bf8803;
+  --glsp-info-foreground: #75beff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --glsp-editor-background: #1e1e1e;
+    --glsp-editor-foreground: #d4d4d4;
+    --glsp-editor-mouseover: #cccccc;
+    --glsp-editor-selected: #264f78;
+    --glsp-foreground: #cccccc;
+
+    --glsp-tool-palette-background: #333;
+    --glsp-tool-palette-selection: #264f78;
+    --glsp-tool-palette-hover: rgba(173, 214, 255, 0.15);
+    --glsp-tool-palette-border: #3c3c3c;
+    --glsp-tool-palette-group-background: #4d4d4d;
+
+    --glsp-error-foreground: #f48771;
+    --glsp-warning-foreground: #cca700;
+    --glsp-info-foreground: #75beff;
+  }
+}
