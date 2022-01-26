@@ -1,14 +1,7 @@
-:root {
-  --glsp-editor-background: white;
-  --glsp-editor-foreground: black;
-  --glsp-editor-mouseover: #616161;
-  --glsp-editor-selected: #007095;
-  --glsp-foreground: #616161;
-}
-
 html,
 body {
   overflow: hidden;
+  color: var(--glsp-foreground);
 }
 
 /* Graph */

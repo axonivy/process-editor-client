@@ -1,9 +1,3 @@
-:root {
-  --glsp-multiselect-box-border: #007095;
-  --glsp-quick-action-background: #eee;
-  --glsp-quick-action-hover: #dfdfdf;
-}
-
 .quick-actions-container i {
   width: 24px;
   height: 24px;

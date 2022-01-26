@@ -1,10 +1,3 @@
-:root {
-  --glsp-issue-background: white;
-  --glsp-error-foreground: #e51400;
-  --glsp-warning-foreground: #bf8803;
-  --glsp-info-foreground: #75beff;
-}
-
 .sprotty-issue .sprotty-issue-background {
   fill: var(--glsp-issue-background);
 }
