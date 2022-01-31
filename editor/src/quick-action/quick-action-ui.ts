@@ -30,6 +30,7 @@ import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
   static readonly ID = 'quickActionsUi';
+  private lastCursorPosition: Point;
 
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
@@ -80,13 +81,21 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
-    const elements = getElements(contextElementIds, root).filter(e => !(e instanceof SRoutableElement) || !(e instanceof Edge));
-    if (elements.length > 1) {
-      this.showMultiQuickActionUi(containerElement, elements);
+    const elements = getElements(contextElementIds, root);
+    const elementsWithoutEdges = elements.filter(e => !(e instanceof SRoutableElement) || !(e instanceof Edge));
+    if (elementsWithoutEdges.length > 1) {
+      this.showMultiQuickActionUi(containerElement, elementsWithoutEdges);
+    } else if (elements.length === 1 && elements[0] instanceof Edge) {
+      this.showEdgeQuickActionUi(containerElement, elements[0]);
+      console.log('into edge');
     } else {
-      const element = getFirstQuickActionElement(elements, root);
+      const element = getFirstQuickActionElement(elementsWithoutEdges, root);
       this.showSingleQuickActionUi(containerElement, element);
     }
+  }
+
+  public setCursorPosition(point: Point): void {
+    this.lastCursorPosition = point;
   }
 
   private showMultiQuickActionUi(containerElement: HTMLElement, elements: SModelElement[]): void {
@@ -107,6 +116,18 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   private showSingleQuickActionUi(containerElement: HTMLElement, element: SModelElement & BoundsAware): void {
     if (isNotUndefined(element)) {
       const absoluteBounds = getAbsoluteBounds(element);
+      containerElement.style.left = `${absoluteBounds.x}px`;
+      containerElement.style.top = `${absoluteBounds.y}px`;
+
+      const quickActions = this.quickActionProviders.map(provider => provider.singleQuickAction(element)).filter(isNotUndefined);
+      this.createQuickActions(containerElement, absoluteBounds, quickActions, element instanceof LaneNode);
+    }
+  }
+
+  private showEdgeQuickActionUi(containerElement: HTMLElement, element: Edge): void {
+    if (isNotUndefined(element)) {
+      const absoluteBounds = { x: this.lastCursorPosition.x, y: this.lastCursorPosition.y, height: 0, width: 0 };
+      // const absoluteBounds = { x: element.source!.position.x, y: element.source!.position.y, height: 0, width: 0 };
       containerElement.style.left = `${absoluteBounds.x}px`;
       containerElement.style.top = `${absoluteBounds.y}px`;
 
@@ -182,6 +203,7 @@ export class QuickActionUiMouseListener extends MouseListener {
 
   mouseUp(target: SModelElement, event: MouseEvent): Action[] {
     if (this.mouseActive) {
+      this.quickActionUi.setCursorPosition({ x: event.pageX, y: event.pageY });
       this.quickActionUi.showUi();
     }
     this.mouseActive = false;

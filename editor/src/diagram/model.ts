@@ -39,11 +39,10 @@ import {
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
-import { Executable, executionFeature } from '../execution/model';
-
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
+import { Executable, executionFeature } from '../execution/model';
 import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../quick-action/model';
 import { WithCustomIcon } from './icon/model';
@@ -206,10 +205,10 @@ export class Edge extends SEdge implements WithEditableLabel, Executable {
     selectFeature,
     fadeFeature,
     hoverFeedbackFeature,
-    openFeature,
     popupFeature,
     withEditLabelFeature,
-    executionFeature
+    executionFeature,
+    quickActionFeature
   ];
 
   get bounds(): Bounds {
