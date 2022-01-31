@@ -1,3 +1,16 @@
+export function getServerDomain(): string {
+  const protocol = window.location.protocol;
+  if (protocol.startsWith('http')) {
+    const href = window.location.href;
+    return href.substring(protocol.length + 2, href.indexOf('/process-editor'));
+  }
+  return 'localhost:8081/designer';
+}
+
+export function isSecureConnection(): boolean {
+  return window.location.protocol === 'https:';
+}
+
 export function getParameters(): { [key: string]: string } {
   let search = window.location.search.substring(1);
   const result = {};
