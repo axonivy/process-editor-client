@@ -4,15 +4,15 @@ import { join, resolve } from 'path';
 import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
-import { getParameters } from './url-parameters';
+import { getParameters, getServerDomain, isSecureConnection } from './url-helper';
 
 let server = getParameters()['server'];
 if (server === undefined) {
-  server = 'localhost:8081/designer';
+  server = getServerDomain();
 }
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
-const websocket = new WebSocket(`ws://${server}/${id}`);
+const websocket = new WebSocket(`${isSecureConnection() ? 'wss' : 'ws'}://${server}/${id}`);
 const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
