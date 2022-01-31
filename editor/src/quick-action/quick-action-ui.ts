@@ -13,6 +13,7 @@ import {
   MouseTool,
   ORIGIN_POINT,
   Point,
+  SEdge,
   SetUIExtensionVisibilityAction,
   SModelElement,
   SModelRoot,
@@ -85,7 +86,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     const elementsWithoutEdges = elements.filter(e => !(e instanceof SRoutableElement) || !(e instanceof Edge));
     if (elementsWithoutEdges.length > 1) {
       this.showMultiQuickActionUi(containerElement, elementsWithoutEdges);
-    } else if (elements.length === 1 && elements[0] instanceof Edge) {
+    } else if (elements.length === 1 && elements[0] instanceof SEdge) {
       this.showEdgeQuickActionUi(containerElement, elements[0]);
       console.log('into edge');
     } else {
@@ -124,7 +125,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     }
   }
 
-  private showEdgeQuickActionUi(containerElement: HTMLElement, element: Edge): void {
+  private showEdgeQuickActionUi(containerElement: HTMLElement, element: SEdge): void {
     if (isNotUndefined(element)) {
       const absoluteBounds = { x: this.lastCursorPosition.x, y: this.lastCursorPosition.y, height: 0, width: 0 };
       // const absoluteBounds = { x: element.source!.position.x, y: element.source!.position.y, height: 0, width: 0 };

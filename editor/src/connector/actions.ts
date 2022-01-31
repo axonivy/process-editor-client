@@ -1,6 +1,5 @@
-import { Operation, SModelElement } from '@eclipse-glsp/client';
+import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { Edge } from '../diagram/model';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 
@@ -13,7 +12,7 @@ export class StraightenEdgeOperation implements Operation {
 @injectable()
 export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (element instanceof Edge) {
+    if (element instanceof SEdge) {
       return new StraightenEdgeQuickAction(element.id);
     }
     return undefined;
@@ -40,7 +39,7 @@ export class AutoBendEdgeOperation implements Operation {
 @injectable()
 export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (element instanceof Edge) {
+    if (element instanceof SEdge) {
       return new AutoBendEdgeQuickAction(element.id);
     }
     return undefined;

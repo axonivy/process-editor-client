@@ -13,7 +13,6 @@ import {
   modelSourceModule,
   Point,
   routingModule,
-  SEdge,
   SGraph,
   SModelFactory,
   SModelRoot,
@@ -24,7 +23,7 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 import { before, describe, it } from 'mocha';
 
-import { ActivityNode, EndEventNode, EventNode, GatewayNode, LaneNode } from '../../src/diagram/model';
+import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode } from '../../src/diagram/model';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
@@ -33,6 +32,7 @@ import ivyQuickActionModule, { configureQuickActionProviders } from '../../src/q
 import { quickActionFeature } from '../../src/quick-action/model';
 import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
 import { setupGlobal } from '../test-helper';
+import ivyConnectorModule from '../../src/connector/di.config';
 
 class QuickActionUIReadonly extends QuickActionUI {
   protected isReadonly(): boolean {
@@ -42,7 +42,7 @@ class QuickActionUIReadonly extends QuickActionUI {
 
 function createContainerReadonly(): Container {
   const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyJumpModule, ivyLaneModule);
+  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyJumpModule, ivyLaneModule, ivyConnectorModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   container.bind(QuickActionUIReadonly).toSelf().inSingletonScope();
@@ -53,7 +53,18 @@ function createContainerReadonly(): Container {
 
 function createContainer(): Container {
   const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyQuickActionModule, ivyJumpModule, ivyLaneModule);
+  container.load(
+    defaultModule,
+    defaultGLSPModule,
+    modelSourceModule,
+    glspSelectModule,
+    glspMouseToolModule,
+    routingModule,
+    ivyQuickActionModule,
+    ivyJumpModule,
+    ivyLaneModule,
+    ivyConnectorModule
+  );
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
@@ -68,7 +79,7 @@ function createRoot(container: Container): SGraph {
   root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
-  root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end'));
+  root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end', Edge.DEFAULT_FEATURES));
   root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   return root;
@@ -87,12 +98,13 @@ function createNode(node: SNode, id: string, type: string, bounds: Bounds, defau
   return node;
 }
 
-function createEdge(id: string, type: string, sourceId: string, targetId: string): SEdge {
-  const edge = new SEdge();
+function createEdge(id: string, type: string, sourceId: string, targetId: string, defaultFeatures: symbol[], customFeatues?: CustomFeatures): Edge {
+  const edge = new Edge();
   edge.id = id;
   edge.type = type;
   edge.sourceId = sourceId;
   edge.targetId = targetId;
+  edge.features = createFeatureSet(defaultFeatures, customFeatues);
   return edge;
 }
 
@@ -150,10 +162,14 @@ describe('QuickActionUi', () => {
     assertQuickActionUi(uiDiv, 0);
   });
 
-  it('ui is not rendered for edges', () => {
+  it('ui is rendered for edges', () => {
+    quickActionUi.setCursorPosition({ x: 50, y: 50 });
     quickActionUi.show(root, 'edge');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 0);
+    assertQuickActionUi(uiDiv, 3);
+    assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
+    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Auto bend', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
   });
 
   it('ui is rendered for activity element', () => {
