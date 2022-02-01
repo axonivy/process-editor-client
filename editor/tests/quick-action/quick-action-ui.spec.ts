@@ -21,7 +21,6 @@ import {
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container } from 'inversify';
-import { before, describe, it } from 'mocha';
 
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode } from '../../src/diagram/model';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
@@ -168,8 +167,8 @@ describe('QuickActionUi', () => {
     const uiDiv = getQuickActionDiv();
     assertQuickActionUi(uiDiv, 3);
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
-    assertQuickAction(uiDiv.children[2], 'Auto bend', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-arrows-alt-h', { x: 210, y: 210 });
+    // assertQuickAction(uiDiv.children[2], 'Auto bend', 'fa-bolt', { x: 210, y: 0 });
   });
 
   it('ui is rendered for activity element', () => {

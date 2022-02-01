@@ -21,7 +21,6 @@ import {
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
-import { describe, it } from 'mocha';
 
 import { CustomIconToggleActionHandler } from '../../src/diagram/icon/custom-icon-toggle-action-handler';
 import ivyToolPaletteModule from '../../src/tool-palette/di.config';

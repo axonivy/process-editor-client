@@ -2,7 +2,6 @@ import 'reflect-metadata';
 
 import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 
 import { LaneTypes } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';

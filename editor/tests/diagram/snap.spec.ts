@@ -1,6 +1,5 @@
 import { SModelElement } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 
 import { ActivityNode } from '../../src/diagram/model';
 import { IvyGridSnapper } from '../../src/diagram/snap';

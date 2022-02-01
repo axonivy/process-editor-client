@@ -1,6 +1,5 @@
 import { boundsFeature, createFeatureSet, getOrCreateSIssueMarker, ORIGIN_POINT, SModelElement, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 
 import { IvyDecorationPlacer } from '../../src/decorator/decoration-placer';
 import { ActivityNode } from '../../src/diagram/model';

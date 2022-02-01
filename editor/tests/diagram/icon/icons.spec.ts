@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 
 import { IconStyle, NoIcon, resolveIcon } from '../../../src/diagram/icon/icons';
 

@@ -161,7 +161,7 @@
       "internalConsoleOptions": "openOnSessionStart",
       "args": ["--config", "${workspaceFolder}/configs/.mocharc.json", "${file}"],
       "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.json"
+        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.mocha.json"
       },
       "sourceMaps": true,
       "smartStep": true,
@@ -184,7 +184,7 @@
         "\"${workspaceFolder}/editor/tests/**/*.spec.?(ts|tsx)\""
       ],
       "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.json"
+        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.mocha.json"
       },
       "sourceMaps": true,
       "smartStep": true,

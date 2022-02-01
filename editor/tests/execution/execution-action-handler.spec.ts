@@ -11,7 +11,6 @@ import {
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container } from 'inversify';
-import { describe, it } from 'mocha';
 
 import { ElementExecution, SetExecutedElementsAction, SetExecutedElementsActionHandler } from '../../src/execution/action';
 import { ExecutedFeedbackAction, ExecutedFeedbackCommand } from '../../src/execution/feedback-action';

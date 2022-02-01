@@ -44,6 +44,6 @@
   "mochaExplorer.configFile": "configs/.mocharc.json",
   "mochaExplorer.files": "editor/tests/**/*.spec.?(ts|tsx)",
   "mochaExplorer.env": {
-    "TS_NODE_PROJECT": "editor/tsconfig.json"
+    "TS_NODE_PROJECT": "editor/tsconfig.mocha.json"
   }
 }

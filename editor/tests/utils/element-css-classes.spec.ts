@@ -1,6 +1,5 @@
 import { SNode } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../../src/utils/element-css-classes';
 
 describe('ElementCssClassesUtil', () => {
