@@ -167,8 +167,8 @@ describe('QuickActionUi', () => {
     const uiDiv = getQuickActionDiv();
     assertQuickActionUi(uiDiv, 3);
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-arrows-alt-h', { x: 210, y: 210 });
-    // assertQuickAction(uiDiv.children[2], 'Auto bend', 'fa-bolt', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-arrows-alt-h', { x: -30, y: 10 });
+    assertQuickAction(uiDiv.children[2], 'Bend', 'fa-bolt', { x: 2, y: 10 });
   });
 
   it('ui is rendered for activity element', () => {

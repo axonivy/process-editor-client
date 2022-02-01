@@ -23,7 +23,7 @@ class StraightenEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-arrows-alt-h',
-    public readonly title = 'Staighten',
+    public readonly title = 'Straighten',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new StraightenEdgeOperation(elementId)

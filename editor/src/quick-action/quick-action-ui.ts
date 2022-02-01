@@ -88,7 +88,6 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       this.showMultiQuickActionUi(containerElement, elementsWithoutEdges);
     } else if (elements.length === 1 && elements[0] instanceof SEdge) {
       this.showEdgeQuickActionUi(containerElement, elements[0]);
-      console.log('into edge');
     } else {
       const element = getFirstQuickActionElement(elementsWithoutEdges, root);
       this.showSingleQuickActionUi(containerElement, element);
