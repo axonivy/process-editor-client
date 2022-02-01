@@ -17,6 +17,7 @@ const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
 const pmv = getParameters()['pmv'];
+const highlight = getParameters()['highlight'];
 
 let givenFile = getParameters()['file'];
 if (givenFile === undefined) {
@@ -50,6 +51,7 @@ async function initialize(client: GLSPClient): Promise<void> {
       sourceUri: `file://${givenFile}`,
       app: app,
       pmv: pmv,
+      highlight: highlight,
       diagramType
     })
   );
