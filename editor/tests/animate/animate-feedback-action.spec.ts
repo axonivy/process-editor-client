@@ -14,7 +14,6 @@ import {
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
-import { describe, it } from 'mocha';
 
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from '../../src/animate/animate-feedback-action';
 import { animateFeature } from '../../src/animate/model';

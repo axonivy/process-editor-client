@@ -41,7 +41,9 @@
     "build": "tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
-    "test": "mocha --config ../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
+    "test:mocha": "mocha --config ../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
+    "test": "export TS_NODE_PROJECT=./tsconfig.mocha.json && yarn test:mocha",
+    "test:win": "SET TS_NODE_PROJECT=./tsconfig.mocha.json&& yarn test:mocha",
     "test:ci": "export JUNIT_REPORT_PATH=./report.xml && yarn test --colors --reporter mocha-jenkins-reporter"
   },
   "files": [

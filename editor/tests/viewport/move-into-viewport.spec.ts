@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { describe } from 'mocha';
 import { moveIntoViewport } from '../../src/viewport/move-into-viewport';
 
 describe('MoveIntoViewportCommand', () => {

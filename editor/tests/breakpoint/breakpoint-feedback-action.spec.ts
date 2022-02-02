@@ -14,7 +14,6 @@ import {
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
-import { describe, it } from 'mocha';
 
 import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from '../../src/breakpoint/breakpoint-feedback-action';
 import { breakpointFeature, SBreakpointHandle } from '../../src/breakpoint/model';

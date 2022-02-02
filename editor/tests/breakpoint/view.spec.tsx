@@ -18,7 +18,6 @@ import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { expect } from 'chai';
 import { Container } from 'inversify';
-import { describe } from 'mocha';
 
 import { SBreakpointHandle } from '../../src/breakpoint/model';
 import { SBreakpointHandleView } from '../../src/breakpoint/view';

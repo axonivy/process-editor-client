@@ -12,6 +12,7 @@
     "build": "yarn install --ignore-scripts && lerna run build",
     "lint": "lerna run lint --",
     "test": "lerna run test",
+    "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
     "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
