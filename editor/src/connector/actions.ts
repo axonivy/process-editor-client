@@ -49,7 +49,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
 class AutoBendEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-bolt',
+    public readonly icon = 'fa-ruler-combined',
     public readonly title = 'Bend',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',

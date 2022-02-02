@@ -127,7 +127,6 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   private showEdgeQuickActionUi(containerElement: HTMLElement, element: SEdge): void {
     if (isNotUndefined(element)) {
       const absoluteBounds = { x: this.lastCursorPosition.x, y: this.lastCursorPosition.y, height: 0, width: 0 };
-      // const absoluteBounds = { x: element.source!.position.x, y: element.source!.position.y, height: 0, width: 0 };
       containerElement.style.left = `${absoluteBounds.x}px`;
       containerElement.style.top = `${absoluteBounds.y}px`;
 
