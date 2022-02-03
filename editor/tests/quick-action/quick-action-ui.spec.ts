@@ -17,13 +17,14 @@ import {
   SModelFactory,
   SModelRoot,
   SNode,
-  TYPES
+  TYPES,
+  SLabel
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container } from 'inversify';
 
-import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode } from '../../src/diagram/model';
-import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
+import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../../src/diagram/model';
+import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from '../../src/diagram/view-types';
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
 import ivyLaneModule from '../../src/lanes/di.config';
@@ -78,7 +79,9 @@ function createRoot(container: Container): SGraph {
   root.add(createDefaultNode('start', EventTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createNode(new EndEventNode(), 'end', EventTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
-  root.add(createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end', Edge.DEFAULT_FEATURES));
+  const edge = createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end', Edge.DEFAULT_FEATURES);
+  root.add(edge);
+  edge.add(createLabel(edge.id));
   root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   return root;
@@ -105,6 +108,14 @@ function createEdge(id: string, type: string, sourceId: string, targetId: string
   edge.targetId = targetId;
   edge.features = createFeatureSet(defaultFeatures, customFeatues);
   return edge;
+}
+
+function createLabel(id: string): SLabel {
+  const label = new MulitlineEditLabel();
+  label.text = '';
+  label.type = LabelType.DEFAULT;
+  label.features = createFeatureSet(MulitlineEditLabel.DEFAULT_FEATURES);
+  return label;
 }
 
 function setupSprottyDiv(): void {
@@ -165,10 +176,11 @@ describe('QuickActionUi', () => {
     quickActionUi.setCursorPosition({ x: 50, y: 50 });
     quickActionUi.show(root, 'edge');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 3);
+    assertQuickActionUi(uiDiv, 4);
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Straighten', 'fa-arrows-alt-h', { x: -30, y: 10 });
-    assertQuickAction(uiDiv.children[2], 'Bend', 'fa-ruler-combined', { x: 2, y: 10 });
+    assertQuickAction(uiDiv.children[1], 'Edit Label', 'fa-tag', { x: 2, y: -30 });
+    assertQuickAction(uiDiv.children[2], 'Straighten', 'fa-arrows-alt-h', { x: -30, y: 10 });
+    assertQuickAction(uiDiv.children[3], 'Bend', 'fa-ruler-combined', { x: 2, y: 10 });
   });
 
   it('ui is rendered for activity element', () => {
