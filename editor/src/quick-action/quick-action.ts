@@ -1,4 +1,4 @@
-import { Action, DeleteElementOperation, EditLabelAction, getEditableLabel, isDeletable, SModelElement } from '@eclipse-glsp/client';
+import { Action, DeleteElementOperation, EditLabelAction, isDeletable, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 import { AutoAlignOperation } from '../tool-palette/operation';
@@ -67,9 +67,8 @@ export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
 @injectable()
 export class EditLabelActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    const editableLabel = getEditableLabel(element);
-    if (editableLabel) {
-      return new EditLabelQuickAction(editableLabel.id);
+    if (isWithEditableLabel(element) && element.editableLabel) {
+      return new EditLabelQuickAction(element.editableLabel.id);
     }
     return undefined;
   }
