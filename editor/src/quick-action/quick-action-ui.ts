@@ -86,7 +86,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     const elementsWithoutEdges = elements.filter(e => !(e instanceof SRoutableElement) || !(e instanceof Edge));
     if (elementsWithoutEdges.length > 1) {
       this.showMultiQuickActionUi(containerElement, elementsWithoutEdges);
-    } else if (elements.length === 1 && elements[0] instanceof SEdge) {
+    } else if (elements.length === 1 && elements[0] instanceof SEdge && isQuickActionAware(elements[0])) {
       this.showEdgeQuickActionUi(containerElement, elements[0]);
     } else {
       const element = getFirstQuickActionElement(elementsWithoutEdges, root);
@@ -125,7 +125,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private showEdgeQuickActionUi(containerElement: HTMLElement, element: SEdge): void {
-    if (isNotUndefined(element)) {
+    if (isNotUndefined(element) && !element.id.endsWith('_feedback_edge')) {
       const absoluteBounds = { x: this.lastCursorPosition.x, y: this.lastCursorPosition.y, height: 0, width: 0 };
       containerElement.style.left = `${absoluteBounds.x}px`;
       containerElement.style.top = `${absoluteBounds.y}px`;
@@ -151,7 +151,10 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   private createQuickActionBtn(quickAction: QuickAction, position: Point): HTMLElement {
     const button = createIcon(['fa', quickAction.icon, 'fa-xs', 'fa-fw']);
     button.title = quickAction.title;
-    button.onclick = () => this.actionDispatcherProvider().then(dispatcher => dispatcher.dispatch(quickAction.action));
+    button.onclick = () =>
+      this.actionDispatcherProvider().then(dispatcher =>
+        dispatcher.dispatchAll([new SetUIExtensionVisibilityAction(QuickActionUI.ID, false), quickAction.action])
+      );
     button.style.left = `${position.x}px`;
     button.style.top = `${position.y}px`;
     return button;
