@@ -4,7 +4,7 @@ import { join, resolve } from 'path';
 import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
-import { getParameters, getServerDomain, isSecureConnection } from './url-helper';
+import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
 
 let server = getParameters()['server'];
 if (server === undefined) {
@@ -52,6 +52,7 @@ async function initialize(client: GLSPClient): Promise<void> {
       app: app,
       pmv: pmv,
       highlight: highlight,
+      readonly: isReadonly(),
       diagramType
     })
   );
