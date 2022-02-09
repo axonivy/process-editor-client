@@ -59,9 +59,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    if (selectedElements.length >= 1) {
-      this.showUi();
-    } else {
+    if (selectedElements.length < 1) {
       this.hideUi();
     }
   }
