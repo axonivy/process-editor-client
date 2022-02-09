@@ -1,6 +1,5 @@
 import { configureServerActions, EnableToolPaletteAction, GLSPDiagramServer, RequestTypeHintsAction } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
-import { join, resolve } from 'path';
 import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
@@ -17,17 +16,12 @@ const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
 const pmv = getParameters()['pmv'];
-const highlight = getParameters()['highlight'];
-
-let givenFile = getParameters()['file'];
-if (givenFile === undefined) {
-  const loc = window.location.pathname;
-  const currentDir = loc.substring(0, loc.lastIndexOf('/'));
-  givenFile = resolve(join(currentDir, '..', 'app', 'demo-project', 'processes', 'test.mod'));
-}
+const pid = getParameters()['pid'] ?? '';
+const givenFile = getParameters()['file'] ?? '';
+const highlight = getParameters()['highlight'] ?? '';
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
-diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile;
+diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
 
 websocket.onopen = () => {
   const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
@@ -48,9 +42,10 @@ async function initialize(client: GLSPClient): Promise<void> {
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   actionDispatcher.dispatch(
     new RequestModelAction({
-      sourceUri: `file://${givenFile}`,
+      sourceUri: givenFile,
       app: app,
       pmv: pmv,
+      pid: pid,
       highlight: highlight,
       readonly: isReadonly(),
       diagramType
