@@ -18,7 +18,7 @@ const app = server.slice(server.lastIndexOf('/') + 1);
 const pmv = getParameters()['pmv'];
 const pid = getParameters()['pid'] ?? '';
 const givenFile = getParameters()['file'] ?? '';
-const highlight = getParameters()['highlight'] ?? '';
+const highlight = getParameters()['highlight'];
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
