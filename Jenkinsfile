@@ -80,6 +80,18 @@ pipeline {
       }
     }
 
+    stage('Web Tests (Playwright)') {
+      steps {
+        script {
+          docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
+            dir ('integration/standalone') {
+              sh 'mvn --batch-mode -f pom.webtest.xml clean verify'
+            }
+          }
+        }
+      }
+    }
+
     stage('Deploy (master only)') {
       when {
         allOf {

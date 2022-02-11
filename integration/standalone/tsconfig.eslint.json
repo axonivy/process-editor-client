@@ -1,0 +1,10 @@
+{
+  "extends": "../../configs/base.tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "reactNamespace": "JSX",
+    "skipLibCheck": true
+  },
+  "include": ["src", "webtests"],
+  "exclude": ["node_modules", "lib", "css"]
+}
