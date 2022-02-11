@@ -22,6 +22,7 @@ import {
   IActionHandler,
   ICommand,
   IToolManager,
+  SEdge,
   SetUIExtensionVisibilityAction,
   SModelRoot,
   TYPES
@@ -358,10 +359,15 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     };
   }
 
-  private dispatchAction(action: Action[]): void {
-    this.actionDispatcher.dispatchAll(
-      action.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()]))
-    );
+  private dispatchAction(actions: Action[]): void {
+    const selectedElements = this.selectionService.getSelectedElements();
+    if (selectedElements.length === 1 && selectedElements[0] instanceof SEdge) {
+      this.actionDispatcher.dispatchAll(actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
+    } else {
+      this.actionDispatcher.dispatchAll(
+        actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()]))
+      );
+    }
   }
 
   changeActiveButton(button?: HTMLElement): void {
