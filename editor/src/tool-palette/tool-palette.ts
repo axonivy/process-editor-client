@@ -22,11 +22,13 @@ import {
   IActionHandler,
   ICommand,
   IToolManager,
+  SEdge,
   SetUIExtensionVisibilityAction,
   SModelRoot,
   TYPES
 } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
+import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
@@ -278,7 +280,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     const button = createIcon(['fas', icon, 'fa-xs']);
     button.title = title;
     this.showDynamicBtn(button, visible);
-    button.onclick = _event => this.actionDispatcher.dispatch(action());
+    button.onclick = _event => this.dispatchAction([action()]);
     return button;
   }
 
@@ -341,7 +343,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected onClickCreateToolButton(button: HTMLElement, item: PaletteItem) {
     return (_ev: MouseEvent) => {
       if (!this.editorContext.isReadonly) {
-        this.actionDispatcher.dispatchAll(item.actions);
+        this.dispatchAction(item.actions);
         this.changeActiveButton(button);
         button.focus();
       }
@@ -351,10 +353,21 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected onClickStaticToolButton(button: HTMLElement, toolId?: string) {
     return (_ev: MouseEvent) => {
       const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
-      this.actionDispatcher.dispatch(action);
+      this.dispatchAction([action]);
       this.changeActiveButton(button);
       button.focus();
     };
+  }
+
+  private dispatchAction(actions: Action[]): void {
+    const selectedElements = this.selectionService.getSelectedElements();
+    if (selectedElements.length === 1 && selectedElements[0] instanceof SEdge) {
+      this.actionDispatcher.dispatchAll(actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
+    } else {
+      this.actionDispatcher.dispatchAll(
+        actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()]))
+      );
+    }
   }
 
   changeActiveButton(button?: HTMLElement): void {
