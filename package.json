@@ -14,6 +14,8 @@
     "test": "lerna run test",
     "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
+    "webtest": "lerna run webtest --",
+    "playwright:install": "yarn playwright install",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
     "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
     "rebuild:browser": "theia rebuild:browser",

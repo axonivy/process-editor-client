@@ -193,6 +193,26 @@
         "group": "1. Tests",
         "order": 2
       }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Web Tests",
+      "runtimeExecutable": "yarn",
+      "cwd": "${workspaceFolder}/integration/standalone",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "runtimeArgs": ["webtest"],
+      "env": {
+        "BASE_URL": "${input:webtestBaseUrl}"
+      },
+      "sourceMaps": true,
+      "smartStep": true,
+      "outputCapture": "std",
+      "presentation": {
+        "group": "1. Tests",
+        "order": 3
+      }
     }
   ],
   "compounds": [
@@ -211,6 +231,14 @@
         "group": "2. Theia",
         "order": 2
       }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "webtestBaseUrl",
+      "description": "BaseURL for Web Tests",
+      "type": "promptString",
+      "default": "localhost:8081/designer"
     }
   ]
 }
