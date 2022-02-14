@@ -19,7 +19,7 @@
         <executions>
           <execution>
             <id>copy</id>
-            <phase>pre-integration-test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>copy</goal>
             </goals>
@@ -47,7 +47,7 @@
         <executions>
           <execution>
             <id>install.engine</id>
-            <phase>pre-integration-test</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>installEngine</goal>
             </goals>
@@ -64,7 +64,7 @@
             </goals>
             <configuration>
               <additionalVmOptions>
-                -Dglsp_write_mode=true
+                -Dglsp.test.mode=true
               </additionalVmOptions>
             </configuration>
           </execution>
@@ -110,6 +110,10 @@
                 <BASE_URL>${test.engine.url}</BASE_URL>
                 <TEST_APP>${engine.test.app}</TEST_APP>
               </environmentVariables>
+              <successCodes>
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
             </configuration>
           </execution>
         </executions>

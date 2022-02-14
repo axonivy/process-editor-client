@@ -58,7 +58,6 @@ export class ItemPickerMenu {
   private createPaletteItemSearchField(containerElementId: string): HTMLInputElement {
     const searchField = document.createElement('input');
     searchField.classList.add('search-input');
-    searchField.id = containerElementId + '_search_field';
     searchField.type = 'text';
     searchField.placeholder = ' Search...';
     searchField.onkeyup = () => this.requestFilterUpdate(this.searchField.value);

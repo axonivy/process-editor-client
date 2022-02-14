@@ -85,9 +85,11 @@ pipeline {
         script {
           docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
             dir ('integration/standalone') {
-              sh 'mvn --batch-mode -f pom.webtest.xml clean verify'
+              maven cmd: 'clean verify'
+              maven cmd: '-f pom.webtest.xml verify'
             }
           }
+          archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
         }
       }
     }
