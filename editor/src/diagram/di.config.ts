@@ -8,7 +8,6 @@ import {
   GEdgeView,
   LogLevel,
   moveFeature,
-  popupFeature,
   selectFeature,
   SGraphView,
   TYPES
@@ -85,7 +84,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, GatewayNodeView);
 
   configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, {
-    disable: [popupFeature, breakpointFeature, errorBoundaryFeature]
+    disable: [breakpointFeature, errorBoundaryFeature]
   });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
