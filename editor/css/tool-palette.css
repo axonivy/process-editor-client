@@ -49,6 +49,10 @@
   background: var(--glsp-tool-palette-hover);
 }
 
+.header-tools i.fa-image:not(.active) {
+  filter: opacity(0.6);
+}
+
 .header-tools .clicked,
 .element-pickers .clicked {
   background: var(--glsp-tool-palette-selection);

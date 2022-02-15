@@ -7,8 +7,7 @@ import {
   IFeedbackActionDispatcher,
   isSetContextActionsAction,
   PaletteItem,
-  RequestContextActions,
-  SetContextActions
+  RequestContextActions
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct } from 'inversify';
@@ -31,16 +30,15 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
-import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { JumpAction } from '../jump/action';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { AutoAlignOperation } from './operation';
 import { ToolPaletteFeedbackAction } from './tool-palette-feedback';
+import { ElementPickerMenu } from './element-picker-menu';
 
 const CLICKED_CSS_CLASS = 'clicked';
-const COLLAPSED_CSS = 'collapsed';
 
 @injectable()
 export class EnableToolPaletteAction implements Action {
@@ -58,10 +56,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
-  protected paletteItems: PaletteItem[];
-  protected paletteItemsCopy: PaletteItem[] = [];
-  protected bodyDiv?: HTMLElement;
-  protected itemsDiv?: HTMLElement;
+  protected elementPickerMenu: ElementPickerMenu;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
@@ -69,8 +64,8 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected jumpOutToolButton: HTMLElement;
   protected wrapToSubToolButton: HTMLElement;
   protected autoAlignButton: HTMLElement;
+  protected colorMenuButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
-  protected searchField: HTMLInputElement;
   modelRootId: string;
 
   id(): string {
@@ -86,7 +81,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   initialize(): boolean {
-    if (!this.paletteItems) {
+    if (!this.elementPickerMenu) {
       return false;
     }
     return super.initialize();
@@ -94,7 +89,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   protected initializeContents(_containerElement: HTMLElement): void {
     this.createHeader();
-    this.createBody();
+    this.elementPickerMenu.createMenuBody(_containerElement);
     this.lastActivebutton = this.defaultToolsButton;
   }
 
@@ -103,41 +98,6 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.containerElement.style.maxHeight = '50px';
     this.feedbackDispatcher.registerFeedback(this, [new ToolPaletteFeedbackAction()]);
     this.selectionService.register(this);
-  }
-
-  protected createBody(): void {
-    const bodyDiv = document.createElement('div');
-    this.containerElement.appendChild(bodyDiv);
-    bodyDiv.classList.add('palette-body', 'collapsible-palette', COLLAPSED_CSS);
-    bodyDiv.appendChild((this.searchField = this.createPaletteItemSearchField()));
-    this.bodyDiv = bodyDiv;
-    this.createItemsDiv(bodyDiv);
-  }
-
-  private createItemsDiv(bodyDiv: HTMLElement): void {
-    const itemsDiv = document.createElement('div');
-    let tabIndex = 0;
-    this.paletteItems.sort(compare).forEach(item => {
-      if (item.children) {
-        const group = createToolGroup(item);
-        item.children.sort(compare).forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
-        itemsDiv.appendChild(group);
-      } else {
-        itemsDiv.appendChild(this.createToolButton(item, tabIndex++));
-      }
-    });
-    if (this.paletteItems.length === 0) {
-      const noResultsDiv = document.createElement('div');
-      noResultsDiv.innerText = 'No results found.';
-      noResultsDiv.classList.add('tool-button');
-      itemsDiv.appendChild(noResultsDiv);
-    }
-    // Remove existing body to refresh filtered entries
-    if (this.itemsDiv) {
-      bodyDiv.removeChild(this.itemsDiv);
-    }
-    bodyDiv.appendChild(itemsDiv);
-    this.itemsDiv = itemsDiv;
   }
 
   protected createHeader(): void {
@@ -156,22 +116,25 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     }
     elementPickers.classList.add('element-pickers');
 
-    this.paletteItems.sort(compare).forEach(item => {
-      if (item.icon && item.children) {
-        if (item.children.length > 1) {
-          elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
-        } else {
-          elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
+    this.elementPickerMenu
+      .getPaletteItems()
+      .sort(compare)
+      .forEach(item => {
+        if (item.icon && item.children) {
+          if (item.children.length > 1) {
+            elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
+          } else {
+            elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
+          }
         }
-      }
-    });
+      });
 
     return elementPickers;
   }
 
   private createElementActionBtn(itemId: string, icon: string, child: PaletteItem): HTMLElement {
     const button = this.createElementPickerBtn(itemId, icon, child.label);
-    button.onclick = this.onClickCreateToolButton(button, child);
+    button.onclick = this.onClickElementPickerToolButton(button, child);
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;
   }
@@ -182,11 +145,11 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     button.id = 'btn_ele_picker_' + itemId;
     button.title = label;
     button.onclick = _event => {
-      if (this.lastActivebutton === button && !this.bodyDiv?.classList.contains(COLLAPSED_CSS)) {
+      if (this.lastActivebutton === button && !this.elementPickerMenu.isMenuHidden()) {
         this.changeActiveButton(this.defaultToolsButton);
       } else {
         this.changeActiveButton(button);
-        this.showGroup(itemId);
+        this.elementPickerMenu.showGroup(itemId);
       }
     };
     return button;
@@ -273,6 +236,14 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     );
     dynamicTools.appendChild(this.autoAlignButton);
 
+    this.colorMenuButton = this.createDynamicToolButton(
+      'fa-palette',
+      'Select color',
+      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]),
+      false
+    );
+    dynamicTools.appendChild(this.colorMenuButton);
+
     return dynamicTools;
   }
 
@@ -300,47 +271,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     }
   }
 
-  protected createPaletteItemSearchField(): HTMLInputElement {
-    const searchField = document.createElement('input');
-    searchField.classList.add('search-input');
-    searchField.id = this.containerElement.id + '_search_field';
-    searchField.type = 'text';
-    searchField.placeholder = ' Search...';
-    searchField.onkeyup = () => this.requestFilterUpdate(this.searchField.value);
-    searchField.onkeydown = ev => this.clearOnEscape(ev);
-    return searchField;
-  }
-
-  protected createToolButton(item: PaletteItem, index: number): HTMLElement {
-    const button = document.createElement('div');
-    button.tabIndex = index;
-    button.classList.add('tool-button');
-    button.appendChild(this.appendPaletteIcon(button, item));
-    button.insertAdjacentText('beforeend', item.label);
-    button.onclick = this.onClickCreateToolButton(button, item);
-    button.onkeydown = ev => this.clearToolOnEscape(ev);
-    return button;
-  }
-
-  private appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
-    if (item.icon) {
-      const icon = resolveIcon(item.icon);
-      if (icon.style === IconStyle.FA) {
-        return createIcon(['fa', 'fa-fw', icon.res]);
-      }
-      if (icon.style === IconStyle.SVG) {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 10 10');
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', icon.res);
-        svg.appendChild(path);
-        return svg;
-      }
-    }
-    return document.createElement('span');
-  }
-
-  protected onClickCreateToolButton(button: HTMLElement, item: PaletteItem) {
+  protected onClickElementPickerToolButton(button: HTMLElement, item: PaletteItem) {
     return (_ev: MouseEvent) => {
       if (!this.editorContext.isReadonly) {
         this.dispatchAction(item.actions);
@@ -381,7 +312,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       this.defaultToolsButton.classList.add(CLICKED_CSS_CLASS);
       this.lastActivebutton = this.defaultToolsButton;
     }
-    this.bodyDiv!.classList.add(COLLAPSED_CSS);
+    this.elementPickerMenu.hideMenu();
   }
 
   handle(action: Action): ICommand | Action | void {
@@ -391,7 +322,8 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       });
       this.actionDispatcher.requestUntil(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
-          this.paletteItems = response.actions.map(e => e as PaletteItem);
+          const paletteItems = response.actions.map(e => e as PaletteItem);
+          this.elementPickerMenu = new ElementPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, true));
         }
       });
@@ -412,68 +344,13 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
     this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
-  }
-
-  protected clearOnEscape(event: KeyboardEvent): void {
-    if (matchesKeystroke(event, 'Escape')) {
-      this.searchField.value = '';
-      this.requestFilterUpdate('');
-    }
+    this.showDynamicBtn(this.colorMenuButton, selectedElements.length > 0);
   }
 
   protected clearToolOnEscape(event: KeyboardEvent): void {
     if (matchesKeystroke(event, 'Escape')) {
       this.actionDispatcher.dispatch(new EnableDefaultToolsAction());
     }
-  }
-
-  protected handleSetContextActions(action: SetContextActions): void {
-    this.paletteItems = action.actions.map(e => e as PaletteItem);
-    if (this.bodyDiv) {
-      this.createItemsDiv(this.bodyDiv);
-    }
-  }
-
-  protected requestFilterUpdate(filter: string): void {
-    // Initialize the copy if it's empty
-    if (this.paletteItemsCopy.length === 0) {
-      // Creating deep copy
-      this.paletteItemsCopy = JSON.parse(JSON.stringify(this.paletteItems));
-    }
-
-    // Reset the paletteItems before searching
-    this.paletteItems = JSON.parse(JSON.stringify(this.paletteItemsCopy));
-    // Filter the entries
-    const filteredPaletteItems: PaletteItem[] = [];
-    for (const itemGroup of this.paletteItems) {
-      if (itemGroup.children) {
-        // Fetch the labels according to the filter
-        const matchingChildren = itemGroup.children.filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
-        // Add the itemgroup containing the correct entries
-        if (matchingChildren.length > 0) {
-          // Clear existing children
-          itemGroup.children.splice(0, itemGroup.children.length);
-          // Push the matching children
-          matchingChildren.forEach(child => itemGroup.children!.push(child));
-          filteredPaletteItems.push(itemGroup);
-        }
-      }
-    }
-    this.paletteItems = filteredPaletteItems;
-    if (this.bodyDiv) {
-      this.createItemsDiv(this.bodyDiv);
-    }
-  }
-
-  private showGroup(groupId: string): void {
-    this.bodyDiv!.classList.remove(COLLAPSED_CSS);
-    Array.from(this.bodyDiv!.getElementsByClassName('tool-group')).forEach(element => {
-      if (element.id === groupId) {
-        element.classList.remove(COLLAPSED_CSS);
-      } else {
-        element.classList.add(COLLAPSED_CSS);
-      }
-    });
   }
 }
 
@@ -490,25 +367,6 @@ export function createIcon(cssClasses: string[]): HTMLElement {
   const classes = cssClasses.map(cssClass => cssClass.split(' ')).flat();
   icon.classList.add(...classes);
   return icon;
-}
-
-export function createToolGroup(item: PaletteItem): HTMLElement {
-  const group = document.createElement('div');
-  group.classList.add('tool-group');
-  group.id = item.id;
-  const header = document.createElement('div');
-  header.classList.add('group-header');
-  if (item.icon) {
-    header.appendChild(createIcon([item.icon]));
-  }
-  header.insertAdjacentText('beforeend', item.label);
-  header.ondblclick = _ev => {
-    changeCSSClass(group, COLLAPSED_CSS);
-    window!.getSelection()!.removeAllRanges();
-  };
-
-  group.appendChild(header);
-  return group;
 }
 
 export function changeCSSClass(element: Element, css: string): void {
