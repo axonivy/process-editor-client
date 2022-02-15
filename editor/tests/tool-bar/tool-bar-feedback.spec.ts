@@ -23,15 +23,15 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 
 import { CustomIconToggleActionHandler } from '../../src/diagram/icon/custom-icon-toggle-action-handler';
-import ivyToolPaletteModule from '../../src/tool-palette/di.config';
-import { ToolPaletteFeedbackAction, ToolPaletteFeedbackCommand } from '../../src/tool-palette/tool-palette-feedback';
+import ivyToolPaletteModule from '../../src/tool-bar/di.config';
+import { ToolBarFeedbackAction, ToolBarFeedbackCommand } from '../../src/tool-bar/tool-bar-feedback';
 
 let root: SModelRoot & SArgumentable;
 let jumpOutBtn = false;
 let customIconsBtn = false;
 
 @injectable()
-class ToolPaletteFeedbackCommandMock extends ToolPaletteFeedbackCommand {
+class ToolBarFeedbackCommandMock extends ToolBarFeedbackCommand {
   execute(context: CommandExecutionContext): CommandReturn {
     jumpOutBtn = this.showJumpOutBtn(root);
     customIconsBtn = this.showCustomIcons(root);
@@ -45,7 +45,7 @@ function createContainer(): Container {
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   container.bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
-  configureCommand(container, ToolPaletteFeedbackCommandMock);
+  configureCommand(container, ToolBarFeedbackCommandMock);
   return container;
 }
 
@@ -64,22 +64,22 @@ describe('ToolPaletteFeedback', () => {
   });
 
   it('jumpOutBtn is not shown on main process (contains no "-")', async () => {
-    await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
+    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
     expect(jumpOutBtn).to.be.false;
   });
 
   it('jumpOutBtn is shown on sub process (root pid contains "-")', async () => {
     root.id = 'graph-f1';
-    await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
+    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
     expect(jumpOutBtn).to.be.true;
   });
 
   it('customIconsBtn is active if root arg is set', async () => {
-    await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
+    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
     expect(customIconsBtn).to.be.true;
 
     customIconHandler.setShowCustomIcons = false;
-    await actionDispatcher.dispatch(new ToolPaletteFeedbackAction());
+    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
     expect(customIconsBtn).to.be.false;
   });
 });

@@ -1,7 +1,7 @@
 import { Action, DeleteElementOperation, EditLabelAction, isDeletable, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-import { AutoAlignOperation } from '../tool-palette/operation';
+import { AutoAlignOperation } from '../tool-bar/operation';
 
 export enum QuickActionLocation {
   TopLeft = 'top-left',

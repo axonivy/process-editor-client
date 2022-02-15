@@ -7,7 +7,8 @@ import {
   IFeedbackActionDispatcher,
   isSetContextActionsAction,
   PaletteItem,
-  RequestContextActions
+  RequestContextActions,
+  EnableToolPaletteAction
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct } from 'inversify';
@@ -35,19 +36,14 @@ import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { AutoAlignOperation } from './operation';
-import { ToolPaletteFeedbackAction } from './tool-palette-feedback';
+import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { ElementPickerMenu } from './element-picker-menu';
+import { compare, createIcon } from './tool-bar-helper';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
 @injectable()
-export class EnableToolPaletteAction implements Action {
-  static readonly KIND = 'enableToolPalette';
-  readonly kind = EnableToolPaletteAction.KIND;
-}
-
-@injectable()
-export class ToolPalette extends AbstractUIExtension implements IActionHandler, EditModeListener, SelectionListener {
+export class ToolBar extends AbstractUIExtension implements IActionHandler, EditModeListener, SelectionListener {
   static readonly ID = 'ivy-tool-palette';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
@@ -69,10 +65,10 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   modelRootId: string;
 
   id(): string {
-    return ToolPalette.ID;
+    return ToolBar.ID;
   }
   containerClass(): string {
-    return ToolPalette.ID;
+    return ToolBar.ID;
   }
 
   @postConstruct()
@@ -96,7 +92,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
     this.modelRootId = root.id;
     this.containerElement.style.maxHeight = '50px';
-    this.feedbackDispatcher.registerFeedback(this, [new ToolPaletteFeedbackAction()]);
+    this.feedbackDispatcher.registerFeedback(this, [new ToolBarFeedbackAction()]);
     this.selectionService.register(this);
   }
 
@@ -317,14 +313,14 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
 
   handle(action: Action): ICommand | Action | void {
     if (action.kind === EnableToolPaletteAction.KIND) {
-      const requestAction = new RequestContextActions(ToolPalette.ID, {
+      const requestAction = new RequestContextActions(ToolBar.ID, {
         selectedElementIds: []
       });
       this.actionDispatcher.requestUntil(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
           this.elementPickerMenu = new ElementPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-          this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, true));
+          this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
         }
       });
     } else if (action instanceof EnableDefaultToolsAction) {
@@ -334,7 +330,7 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
-    this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolPalette.ID, true));
+    this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
@@ -352,23 +348,4 @@ export class ToolPalette extends AbstractUIExtension implements IActionHandler, 
       this.actionDispatcher.dispatch(new EnableDefaultToolsAction());
     }
   }
-}
-
-export function compare(a: PaletteItem, b: PaletteItem): number {
-  const sortStringBased = a.sortString.localeCompare(b.sortString);
-  if (sortStringBased !== 0) {
-    return sortStringBased;
-  }
-  return a.label.localeCompare(b.label);
-}
-
-export function createIcon(cssClasses: string[]): HTMLElement {
-  const icon = document.createElement('i');
-  const classes = cssClasses.map(cssClass => cssClass.split(' ')).flat();
-  icon.classList.add(...classes);
-  return icon;
-}
-
-export function changeCSSClass(element: Element, css: string): void {
-  element.classList.contains(css) ? element.classList.remove(css) : element.classList.add(css);
 }

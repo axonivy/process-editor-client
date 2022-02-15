@@ -1,7 +1,7 @@
 import { findParentByFeature, GLSPScrollMouseListener, ICommand, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { Action, EnableToolsAction } from 'sprotty';
-import { IvyMarqueeMouseTool } from '../tool-palette/marquee-mouse-tool';
+import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
 
 import { isLaneResizeHandle } from '../lanes/model';
 

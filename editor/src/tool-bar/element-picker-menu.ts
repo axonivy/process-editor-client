@@ -2,7 +2,7 @@ const COLLAPSED_CSS = 'collapsed';
 import { PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
-import { changeCSSClass, compare, createIcon } from './tool-palette';
+import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
 export class ElementPickerMenu {
   protected paletteItems: PaletteItem[];
