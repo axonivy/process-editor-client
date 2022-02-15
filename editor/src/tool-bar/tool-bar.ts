@@ -76,16 +76,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.editorContext.register(this);
   }
 
-  initialize(): boolean {
-    if (!this.elementPickerMenu) {
-      return false;
-    }
-    return super.initialize();
-  }
-
   protected initializeContents(_containerElement: HTMLElement): void {
     this.createHeader();
-    this.elementPickerMenu.createMenuBody(_containerElement);
     this.lastActivebutton = this.defaultToolsButton;
   }
 
@@ -101,54 +93,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     headerCompartment.classList.add('palette-header');
     headerCompartment.appendChild(this.createHeaderTools());
     headerCompartment.appendChild(this.createDynamicTools());
-    headerCompartment.appendChild(this.createElementPickers());
     this.containerElement.appendChild(headerCompartment);
-  }
-
-  private createElementPickers(): HTMLElement {
-    const elementPickers = document.createElement('div');
-    if (this.editorContext.isReadonly) {
-      return elementPickers;
-    }
-    elementPickers.classList.add('element-pickers');
-
-    this.elementPickerMenu
-      .getPaletteItems()
-      .sort(compare)
-      .forEach(item => {
-        if (item.icon && item.children) {
-          if (item.children.length > 1) {
-            elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
-          } else {
-            elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
-          }
-        }
-      });
-
-    return elementPickers;
-  }
-
-  private createElementActionBtn(itemId: string, icon: string, child: PaletteItem): HTMLElement {
-    const button = this.createElementPickerBtn(itemId, icon, child.label);
-    button.onclick = this.onClickElementPickerToolButton(button, child);
-    button.onkeydown = ev => this.clearToolOnEscape(ev);
-    return button;
-  }
-
-  private createElementPickerBtn(itemId: string, icon: string, label: string): HTMLElement {
-    const button = document.createElement('span');
-    button.appendChild(createIcon([icon, 'fa-xs']));
-    button.id = 'btn_ele_picker_' + itemId;
-    button.title = label;
-    button.onclick = _event => {
-      if (this.lastActivebutton === button && !this.elementPickerMenu.isMenuHidden()) {
-        this.changeActiveButton(this.defaultToolsButton);
-      } else {
-        this.changeActiveButton(button);
-        this.elementPickerMenu.showGroup(itemId);
-      }
-    };
-    return button;
   }
 
   private createHeaderTools(): HTMLElement {
@@ -267,16 +212,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   }
 
-  protected onClickElementPickerToolButton(button: HTMLElement, item: PaletteItem) {
-    return (_ev: MouseEvent) => {
-      if (!this.editorContext.isReadonly) {
-        this.dispatchAction(item.actions);
-        this.changeActiveButton(button);
-        button.focus();
-      }
-    };
-  }
-
   protected onClickStaticToolButton(button: HTMLElement, toolId?: string) {
     return (_ev: MouseEvent) => {
       const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
@@ -297,6 +232,20 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   }
 
+  onClickElementPickerToolButton = (button: HTMLElement, item: PaletteItem): void => {
+    if (!this.editorContext.isReadonly) {
+      this.dispatchAction(item.actions);
+      this.changeActiveButton(button);
+      button.focus();
+    }
+  };
+
+  clearToolOnEscape = (event: KeyboardEvent): void => {
+    if (matchesKeystroke(event, 'Escape')) {
+      this.actionDispatcher.dispatch(new EnableDefaultToolsAction());
+    }
+  };
+
   changeActiveButton(button?: HTMLElement): void {
     if (this.lastActivebutton) {
       this.lastActivebutton.classList.remove(CLICKED_CSS_CLASS);
@@ -316,13 +265,14 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       const requestAction = new RequestContextActions(ToolBar.ID, {
         selectedElementIds: []
       });
-      this.actionDispatcher.requestUntil(requestAction).then(response => {
+      this.actionDispatcher.request(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
           this.elementPickerMenu = new ElementPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-          this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
+          this.createElementPickerMenu();
         }
       });
+      this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
     } else if (action instanceof EnableDefaultToolsAction) {
       this.changeActiveButton();
       this.restoreFocus();
@@ -343,9 +293,50 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.showDynamicBtn(this.colorMenuButton, selectedElements.length > 0);
   }
 
-  protected clearToolOnEscape(event: KeyboardEvent): void {
-    if (matchesKeystroke(event, 'Escape')) {
-      this.actionDispatcher.dispatch(new EnableDefaultToolsAction());
+  private createElementPickerMenu(): void {
+    if (this.editorContext.isReadonly) {
+      return;
     }
+    this.elementPickerMenu.createMenuBody(this.containerElement);
+    const headerCompartment = this.containerElement.getElementsByClassName('palette-header')[0];
+    const elementPickers = document.createElement('div');
+    elementPickers.classList.add('element-pickers');
+
+    this.elementPickerMenu
+      .getPaletteItems()
+      .sort(compare)
+      .forEach(item => {
+        if (item.icon && item.children) {
+          if (item.children.length > 1) {
+            elementPickers.appendChild(this.createElementPickerBtn(item.id, item.icon, item.label));
+          } else {
+            elementPickers.appendChild(this.createElementActionBtn(item.id, item.icon, item.children[0]));
+          }
+        }
+      });
+    headerCompartment.appendChild(elementPickers);
+  }
+
+  private createElementActionBtn(itemId: string, icon: string, child: PaletteItem): HTMLElement {
+    const button = this.createElementPickerBtn(itemId, icon, child.label);
+    button.onclick = ev => this.onClickElementPickerToolButton(button, child);
+    button.onkeydown = ev => this.clearToolOnEscape(ev);
+    return button;
+  }
+
+  private createElementPickerBtn(itemId: string, icon: string, label: string): HTMLElement {
+    const button = document.createElement('span');
+    button.appendChild(createIcon([icon, 'fa-xs']));
+    button.id = 'btn_ele_picker_' + itemId;
+    button.title = label;
+    button.onclick = _event => {
+      if (this.lastActivebutton === button && !this.elementPickerMenu.isMenuHidden()) {
+        this.changeActiveButton(this.defaultToolsButton);
+      } else {
+        this.changeActiveButton(button);
+        this.elementPickerMenu.showGroup(itemId);
+      }
+    };
+    return button;
   }
 }
