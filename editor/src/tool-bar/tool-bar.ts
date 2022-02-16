@@ -80,23 +80,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected initializeContents(_containerElement: HTMLElement): void {
     this.createHeader();
-
-    const items = {
-      id: 'colors',
-      label: 'Colors',
-      sortString: 'A',
-      icon: 'fas fa-palette',
-      actions: [],
-      children: [
-        { id: 'error', label: 'Error', sortString: 'A', icon: '#ff0000', actions: [] },
-        { id: 'warning', label: 'Warning', sortString: 'B', icon: '#ffdf00', actions: [] },
-        { id: 'success', label: 'Success', sortString: 'C', icon: '#1fc900', actions: [] },
-        { id: 'info', label: 'Info', sortString: 'D', icon: '#0000ff', actions: [] }
-      ]
-    } as PaletteItem;
-
-    this.colorPickerMenu = new ColorPickerMenu([items], this.onClickElementPickerToolButton, this.clearToolOnEscape);
-    this.colorPickerMenu.createMenuBody(_containerElement);
     this.lastActivebutton = this.defaultToolsButton;
   }
 
@@ -294,6 +277,14 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
           const paletteItems = response.actions.map(e => e as PaletteItem);
           this.elementPickerMenu = new ElementPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.createElementPickerMenu();
+        }
+      });
+      this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
+        if (isSetContextActionsAction(response)) {
+          const paletteItems = response.actions.map(e => e as PaletteItem);
+          console.log(paletteItems);
+          this.colorPickerMenu = new ColorPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+          this.colorPickerMenu.createMenuBody(this.containerElement);
         }
       });
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
