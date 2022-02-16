@@ -50,6 +50,12 @@ describe('StandardIcons', () => {
     });
   });
 
+  it('unknown icons are ignored', () => {
+    expect(resolveIcon('#ff0000')).to.be.deep.equals({ res: '#ff0000', style: IconStyle.UNKNOWN });
+    expect(resolveIcon('rgb(255, 255, 255)')).to.be.deep.equals({ res: 'rgb(255, 255, 255)', style: IconStyle.UNKNOWN });
+    expect(resolveIcon('hsl(50, 100%, 30%)')).to.be.deep.equals({ res: 'hsl(50, 100%, 30%)', style: IconStyle.UNKNOWN });
+  });
+
   it('no decorator icons are ignored', () => {
     expect(resolveIcon('std:NoDecorator')).to.be.deep.equals(NoIcon);
   });

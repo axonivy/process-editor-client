@@ -4,7 +4,7 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
-export class ElementPickerMenu {
+export class ItemPickerMenu {
   protected paletteItems: PaletteItem[];
   protected paletteItemsCopy: PaletteItem[] = [];
   protected bodyDiv?: HTMLElement;
@@ -19,10 +19,10 @@ export class ElementPickerMenu {
     this.paletteItems = paletteItems;
   }
 
-  public createMenuBody(containerElement: HTMLElement): void {
+  public createMenuBody(containerElement: HTMLElement, paletteBodyCssClass: string): void {
     const bodyDiv = document.createElement('div');
     containerElement.appendChild(bodyDiv);
-    bodyDiv.classList.add('palette-body', 'collapsible-palette', COLLAPSED_CSS);
+    bodyDiv.classList.add(paletteBodyCssClass, 'palette-body', 'collapsible-palette', COLLAPSED_CSS);
     bodyDiv.appendChild((this.searchField = this.createPaletteItemSearchField(containerElement.id)));
     this.bodyDiv = bodyDiv;
     this.createItemsDiv(bodyDiv);
@@ -45,6 +45,10 @@ export class ElementPickerMenu {
 
   public hideMenu(): void {
     this.bodyDiv!.classList.add(COLLAPSED_CSS);
+  }
+
+  public showMenu(): void {
+    this.bodyDiv!.classList.remove(COLLAPSED_CSS);
   }
 
   public getPaletteItems(): PaletteItem[] {
@@ -150,6 +154,12 @@ export class ElementPickerMenu {
         path.setAttribute('d', icon.res);
         svg.appendChild(path);
         return svg;
+      }
+      if (icon.style === IconStyle.UNKNOWN) {
+        const span = document.createElement('span');
+        span.style.backgroundColor = item.icon;
+        span.classList.add('color-icon');
+        return span;
       }
     }
     return document.createElement('span');

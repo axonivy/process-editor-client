@@ -37,9 +37,8 @@ import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { AutoAlignOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
-import { ElementPickerMenu } from './element-picker-menu';
 import { compare, createIcon } from './tool-bar-helper';
-import { ColorPickerMenu } from './color-picker-menu';
+import { ItemPickerMenu } from './item-picker-menu';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -53,8 +52,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
-  protected elementPickerMenu: ElementPickerMenu;
-  protected colorPickerMenu: ColorPickerMenu;
+  protected elementPickerMenu: ItemPickerMenu;
+  protected colorPickerMenu: ItemPickerMenu;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
@@ -275,7 +274,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.actionDispatcher.request(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
-          this.elementPickerMenu = new ElementPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+          this.elementPickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.createElementPickerMenu();
         }
       });
@@ -283,8 +282,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
           console.log(paletteItems);
-          this.colorPickerMenu = new ColorPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-          this.colorPickerMenu.createMenuBody(this.containerElement);
+          this.colorPickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+          this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
         }
       });
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
@@ -315,7 +314,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (this.editorContext.isReadonly) {
       return;
     }
-    this.elementPickerMenu.createMenuBody(this.containerElement);
+    this.elementPickerMenu.createMenuBody(this.containerElement, 'element-palette-body');
     const headerCompartment = this.containerElement.getElementsByClassName('palette-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
