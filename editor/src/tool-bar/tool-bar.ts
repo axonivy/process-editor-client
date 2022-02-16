@@ -35,7 +35,7 @@ import { JumpAction } from '../jump/action';
 import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
-import { AutoAlignOperation } from './operation';
+import { AutoAlignOperation, ColorizeOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
@@ -239,6 +239,9 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   onClickElementPickerToolButton = (button: HTMLElement, item: PaletteItem): void => {
     if (!this.editorContext.isReadonly) {
+      if (item.actions.length === 1 && item.id.startsWith('color-palette-item') && item.icon) {
+        item.actions[0] = new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon);
+      }
       this.dispatchAction(item.actions);
       this.changeActiveButton(button);
       button.focus();
