@@ -39,6 +39,7 @@ import { AutoAlignOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { ElementPickerMenu } from './element-picker-menu';
 import { compare, createIcon } from './tool-bar-helper';
+import { ColorPickerMenu } from './color-picker-menu';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -53,6 +54,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
   protected elementPickerMenu: ElementPickerMenu;
+  protected colorPickerMenu: ColorPickerMenu;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
@@ -78,6 +80,23 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected initializeContents(_containerElement: HTMLElement): void {
     this.createHeader();
+
+    const items = {
+      id: 'colors',
+      label: 'Colors',
+      sortString: 'A',
+      icon: 'fas fa-palette',
+      actions: [],
+      children: [
+        { id: 'error', label: 'Error', sortString: 'A', icon: '#ff0000', actions: [] },
+        { id: 'warning', label: 'Warning', sortString: 'B', icon: '#ffdf00', actions: [] },
+        { id: 'success', label: 'Success', sortString: 'C', icon: '#1fc900', actions: [] },
+        { id: 'info', label: 'Info', sortString: 'D', icon: '#0000ff', actions: [] }
+      ]
+    } as PaletteItem;
+
+    this.colorPickerMenu = new ColorPickerMenu([items], this.onClickElementPickerToolButton, this.clearToolOnEscape);
+    this.colorPickerMenu.createMenuBody(_containerElement);
     this.lastActivebutton = this.defaultToolsButton;
   }
 
@@ -177,14 +196,18 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     );
     dynamicTools.appendChild(this.autoAlignButton);
 
-    this.colorMenuButton = this.createDynamicToolButton(
-      'fa-palette',
-      'Select color',
-      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]),
-      false
-    );
+    this.colorMenuButton = createIcon(['fas', 'fa-palette', 'fa-xs']);
+    this.colorMenuButton.title = 'Select color';
+    this.showDynamicBtn(this.colorMenuButton, false);
+    this.colorMenuButton.onclick = _event => {
+      if (this.lastActivebutton === this.colorMenuButton && !this.colorPickerMenu.isMenuHidden()) {
+        this.changeActiveButton(this.defaultToolsButton);
+      } else {
+        this.changeActiveButton(this.colorMenuButton);
+        this.colorPickerMenu.showMenu();
+      }
+    };
     dynamicTools.appendChild(this.colorMenuButton);
-
     return dynamicTools;
   }
 
@@ -258,6 +281,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.lastActivebutton = this.defaultToolsButton;
     }
     this.elementPickerMenu.hideMenu();
+    this.colorPickerMenu.hideMenu();
   }
 
   handle(action: Action): ICommand | Action | void {
@@ -291,6 +315,9 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
     this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
     this.showDynamicBtn(this.colorMenuButton, selectedElements.length > 0);
+    if (selectedElements.length === 0) {
+      this.colorPickerMenu.hideMenu();
+    }
   }
 
   private createElementPickerMenu(): void {

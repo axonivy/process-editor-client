@@ -1,4 +1,4 @@
-import '../../css/tool-palette.css';
+import '../../css/tool-bar.css';
 
 import {
   configureActionHandler,
