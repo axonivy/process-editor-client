@@ -7,6 +7,7 @@ import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 
 import ivyOpenInscriptionModule from './open-inscription/di.config';
 import ivyOpenDecoratorBrowserModule from './open-decorator-browser/di.config';
+import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -19,6 +20,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(eclipseDeleteModule);
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
+  container.load(ivyOpenQuickOutlineModule);
 
   const agent = userAgent();
   // saidly there is now nice name reported
