@@ -240,7 +240,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   onClickElementPickerToolButton = (button: HTMLElement, item: PaletteItem): void => {
     if (!this.editorContext.isReadonly) {
       if (item.actions.length === 1 && item.id.startsWith('color-palette-item') && item.icon) {
-        item.actions[0] = new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon);
+        item.actions[0] = new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon, item.label);
       }
       this.dispatchAction(item.actions);
       this.changeActiveButton(button);
