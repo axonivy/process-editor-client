@@ -52,8 +52,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
-  protected elementPickerMenu: ItemPickerMenu;
-  protected colorPickerMenu: ItemPickerMenu;
+  protected elementPickerMenu?: ItemPickerMenu;
+  protected colorPickerMenu?: ItemPickerMenu;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
@@ -182,11 +182,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.colorMenuButton.title = 'Select color';
     this.showDynamicBtn(this.colorMenuButton, false);
     this.colorMenuButton.onclick = _event => {
-      if (this.lastActivebutton === this.colorMenuButton && !this.colorPickerMenu.isMenuHidden()) {
+      if (this.lastActivebutton === this.colorMenuButton && !this.colorPickerMenu?.isMenuHidden()) {
         this.changeActiveButton(this.defaultToolsButton);
       } else {
         this.changeActiveButton(this.colorMenuButton);
-        this.colorPickerMenu.showMenu();
+        this.colorPickerMenu?.showMenu();
       }
     };
     dynamicTools.appendChild(this.colorMenuButton);
@@ -265,8 +265,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.defaultToolsButton.classList.add(CLICKED_CSS_CLASS);
       this.lastActivebutton = this.defaultToolsButton;
     }
-    this.elementPickerMenu.hideMenu();
-    this.colorPickerMenu.hideMenu();
+    this.elementPickerMenu?.hideMenu();
+    this.colorPickerMenu?.hideMenu();
   }
 
   handle(action: Action): ICommand | Action | void {
@@ -309,7 +309,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
     this.showDynamicBtn(this.colorMenuButton, selectedElements.length > 0);
     if (selectedElements.length === 0) {
-      this.colorPickerMenu.hideMenu();
+      this.colorPickerMenu?.hideMenu();
     }
   }
 
@@ -317,13 +317,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (this.editorContext.isReadonly) {
       return;
     }
-    this.elementPickerMenu.createMenuBody(this.containerElement, 'element-palette-body');
+    this.elementPickerMenu?.createMenuBody(this.containerElement, 'element-palette-body');
     const headerCompartment = this.containerElement.getElementsByClassName('palette-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
 
     this.elementPickerMenu
-      .getPaletteItems()
+      ?.getPaletteItems()
       .sort(compare)
       .forEach(item => {
         if (item.icon && item.children) {
@@ -350,11 +350,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     button.id = 'btn_ele_picker_' + itemId;
     button.title = label;
     button.onclick = _event => {
-      if (this.lastActivebutton === button && !this.elementPickerMenu.isMenuHidden()) {
+      if (this.lastActivebutton === button && !this.elementPickerMenu?.isMenuHidden()) {
         this.changeActiveButton(this.defaultToolsButton);
       } else {
         this.changeActiveButton(button);
-        this.elementPickerMenu.showGroup(itemId);
+        this.elementPickerMenu?.showGroup(itemId);
       }
     };
     return button;
