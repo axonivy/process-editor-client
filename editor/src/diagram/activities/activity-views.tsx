@@ -28,6 +28,7 @@ export class ActivityNodeView extends RectangularNodeView {
           ry={rcr}
           width={Math.max(0, node.bounds.width)}
           height={Math.max(0, node.bounds.height)}
+          style={{ stroke: node.color }}
         ></rect>
         {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
         {this.getNodeDecorator(node)}

@@ -24,6 +24,7 @@ export class EventNodeView extends CircularNodeView {
           r={radius}
           cx={radius}
           cy={radius}
+          style={{ stroke: node.color }}
         ></circle>
         {this.getEventDecorator(radius)}
         {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
