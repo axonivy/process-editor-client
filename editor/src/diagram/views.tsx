@@ -1,6 +1,7 @@
 import {
   angleOfPoint,
   EdgePadding,
+  GEdgeView,
   IView,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
@@ -96,5 +97,16 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
       path += ` L ${p.x},${p.y}`;
     }
     return path;
+  }
+}
+
+@injectable()
+export class AssociationEdgeView extends GEdgeView {
+  protected renderLine(edge: Edge, segments: Point[], context: RenderingContext): VNode {
+    const line = super.renderLine(edge, segments, context);
+    if (line.data) {
+      line.data.style = { stroke: edge.color };
+    }
+    return line;
   }
 }
