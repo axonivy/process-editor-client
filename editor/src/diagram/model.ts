@@ -210,7 +210,7 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
   }
 }
 
-export class Edge extends SEdge implements WithEditableLabel, Executable {
+export class Edge extends SEdge implements WithEditableLabel, Executable, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     editFeature,
     deletableFeature,
