@@ -20,6 +20,10 @@
   --glsp-error-foreground: #e51400;
   --glsp-warning-foreground: #bf8803;
   --glsp-info-foreground: #75beff;
+
+  --glsp-breakpoint: #e51400;
+  --glsp-breakpoint-condition: #bf8803;
+  --glsp-breakpoint-hover: rgba(229, 20, 0, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,5 +43,9 @@
     --glsp-error-foreground: #f48771;
     --glsp-warning-foreground: #cca700;
     --glsp-info-foreground: #75beff;
+
+    --glsp-breakpoint: #f48771;
+    --glsp-breakpoint-condition: #cca700;
+    --glsp-breakpoint-hover: rgba(244, 135, 113, 0.5);
   }
 }

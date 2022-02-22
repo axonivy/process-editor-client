@@ -1,4 +1,4 @@
-import { Action, BoundsAware, Hoverable, hoverFeedbackFeature, SChildElement, SModelElement, SParentElement } from 'sprotty';
+import { Action, BoundsAware, Hoverable, hoverFeedbackFeature, SChildElement, selectFeature, SModelElement, SParentElement } from 'sprotty';
 
 export const breakpointFeature = Symbol('breakpointFeature');
 
@@ -15,12 +15,18 @@ export function isBreaked(element: SModelElement | undefined): element is SModel
 export class SBreakpointHandle extends SChildElement implements Hoverable {
   static readonly TYPE = 'breakpoint-handle';
 
-  constructor(public readonly type: string = SBreakpointHandle.TYPE, public readonly hoverFeedback: boolean = false) {
+  constructor(
+    public readonly condition: string = '',
+    public readonly disabled: boolean = false,
+    public readonly globalDisabled: boolean = false,
+    public readonly type: string = SBreakpointHandle.TYPE,
+    public readonly hoverFeedback: boolean = false
+  ) {
     super();
   }
 
   hasFeature(feature: symbol): boolean {
-    return feature === hoverFeedbackFeature;
+    return feature === hoverFeedbackFeature || feature === selectFeature;
   }
 
   mouseUp(target: SModelElement): Action[] {
@@ -28,9 +34,9 @@ export class SBreakpointHandle extends SChildElement implements Hoverable {
   }
 }
 
-export function addBreakpointHandles(element: SParentElement): void {
+export function addBreakpointHandles(element: SParentElement, condition: string, disabled: boolean, globalDisabled: boolean): void {
   removeBreakpointHandles(element);
-  element.add(new SBreakpointHandle());
+  element.add(new SBreakpointHandle(condition, disabled, globalDisabled));
 }
 
 export function removeBreakpointHandles(element: SParentElement): void {

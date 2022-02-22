@@ -24,7 +24,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
               sh 'yarn build'
               sh 'configs/link-integrations.sh'
@@ -48,7 +48,7 @@ pipeline {
     stage('Codechecks (ESLint)') {
       steps {
         script {
-          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
