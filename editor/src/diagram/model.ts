@@ -112,6 +112,10 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   get customIcon(): string {
     return (this.args?.customIconUri as string) ?? this.icon;
   }
+
+  get color(): string {
+    return this.args?.color as string;
+  }
 }
 
 export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
@@ -141,6 +145,10 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
 
   get customIcon(): string {
     return (this.args?.customIconUri as string) ?? this.icon;
+  }
+
+  get color(): string {
+    return this.args?.color as string;
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -193,12 +201,16 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     return (this.args?.customIconUri as string) ?? this.icon;
   }
 
+  get color(): string {
+    return this.args?.color as string;
+  }
+
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LabelType.DEFAULT);
   }
 }
 
-export class Edge extends SEdge implements WithEditableLabel, Executable {
+export class Edge extends SEdge implements WithEditableLabel, Executable, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     editFeature,
     deletableFeature,
@@ -210,6 +222,12 @@ export class Edge extends SEdge implements WithEditableLabel, Executable {
     executionFeature,
     quickActionFeature
   ];
+
+  args: Args;
+
+  get color(): string {
+    return this.args?.color as string;
+  }
 
   get bounds(): Bounds {
     // this should also work for splines, which have the convex hull property

@@ -22,7 +22,7 @@ import ivyDiagramModule from './diagram/di.config';
 import ivyJumpModule from './jump/di.config';
 import ivyLaneModule from './lanes/di.config';
 import ivyQuickActionModule from './quick-action/di.config';
-import ivyToolPaletteModule from './tool-palette/di.config';
+import ivyToolBarModule from './tool-bar/di.config';
 import ivyViewportModule from './viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
@@ -37,7 +37,7 @@ export default function createContainer(widgetId: string): Container {
     ...DEFAULT_MODULES.filter(isNotOverridenModule),
     baseViewModule,
     ivyDiagramModule,
-    ivyToolPaletteModule,
+    ivyToolBarModule,
     ivyDecorationModule,
     ivyViewportModule,
     ivyBoundaryModule,

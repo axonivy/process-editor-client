@@ -2,6 +2,7 @@ export enum IconStyle {
   FA,
   SVG,
   IMG,
+  UNKNOWN,
   NO
 }
 
@@ -12,6 +13,7 @@ export interface NodeIcon {
 export const NoIcon = { res: '', style: IconStyle.NO };
 
 const StandardIcons: { [icon: string]: NodeIcon } = {
+  'std:NoDecorator': NoIcon,
   'std:Step': { res: 'fa-cog', style: IconStyle.FA },
   'std:UserDialog': { res: 'fa-desktop', style: IconStyle.FA },
   'std:User': { res: 'fa-user', style: IconStyle.FA },
@@ -52,5 +54,5 @@ export const resolveIcon = (iconUri: string): NodeIcon => {
   } else if (iconUri.startsWith('ext:')) {
     return { res: 'fa-puzzle-piece', style: IconStyle.FA };
   }
-  return StandardIcons[iconUri] ?? NoIcon;
+  return StandardIcons[iconUri] ?? { res: iconUri, style: IconStyle.UNKNOWN };
 };

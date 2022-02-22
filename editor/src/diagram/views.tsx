@@ -1,11 +1,11 @@
 import {
   angleOfPoint,
   EdgePadding,
+  GEdgeView,
   IView,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
-  SEdge,
   SLabel,
   svg,
   toDegrees
@@ -13,6 +13,7 @@ import {
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
+import { Edge } from './model';
 
 import { ActivityTypes } from './view-types';
 
@@ -47,7 +48,15 @@ export class ForeignLabelView implements IView {
 
 @injectable()
 export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
-  protected renderAdditionals(edge: SEdge, segments: Point[], context: RenderingContext): VNode[] {
+  protected renderLine(edge: Edge, segments: Point[], context: RenderingContext): VNode {
+    const line = super.renderLine(edge, segments, context, undefined);
+    if (line.data) {
+      line.data.style = { stroke: edge.color };
+    }
+    return line;
+  }
+
+  protected renderAdditionals(edge: Edge, segments: Point[], context: RenderingContext): VNode[] {
     const additionals = super.renderAdditionals(edge, segments, context);
     const edgePadding = EdgePadding.from(edge);
     const edgePaddingNode = edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
@@ -60,6 +69,7 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
         class-arrow={true}
         d='M 1.5,0 L 10,-4 L 10,4 Z'
         transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`}
+        style={{ stroke: edge.color }}
       />
     );
     additionals.push(...edgePaddingNode, arrow);
@@ -87,5 +97,16 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
       path += ` L ${p.x},${p.y}`;
     }
     return path;
+  }
+}
+
+@injectable()
+export class AssociationEdgeView extends GEdgeView {
+  protected renderLine(edge: Edge, segments: Point[], context: RenderingContext): VNode {
+    const line = super.renderLine(edge, segments, context);
+    if (line.data) {
+      line.data.style = { stroke: edge.color };
+    }
+    return line;
   }
 }

@@ -49,6 +49,10 @@
   background: var(--glsp-tool-palette-hover);
 }
 
+.header-tools i.fa-image:not(.active) {
+  filter: opacity(0.6);
+}
+
 .header-tools .clicked,
 .element-pickers .clicked {
   background: var(--glsp-tool-palette-selection);
@@ -67,6 +71,13 @@
 .palette-body.collapsed {
   max-height: 0;
   border: none;
+}
+
+.color-palette-body {
+  position: fixed;
+  right: 50%;
+  left: 50%;
+  margin-left: -80px;
 }
 
 .tool-group {
@@ -114,7 +125,7 @@
 }
 .tool-button i,
 .tool-button span {
-  padding-right: 0.4em;
+  margin-right: 0.4em;
   width: 1.25em;
   display: inline-block;
 }
@@ -126,6 +137,10 @@
   stroke: var(--glsp-editor-foreground);
   top: 1px;
   position: relative;
+}
+.tool-button .color-icon {
+  height: 1em;
+  border: 1px solid var(--glsp-tool-palette-forground);
 }
 
 .collapsible-palette {

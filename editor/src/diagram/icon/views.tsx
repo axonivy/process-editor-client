@@ -22,7 +22,7 @@ export function getIconDecorator(iconUri: string, radius: number): VNode {
 
 function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, smallIcon: boolean): VNode {
   const icon = resolveIcon(iconUri);
-  if (icon.style === IconStyle.NO) {
+  if (icon.style === IconStyle.NO || icon.style === IconStyle.UNKNOWN) {
     return <g></g>;
   }
   if (icon.style === IconStyle.SVG) {

@@ -22,9 +22,9 @@ import {
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
+import { createIcon } from '../tool-bar/tool-bar-helper';
 
 import { Edge, LaneNode } from '../diagram/model';
-import { createIcon } from '../tool-palette/tool-palette';
 import { isQuickActionAware } from './model';
 import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 

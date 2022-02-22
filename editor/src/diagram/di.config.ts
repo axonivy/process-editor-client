@@ -5,7 +5,6 @@ import {
   configureModelElement,
   ConsoleLogger,
   DeleteElementContextMenuItemProvider,
-  GEdgeView,
   LogLevel,
   moveFeature,
   selectFeature,
@@ -39,7 +38,7 @@ import {
 } from './model';
 import { IvyGridSnapper } from './snap';
 import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
-import { ForeignLabelView, WorkflowEdgeView } from './views';
+import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -108,7 +107,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
 
   configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
-  configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, GEdgeView);
+  configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
 
   configureModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 });
