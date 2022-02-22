@@ -49,7 +49,7 @@ export class ForeignLabelView implements IView {
 export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
   protected renderLine(edge: Edge, segments: Point[], context: RenderingContext): VNode {
     const line = super.renderLine(edge, segments, context, undefined);
-    if (line.data && line.data.style === undefined) {
+    if (line.data) {
       line.data.style = { stroke: edge.color };
     }
     return line;
