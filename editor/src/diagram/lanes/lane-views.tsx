@@ -19,6 +19,8 @@ export class LaneNodeView extends RectangularNodeView {
           y='0'
           width={Math.max(node.size.width, 0)}
           height={Math.max(node.size.height, 0)}
+          style-fill={node.color}
+          style-fill-opacity='0.1'
         ></rect>
         {this.getDecoratorLine(node)}
         {context.renderChildren(node)}

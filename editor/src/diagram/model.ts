@@ -52,7 +52,7 @@ export class IvyGLSPGraph extends GLSPGraph {
   scroll = { x: 0, y: -50 };
 }
 
-export class LaneNode extends RectangularNode implements WithEditableLabel {
+export class LaneNode extends RectangularNode implements WithEditableLabel, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     boundsFeature,
     layoutContainerFeature,
@@ -65,8 +65,14 @@ export class LaneNode extends RectangularNode implements WithEditableLabel {
     laneResizeFeature
   ];
 
+  args: Args;
+
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);
+  }
+
+  get color(): string {
+    return this.args?.color as string;
   }
 
   canConnect(routable: SRoutableElement, role: string): boolean {
