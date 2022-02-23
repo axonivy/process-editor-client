@@ -30,6 +30,7 @@ import ivyHoverModule from './hover/di.config';
 import ivyExecutionModule from './execution/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
+import ivyNodeModule from './node/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -50,7 +51,8 @@ export default function createContainer(widgetId: string): Container {
     ivyHoverModule,
     ivyExecutionModule,
     ivyConnectorModule,
-    ivyToolsModule
+    ivyToolsModule,
+    ivyNodeModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
