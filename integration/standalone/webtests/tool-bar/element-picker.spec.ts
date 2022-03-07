@@ -1,12 +1,13 @@
-import { test, expect } from '@playwright/test';
-import { procurementRequestParallelUrl } from '../process-editor-url-util';
+import { test, expect, Page } from '@playwright/test';
+import { addLane, addPool, cleanDiagram } from '../diagram-util';
+import { randomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - element picker', () => {
   const COLLAPSED_CSS_CLASS = /collapsed/;
   const PALETTE_BODY = '.element-palette-body';
 
   test.beforeEach(async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl());
+    await page.goto(randomTestProcessUrl());
   });
 
   test('menu show and hide', async ({ page }) => {
@@ -97,4 +98,55 @@ test.describe('tool bar - element picker', () => {
     await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
     await expect(gatewayGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
   });
+
+  test('create all events', async ({ page }) => {
+    await createAllElements(page, '#btn_ele_picker_event-group', 10);
+  });
+
+  test('create all gateways', async ({ page }) => {
+    await createAllElements(page, '#btn_ele_picker_gateway-group', 4);
+  });
+
+  test('create all activities', async ({ page }) => {
+    await createAllElements(page, '#btn_ele_picker_activity-group', 12);
+  });
+
+  test('create lanes', async ({ page }) => {
+    await createAllElements(page, '#btn_ele_picker_swimlane-group', 2);
+  });
+
+  test('create connector', async ({ page }) => {
+    const connector = page.locator('.sprotty-graph > g > .sprotty-edge:not(.feedback-edge)');
+    const feedbackConnector = page.locator('.sprotty-graph > g > .sprotty-edge.feedback-edge');
+    const start = page.locator('.sprotty-graph .start');
+    const end = page.locator('.sprotty-graph .end');
+    await connector.click();
+    await page.keyboard.press('Delete');
+    await expect(connector).not.toBeVisible();
+    await expect(feedbackConnector).not.toBeVisible();
+
+    await page.locator('#btn_ele_picker_connector-group').click();
+    await end.click();
+    await expect(feedbackConnector).not.toBeVisible();
+    await start.click();
+    await expect(feedbackConnector).toBeVisible();
+    await end.click();
+    await expect(feedbackConnector).not.toBeVisible();
+    await expect(connector).toBeVisible();
+  });
+
+  async function createAllElements(page: Page, pickerBtnId: string, expectedElementCount: number): Promise<void> {
+    await cleanDiagram(page);
+
+    const pickerBtn = page.locator(pickerBtnId);
+    await pickerBtn.click();
+    const pickers = page.locator(PALETTE_BODY + ' .tool-group:not(.collapsed) .tool-button');
+    const pickersCount = await pickers.count();
+    for (let i = 0; i < pickersCount; i++) {
+      await pickers.nth(i).click();
+      await page.locator('.sprotty-graph').click({ position: { x: 30 + 80 * i, y: 100 } });
+      await pickerBtn.click();
+    }
+    await expect(page.locator('.sprotty-graph > g > g')).toHaveCount(expectedElementCount);
+  }
 });

@@ -79,7 +79,7 @@ test.describe('tool bar - dynamic tools', () => {
 
     await expect(startElement).toHaveAttribute('transform', startElementTransform);
     await expect(endElement).not.toHaveAttribute('transform', endElementTransform);
-    // end element should only be moved horizontally
+    // end element should only be moved vertically
     await expect(endElement).toHaveAttribute('transform', /translate\(625, \d+\)/);
   });
 });

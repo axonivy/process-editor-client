@@ -53,7 +53,7 @@ export class SubActivityNodeView extends ActivityNodeView {
     const radius = diameter / 2;
     const padding = 2;
     return (
-      <svg x={node.bounds.width / 2 - radius} y={node.bounds.height - diameter}>
+      <svg x={node.bounds.width / 2 - radius} y={node.bounds.height - diameter} height={diameter} width={diameter}>
         <rect class-sprotty-node={true} class-sprotty-task-node={true} width={diameter} height={diameter} />
         <line class-sprotty-node-decorator x1={radius} y1={padding} x2={radius} y2={diameter - padding} />
         <line class-sprotty-node-decorator x1={padding} y1={radius} x2={diameter - padding} y2={radius} />
