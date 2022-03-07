@@ -10,6 +10,9 @@ body {
   font-size: 10pt;
   border: none;
   height: 100%;
+  /* Grid? */
+  /* background-size: 10px 10px;
+  background-image: linear-gradient(to right, #e4e4e4 1px, transparent 1px), linear-gradient(to bottom, #e4e4e4 1px, transparent 1px); */
 }
 
 /* Pool / Lane */
