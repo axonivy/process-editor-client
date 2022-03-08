@@ -135,7 +135,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('subProcess') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
-      '<svg x="70" y="40"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
+      '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
       '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
       '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
@@ -146,7 +146,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('embeddedProcess') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
-      '<svg x="70" y="40"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
+      '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
       '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
       '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
