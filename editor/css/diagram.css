@@ -56,11 +56,17 @@ body {
 .failed .sprotty-node {
   fill: hsl(0 100% 50% / 50%);
 }
+.stopped .sprotty-node {
+  fill: hsl(100 100% 50% / 35%);
+}
 .executed.animate .sprotty-node {
   animation: background-pulse 1s infinite ease-in-out;
 }
 .failed.animate .sprotty-node {
   animation: background-pulse-failed 1s infinite ease-in-out;
+}
+.stopped.animate .sprotty-node {
+  animation: background-pulse-stopped 1s infinite ease-in-out;
 }
 .sprotty-node.mouseover {
   stroke-width: 3px;
@@ -231,5 +237,17 @@ g[class^='end'] .sprotty-node {
   }
   100% {
     fill: hsl(0 100% 50% / 50%);
+  }
+}
+
+@keyframes background-pulse-stopped {
+  0% {
+    fill: hsl(100 100% 50% / 50%);
+  }
+  50% {
+    fill: hsl(100 100% 30% / 50%);
+  }
+  100% {
+    fill: hsl(100 100% 50% / 50%);
   }
 }

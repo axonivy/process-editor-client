@@ -12,8 +12,8 @@ import {
 import { expect } from 'chai';
 import { Container } from 'inversify';
 
-import { ShowBreakpointAction, ShowBreakpointActionHandler } from '../../src/breakpoint/breakpoint-action-handler';
-import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from '../../src/breakpoint/breakpoint-feedback-action';
+import { ShowBreakpointAction, ShowBreakpointActionHandler } from '../../src/breakpoint/action-handler';
+import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from '../../src/breakpoint/feedback-action';
 
 function createContainer(): Container {
   const container = new Container();
@@ -37,15 +37,24 @@ describe('ShowBreakpointActionHandler', () => {
   });
 
   it('Action handler creates the correct BreakpointFeedbackAction', async () => {
-    await actionDispatcher.dispatch(new ShowBreakpointAction(['foo']));
+    const elementBreakpoint = { elementId: 'foo', condition: '', disabled: false };
+    await actionDispatcher.dispatch(new ShowBreakpointAction([elementBreakpoint], false));
     let action = getAndAssertBreakpointFeedbackAction();
-    expect(action.showBreakpointElementIds).to.include('foo');
-    expect(action.hideBreakpointElementIds).to.be.empty;
+    expect(action.breakpoints).to.include(elementBreakpoint);
+    expect(action.oldBreakpoints).to.be.empty;
+    expect(action.globalDisabled).to.be.false;
 
-    await actionDispatcher.dispatch(new ShowBreakpointAction([]));
+    await actionDispatcher.dispatch(new ShowBreakpointAction([elementBreakpoint], true));
     action = getAndAssertBreakpointFeedbackAction();
-    expect(action.showBreakpointElementIds).to.be.empty;
-    expect(action.hideBreakpointElementIds).to.include('foo');
+    expect(action.breakpoints).to.include(elementBreakpoint);
+    expect(action.oldBreakpoints).to.include(elementBreakpoint);
+    expect(action.globalDisabled).to.be.true;
+
+    await actionDispatcher.dispatch(new ShowBreakpointAction([], false));
+    action = getAndAssertBreakpointFeedbackAction();
+    expect(action.breakpoints).to.be.empty;
+    expect(action.oldBreakpoints).to.include(elementBreakpoint);
+    expect(action.globalDisabled).to.be.false;
 
     function getAndAssertBreakpointFeedbackAction(): BreakpointFeedbackAction {
       const feedbacks = feedbackDispatcher.getRegisteredFeedback();

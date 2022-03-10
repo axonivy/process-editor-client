@@ -15,18 +15,17 @@ export class SBreakpointHandleView implements IView {
         <g>
           <circle
             class-ivy-breakpoint-handle={true}
+            class-disabled={handle.disabled}
+            class-condition={handle.condition?.length > 0 && handle.condition !== 'true'}
             class-mouseover={handle.hoverFeedback}
-            cx={this.getRadius() * -1}
-            cy={0}
-            r={this.getRadius()}
+            cx={-7}
+            cy={7}
+            r={5}
           ></circle>
+          {handle.globalDisabled && <line class-ivy-breakpoint-handle-globaldisable x1={-12} y1={2} x2={-2} y2={12} />}
         </g>
       );
     }
     return <g />;
-  }
-
-  getRadius(): number {
-    return 7;
   }
 }

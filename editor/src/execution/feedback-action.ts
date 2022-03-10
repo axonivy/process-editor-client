@@ -1,7 +1,7 @@
 import { SChildElement } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
-import { addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
+import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 import { ElementExecution } from './action';
 
 import { isExecutable } from './model';
@@ -58,6 +58,49 @@ export class ExecutedFeedbackCommand extends Command {
   redo(context: CommandExecutionContext): SModelRoot {
     addCssClassToElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
     addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
+    return context.root;
+  }
+}
+
+export class StoppedFeedbackAction {
+  constructor(
+    public readonly oldStoppedElement: string,
+    public readonly stoppedElement: string,
+    public readonly kind: string = StoppedFeedbackCommand.KIND
+  ) {}
+}
+
+@injectable()
+export class StoppedFeedbackCommand extends Command {
+  static readonly KIND = 'stoppedFeedbackCommand';
+  static readonly STOPPED_CSS_CLASS = 'stopped';
+
+  protected stoppedElement: SChildElement;
+
+  constructor(@inject(TYPES.Action) protected readonly action: StoppedFeedbackAction) {
+    super();
+  }
+
+  execute(context: CommandExecutionContext): SModelRoot {
+    const model = context.root;
+    const oldElement = model.index.getById(this.action.oldStoppedElement);
+    if (oldElement instanceof SChildElement && isExecutable(oldElement)) {
+      removeCssClass(oldElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
+    }
+    const element = model.index.getById(this.action.stoppedElement);
+    if (element instanceof SChildElement && isExecutable(element)) {
+      this.stoppedElement = element;
+    }
+    return this.redo(context);
+  }
+
+  undo(context: CommandExecutionContext): SModelRoot {
+    removeCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
+    return context.root;
+  }
+
+  redo(context: CommandExecutionContext): SModelRoot {
+    addCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }
 }

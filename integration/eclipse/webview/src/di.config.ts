@@ -1,7 +1,7 @@
 import '../css/colors.css';
 
 import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
-import { createIvyDiagramContainer, ivyKeyListenerModule } from '@ivyteam/process-editor';
+import { ivyBreakpointModule, createIvyDiagramContainer, ivyKeyListenerModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 
@@ -21,6 +21,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
   container.load(ivyOpenQuickOutlineModule);
+  container.load(ivyBreakpointModule);
 
   const agent = userAgent();
   // saidly there is now nice name reported

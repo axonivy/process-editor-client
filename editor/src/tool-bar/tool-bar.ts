@@ -21,7 +21,10 @@ import {
   FitToScreenAction,
   IActionHandler,
   ICommand,
+  isConnectable,
+  isDeletable,
   IToolManager,
+  SChildElement,
   SEdge,
   SetUIExtensionVisibilityAction,
   SModelRoot,
@@ -39,6 +42,7 @@ import { AutoAlignOperation, ColorizeOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
+import { isWrapable } from '../wrap/model';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -284,7 +288,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
-          console.log(paletteItems);
           this.colorPickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
         }
@@ -304,11 +307,18 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (this.editorContext.isReadonly) {
       return;
     }
-    this.showDynamicBtn(this.wrapToSubToolButton, selectedElements.length > 0);
-    this.showDynamicBtn(this.deleteToolButton, selectedElements.length > 0);
-    this.showDynamicBtn(this.autoAlignButton, selectedElements.length > 1);
-    this.showDynamicBtn(this.colorMenuButton, selectedElements.length > 0);
-    if (selectedElements.length === 0) {
+    const elements: SChildElement[] = [];
+    selectedElements.forEach(id => {
+      const element = root.index.getById(id);
+      if (element instanceof SChildElement) {
+        elements.push(element);
+      }
+    });
+    this.showDynamicBtn(this.deleteToolButton, elements.length > 0 && isDeletable(elements[0]));
+    this.showDynamicBtn(this.wrapToSubToolButton, elements.length > 0 && isWrapable(elements[0]));
+    this.showDynamicBtn(this.autoAlignButton, elements.length > 1 && isConnectable(elements[0]));
+    this.showDynamicBtn(this.colorMenuButton, elements.length > 0 && isDeletable(elements[0]));
+    if (elements.length === 0) {
       this.colorPickerMenu?.hideMenu();
     }
   }

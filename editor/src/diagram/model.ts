@@ -39,6 +39,7 @@ import {
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
+import { wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
@@ -98,7 +99,8 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     openFeature,
     breakpointFeature,
     errorBoundaryFeature,
-    executionFeature
+    executionFeature,
+    wrapFeature
   ];
 
   name = '';
@@ -140,7 +142,8 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
     breakpointFeature,
     quickActionFeature,
     withEditLabelFeature,
-    executionFeature
+    executionFeature,
+    wrapFeature
   ];
 
   args: Args;
@@ -190,7 +193,8 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     breakpointFeature,
     quickActionFeature,
     withEditLabelFeature,
-    executionFeature
+    executionFeature,
+    wrapFeature
   ];
 
   args: Args;
