@@ -1,5 +1,6 @@
 import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 
@@ -50,9 +51,10 @@ class AutoBendEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-ruler-combined',
-    public readonly title = 'Bend',
+    public readonly title = 'Bend (b)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new AutoBendEdgeOperation(elementId)
+    public readonly action = new AutoBendEdgeOperation(elementId),
+    public readonly shortcut = 'KeyB' as KeyCode
   ) {}
 }

@@ -43,7 +43,7 @@ test.describe('quick actions - connectors', () => {
 
     await resetSelection(page);
     await connector.click();
-    await clickQuickAction(page, 'Bend');
+    await clickQuickAction(page, 'Bend (b)');
     await expect(connectorPath).toHaveAttribute('d', BEND_CONNECTOR_PATH);
 
     await resetSelection(page);

@@ -1,5 +1,6 @@
 import { Action, DeleteElementOperation, EditLabelAction, isDeletable, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { AutoAlignOperation } from '../tool-bar/operation';
 
@@ -81,6 +82,7 @@ export interface QuickAction {
   sorting: string;
   action: Action;
   readonlySupport?: boolean;
+  shortcut?: KeyCode;
 }
 
 class DeleteQuickAction implements QuickAction {

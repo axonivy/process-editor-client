@@ -180,7 +180,7 @@ describe('QuickActionUi', () => {
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
     assertQuickAction(uiDiv.children[1], 'Edit Label', 'fa-tag', { x: 2, y: -30 });
     assertQuickAction(uiDiv.children[2], 'Straighten', 'fa-arrows-alt-h', { x: -30, y: 10 });
-    assertQuickAction(uiDiv.children[3], 'Bend', 'fa-ruler-combined', { x: 2, y: 10 });
+    assertQuickAction(uiDiv.children[3], 'Bend (b)', 'fa-ruler-combined', { x: 2, y: 10 });
   });
 
   it('ui is rendered for activity element', () => {
