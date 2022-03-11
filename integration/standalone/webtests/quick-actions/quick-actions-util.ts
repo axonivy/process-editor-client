@@ -3,7 +3,7 @@ import { expect, Locator, Page } from '@playwright/test';
 export async function editLabel(page: Page, element: Locator): Promise<void> {
   const label = page.locator('#sprotty_editLabelUi textarea');
   await element.click();
-  await clickQuickActionEndsWith(page, 'Label');
+  await clickQuickActionEndsWith(page, 'Label (L)');
   await expect(label).toBeVisible();
   await label.fill('test label');
   await page.keyboard.press('Enter');

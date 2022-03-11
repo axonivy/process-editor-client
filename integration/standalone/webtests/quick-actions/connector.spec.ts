@@ -38,17 +38,17 @@ test.describe('quick actions - connectors', () => {
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
 
     await connector.click();
-    await clickQuickAction(page, 'Straighten');
+    await clickQuickAction(page, 'Straighten (S)');
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
 
     await resetSelection(page);
     await connector.click();
-    await clickQuickAction(page, 'Bend');
+    await clickQuickAction(page, 'Bend (B)');
     await expect(connectorPath).toHaveAttribute('d', BEND_CONNECTOR_PATH);
 
     await resetSelection(page);
     await connector.click();
-    await clickQuickAction(page, 'Straighten');
+    await clickQuickAction(page, 'Straighten (S)');
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
   });
 

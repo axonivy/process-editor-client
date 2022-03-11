@@ -146,7 +146,7 @@ describe('QuickActionUiReadonly', () => {
     quickActionUi.show(root, 'sub');
     const uiDiv = getQuickActionDiv();
     assertQuickActionUi(uiDiv, 1, { x: 300, y: 100 });
-    assertQuickAction(uiDiv.children[0], 'Jump', 'fa-level-down-alt', { x: -30, y: 60 });
+    assertQuickAction(uiDiv.children[0], 'Jump (J)', 'fa-level-down-alt', { x: -30, y: 60 });
   });
 });
 
@@ -178,9 +178,9 @@ describe('QuickActionUi', () => {
     const uiDiv = getQuickActionDiv();
     assertQuickActionUi(uiDiv, 4);
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Edit Label', 'fa-tag', { x: 2, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Straighten', 'fa-arrows-alt-h', { x: -30, y: 10 });
-    assertQuickAction(uiDiv.children[3], 'Bend', 'fa-ruler-combined', { x: 2, y: 10 });
+    assertQuickAction(uiDiv.children[1], 'Edit Label (L)', 'fa-tag', { x: 2, y: -30 });
+    assertQuickAction(uiDiv.children[2], 'Straighten (S)', 'fa-arrows-alt-h', { x: -30, y: 10 });
+    assertQuickAction(uiDiv.children[3], 'Bend (B)', 'fa-ruler-combined', { x: 2, y: 10 });
   });
 
   it('ui is rendered for activity element', () => {
@@ -197,7 +197,7 @@ describe('QuickActionUi', () => {
     assertQuickActionUi(uiDiv, 3, { x: 300, y: 100 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-trash', { x: -30, y: -30 });
     assertQuickAction(uiDiv.children[1], 'Connect', 'fa-long-arrow-alt-right', { x: 210, y: 0 });
-    assertQuickAction(uiDiv.children[2], 'Jump', 'fa-level-down-alt', { x: -30, y: 60 });
+    assertQuickAction(uiDiv.children[2], 'Jump (J)', 'fa-level-down-alt', { x: -30, y: 60 });
   });
 
   it('ui is rendered for event element', () => {
@@ -239,7 +239,7 @@ describe('QuickActionUi', () => {
     const uiDiv = getQuickActionDiv();
     assertMultiQuickActionUi(uiDiv, 2, { height: 40, width: 140 }, { x: 200, y: 200 });
     assertQuickAction(uiDiv.children[1], 'Delete', 'fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[2], 'Auto Align', 'fa-arrows-alt', { x: -30, y: 40 });
+    assertQuickAction(uiDiv.children[2], 'Auto Align (A)', 'fa-arrows-alt', { x: -30, y: 40 });
 
     quickActionUi.show(root, 'start', 'end', 'foo');
     assertMultiQuickActionUi(uiDiv, 2, { height: 140, width: 240 }, { x: 100, y: 100 });

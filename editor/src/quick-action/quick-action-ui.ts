@@ -32,6 +32,7 @@ import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
   static readonly ID = 'quickActionsUi';
   private lastCursorPosition: Point;
+  private activeQuickActions: QuickAction[] = [];
 
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
@@ -45,6 +46,10 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   public containerClass(): string {
     return 'quick-actions-container';
+  }
+
+  public getActiveQuickActions(): QuickAction[] {
+    return this.activeQuickActions;
   }
 
   @postConstruct()
@@ -73,6 +78,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   public hideUi(): void {
+    this.activeQuickActions = [];
     this.actionDispatcherProvider().then(actionDispatcher =>
       actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false))
     );
@@ -134,9 +140,9 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[], inline: boolean): void {
+    this.activeQuickActions = quickActions.filter(quickAction => !this.isReadonly() || quickAction.readonlySupport);
     Object.values(QuickActionLocation).forEach(loc => {
-      quickActions
-        .filter(quickAction => !this.isReadonly() || quickAction.readonlySupport)
+      this.activeQuickActions
         .filter(quickAction => quickAction.location === loc)
         .sort((a, b) => a.sorting.localeCompare(b.sorting))
         .forEach((quickAction, position) => {

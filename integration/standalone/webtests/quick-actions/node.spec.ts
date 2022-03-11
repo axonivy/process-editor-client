@@ -94,7 +94,7 @@ test.describe('quick actions - nodes', () => {
     const endTransform = await end.getAttribute('transform');
 
     await multiSelect(page, [start, end]);
-    await clickQuickActionEndsWith(page, 'Align');
+    await clickQuickActionEndsWith(page, 'Align (A)');
     await expect(start).toHaveAttribute('transform', startTransform);
     await expect(end).not.toHaveAttribute('transform', endTransform);
     // end element should only be moved vertically
@@ -115,7 +115,7 @@ test.describe('quick actions - nodes', () => {
     await expect(embedded).toBeVisible();
 
     await embedded.click();
-    await clickQuickAction(page, 'Jump');
+    await clickQuickAction(page, 'Jump (J)');
     await expect(start).toBeVisible();
     await expect(end).toBeVisible();
     await expect(embedded).toBeHidden();

@@ -1,5 +1,6 @@
 import { Action, DeleteElementOperation, EditLabelAction, isDeletable, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { AutoAlignOperation } from '../tool-bar/operation';
 
@@ -81,6 +82,7 @@ export interface QuickAction {
   sorting: string;
   action: Action;
   readonlySupport?: boolean;
+  shortcut?: KeyCode;
 }
 
 class DeleteQuickAction implements QuickAction {
@@ -98,10 +100,11 @@ class AutoAlignQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
     public readonly icon = 'fa-arrows-alt',
-    public readonly title = 'Auto Align',
+    public readonly title = 'Auto Align (A)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'Z',
-    public readonly action = new AutoAlignOperation(elementIds)
+    public readonly action = new AutoAlignOperation(elementIds),
+    public readonly shortcut: KeyCode = 'KeyA'
   ) {}
 }
 
@@ -109,9 +112,10 @@ class EditLabelQuickAction implements QuickAction {
   constructor(
     public readonly labelId: string,
     public readonly icon = 'fa-tag',
-    public readonly title = 'Edit Label',
+    public readonly title = 'Edit Label (L)',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
-    public readonly action = new EditLabelAction(labelId)
+    public readonly action = new EditLabelAction(labelId),
+    public readonly shortcut: KeyCode = 'KeyL'
   ) {}
 }

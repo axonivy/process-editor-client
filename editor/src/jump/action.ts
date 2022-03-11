@@ -1,5 +1,6 @@
 import { Action, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isJumpable } from './model';
@@ -24,10 +25,11 @@ class JumpQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-level-down-alt',
-    public readonly title = 'Jump',
+    public readonly title = 'Jump (J)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new JumpAction(elementId),
-    public readonly readonlySupport = true
+    public readonly readonlySupport = true,
+    public readonly shortcut: KeyCode = 'KeyJ'
   ) {}
 }
