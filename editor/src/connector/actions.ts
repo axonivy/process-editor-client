@@ -24,10 +24,11 @@ class StraightenEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-arrows-alt-h',
-    public readonly title = 'Straighten',
+    public readonly title = 'Straighten (S)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new StraightenEdgeOperation(elementId)
+    public readonly action = new StraightenEdgeOperation(elementId),
+    public readonly shortcut: KeyCode = 'KeyS'
   ) {}
 }
 
@@ -51,10 +52,10 @@ class AutoBendEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-ruler-combined',
-    public readonly title = 'Bend (b)',
+    public readonly title = 'Bend (B)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
     public readonly action = new AutoBendEdgeOperation(elementId),
-    public readonly shortcut = 'KeyB' as KeyCode
+    public readonly shortcut: KeyCode = 'KeyB'
   ) {}
 }

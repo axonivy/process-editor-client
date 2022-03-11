@@ -1,5 +1,6 @@
 import { Operation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { MultipleQuickActionProvider, QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isUnwrapable } from './model';
@@ -30,10 +31,11 @@ class UnwrapQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-expand-arrows-alt',
-    public readonly title = 'Unwrap embedded subprocess',
+    public readonly title = 'Unwrap embedded subprocess (U)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new UnwrapSubOperation(elementId)
+    public readonly action = new UnwrapSubOperation(elementId),
+    public readonly shortcut: KeyCode = 'KeyU'
   ) {}
 }
 
@@ -52,9 +54,10 @@ class WrapQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
     public readonly icon = 'fa-compress-arrows-alt',
-    public readonly title = 'Wrap to embedded process',
+    public readonly title = 'Wrap to embedded process (S)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new WrapToSubOperation(elementIds)
+    public readonly action = new WrapToSubOperation(elementIds),
+    public readonly shortcut: KeyCode = 'KeyS'
   ) {}
 }
