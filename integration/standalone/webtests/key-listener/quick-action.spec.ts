@@ -32,7 +32,7 @@ test.describe('quick action shortcuts', () => {
     const label = page.locator('.label-edit textarea');
     const start = page.locator('.sprotty-graph .start');
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
-    await !expect(label).toBeVisible();
+    await expect(label).toBeHidden;
 
     await start.click();
     await page.keyboard.press('L');
@@ -56,5 +56,36 @@ test.describe('quick action shortcuts', () => {
     await expect(end).not.toHaveAttribute('transform', endTransform);
     // end element should only be moved vertically
     await expect(end).toHaveAttribute('transform', /translate\(625, \d+\)/);
+  });
+
+  test('wrap, jump and unwrap', async ({ page, browserName }) => {
+    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
+    const start = page.locator('.sprotty-graph .start');
+    const end = page.locator('.sprotty-graph .end');
+    const embedded = page.locator('.sprotty-graph .embeddedproc');
+
+    await multiSelect(page, [start, end], browserName);
+    await page.keyboard.press('S');
+    await expect(start).toBeHidden();
+    await expect(end).toBeHidden();
+    await expect(embedded).toBeVisible();
+
+    await embedded.click();
+    await page.keyboard.press('J');
+    await expect(start).toBeVisible();
+    await expect(end).toBeVisible();
+    await expect(embedded).toBeHidden();
+    await expect(jumpOutBtn).toBeVisible();
+
+    await page.keyboard.press('J');
+    await expect(start).toBeHidden();
+    await expect(end).toBeHidden();
+    await expect(embedded).toBeVisible();
+
+    await embedded.click();
+    await page.keyboard.press('U');
+    await expect(start).toBeVisible();
+    await expect(end).toBeVisible();
+    await expect(embedded).toBeHidden();
   });
 });
