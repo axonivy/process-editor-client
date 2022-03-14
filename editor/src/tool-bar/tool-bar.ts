@@ -155,7 +155,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
-    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out', () => new JumpAction(''), false);
+    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out (J)', () => new JumpAction(''), false);
     dynamicTools.appendChild(this.jumpOutToolButton);
 
     this.deleteToolButton = this.createDynamicToolButton(
