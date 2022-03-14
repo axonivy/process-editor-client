@@ -1,16 +1,25 @@
 import { Locator, Page } from '@playwright/test';
 
-export async function multiSelect(page: Page, elements: Locator[]): Promise<void> {
+export async function multiSelect(page: Page, elements: Locator[], browserName: string): Promise<void> {
+  const ctrl = getCtrl(browserName);
   await resetSelection(page);
-  await page.keyboard.down('Control');
+  await page.keyboard.down(ctrl);
   for (const element of elements) {
     await element.click();
   }
-  await page.keyboard.up('Control');
+  await page.keyboard.up(ctrl);
 }
 
 export async function resetSelection(page: Page): Promise<void> {
   await page.locator('.sprotty-graph').click({ position: { x: 0, y: 60 } });
+}
+
+function getCtrl(browserName: string): string {
+  if (browserName === 'webkit') {
+    return 'Meta';
+  } else {
+    return 'Control';
+  }
 }
 
 export async function cleanDiagram(page: Page): Promise<void> {

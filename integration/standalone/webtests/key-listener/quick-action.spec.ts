@@ -28,7 +28,7 @@ test.describe('quick action shortcuts', () => {
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
   });
 
-  test('label edit', async ({ page }) => {
+  test('label edit', async ({ page, browserName }) => {
     const label = page.locator('.label-edit textarea');
     const start = page.locator('.sprotty-graph .start');
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
@@ -43,14 +43,14 @@ test.describe('quick action shortcuts', () => {
     await expect(start.locator('.sprotty-label div')).toHaveText('test label');
   });
 
-  test.only('auto align', async ({ page, browserName }) => {
+  test('auto align', async ({ page, browserName }) => {
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
     await end.dragTo(page.locator('.sprotty-graph'));
     const startTransform = await start.getAttribute('transform');
     const endTransform = await end.getAttribute('transform');
 
-    await multiSelect(page, [start, end]);
+    await multiSelect(page, [start, end], browserName);
     await page.keyboard.press('A');
     await expect(start).toHaveAttribute('transform', startTransform);
     await expect(end).not.toHaveAttribute('transform', endTransform);
