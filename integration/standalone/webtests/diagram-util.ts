@@ -17,8 +17,9 @@ export async function multiSelect(
 
 export async function resetSelection(page: Page): Promise<void> {
   const graph = page.locator('.sprotty-graph');
-  const graphBox = await graph.boundingBox();
-  await graph.click({ position: { x: graphBox.width - 1, y: graphBox.height - 1 } });
+  await expect(graph).toBeVisible();
+  const bounds = await graph.boundingBox();
+  await graph.click({ position: { x: bounds.width - 1, y: bounds.height - 1 } });
 }
 
 function getCtrl(browserName: string): string {
@@ -61,13 +62,13 @@ export interface Point {
   readonly y: number;
 }
 
-export interface BoundingBox {
-  readonly x: number;
-  readonly y: number;
-  readonly width: number;
-  readonly height: number;
+export async function assertPosition(element: Locator, expectedPoint: Point): Promise<void> {
+  const bounds = await getBounds(element);
+  expect(bounds.x).toStrictEqual(expectedPoint.x);
+  expect(bounds.y).toStrictEqual(expectedPoint.y);
 }
 
-export async function checkBoundingBoxPosition(boungdingBox: BoundingBox, point: Point): Promise<void> {
-  expect({ x: boungdingBox.x, y: boungdingBox.y }).toStrictEqual(point);
+export async function getBounds(element: Locator): Promise<{ width: number; height: number; x: number; y: number }> {
+  await expect(element).toBeVisible();
+  return element.boundingBox();
 }
