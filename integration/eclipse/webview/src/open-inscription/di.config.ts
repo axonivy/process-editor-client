@@ -1,4 +1,4 @@
-import { IVY_TYPES } from '@ivyteam/process-editor/lib/quick-action/quick-action';
+import { IVY_TYPES } from '@ivyteam/process-editor';
 import { ContainerModule } from 'inversify';
 import { configureActionHandler, OpenAction, TYPES } from 'sprotty';
 

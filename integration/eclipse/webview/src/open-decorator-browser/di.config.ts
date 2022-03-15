@@ -1,8 +1,8 @@
-import { IVY_TYPES } from '@ivyteam/process-editor/lib/quick-action/quick-action';
+import { IVY_TYPES } from '@ivyteam/process-editor';
 import { ContainerModule } from 'inversify';
 import { CustomIconQuickActionProvider } from './quick-action';
 
-const ivyOpenDecoratorBrowserModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyOpenDecoratorBrowserModule = new ContainerModule((bind, _unbind) => {
   bind(IVY_TYPES.QuickActionProvider).to(CustomIconQuickActionProvider);
 });
 

@@ -9,7 +9,8 @@ import {
   overrideViewerOptions,
   zorderModule,
   glspHoverModule,
-  toolsModule
+  toolsModule,
+  ModelInitializationConstraint
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -31,6 +32,7 @@ import ivyExecutionModule from './execution/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
 import ivyNodeModule from './node/di.config';
+import { IvyModelInitializationConstraint } from './model-initialization-constraint';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -55,6 +57,7 @@ export default function createContainer(widgetId: string): Container {
     ivyNodeModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
+  container.rebind(ModelInitializationConstraint).to(IvyModelInitializationConstraint).inSingletonScope();
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,

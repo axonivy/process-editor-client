@@ -8,6 +8,7 @@ import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
 import ivyOpenInscriptionModule from './open-inscription/di.config';
 import ivyOpenDecoratorBrowserModule from './open-decorator-browser/di.config';
 import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
+import ivyEditSourceModule from './edit-source/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -21,6 +22,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
   container.load(ivyOpenQuickOutlineModule);
+  container.load(ivyEditSourceModule);
   container.load(ivyBreakpointModule);
 
   const agent = userAgent();

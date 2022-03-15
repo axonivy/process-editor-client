@@ -29,17 +29,17 @@ export class ExecutedFeedbackCommand extends Command {
 
   execute(context: CommandExecutionContext): SModelRoot {
     const model = context.root;
-    this.action.oldElementExecutions.forEach(elementExectuion => {
-      const element = model.index.getById(elementExectuion.elementId);
+    this.action.oldElementExecutions.forEach(elementExecution => {
+      const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
-        const cssClass = elementExectuion.failed ? ExecutedFeedbackCommand.FAILED_CSS_CLASS : ExecutedFeedbackCommand.EXECUTED_CSS_CLASS;
+        const cssClass = elementExecution.failed ? ExecutedFeedbackCommand.FAILED_CSS_CLASS : ExecutedFeedbackCommand.EXECUTED_CSS_CLASS;
         removeCssClass(element, cssClass);
       }
     });
-    this.action.elementExecutions.forEach(elementExectuion => {
-      const element = model.index.getById(elementExectuion.elementId);
+    this.action.elementExecutions.forEach(elementExecution => {
+      const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
-        if (elementExectuion.failed) {
+        if (elementExecution.failed) {
           this.failed.push(element);
         } else {
           this.executed.push(element);
