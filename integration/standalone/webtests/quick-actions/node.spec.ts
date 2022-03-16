@@ -86,14 +86,13 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('auto align', async ({ page, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit browser has problems with Ctrl multiselect');
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
     await end.dragTo(page.locator('.sprotty-graph'));
     const startTransform = await start.getAttribute('transform');
     const endTransform = await end.getAttribute('transform');
 
-    await multiSelect(page, [start, end]);
+    await multiSelect(page, [start, end], browserName);
     await clickQuickActionEndsWith(page, 'Align (A)');
     await expect(start).toHaveAttribute('transform', startTransform);
     await expect(end).not.toHaveAttribute('transform', endTransform);
@@ -102,13 +101,12 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit browser has problems with Ctrl multiselect');
     const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
     const embedded = page.locator('.sprotty-graph .embeddedproc');
 
-    await multiSelect(page, [start, end]);
+    await multiSelect(page, [start, end], browserName);
     await clickQuickActionStartsWith(page, 'Wrap');
     await expect(start).toBeHidden();
     await expect(end).toBeHidden();

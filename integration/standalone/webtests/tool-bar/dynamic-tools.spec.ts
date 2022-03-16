@@ -39,7 +39,6 @@ test.describe('tool bar - dynamic tools', () => {
   });
 
   test('wrap multi to sub', async ({ page, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit browser has problems with Ctrl multiselect');
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator('.sprotty-graph .start');
     const endElement = page.locator('.sprotty-graph .end');
@@ -48,7 +47,7 @@ test.describe('tool bar - dynamic tools', () => {
     await expect(dynamicTools).not.toBeVisible();
     await expect(embeddedElements).toHaveCount(0);
 
-    await multiSelect(page, [startElement, endElement]);
+    await multiSelect(page, [startElement, endElement], browserName);
 
     await expect(dynamicTools).toBeVisible();
     await expect(wrapToSubBtn).toBeVisible();
@@ -60,7 +59,6 @@ test.describe('tool bar - dynamic tools', () => {
   });
 
   test('autoalign', async ({ page, browserName }) => {
-    test.skip(browserName === 'webkit', 'Webkit browser has problems with Ctrl multiselect');
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator('.sprotty-graph .start');
     const endElement = page.locator('.sprotty-graph .end');
@@ -71,7 +69,7 @@ test.describe('tool bar - dynamic tools', () => {
     const startElementTransform = await startElement.getAttribute('transform');
     const endElementTransform = await endElement.getAttribute('transform');
 
-    await multiSelect(page, [startElement, endElement]);
+    await multiSelect(page, [startElement, endElement], browserName);
 
     await expect(dynamicTools).toBeVisible();
     await expect(autoAlignBtn).toBeVisible();
