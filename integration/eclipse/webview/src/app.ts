@@ -7,7 +7,7 @@ import {
 } from '@eclipse-glsp/client';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
-import { CenterAction, RequestModelAction, TYPES } from 'sprotty';
+import { RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
 
@@ -56,7 +56,6 @@ async function initialize(client: GLSPClient): Promise<void> {
   );
   actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
   actionDispatcher.dispatch(new EnableToolPaletteAction());
-  actionDispatcher.onceModelInitialized().then(() => actionDispatcher.dispatch(new CenterAction([])));
 }
 
 function setWidgetId(mainWidgetId: string): void {
