@@ -30,7 +30,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize, args: { iconUri: 'std:NoDecorator' } });
   children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize, args: { iconUri: 'std:Page' } });
   children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize, args: { iconUri: 'std:Trigger' } });
-  children.push({ id: 'program', type: ActivityTypes.PROGRAMM, position: { x: 600, y: 700 }, size: taskNodeSize, args: { iconUri: 'std:Program' } });
+  children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize, args: { iconUri: 'std:Program' } });
   children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize, args: { iconUri: 'std:Rule' } });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
@@ -171,7 +171,7 @@ describe('ActivityNodeView', () => {
   });
 
   it('render program node', () => {
-    const view = viewRegistry.get(ActivityTypes.PROGRAMM);
+    const view = viewRegistry.get(ActivityTypes.PROGRAM);
     const vnode = view.render(graph.index.getById('program') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +

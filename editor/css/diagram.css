@@ -126,6 +126,10 @@ g[class^='end'] .sprotty-node {
 .sprotty-edge.mouseover:not(.selected) {
   stroke-width: 3px;
 }
+.sprotty-edge .sprotty-label div {
+  text-align: center;
+  background-color: var(--glsp-editor-background);
+}
 
 /* Icon / Label*/
 .sprotty-label {

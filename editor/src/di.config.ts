@@ -10,7 +10,8 @@ import {
   zorderModule,
   glspHoverModule,
   toolsModule,
-  ModelInitializationConstraint
+  ModelInitializationConstraint,
+  navigationModule
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -75,6 +76,7 @@ function isNotOverridenModule(module: ContainerModule): boolean {
     module !== zorderModule &&
     module !== openModule &&
     module !== glspHoverModule &&
-    module !== toolsModule
+    module !== toolsModule &&
+    module !== navigationModule
   );
 }

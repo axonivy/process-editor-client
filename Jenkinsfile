@@ -51,15 +51,15 @@ pipeline {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
               timeout(30) {
-                sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
+                sh 'yarn lint -o eslint.xml -f checkstyle'
                 dir ('integration/eclipse') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
                 dir ('integration/vscode') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
                 dir ('integration/theia') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle || exit 0'
+                  sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
               }
             }
@@ -71,9 +71,11 @@ pipeline {
     stage('Tests (Mocha)') {
       steps {
         script {
-          docker.build('node').inside {
-            timeout(30) {
-              sh 'yarn test:ci || exit 0'
+          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+            docker.build('node').inside {
+              timeout(30) {
+                sh 'yarn test:ci'
+              }
             }
           }
         }
