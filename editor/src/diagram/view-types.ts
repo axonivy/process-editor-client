@@ -48,7 +48,7 @@ export namespace ActivityTypes {
   export const EMBEDDED_PROCESS = DEFAULT + ':embeddedproc';
   export const WEB_PAGE = DEFAULT + ':web';
   export const TRIGGER = DEFAULT + ':trigger';
-  export const PROGRAMM = DEFAULT + ':program';
+  export const PROGRAM = DEFAULT + ':program';
   export const THIRD_PARTY = DEFAULT + ':thirdparty';
   export const LABEL = DEFAULT + '-label';
 }

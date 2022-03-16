@@ -16,7 +16,7 @@ import { ContainerModule } from 'inversify';
 
 import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { jumpFeature } from '../jump/model';
+import { editSourceFeature, jumpFeature } from '../jump/model';
 import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
@@ -56,7 +56,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.START, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_ERROR, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_SIGNAL, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, EventNodeView, { enable: [editSourceFeature] });
   configureModelElement(context, EventTypes.START_SUB, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_WS, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_HD, StartEventNode, EventNodeView);
@@ -71,8 +71,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.END_HD_EXIT, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
-  configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView);
-  configureModelElement(context, EventTypes.INTERMEDIATE_CALL_AND_WAIT, EventNode, IntermediateEventNodeView);
+  configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
+  configureModelElement(context, EventTypes.INTERMEDIATE_CALL_AND_WAIT, EventNode, IntermediateEventNodeView, {
+    enable: [editSourceFeature]
+  });
   configureModelElement(context, EventTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
 
@@ -86,19 +88,21 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     disable: [breakpointFeature, errorBoundaryFeature]
   });
   configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, { enable: [signalBoundaryFeature] });
+  configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView, { enable: [jumpFeature, editSourceFeature] });
+  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, {
+    enable: [signalBoundaryFeature, jumpFeature, editSourceFeature]
+  });
   configureModelElement(context, ActivityTypes.SOAP, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.REST, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView);
+  configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
   configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, {
     enable: [jumpFeature, unwrapFeature]
   });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.PROGRAMM, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView, { enable: [jumpFeature] });
+  configureModelElement(context, ActivityTypes.PROGRAM, ActivityNode, ActivityNodeView, { enable: [editSourceFeature] });
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
 

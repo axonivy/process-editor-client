@@ -1,6 +1,12 @@
-import { configureServerActions, EnableToolPaletteAction, GLSPDiagramServer, RequestTypeHintsAction } from '@eclipse-glsp/client';
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
-import { IActionDispatcher, RequestModelAction, TYPES } from 'sprotty';
+import {
+  configureServerActions,
+  EnableToolPaletteAction,
+  GLSPDiagramServer,
+  RequestTypeHintsAction,
+  GLSPActionDispatcher
+} from '@eclipse-glsp/client';
+import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
+import { IActionDispatcher, RequestModelAction, TYPES, SelectAction } from 'sprotty';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
@@ -19,6 +25,7 @@ const pmv = getParameters()['pmv'];
 const pid = getParameters()['pid'] ?? '';
 const givenFile = getParameters()['file'] ?? '';
 const highlight = getParameters()['highlight'];
+const selectElementIds = getParameters()['selectElementIds'];
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
@@ -40,19 +47,29 @@ async function initialize(client: GLSPClient): Promise<void> {
   const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
 
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
-  actionDispatcher.dispatch(
-    new RequestModelAction({
-      sourceUri: givenFile,
-      app: app,
-      pmv: pmv,
-      pid: pid,
-      highlight: highlight,
-      readonly: isReadonly(),
-      diagramType
-    })
-  );
+  actionDispatcher
+    .dispatch(
+      new RequestModelAction({
+        sourceUri: givenFile,
+        app: app,
+        pmv: pmv,
+        pid: pid,
+        highlight: highlight,
+        readonly: isReadonly(),
+        diagramType
+      })
+    )
+    .then(() => dispatchAfterModelInitialized(actionDispatcher));
   actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
   actionDispatcher.dispatch(new EnableToolPaletteAction());
+}
+
+function dispatchAfterModelInitialized(dispatcher: IActionDispatcher): void {
+  if (dispatcher instanceof GLSPActionDispatcher && selectElementIds) {
+    dispatcher
+      .onceModelInitialized()
+      .finally(() => dispatcher.dispatch(new SelectAction(selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR))));
+  }
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');
