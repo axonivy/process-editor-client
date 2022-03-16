@@ -13,4 +13,5 @@ export * from './wrap/actions';
 export * from './breakpoint/action';
 export * from './breakpoint/action-handler';
 export * from './diagram/icon/model';
+export * from './diagram/model';
 export * from './diagram/view-types';
