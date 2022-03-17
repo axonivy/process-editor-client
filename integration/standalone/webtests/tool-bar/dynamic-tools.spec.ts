@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { multiSelect } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - dynamic tools', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('delete', async ({ page }) => {

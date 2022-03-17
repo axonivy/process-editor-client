@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.18.1
+FROM mcr.microsoft.com/playwright:v1.20.0
 
 RUN apt-get update &&\
   apt-get install software-properties-common -y &&\
