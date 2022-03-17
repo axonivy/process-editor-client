@@ -1,14 +1,14 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { resetSelection } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
-import { assertQuickActionsCount, clickQuickAction, editLabel } from './quick-actions-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { assertQuickActionsCount, clickQuickAction, clickQuickActionStartsWith, editLabel } from './quick-actions-util';
 
 test.describe('quick actions - connectors', () => {
   const STRAIGHT_CONNECTOR_PATH = /M \d+.?\d*,\d+.?\d* L \d+.?\d*,\d+.?\d*/;
   const BEND_CONNECTOR_PATH = /M \d+,\d+ L \d+,\d+ L \d+,\d+ L \d+,\d+/;
 
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('connector actions', async ({ page }) => {
@@ -38,17 +38,17 @@ test.describe('quick actions - connectors', () => {
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
 
     await connector.click();
-    await clickQuickAction(page, 'Straighten (S)');
+    await clickQuickActionStartsWith(page, 'Straighten');
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
 
     await resetSelection(page);
     await connector.click();
-    await clickQuickAction(page, 'Bend (B)');
+    await clickQuickActionStartsWith(page, 'Bend');
     await expect(connectorPath).toHaveAttribute('d', BEND_CONNECTOR_PATH);
 
     await resetSelection(page);
     await connector.click();
-    await clickQuickAction(page, 'Straighten (S)');
+    await clickQuickActionStartsWith(page, 'Straighten');
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
   });
 

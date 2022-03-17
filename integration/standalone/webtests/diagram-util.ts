@@ -16,13 +16,13 @@ export async function multiSelect(
 }
 
 export async function resetSelection(page: Page): Promise<void> {
-  const graph = page.locator('.sprotty-graph');
+  const graph = page.locator('#sprotty');
   await expect(graph).toBeVisible();
   const bounds = await graph.boundingBox();
   await graph.click({ position: { x: bounds.width - 1, y: bounds.height - 1 } });
 }
 
-function getCtrl(browserName: string): string {
+export function getCtrl(browserName: string): string {
   if (browserName === 'webkit') {
     return 'Meta';
   } else {
@@ -64,6 +64,10 @@ export interface Point {
 
 export async function assertPosition(element: Locator, expectedPosition: Point): Promise<void> {
   await expect(element).toHaveAttribute('transform', `translate(${expectedPosition.x}, ${expectedPosition.y})`);
+}
+
+export async function assertPositionIsNot(element: Locator, expectedPosition: Point): Promise<void> {
+  await expect(element).not.toHaveAttribute('transform', `translate(${expectedPosition.x}, ${expectedPosition.y})`);
 }
 
 export async function getPosition(element: Locator): Promise<Point> {

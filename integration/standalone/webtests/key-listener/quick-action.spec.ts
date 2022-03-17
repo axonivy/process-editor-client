@@ -1,17 +1,18 @@
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import { resetSelection, multiSelect } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
-test.describe('quick action shortcuts', () => {
+test.describe('key listener - quick action shortcuts', () => {
   const STRAIGHT_CONNECTOR_PATH = /M \d+.?\d*,\d+.?\d* L \d+.?\d*,\d+.?\d*/;
   const BEND_CONNECTOR_PATH = /M \d+,\d+ L \d+,\d+ L \d+,\d+ L \d+,\d+/;
 
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('connector bend and straigthen', async ({ page }) => {
     const endElement = page.locator('.sprotty-graph .end');
+    await endElement.click();
     await endElement.dragTo(page.locator('.sprotty-graph'));
     const connector = page.locator('.sprotty-graph > g > .sprotty-edge');
     const connectorPath = page.locator('.sprotty-graph > g > .sprotty-edge > path').first();
@@ -19,12 +20,12 @@ test.describe('quick action shortcuts', () => {
 
     await resetSelection(page);
     await connector.click();
-    await page.keyboard.press('b');
+    await pressQuickActionShortcut(page, 'B');
     await expect(connectorPath).toHaveAttribute('d', BEND_CONNECTOR_PATH);
 
     await resetSelection(page);
     await connector.click();
-    await page.keyboard.press('S');
+    await pressQuickActionShortcut(page, 'S');
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
   });
 
@@ -35,7 +36,7 @@ test.describe('quick action shortcuts', () => {
     await expect(label).toBeHidden;
 
     await start.click();
-    await page.keyboard.press('L');
+    await pressQuickActionShortcut(page, 'L');
     await expect(label).toBeVisible();
     await page.keyboard.press('Control+A');
     await page.keyboard.type('test label');
@@ -51,7 +52,7 @@ test.describe('quick action shortcuts', () => {
     const endTransform = await end.getAttribute('transform');
 
     await multiSelect(page, [start, end], browserName);
-    await page.keyboard.press('A');
+    await pressQuickActionShortcut(page, 'A');
     await expect(start).toHaveAttribute('transform', startTransform);
     await expect(end).not.toHaveAttribute('transform', endTransform);
     // end element should only be moved vertically
@@ -65,13 +66,13 @@ test.describe('quick action shortcuts', () => {
     const embedded = page.locator('.sprotty-graph .embeddedproc');
 
     await multiSelect(page, [start, end], browserName);
-    await page.keyboard.press('S');
+    await pressQuickActionShortcut(page, 'S');
     await expect(start).toBeHidden();
     await expect(end).toBeHidden();
     await expect(embedded).toBeVisible();
 
     await embedded.click();
-    await page.keyboard.press('J');
+    await pressQuickActionShortcut(page, 'J');
     await expect(start).toBeVisible();
     await expect(end).toBeVisible();
     await expect(embedded).toBeHidden();
@@ -83,9 +84,14 @@ test.describe('quick action shortcuts', () => {
     await expect(embedded).toBeVisible();
 
     await embedded.click();
-    await page.keyboard.press('U');
+    await pressQuickActionShortcut(page, 'U');
     await expect(start).toBeVisible();
     await expect(end).toBeVisible();
     await expect(embedded).toBeHidden();
   });
 });
+
+async function pressQuickActionShortcut(page: Page, shortcut: string): Promise<void> {
+  await expect(page.locator(`#sprotty_quickActionsUi i[title$="(${shortcut})"]`)).toBeVisible();
+  await page.keyboard.press(shortcut);
+}

@@ -1,12 +1,12 @@
 import { test, expect, Page, Locator } from '@playwright/test';
 import { addLane, multiSelect } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - color palette', () => {
   const PALETTE_BODY = '.color-palette-body';
 
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('search', async ({ page }) => {

@@ -1,11 +1,11 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { addActivity, multiSelect } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
 
 test.describe('quick actions - nodes', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('event actions', async ({ page }) => {
@@ -93,7 +93,7 @@ test.describe('quick actions - nodes', () => {
     const endTransform = await end.getAttribute('transform');
 
     await multiSelect(page, [start, end], browserName);
-    await clickQuickActionEndsWith(page, 'Align (A)');
+    await clickQuickActionStartsWith(page, 'Auto');
     await expect(start).toHaveAttribute('transform', startTransform);
     await expect(end).not.toHaveAttribute('transform', endTransform);
     // end element should only be moved vertically
@@ -113,7 +113,7 @@ test.describe('quick actions - nodes', () => {
     await expect(embedded).toBeVisible();
 
     await embedded.click();
-    await clickQuickAction(page, 'Jump (J)');
+    await clickQuickActionStartsWith(page, 'Jump');
     await expect(start).toBeVisible();
     await expect(end).toBeVisible();
     await expect(embedded).toBeHidden();

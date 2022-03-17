@@ -1,11 +1,11 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { addLane, addPool } from '../diagram-util';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { assertQuickActionsCount, clickQuickAction, clickQuickActionStartsWith, editLabel } from './quick-actions-util';
 
 test.describe('quick actions - lanes', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('root lane actions', async ({ page }) => {

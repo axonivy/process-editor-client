@@ -1,20 +1,19 @@
 import { test } from '@playwright/test';
-import { randomTestProcessUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { resetSelection, addPool, multiSelect, assertPosition, getPosition } from '../diagram-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
 
 const delay = { delay: 100 };
 const clickPosition = { x: 1, y: 1 };
 
-test.describe('arrow key shortcut', () => {
+test.describe('key listener - move elements with arrow keys', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(randomTestProcessUrl());
+    await gotoRandomTestProcessUrl(page);
   });
 
   test('move selected nodes', async ({ page, browserName }) => {
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
-    await resetSelection(page);
     const startPos = await getPosition(start);
     const endPos = await getPosition(end);
 
@@ -39,7 +38,7 @@ test.describe('arrow key shortcut', () => {
     const lane = page.locator('.sprotty-graph .pool .lane');
     await addPool(page, 60);
     await pool.click();
-    await clickQuickActionStartsWith(page, 'Create Lane');
+    await clickQuickActionStartsWith(page, 'Create');
     await resetSelection(page);
     const startPos = await getPosition(start);
     const poolPos = await getPosition(pool);
