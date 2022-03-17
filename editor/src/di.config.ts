@@ -58,6 +58,8 @@ export default function createContainer(widgetId: string): Container {
     ivyNodeModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
+  // FIXME: Back to default with next update
+  // PR: https://github.com/eclipse-glsp/glsp-client/pull/168
   container.rebind(ModelInitializationConstraint).to(IvyModelInitializationConstraint).inSingletonScope();
 
   overrideViewerOptions(container, {
