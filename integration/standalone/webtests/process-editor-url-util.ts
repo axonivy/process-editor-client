@@ -19,6 +19,10 @@ export function procurementRequestParallelUrl(): string {
   return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.mod');
 }
 
+export function triggerNewEmployeeUrl(): string {
+  return workflowDemosUrl('/processes/Trigger/NewEmployee.mod');
+}
+
 export function workflowDemosUrl(file: string): string {
   return processEditorUrl('workflow-demos', file);
 }

@@ -1,5 +1,5 @@
 import { test, expect, Page } from '@playwright/test';
-import { addLane, addPool, cleanDiagram } from '../diagram-util';
+import { cleanDiagram } from '../diagram-util';
 import { randomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - element picker', () => {
