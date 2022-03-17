@@ -62,13 +62,14 @@ export interface Point {
   readonly y: number;
 }
 
-export async function assertPosition(element: Locator, expectedPoint: Point): Promise<void> {
-  const bounds = await getBounds(element);
-  expect(bounds.x).toStrictEqual(expectedPoint.x);
-  expect(bounds.y).toStrictEqual(expectedPoint.y);
+export async function assertPosition(element: Locator, expectedPosition: Point): Promise<void> {
+  await expect(element).toHaveAttribute('transform', `translate(${expectedPosition.x}, ${expectedPosition.y})`);
 }
 
-export async function getBounds(element: Locator): Promise<{ width: number; height: number; x: number; y: number }> {
-  await expect(element).toBeVisible();
-  return element.boundingBox();
+export async function getPosition(element: Locator): Promise<Point> {
+  const transform = await element.getAttribute('transform');
+  const position = transform.substring(transform.indexOf('(') + 1, transform.indexOf(')'));
+  const x = parseInt(position.split(',')[0].trim(), 10);
+  const y = parseInt(position.split(',')[1].trim(), 10);
+  return { x: x, y: y };
 }
