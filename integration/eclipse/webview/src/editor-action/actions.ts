@@ -6,7 +6,7 @@ import { EventTypes, QuickAction, QuickActionLocation, SingleQuickActionProvider
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (element instanceof StartEventNode) {
+    if (element instanceof StartEventNode && element.type === EventTypes.START) {
       return new StartProcessQuickAction(element.id);
     }
     return undefined;
