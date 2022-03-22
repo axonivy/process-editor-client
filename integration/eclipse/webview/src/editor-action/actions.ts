@@ -21,6 +21,7 @@ class StartProcessQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
     public readonly action = new StartProcessAction(elementId),
+    public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyX'
   ) {}
 }
@@ -60,6 +61,7 @@ class SearchProcessCallersQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
     public readonly action = new SearchProcessCallersAction(elementId),
+    public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyO'
   ) {}
 }
