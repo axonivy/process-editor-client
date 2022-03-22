@@ -1,7 +1,7 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { addActivity, multiSelect } from '../diagram-util';
+import { addActivity, multiSelect, resetSelection } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
-import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
+import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount, openEditLabelUi } from './quick-actions-util';
 
 test.describe('quick actions - nodes', () => {
   test.beforeEach(async ({ page }) => {
@@ -131,9 +131,9 @@ test.describe('quick actions - nodes', () => {
     await expect(embedded).toBeHidden();
   });
 
-  async function editNodeLabel(page: Page, node: Locator): Promise<void> {
-    editLabel(page, node);
-    await expect(node.locator('.sprotty-label div')).toHaveText('test label');
+  async function editNodeLabel(page: Page, node: Locator, text = 'test label'): Promise<void> {
+    editLabel(page, node, text);
+    await expect(node.locator('.sprotty-label div')).toHaveText(text);
   }
 
   async function deleteNode(page: Page, node: Locator): Promise<void> {

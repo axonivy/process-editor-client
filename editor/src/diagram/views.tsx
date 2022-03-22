@@ -14,6 +14,7 @@ import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
 import { Edge } from './model';
+import { escapeHtmlWithLineBreaks } from './util';
 
 import { ActivityTypes } from './view-types';
 
@@ -23,7 +24,7 @@ const JSX = { createElement: svg };
 @injectable()
 export class ForeignLabelView implements IView {
   render(model: SLabel, context: RenderingContext): VNode {
-    const replacement = model.text.replace(/\n/g, '<br/>');
+    const replacement = escapeHtmlWithLineBreaks(model.text);
     const foreignObjectContents = virtualize(`<div>${replacement}</div>`);
     const node = (
       <g>
