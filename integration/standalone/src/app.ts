@@ -11,7 +11,8 @@ import { IActionDispatcher, RequestModelAction, TYPES, SelectAction } from 'spro
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
 
-let server = getParameters()['server'];
+const parameters = getParameters();
+let server = parameters['server'];
 if (server === undefined) {
   server = getServerDomain();
 }
@@ -21,11 +22,11 @@ const websocket = new WebSocket(`${isSecureConnection() ? 'wss' : 'ws'}://${serv
 const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
-const pmv = getParameters()['pmv'];
-const pid = getParameters()['pid'] ?? '';
-const givenFile = getParameters()['file'] ?? '';
-const highlight = getParameters()['highlight'];
-const selectElementIds = getParameters()['selectElementIds'];
+const pmv = parameters['pmv'];
+const pid = parameters['pid'] ?? '';
+const givenFile = parameters['file'] ?? '';
+const highlight = parameters['highlight'];
+const selectElementIds = parameters['selectElementIds'];
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
