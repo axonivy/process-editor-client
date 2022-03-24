@@ -6,7 +6,7 @@ import { isNavigateToExternalTargetAction, NavigationTarget } from '@eclipse-gls
 export class NavigateToExternalTargetActionHandler implements IActionHandler {
   handle(action: Action): void {
     if (isNavigateToExternalTargetAction(action)) {
-      window.open(this.evaluateTargetUrl(action.target), '_blank');
+      window.open(this.evaluateTargetUrl(action.target), '_self');
     }
   }
 
