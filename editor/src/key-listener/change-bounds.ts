@@ -2,7 +2,7 @@ import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selec
 import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject } from 'inversify';
-import { GLSP_TYPES, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
+import { getElements, GLSP_TYPES, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
 import { ChangeBoundsOperation, ElementAndBounds } from '@eclipse-glsp/protocol';
 import { IvyGridSnapper } from '../diagram/snap';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
@@ -12,7 +12,11 @@ export class MoveElementKeyListener extends KeyListener {
   snapper = new IvyGridSnapper();
 
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
-    let selectedElements = this.selectionService.getSelectedElements().filter(isBoundsAware);
+    let selectedElements = getElements(
+      this.selectionService.getModelRoot().index,
+      Array.from(this.selectionService.getSelectedElementIDs()),
+      isBoundsAware
+    );
     selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e));
     let deltaX = 0;
     let deltaY = 0;

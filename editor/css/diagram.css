@@ -50,6 +50,9 @@ body {
   font-weight: bold;
   cursor: pointer;
 }
+.sprotty-node:not(.selected) {
+  stroke-width: 1px;
+}
 .executed .sprotty-node {
   fill: hsl(60 100% 50% / 50%);
 }
@@ -69,7 +72,6 @@ body {
   animation: background-pulse-stopped 1s infinite ease-in-out;
 }
 .sprotty-node.mouseover {
-  stroke-width: 3px;
   stroke: var(--glsp-editor-mouseover);
 }
 .sprotty-node.selected {
