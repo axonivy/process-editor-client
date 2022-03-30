@@ -1,4 +1,4 @@
-FROM node:12.22.7
+FROM node:12.22-bullseye
 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin

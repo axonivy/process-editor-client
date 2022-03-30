@@ -31,7 +31,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2",
+    "typescript": "^4.6.3",
     "snabbdom-to-html": "^7.0.0",
     "jsdom": "^18.0.1"
   },

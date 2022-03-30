@@ -163,7 +163,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   protected handleMoveElementsOnServer(target: SModelElement): Action[] {
     const result: Operation[] = [];
     const newBounds: ElementAndBounds[] = [];
-    forEachElement(target, isNonRoutableSelectedMovableBoundsAware, element => {
+    forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
       this.createElementAndBounds(element).forEach(bounds => newBounds.push(bounds));
     });
     if (newBounds.length > 0) {
@@ -175,7 +175,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   protected handleMoveRoutingPointsOnServer(target: SModelElement): Action[] {
     const result: Operation[] = [];
     const newRoutingPoints: ElementAndRoutingPoints[] = [];
-    forEachElement(target, isNonRoutableSelectedMovableBoundsAware, element => {
+    forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
       //  If client routing is enabled -> delegate routingpoints of connected edges to server
       if (this.tool.edgeRouterRegistry && element instanceof SConnectableElement) {
         element.incomingEdges.map(toElementAndRoutingPoints).forEach(ear => newRoutingPoints.push(ear));
