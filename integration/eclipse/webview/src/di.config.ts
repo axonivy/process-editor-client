@@ -10,6 +10,7 @@ import ivyOpenDecoratorBrowserModule from './open-decorator-browser/di.config';
 import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
 import ivyEditSourceModule from './edit-source/di.config';
 import ivyEditorActionModule from './editor-action/di.config';
+import ivyOpenDataClassModule from './open-data-class/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -26,6 +27,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyEditSourceModule);
   container.load(ivyBreakpointModule);
   container.load(ivyEditorActionModule);
+  container.load(ivyOpenDataClassModule);
 
   const agent = userAgent();
   // saidly there is now nice name reported
