@@ -11,6 +11,7 @@ import {
   TYPES
 } from 'sprotty';
 import { toArray } from 'sprotty/lib/utils/iterable';
+import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 export function isInvokeOpenAction(action: Action): action is OpenAction {
   return action.kind === OpenAction.KIND;
@@ -37,17 +38,24 @@ export class OpenInscriptionAction implements Action {
 
 export class OpenInscriptionKeyListener extends KeyListener {
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
-    if (event.key === 'Enter') {
-      const openableElements = toArray(
-        element.index
-          .all()
-          .filter(e => isSelectable(e) && e.selected)
-          .filter(e => isOpenable(e))
-      );
+    if (matchesKeystroke(event, 'Enter')) {
+      const openableElements = this.getOpenableElements(element);
       if (openableElements.length === 1) {
         return [new OpenInscriptionAction(openableElements[0].id)];
       }
     }
+    if (matchesKeystroke(event, 'KeyI') && this.getOpenableElements(element).length === 0) {
+      return [new OpenInscriptionAction('')];
+    }
     return [];
+  }
+
+  private getOpenableElements(element: SModelElement): SModelElement[] {
+    return toArray(
+      element.index
+        .all()
+        .filter(e => isSelectable(e) && e.selected)
+        .filter(e => isOpenable(e))
+    );
   }
 }
