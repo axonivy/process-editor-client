@@ -1,6 +1,6 @@
 import { ContainerModule } from 'inversify';
 
-import { IVY_TYPES } from '../quick-action/quick-action';
+import { IVY_TYPES } from '../types';
 import { AttachCommentProvider } from './actions';
 
 const ivyNodeModule = new ContainerModule((bind, unbind, isBound, rebind) => {

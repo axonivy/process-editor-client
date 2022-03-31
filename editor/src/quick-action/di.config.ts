@@ -4,7 +4,8 @@ import { configureActionHandler, GLSP_TYPES, TYPES } from '@eclipse-glsp/client'
 import { ContainerModule, interfaces } from 'inversify';
 
 import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
-import { AutoAlignQuickActionProvider, DeleteQuickActionProvider, EditLabelActionProvider, IVY_TYPES } from './quick-action';
+import { AutoAlignQuickActionProvider, DeleteQuickActionProvider, EditLabelActionProvider } from './quick-action';
+import { IVY_TYPES } from '../types';
 import { QuickActionUI } from './quick-action-ui';
 
 const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {

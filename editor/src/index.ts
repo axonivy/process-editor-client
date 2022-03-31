@@ -15,3 +15,4 @@ export * from './breakpoint/action-handler';
 export * from './diagram/icon/model';
 export * from './diagram/model';
 export * from './diagram/view-types';
+export * from './types';
