@@ -11,6 +11,7 @@ import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
 import ivyEditSourceModule from './edit-source/di.config';
 import ivyEditorActionModule from './editor-action/di.config';
 import ivyOpenDataClassModule from './open-data-class/di.config';
+import ivyToolBarModule from './tool-bar/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -28,6 +29,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyBreakpointModule);
   container.load(ivyEditorActionModule);
   container.load(ivyOpenDataClassModule);
+  container.load(ivyToolBarModule);
 
   const agent = userAgent();
   // saidly there is now nice name reported
