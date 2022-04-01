@@ -1,5 +1,4 @@
 import {
-  DeleteElementOperation,
   EditModeListener,
   EditorContextService,
   GLSP_TYPES,
@@ -33,16 +32,14 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
-import { JumpAction } from '../jump/action';
-import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
-import { AutoAlignOperation, ColorizeOperation } from './operation';
+import { ColorizeOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
 import { isWrapable } from '../wrap/model';
 import { IVY_TYPES } from '../types';
-import { ToolBarButton, ToolBarButtonProvider } from './button';
+import { AutoAlignButton, DeleteButton, JumpOutButton, ToolBarButton, ToolBarButtonProvider, WrapToSubButton } from './button';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -113,7 +110,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     headerTools.appendChild(marqueeToolButton);
 
     const toolBarButtons = this.toolBarButtonProvider
-      .map(provider => provider.button([...this.selectionService.getSelectedElements()]))
+      .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
+      .filter(button => !button?.id)
       .filter(isNotUndefined);
 
     this.createToolBarButtons(headerTools, toolBarButtons);
@@ -136,7 +134,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
         const htmlButton = createIcon(['fas', button.icon, 'fa-xs']);
         htmlButton.title = button.title;
         this.showDynamicBtn(htmlButton, button.visible);
-        htmlButton.onclick = _event => this.dispatchAction([button.action]);
+        htmlButton.onclick = _event => this.dispatchAction([button.action()]);
+        if (button.id) {
+          htmlButton.id = button.id;
+        }
         containerElement.appendChild(htmlButton);
       });
   }
@@ -160,32 +161,16 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const dynamicTools = document.createElement('div');
     dynamicTools.classList.add('header-tools', 'dynamic-tools');
 
-    this.jumpOutToolButton = this.createDynamicToolButton('fa-level-up-alt', 'Jump out (J)', () => new JumpAction(''), false);
-    dynamicTools.appendChild(this.jumpOutToolButton);
+    const toolBarButtons = this.toolBarButtonProvider
+      .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
+      .filter(button => button?.id)
+      .filter(isNotUndefined);
 
-    this.deleteToolButton = this.createDynamicToolButton(
-      'fa-trash',
-      'Delete',
-      () => new DeleteElementOperation([...this.selectionService.getSelectedElementIDs()]),
-      false
-    );
-    dynamicTools.appendChild(this.deleteToolButton);
-
-    this.wrapToSubToolButton = this.createDynamicToolButton(
-      'fa-compress-arrows-alt',
-      'Wrap to embedded process',
-      () => new WrapToSubOperation([...this.selectionService.getSelectedElementIDs()]),
-      false
-    );
-    dynamicTools.appendChild(this.wrapToSubToolButton);
-
-    this.autoAlignButton = this.createDynamicToolButton(
-      'fa-arrows-alt',
-      'Auto align',
-      () => new AutoAlignOperation([...this.selectionService.getSelectedElementIDs()]),
-      false
-    );
-    dynamicTools.appendChild(this.autoAlignButton);
+    this.createToolBarButtons(dynamicTools, toolBarButtons);
+    this.jumpOutToolButton = this.getButtonById(dynamicTools, JumpOutButton.ID);
+    this.deleteToolButton = this.getButtonById(dynamicTools, DeleteButton.ID);
+    this.wrapToSubToolButton = this.getButtonById(dynamicTools, WrapToSubButton.ID);
+    this.autoAlignButton = this.getButtonById(dynamicTools, AutoAlignButton.ID);
 
     this.colorMenuButton = createIcon(['fas', 'fa-palette', 'fa-xs']);
     this.colorMenuButton.title = 'Select color';
@@ -200,6 +185,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     };
     dynamicTools.appendChild(this.colorMenuButton);
     return dynamicTools;
+  }
+
+  private getButtonById(containerElement: HTMLElement, id: string): HTMLElement {
+    return containerElement.querySelector('#' + id) as HTMLElement;
   }
 
   protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean): HTMLElement {
