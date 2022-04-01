@@ -1,6 +1,6 @@
 import { ContainerModule } from 'inversify';
 
-import { IVY_TYPES } from '../quick-action/quick-action';
+import { IVY_TYPES } from '../types';
 import { JumpQuickActionProvider } from './action';
 
 const ivyJumpModule = new ContainerModule((bind, unbind, isBound, rebind) => {

@@ -1,7 +1,7 @@
 import { configureCommand, configureView, GLSP_TYPES } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 
-import { IVY_TYPES } from '../quick-action/quick-action';
+import { IVY_TYPES } from '../types';
 import { CreateLaneQuickActionProvider } from './action';
 import { ChangeLaneBoundsTool } from './change-lane-bounds-tool';
 import { HideChangeLaneBoundsToolFeedbackCommand, ShowChangeLaneBoundsToolFeedbackCommand } from './change-lane-bounds-tool-feedback';

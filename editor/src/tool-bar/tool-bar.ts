@@ -8,17 +8,16 @@ import {
   isSetContextActionsAction,
   PaletteItem,
   RequestContextActions,
-  EnableToolPaletteAction
+  EnableToolPaletteAction,
+  isNotUndefined
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { inject, injectable, postConstruct } from 'inversify';
+import { inject, injectable, postConstruct, multiInject } from 'inversify';
 import {
   AbstractUIExtension,
   Action,
-  CenterAction,
   EnableDefaultToolsAction,
   EnableToolsAction,
-  FitToScreenAction,
   IActionHandler,
   ICommand,
   isConnectable,
@@ -35,7 +34,6 @@ import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { JumpAction } from '../jump/action';
-import { OriginViewportAction } from '../viewport/original-viewport';
 import { WrapToSubOperation } from '../wrap/actions';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { AutoAlignOperation, ColorizeOperation } from './operation';
@@ -43,6 +41,8 @@ import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
 import { isWrapable } from '../wrap/model';
+import { IVY_TYPES } from '../types';
+import { ToolBarButton, ToolBarButtonProvider } from './button';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -55,6 +55,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
 
   protected elementPickerMenu?: ItemPickerMenu;
   protected colorPickerMenu?: ItemPickerMenu;
@@ -111,19 +112,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const marqueeToolButton = this.createMarqueeToolButton();
     headerTools.appendChild(marqueeToolButton);
 
-    const originViewportButton = this.createDynamicToolButton('fa-desktop', 'Origin screen', () => new OriginViewportAction(), true);
-    headerTools.appendChild(originViewportButton);
+    const toolBarButtons = this.toolBarButtonProvider
+      .map(provider => provider.button([...this.selectionService.getSelectedElements()]))
+      .filter(isNotUndefined);
 
-    const fitToScreenButton = this.createDynamicToolButton('fa-vector-square', 'Fit to screen', () => new FitToScreenAction([]), true);
-    headerTools.appendChild(fitToScreenButton);
-
-    const centerActionButton = this.createDynamicToolButton(
-      'fa-crosshairs',
-      'Center',
-      () => new CenterAction([...this.selectionService.getSelectedElementIDs()]),
-      true
-    );
-    headerTools.appendChild(centerActionButton);
+    this.createToolBarButtons(headerTools, toolBarButtons);
 
     this.toggleCustomIconsButton = this.createDynamicToolButton(
       'fa-image',
@@ -134,6 +127,18 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     headerTools.appendChild(this.toggleCustomIconsButton);
 
     return headerTools;
+  }
+
+  private createToolBarButtons(containerElement: HTMLElement, toolBarButtons: ToolBarButton[]): void {
+    toolBarButtons
+      .sort((a, b) => a.sorting.localeCompare(b.sorting))
+      .forEach(button => {
+        const htmlButton = createIcon(['fas', button.icon, 'fa-xs']);
+        htmlButton.title = button.title;
+        this.showDynamicBtn(htmlButton, button.visible);
+        htmlButton.onclick = _event => this.dispatchAction([button.action]);
+        containerElement.appendChild(htmlButton);
+      });
   }
 
   protected createDefaultToolButton(): HTMLElement {

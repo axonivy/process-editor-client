@@ -26,7 +26,8 @@ import { createIcon } from '../tool-bar/tool-bar-helper';
 
 import { Edge, LaneNode } from '../diagram/model';
 import { isQuickActionAware } from './model';
-import { IVY_TYPES, QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
+import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
+import { IVY_TYPES } from '../types';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {

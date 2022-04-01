@@ -11,10 +11,6 @@ export enum QuickActionLocation {
   BottomLeft = 'bottom-left'
 }
 
-export const IVY_TYPES = {
-  QuickActionProvider: Symbol.for('QuickActionProvider')
-};
-
 export interface QuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined;
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
