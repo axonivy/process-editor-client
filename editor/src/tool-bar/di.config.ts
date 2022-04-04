@@ -10,7 +10,15 @@ import {
 import { ContainerModule, interfaces } from 'inversify';
 import { TYPES } from 'sprotty';
 import { IVY_TYPES } from '../types';
-import { CenterButtonProvider, FitToScreenButtonProvider, OriginScreenButtonProvider } from './button';
+import {
+  AutoAlignButtonProvider,
+  CenterButtonProvider,
+  DeleteButtonProvider,
+  FitToScreenButtonProvider,
+  JumpOutButtonProvider,
+  OriginScreenButtonProvider,
+  WrapToSubButtonProvider
+} from './button';
 
 import { ToolBar } from './tool-bar';
 import { ToolBarFeedbackCommand } from './tool-bar-feedback';
@@ -30,6 +38,10 @@ export function configureToolBarButtonProvider(context: { bind: interfaces.Bind 
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(CenterButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(OriginScreenButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(FitToScreenButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(JumpOutButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(DeleteButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(WrapToSubButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(AutoAlignButtonProvider);
 }
 
 export default ivyToolBarModule;
