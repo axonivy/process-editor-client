@@ -33,11 +33,11 @@ import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
-import { ColorizeOperation } from './operation';
+import { ChangeActivityTypeOperation, ColorizeOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
-import { isWrapable } from '../wrap/model';
+import { isUnwrapable, isWrapable } from '../wrap/model';
 import { IVY_TYPES } from '../types';
 import { AutoAlignButton, DeleteButton, JumpOutButton, ToolBarButton, ToolBarButtonProvider, WrapToSubButton } from './button';
 
@@ -56,6 +56,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected elementPickerMenu?: ItemPickerMenu;
   protected colorPickerMenu?: ItemPickerMenu;
+  protected activityTypePickerMenu?: ItemPickerMenu;
   protected lastActivebutton?: HTMLElement;
   protected defaultToolsButton: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
@@ -65,6 +66,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   protected autoAlignButton: HTMLElement;
   protected colorMenuButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
+  protected activityTypeMenuButton: HTMLElement;
   modelRootId: string;
 
   id(): string {
@@ -175,17 +177,25 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.colorMenuButton = createIcon(['fas', 'fa-palette', 'fa-xs']);
     this.colorMenuButton.title = 'Select color';
     this.showDynamicBtn(this.colorMenuButton, false);
-    this.colorMenuButton.onclick = _event => {
-      if (this.lastActivebutton === this.colorMenuButton && !this.colorPickerMenu?.isMenuHidden()) {
-        this.changeActiveButton(this.defaultToolsButton);
-      } else {
-        this.changeActiveButton(this.colorMenuButton);
-        this.colorPickerMenu?.showMenu();
-      }
-    };
+    this.colorMenuButton.onclick = _event => this.menuButtonEvent(this.colorMenuButton, this.colorPickerMenu);
     dynamicTools.appendChild(this.colorMenuButton);
+
+    this.activityTypeMenuButton = createIcon(['fas', 'fa-list', 'fa-xs']);
+    this.activityTypeMenuButton.title = 'Select Activity Type';
+    this.showDynamicBtn(this.activityTypeMenuButton, false);
+    this.activityTypeMenuButton.onclick = _event => this.menuButtonEvent(this.activityTypeMenuButton, this.activityTypePickerMenu);
+    dynamicTools.appendChild(this.activityTypeMenuButton);
     return dynamicTools;
   }
+
+  private menuButtonEvent = (menuButton: HTMLElement, pickerMenu: ItemPickerMenu | undefined): void => {
+    if (this.lastActivebutton === menuButton && pickerMenu?.isMenuHidden()) {
+      this.changeActiveButton(this.defaultToolsButton);
+    } else {
+      this.changeActiveButton(menuButton);
+      pickerMenu?.showMenu();
+    }
+  };
 
   private getButtonById(containerElement: HTMLElement, id: string): HTMLElement {
     return containerElement.querySelector('#' + id) as HTMLElement;
@@ -237,14 +247,25 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   onClickElementPickerToolButton = (button: HTMLElement, item: PaletteItem): void => {
     if (!this.editorContext.isReadonly) {
-      if (item.actions.length === 1 && item.id.startsWith('color-palette-item') && item.icon !== undefined) {
-        item.actions[0] = new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon, item.label);
+      const actionKind = this.getActionKind(item.actions);
+      const selectedElementIds = [...this.selectionService.getSelectedElementIDs()];
+      if (actionKind === ColorizeOperation.KIND && item.icon !== undefined) {
+        item.actions[0] = new ColorizeOperation(selectedElementIds, item.icon, item.label);
+      } else if (actionKind === ChangeActivityTypeOperation.KIND && selectedElementIds.length === 1) {
+        item.actions[0] = new ChangeActivityTypeOperation(selectedElementIds[0], item.id);
       }
       this.dispatchAction(item.actions);
       this.changeActiveButton(button);
       button.focus();
     }
   };
+
+  private getActionKind(actions: Action[]): string {
+    if (actions.length === 1 && actions[0] !== undefined) {
+      return actions[0].kind;
+    }
+    return '';
+  }
 
   clearToolOnEscape = (event: KeyboardEvent): void => {
     if (matchesKeystroke(event, 'Escape')) {
@@ -265,6 +286,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
     this.elementPickerMenu?.hideMenu();
     this.colorPickerMenu?.hideMenu();
+    this.activityTypePickerMenu?.hideMenu();
   }
 
   handle(action: Action): ICommand | Action | void {
@@ -286,6 +308,15 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
           this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
         }
       });
+      this.actionDispatcher
+        .request(new RequestContextActions('ivy-tool-activity-type-palette', { selectedElementIds: [] }))
+        .then(response => {
+          if (isSetContextActionsAction(response)) {
+            const paletteItems = response.actions.map(e => e as PaletteItem);
+            this.activityTypePickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+            this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
+          }
+        });
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
     } else if (action instanceof EnableDefaultToolsAction) {
       this.changeActiveButton();
@@ -308,12 +339,17 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
         elements.push(element);
       }
     });
+    const showActivityTypeMenu = elements.length === 1 && isUnwrapable(elements[0]);
     this.showDynamicBtn(this.deleteToolButton, elements.length > 0 && isDeletable(elements[0]));
     this.showDynamicBtn(this.wrapToSubToolButton, elements.length > 0 && isWrapable(elements[0]));
     this.showDynamicBtn(this.autoAlignButton, elements.length > 1 && isConnectable(elements[0]));
     this.showDynamicBtn(this.colorMenuButton, elements.length > 0 && isDeletable(elements[0]));
+    this.showDynamicBtn(this.activityTypeMenuButton, showActivityTypeMenu);
     if (elements.length === 0) {
       this.colorPickerMenu?.hideMenu();
+    }
+    if (!showActivityTypeMenu) {
+      this.activityTypePickerMenu?.hideMenu();
     }
   }
 
