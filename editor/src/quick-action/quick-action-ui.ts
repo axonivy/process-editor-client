@@ -154,7 +154,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private createQuickActionBtn(quickAction: QuickAction, position: Point): HTMLElement {
-    const button = createIcon(['fa', quickAction.icon, 'fa-xs', 'fa-fw']);
+    const button = createIcon([quickAction.icon, 'fa-xs', 'fa-fw']);
     button.title = quickAction.title;
     button.onclick = () =>
       this.actionDispatcherProvider().then(dispatcher =>

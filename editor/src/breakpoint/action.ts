@@ -31,7 +31,7 @@ export class BreakpointQuickActionProvider extends SingleQuickActionProvider {
 class BreakpointQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-bug',
+    public readonly icon = 'fa-solid fa-bug',
     public readonly title = 'Toggle Breakpoint',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',

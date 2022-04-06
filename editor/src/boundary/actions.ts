@@ -27,7 +27,7 @@ export class AttachErrorBoundaryQuickActionProvider extends SingleQuickActionPro
 class AttachErrorBoundaryQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-bolt',
+    public readonly icon = 'fa-solid fa-bolt',
     public readonly title = 'Attach Error',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'E',
@@ -48,7 +48,7 @@ export class AttachSignalBoundaryQuickActionProvider extends SingleQuickActionPr
 class AttachSignalBoundaryQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-satellite-dish',
+    public readonly icon = 'fa-solid fa-satellite-dish',
     public readonly title = 'Attach Signal',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'S',

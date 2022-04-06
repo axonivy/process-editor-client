@@ -174,7 +174,7 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
 class ConnectQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-long-arrow-alt-right',
+    public readonly icon = 'fa-solid fa-arrow-right-long',
     public readonly title = 'Connect',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',

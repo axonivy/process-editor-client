@@ -84,7 +84,7 @@ export interface QuickAction {
 class DeleteQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-trash',
+    public readonly icon = 'fa-solid fa-trash',
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
@@ -95,7 +95,7 @@ class DeleteQuickAction implements QuickAction {
 class AutoAlignQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-arrows-alt',
+    public readonly icon = 'fa-solid fa-up-down-left-right',
     public readonly title = 'Auto Align (A)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'Z',
@@ -107,7 +107,7 @@ class AutoAlignQuickAction implements QuickAction {
 class EditLabelQuickAction implements QuickAction {
   constructor(
     public readonly labelId: string,
-    public readonly icon = 'fa-tag',
+    public readonly icon = 'fa-solid fa-tag',
     public readonly title = 'Edit Label (L)',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',

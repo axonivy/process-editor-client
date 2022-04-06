@@ -145,7 +145,7 @@ export class ItemPickerMenu {
     if (item.icon) {
       const icon = resolveIcon(item.icon);
       if (icon.style === IconStyle.FA) {
-        return createIcon(['fa', 'fa-fw', icon.res]);
+        return createIcon([icon.res, 'fa-fw']);
       }
       if (icon.style === IconStyle.SVG) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');

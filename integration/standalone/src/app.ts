@@ -5,6 +5,7 @@ import {
   RequestTypeHintsAction,
   GLSPActionDispatcher
 } from '@eclipse-glsp/client';
+import { appendIconFontToDom } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 import { IActionDispatcher, RequestModelAction, TYPES, SelectAction } from 'sprotty';
 
@@ -27,6 +28,8 @@ const pid = parameters['pid'] ?? '';
 const givenFile = parameters['file'] ?? '';
 const highlight = parameters['highlight'];
 const selectElementIds = parameters['selectElementIds'];
+
+appendIconFontToDom(`${isSecureConnection() ? 'https' : 'http'}://${server}`);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;

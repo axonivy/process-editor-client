@@ -23,7 +23,7 @@ export class AttachCommentProvider extends SingleQuickActionProvider {
 class AttachCommentQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-comment-alt',
+    public readonly icon = 'fa-regular fa-message',
     public readonly title = 'Attach Comment',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'C',

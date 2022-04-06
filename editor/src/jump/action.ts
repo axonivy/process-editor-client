@@ -24,7 +24,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
 class JumpQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-level-down-alt',
+    public readonly icon = 'fa-solid fa-turn-down',
     public readonly title = 'Jump (J)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',

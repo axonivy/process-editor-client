@@ -1,5 +1,3 @@
-@import url('https://use.fontawesome.com/releases/v5.6.3/css/all.css');
-
 .ivy-tool-palette {
   position: absolute;
   text-align: center;
@@ -26,6 +24,10 @@
   background: var(--glsp-tool-palette-background);
   border: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.palette-header .fa-xs {
+  line-height: 1;
 }
 
 .palette-header i {
