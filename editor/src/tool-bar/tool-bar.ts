@@ -245,27 +245,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   }
 
-  onClickElementPickerToolButton = (button: HTMLElement, item: PaletteItem): void => {
+  onClickElementPickerToolButton = (button: HTMLElement, actions: Action[]): void => {
     if (!this.editorContext.isReadonly) {
-      const actionKind = this.getActionKind(item.actions);
-      const selectedElementIds = [...this.selectionService.getSelectedElementIDs()];
-      if (actionKind === ColorizeOperation.KIND && item.icon !== undefined) {
-        item.actions[0] = new ColorizeOperation(selectedElementIds, item.icon, item.label);
-      } else if (actionKind === ChangeActivityTypeOperation.KIND && selectedElementIds.length === 1) {
-        item.actions[0] = new ChangeActivityTypeOperation(selectedElementIds[0], item.id);
-      }
-      this.dispatchAction(item.actions);
+      this.dispatchAction(actions);
       this.changeActiveButton(button);
       button.focus();
     }
   };
-
-  private getActionKind(actions: Action[]): string {
-    if (actions.length === 1 && actions[0] !== undefined) {
-      return actions[0].kind;
-    }
-    return '';
-  }
 
   clearToolOnEscape = (event: KeyboardEvent): void => {
     if (matchesKeystroke(event, 'Escape')) {
@@ -297,14 +283,18 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.actionDispatcher.request(requestAction).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
-          this.elementPickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+          const actions = (item: PaletteItem): Action[] => item.actions;
+          this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.createElementPickerMenu();
         }
       });
       this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
         if (isSetContextActionsAction(response)) {
           const paletteItems = response.actions.map(e => e as PaletteItem);
-          this.colorPickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+          const actions = (item: PaletteItem): Action[] => [
+            new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
+          ];
+          this.colorPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
           this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
         }
       });
@@ -313,7 +303,15 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
         .then(response => {
           if (isSetContextActionsAction(response)) {
             const paletteItems = response.actions.map(e => e as PaletteItem);
-            this.activityTypePickerMenu = new ItemPickerMenu(paletteItems, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+            const actions = (item: PaletteItem): Action[] => [
+              new ChangeActivityTypeOperation([...this.selectionService.getSelectedElementIDs()][0], item.id)
+            ];
+            this.activityTypePickerMenu = new ItemPickerMenu(
+              paletteItems,
+              actions,
+              this.onClickElementPickerToolButton,
+              this.clearToolOnEscape
+            );
             this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
           }
         });
@@ -379,7 +377,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private createElementActionBtn(itemId: string, icon: string, child: PaletteItem): HTMLElement {
     const button = this.createElementPickerBtn(itemId, icon, child.label);
-    button.onclick = ev => this.onClickElementPickerToolButton(button, child);
+    button.onclick = ev => this.onClickElementPickerToolButton(button, child.actions);
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;
   }

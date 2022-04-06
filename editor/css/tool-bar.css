@@ -73,14 +73,8 @@
   border: none;
 }
 
+.activity-type-palette-body,
 .color-palette-body {
-  position: fixed;
-  right: 50%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-.activity-type-palette-body {
   position: fixed;
   right: 50%;
   left: 50%;

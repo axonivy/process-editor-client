@@ -1,5 +1,5 @@
 const COLLAPSED_CSS = 'collapsed';
-import { PaletteItem } from '@eclipse-glsp/client';
+import { Action, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { IconStyle, resolveIcon } from '../diagram/icon/icons';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
@@ -13,7 +13,8 @@ export class ItemPickerMenu {
 
   constructor(
     paletteItems: PaletteItem[],
-    readonly onClickElementPickerToolButton: (button: HTMLElement, item: PaletteItem) => void,
+    readonly actions: (item: PaletteItem) => Action[],
+    readonly onClickElementPickerToolButton: (button: HTMLElement, actions: Action[]) => void,
     readonly clearToolOnEscape: (event: KeyboardEvent) => void
   ) {
     this.paletteItems = paletteItems;
@@ -135,7 +136,7 @@ export class ItemPickerMenu {
     button.classList.add('tool-button');
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
-    button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, item);
+    button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, this.actions(item));
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;
   }
