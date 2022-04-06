@@ -73,6 +73,7 @@
   border: none;
 }
 
+.activity-type-palette-body,
 .color-palette-body {
   position: fixed;
   right: 50%;
