@@ -1,6 +1,6 @@
 import { Action, GLSP_TYPES, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { MoveIntoViewportAction } from '../viewport/move-into-viewport';
+import { MoveIntoViewportAction } from '../viewport/viewport-commands';
 
 import { AnimateFeedbackAction } from './animate-feedback-action';
 

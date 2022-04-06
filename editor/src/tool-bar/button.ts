@@ -1,6 +1,6 @@
 import { Action, CenterAction, DeleteElementOperation } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { OriginViewportAction } from '../viewport/original-viewport';
+import { OriginViewportAction } from '../viewport/viewport-commands';
 
 import { FitToScreenAction } from 'sprotty';
 import { JumpAction } from '../jump/action';

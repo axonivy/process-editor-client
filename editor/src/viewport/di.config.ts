@@ -6,20 +6,18 @@ import {
   configureCommand,
   EnableDefaultToolsAction,
   EnableToolsAction,
-  FitToScreenCommand,
   GetViewportCommand,
   SetViewportCommand,
   TYPES,
   ZoomMouseListener
 } from 'sprotty';
-import { MoveIntoViewportCommand } from './move-into-viewport';
 
-import { OriginViewportCommand } from './original-viewport';
+import { IvyFitToScreenCommand, MoveIntoViewportCommand, OriginViewportCommand } from './viewport-commands';
 import { IvyScrollMouseListener } from './scroll-mouse-listener';
 
 const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, CenterCommand);
-  configureCommand({ bind, isBound }, FitToScreenCommand);
+  configureCommand({ bind, isBound }, IvyFitToScreenCommand);
   configureCommand({ bind, isBound }, OriginViewportCommand);
   configureCommand({ bind, isBound }, MoveIntoViewportCommand);
   configureCommand({ bind, isBound }, GetViewportCommand);
