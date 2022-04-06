@@ -23,7 +23,7 @@ export interface ToolBarButtonProvider {
 class CenterButton implements ToolBarButton {
   constructor(
     public readonly elementIds: () => string[],
-    public readonly icon = 'fa-crosshairs',
+    public readonly icon = 'fa-solid fa-crosshairs',
     public readonly title = 'Center',
     public readonly sorting = 'C',
     public readonly visible = true,
@@ -40,7 +40,7 @@ export class CenterButtonProvider implements ToolBarButtonProvider {
 
 class OriginScreenButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-desktop',
+    public readonly icon = 'fa-solid fa-display',
     public readonly title = 'Origin screen',
     public readonly sorting = 'A',
     public readonly visible = true,
@@ -57,7 +57,7 @@ export class OriginScreenButtonProvider implements ToolBarButtonProvider {
 
 class FitToScreenButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-vector-square',
+    public readonly icon = 'fa-solid fa-vector-square',
     public readonly title = 'Fit to screen',
     public readonly sorting = 'B',
     public readonly visible = true,
@@ -75,7 +75,7 @@ export class FitToScreenButtonProvider implements ToolBarButtonProvider {
 export class JumpOutButton implements ToolBarButton {
   static readonly ID = 'jumpoutbutton';
   constructor(
-    public readonly icon = 'fa-level-up-alt',
+    public readonly icon = 'fa-solid fa-turn-up',
     public readonly title = 'Jump out (J)',
     public readonly sorting = 'A',
     public readonly visible = false,
@@ -95,7 +95,7 @@ export class DeleteButton implements ToolBarButton {
   static readonly ID = 'deletebutton';
   constructor(
     public readonly elementIds: () => string[],
-    public readonly icon = 'fa-trash',
+    public readonly icon = 'fa-solid fa-trash',
     public readonly title = 'Delete',
     public readonly sorting = 'B',
     public readonly visible = false,
@@ -115,7 +115,7 @@ export class WrapToSubButton implements ToolBarButton {
   static readonly ID = 'wraptosubbutton';
   constructor(
     public readonly elementIds: () => string[],
-    public readonly icon = 'fa-compress-arrows-alt',
+    public readonly icon = 'fa-solid fa-minimize',
     public readonly title = 'Wrap to embedded process',
     public readonly sorting = 'C',
     public readonly visible = false,
@@ -135,7 +135,7 @@ export class AutoAlignButton implements ToolBarButton {
   static readonly ID = 'autoalignbutton';
   constructor(
     public readonly elementIds: () => string[],
-    public readonly icon = 'fa-arrows-alt',
+    public readonly icon = 'fa-solid fa-up-down-left-right',
     public readonly title = 'Auto align',
     public readonly sorting = 'D',
     public readonly visible = false,

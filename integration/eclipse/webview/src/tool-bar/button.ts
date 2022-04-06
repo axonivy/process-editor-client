@@ -5,7 +5,7 @@ import { injectable } from 'inversify';
 
 class InscribeProcessButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-pen',
+    public readonly icon = 'fa-solid fa-pen',
     public readonly title = 'Inscribe Process (I)',
     public readonly sorting = 'D',
     public readonly visible = true,
@@ -22,7 +22,7 @@ export class InscribeProcessButtonProvider implements ToolBarButtonProvider {
 
 class OpenDataClassButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-table',
+    public readonly icon = 'fa-solid fa-table',
     public readonly title = 'Open Data Class (C)',
     public readonly sorting = 'E',
     public readonly visible = true,

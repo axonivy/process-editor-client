@@ -119,7 +119,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.createToolBarButtons(headerTools, toolBarButtons);
 
     this.toggleCustomIconsButton = this.createDynamicToolButton(
-      'fa-image',
+      'fa-solid fa-image',
       'Toggle custom icons',
       () => new CustomIconToggleAction(!this.toggleCustomIconsButton.classList.contains('active')),
       true
@@ -133,7 +133,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     toolBarButtons
       .sort((a, b) => a.sorting.localeCompare(b.sorting))
       .forEach(button => {
-        const htmlButton = createIcon(['fas', button.icon, 'fa-xs']);
+        const htmlButton = createIcon([button.icon, 'fa-xs']);
         htmlButton.title = button.title;
         this.showDynamicBtn(htmlButton, button.visible);
         htmlButton.onclick = _event => this.dispatchAction([button.action()]);
@@ -145,7 +145,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   protected createDefaultToolButton(): HTMLElement {
-    const button = createIcon(['fas', 'fa-mouse-pointer', 'fa-xs', 'clicked']);
+    const button = createIcon(['fa-solid', 'fa-mouse-pointer', 'fa-xs', 'clicked']);
     button.id = 'btn_default_tools';
     button.title = 'Enable selection tool';
     button.onclick = this.onClickStaticToolButton(this.defaultToolsButton);
@@ -153,7 +153,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   protected createMarqueeToolButton(): HTMLElement {
-    const marqueeToolButton = createIcon(['far', 'fa-object-group', 'fa-xs']);
+    const marqueeToolButton = createIcon(['fa-regular', 'fa-object-group', 'fa-xs']);
     marqueeToolButton.title = 'Enable marquee tool';
     marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, IvyMarqueeMouseTool.ID);
     return marqueeToolButton;
@@ -174,13 +174,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.wrapToSubToolButton = this.getButtonById(dynamicTools, WrapToSubButton.ID);
     this.autoAlignButton = this.getButtonById(dynamicTools, AutoAlignButton.ID);
 
-    this.colorMenuButton = createIcon(['fas', 'fa-palette', 'fa-xs']);
+    this.colorMenuButton = createIcon(['fa-solid', 'fa-palette', 'fa-xs']);
     this.colorMenuButton.title = 'Select color';
     this.showDynamicBtn(this.colorMenuButton, false);
     this.colorMenuButton.onclick = _event => this.menuButtonEvent(this.colorMenuButton, this.colorPickerMenu);
     dynamicTools.appendChild(this.colorMenuButton);
 
-    this.activityTypeMenuButton = createIcon(['fas', 'fa-list', 'fa-xs']);
+    this.activityTypeMenuButton = createIcon(['fa-solid', 'fa-list', 'fa-xs']);
     this.activityTypeMenuButton.title = 'Select Activity Type';
     this.showDynamicBtn(this.activityTypeMenuButton, false);
     this.activityTypeMenuButton.onclick = _event => this.menuButtonEvent(this.activityTypeMenuButton, this.activityTypePickerMenu);
@@ -202,7 +202,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean): HTMLElement {
-    const button = createIcon(['fas', icon, 'fa-xs']);
+    const button = createIcon([icon, 'fa-xs']);
     button.title = title;
     this.showDynamicBtn(button, visible);
     button.onclick = _event => this.dispatchAction([action()]);

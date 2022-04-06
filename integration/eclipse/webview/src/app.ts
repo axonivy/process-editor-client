@@ -5,6 +5,7 @@ import {
   GLSPDiagramServer,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
+import { appendIconFontToDom } from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 import { RequestModelAction, TYPES } from 'sprotty';
@@ -16,6 +17,7 @@ const filePath = urlParameters.path;
 
 // In the Eclipse Integration, port is dynamic, as multiple editors
 // and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
+const baseContextUrl = urlParameters.server ?? 'http://localhost:8081/designer';
 const port = parseInt(urlParameters.port, 10);
 const applicationId = urlParameters.application;
 const id = 'ivy-glsp-process';
@@ -26,6 +28,8 @@ const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
 setWidgetId(widgetId);
 const container = createContainer(widgetId);
+
+appendIconFontToDom(baseContextUrl);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;

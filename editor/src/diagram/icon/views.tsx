@@ -41,7 +41,7 @@ function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, small
   }
   let foreignObjectContents;
   if (icon.style === IconStyle.FA) {
-    foreignObjectContents = virtualize(`<i class="fa fa-fw ${icon.res}"></i>`);
+    foreignObjectContents = virtualize(`<i class="${icon.res} fa-fw"></i>`);
   } else {
     foreignObjectContents = virtualize(`<img src="${icon.res}"></img>`);
   }

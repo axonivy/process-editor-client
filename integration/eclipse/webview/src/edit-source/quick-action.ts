@@ -17,7 +17,7 @@ export class EditSourceQuickActionProvider extends SingleQuickActionProvider {
 class EditSourceQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-edit',
+    public readonly icon = 'fa-solid fa-pen-to-square',
     public readonly title = 'Edit (E)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',

@@ -30,7 +30,7 @@ export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
 class UnwrapQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-expand-arrows-alt',
+    public readonly icon = 'fa-solid fa-maximize',
     public readonly title = 'Unwrap embedded subprocess (U)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
@@ -53,7 +53,7 @@ export class WrapQuickActionProvider extends MultipleQuickActionProvider {
 class WrapQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-compress-arrows-alt',
+    public readonly icon = 'fa-solid fa-minimize',
     public readonly title = 'Wrap to embedded process (S)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',

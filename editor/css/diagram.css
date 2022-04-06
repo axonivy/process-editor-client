@@ -221,6 +221,9 @@ g[class^='end'] .sprotty-node {
   font-size: 14pt;
   text-anchor: middle;
 }
+svg {
+  border: none;
+}
 
 @keyframes background-pulse {
   0% {
