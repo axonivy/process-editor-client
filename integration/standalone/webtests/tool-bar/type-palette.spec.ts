@@ -34,10 +34,10 @@ test.describe('tool bar - BPMN type palette', () => {
     await typePaletteBtn.click();
     await expect(paletteBody).toBeVisible();
 
-    await expect(toolButtons).toHaveCount(9);
+    await expect(toolButtons).toHaveCount(8);
     await searchInput.fill('bpmn');
     await searchInput.dispatchEvent('keyup');
-    await expect(toolButtons).toHaveCount(8);
+    await expect(toolButtons).toHaveCount(7);
 
     await searchInput.fill('bla');
     await searchInput.dispatchEvent('keyup');
@@ -48,7 +48,7 @@ test.describe('tool bar - BPMN type palette', () => {
     await expect(searchInput).toBeEmpty();
   });
 
-  test.only('switch type', async ({ page, browserName }) => {
+  test('switch type', async ({ page, browserName }) => {
     const paletteBody = page.locator(PALETTE_BODY);
     const dynamicTools = page.locator('.dynamic-tools');
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
