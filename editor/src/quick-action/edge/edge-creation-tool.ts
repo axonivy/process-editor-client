@@ -80,6 +80,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     super();
     this.proxyEdge = new SEdge();
     this.proxyEdge.type = triggerAction.elementTypeId;
+    this.proxyEdge.sourceId = triggerAction.sourceId;
     this.source = this.triggerAction.sourceId;
     this.tool.dispatchFeedback([new DrawFeedbackEdgeAction(this.triggerAction.elementTypeId, this.source)]);
   }

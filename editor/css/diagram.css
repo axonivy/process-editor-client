@@ -208,9 +208,10 @@ g[class^='end'] .sprotty-node {
 .edge-creation-select-target-mode .node-child-label {
   cursor: crosshair;
 }
+.edge-modification-not-allowed-mode,
 .edge-modification-not-allowed-mode [class^='sprotty-'],
 .edge-modification-not-allowed-mode .node-child-label {
-  cursor: no-drop;
+  cursor: not-allowed;
 }
 
 /* General */
