@@ -3,6 +3,6 @@ import { procurementRequestParallelUrl } from '../process-editor-url-util';
 
 test('open process editor', async ({ page }) => {
   await page.goto(procurementRequestParallelUrl());
-  const toolPalette = page.locator('#sprotty_ivy-tool-palette');
+  const toolPalette = page.locator('#sprotty_ivy-tool-bar');
   await expect(toolPalette).toBeVisible();
 });

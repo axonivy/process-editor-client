@@ -45,7 +45,7 @@ const CLICKED_CSS_CLASS = 'clicked';
 
 @injectable()
 export class ToolBar extends AbstractUIExtension implements IActionHandler, EditModeListener, SelectionListener {
-  static readonly ID = 'ivy-tool-palette';
+  static readonly ID = 'ivy-tool-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
@@ -95,7 +95,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected createHeader(): void {
     const headerCompartment = document.createElement('div');
-    headerCompartment.classList.add('palette-header');
+    headerCompartment.classList.add('bar-header');
     headerCompartment.appendChild(this.createHeaderTools());
     headerCompartment.appendChild(this.createDynamicTools());
     this.containerElement.appendChild(headerCompartment);
@@ -115,7 +115,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
       .filter(button => !button?.id)
       .filter(isNotUndefined);
-
     this.createToolBarButtons(headerTools, toolBarButtons);
 
     this.toggleCustomIconsButton = this.createDynamicToolButton(
@@ -356,7 +355,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       return;
     }
     this.elementPickerMenu?.createMenuBody(this.containerElement, 'element-palette-body');
-    const headerCompartment = this.containerElement.getElementsByClassName('palette-header')[0];
+    const headerCompartment = this.containerElement.getElementsByClassName('bar-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
 

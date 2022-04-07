@@ -19,7 +19,7 @@ export async function resetSelection(page: Page): Promise<void> {
   const graph = page.locator('#sprotty');
   await expect(graph).toBeVisible();
   const bounds = await graph.boundingBox();
-  await graph.click({ position: { x: bounds.width - 1, y: bounds.height - 1 } });
+  await graph.click({ position: { x: bounds.width - 1, y: bounds.height - 80 } });
 }
 
 export function getCtrl(browserName: string): string {

@@ -5,16 +5,16 @@ html[data-theme='light'] body {
   --glsp-editor-selected: #007095;
   --glsp-foreground: #616161;
 
-  --glsp-tool-palette-background: #eee;
-  --glsp-tool-palette-forground: var(--glsp-foreground);
-  --glsp-tool-palette-selection: #bddaef;
-  --glsp-tool-palette-hover: #dfdfdf;
-  --glsp-tool-palette-border: #cecece;
-  --glsp-tool-palette-group-background: #c4c4c4;
+  --glsp-tool-bar-background: #eee;
+  --glsp-tool-bar-forground: var(--glsp-foreground);
+  --glsp-tool-bar-selection: #bddaef;
+  --glsp-tool-bar-hover: #dfdfdf;
+  --glsp-tool-bar-border: #cecece;
+  --glsp-tool-bar-group-background: #c4c4c4;
 
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
-  --glsp-quick-action-background: var(--glsp-tool-palette-background);
-  --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
+  --glsp-quick-action-background: var(--glsp-tool-bar-background);
+  --glsp-quick-action-hover: var(--glsp-tool-bar-hover);
 
   --glsp-issue-background: var(--glsp-editor-background);
   --glsp-error-foreground: #e51400;
@@ -29,16 +29,16 @@ html[data-theme='dark'] body {
   --glsp-editor-selected: #264f78;
   --glsp-foreground: #cccccc;
 
-  --glsp-tool-palette-background: #333;
-  --glsp-tool-palette-forground: var(--glsp-foreground);
-  --glsp-tool-palette-selection: #264f78;
-  --glsp-tool-palette-hover: rgba(173, 214, 255, 0.15);
-  --glsp-tool-palette-border: #3c3c3c;
-  --glsp-tool-palette-group-background: #4d4d4d;
+  --glsp-tool-bar-background: #333;
+  --glsp-tool-bar-forground: var(--glsp-foreground);
+  --glsp-tool-bar-selection: #264f78;
+  --glsp-tool-bar-hover: rgba(173, 214, 255, 0.15);
+  --glsp-tool-bar-border: #3c3c3c;
+  --glsp-tool-bar-group-background: #4d4d4d;
 
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
-  --glsp-quick-action-background: var(--glsp-tool-palette-background);
-  --glsp-quick-action-hover: var(--glsp-tool-palette-hover);
+  --glsp-quick-action-background: var(--glsp-tool-bar-background);
+  --glsp-quick-action-hover: var(--glsp-tool-bar-hover);
 
   --glsp-issue-background: var(--glsp-editor-background);
   --glsp-error-foreground: #f48771;

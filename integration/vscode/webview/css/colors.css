@@ -7,16 +7,16 @@ body {
   --glsp-editor-selected: var(--vscode-menu-selectionBackground);
   --glsp-foreground: var(--vscode-foreground);
 
-  --glsp-tool-palette-background: var(--vscode-activityBar-background);
-  --glsp-tool-palette-forground: var(--glsp-foreground);
-  --glsp-tool-palette-selection: var(--vscode-editor-selectionBackground);
-  --glsp-tool-palette-hover: var(--vscode-editor-selectionHighlightBackground);
-  --glsp-tool-palette-border: var(--vscode-dropdown-border);
-  --glsp-tool-palette-group-background: var(--vscode-badge-background);
+  --glsp-tool-bar-background: var(--vscode-activityBar-background);
+  --glsp-tool-bar-forground: var(--glsp-foreground);
+  --glsp-tool-bar-selection: var(--vscode-editor-selectionBackground);
+  --glsp-tool-bar-hover: var(--vscode-editor-selectionHighlightBackground);
+  --glsp-tool-bar-border: var(--vscode-dropdown-border);
+  --glsp-tool-bar-group-background: var(--vscode-badge-background);
 
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
-  --glsp-quick-action-background: var(--glsp-tool-palette-background);
-  --glsp-quick-action-hover: var(--glsp-tool-palette-selection);
+  --glsp-quick-action-background: var(--glsp-tool-bar-background);
+  --glsp-quick-action-hover: var(--glsp-tool-bar-selection);
 
   --glsp-issue-background: var(--vscode-editor-background);
   --glsp-error-foreground: var(--vscode-editorError-foreground);
