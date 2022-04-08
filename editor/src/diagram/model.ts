@@ -175,7 +175,14 @@ export class EndEventNode extends EventNode {
 
 export class StartEventNode extends EventNode {
   canConnect(routable: SRoutableElement, role: string): boolean {
-    return super.canConnect(routable, role) && role === 'source';
+    return super.canConnect(routable, role) && (role === 'source' || this.typeOf(routable.sourceId) === ActivityTypes.COMMENT);
+  }
+
+  private typeOf(elementId: string): string | undefined {
+    if (elementId) {
+      return this.index.getById(elementId)?.type;
+    }
+    return undefined;
   }
 }
 
