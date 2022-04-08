@@ -20,6 +20,8 @@ html[data-theme='light'] body {
   --glsp-error-foreground: #e51400;
   --glsp-warning-foreground: #bf8803;
   --glsp-info-foreground: #75beff;
+
+  --glsp-inline-label-background: rgba(0, 0, 0, 0.18);
 }
 
 html[data-theme='dark'] body {
@@ -44,4 +46,6 @@ html[data-theme='dark'] body {
   --glsp-error-foreground: #f48771;
   --glsp-warning-foreground: #cca700;
   --glsp-info-foreground: #75beff;
+
+  --glsp-inline-label-background: rgba(255, 255, 255, 0.18);
 }

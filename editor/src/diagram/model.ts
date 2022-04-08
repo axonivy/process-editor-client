@@ -301,9 +301,6 @@ export class ActivityLabel extends MulitlineEditLabel {
     return { width: this.bounds.width, height: this.bounds.height };
   }
   get editControlPositionCorrection(): Point {
-    if (isBoundsAware(this.parent)) {
-      return { x: -this.bounds.x, y: -this.bounds.y };
-    }
     return ORIGIN_POINT;
   }
 }

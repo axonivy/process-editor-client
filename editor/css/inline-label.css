@@ -1,0 +1,29 @@
+.label-edit input,
+.label-edit textarea {
+  background: var(--glsp-inline-label-background);
+  color: var(--glsp-foreground);
+  border-radius: 5px;
+  border: 0;
+  width: 99%;
+  height: 99%;
+}
+
+.label-edit input:focus,
+.label-edit textarea:focus {
+  outline: none;
+  outline-offset: 0px;
+}
+
+.label-edit {
+  border-left: 1px dotted gray;
+}
+
+.label-edit.validation-warning {
+  color: var(--glsp-warning-foreground);
+  border-left: 1px dotted var(--glsp-warning-foreground);
+}
+
+.label-edit.validation-error {
+  color: var(--glsp-error-foreground);
+  border-left: 1px dotted var(--glsp-error-foreground);
+}
