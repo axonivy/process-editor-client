@@ -1,4 +1,4 @@
-import { SModelElement } from '@eclipse-glsp/client';
+import { createFeatureSet, SModelElement } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
 import { ActivityNode } from '../../src/diagram/model';
@@ -16,6 +16,7 @@ describe('IvyGridSnapper', () => {
 
   it('center of element should snap to grid', () => {
     const element = new ActivityNode();
+    element.features = createFeatureSet(ActivityNode.DEFAULT_FEATURES);
     element.size = { width: 10, height: 10 };
     expect(snapper.snap({ x: 0, y: 0 }, element)).to.deep.equals({ x: 3, y: 3 });
     expect(snapper.snap({ x: 10, y: 10 }, element)).to.deep.equals({ x: 11, y: 11 });

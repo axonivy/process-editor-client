@@ -1,4 +1,4 @@
-import { isBoundsAware } from '@eclipse-glsp/client';
+import { isBoundsAwareMoveable } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { ISnapper, Point, SModelElement } from 'sprotty';
 
@@ -15,7 +15,7 @@ export class IvyGridSnapper implements ISnapper {
   snap(position: Point, element: SModelElement): Point {
     let width = 0;
     let height = 0;
-    if (element && isBoundsAware(element)) {
+    if (element && isBoundsAwareMoveable(element)) {
       width = element.bounds.width / 2;
       height = element.bounds.height / 2;
     }
