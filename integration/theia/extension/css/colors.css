@@ -22,4 +22,6 @@ body {
   --glsp-error-foreground: var(--theia-editorError-foreground);
   --glsp-warning-foreground: var(--theia-editorWarning-foreground);
   --glsp-info-foreground: var(--theia-editorInfo-foreground);
+
+  --glsp-inline-label-background: var(--theia-textSeparator-foreground);
 }

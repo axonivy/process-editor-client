@@ -22,4 +22,6 @@ body {
   --glsp-error-foreground: var(--vscode-editorError-foreground);
   --glsp-warning-foreground: var(--vscode-editorWarning-foreground);
   --glsp-info-foreground: var(--vscode-editorInfo-foreground);
+
+  --glsp-inline-label-background: var(--vscode-textSeparator-foreground);
 }
