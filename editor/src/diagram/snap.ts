@@ -4,13 +4,8 @@ import { ISnapper, Point, SModelElement } from 'sprotty';
 
 @injectable()
 export class IvyGridSnapper implements ISnapper {
-  get gridX(): number {
-    return 8;
-  }
-
-  get gridY(): number {
-    return 8;
-  }
+  public static GRID_X = 8;
+  public static GRID_Y = 8;
 
   snap(position: Point, element: SModelElement): Point {
     let width = 0;
@@ -20,8 +15,8 @@ export class IvyGridSnapper implements ISnapper {
       height = element.bounds.height / 2;
     }
     return {
-      x: Math.round((position.x + width) / this.gridX) * this.gridX - width,
-      y: Math.round((position.y + height) / this.gridY) * this.gridY - height
+      x: Math.round((position.x + width) / IvyGridSnapper.GRID_X) * IvyGridSnapper.GRID_X - width,
+      y: Math.round((position.y + height) / IvyGridSnapper.GRID_Y) * IvyGridSnapper.GRID_Y - height
     };
   }
 }

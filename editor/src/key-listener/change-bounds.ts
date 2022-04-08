@@ -1,39 +1,49 @@
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { inject } from 'inversify';
-import { getElements, GLSP_TYPES, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
-import { ChangeBoundsOperation, ElementAndBounds } from '@eclipse-glsp/protocol';
-import { IvyGridSnapper } from '../diagram/snap';
+import { inject, optional } from 'inversify';
+import { getElements, GLSP_TYPES, IMovementRestrictor, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
+import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { IvyGridSnapper } from '../diagram/snap';
 
 export class MoveElementKeyListener extends KeyListener {
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
-  snapper = new IvyGridSnapper();
+  @inject(GLSP_TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
 
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
+    if (this.selectionService.hasSelectedElements()) {
+      if (matchesKeystroke(event, 'ArrowUp')) {
+        return this.moveElements({ x: 0, y: -IvyGridSnapper.GRID_Y });
+      }
+      if (matchesKeystroke(event, 'ArrowDown')) {
+        return this.moveElements({ x: 0, y: IvyGridSnapper.GRID_Y });
+      }
+      if (matchesKeystroke(event, 'ArrowLeft')) {
+        return this.moveElements({ x: -IvyGridSnapper.GRID_X, y: 0 });
+      }
+      if (matchesKeystroke(event, 'ArrowRight')) {
+        return this.moveElements({ x: IvyGridSnapper.GRID_X, y: 0 });
+      }
+    }
+    return [];
+  }
+
+  protected moveElements(delta: Point): Action[] {
     let selectedElements = getElements(
       this.selectionService.getModelRoot().index,
       Array.from(this.selectionService.getSelectedElementIDs()),
       isBoundsAware
     );
     selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e));
-    let deltaX = 0;
-    let deltaY = 0;
     if (selectedElements.length === 0) {
       return [];
-    } else if (matchesKeystroke(event, 'ArrowUp')) {
-      deltaY = -this.snapper.gridY;
-    } else if (matchesKeystroke(event, 'ArrowDown')) {
-      deltaY = this.snapper.gridY;
-    } else if (matchesKeystroke(event, 'ArrowLeft')) {
-      deltaX = -this.snapper.gridX;
-    } else if (matchesKeystroke(event, 'ArrowRight')) {
-      deltaX = this.snapper.gridX;
-    } else {
+    }
+
+    const newBounds = selectedElements.filter(e => this.isMovementAllowed(e, delta)).map(e => this.getElementAndUpdatedBound(e, delta));
+    if (newBounds.length !== selectedElements.length) {
       return [];
     }
-    const newBounds = selectedElements.map(e => this.getElementAndUpdatedBound(e, deltaX, deltaY));
     return [
       new ChangeBoundsOperation(newBounds),
       new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...selectedElements.map(e => e.id)])
@@ -44,14 +54,24 @@ export class MoveElementKeyListener extends KeyListener {
     return element instanceof SChildElement && selectedElements.includes(element.parent);
   }
 
-  protected getElementAndUpdatedBound(element: SModelElement & BoundsAware, deltaX: number, deltaY: number): ElementAndBounds {
+  protected isMovementAllowed(element: SModelElement & BoundsAware, delta: Point): boolean {
+    if (this.movementRestrictor) {
+      const newPosition = this.updatePosition(element, delta);
+      return this.movementRestrictor.validate(newPosition, element);
+    }
+    return true;
+  }
+
+  protected getElementAndUpdatedBound(element: SModelElement & BoundsAware, delta: Point): ElementAndBounds {
     const bound = toElementAndBounds(element);
-    let newPosition = {
-      x: element.bounds.x + deltaX,
-      y: element.bounds.y + deltaY
-    };
-    newPosition = this.snapper.snap(newPosition, element);
-    bound.newPosition = newPosition;
+    bound.newPosition = this.updatePosition(element, delta);
     return bound;
+  }
+
+  protected updatePosition(element: SModelElement & BoundsAware, delta: Point): Point {
+    return {
+      x: element.bounds.x + delta.x,
+      y: element.bounds.y + delta.y
+    };
   }
 }
