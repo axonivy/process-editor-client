@@ -1,4 +1,4 @@
-import { ToolBarButton, ToolBarButtonProvider } from '@ivyteam/process-editor';
+import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation } from '@ivyteam/process-editor';
 import { OpenInscriptionAction } from '../open-inscription/open-inscription-handler';
 import { OpenDataClassAction } from '../open-data-class/open-data-class';
 import { injectable } from 'inversify';
@@ -44,9 +44,10 @@ export class OpenInsertConnectorButton implements ToolBarButton {
     public readonly icon = 'fa-solid fa-store',
     public readonly title = 'Insert Connector',
     public readonly sorting = 'E',
-    public readonly visible = false,
+    public readonly visible = true,
     public readonly action = () => new OpenInsertConnectorAction(),
-    public readonly id = OpenInsertConnectorButton.ID
+    public readonly id = OpenInsertConnectorButton.ID,
+    public readonly location = ToolBarButtonLocation.Right
   ) {}
 }
 

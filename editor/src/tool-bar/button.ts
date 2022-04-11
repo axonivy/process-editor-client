@@ -5,6 +5,12 @@ import { JumpAction } from '../jump/action';
 import { WrapToSubOperation } from '../wrap/actions';
 import { AutoAlignOperation } from './operation';
 
+export enum ToolBarButtonLocation {
+  Left = 'left',
+  Center = 'center',
+  Right = 'right'
+}
+
 export interface ToolBarButton {
   icon: string;
   title: string;
@@ -12,6 +18,7 @@ export interface ToolBarButton {
   action: () => Action;
   visible: boolean;
   id?: string;
+  location?: ToolBarButtonLocation;
 }
 
 export interface ToolBarButtonProvider {

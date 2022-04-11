@@ -39,7 +39,15 @@ import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
 import { isUnwrapable, isWrapable } from '../wrap/model';
 import { IVY_TYPES } from '../types';
-import { AutoAlignButton, DeleteButton, JumpOutButton, ToolBarButton, ToolBarButtonProvider, WrapToSubButton } from './button';
+import {
+  AutoAlignButton,
+  DeleteButton,
+  JumpOutButton,
+  ToolBarButton,
+  ToolBarButtonLocation,
+  ToolBarButtonProvider,
+  WrapToSubButton
+} from './button';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -67,7 +75,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   protected colorMenuButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
   protected activityTypeMenuButton: HTMLElement;
-  protected openInsertConnectorButton: HTMLElement;
   modelRootId: string;
 
   id(): string {
@@ -114,7 +121,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => !button?.id)
+      .filter(button => !button?.id && !button?.location)
       .filter(isNotUndefined);
     this.createToolBarButtons(headerTools, toolBarButtons);
 
@@ -133,7 +140,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     toolBarButtons
       .sort((a, b) => a.sorting.localeCompare(b.sorting))
       .forEach(button => {
-        const htmlButton = createIcon([button.icon, 'fa-xs']);
+        const htmlButton = document.createElement('span');
+        htmlButton.appendChild(createIcon([button.icon, 'fa-xs']));
         htmlButton.title = button.title;
         this.showDynamicBtn(htmlButton, button.visible);
         htmlButton.onclick = _event => this.dispatchAction([button.action()]);
@@ -165,7 +173,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => button?.id)
+      .filter(button => button?.id && !button?.location)
       .filter(isNotUndefined);
 
     this.createToolBarButtons(dynamicTools, toolBarButtons);
@@ -173,11 +181,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.deleteToolButton = this.getButtonById(dynamicTools, DeleteButton.ID);
     this.wrapToSubToolButton = this.getButtonById(dynamicTools, WrapToSubButton.ID);
     this.autoAlignButton = this.getButtonById(dynamicTools, AutoAlignButton.ID);
-    this.openInsertConnectorButton = this.getButtonById(dynamicTools, 'insertconnectorbutton');
-
-    if (this.openInsertConnectorButton) {
-      dynamicTools.removeChild(this.openInsertConnectorButton);
-    }
 
     this.colorMenuButton = createIcon(['fa-solid', 'fa-palette', 'fa-xs']);
     this.colorMenuButton.title = 'Select color';
@@ -215,9 +218,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   private showDynamicBtn(btn: HTMLElement, show: boolean): void {
-    if (btn) {
-      btn.style.display = show ? 'inline-block' : 'none';
-    }
+    btn.style.display = show ? 'inline-block' : 'none';
   }
 
   public showJumpOutBtn(show: boolean): void {
@@ -350,7 +351,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.showDynamicBtn(this.autoAlignButton, elements.length > 1 && isConnectable(elements[0]));
     this.showDynamicBtn(this.colorMenuButton, elements.length > 0 && isDeletable(elements[0]));
     this.showDynamicBtn(this.activityTypeMenuButton, showActivityTypeMenu);
-    this.showDynamicBtn(this.openInsertConnectorButton, true);
     if (elements.length === 0) {
       this.colorPickerMenu?.hideMenu();
     }
@@ -367,11 +367,12 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const headerCompartment = this.containerElement.getElementsByClassName('bar-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
-    if (this.openInsertConnectorButton) {
-      const button = document.createElement('span');
-      button.appendChild(this.openInsertConnectorButton);
-      elementPickers.appendChild(button);
-    }
+
+    this.toolBarButtonProvider
+      .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
+      .filter(button => button?.id && button?.location && button.location === ToolBarButtonLocation.Right)
+      .filter(isNotUndefined)
+      .forEach(button => this.createToolBarButtons(elementPickers, [button]));
 
     this.elementPickerMenu
       ?.getPaletteItems()
