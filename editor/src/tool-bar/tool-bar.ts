@@ -67,6 +67,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   protected colorMenuButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
   protected activityTypeMenuButton: HTMLElement;
+  protected openInsertConnectorButton: HTMLElement;
   modelRootId: string;
 
   id(): string {
@@ -172,6 +173,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.deleteToolButton = this.getButtonById(dynamicTools, DeleteButton.ID);
     this.wrapToSubToolButton = this.getButtonById(dynamicTools, WrapToSubButton.ID);
     this.autoAlignButton = this.getButtonById(dynamicTools, AutoAlignButton.ID);
+    this.openInsertConnectorButton = this.getButtonById(dynamicTools, 'insertconnectorbutton');
+
+    if (this.openInsertConnectorButton) {
+      dynamicTools.removeChild(this.openInsertConnectorButton);
+    }
 
     this.colorMenuButton = createIcon(['fa-solid', 'fa-palette', 'fa-xs']);
     this.colorMenuButton.title = 'Select color';
@@ -209,7 +215,9 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   private showDynamicBtn(btn: HTMLElement, show: boolean): void {
-    btn.style.display = show ? 'inline-block' : 'none';
+    if (btn) {
+      btn.style.display = show ? 'inline-block' : 'none';
+    }
   }
 
   public showJumpOutBtn(show: boolean): void {
@@ -342,6 +350,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.showDynamicBtn(this.autoAlignButton, elements.length > 1 && isConnectable(elements[0]));
     this.showDynamicBtn(this.colorMenuButton, elements.length > 0 && isDeletable(elements[0]));
     this.showDynamicBtn(this.activityTypeMenuButton, showActivityTypeMenu);
+    this.showDynamicBtn(this.openInsertConnectorButton, true);
     if (elements.length === 0) {
       this.colorPickerMenu?.hideMenu();
     }
@@ -358,6 +367,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const headerCompartment = this.containerElement.getElementsByClassName('bar-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
+    if (this.openInsertConnectorButton) {
+      const button = document.createElement('span');
+      button.appendChild(this.openInsertConnectorButton);
+      elementPickers.appendChild(button);
+    }
 
     this.elementPickerMenu
       ?.getPaletteItems()
