@@ -39,7 +39,15 @@ import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
 import { isUnwrapable, isWrapable } from '../wrap/model';
 import { IVY_TYPES } from '../types';
-import { AutoAlignButton, DeleteButton, JumpOutButton, ToolBarButton, ToolBarButtonProvider, WrapToSubButton } from './button';
+import {
+  AutoAlignButton,
+  DeleteButton,
+  JumpOutButton,
+  ToolBarButton,
+  ToolBarButtonLocation,
+  ToolBarButtonProvider,
+  WrapToSubButton
+} from './button';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -113,7 +121,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => !button?.id)
+      .filter(button => button.location === ToolBarButtonLocation.Left)
       .filter(isNotUndefined);
     this.createToolBarButtons(headerTools, toolBarButtons);
 
@@ -132,7 +140,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     toolBarButtons
       .sort((a, b) => a.sorting.localeCompare(b.sorting))
       .forEach(button => {
-        const htmlButton = createIcon([button.icon, 'fa-xs']);
+        const htmlButton = document.createElement('span');
+        htmlButton.appendChild(createIcon([button.icon, 'fa-xs']));
         htmlButton.title = button.title;
         this.showDynamicBtn(htmlButton, button.visible);
         htmlButton.onclick = _event => this.dispatchAction([button.action()]);
@@ -164,7 +173,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => button?.id)
+      .filter(button => button.location === ToolBarButtonLocation.Center)
       .filter(isNotUndefined);
 
     this.createToolBarButtons(dynamicTools, toolBarButtons);
@@ -358,6 +367,12 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const headerCompartment = this.containerElement.getElementsByClassName('bar-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
+
+    const toolBarButtons = this.toolBarButtonProvider
+      .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
+      .filter(button => button.location === ToolBarButtonLocation.Right)
+      .filter(isNotUndefined);
+    this.createToolBarButtons(elementPickers, toolBarButtons);
 
     this.elementPickerMenu
       ?.getPaletteItems()
