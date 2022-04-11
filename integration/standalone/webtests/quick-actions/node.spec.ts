@@ -101,7 +101,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
-    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
+    const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
     const embedded = page.locator('.sprotty-graph .embeddedproc');
