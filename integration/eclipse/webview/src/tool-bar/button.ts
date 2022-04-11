@@ -10,7 +10,8 @@ class InscribeProcessButton implements ToolBarButton {
     public readonly title = 'Inscribe Process (I)',
     public readonly sorting = 'D',
     public readonly visible = true,
-    public readonly action = () => new OpenInscriptionAction('')
+    public readonly action = () => new OpenInscriptionAction(''),
+    public readonly location = ToolBarButtonLocation.Left
   ) {}
 }
 
@@ -27,7 +28,8 @@ class OpenDataClassButton implements ToolBarButton {
     public readonly title = 'Open Data Class (C)',
     public readonly sorting = 'E',
     public readonly visible = true,
-    public readonly action = () => new OpenDataClassAction()
+    public readonly action = () => new OpenDataClassAction(),
+    public readonly location = ToolBarButtonLocation.Left
   ) {}
 }
 

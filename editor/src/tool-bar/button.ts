@@ -17,8 +17,8 @@ export interface ToolBarButton {
   sorting: string;
   action: () => Action;
   visible: boolean;
+  location: ToolBarButtonLocation;
   id?: string;
-  location?: ToolBarButtonLocation;
 }
 
 export interface ToolBarButtonProvider {
@@ -33,7 +33,8 @@ export class JumpOutButton implements ToolBarButton {
     public readonly sorting = 'A',
     public readonly visible = false,
     public readonly action = () => new JumpAction(''),
-    public readonly id = JumpOutButton.ID
+    public readonly id = JumpOutButton.ID,
+    public readonly location = ToolBarButtonLocation.Center
   ) {}
 }
 
@@ -53,7 +54,8 @@ export class DeleteButton implements ToolBarButton {
     public readonly sorting = 'B',
     public readonly visible = false,
     public readonly action = () => new DeleteElementOperation(elementIds()),
-    public readonly id = DeleteButton.ID
+    public readonly id = DeleteButton.ID,
+    public readonly location = ToolBarButtonLocation.Center
   ) {}
 }
 
@@ -73,7 +75,8 @@ export class WrapToSubButton implements ToolBarButton {
     public readonly sorting = 'C',
     public readonly visible = false,
     public readonly action = () => new WrapToSubOperation(elementIds()),
-    public readonly id = WrapToSubButton.ID
+    public readonly id = WrapToSubButton.ID,
+    public readonly location = ToolBarButtonLocation.Center
   ) {}
 }
 
@@ -93,7 +96,8 @@ export class AutoAlignButton implements ToolBarButton {
     public readonly sorting = 'D',
     public readonly visible = false,
     public readonly action = () => new AutoAlignOperation(elementIds()),
-    public readonly id = AutoAlignButton.ID
+    public readonly id = AutoAlignButton.ID,
+    public readonly location = ToolBarButtonLocation.Center
   ) {}
 }
 

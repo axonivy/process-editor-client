@@ -121,7 +121,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => !button?.id && !button?.location)
+      .filter(button => button.location === ToolBarButtonLocation.Left)
       .filter(isNotUndefined);
     this.createToolBarButtons(headerTools, toolBarButtons);
 
@@ -173,7 +173,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
     const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => button?.id && !button?.location)
+      .filter(button => button.location === ToolBarButtonLocation.Center)
       .filter(isNotUndefined);
 
     this.createToolBarButtons(dynamicTools, toolBarButtons);
@@ -368,11 +368,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');
 
-    this.toolBarButtonProvider
+    const toolBarButtons = this.toolBarButtonProvider
       .map(provider => provider.button(() => [...this.selectionService.getSelectedElementIDs()]))
-      .filter(button => button?.id && button?.location && button.location === ToolBarButtonLocation.Right)
-      .filter(isNotUndefined)
-      .forEach(button => this.createToolBarButtons(elementPickers, [button]));
+      .filter(button => button.location === ToolBarButtonLocation.Right)
+      .filter(isNotUndefined);
+    this.createToolBarButtons(elementPickers, toolBarButtons);
 
     this.elementPickerMenu
       ?.getPaletteItems()
