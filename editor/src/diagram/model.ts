@@ -27,6 +27,7 @@ import {
   ORIGIN_POINT,
   Point,
   popupFeature,
+  reconnectFeature,
   RectangularNode,
   resizeFeature,
   SArgumentable,
@@ -232,6 +233,7 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
 export class Edge extends SEdge implements WithEditableLabel, Executable, SArgumentable {
   static readonly DEFAULT_FEATURES = [
     editFeature,
+    reconnectFeature,
     deletableFeature,
     selectFeature,
     fadeFeature,
