@@ -92,6 +92,7 @@ pipeline {
             }
           }
           archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integration/standalone/target/**/ivy.log', allowEmptyArchive: true
         }
       }
     }
@@ -176,7 +177,7 @@ pipeline {
       qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
 
       withChecks('Tests') {
-        junit 'node_modules/**/report.xml'
+        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
       }
     }
   }
