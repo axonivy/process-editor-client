@@ -20,7 +20,6 @@ export namespace EventTypes {
   export const INTERMEDIATE = DEFAULT + ':intermediate';
   export const INTERMEDIATE_TASK = INTERMEDIATE + ':task';
   export const INTERMEDIATE_WAIT = INTERMEDIATE + ':wait';
-  export const INTERMEDIATE_CALL_AND_WAIT = INTERMEDIATE + ':callandwait';
   export const BOUNDARY = DEFAULT + ':boundary';
   export const BOUNDARY_ERROR = BOUNDARY + ':error';
   export const BOUNDARY_SIGNAL = BOUNDARY + ':signal';

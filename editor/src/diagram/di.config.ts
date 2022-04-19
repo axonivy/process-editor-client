@@ -72,9 +72,6 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
-  configureModelElement(context, EventTypes.INTERMEDIATE_CALL_AND_WAIT, EventNode, IntermediateEventNodeView, {
-    enable: [editSourceFeature]
-  });
   configureModelElement(context, EventTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
 

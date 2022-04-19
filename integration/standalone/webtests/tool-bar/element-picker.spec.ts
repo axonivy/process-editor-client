@@ -100,7 +100,7 @@ test.describe('tool bar - element picker', () => {
   });
 
   test('create all events', async ({ page }) => {
-    await createAllElements(page, '#btn_ele_picker_event-group', 10);
+    await createAllElements(page, '#btn_ele_picker_event-group', 9);
   });
 
   test('create all gateways', async ({ page }) => {
