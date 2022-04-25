@@ -172,7 +172,7 @@ export class ItemPickerMenu {
     const header = document.createElement('div');
     header.classList.add('group-header');
     if (item.icon) {
-      header.appendChild(createIcon([item.icon]));
+      header.appendChild(createIcon([resolveIcon(item.icon).res]));
     }
     header.insertAdjacentText('beforeend', item.label);
     header.ondblclick = _ev => {

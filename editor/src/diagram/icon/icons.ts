@@ -43,7 +43,11 @@ const StandardIcons: { [icon: string]: NodeIcon } = {
   'std:Alternative': { res: 'M2,2 L8,8 M2,8 L8,2', style: IconStyle.SVG },
   'std:Join': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
   'std:Split': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
-  'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG }
+  'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG },
+  'event-group': { res: 'fa-regular fa-circle', style: IconStyle.FA },
+  'gateway-group': { res: 'fa-regular fa-square fa-rotate-45', style: IconStyle.FA },
+  'activity-group': { res: 'fa-regular fa-square', style: IconStyle.FA },
+  'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA }
 };
 
 export const resolveIcon = (iconUri: string): NodeIcon => {
