@@ -141,6 +141,7 @@ g[class^='end'] .sprotty-node {
 }
 .sprotty-icon {
   border-radius: 3px;
+  user-select: none;
   cursor: pointer;
 }
 .sprotty-icon i {
