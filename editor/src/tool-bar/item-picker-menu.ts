@@ -1,7 +1,7 @@
 const COLLAPSED_CSS = 'collapsed';
 import { Action, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { IconStyle, resolveIcon } from '../diagram/icon/icons';
+import { IconStyle, resolveIcon, resolvePaletteIcon } from '../diagram/icon/icons';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
 export class ItemPickerMenu {
@@ -172,7 +172,7 @@ export class ItemPickerMenu {
     const header = document.createElement('div');
     header.classList.add('group-header');
     if (item.icon) {
-      header.appendChild(createIcon([resolveIcon(item.icon).res]));
+      header.appendChild(createIcon([resolvePaletteIcon(item.icon).res]));
     }
     header.insertAdjacentText('beforeend', item.label);
     header.ondblclick = _ev => {

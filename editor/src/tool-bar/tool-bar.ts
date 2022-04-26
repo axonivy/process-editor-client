@@ -48,7 +48,7 @@ import {
   ToolBarButtonProvider,
   WrapToSubButton
 } from './button';
-import { resolveIcon } from '../diagram/icon/icons';
+import { resolvePaletteIcon } from '../diagram/icon/icons';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -399,7 +399,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private createElementPickerBtn(itemId: string, icon: string, label: string): HTMLElement {
     const button = document.createElement('span');
-    button.appendChild(createIcon([resolveIcon(icon).res, 'fa-xs']));
+    button.appendChild(createIcon([resolvePaletteIcon(icon).res, 'fa-xs']));
     button.id = 'btn_ele_picker_' + itemId;
     button.title = label;
     button.onclick = _event => {
