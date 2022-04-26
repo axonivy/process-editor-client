@@ -46,6 +46,13 @@ const StandardIcons: { [icon: string]: NodeIcon } = {
   'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG }
 };
 
+const PaletteIcons: { [icon: string]: NodeIcon } = {
+  'event-group': { res: 'fa-regular fa-circle', style: IconStyle.FA },
+  'gateway-group': { res: 'fa-regular fa-square fa-rotate-45', style: IconStyle.FA },
+  'activity-group': { res: 'fa-regular fa-square', style: IconStyle.FA },
+  'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA }
+};
+
 export const resolveIcon = (iconUri: string): NodeIcon => {
   if (!iconUri) {
     return NoIcon;
@@ -57,3 +64,5 @@ export const resolveIcon = (iconUri: string): NodeIcon => {
   }
   return StandardIcons[iconUri] ?? { res: iconUri, style: IconStyle.UNKNOWN };
 };
+
+export const resolvePaletteIcon = (iconUri: string): NodeIcon => PaletteIcons[iconUri] ?? resolveIcon(iconUri);
