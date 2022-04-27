@@ -29,8 +29,6 @@ test.describe('tool bar - element picker', () => {
     const eventGroup = page.locator('#event-group');
     const gatewayBtn = page.locator('#btn_ele_picker_gateway-group');
     const gatewayGroup = page.locator('#gateway-group');
-    const connectorBtn = page.locator('#btn_ele_picker_connector-group');
-    const connectorGroup = page.locator('#connector-group');
     await expect(paletteBody).not.toBeVisible();
 
     await eventBtn.click();
@@ -42,28 +40,6 @@ test.describe('tool bar - element picker', () => {
     await expect(paletteBody).toBeVisible();
     await expect(eventGroup).toHaveClass(COLLAPSED_CSS_CLASS);
     await expect(gatewayGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-
-    await connectorBtn.click();
-    await expect(paletteBody).not.toBeVisible();
-    await expect(connectorGroup).toHaveClass(COLLAPSED_CSS_CLASS);
-  });
-
-  test('connector group', async ({ page }) => {
-    const paletteBody = page.locator(PALETTE_BODY);
-    const eventBtn = page.locator('#btn_ele_picker_event-group');
-    const eventGroup = page.locator('#event-group');
-    const connectorBtn = page.locator('#btn_ele_picker_connector-group');
-    const connectorGroup = page.locator('#connector-group');
-    await expect(paletteBody).not.toBeVisible();
-
-    await eventBtn.click();
-    await expect(paletteBody).toBeVisible();
-    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(connectorGroup).toHaveClass(COLLAPSED_CSS_CLASS);
-
-    await connectorBtn.click();
-    await expect(paletteBody).not.toBeVisible();
-    await expect(connectorGroup).toHaveClass(COLLAPSED_CSS_CLASS);
   });
 
   test('search', async ({ page }) => {
@@ -113,26 +89,6 @@ test.describe('tool bar - element picker', () => {
 
   test('create lanes', async ({ page }) => {
     await createAllElements(page, '#btn_ele_picker_swimlane-group', 2);
-  });
-
-  test('create connector', async ({ page }) => {
-    const connector = page.locator('.sprotty-graph > g > .sprotty-edge:not(.feedback-edge)');
-    const feedbackConnector = page.locator('.sprotty-graph > g > .sprotty-edge.feedback-edge');
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
-    await connector.click();
-    await page.keyboard.press('Delete');
-    await expect(connector).not.toBeVisible();
-    await expect(feedbackConnector).not.toBeVisible();
-
-    await page.locator('#btn_ele_picker_connector-group').click();
-    await end.click();
-    await expect(feedbackConnector).not.toBeVisible();
-    await start.click();
-    await expect(feedbackConnector).toBeVisible();
-    await end.click();
-    await expect(feedbackConnector).not.toBeVisible();
-    await expect(connector).toBeVisible();
   });
 
   async function createAllElements(page: Page, pickerBtnId: string, expectedElementCount: number): Promise<void> {
