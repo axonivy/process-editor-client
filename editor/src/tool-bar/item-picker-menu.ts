@@ -1,7 +1,7 @@
 const COLLAPSED_CSS = 'collapsed';
 import { Action, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { IconStyle, resolveIcon, resolvePaletteIcon } from '../diagram/icon/icons';
+import { IconStyle, resolvePaletteIcon } from '../diagram/icon/icons';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
 export class ItemPickerMenu {
@@ -143,7 +143,7 @@ export class ItemPickerMenu {
 
   private appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     if (item.icon) {
-      const icon = resolveIcon(item.icon);
+      const icon = resolvePaletteIcon(item.icon);
       if (icon.style === IconStyle.FA) {
         return createIcon([icon.res, 'fa-fw']);
       }

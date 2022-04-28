@@ -50,7 +50,16 @@ const PaletteIcons: { [icon: string]: NodeIcon } = {
   'event-group': { res: 'fa-regular fa-circle', style: IconStyle.FA },
   'gateway-group': { res: 'fa-regular fa-square fa-rotate-45', style: IconStyle.FA },
   'activity-group': { res: 'fa-regular fa-square', style: IconStyle.FA },
-  'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA }
+  'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
+  'std:Pool': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
+  'std:Lane': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
+  'std:Start': { res: 'fa-regular fa-circle', style: IconStyle.FA },
+  'std:TaskEnd': { res: 'fa-regular fa-circle', style: IconStyle.FA },
+  'std:ErrorStart': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
+  'std:ErrorEnd': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
+  'std:EmbeddedProcess': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
+  'std:SubProcessCall': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
+  'std:Annotation': { res: 'fa-regular fa-message', style: IconStyle.FA }
 };
 
 export const resolveIcon = (iconUri: string): NodeIcon => {
