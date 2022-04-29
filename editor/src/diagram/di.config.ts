@@ -62,6 +62,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.START_HD, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_HD_METHOD, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.START_HD_EVENT, StartEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.START_EMBEDDED, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_ERROR, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_PAGE, EndEventNode, EventNodeView);
@@ -69,6 +70,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, EventTypes.END_WS, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_HD, EndEventNode, EventNodeView);
   configureModelElement(context, EventTypes.END_HD_EXIT, EndEventNode, EventNodeView);
+  configureModelElement(context, EventTypes.END_EMBEDDED, StartEventNode, EventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
   configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
@@ -101,6 +103,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView, { enable: [jumpFeature] });
   configureModelElement(context, ActivityTypes.PROGRAM, ActivityNode, ActivityNodeView, { enable: [editSourceFeature] });
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
+  configureModelElement(context, ActivityTypes.THIRD_PARTY_RULE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
