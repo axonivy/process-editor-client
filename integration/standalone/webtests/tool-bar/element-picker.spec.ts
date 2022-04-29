@@ -84,7 +84,7 @@ test.describe('tool bar - element picker', () => {
   });
 
   test('create all activities', async ({ page }) => {
-    await createAllElements(page, '#btn_ele_picker_activity-group', 12);
+    await createAllElements(page, '#btn_ele_picker_activity-group', 13);
   });
 
   test('create lanes', async ({ page }) => {
