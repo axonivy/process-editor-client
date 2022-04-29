@@ -175,7 +175,7 @@ export class ItemPickerMenu {
       header.appendChild(createIcon([resolvePaletteIcon(item.icon).res]));
     }
     header.insertAdjacentText('beforeend', item.label);
-    header.ondblclick = _ev => {
+    header.onclick = _ev => {
       changeCSSClass(group, COLLAPSED_CSS);
       window!.getSelection()!.removeAllRanges();
     };
