@@ -70,6 +70,29 @@ test.describe('tool bar - BPMN type palette', () => {
     await expect(userIcon).toBeVisible();
   });
 
+  test('create BPMN Manual, jump, change type', async ({ page }) => {
+    const dynamicTools = page.locator('.dynamic-tools');
+    const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
+    const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
+    const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
+    const manual = page.locator('.sprotty-graph .bpmn\\3A manual');
+    const embedded = page.locator('.sprotty-graph .embeddedproc');
+
+    await page.locator('#btn_ele_picker_bpmn-activity-group').click();
+    await page.locator('.element-palette-body .tool-button:has-text("Manual")').click();
+    await page.locator('.sprotty-graph').click();
+
+    await manual.click();
+    await clickQuickActionStartsWith(page, 'Jump');
+    await jumpOutBtn.click();
+
+    await expect(embedded).toBeHidden();
+    await manual.click();
+    await typePaletteBtn.click();
+    await toolButtons.locator('text=Embedded Subprocess').click();
+    await expect(embedded).toBeVisible();
+  });
+
   async function wrapToEmbedded(elements: Locator[], page: Page, browserName: string): Promise<void> {
     await multiSelect(page, elements, browserName);
     await clickQuickActionStartsWith(page, 'Wrap');
