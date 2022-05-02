@@ -50,16 +50,25 @@ const PaletteIcons: { [icon: string]: NodeIcon } = {
   'event-group': { res: 'fa-regular fa-circle', style: IconStyle.FA },
   'gateway-group': { res: 'fa-regular fa-square fa-rotate-45', style: IconStyle.FA },
   'activity-group': { res: 'fa-regular fa-square', style: IconStyle.FA },
+  'bpmn-activity-group': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
   'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
   'std:Pool': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
   'std:Lane': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
   'std:Start': { res: 'fa-regular fa-circle', style: IconStyle.FA },
   'std:TaskEnd': { res: 'fa-regular fa-circle', style: IconStyle.FA },
-  'std:ErrorStart': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
-  'std:ErrorEnd': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
+  'std:ErrorStart': StandardIcons['std:Error'],
+  'std:ErrorEnd': StandardIcons['std:Error'],
   'std:EmbeddedProcess': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
   'std:SubProcessCall': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
-  'std:Annotation': { res: 'fa-regular fa-message', style: IconStyle.FA }
+  'std:Annotation': { res: 'fa-regular fa-message', style: IconStyle.FA },
+  'std:BpmnGeneric': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
+  'std:BpmnUser': StandardIcons['std:User'],
+  'std:BpmnManual': StandardIcons['std:Manual'],
+  'std:BpmnScript': StandardIcons['std:Script'],
+  'std:BpmnReceive': StandardIcons['std:Receive'],
+  'std:BpmnRule': StandardIcons['std:Rule'],
+  'std:BpmnSend': StandardIcons['std:Send'],
+  'std:BpmnService': StandardIcons['std:Service']
 };
 
 export const resolveIcon = (iconUri: string): NodeIcon => {
