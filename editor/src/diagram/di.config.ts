@@ -12,7 +12,7 @@ import {
   TYPES
 } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
-import { ContainerModule } from 'inversify';
+import { ContainerModule, interfaces } from 'inversify';
 
 import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
@@ -96,15 +96,21 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
-  configureModelElement(context, ActivityTypes.EMBEDDED_PROCESS, ActivityNode, SubActivityNodeView, {
-    enable: [jumpFeature, unwrapFeature]
-  });
   configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView, { enable: [jumpFeature] });
   configureModelElement(context, ActivityTypes.PROGRAM, ActivityNode, ActivityNodeView, { enable: [editSourceFeature] });
   configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.THIRD_PARTY_RULE, ActivityNode, ActivityNodeView);
   configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
+  configureEmbeddedElement(context, ActivityTypes.EMBEDDED_PROCESS);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_GENERIC);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_MANUAL);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_RECEIVE);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_RULE);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_SCRIPT);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_SEND);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_SERVICE);
+  configureEmbeddedElement(context, ActivityTypes.BPMN_USER);
 
   configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
   configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
@@ -115,5 +121,11 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 });
+
+function configureEmbeddedElement(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }, activityType: string): void {
+  configureModelElement(context, activityType, ActivityNode, SubActivityNodeView, {
+    enable: [jumpFeature, unwrapFeature]
+  });
+}
 
 export default ivyDiagramModule;
