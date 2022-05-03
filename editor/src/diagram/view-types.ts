@@ -50,6 +50,15 @@ export namespace ActivityTypes {
   export const WEB_PAGE = DEFAULT + ':web';
   export const TRIGGER = DEFAULT + ':trigger';
   export const PROGRAM = DEFAULT + ':program';
+  export const BPMN = DEFAULT + ':bpmn';
+  export const BPMN_GENERIC = BPMN + ':generic';
+  export const BPMN_USER = BPMN + ':user';
+  export const BPMN_MANUAL = BPMN + ':manual';
+  export const BPMN_SCRIPT = BPMN + ':script';
+  export const BPMN_RECEIVE = BPMN + ':receive';
+  export const BPMN_RULE = BPMN + ':rule';
+  export const BPMN_SEND = BPMN + ':send';
+  export const BPMN_SERVICE = BPMN + ':service';
   export const THIRD_PARTY = DEFAULT + ':thirdparty';
   export const THIRD_PARTY_RULE = THIRD_PARTY + ':RuleActivity';
   export const LABEL = DEFAULT + '-label';
