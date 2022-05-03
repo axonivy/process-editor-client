@@ -24,15 +24,15 @@ export async function gotoRandomTestProcessUrl(page: Page): Promise<void> {
 }
 
 export function randomTestProcessUrl(): string {
-  return processEditorUrl('workflow-demos', `/processes/test/${uuid()}.mod`);
+  return processEditorUrl('workflow-demos', `/processes/test/${uuid()}.p.json`);
 }
 
 export function procurementRequestParallelUrl(): string {
-  return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.mod');
+  return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.p.json');
 }
 
 export function triggerNewEmployeeUrl(): string {
-  return workflowDemosUrl('/processes/Trigger/NewEmployee.mod');
+  return workflowDemosUrl('/processes/Trigger/NewEmployee.p.json');
 }
 
 export function workflowDemosUrl(file: string): string {

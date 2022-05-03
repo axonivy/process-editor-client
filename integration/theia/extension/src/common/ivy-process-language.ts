@@ -4,6 +4,6 @@ export const IvyProcessLanguage: GLSPDiagramLanguage = {
   contributionId: 'ivy-glsp-process',
   label: 'Ivy Process',
   diagramType: 'ivy-glsp-process',
-  fileExtensions: ['.mod'],
+  fileExtensions: ['.p.json'],
   iconClass: 'fa fa-project-diagram'
 };
