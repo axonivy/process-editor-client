@@ -72,7 +72,7 @@
         "displayName": "Axon Ivy Process Editor",
         "selector": [
           {
-            "filenamePattern": "*.mod"
+            "filenamePattern": "*.p.json"
           }
         ]
       }
@@ -81,7 +81,7 @@
       {
         "id": "ivy-process",
         "extensions": [
-          ".mod"
+          ".p.json"
         ]
       }
     ],
