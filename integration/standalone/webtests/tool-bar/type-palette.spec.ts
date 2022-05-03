@@ -56,7 +56,7 @@ test.describe('tool bar - BPMN type palette', () => {
     const start = page.locator('.sprotty-graph .start');
     const end = page.locator('.sprotty-graph .end');
     const embedded = page.locator('.sprotty-graph .embeddedproc');
-    const userIcon = embedded.locator('.fa-user');
+    const userIcon = page.locator('.sprotty-graph .bpmn\\3A user .fa-user');
 
     await wrapToEmbedded([start, end], page, browserName);
     await embedded.click();
