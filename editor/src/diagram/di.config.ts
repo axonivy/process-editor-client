@@ -4,11 +4,14 @@ import {
   configureActionHandler,
   configureModelElement,
   ConsoleLogger,
+  CustomFeatures,
   DeleteElementContextMenuItemProvider,
+  IView,
   LogLevel,
   moveFeature,
   selectFeature,
   SGraphView,
+  SModelElement,
   TYPES
 } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
@@ -37,7 +40,17 @@ import {
   StartEventNode
 } from './model';
 import { IvyGridSnapper } from './snap';
-import { ActivityTypes, EdgeTypes, EventTypes, GatewayTypes, LabelType, LaneTypes } from './view-types';
+import {
+  ActivityTypes,
+  EdgeTypes,
+  EventBoundaryTypes,
+  EventEndTypes,
+  EventIntermediateTypes,
+  EventStartTypes,
+  GatewayTypes,
+  LabelType,
+  LaneTypes
+} from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
@@ -51,81 +64,105 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   const context = { bind, unbind, isBound, rebind };
 
-  configureModelElement(context, DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);
+  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);
 
-  configureModelElement(context, EventTypes.START, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_ERROR, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_SIGNAL, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_PROGRAM, StartEventNode, EventNodeView, { enable: [editSourceFeature] });
-  configureModelElement(context, EventTypes.START_SUB, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_WS, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_HD, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_HD_METHOD, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_HD_EVENT, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.START_EMBEDDED, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_ERROR, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_PAGE, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_SUB, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_WS, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_HD, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_HD_EXIT, EndEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.END_EMBEDDED, StartEventNode, EventNodeView);
-  configureModelElement(context, EventTypes.INTERMEDIATE, EventNode, IntermediateEventNodeView);
-  configureModelElement(context, EventTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
-  configureModelElement(context, EventTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
-  configureModelElement(context, EventTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
-  configureModelElement(context, EventTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
+  configureStartEvent(EventStartTypes.START);
+  configureStartEvent(EventStartTypes.START_ERROR);
+  configureStartEvent(EventStartTypes.START_SIGNAL);
+  configureStartEvent(EventStartTypes.START_PROGRAM, { enable: [editSourceFeature] });
+  configureStartEvent(EventStartTypes.START_SUB);
+  configureStartEvent(EventStartTypes.START_WS);
+  configureStartEvent(EventStartTypes.START_HD);
+  configureStartEvent(EventStartTypes.START_HD_METHOD);
+  configureStartEvent(EventStartTypes.START_HD_EVENT);
+  configureStartEvent(EventStartTypes.START_EMBEDDED);
 
-  configureModelElement(context, GatewayTypes.DEFAULT, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.TASK, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.JOIN, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.SPLIT, GatewayNode, GatewayNodeView);
-  configureModelElement(context, GatewayTypes.ALTERNATIVE, GatewayNode, GatewayNodeView);
+  configureEndEvent(EventEndTypes.END);
+  configureEndEvent(EventEndTypes.END_ERROR);
+  configureEndEvent(EventEndTypes.END_PAGE);
+  configureEndEvent(EventEndTypes.END_SUB);
+  configureEndEvent(EventEndTypes.END_WS);
+  configureEndEvent(EventEndTypes.END_HD);
+  configureEndEvent(EventEndTypes.END_HD_EXIT);
+  configureEndEvent(EventEndTypes.END_EMBEDDED);
 
-  configureModelElement(context, ActivityTypes.COMMENT, ActivityNode, ActivityNodeView, {
-    disable: [breakpointFeature, errorBoundaryFeature]
-  });
-  configureModelElement(context, ActivityTypes.SCRIPT, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.HD, ActivityNode, ActivityNodeView, { enable: [jumpFeature, editSourceFeature] });
-  configureModelElement(context, ActivityTypes.USER, ActivityNode, ActivityNodeView, {
+  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
+  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
+
+  configureIvyModelElement(EventBoundaryTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
+  configureIvyModelElement(EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
+
+  configureGateway(GatewayTypes.TASK);
+  configureGateway(GatewayTypes.JOIN);
+  configureGateway(GatewayTypes.SPLIT);
+  configureGateway(GatewayTypes.ALTERNATIVE);
+
+  configureIvyModelElement(ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
+  configureIvyModelElement(ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
+  configureActivity(ActivityTypes.SCRIPT);
+  configureActivity(ActivityTypes.SOAP);
+  configureActivity(ActivityTypes.REST);
+  configureActivity(ActivityTypes.DB);
+  configureActivity(ActivityTypes.EMAIL);
+  configureActivity(ActivityTypes.WEB_PAGE);
+  configureActivity(ActivityTypes.PROGRAM);
+  configureActivity(ActivityTypes.THIRD_PARTY);
+  configureActivity(ActivityTypes.THIRD_PARTY_RULE);
+  configureActivity(ActivityTypes.TRIGGER, { enable: [editSourceFeature] });
+  configureActivity(ActivityTypes.COMMENT, { disable: [breakpointFeature, errorBoundaryFeature] });
+  configureActivity(ActivityTypes.HD, { enable: [jumpFeature, editSourceFeature] });
+  configureActivity(ActivityTypes.USER, {
     enable: [signalBoundaryFeature, jumpFeature, editSourceFeature]
   });
-  configureModelElement(context, ActivityTypes.SOAP, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.REST, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.DB, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.EMAIL, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
-  configureModelElement(context, ActivityTypes.WEB_PAGE, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.TRIGGER, ActivityNode, ActivityNodeView, { enable: [jumpFeature] });
-  configureModelElement(context, ActivityTypes.PROGRAM, ActivityNode, ActivityNodeView, { enable: [editSourceFeature] });
-  configureModelElement(context, ActivityTypes.THIRD_PARTY, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.THIRD_PARTY_RULE, ActivityNode, ActivityNodeView);
-  configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
-  configureEmbeddedElement(context, ActivityTypes.EMBEDDED_PROCESS);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_GENERIC);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_MANUAL);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_RECEIVE);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_RULE);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_SCRIPT);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_SEND);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_SERVICE);
-  configureEmbeddedElement(context, ActivityTypes.BPMN_USER);
+  configureEmbedded(ActivityTypes.EMBEDDED_PROCESS);
+  configureEmbedded(ActivityTypes.BPMN_GENERIC);
+  configureEmbedded(ActivityTypes.BPMN_MANUAL);
+  configureEmbedded(ActivityTypes.BPMN_RECEIVE);
+  configureEmbedded(ActivityTypes.BPMN_RULE);
+  configureEmbedded(ActivityTypes.BPMN_SCRIPT);
+  configureEmbedded(ActivityTypes.BPMN_SEND);
+  configureEmbedded(ActivityTypes.BPMN_SERVICE);
+  configureEmbedded(ActivityTypes.BPMN_USER);
 
-  configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
-  configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
-  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
+  configureIvyModelElement(LaneTypes.LANE, LaneNode, LaneNodeView);
+  configureIvyModelElement(LaneTypes.POOL, LaneNode, PoolNodeView);
+  configureIvyModelElement(LaneTypes.LABEL, RotateLabel, RotateLabelView);
 
-  configureModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
-  configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
+  configureIvyModelElement(EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
+  configureIvyModelElement(EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
 
-  configureModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  configureIvyModelElement(LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+
+  function configureIvyModelElement(
+    type: string,
+    modelConstr: new () => SModelElement,
+    viewConstr: interfaces.ServiceIdentifier<IView>,
+    features?: CustomFeatures
+  ): void {
+    configureModelElement(context, type, modelConstr, viewConstr, features);
+  }
+
+  function configureStartEvent(type: string, features?: CustomFeatures): void {
+    configureIvyModelElement(type, StartEventNode, EventNodeView, features);
+  }
+
+  function configureEndEvent(type: string, features?: CustomFeatures): void {
+    configureIvyModelElement(type, EndEventNode, EventNodeView, features);
+  }
+
+  function configureGateway(type: string): void {
+    configureIvyModelElement(type, GatewayNode, GatewayNodeView);
+  }
+
+  function configureActivity(type: string, features?: CustomFeatures): void {
+    configureIvyModelElement(type, ActivityNode, ActivityNodeView, features);
+  }
+
+  function configureEmbedded(type: string): void {
+    configureIvyModelElement(type, ActivityNode, SubActivityNodeView, {
+      enable: [jumpFeature, unwrapFeature]
+    });
+  }
 });
-
-function configureEmbeddedElement(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }, activityType: string): void {
-  configureModelElement(context, activityType, ActivityNode, SubActivityNodeView, {
-    enable: [jumpFeature, unwrapFeature]
-  });
-}
 
 export default ivyDiagramModule;
