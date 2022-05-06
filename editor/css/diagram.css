@@ -81,7 +81,7 @@ body {
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
-g[class^='end'] .sprotty-node {
+g[class*='End'] .sprotty-node {
   stroke-width: 3px;
 }
 .sprotty-node-decorator {
@@ -89,7 +89,7 @@ g[class^='end'] .sprotty-node {
   fill: var(--glsp-editor-foreground);
   text-anchor: middle;
 }
-.subproc .sprotty-node {
+.EmbeddedProcessElement .sprotty-node {
   stroke-width: 2px;
 }
 
