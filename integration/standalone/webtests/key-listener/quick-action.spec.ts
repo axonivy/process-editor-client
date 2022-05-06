@@ -1,5 +1,5 @@
 import { expect, Page, test } from '@playwright/test';
-import { resetSelection, multiSelect } from '../diagram-util';
+import { resetSelection, multiSelect, startSelector, endSelector, embeddedSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('key listener - quick action shortcuts', () => {
@@ -11,7 +11,7 @@ test.describe('key listener - quick action shortcuts', () => {
   });
 
   test('connector bend and straigthen', async ({ page }) => {
-    const endElement = page.locator('.sprotty-graph .end');
+    const endElement = page.locator(endSelector);
     await endElement.click();
     await endElement.dragTo(page.locator('.sprotty-graph'));
     const connector = page.locator('.sprotty-graph > g > .sprotty-edge');
@@ -31,7 +31,7 @@ test.describe('key listener - quick action shortcuts', () => {
 
   test('label edit', async ({ page, browserName }) => {
     const label = page.locator('.label-edit textarea');
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
     await expect(label).toBeHidden;
 
@@ -45,8 +45,8 @@ test.describe('key listener - quick action shortcuts', () => {
   });
 
   test('auto align', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
     await end.dragTo(page.locator('.sprotty-graph'));
     const startTransform = await start.getAttribute('transform');
     const endTransform = await end.getAttribute('transform');
@@ -61,9 +61,9 @@ test.describe('key listener - quick action shortcuts', () => {
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
     const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
-    const embedded = page.locator('.sprotty-graph .embeddedproc');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
+    const embedded = page.locator(embeddedSelector);
 
     await multiSelect(page, [start, end], browserName);
     await pressQuickActionShortcut(page, 'S');

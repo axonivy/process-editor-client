@@ -1,5 +1,5 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { addLane, multiSelect } from '../diagram-util';
+import { addLane, endSelector, multiSelect, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - color palette', () => {
@@ -15,7 +15,7 @@ test.describe('tool bar - color palette', () => {
     const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
     const searchInput = page.locator(PALETTE_BODY + ' .search-input');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const startElement = page.locator('.sprotty-graph .start .sprotty-node');
+    const startElement = page.locator(startSelector);
     await expect(paletteBody).toBeHidden();
     await expect(dynamicTools).toBeHidden();
 
@@ -40,7 +40,7 @@ test.describe('tool bar - color palette', () => {
   });
 
   test('colorize node', async ({ page, browserName }) => {
-    const startElement = page.locator('.sprotty-graph .start .sprotty-node');
+    const startElement = page.locator(startSelector + ' .sprotty-node');
 
     await expect(startElement).not.toHaveAttribute('style', /stroke: rgb(\d+, \d+, \d+);/);
     await colorizeElement(page, [startElement], browserName);
@@ -68,8 +68,8 @@ test.describe('tool bar - color palette', () => {
 
   test('colorize multiple elements', async ({ page, browserName }) => {
     test.skip(browserName === 'webkit', 'Webkit browser has problems with Ctrl multiselect');
-    const startElement = page.locator('.sprotty-graph .start .sprotty-node');
-    const endElement = page.locator('.sprotty-graph .end .sprotty-node');
+    const startElement = page.locator(startSelector + ' .sprotty-node');
+    const endElement = page.locator(endSelector + ' .sprotty-node');
 
     await expect(startElement).not.toHaveAttribute('style', /stroke: rgb(\d+, \d+, \d+);/);
     await expect(endElement).not.toHaveAttribute('style', /stroke: rgb(\d+, \d+, \d+);/);

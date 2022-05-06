@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
-import { resetSelection, addPool, multiSelect, assertPosition, getPosition } from '../diagram-util';
+import { resetSelection, addPool, multiSelect, assertPosition, getPosition, startSelector, endSelector } from '../diagram-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
 
 const delay = { delay: 100 };
@@ -12,8 +12,8 @@ test.describe('key listener - move elements with arrow keys', () => {
   });
 
   test('move selected nodes', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
     const startPos = await getPosition(start);
     const endPos = await getPosition(end);
 
@@ -33,7 +33,7 @@ test.describe('key listener - move elements with arrow keys', () => {
   });
 
   test('move pool and lane', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
     const pool = page.locator('.sprotty-graph .pool');
     const lane = page.locator('.sprotty-graph .pool .lane');
     await addPool(page, 60);

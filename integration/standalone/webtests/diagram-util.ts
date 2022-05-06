@@ -1,5 +1,9 @@
 import { expect, Locator, Page } from '@playwright/test';
 
+export const startSelector = '.sprotty-graph .start\\:requestStart';
+export const endSelector = '.sprotty-graph .end\\:taskEnd';
+export const embeddedSelector = '.sprotty-graph .embeddedProcessElement';
+
 export async function multiSelect(
   page: Page,
   elements: Locator[],
@@ -31,9 +35,9 @@ export function getCtrl(browserName: string): string {
 }
 
 export async function cleanDiagram(page: Page): Promise<void> {
-  await page.locator('.sprotty-graph .start').click();
+  await page.locator(startSelector).click();
   await page.keyboard.press('Delete');
-  await page.locator('.sprotty-graph .end').click();
+  await page.locator(endSelector).click();
   await page.keyboard.press('Delete');
 }
 

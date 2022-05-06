@@ -105,10 +105,10 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureActivity(ActivityTypes.DB);
   configureActivity(ActivityTypes.EMAIL);
   configureActivity(ActivityTypes.WEB_PAGE);
-  configureActivity(ActivityTypes.PROGRAM);
   configureActivity(ActivityTypes.THIRD_PARTY);
   configureActivity(ActivityTypes.THIRD_PARTY_RULE);
-  configureActivity(ActivityTypes.TRIGGER, { enable: [editSourceFeature] });
+  configureActivity(ActivityTypes.PROGRAM, { enable: [editSourceFeature] });
+  configureActivity(ActivityTypes.TRIGGER, { enable: [jumpFeature] });
   configureActivity(ActivityTypes.COMMENT, { disable: [breakpointFeature, errorBoundaryFeature] });
   configureActivity(ActivityTypes.HD, { enable: [jumpFeature, editSourceFeature] });
   configureActivity(ActivityTypes.USER, {

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { multiSelect } from '../diagram-util';
+import { embeddedSelector, endSelector, multiSelect, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - dynamic tools', () => {
@@ -9,7 +9,7 @@ test.describe('tool bar - dynamic tools', () => {
 
   test('delete', async ({ page }) => {
     const dynamicTools = page.locator('.dynamic-tools');
-    const startElement = page.locator('.sprotty-graph .start');
+    const startElement = page.locator(startSelector);
     const deleteBtn = dynamicTools.locator('span[title=Delete]');
     await expect(dynamicTools).not.toBeVisible();
     await startElement.click();
@@ -23,9 +23,9 @@ test.describe('tool bar - dynamic tools', () => {
 
   test('wrap single to sub', async ({ page }) => {
     const dynamicTools = page.locator('.dynamic-tools');
-    const startElement = page.locator('.sprotty-graph .start');
+    const startElement = page.locator(startSelector);
     const wrapToSubBtn = dynamicTools.locator('span[title^=Wrap]');
-    const embeddedElements = page.locator('.embeddedproc');
+    const embeddedElements = page.locator(embeddedSelector);
     await expect(dynamicTools).not.toBeVisible();
     await expect(embeddedElements).toHaveCount(0);
     await startElement.click();
@@ -40,10 +40,10 @@ test.describe('tool bar - dynamic tools', () => {
 
   test('wrap multi to sub', async ({ page, browserName }) => {
     const dynamicTools = page.locator('.dynamic-tools');
-    const startElement = page.locator('.sprotty-graph .start');
-    const endElement = page.locator('.sprotty-graph .end');
+    const startElement = page.locator(startSelector);
+    const endElement = page.locator(endSelector);
     const wrapToSubBtn = dynamicTools.locator('span[title^=Wrap]');
-    const embeddedElements = page.locator('.embeddedproc');
+    const embeddedElements = page.locator(embeddedSelector);
     await expect(dynamicTools).not.toBeVisible();
     await expect(embeddedElements).toHaveCount(0);
 
@@ -60,8 +60,8 @@ test.describe('tool bar - dynamic tools', () => {
 
   test('autoalign', async ({ page, browserName }) => {
     const dynamicTools = page.locator('.dynamic-tools');
-    const startElement = page.locator('.sprotty-graph .start');
-    const endElement = page.locator('.sprotty-graph .end');
+    const startElement = page.locator(startSelector);
+    const endElement = page.locator(endSelector);
     const autoAlignBtn = dynamicTools.locator('span[title^=Auto]');
     await expect(dynamicTools).not.toBeVisible();
 

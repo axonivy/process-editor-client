@@ -1,5 +1,5 @@
 import { test, expect, Locator, Page } from '@playwright/test';
-import { multiSelect } from '../diagram-util';
+import { embeddedSelector, endSelector, multiSelect, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
 
@@ -16,9 +16,9 @@ test.describe('tool bar - BPMN type palette', () => {
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const searchInput = page.locator(PALETTE_BODY + ' .search-input');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
-    const embedded = page.locator('.sprotty-graph .embeddedproc');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
+    const embedded = page.locator(embeddedSelector);
     await expect(paletteBody).toBeHidden();
     await expect(dynamicTools).toBeHidden();
 
@@ -53,10 +53,10 @@ test.describe('tool bar - BPMN type palette', () => {
     const dynamicTools = page.locator('.dynamic-tools');
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
-    const embedded = page.locator('.sprotty-graph .embeddedproc');
-    const userIcon = page.locator('.sprotty-graph .bpmn\\3A user .fa-user');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
+    const embedded = page.locator(embeddedSelector);
+    const userIcon = page.locator('.sprotty-graph .userBpmnElement .fa-user');
 
     await wrapToEmbedded([start, end], page, browserName);
     await embedded.click();
@@ -75,8 +75,8 @@ test.describe('tool bar - BPMN type palette', () => {
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
     const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
-    const manual = page.locator('.sprotty-graph .bpmn\\3A manual');
-    const embedded = page.locator('.sprotty-graph .embeddedproc');
+    const manual = page.locator('.sprotty-graph .manualBpmnElement');
+    const embedded = page.locator(embeddedSelector);
 
     await page.locator('#btn_ele_picker_bpmn-activity-group').click();
     await page.locator('.element-palette-body .tool-button:has-text("Manual")').click();

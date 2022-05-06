@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { resetSelection } from '../diagram-util';
+import { endSelector, resetSelection } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { assertQuickActionsCount, clickQuickAction, clickQuickActionStartsWith, editLabel } from './quick-actions-util';
 
@@ -31,7 +31,7 @@ test.describe('quick actions - connectors', () => {
   });
 
   test('connector bend and straigthen', async ({ page }) => {
-    const endElement = page.locator('.sprotty-graph .end');
+    const endElement = page.locator(endSelector);
     await endElement.dragTo(page.locator('.sprotty-graph'));
     const connector = page.locator('.sprotty-graph > g > .sprotty-edge');
     const connectorPath = page.locator('.sprotty-graph > g > .sprotty-edge > path').first();
