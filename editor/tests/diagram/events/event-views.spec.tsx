@@ -28,7 +28,6 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'endWs', type: EventEndTypes.END_WS, position: { x: 200, y: 300 }, size: eventNodeSize });
   children.push({ id: 'endHd', type: EventEndTypes.END_HD, position: { x: 200, y: 350 }, size: eventNodeSize });
   children.push({ id: 'endHdExit', type: EventEndTypes.END_HD_EXIT, position: { x: 200, y: 400 }, size: eventNodeSize });
-  children.push({ id: 'intermediate', type: EventIntermediateTypes.DEFAULT, position: { x: 300, y: 100 }, size: eventNodeSize });
   children.push({ id: 'intermediateTask', type: EventIntermediateTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
   children.push({ id: 'intermediateWait', type: EventIntermediateTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
   children.push({ id: 'boundaryError', type: EventBoundaryTypes.BOUNDARY_ERROR, position: { x: 400, y: 100 }, size: eventNodeSize });
@@ -174,13 +173,6 @@ describe('EventNodeView', () => {
     const view = viewRegistry.get(EventEndTypes.END_HD_EXIT);
     const vnode = view.render(graph.index.getById('endHdExit') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
-  });
-
-  it('render intermediate event node', () => {
-    const view = viewRegistry.get(EventIntermediateTypes.DEFAULT);
-    const vnode = view.render(graph.index.getById('intermediate') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
