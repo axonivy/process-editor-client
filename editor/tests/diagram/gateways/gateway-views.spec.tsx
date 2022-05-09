@@ -12,7 +12,6 @@ const toHTML = require('snabbdom-to-html');
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   const gatewayNodeSize = { width: 32, height: 32 };
-  children.push({ id: 'gateway', type: GatewayTypes.DEFAULT, position: { x: 500, y: 100 }, size: gatewayNodeSize });
   children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize, args: { iconUri: 'std:Tasks' } });
   children.push({ id: 'gatewayAlternative', type: GatewayTypes.ALTERNATIVE, position: { x: 500, y: 200 }, size: gatewayNodeSize, args: { iconUri: 'std:Alternative' } });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
@@ -38,13 +37,6 @@ describe('GatewayNodeView', () => {
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
     expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
-  });
-
-  it('render gateway node', () => {
-    const view = viewRegistry.get(GatewayTypes.DEFAULT);
-    const vnode = view.render(graph.index.getById('gateway') as SNode, context);
-    const expectation = '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" /><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render gateway task node', () => {

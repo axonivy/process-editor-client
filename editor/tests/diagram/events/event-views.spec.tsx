@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
-import { EventTypes } from '../../../src/diagram/view-types';
+import { EventStartTypes, EventEndTypes, EventIntermediateTypes, EventBoundaryTypes } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -12,27 +12,26 @@ const toHTML = require('snabbdom-to-html');
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   const eventNodeSize = { width: 30, height: 30 };
-  children.push({ id: 'start', type: EventTypes.START, position: { x: 100, y: 100 }, size: eventNodeSize });
-  children.push({ id: 'startError', type: EventTypes.START_ERROR, position: { x: 100, y: 150 }, size: eventNodeSize, args: { iconUri: 'std:Error' } });
-  children.push({ id: 'startSignal', type: EventTypes.START_SIGNAL, position: { x: 100, y: 200 }, size: eventNodeSize, args: { iconUri: 'std:Signal' } });
-  children.push({ id: 'startProgram', type: EventTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize, args: { iconUri: 'std:Program' } });
-  children.push({ id: 'startSub', type: EventTypes.START_SUB, position: { x: 100, y: 30 }, size: eventNodeSize });
-  children.push({ id: 'startWs', type: EventTypes.START_WS, position: { x: 100, y: 350 }, size: eventNodeSize });
-  children.push({ id: 'startHd', type: EventTypes.START_HD, position: { x: 100, y: 400 }, size: eventNodeSize });
-  children.push({ id: 'startHdMethod', type: EventTypes.START_HD_METHOD, position: { x: 100, y: 450 }, size: eventNodeSize });
-  children.push({ id: 'startHdEvent', type: EventTypes.START_HD_EVENT, position: { x: 100, y: 500 }, size: eventNodeSize });
-  children.push({ id: 'end', type: EventTypes.END, position: { x: 200, y: 100 }, size: eventNodeSize });
-  children.push({ id: 'endError', type: EventTypes.END_ERROR, position: { x: 200, y: 150 }, size: eventNodeSize });
-  children.push({ id: 'endPage', type: EventTypes.END_PAGE, position: { x: 200, y: 200 }, size: eventNodeSize });
-  children.push({ id: 'endSub', type: EventTypes.END_SUB, position: { x: 200, y: 250 }, size: eventNodeSize });
-  children.push({ id: 'endWs', type: EventTypes.END_WS, position: { x: 200, y: 300 }, size: eventNodeSize });
-  children.push({ id: 'endHd', type: EventTypes.END_HD, position: { x: 200, y: 350 }, size: eventNodeSize });
-  children.push({ id: 'endHdExit', type: EventTypes.END_HD_EXIT, position: { x: 200, y: 400 }, size: eventNodeSize });
-  children.push({ id: 'intermediate', type: EventTypes.INTERMEDIATE, position: { x: 300, y: 100 }, size: eventNodeSize });
-  children.push({ id: 'intermediateTask', type: EventTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
-  children.push({ id: 'intermediateWait', type: EventTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
-  children.push({ id: 'boundaryError', type: EventTypes.BOUNDARY_ERROR, position: { x: 400, y: 100 }, size: eventNodeSize });
-  children.push({ id: 'boundarySignal', type: EventTypes.BOUNDARY_SIGNAL, position: { x: 400, y: 150 }, size: eventNodeSize });
+  children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: eventNodeSize });
+  children.push({ id: 'startError', type: EventStartTypes.START_ERROR, position: { x: 100, y: 150 }, size: eventNodeSize, args: { iconUri: 'std:Error' } });
+  children.push({ id: 'startSignal', type: EventStartTypes.START_SIGNAL, position: { x: 100, y: 200 }, size: eventNodeSize, args: { iconUri: 'std:Signal' } });
+  children.push({ id: 'startProgram', type: EventStartTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize, args: { iconUri: 'std:Program' } });
+  children.push({ id: 'startSub', type: EventStartTypes.START_SUB, position: { x: 100, y: 30 }, size: eventNodeSize });
+  children.push({ id: 'startWs', type: EventStartTypes.START_WS, position: { x: 100, y: 350 }, size: eventNodeSize });
+  children.push({ id: 'startHd', type: EventStartTypes.START_HD, position: { x: 100, y: 400 }, size: eventNodeSize });
+  children.push({ id: 'startHdMethod', type: EventStartTypes.START_HD_METHOD, position: { x: 100, y: 450 }, size: eventNodeSize });
+  children.push({ id: 'startHdEvent', type: EventStartTypes.START_HD_EVENT, position: { x: 100, y: 500 }, size: eventNodeSize });
+  children.push({ id: 'end', type: EventEndTypes.END, position: { x: 200, y: 100 }, size: eventNodeSize });
+  children.push({ id: 'endError', type: EventEndTypes.END_ERROR, position: { x: 200, y: 150 }, size: eventNodeSize });
+  children.push({ id: 'endPage', type: EventEndTypes.END_PAGE, position: { x: 200, y: 200 }, size: eventNodeSize });
+  children.push({ id: 'endSub', type: EventEndTypes.END_SUB, position: { x: 200, y: 250 }, size: eventNodeSize });
+  children.push({ id: 'endWs', type: EventEndTypes.END_WS, position: { x: 200, y: 300 }, size: eventNodeSize });
+  children.push({ id: 'endHd', type: EventEndTypes.END_HD, position: { x: 200, y: 350 }, size: eventNodeSize });
+  children.push({ id: 'endHdExit', type: EventEndTypes.END_HD_EXIT, position: { x: 200, y: 400 }, size: eventNodeSize });
+  children.push({ id: 'intermediateTask', type: EventIntermediateTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
+  children.push({ id: 'intermediateWait', type: EventIntermediateTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
+  children.push({ id: 'boundaryError', type: EventBoundaryTypes.BOUNDARY_ERROR, position: { x: 400, y: 100 }, size: eventNodeSize });
+  children.push({ id: 'boundarySignal', type: EventBoundaryTypes.BOUNDARY_SIGNAL, position: { x: 400, y: 150 }, size: eventNodeSize });
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
   return graph;
 }
@@ -60,14 +59,14 @@ describe('EventNodeView', () => {
   });
 
   it('render start event node', () => {
-    const view = viewRegistry.get(EventTypes.START);
+    const view = viewRegistry.get(EventStartTypes.START);
     const vnode = view.render(graph.index.getById('start') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start error event node', () => {
-    const view = viewRegistry.get(EventTypes.START_ERROR);
+    const view = viewRegistry.get(EventStartTypes.START_ERROR);
     const vnode = view.render(graph.index.getById('startError') as SNode, context);
     const expectation =
       '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>' +
@@ -76,7 +75,7 @@ describe('EventNodeView', () => {
   });
 
   it('render start signal event node', () => {
-    const view = viewRegistry.get(EventTypes.START_SIGNAL);
+    const view = viewRegistry.get(EventStartTypes.START_SIGNAL);
     const vnode = view.render(graph.index.getById('startSignal') as SNode, context);
     const expectation =
       '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g>' +
@@ -85,7 +84,7 @@ describe('EventNodeView', () => {
   });
 
   it('render start program event node', () => {
-    const view = viewRegistry.get(EventTypes.START_PROGRAM);
+    const view = viewRegistry.get(EventStartTypes.START_PROGRAM);
     const vnode = view.render(graph.index.getById('startProgram') as SNode, context);
     const expectation =
       '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g>' +
@@ -94,119 +93,112 @@ describe('EventNodeView', () => {
   });
 
   it('render start sub event node', () => {
-    const view = viewRegistry.get(EventTypes.START_SUB);
+    const view = viewRegistry.get(EventStartTypes.START_SUB);
     const vnode = view.render(graph.index.getById('startSub') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start ws event node', () => {
-    const view = viewRegistry.get(EventTypes.START_WS);
+    const view = viewRegistry.get(EventStartTypes.START_WS);
     const vnode = view.render(graph.index.getById('startWs') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start hd event node', () => {
-    const view = viewRegistry.get(EventTypes.START_HD);
+    const view = viewRegistry.get(EventStartTypes.START_HD);
     const vnode = view.render(graph.index.getById('startHd') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start hd method event node', () => {
-    const view = viewRegistry.get(EventTypes.START_HD_METHOD);
+    const view = viewRegistry.get(EventStartTypes.START_HD_METHOD);
     const vnode = view.render(graph.index.getById('startHdMethod') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render start hd event event node', () => {
-    const view = viewRegistry.get(EventTypes.START_HD_EVENT);
+    const view = viewRegistry.get(EventStartTypes.START_HD_EVENT);
     const vnode = view.render(graph.index.getById('startHdEvent') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end event node', () => {
-    const view = viewRegistry.get(EventTypes.END);
+    const view = viewRegistry.get(EventEndTypes.END);
     const vnode = view.render(graph.index.getById('end') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end error event node', () => {
-    const view = viewRegistry.get(EventTypes.END_ERROR);
+    const view = viewRegistry.get(EventEndTypes.END_ERROR);
     const vnode = view.render(graph.index.getById('endError') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end page event node', () => {
-    const view = viewRegistry.get(EventTypes.END_PAGE);
+    const view = viewRegistry.get(EventEndTypes.END_PAGE);
     const vnode = view.render(graph.index.getById('endPage') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end sub event node', () => {
-    const view = viewRegistry.get(EventTypes.END_SUB);
+    const view = viewRegistry.get(EventEndTypes.END_SUB);
     const vnode = view.render(graph.index.getById('endSub') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end ws event node', () => {
-    const view = viewRegistry.get(EventTypes.END_WS);
+    const view = viewRegistry.get(EventEndTypes.END_WS);
     const vnode = view.render(graph.index.getById('endWs') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end hd event node', () => {
-    const view = viewRegistry.get(EventTypes.END_HD);
+    const view = viewRegistry.get(EventEndTypes.END_HD);
     const vnode = view.render(graph.index.getById('endHd') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render end hd exit event node', () => {
-    const view = viewRegistry.get(EventTypes.END_HD_EXIT);
+    const view = viewRegistry.get(EventEndTypes.END_HD_EXIT);
     const vnode = view.render(graph.index.getById('endHdExit') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
-  it('render intermediate event node', () => {
-    const view = viewRegistry.get(EventTypes.INTERMEDIATE);
-    const vnode = view.render(graph.index.getById('intermediate') as SNode, context);
-    const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
-  });
-
   it('render intermediate task event node', () => {
-    const view = viewRegistry.get(EventTypes.INTERMEDIATE_TASK);
+    const view = viewRegistry.get(EventIntermediateTypes.INTERMEDIATE_TASK);
     const vnode = view.render(graph.index.getById('intermediateTask') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render intermediate wait event node', () => {
-    const view = viewRegistry.get(EventTypes.INTERMEDIATE_WAIT);
+    const view = viewRegistry.get(EventIntermediateTypes.INTERMEDIATE_WAIT);
     const vnode = view.render(graph.index.getById('intermediateWait') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render boundary error event node', () => {
-    const view = viewRegistry.get(EventTypes.BOUNDARY_ERROR);
+    const view = viewRegistry.get(EventBoundaryTypes.BOUNDARY_ERROR);
     const vnode = view.render(graph.index.getById('boundaryError') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
   it('render boundary signal event node', () => {
-    const view = viewRegistry.get(EventTypes.BOUNDARY_SIGNAL);
+    const view = viewRegistry.get(EventBoundaryTypes.BOUNDARY_SIGNAL);
     const vnode = view.render(graph.index.getById('boundarySignal') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);

@@ -1,6 +1,7 @@
 import { expect, Page } from '@playwright/test';
 import { resolve } from 'path';
 import { v4 as uuid } from 'uuid';
+import { startSelector } from './diagram-util';
 
 export function baseUrl(): string {
   return resolve('app', 'diagram.html');
@@ -14,7 +15,7 @@ export function serverUrl(): string {
 
 export async function gotoRandomTestProcessUrl(page: Page): Promise<void> {
   await page.goto(randomTestProcessUrl());
-  const start = page.locator('.sprotty-graph .start');
+  const start = page.locator(startSelector);
   // wait for start element, give a reload if was not visible the first time
   await start.waitFor({ state: 'visible', timeout: 10000 });
   if (!start.isVisible()) {

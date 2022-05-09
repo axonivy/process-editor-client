@@ -89,7 +89,7 @@ g[class^='end'] .sprotty-node {
   fill: var(--glsp-editor-foreground);
   text-anchor: middle;
 }
-.subproc .sprotty-node {
+.embeddedProcessElement .sprotty-node {
   stroke-width: 2px;
 }
 

@@ -1,65 +1,73 @@
-export namespace EventTypes {
-  // Event elements
-  export const DEFAULT = 'event';
-  export const START = DEFAULT + ':start';
-  export const START_ERROR = START + ':error';
-  export const START_SIGNAL = START + ':signal';
-  export const START_PROGRAM = START + ':program';
-  export const START_SUB = START + ':sub';
-  export const START_WS = START + ':ws';
-  export const START_HD = START + ':hd';
-  export const START_HD_METHOD = START_HD + ':method';
-  export const START_HD_EVENT = START_HD + ':event';
-  export const START_EMBEDDED = START + ':embedded';
-  export const END = DEFAULT + ':end';
-  export const END_ERROR = END + ':error';
-  export const END_PAGE = END + ':page';
-  export const END_SUB = END + ':sub';
-  export const END_WS = END + ':ws';
-  export const END_HD = END + ':hd';
-  export const END_HD_EXIT = END_HD + ':exit';
-  export const END_EMBEDDED = END + ':embedded';
-  export const INTERMEDIATE = DEFAULT + ':intermediate';
-  export const INTERMEDIATE_TASK = INTERMEDIATE + ':task';
-  export const INTERMEDIATE_WAIT = INTERMEDIATE + ':wait';
-  export const BOUNDARY = DEFAULT + ':boundary';
-  export const BOUNDARY_ERROR = BOUNDARY + ':error';
-  export const BOUNDARY_SIGNAL = BOUNDARY + ':signal';
+export namespace EventStartTypes {
+  export const DEFAULT = 'event:start';
+  export const START = DEFAULT + ':requestStart';
+  export const START_ERROR = DEFAULT + ':errorStartEvent';
+  export const START_SIGNAL = DEFAULT + ':signalStartEvent';
+  export const START_PROGRAM = DEFAULT + ':programStart';
+  export const START_SUB = DEFAULT + ':callSubStart';
+  export const START_WS = DEFAULT + ':webserviceStart';
+  export const START_HD = DEFAULT + ':htmlDialogStart';
+  export const START_HD_METHOD = DEFAULT + ':htmlDialogMethodStart';
+  export const START_HD_EVENT = DEFAULT + ':htmlDialogEventStart';
+  export const START_EMBEDDED = DEFAULT + ':embeddedStart';
+}
+
+export namespace EventEndTypes {
+  export const DEFAULT = 'event:end';
+  export const END = DEFAULT + ':taskEnd';
+  export const END_ERROR = DEFAULT + ':errorEnd';
+  export const END_PAGE = DEFAULT + ':taskEndPage';
+  export const END_SUB = DEFAULT + ':callSubEnd';
+  export const END_WS = DEFAULT + ':webserviceEnd';
+  export const END_HD = DEFAULT + ':htmlDialogEnd';
+  export const END_HD_EXIT = DEFAULT + ':htmlDialogExit';
+  export const END_EMBEDDED = DEFAULT + ':embeddedEnd';
+}
+
+export namespace EventIntermediateTypes {
+  export const DEFAULT = 'event:intermediate';
+  export const INTERMEDIATE_TASK = DEFAULT + ':taskSwitchEvent';
+  export const INTERMEDIATE_WAIT = DEFAULT + ':waitEvent';
+}
+
+export namespace EventBoundaryTypes {
+  export const DEFAULT = 'event:boundary';
+  export const BOUNDARY_ERROR = DEFAULT + ':errorBoundaryEvent';
+  export const BOUNDARY_SIGNAL = DEFAULT + ':signalBoundaryEvent';
 }
 
 export namespace GatewayTypes {
   export const DEFAULT = 'gateway';
-  export const TASK = DEFAULT + ':task';
+  export const TASK = DEFAULT + ':taskSwitchGateway';
   export const JOIN = DEFAULT + ':join';
   export const SPLIT = DEFAULT + ':split';
   export const ALTERNATIVE = DEFAULT + ':alternative';
 }
 
 export namespace ActivityTypes {
-  export const DEFAULT = 'node';
-  export const COMMENT = DEFAULT + ':comment';
+  export const DEFAULT = 'activity';
+  export const COMMENT = DEFAULT + ':processAnnotation';
   export const SCRIPT = DEFAULT + ':script';
-  export const HD = DEFAULT + ':hd';
-  export const USER = DEFAULT + ':user';
-  export const SOAP = DEFAULT + ':soap';
-  export const REST = DEFAULT + ':rest';
-  export const DB = DEFAULT + ':db';
-  export const EMAIL = DEFAULT + ':email';
-  export const SUB_PROCESS = DEFAULT + ':subproc';
-  export const EMBEDDED_PROCESS = DEFAULT + ':embeddedproc';
-  export const WEB_PAGE = DEFAULT + ':web';
-  export const TRIGGER = DEFAULT + ':trigger';
-  export const PROGRAM = DEFAULT + ':program';
-  export const BPMN = DEFAULT + ':bpmn';
-  export const BPMN_GENERIC = BPMN + ':generic';
-  export const BPMN_USER = BPMN + ':user';
-  export const BPMN_MANUAL = BPMN + ':manual';
-  export const BPMN_SCRIPT = BPMN + ':script';
-  export const BPMN_RECEIVE = BPMN + ':receive';
-  export const BPMN_RULE = BPMN + ':rule';
-  export const BPMN_SEND = BPMN + ':send';
-  export const BPMN_SERVICE = BPMN + ':service';
-  export const THIRD_PARTY = DEFAULT + ':thirdparty';
+  export const HD = DEFAULT + ':dialogCall';
+  export const USER = DEFAULT + ':userTask';
+  export const SOAP = DEFAULT + ':webServiceCall';
+  export const REST = DEFAULT + ':restClientCall';
+  export const DB = DEFAULT + ':database';
+  export const EMAIL = DEFAULT + ':eMail';
+  export const SUB_PROCESS = DEFAULT + ':subProcessCall';
+  export const EMBEDDED_PROCESS = DEFAULT + ':embeddedProcessElement';
+  export const WEB_PAGE = DEFAULT + ':webPage';
+  export const TRIGGER = DEFAULT + ':triggerCall';
+  export const PROGRAM = DEFAULT + ':programInterface';
+  export const BPMN_GENERIC = DEFAULT + ':genericBpmnElement';
+  export const BPMN_USER = DEFAULT + ':userBpmnElement';
+  export const BPMN_MANUAL = DEFAULT + ':manualBpmnElement';
+  export const BPMN_SCRIPT = DEFAULT + ':scriptBpmnElement';
+  export const BPMN_RECEIVE = DEFAULT + ':receiveBpmnElement';
+  export const BPMN_RULE = DEFAULT + ':ruleBpmnElement';
+  export const BPMN_SEND = DEFAULT + ':sendBpmnElement';
+  export const BPMN_SERVICE = DEFAULT + ':serviceBpmnElement';
+  export const THIRD_PARTY = DEFAULT + ':thirdPartyProgramInterface';
   export const THIRD_PARTY_RULE = THIRD_PARTY + ':RuleActivity';
   export const LABEL = DEFAULT + '-label';
 }

@@ -1,5 +1,5 @@
 import { expect, Page, test } from '@playwright/test';
-import { assertPosition, assertPositionIsNot, getCtrl, getPosition } from '../diagram-util';
+import { assertPosition, assertPositionIsNot, getCtrl, getPosition, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('key listener - undo redo', () => {
@@ -8,7 +8,7 @@ test.describe('key listener - undo redo', () => {
   });
 
   test('move node', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
     const startPos = await getPosition(start);
 
     await start.dragTo(page.locator('.sprotty-graph'));
@@ -22,7 +22,7 @@ test.describe('key listener - undo redo', () => {
   });
 
   test('delete node', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
     await start.click();
 
     await page.keyboard.press('Delete');

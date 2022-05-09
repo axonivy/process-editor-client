@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { multiSelect, getCtrl } from '../diagram-util';
+import { multiSelect, getCtrl, startSelector, endSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('key listener - copy paste', () => {
@@ -8,7 +8,7 @@ test.describe('key listener - copy paste', () => {
   });
 
   test('copy node', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
     await expect(start).toHaveCount(1);
     await start.click();
     await page.keyboard.press(`${getCtrl(browserName)}+C`);
@@ -17,8 +17,8 @@ test.describe('key listener - copy paste', () => {
   });
 
   test('copy multiple nodes', async ({ page, browserName }) => {
-    const start = page.locator('.sprotty-graph .start');
-    const end = page.locator('.sprotty-graph .end');
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
     const connectors = page.locator('.sprotty-graph > g > .sprotty-edge');
     await expect(start).toHaveCount(1);
     await expect(end).toHaveCount(1);

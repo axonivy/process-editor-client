@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { ModelRenderer, SEdge, SGraph, SModelFactory, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
-import { ActivityTypes, EdgeTypes, EventTypes } from '../../src/diagram/view-types';
+import { ActivityTypes, EdgeTypes, EventStartTypes, EventEndTypes } from '../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../test-helper';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -11,8 +11,8 @@ const toHTML = require('snabbdom-to-html');
 
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
-  children.push({ id: 'start', type: EventTypes.START, position: { x: 100, y: 100 }, size: { width: 30, height: 30 } });
-  children.push({ id: 'end', type: EventTypes.END, position: { x: 200, y: 100 }, size: { width: 30, height: 30 } });
+  children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: { width: 30, height: 30 } });
+  children.push({ id: 'end', type: EventEndTypes.END, position: { x: 200, y: 100 }, size: { width: 30, height: 30 } });
   children.push({ id: 'comment', type: ActivityTypes.COMMENT, position: { x: 600, y: 100 }, size: { width: 150, height: 50 } });
   children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: { width: 150, height: 50 } });
 

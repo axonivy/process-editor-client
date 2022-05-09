@@ -1,12 +1,12 @@
 import { Action, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import { EventTypes, QuickAction, QuickActionLocation, SingleQuickActionProvider, StartEventNode } from '@ivyteam/process-editor';
+import { EventStartTypes, QuickAction, QuickActionLocation, SingleQuickActionProvider, StartEventNode } from '@ivyteam/process-editor';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (element instanceof StartEventNode && element.type === EventTypes.START) {
+    if (element instanceof StartEventNode && element.type === EventStartTypes.START) {
       return new StartProcessQuickAction(element.id);
     }
     return undefined;
@@ -35,11 +35,11 @@ export class StartProcessAction implements Action {
 @injectable()
 export class SearchProcessCallersActionProvider extends SingleQuickActionProvider {
   private supportedEventTypes = [
-    EventTypes.START,
-    EventTypes.START_ERROR,
-    EventTypes.START_SUB,
-    EventTypes.START_HD,
-    EventTypes.START_HD_METHOD
+    EventStartTypes.START,
+    EventStartTypes.START_ERROR,
+    EventStartTypes.START_SUB,
+    EventStartTypes.START_HD,
+    EventStartTypes.START_HD_METHOD
   ];
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && this.isSearchViewAvailable(element.type)) {

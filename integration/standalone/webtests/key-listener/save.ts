@@ -1,7 +1,7 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { editLabel } from '../quick-actions/quick-actions-util';
-import { getCtrl } from '../diagram-util';
+import { getCtrl, startSelector } from '../diagram-util';
 
 test.describe('key listener - save', () => {
   test.beforeEach(async ({ page }) => {
@@ -10,7 +10,7 @@ test.describe('key listener - save', () => {
 
   test('label edit and save', async ({ page, browserName }) => {
     const text = 'test label';
-    const start = page.locator('.sprotty-graph .start');
+    const start = page.locator(startSelector);
 
     editNodeLabel(page, start, text);
     page.reload();
