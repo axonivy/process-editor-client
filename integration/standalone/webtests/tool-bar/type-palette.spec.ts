@@ -34,10 +34,10 @@ test.describe('tool bar - BPMN type palette', () => {
     await typePaletteBtn.click();
     await expect(paletteBody).toBeVisible();
 
-    await expect(toolButtons).toHaveCount(8);
-    await searchInput.fill('bpmn');
+    await expect(toolButtons).toHaveCount(9);
+    await searchInput.fill('ser');
     await searchInput.dispatchEvent('keyup');
-    await expect(toolButtons).toHaveCount(7);
+    await expect(toolButtons).toHaveCount(2);
 
     await searchInput.fill('bla');
     await searchInput.dispatchEvent('keyup');
@@ -66,7 +66,7 @@ test.describe('tool bar - BPMN type palette', () => {
     await typePaletteBtn.click();
     await expect(paletteBody).toBeVisible();
     await expect(userIcon).toBeHidden();
-    await toolButtons.locator('text=BPMN User Activity').click();
+    await toolButtons.locator('text=User').click();
     await expect(userIcon).toBeVisible();
   });
 
@@ -89,7 +89,7 @@ test.describe('tool bar - BPMN type palette', () => {
     await expect(embedded).toBeHidden();
     await manual.click();
     await typePaletteBtn.click();
-    await toolButtons.locator('text=Embedded Subprocess').click();
+    await toolButtons.locator('text=Sub').click();
     await expect(embedded).toBeVisible();
   });
 
