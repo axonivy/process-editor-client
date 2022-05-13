@@ -198,7 +198,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   private menuButtonEvent = (menuButton: HTMLElement, pickerMenu: ItemPickerMenu | undefined): void => {
-    if (this.lastActivebutton === menuButton && pickerMenu?.isMenuHidden()) {
+    if (this.lastActivebutton === menuButton && !pickerMenu?.isMenuHidden()) {
       this.changeActiveButton(this.defaultToolsButton);
     } else {
       this.changeActiveButton(menuButton);

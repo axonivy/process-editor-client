@@ -9,6 +9,25 @@ test.describe('tool bar - color palette', () => {
     await gotoRandomTestProcessUrl(page);
   });
 
+  test('open and close menu', async ({ page }) => {
+    const paletteBody = page.locator(PALETTE_BODY);
+    const dynamicTools = page.locator('.dynamic-tools');
+    const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
+    const startElement = page.locator(startSelector);
+    await expect(paletteBody).toBeHidden();
+    await expect(dynamicTools).toBeHidden();
+
+    await startElement.click();
+    await expect(dynamicTools).toBeVisible();
+    await expect(colorPaletteBtn).toBeVisible();
+
+    await colorPaletteBtn.click();
+    await expect(paletteBody).toBeVisible();
+
+    await colorPaletteBtn.click();
+    await expect(paletteBody).toBeHidden();
+  });
+
   test('search', async ({ page }) => {
     const paletteBody = page.locator(PALETTE_BODY);
     const dynamicTools = page.locator('.dynamic-tools');
