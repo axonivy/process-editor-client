@@ -49,6 +49,8 @@ import {
   WrapToSubButton
 } from './button';
 import { resolvePaletteIcon } from '../diagram/icon/icons';
+import { EditDialog } from './edit-dialog';
+import { ChangeColorAction, UpdateColorPaletteAction } from './action';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -268,6 +270,21 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   };
 
+  handleEditDialogClose = (returnValue: string, formData: FormData, item?: PaletteItem): void => {
+    if (returnValue === EditDialog.DIALOG_CLOSE) {
+      return;
+    }
+    const oldColor = item?.label ?? '';
+    let colorName = '';
+    let color = '';
+    if (returnValue === EditDialog.DIALOG_CONFIRM) {
+      const newColor = Object.fromEntries(formData.entries());
+      colorName = newColor.Name.toString();
+      color = newColor.Color.toString();
+    }
+    this.actionDispatcher.dispatch(new ChangeColorAction(color, colorName, oldColor));
+  };
+
   changeActiveButton(button?: HTMLElement): void {
     if (this.lastActivebutton) {
       this.lastActivebutton.classList.remove(CLICKED_CSS_CLASS);
@@ -297,16 +314,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
           this.createElementPickerMenu();
         }
       });
-      this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
-        if (isSetContextActionsAction(response)) {
-          const paletteItems = response.actions.map(e => e as PaletteItem);
-          const actions = (item: PaletteItem): Action[] => [
-            new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
-          ];
-          this.colorPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-          this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
-        }
-      });
+      this.updateColorPalette();
       this.actionDispatcher
         .request(new RequestContextActions('ivy-tool-activity-type-palette', { selectedElementIds: [] }))
         .then(response => {
@@ -325,10 +333,32 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
           }
         });
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
+    } else if (action.kind === UpdateColorPaletteAction.KIND) {
+      this.updateColorPalette();
     } else if (action instanceof EnableDefaultToolsAction) {
       this.changeActiveButton();
       this.restoreFocus();
     }
+  }
+
+  private updateColorPalette(): void {
+    this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
+      if (isSetContextActionsAction(response)) {
+        const paletteItems = response.actions.map(e => e as PaletteItem);
+        const actions = (item: PaletteItem): Action[] => [
+          new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
+        ];
+        this.colorPickerMenu?.removeMenuBody();
+        this.colorPickerMenu = new ItemPickerMenu(
+          paletteItems,
+          actions,
+          this.onClickElementPickerToolButton,
+          this.clearToolOnEscape,
+          this.handleEditDialogClose
+        );
+        this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
+      }
+    });
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
