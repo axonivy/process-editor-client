@@ -30,7 +30,9 @@ export class GatewayNodeView extends DiamondNodeView {
         />
         {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
         {context.renderChildren(node)}
-        <text>{node.executionCount ? node.executionCount : ''}</text>
+        <text x={Math.max(node.size.width, 0)} y={Math.max(node.size.height, 0)}>
+          {node.executionCount ? node.executionCount : ''}
+        </text>
       </g>
     );
   }

@@ -15,6 +15,8 @@ export class ActivityNodeView extends RectangularNodeView {
 
   render(node: ActivityNode, context: RenderingContext): VNode {
     const rcr = this.getRoundedCornerRadius(node);
+    const width = Math.max(0, node.bounds.width);
+    const height = Math.max(0, node.bounds.height);
     return (
       <g>
         <rect
@@ -26,14 +28,16 @@ export class ActivityNodeView extends RectangularNodeView {
           y={0}
           rx={rcr}
           ry={rcr}
-          width={Math.max(0, node.bounds.width)}
-          height={Math.max(0, node.bounds.height)}
+          width={width}
+          height={height}
           style={{ stroke: node.color }}
         ></rect>
         {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
-        <text>{node.executionCount ? node.executionCount : ''}</text>
+        <text x={width} y={height + 10}>
+          {node.executionCount ? node.executionCount : ''}
+        </text>
       </g>
     );
   }

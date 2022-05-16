@@ -29,7 +29,9 @@ export class EventNodeView extends CircularNodeView {
         {this.getEventDecorator(radius)}
         {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
         {context.renderChildren(node)}
-        <text>{node.executionCount ? node.executionCount : ''}</text>
+        <text x={2 * radius + 5} y={2 * radius}>
+          {node.executionCount ? node.executionCount : ''}
+        </text>
       </g>
     );
   }

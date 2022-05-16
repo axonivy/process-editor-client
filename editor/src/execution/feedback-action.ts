@@ -32,6 +32,7 @@ export class ExecutedFeedbackCommand extends Command {
     this.action.oldElementExecutions.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
+        setExecutionCount(element as Executable, 0);
         const cssClass = elementExecution.failed ? ExecutedFeedbackCommand.FAILED_CSS_CLASS : ExecutedFeedbackCommand.EXECUTED_CSS_CLASS;
         removeCssClass(element, cssClass);
       }
