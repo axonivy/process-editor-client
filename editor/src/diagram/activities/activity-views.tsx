@@ -33,6 +33,7 @@ export class ActivityNodeView extends RectangularNodeView {
         {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
+        <text>{node.executionCount ? node.executionCount : ''}</text>
       </g>
     );
   }

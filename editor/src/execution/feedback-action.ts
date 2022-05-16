@@ -4,7 +4,7 @@ import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 import { ElementExecution } from './action';
 
-import { isExecutable } from './model';
+import { isExecutable, Executable } from './model';
 
 export class ExecutedFeedbackAction {
   constructor(
@@ -39,6 +39,7 @@ export class ExecutedFeedbackCommand extends Command {
     this.action.elementExecutions.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
+        setExecutionCount(element as Executable, elementExecution.count);
         if (elementExecution.failed) {
           this.failed.push(element);
         } else {
@@ -103,4 +104,8 @@ export class StoppedFeedbackCommand extends Command {
     addCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }
+}
+
+function setExecutionCount(element: Executable, count: number): void {
+  element.executionCount = count;
 }
