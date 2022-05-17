@@ -5,6 +5,7 @@ import { expect } from 'chai';
 
 import { GatewayTypes } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
+import { GatewayNode } from '../../../src/diagram/model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -45,7 +46,7 @@ describe('GatewayNodeView', () => {
     const expectation =
       '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
       '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg></g>';
+      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -55,7 +56,20 @@ describe('GatewayNodeView', () => {
     const expectation =
       '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
       '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg></g>';
+      '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render gateway with execution badge', () => {
+    const view = viewRegistry.get(GatewayTypes.TASK);
+    const task = graph.index.getById('gatewayTask') as GatewayNode;
+    task.executionCount = 3;
+    const vnode = view.render(task, context);
+    const expectation =
+      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
+      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
+      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg>' +
+      '<g><circle class="execution-badge" r="8" cx="32" /><text class="execution-text" x="32" dy=".3em">3</text></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });
