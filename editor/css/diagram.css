@@ -93,6 +93,16 @@ g[class^='end'] .sprotty-node {
   stroke-width: 2px;
 }
 
+.execution-badge {
+  fill: var(--glsp-editor-background);
+  stroke: var(--glsp-editor-foreground);
+  stroke-width: 1px;
+}
+
+.execution-text {
+  stroke: var(--glsp-editor-foreground);
+}
+
 /* Edges */
 .sprotty-edge {
   stroke: var(--glsp-editor-foreground);

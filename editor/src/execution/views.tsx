@@ -9,8 +9,8 @@ export function createExecutionBadge(node: Executable, width: number): VNode {
   if (node.executionCount) {
     return (
       <g>
-        <circle r='8' cx={width} stroke='black' stroke-width='1px' fill='white'></circle>
-        <text x={width} dy='.3em'>
+        <circle class-execution-badge={true} r='8' cx={width}></circle>
+        <text class-execution-text={true} x={width} dy='.3em'>
           {node.executionCount}
         </text>
       </g>

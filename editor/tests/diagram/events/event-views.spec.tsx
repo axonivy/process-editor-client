@@ -5,6 +5,7 @@ import { expect } from 'chai';
 
 import { EventStartTypes, EventEndTypes, EventIntermediateTypes, EventBoundaryTypes } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
+import { EventNode } from '../../../src/diagram/model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -204,6 +205,17 @@ describe('EventNodeView', () => {
     const view = viewRegistry.get(EventBoundaryTypes.BOUNDARY_SIGNAL);
     const vnode = view.render(graph.index.getById('boundarySignal') as SNode, context);
     const expectation = '<g><circle class="sprotty-node" r="15" cx="15" cy="15" />' + '<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" /><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render event with execution badge', () => {
+    const view = viewRegistry.get(EventStartTypes.START);
+    const start = graph.index.getById('start') as EventNode;
+    start.executionCount = 3;
+    const vnode = view.render(start, context);
+    const expectation =
+      '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g>' +
+      '<g><circle class="execution-badge" r="8" cx="30" /><text class="execution-text" x="30" dy=".3em">3</text></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });

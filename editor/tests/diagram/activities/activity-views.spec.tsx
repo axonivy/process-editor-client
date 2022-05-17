@@ -5,6 +5,7 @@ import { expect } from 'chai';
 
 import { ActivityTypes, LabelType } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
+import { ActivityNode } from '../../../src/diagram/model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -185,6 +186,18 @@ describe('ActivityNodeView', () => {
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
       '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
+    expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render activity with execution badge', () => {
+    const view = viewRegistry.get(ActivityTypes.SCRIPT);
+    const script = graph.index.getById('script') as ActivityNode;
+    script.executionCount = 3;
+    const vnode = view.render(script, context);
+    const expectation =
+      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g>' +
+      '<g><circle class="execution-badge" r="8" cx="150" /><text class="execution-text" x="150" dy=".3em">3</text></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });
