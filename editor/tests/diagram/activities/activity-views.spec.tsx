@@ -63,7 +63,7 @@ describe('ActivityNodeView', () => {
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g><g></g><g id="sprotty_commentLabel">' +
       '<foreignObject class="sprotty-label node-child-label" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="30" width="100" x="0" y="0" z="10" />' +
-      '</g></g>';
+      '</g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -72,7 +72,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('script') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -81,7 +81,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('hd') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -90,7 +90,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('user') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -99,7 +99,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('soap') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -108,7 +108,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('rest') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -117,7 +117,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('db') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -126,7 +126,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('email') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -137,7 +137,7 @@ describe('ActivityNodeView', () => {
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
       '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
       '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
-      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg></g>';
+      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -148,7 +148,7 @@ describe('ActivityNodeView', () => {
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
       '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
       '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
-      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg></g>';
+      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -157,7 +157,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('webPage') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -166,7 +166,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('trigger') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -175,7 +175,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('program') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -184,7 +184,7 @@ describe('ActivityNodeView', () => {
     const vnode = view.render(graph.index.getById('thirdParty') as SNode, context);
     const expectation =
       '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g></g>';
+      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 });
