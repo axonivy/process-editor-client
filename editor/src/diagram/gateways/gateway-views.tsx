@@ -1,6 +1,7 @@
 import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { VNode } from 'snabbdom';
+import { createExecutionBadge } from '../../execution/views';
 
 import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getIconDecorator } from '../icon/views';
@@ -30,9 +31,7 @@ export class GatewayNodeView extends DiamondNodeView {
         />
         {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
         {context.renderChildren(node)}
-        <text x={Math.max(node.size.width, 0)} y={Math.max(node.size.height, 0)}>
-          {node.executionCount ? node.executionCount : ''}
-        </text>
+        {createExecutionBadge(node, Math.max(node.size.width, 0))}
       </g>
     );
   }

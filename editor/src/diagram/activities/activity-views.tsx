@@ -1,6 +1,7 @@
 import { RectangularNodeView, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { VNode } from 'snabbdom';
+import { createExecutionBadge } from '../../execution/views';
 
 import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
 import { getActivityIconDecorator } from '../icon/views';
@@ -35,9 +36,7 @@ export class ActivityNodeView extends RectangularNodeView {
         {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
-        <text x={width} y={height + 10}>
-          {node.executionCount ? node.executionCount : ''}
-        </text>
+        {createExecutionBadge(node, width)}
       </g>
     );
   }
