@@ -28,7 +28,7 @@
         <configuration>
           <artifactItems>
             <artifactItem>
-              <groupId>ch.ivyteam.demo</groupId>
+              <groupId>com.axonivy.demo</groupId>
               <artifactId>workflow-demos</artifactId>
               <version>${project.version}</version>
               <type>iar</type>
