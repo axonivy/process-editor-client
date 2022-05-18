@@ -1,5 +1,5 @@
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware } from 'sprotty';
+import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware, moveFeature } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, optional } from 'inversify';
 import { getElements, GLSP_TYPES, IMovementRestrictor, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
@@ -35,7 +35,7 @@ export class MoveElementKeyListener extends KeyListener {
       Array.from(this.selectionService.getSelectedElementIDs()),
       isBoundsAware
     );
-    selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e));
+    selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e)).filter(e => e.hasFeature(moveFeature));
     if (selectedElements.length === 0) {
       return [];
     }
