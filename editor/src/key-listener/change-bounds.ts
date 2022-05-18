@@ -1,8 +1,15 @@
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware, moveFeature } from 'sprotty';
+import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, optional } from 'inversify';
-import { getElements, GLSP_TYPES, IMovementRestrictor, SetUIExtensionVisibilityAction, toElementAndBounds } from '@eclipse-glsp/client';
+import {
+  boundsFeature,
+  getElements,
+  GLSP_TYPES,
+  IMovementRestrictor,
+  SetUIExtensionVisibilityAction,
+  toElementAndBounds
+} from '@eclipse-glsp/client';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { IvyGridSnapper } from '../diagram/snap';
@@ -35,7 +42,7 @@ export class MoveElementKeyListener extends KeyListener {
       Array.from(this.selectionService.getSelectedElementIDs()),
       isBoundsAware
     );
-    selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e)).filter(e => e.hasFeature(moveFeature));
+    selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e)).filter(e => e.hasFeature(boundsFeature));
     if (selectedElements.length === 0) {
       return [];
     }
