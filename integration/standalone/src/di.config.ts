@@ -3,6 +3,8 @@ import { eclipseCopyPasteModule } from '@eclipse-glsp/ide';
 import { createIvyDiagramContainer, ivyKeyListenerModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from 'sprotty';
+import ivyStandaloneBreakpointModule from './breakpoint/di.config';
+import ivyDirtyStateModule from './dirty-state/di.config';
 import ivyNavigationModule from './navigate/di.config';
 
 export default function createContainer(): Container {
@@ -14,5 +16,7 @@ export default function createContainer(): Container {
   container.load(ivyKeyListenerModule);
   container.load(eclipseCopyPasteModule);
   container.load(ivyNavigationModule);
+  container.load(ivyDirtyStateModule);
+  container.load(ivyStandaloneBreakpointModule);
   return container;
 }
