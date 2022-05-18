@@ -15,12 +15,14 @@ import { AutoAlignButtonProvider, DeleteButtonProvider, JumpOutButtonProvider, W
 import { ToolBar } from './tool-bar';
 import { ToolBarFeedbackCommand } from './tool-bar-feedback';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
+import { UpdateColorPaletteAction } from './action';
 
 const ivyToolBarModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ToolBar).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(ToolBar);
   configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolBar);
   configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
+  configureActionHandler({ bind, isBound }, UpdateColorPaletteAction.KIND, ToolBar);
   configureCommand({ bind, isBound }, ToolBarFeedbackCommand);
   bind(GLSP_TYPES.ITool).to(IvyMarqueeMouseTool);
   configureToolBarButtonProvider({ bind });

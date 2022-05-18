@@ -2,6 +2,7 @@ const COLLAPSED_CSS = 'collapsed';
 import { Action, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { IconStyle, resolvePaletteIcon } from '../diagram/icon/icons';
+import { EditDialog } from './edit-dialog';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
 export class ItemPickerMenu {
@@ -9,13 +10,15 @@ export class ItemPickerMenu {
   protected paletteItemsCopy: PaletteItem[] = [];
   protected bodyDiv?: HTMLElement;
   protected itemsDiv?: HTMLElement;
+  protected editDialog?: EditDialog;
   protected searchField: HTMLInputElement;
 
   constructor(
     paletteItems: PaletteItem[],
     readonly actions: (item: PaletteItem) => Action[],
     readonly onClickElementPickerToolButton: (button: HTMLElement, actions: Action[]) => void,
-    readonly clearToolOnEscape: (event: KeyboardEvent) => void
+    readonly clearToolOnEscape: (event: KeyboardEvent) => void,
+    readonly handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void
   ) {
     this.paletteItems = paletteItems;
   }
@@ -27,6 +30,15 @@ export class ItemPickerMenu {
     bodyDiv.appendChild((this.searchField = this.createPaletteItemSearchField(containerElement.id)));
     this.bodyDiv = bodyDiv;
     this.createItemsDiv(bodyDiv);
+    if (this.handleEditDialogClose) {
+      this.editDialog = new EditDialog(bodyDiv);
+    }
+  }
+
+  public removeMenuBody(): void {
+    if (this.bodyDiv) {
+      this.bodyDiv.remove();
+    }
   }
 
   public showGroup(groupId: string): void {
@@ -136,6 +148,9 @@ export class ItemPickerMenu {
     button.classList.add('tool-button');
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
+    if (this.handleEditDialogClose && item.label !== 'Default') {
+      button.appendChild(this.createEditButton('fa-pencil', item));
+    }
     button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, this.actions(item));
     button.onkeydown = ev => this.clearToolOnEscape(ev);
     return button;
@@ -175,6 +190,9 @@ export class ItemPickerMenu {
       header.appendChild(createIcon([resolvePaletteIcon(item.icon).res]));
     }
     header.insertAdjacentText('beforeend', item.label);
+    if (this.handleEditDialogClose) {
+      header.appendChild(this.createEditButton('fa-add'));
+    }
     header.onclick = _ev => {
       changeCSSClass(group, COLLAPSED_CSS);
       window!.getSelection()!.removeAllRanges();
@@ -182,5 +200,14 @@ export class ItemPickerMenu {
 
     group.appendChild(header);
     return group;
+  }
+
+  private createEditButton(icon: string, item?: PaletteItem): HTMLElement {
+    const editButton = createIcon(['fa-solid', icon, 'edit-item-button']);
+    editButton.onclick = (ev: MouseEvent) => {
+      ev.stopPropagation();
+      this.editDialog?.showDialog(this.handleEditDialogClose!, item);
+    };
+    return editButton;
   }
 }
