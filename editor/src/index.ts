@@ -17,6 +17,7 @@ export * from './diagram/model';
 export * from './diagram/view-types';
 export * from './types';
 export * from './tool-bar/button';
+export * from './viewport/viewport-commands';
 
 /* Helpers */
 export * from './icon-font-url-helper';

@@ -5,9 +5,9 @@ import {
   RequestTypeHintsAction,
   GLSPActionDispatcher
 } from '@eclipse-glsp/client';
-import { appendIconFontToDom } from '@ivyteam/process-editor';
+import { appendIconFontToDom, MoveIntoViewportAction } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
-import { IActionDispatcher, RequestModelAction, TYPES, SelectAction } from 'sprotty';
+import { RequestModelAction, TYPES, SelectAction, Action } from 'sprotty';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
@@ -48,7 +48,7 @@ async function initialize(client: GLSPClient): Promise<void> {
   });
   await configureServerActions(result, diagramType, container);
 
-  const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
+  const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
 
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   actionDispatcher
@@ -68,11 +68,18 @@ async function initialize(client: GLSPClient): Promise<void> {
   actionDispatcher.dispatch(new EnableToolPaletteAction());
 }
 
-function dispatchAfterModelInitialized(dispatcher: IActionDispatcher): void {
-  if (dispatcher instanceof GLSPActionDispatcher && selectElementIds) {
-    dispatcher
-      .onceModelInitialized()
-      .finally(() => dispatcher.dispatch(new SelectAction(selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR))));
+function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
+  const actions: Action[] = [];
+  if (selectElementIds) {
+    const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+    actions.push(new SelectAction(elementIds));
+    actions.push(new MoveIntoViewportAction(elementIds));
+  }
+  if (highlight) {
+    actions.push(new MoveIntoViewportAction([highlight]));
+  }
+  if (actions.length > 0) {
+    dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
   }
 }
 
