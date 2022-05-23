@@ -10,44 +10,23 @@ test.describe('tool bar - color palette', () => {
   });
 
   test('open and close menu', async ({ page }) => {
-    const paletteBody = page.locator(PALETTE_BODY);
     const dynamicTools = page.locator('.dynamic-tools');
     const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
-    const startElement = page.locator(startSelector);
-    await expect(paletteBody).toBeHidden();
-    await expect(dynamicTools).toBeHidden();
-
-    await startElement.click();
-    await expect(dynamicTools).toBeVisible();
-    await expect(colorPaletteBtn).toBeVisible();
-
-    await colorPaletteBtn.click();
-    await expect(paletteBody).toBeVisible();
+    const paletteBody = await openColorPalette(page);
 
     await colorPaletteBtn.click();
     await expect(paletteBody).toBeHidden();
   });
 
   test('search', async ({ page }) => {
-    const paletteBody = page.locator(PALETTE_BODY);
-    const dynamicTools = page.locator('.dynamic-tools');
-    const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
     const searchInput = page.locator(PALETTE_BODY + ' .search-input');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const startElement = page.locator(startSelector);
-    await expect(paletteBody).toBeHidden();
-    await expect(dynamicTools).toBeHidden();
+    await openColorPalette(page);
 
-    await startElement.click();
-    await expect(dynamicTools).toBeVisible();
-    await expect(colorPaletteBtn).toBeVisible();
-
-    await colorPaletteBtn.click();
-    await expect(paletteBody).toBeVisible();
-
-    await searchInput.fill('re');
+    await searchInput.fill('ef');
     await searchInput.dispatchEvent('keyup');
-    await expect(toolButtons).toHaveCount(2);
+    await expect(toolButtons).toHaveCount(1);
+    await expect(toolButtons).toHaveText('Default');
 
     await searchInput.fill('bla');
     await searchInput.dispatchEvent('keyup');
@@ -108,30 +87,16 @@ test.describe('tool bar - color palette', () => {
   });
 
   test('add new and remove color', async ({ page, browserName }) => {
-    const paletteBody = await openColorPalette(page);
-    await paletteBody.locator('.group-header .edit-item-button').click();
-
-    const dialog = paletteBody.locator('.edit-color-dialog');
-    await expect(dialog).toBeVisible();
-    await expect(dialog.locator('.edit-color-delete-btn')).toBeHidden();
-
-    const nameInput = dialog.locator('#editInputName');
-    await expect(nameInput).toBeEmpty();
-    await nameInput.fill('TestColor');
-
-    const colorInput = dialog.locator('#editInputColor');
-    await expect(colorInput).toBeEmpty();
-    await colorInput.fill('#fff000');
-
-    await dialog.locator('.edit-color-confirm-btn').click();
-    await expect(dialog).toBeHidden();
-    await expect(paletteBody).toBeHidden();
-
+    await addColor(page);
     await resetSelection(page);
-    await openColorPalette(page);
+    const paletteBody = await openColorPalette(page);
     const newColor = paletteBody.locator('.tool-button').locator('text=TestColor');
     await expect(newColor).toBeVisible();
     await newColor.locator('.edit-item-button').click();
+
+    const dialog = paletteBody.locator('.edit-color-dialog');
+    const nameInput = dialog.locator('#editInputName');
+    const colorInput = dialog.locator('#editInputColor');
 
     await expect(dialog).toBeVisible();
     await expect(nameInput).toHaveValue('TestColor');
@@ -145,32 +110,85 @@ test.describe('tool bar - color palette', () => {
     await expect(newColor).toBeHidden();
   });
 
+  test('validate color dialog inputs', async ({ page }) => {
+    const paletteBody = await openColorPalette(page);
+    await paletteBody.locator('.group-header .edit-item-button').click();
+
+    const dialog = paletteBody.locator('.edit-color-dialog');
+    const nameInput = dialog.locator('#editInputName');
+    const colorInput = dialog.locator('#editInputColor');
+    const confirmBtn = paletteBody.locator('.edit-color-confirm-btn');
+
+    await expect(dialog).toBeVisible();
+    await expect(nameInput).toBeEmpty();
+    await expect(colorInput).toBeEmpty();
+    await expect(nameInput).not.toHaveClass(/error/);
+    await expect(colorInput).not.toHaveClass(/error/);
+
+    await confirmBtn.click();
+    await expect(dialog).toBeVisible();
+    await expect(nameInput).toHaveClass(/error/);
+    await expect(colorInput).toHaveClass(/error/);
+
+    nameInput.fill('bla');
+    await confirmBtn.click();
+    await expect(dialog).toBeVisible();
+    await expect(nameInput).not.toHaveClass(/error/);
+    await expect(colorInput).toHaveClass(/error/);
+
+    colorInput.fill('color');
+    await confirmBtn.click();
+    await expect(dialog).toBeHidden();
+  });
+
   async function colorizeElement(page: Page, elements: Locator[], browserName: string): Promise<void> {
-    const colorPalette = page.locator(PALETTE_BODY);
-    const dynamicTools = page.locator('.dynamic-tools');
-    const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
-    const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-
-    await expect(colorPaletteBtn).not.toBeVisible();
-    await multiSelect(page, elements, browserName);
-    await expect(dynamicTools).toBeVisible();
-    await expect(colorPaletteBtn).toBeVisible();
-    await colorPaletteBtn.click();
-
-    await expect(colorPalette).toBeVisible();
-    await toolButtons.locator('text=Blue').click();
+    await addColor(page, elements, browserName, 'Blue', 'rgb(0, 0, 255)');
+    await resetSelection(page);
+    await openColorPalette(page, elements, browserName);
+    await page
+      .locator(PALETTE_BODY + ' .tool-button')
+      .locator('text=Blue')
+      .click();
   }
 
-  async function openColorPalette(page: Page): Promise<Locator> {
+  async function addColor(page: Page, elements?: Locator[], browserName?: string, name = 'TestColor', color = '#fff000'): Promise<void> {
+    const paletteBody = await openColorPalette(page, elements, browserName);
+    await paletteBody.locator('.group-header .edit-item-button').click();
+
+    const dialog = paletteBody.locator('.edit-color-dialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator('.edit-color-delete-btn')).toBeHidden();
+
+    const nameInput = dialog.locator('#editInputName');
+    await expect(nameInput).toBeEmpty();
+    await nameInput.fill(name);
+
+    const colorInput = dialog.locator('#editInputColor');
+    await expect(colorInput).toBeEmpty();
+    await colorInput.fill(color);
+
+    await dialog.locator('.edit-color-confirm-btn').click();
+    await expect(dialog).toBeHidden();
+    await expect(paletteBody).toBeHidden();
+  }
+
+  async function openColorPalette(page: Page, elements?: Locator[], browserName?: string): Promise<Locator> {
     const paletteBody = page.locator(PALETTE_BODY);
     const dynamicTools = page.locator('.dynamic-tools');
     const colorPaletteBtn = dynamicTools.locator('i[title$=color]');
-    const startElement = page.locator(startSelector);
+    await paletteBody.innerHTML();
     await expect(paletteBody).toBeHidden();
     await expect(dynamicTools).toBeHidden();
 
-    await startElement.click();
+    if (elements) {
+      await multiSelect(page, elements, browserName);
+    } else {
+      await page.locator(startSelector).click();
+    }
+    await expect(dynamicTools).toBeVisible();
+    await expect(colorPaletteBtn).toBeVisible();
     await colorPaletteBtn.click();
+    await expect(paletteBody).toBeVisible();
     return paletteBody;
   }
 });

@@ -14,6 +14,13 @@ export function serverUrl(): string {
 }
 
 export async function gotoRandomTestProcessUrl(page: Page): Promise<void> {
+  // Log websocket communications:
+  // page.on('websocket', ws => {
+  //   console.log(`WebSocket opened: ${ws.url()}>`);
+  //   ws.on('framesent', event => console.log('>> sent: ' + event.payload));
+  //   ws.on('framereceived', event => console.log('<< recv: ' + event.payload));
+  //   ws.on('close', () => console.log('WebSocket closed'));
+  // });
   await page.goto(randomTestProcessUrl());
   const start = page.locator(startSelector);
   // wait for start element, give a reload if was not visible the first time

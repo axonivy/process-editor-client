@@ -33,7 +33,7 @@ import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 import { CustomIconToggleAction } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
-import { ChangeActivityTypeOperation, ColorizeOperation } from './operation';
+import { ChangeActivityTypeOperation, ChangeColorOperation, ColorizeOperation } from './operation';
 import { ToolBarFeedbackAction } from './tool-bar-feedback';
 import { compare, createIcon } from './tool-bar-helper';
 import { ItemPickerMenu } from './item-picker-menu';
@@ -50,7 +50,7 @@ import {
 } from './button';
 import { resolvePaletteIcon } from '../diagram/icon/icons';
 import { EditDialog } from './edit-dialog';
-import { ChangeColorAction, UpdateColorPaletteAction } from './action';
+import { UpdateColorPaletteAction } from './action';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -282,7 +282,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       colorName = newColor.Name.toString();
       color = newColor.Color.toString();
     }
-    this.actionDispatcher.dispatch(new ChangeColorAction(color, colorName, oldColor));
+    this.actionDispatcher.dispatch(new ChangeColorOperation(color, colorName, oldColor));
   };
 
   changeActiveButton(button?: HTMLElement): void {

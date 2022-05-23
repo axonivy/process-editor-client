@@ -149,7 +149,7 @@ export class ItemPickerMenu {
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
     if (this.handleEditDialogClose && item.label !== 'Default') {
-      button.appendChild(this.createEditButton('fa-pencil', item));
+      button.appendChild(this.createEditButton('fa-pencil', 'Edit Color', item));
     }
     button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, this.actions(item));
     button.onkeydown = ev => this.clearToolOnEscape(ev);
@@ -177,7 +177,9 @@ export class ItemPickerMenu {
         return span;
       }
     }
-    return document.createElement('span');
+    const emptyIcon = document.createElement('span');
+    emptyIcon.classList.add('empty-icon');
+    return emptyIcon;
   }
 
   private createToolGroup(item: PaletteItem): HTMLElement {
@@ -191,7 +193,7 @@ export class ItemPickerMenu {
     }
     header.insertAdjacentText('beforeend', item.label);
     if (this.handleEditDialogClose) {
-      header.appendChild(this.createEditButton('fa-add'));
+      header.appendChild(this.createEditButton('fa-add', 'Add Color'));
     }
     header.onclick = _ev => {
       changeCSSClass(group, COLLAPSED_CSS);
@@ -202,8 +204,9 @@ export class ItemPickerMenu {
     return group;
   }
 
-  private createEditButton(icon: string, item?: PaletteItem): HTMLElement {
+  private createEditButton(icon: string, title: string, item?: PaletteItem): HTMLElement {
     const editButton = createIcon(['fa-solid', icon, 'edit-item-button']);
+    editButton.title = title;
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
       this.editDialog?.showDialog(this.handleEditDialogClose!, item);

@@ -157,9 +157,11 @@
   top: 1px;
   position: relative;
 }
-.tool-button .color-icon {
+.tool-button .color-icon,
+.color-palette-body .tool-button .empty-icon {
   height: 1em;
   border: 1px solid var(--glsp-tool-bar-forground);
+  background-color: var(--glsp-editor-foreground);
 }
 
 .collapsible-palette {
@@ -214,6 +216,14 @@ i.edit-item-button:hover {
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
+}
+.edit-color-dialog .edit-color-input input {
+  border: 1px solid;
+  background-color: var(--glsp-editor-background);
+  color: var(--glsp-editor-foreground);
+}
+.edit-color-dialog .edit-color-input input.error {
+  border-color: var(--glsp-error-foreground);
 }
 .edit-color-dialog .edit-color-input input:not([type='color']) {
   width: 100%;
