@@ -1,4 +1,4 @@
-import { EditorContextService, GLSP_TYPES, GLSPActionDispatcher, EnableToolPaletteAction, isViewport } from '@eclipse-glsp/client';
+import { EditorContextService, GLSP_TYPES, GLSPActionDispatcher, isViewport } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable } from 'inversify';
 import {
@@ -15,6 +15,12 @@ import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton 
 
 import { createIcon } from '../tool-bar/tool-bar-helper';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
+
+@injectable()
+export class EnableViewportAction implements Action {
+  static readonly KIND = 'enableViewport';
+  readonly kind = EnableViewportAction.KIND;
+}
 
 @injectable()
 export class ViewportBar extends AbstractUIExtension implements IActionHandler {
@@ -82,7 +88,7 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   }
 
   handle(action: Action): ICommand | Action | void {
-    if (action.kind === EnableToolPaletteAction.KIND) {
+    if (action.kind === EnableViewportAction.KIND) {
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ViewportBar.ID, true));
     }
     if (isSetViewportAction(action)) {
