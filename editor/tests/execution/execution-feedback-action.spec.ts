@@ -58,18 +58,19 @@ describe('ExecutedFeedbackAction', () => {
   it('Executed css class is set on element', async () => {
     const execution: ElementExecution = { elementId: 'foo', count: 2, failed: false };
 
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution]));
+    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution], node.id));
     expect(node.cssClasses).to.include('executed');
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], []));
+    expect(node.cssClasses).to.include('last');
+    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], [], ''));
     expect(node.cssClasses).to.not.include('executed');
   });
 
   it('Failed css class is set on element', async () => {
     const execution: ElementExecution = { elementId: 'foo', count: 2, failed: true };
 
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution]));
+    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution], ''));
     expect(node.cssClasses).to.include('failed');
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], []));
+    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], [], ''));
     expect(node.cssClasses).to.not.include('failed');
   });
 });
