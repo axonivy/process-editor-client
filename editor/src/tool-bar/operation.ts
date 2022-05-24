@@ -26,3 +26,14 @@ export class ChangeActivityTypeOperation implements Operation {
     public readonly kind: string = ChangeActivityTypeOperation.KIND
   ) {}
 }
+
+export class ChangeColorOperation implements Operation {
+  static readonly KIND = 'changeColor';
+
+  constructor(
+    public readonly color: string,
+    public readonly colorName: string,
+    public readonly oldColor: string,
+    public readonly kind: string = ChangeColorOperation.KIND
+  ) {}
+}

@@ -101,7 +101,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
-    const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
+    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
     const start = page.locator(startSelector);
     const end = page.locator(endSelector);
     const embedded = page.locator(embeddedSelector);

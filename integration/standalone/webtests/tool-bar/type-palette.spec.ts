@@ -74,7 +74,7 @@ test.describe('tool bar - BPMN type palette', () => {
     const dynamicTools = page.locator('.dynamic-tools');
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const jumpOutBtn = page.locator('.dynamic-tools span[title^="Jump"]');
+    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
     const manual = page.locator('.sprotty-graph .manualBpmnElement');
     const embedded = page.locator(embeddedSelector);
 

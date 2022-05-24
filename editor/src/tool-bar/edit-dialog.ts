@@ -4,6 +4,9 @@ export class EditDialog {
   public static DIALOG_CLOSE = 'close';
   public static DIALOG_CONFIRM = 'confirm';
   public static DIALOG_DELETE = 'delete';
+  private static NAME_INPUT_ID = 'editInputName';
+  private static COLOR_INPUT_ID = 'editInputColor';
+
   private dialog: HTMLElement;
   private handleDialogClose: (returnValue: string, formData: FormData, item?: PaletteItem | undefined) => void;
   private item: PaletteItem | undefined;
@@ -14,6 +17,7 @@ export class EditDialog {
   }
 
   dialogClosed = ({ target: dialog }: any): void => {
+    console.log(dialog);
     const dialogFormData = new FormData(dialog.querySelector('form'));
     this.handleDialogClose(dialog.returnValue, dialogFormData, this.item);
     dialog.querySelector('form')?.reset();
@@ -22,8 +26,8 @@ export class EditDialog {
   public showDialog(handleDialogClose: (returnValue: string, formData: FormData, item?: PaletteItem) => void, item?: PaletteItem): void {
     this.handleDialogClose = handleDialogClose;
     this.item = item;
-    this.setInputValue('editInputName', item?.label ?? '');
-    this.setInputValue('editInputColor', item?.icon ?? '');
+    this.setInputValue(EditDialog.NAME_INPUT_ID, item?.label ?? '');
+    this.setInputValue(EditDialog.COLOR_INPUT_ID, item?.icon ?? '');
     const deleteBtn = this.dialog.querySelector('.edit-color-delete-btn') as HTMLElement;
     if (deleteBtn) {
       deleteBtn.style.display = item ? 'block' : 'none';
@@ -36,6 +40,10 @@ export class EditDialog {
     if (input) {
       input.value = value;
     }
+  }
+
+  private getInputElement(id: string): HTMLInputElement | undefined {
+    return this.dialog.querySelector(`#${id}`) as HTMLInputElement;
   }
 
   private createEditDialog(containerElement: HTMLElement): HTMLElement {
@@ -54,13 +62,12 @@ export class EditDialog {
   private createDialogBody(): HTMLElement {
     const body = document.createElement('div');
     body.classList.add('edit-color-body');
-    body.appendChild(this.createInput('Name'));
-    body.appendChild(this.createInput('Color', true));
+    body.appendChild(this.createInput(EditDialog.NAME_INPUT_ID, 'Name'));
+    body.appendChild(this.createInput(EditDialog.COLOR_INPUT_ID, 'Color', true));
     return body;
   }
 
-  private createInput(labelText: string, showColorPicker = false): HTMLElement {
-    const id = `editInput${labelText}`;
+  private createInput(id: string, labelText: string, showColorPicker = false): HTMLElement {
     const div = document.createElement('div');
     div.classList.add('edit-color-input');
     const label = document.createElement('label') as HTMLLabelElement;
@@ -99,12 +106,33 @@ export class EditDialog {
     cancelBtn.onclick = e => (this.dialog as any).close(EditDialog.DIALOG_CLOSE);
     const confirmBtn = document.createElement('button');
     confirmBtn.classList.add('edit-color-confirm-btn');
-    confirmBtn.textContent = 'Confirm';
-    confirmBtn.type = 'submit';
-    confirmBtn.value = EditDialog.DIALOG_CONFIRM;
+    confirmBtn.textContent = 'Ok';
+    confirmBtn.type = 'button';
+    confirmBtn.onclick = e => this.validateInputsAndRun(() => (this.dialog as any).close(EditDialog.DIALOG_CONFIRM));
     footer.appendChild(deleteBtn);
     footer.appendChild(cancelBtn);
     footer.appendChild(confirmBtn);
     return footer;
+  }
+
+  private validateInputsAndRun(callable: () => void): void {
+    const validNameInput = this.validateInput(EditDialog.NAME_INPUT_ID);
+    const validColorInput = this.validateInput(EditDialog.COLOR_INPUT_ID);
+    if (validNameInput && validColorInput) {
+      callable();
+    }
+  }
+
+  private validateInput(inputId: string): boolean {
+    const input = this.getInputElement(inputId);
+    if (input) {
+      if (input.value === '') {
+        input.classList.add('error');
+        return false;
+      } else {
+        input.classList.remove('error');
+      }
+    }
+    return true;
   }
 }
