@@ -1,6 +1,6 @@
 import { SChildElement } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
+import { Command, CommandExecutionContext, SModelElement, SModelRoot, TYPES } from 'sprotty';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 import { ElementExecution } from './action';
 
@@ -10,6 +10,7 @@ export class ExecutedFeedbackAction {
   constructor(
     public readonly oldElementExecutions: ElementExecution[] = [],
     public readonly elementExecutions: ElementExecution[] = [],
+    public readonly lastExecutedElementId: string,
     public readonly kind: string = ExecutedFeedbackCommand.KIND
   ) {}
 }
@@ -18,10 +19,12 @@ export class ExecutedFeedbackAction {
 export class ExecutedFeedbackCommand extends Command {
   static readonly KIND = 'executedFeedbackCommand';
   static readonly EXECUTED_CSS_CLASS = 'executed';
+  static readonly LAST_EXECUTED_CSS_CLASS = 'last';
   static readonly FAILED_CSS_CLASS = 'failed';
 
   protected executed: SChildElement[] = [];
   protected failed: SChildElement[] = [];
+  protected lastExecutedElement?: SModelElement;
 
   constructor(@inject(TYPES.Action) protected readonly action: ExecutedFeedbackAction) {
     super();
@@ -29,6 +32,7 @@ export class ExecutedFeedbackCommand extends Command {
 
   execute(context: CommandExecutionContext): SModelRoot {
     const model = context.root;
+    this.lastExecutedElement = model.index.getById(this.action.lastExecutedElementId);
     this.action.oldElementExecutions.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
@@ -60,6 +64,10 @@ export class ExecutedFeedbackCommand extends Command {
   redo(context: CommandExecutionContext): SModelRoot {
     addCssClassToElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
     addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
+    removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
+    if (this.lastExecutedElement) {
+      addCssClass(this.lastExecutedElement, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
+    }
     return context.root;
   }
 }

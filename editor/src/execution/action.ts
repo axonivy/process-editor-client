@@ -13,7 +13,7 @@ export class SetExecutedElementsAction implements Action {
   static readonly KIND = 'setExecutedElements';
   kind = SetExecutedElementsAction.KIND;
 
-  constructor(public readonly elementExecutions: ElementExecution[]) {}
+  constructor(public readonly elementExecutions: ElementExecution[], public readonly lastExecutedElementId: string = '') {}
 }
 
 @injectable()
@@ -24,7 +24,7 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
 
   handle(action: Action): Action | void {
     if (isSetExecutedElementsAction(action)) {
-      const feedbackAction = new ExecutedFeedbackAction(this.oldExecutions, action.elementExecutions);
+      const feedbackAction = new ExecutedFeedbackAction(this.oldExecutions, action.elementExecutions, action.lastExecutedElementId);
       if (action.elementExecutions.length > 0) {
         this.feedbackDispatcher.registerFeedback(this, [feedbackAction]);
       } else {
