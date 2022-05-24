@@ -10,7 +10,7 @@ test.describe('tool bar - dynamic tools', () => {
   test('delete', async ({ page }) => {
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator(startSelector);
-    const deleteBtn = dynamicTools.locator('span[title=Delete]');
+    const deleteBtn = dynamicTools.locator('i[title=Delete]');
     await expect(dynamicTools).not.toBeVisible();
     await startElement.click();
 
@@ -24,7 +24,7 @@ test.describe('tool bar - dynamic tools', () => {
   test('wrap single to sub', async ({ page }) => {
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator(startSelector);
-    const wrapToSubBtn = dynamicTools.locator('span[title^=Wrap]');
+    const wrapToSubBtn = dynamicTools.locator('i[title^=Wrap]');
     const embeddedElements = page.locator(embeddedSelector);
     await expect(dynamicTools).not.toBeVisible();
     await expect(embeddedElements).toHaveCount(0);
@@ -42,7 +42,7 @@ test.describe('tool bar - dynamic tools', () => {
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator(startSelector);
     const endElement = page.locator(endSelector);
-    const wrapToSubBtn = dynamicTools.locator('span[title^=Wrap]');
+    const wrapToSubBtn = dynamicTools.locator('i[title^=Wrap]');
     const embeddedElements = page.locator(embeddedSelector);
     await expect(dynamicTools).not.toBeVisible();
     await expect(embeddedElements).toHaveCount(0);
@@ -62,7 +62,7 @@ test.describe('tool bar - dynamic tools', () => {
     const dynamicTools = page.locator('.dynamic-tools');
     const startElement = page.locator(startSelector);
     const endElement = page.locator(endSelector);
-    const autoAlignBtn = dynamicTools.locator('span[title^=Auto]');
+    const autoAlignBtn = dynamicTools.locator('i[title^=Auto]');
     await expect(dynamicTools).not.toBeVisible();
 
     await endElement.dragTo(page.locator('.sprotty-graph'));
