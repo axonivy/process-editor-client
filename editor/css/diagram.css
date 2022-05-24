@@ -56,6 +56,12 @@ body {
 .executed .sprotty-node {
   fill: hsl(60 100% 50% / 50%);
 }
+
+.executed.last .sprotty-node {
+  stroke-width: 3px;
+  fill: hsl(60 100% 50% / 100%);
+}
+
 .failed .sprotty-node {
   fill: hsl(0 100% 50% / 50%);
 }
@@ -96,11 +102,10 @@ g[class^='end'] .sprotty-node {
 .execution-badge {
   fill: var(--glsp-editor-background);
   stroke: var(--glsp-editor-foreground);
-  stroke-width: 1px;
 }
 
 .execution-text {
-  stroke: var(--glsp-editor-foreground);
+  fill: var(--glsp-editor-foreground);
 }
 
 /* Edges */
