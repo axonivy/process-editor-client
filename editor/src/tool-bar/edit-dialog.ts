@@ -6,6 +6,7 @@ export class EditDialog {
   public static DIALOG_DELETE = 'delete';
   private static NAME_INPUT_ID = 'editInputName';
   private static COLOR_INPUT_ID = 'editInputColor';
+  private static COLOR_PICKER_INPUT_ID = 'editInputColorPicker';
 
   private dialog: HTMLElement;
   private handleDialogClose: (returnValue: string, formData: FormData, item?: PaletteItem | undefined) => void;
@@ -28,6 +29,7 @@ export class EditDialog {
     this.item = item;
     this.setInputValue(EditDialog.NAME_INPUT_ID, item?.label ?? '');
     this.setInputValue(EditDialog.COLOR_INPUT_ID, item?.icon ?? '');
+    this.setInputValue(EditDialog.COLOR_PICKER_INPUT_ID, item?.icon ?? '');
     const deleteBtn = this.dialog.querySelector('.edit-color-delete-btn') as HTMLElement;
     if (deleteBtn) {
       deleteBtn.style.display = item ? 'block' : 'none';
@@ -79,11 +81,11 @@ export class EditDialog {
     div.appendChild(label);
     if (showColorPicker) {
       const colorPicker = document.createElement('input');
+      colorPicker.id = id + 'Picker';
       colorPicker.type = 'color';
-      colorPicker.onchange = e => {
-        input.value = (e.target as HTMLInputElement).value;
-      };
+      colorPicker.onchange = e => (input.value = (e.target as HTMLInputElement).value);
       div.appendChild(colorPicker);
+      input.onchange = e => (colorPicker.value = (e.target as HTMLInputElement).value);
     }
     div.appendChild(input);
     return div;

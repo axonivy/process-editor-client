@@ -52,18 +52,21 @@
 }
 
 .header-tools i,
-.element-pickers span {
+.element-pickers > i,
+.element-pickers > span {
   border: none;
   padding: 0.4em;
   margin-right: 0.2em;
 }
-.element-pickers span {
+.element-pickers > i,
+.element-pickers > span {
   display: inline-block;
   line-height: 0;
 }
 
 .header-tools i:hover,
-.element-pickers span:hover {
+.element-pickers > i:hover,
+.element-pickers > span:hover {
   background: var(--glsp-tool-bar-hover);
 }
 
