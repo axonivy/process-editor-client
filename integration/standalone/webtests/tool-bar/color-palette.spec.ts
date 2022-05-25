@@ -97,10 +97,12 @@ test.describe('tool bar - color palette', () => {
     const dialog = paletteBody.locator('.edit-color-dialog');
     const nameInput = dialog.locator('#editInputName');
     const colorInput = dialog.locator('#editInputColor');
+    const colorPickerInput = dialog.locator('#editInputColor');
 
     await expect(dialog).toBeVisible();
     await expect(nameInput).toHaveValue('TestColor');
     await expect(colorInput).toHaveValue('#fff000');
+    await expect(colorPickerInput).toHaveValue('#fff000');
 
     await dialog.locator('.edit-color-delete-btn').click();
     await expect(dialog).toBeHidden();
