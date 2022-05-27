@@ -59,7 +59,7 @@ body {
 
 .executed.last .sprotty-node {
   stroke-width: 3px;
-  /* fill: hsl(60 100% 50% / 100%); */
+  stroke: magenta;
 }
 
 .failed .sprotty-node {
