@@ -58,7 +58,6 @@ body {
 }
 
 .executed.last .sprotty-node {
-  stroke-width: 3px;
   stroke: magenta;
 }
 
