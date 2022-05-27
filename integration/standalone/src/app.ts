@@ -14,7 +14,7 @@ import {
   ivyHoverModule
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
-import { RequestModelAction, TYPES, SelectAction, Action } from 'sprotty';
+import { RequestModelAction, TYPES, SelectAction, Action, CenterAction } from 'sprotty';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
@@ -86,16 +86,21 @@ async function initialize(client: GLSPClient): Promise<void> {
 
 function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
   const actions: Action[] = [];
-  if (selectElementIds) {
+  if (isNumeric(zoom)) {
+    actions.push(new IvySetViewportZoomAction(+zoom / 100));
+    if (highlight) {
+      actions.push(new CenterAction([highlight], false, true));
+    } else if (selectElementIds) {
+      const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+      actions.push(new SelectAction(elementIds));
+      actions.push(new CenterAction(elementIds, false, true));
+    }
+  } else if (selectElementIds) {
     const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
     actions.push(new SelectAction(elementIds));
     actions.push(new MoveIntoViewportAction(elementIds));
-  }
-  if (zoom) {
-    actions.push(new IvySetViewportZoomAction('', +zoom / 100));
-  }
-  if (highlight) {
-    actions.push(new MoveIntoViewportAction([highlight], true, true));
+  } else if (highlight) {
+    actions.push(new MoveIntoViewportAction([highlight]));
   }
   dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
@@ -104,6 +109,10 @@ function setViewerMode(): void {
   container.unload(ivyToolBarModule);
   container.load(ivyStandaloneToolBarModule);
   container.unload(ivyHoverModule);
+}
+
+function isNumeric(num: any): boolean {
+  return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');

@@ -116,10 +116,10 @@ function calculateScroll(viewPort: number, currentScrollPos: number, elementPos:
 }
 
 export class IvySetViewportZoomAction {
-  static readonly KIND = 'ivyviewport';
+  static readonly KIND = 'ivyviewportzoom';
   kind = IvySetViewportZoomAction.KIND;
 
-  constructor(public readonly elementId: string, public readonly zoom: number) {}
+  constructor(public readonly zoom: number) {}
 }
 
 export class IvySetViewportZoomCommand extends Command {

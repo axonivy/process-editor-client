@@ -15,6 +15,7 @@ import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton 
 
 import { createIcon } from '../tool-bar/tool-bar-helper';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { IvySetViewportZoomAction } from './viewport-commands';
 
 @injectable()
 export class EnableViewportAction implements Action {
@@ -93,6 +94,8 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
     }
     if (isSetViewportAction(action)) {
       this.updateZoomLevel(action.newViewport.zoom);
+    } else if (isIvySetViewportZoomAction(action)) {
+      this.updateZoomLevel(action.zoom);
     }
   }
 
@@ -105,4 +108,8 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
 
 function isSetViewportAction(action: Action): action is SetViewportAction {
   return action !== undefined && action.kind === SetViewportAction.KIND && (action as SetViewportAction).newViewport !== undefined;
+}
+
+function isIvySetViewportZoomAction(action: Action): action is IvySetViewportZoomAction {
+  return action !== undefined && action.kind === IvySetViewportZoomAction.KIND && (action as IvySetViewportZoomAction).zoom !== undefined;
 }
