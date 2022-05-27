@@ -151,12 +151,10 @@ g[class^='end'] .sprotty-node {
 /* Icon / Label*/
 .sprotty-label {
   font-size: 12px;
-  user-select: none;
   cursor: pointer;
 }
 .sprotty-icon {
   border-radius: 3px;
-  user-select: none;
   cursor: pointer;
 }
 .sprotty-icon i {
@@ -207,7 +205,7 @@ g[class^='end'] .sprotty-node {
 }
 
 /* Comments */
-.comment .sprotty-node,
+.processAnnotation .sprotty-node,
 .association.sprotty-edge {
   stroke-dasharray: 5, 5;
 }
