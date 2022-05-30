@@ -19,6 +19,7 @@ export * from './diagram/model';
 export * from './diagram/view-types';
 export * from './types';
 export * from './tool-bar/button';
+export * from './tool-bar/tool-bar';
 export * from './viewport/viewport-commands';
 export * from './viewport/viewport-bar';
 

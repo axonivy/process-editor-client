@@ -441,4 +441,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     };
     return button;
   }
+
+  disable(): void {
+    this.editorContext.deregister(this);
+  }
 }

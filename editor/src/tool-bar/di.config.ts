@@ -20,6 +20,7 @@ import { UpdateColorPaletteAction } from './action';
 const ivyToolBarModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ToolBar).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(ToolBar);
+  bind(IVY_TYPES.ToolBar).toService(ToolBar);
   configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolBar);
   configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
   configureActionHandler({ bind, isBound }, UpdateColorPaletteAction.KIND, ToolBar);

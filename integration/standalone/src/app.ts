@@ -10,7 +10,9 @@ import {
   MoveIntoViewportAction,
   IvySetViewportZoomAction,
   EnableViewportAction,
+  ToolBar,
   ivyToolBarModule,
+  IVY_TYPES,
   ivyHoverModule
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
@@ -18,7 +20,6 @@ import { RequestModelAction, TYPES, SelectAction, Action, CenterAction } from 's
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
-import ivyStandaloneToolBarModule from './tool-bar/di.config';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -106,8 +107,8 @@ function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
 }
 
 function setViewerMode(): void {
+  container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
   container.unload(ivyToolBarModule);
-  container.load(ivyStandaloneToolBarModule);
   container.unload(ivyHoverModule);
 }
 
