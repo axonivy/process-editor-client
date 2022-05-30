@@ -39,6 +39,8 @@ const highlight = parameters['highlight'];
 const selectElementIds = parameters['selectElementIds'];
 const zoom = parameters['zoom'];
 
+const actions: Action[] = [];
+
 appendIconFontToDom(`${isSecureConnection() ? 'https' : 'http'}://${server}`);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
@@ -86,34 +88,41 @@ async function initialize(client: GLSPClient): Promise<void> {
 }
 
 function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
-  const actions: Action[] = [];
   if (isNumeric(zoom)) {
-    actions.push(new IvySetViewportZoomAction(+zoom / 100));
+    addActions(new IvySetViewportZoomAction(+zoom / 100));
     if (highlight) {
-      actions.push(new CenterAction([highlight], false, true));
+      addActions(new CenterAction([highlight], false, true));
     } else if (selectElementIds) {
-      const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
-      actions.push(new SelectAction(elementIds));
-      actions.push(new CenterAction(elementIds, false, true));
+      addActions(...getSelectElementActions(new CenterAction(getElementIds(), false, true)));
     }
   } else if (selectElementIds) {
-    const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
-    actions.push(new SelectAction(elementIds));
-    actions.push(new MoveIntoViewportAction(elementIds));
+    addActions(...getSelectElementActions(new MoveIntoViewportAction(getElementIds())));
   } else if (highlight) {
-    actions.push(new MoveIntoViewportAction([highlight]));
+    addActions(new MoveIntoViewportAction([highlight]));
   }
   dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
+}
+
+function isNumeric(num: any): boolean {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+function addActions(...newActions: Action[]): void {
+  actions.push(...newActions);
+}
+
+function getSelectElementActions(action: Action): Action[] {
+  return [new SelectAction(getElementIds()), action];
+}
+
+function getElementIds(): string[] {
+  return selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
 }
 
 function setViewerMode(): void {
   container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
   container.unload(ivyToolBarModule);
   container.unload(ivyHoverModule);
-}
-
-function isNumeric(num: any): boolean {
-  return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');
