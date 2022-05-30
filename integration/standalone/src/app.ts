@@ -39,8 +39,6 @@ const highlight = parameters['highlight'];
 const selectElementIds = parameters['selectElementIds'];
 const zoom = parameters['zoom'];
 
-const actions: Action[] = [];
-
 appendIconFontToDom(`${isSecureConnection() ? 'https' : 'http'}://${server}`);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
@@ -88,35 +86,28 @@ async function initialize(client: GLSPClient): Promise<void> {
 }
 
 function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
+  const actions: Action[] = [];
   if (isNumeric(zoom)) {
-    addActions(new IvySetViewportZoomAction(+zoom / 100));
-    if (highlight) {
-      addActions(new CenterAction([highlight], false, true));
-    } else if (selectElementIds) {
-      addActions(...getSelectElementActions(new CenterAction(getElementIds(), false, true)));
-    }
-  } else if (selectElementIds) {
-    addActions(...getSelectElementActions(new MoveIntoViewportAction(getElementIds())));
-  } else if (highlight) {
-    addActions(new MoveIntoViewportAction([highlight]));
+    actions.push(new IvySetViewportZoomAction(+zoom / 100));
+    actions.push(...showElement(CenterAction));
+  } else {
+    actions.push(...showElement(MoveIntoViewportAction));
   }
   dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 
+function showElement(action: any): Action[] {
+  if (highlight) {
+    return [new action([highlight], false, true)];
+  } else if (selectElementIds) {
+    const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+    return [new SelectAction(elementIds), new action(elementIds, false, true)];
+  }
+  return [];
+}
+
 function isNumeric(num: any): boolean {
   return !isNaN(parseFloat(num)) && isFinite(num);
-}
-
-function addActions(...newActions: Action[]): void {
-  actions.push(...newActions);
-}
-
-function getSelectElementActions(action: Action): Action[] {
-  return [new SelectAction(getElementIds()), action];
-}
-
-function getElementIds(): string[] {
-  return selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
 }
 
 function setViewerMode(): void {
