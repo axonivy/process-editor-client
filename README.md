@@ -43,7 +43,7 @@ yarn
   cd integration/vscode
   yarn
   ```
-  
+
 - **Standalone Integration**:
   Run:
   ```bash
@@ -70,8 +70,8 @@ The simplest way to start the process editor is by download a [Axon Ivy Designer
   To start the VS Code integration you can start the specific launch config directly inside the VS Code.
   
 - **Standalone Integration**:
-  To start the Standalone integration you can start the specific launch config directly inside the VS Code or open the diagram.html in a browser with a given process json file as parameter:
-  `integration/standalone/app/diagram.html?file=<path-to-your-project>/processes/<your-process-file>.p.json`
+  To start the Standalone integration you can start the specific launch config directly inside the VS Code or open the index.html in a browser with a given process json file as parameter:
+  `integration/standalone/app/index.html?file=<path-to-your-project>/processes/<your-process-file>.p.json`
 
 ---
 

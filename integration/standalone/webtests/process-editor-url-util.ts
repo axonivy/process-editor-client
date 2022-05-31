@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { startSelector } from './diagram-util';
 
 export function baseUrl(): string {
-  return resolve('app', 'diagram.html');
+  return resolve('app', 'index.html');
 }
 
 export function serverUrl(): string {
