@@ -3,10 +3,28 @@ import { startSelector } from '../diagram-util';
 import { procurementRequestParallelUrl } from '../process-editor-url-util';
 
 test.describe('url parameters', () => {
+  test('readonly', async ({ page }) => {
+    await page.goto(procurementRequestParallelUrl() + '&readonly=true');
+    const defaultMouseToolBtn = page.locator('#btn_default_tools');
+    const elementPickerTools = page.locator('.element-pickers');
+    await expect(defaultMouseToolBtn).toBeVisible();
+    await expect(elementPickerTools).not.toBeVisible();
+  });
+
+  test('edit mode', async ({ page }) => {
+    await page.goto(procurementRequestParallelUrl());
+    const defaultMouseToolBtn = page.locator('#btn_default_tools');
+    const elementPickerTools = page.locator('.element-pickers');
+    await expect(defaultMouseToolBtn).toBeVisible();
+    await expect(elementPickerTools).toBeVisible();
+  });
+
   test('viewer mode', async ({ page }) => {
     await page.goto(procurementRequestParallelUrl() + '&mode=viewer');
     const toolbar = page.locator('.ivy-tool-bar');
     const viewport = page.locator('.ivy-viewport-bar');
+    const start = page.locator(startSelector);
+    await expect(start).toBeVisible();
     await expect(toolbar).not.toBeVisible();
     await expect(viewport).toBeVisible();
   });
@@ -15,6 +33,8 @@ test.describe('url parameters', () => {
     await page.goto(procurementRequestParallelUrl() + '&mode=preview');
     const toolbar = page.locator('.ivy-tool-bar');
     const viewport = page.locator('.ivy-viewport-bar');
+    const start = page.locator(startSelector);
+    await expect(start).toBeVisible();
     await expect(toolbar).not.toBeVisible();
     await expect(viewport).not.toBeVisible();
   });

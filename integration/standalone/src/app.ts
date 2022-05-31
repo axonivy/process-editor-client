@@ -89,19 +89,20 @@ function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
   const actions: Action[] = [];
   if (isNumeric(zoom)) {
     actions.push(new IvySetViewportZoomAction(+zoom / 100));
-    actions.push(...showElement(CenterAction));
+    actions.push(...showElement((ids: string[]) => new CenterAction(ids, false, true)));
   } else {
-    actions.push(...showElement(MoveIntoViewportAction));
+    actions.push(...showElement((ids: string[]) => new MoveIntoViewportAction(ids, false, true)));
   }
   dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 
-function showElement(action: any): Action[] {
+function showElement(action: (elementIds: string[]) => Action): Action[] {
   if (highlight) {
-    return [new action([highlight], false, true)];
-  } else if (selectElementIds) {
+    return [action([highlight])];
+  }
+  if (selectElementIds) {
     const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
-    return [new SelectAction(elementIds), new action(elementIds, false, true)];
+    return [new SelectAction(elementIds), action(elementIds)];
   }
   return [];
 }
