@@ -6,34 +6,22 @@ import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util'
 test.describe('tool bar - BPMN type palette', () => {
   const PALETTE_BODY = '.activity-type-palette-body';
 
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, browserName }) => {
     await gotoRandomTestProcessUrl(page);
+    const paletteBody = page.locator(PALETTE_BODY);
+    await paletteBody.innerHTML();
+    await expect(paletteBody).toBeHidden();
+
+    const start = page.locator(startSelector);
+    const end = page.locator(endSelector);
+    await wrapToEmbedded([start, end], page, browserName);
   });
 
   test('search', async ({ page, browserName }) => {
-    const paletteBody = page.locator(PALETTE_BODY);
-    const dynamicTools = page.locator('.dynamic-tools');
-    const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const searchInput = page.locator(PALETTE_BODY + ' .search-input');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const start = page.locator(startSelector);
-    const end = page.locator(endSelector);
-    const embedded = page.locator(embeddedSelector);
-    await expect(paletteBody).toBeHidden();
-    await expect(dynamicTools).toBeHidden();
 
-    await start.click();
-    await expect(dynamicTools).toBeVisible();
-    await expect(typePaletteBtn).toBeHidden();
-
-    await wrapToEmbedded([start, end], page, browserName);
-    await embedded.click();
-    await expect(dynamicTools).toBeVisible();
-    await expect(typePaletteBtn).toBeVisible();
-
-    await typePaletteBtn.click();
-    await expect(paletteBody).toBeVisible();
-
+    await openTypePalette(page);
     await expect(toolButtons).toHaveCount(9);
     await searchInput.fill('ser');
     await searchInput.dispatchEvent('keyup');
@@ -49,52 +37,48 @@ test.describe('tool bar - BPMN type palette', () => {
   });
 
   test('switch type', async ({ page, browserName }) => {
-    const paletteBody = page.locator(PALETTE_BODY);
-    const dynamicTools = page.locator('.dynamic-tools');
-    const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
     const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const start = page.locator(startSelector);
-    const end = page.locator(endSelector);
-    const embedded = page.locator(embeddedSelector);
     const userIcon = page.locator('.sprotty-graph .userBpmnElement .fa-user');
+    const embedded = page.locator(embeddedSelector);
+    const user = page.locator('.sprotty-graph .userBpmnElement');
 
-    await wrapToEmbedded([start, end], page, browserName);
-    await embedded.click();
-    await expect(dynamicTools).toBeVisible();
-    await expect(typePaletteBtn).toBeVisible();
-
-    await typePaletteBtn.click();
-    await expect(paletteBody).toBeVisible();
+    await expect(embedded).toBeVisible();
+    await expect(user).toBeHidden();
     await expect(userIcon).toBeHidden();
+
+    await openTypePalette(page);
     await toolButtons.locator('text=User').click();
     await expect(userIcon).toBeVisible();
-  });
-
-  test('create BPMN Manual, jump, change type', async ({ page }) => {
-    const dynamicTools = page.locator('.dynamic-tools');
-    const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
-    const toolButtons = page.locator(PALETTE_BODY + ' .tool-button');
-    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
-    const manual = page.locator('.sprotty-graph .manualBpmnElement');
-    const embedded = page.locator(embeddedSelector);
-
-    await page.locator('#btn_ele_picker_bpmn-activity-group').click();
-    await page.locator('.element-palette-body .tool-button:has-text("Manual")').click();
-    await page.locator('.sprotty-graph').click();
-
-    await manual.click();
-    await clickQuickActionStartsWith(page, 'Jump');
-    await jumpOutBtn.click();
-
+    await expect(user).toBeVisible();
     await expect(embedded).toBeHidden();
-    await manual.click();
-    await typePaletteBtn.click();
+
+    await openTypePalette(page, user);
     await toolButtons.locator('text=Sub').click();
     await expect(embedded).toBeVisible();
+    await expect(user).toBeHidden();
+    await expect(userIcon).toBeHidden();
   });
 
   async function wrapToEmbedded(elements: Locator[], page: Page, browserName: string): Promise<void> {
     await multiSelect(page, elements, browserName);
     await clickQuickActionStartsWith(page, 'Wrap');
+  }
+
+  async function openTypePalette(page: Page, element?: Locator): Promise<Locator> {
+    const paletteBody = page.locator(PALETTE_BODY);
+    const dynamicTools = page.locator('.dynamic-tools');
+    const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
+    await expect(dynamicTools).toBeHidden();
+
+    if (element) {
+      await element.click();
+    } else {
+      await page.locator(embeddedSelector).click();
+    }
+    await expect(dynamicTools).toBeVisible();
+    await expect(typePaletteBtn).toBeVisible();
+    await typePaletteBtn.click();
+    await expect(paletteBody).toBeVisible();
+    return paletteBody;
   }
 });

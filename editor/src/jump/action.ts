@@ -1,4 +1,5 @@
-import { Action, SModelElement } from '@eclipse-glsp/client';
+import { Action, IActionHandler, SModelElement } from '@eclipse-glsp/client';
+import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
@@ -9,6 +10,19 @@ export class JumpAction implements Action {
   static readonly KIND = 'jumpInto';
 
   constructor(public readonly elementId: string, public readonly kind: string = JumpAction.KIND) {}
+}
+
+@injectable()
+export class JumpActionHandler implements IActionHandler {
+  handle(action: Action): Action | void {
+    if (isJumpAction(action)) {
+      return new SelectAllAction(false);
+    }
+  }
+}
+
+export function isJumpAction(action: Action): action is JumpAction {
+  return action !== undefined && action.kind === JumpAction.KIND;
 }
 
 @injectable()

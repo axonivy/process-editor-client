@@ -1,11 +1,11 @@
 import { test, expect, Page } from '@playwright/test';
-import { procurementRequestParallelUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('viewport bar', () => {
   const ORIGIN_VIEWPORT = 'scale(1) translate(0,50)';
 
   test.beforeEach(async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl());
+    await gotoRandomTestProcessUrl(page);
     await assertGraphTransform(page, ORIGIN_VIEWPORT);
   });
 

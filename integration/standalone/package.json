@@ -40,7 +40,7 @@
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "build": "yarn install --ignore-scripts && tsc && webpack",
     "watch": "webpack --mode development --watch",
-    "webtest": "playwright test --headed --browser=chromium --retries=0",
-    "webtest:ci": "PLAYWRIGHT_JUNIT_OUTPUT_NAME=report.xml playwright test --browser=all --reporter=junit"
+    "webtest": "playwright test",
+    "webtest:ci": "PLAYWRIGHT_JUNIT_OUTPUT_NAME=report.xml playwright test"
   }
 }

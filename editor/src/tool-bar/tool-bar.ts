@@ -302,36 +302,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   handle(action: Action): ICommand | Action | void {
     if (action.kind === EnableToolPaletteAction.KIND) {
-      const requestAction = new RequestContextActions(ToolBar.ID, {
-        selectedElementIds: []
-      });
-      this.actionDispatcher.request(requestAction).then(response => {
-        if (isSetContextActionsAction(response)) {
-          const paletteItems = response.actions.map(e => e as PaletteItem);
-          const actions = (item: PaletteItem): Action[] => item.actions;
-          this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-          this.createElementPickerMenu();
-        }
-      });
-      this.updateColorPalette();
-      this.actionDispatcher
-        .request(new RequestContextActions('ivy-tool-activity-type-palette', { selectedElementIds: [] }))
-        .then(response => {
-          if (isSetContextActionsAction(response)) {
-            const paletteItems = response.actions.map(e => e as PaletteItem);
-            const actions = (item: PaletteItem): Action[] => [
-              new ChangeActivityTypeOperation([...this.selectionService.getSelectedElementIDs()][0], item.id)
-            ];
-            this.activityTypePickerMenu = new ItemPickerMenu(
-              paletteItems,
-              actions,
-              this.onClickElementPickerToolButton,
-              this.clearToolOnEscape
-            );
-            this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
-          }
-        });
-      this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
+      this.updateElementPalette().then(() => this.updateColorPalette().then(() => this.updateActivityTypePalette()));
+      return new SetUIExtensionVisibilityAction(ToolBar.ID, true);
     } else if (action.kind === UpdateColorPaletteAction.KIND) {
       this.updateColorPalette();
     } else if (action instanceof EnableDefaultToolsAction) {
@@ -340,24 +312,51 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   }
 
-  private updateColorPalette(): void {
-    this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] })).then(response => {
-      if (isSetContextActionsAction(response)) {
-        const paletteItems = response.actions.map(e => e as PaletteItem);
-        const actions = (item: PaletteItem): Action[] => [
-          new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
-        ];
-        this.colorPickerMenu?.removeMenuBody();
-        this.colorPickerMenu = new ItemPickerMenu(
-          paletteItems,
-          actions,
-          this.onClickElementPickerToolButton,
-          this.clearToolOnEscape,
-          this.handleEditDialogClose
-        );
-        this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
-      }
-    });
+  private async updateElementPalette(): Promise<void> {
+    const response = await this.actionDispatcher.request(
+      new RequestContextActions(ToolBar.ID, {
+        selectedElementIds: []
+      })
+    );
+    if (isSetContextActionsAction(response)) {
+      const paletteItems = response.actions.map(e => e as PaletteItem);
+      const actions = (item_1: PaletteItem): Action[] => item_1.actions;
+      this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+      this.createElementPickerMenu();
+    }
+  }
+
+  private async updateActivityTypePalette(): Promise<void> {
+    const response = await this.actionDispatcher.request(
+      new RequestContextActions('ivy-tool-activity-type-palette', { selectedElementIds: [] })
+    );
+    if (isSetContextActionsAction(response)) {
+      const paletteItems = response.actions.map(e => e as PaletteItem);
+      const actions = (item: PaletteItem): Action[] => [
+        new ChangeActivityTypeOperation([...this.selectionService.getSelectedElementIDs()][0], item.id)
+      ];
+      this.activityTypePickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+      this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
+    }
+  }
+
+  private async updateColorPalette(): Promise<void> {
+    const response = await this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] }));
+    if (isSetContextActionsAction(response)) {
+      const paletteItems = response.actions.map(e => e as PaletteItem);
+      const actions = (item: PaletteItem): Action[] => [
+        new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
+      ];
+      this.colorPickerMenu?.removeMenuBody();
+      this.colorPickerMenu = new ItemPickerMenu(
+        paletteItems,
+        actions,
+        this.onClickElementPickerToolButton,
+        this.clearToolOnEscape,
+        this.handleEditDialogClose
+      );
+      this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
+    }
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {

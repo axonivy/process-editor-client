@@ -1,6 +1,7 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { addLane, endSelector, multiSelect, resetSelection, startSelector } from '../diagram-util';
+import { endSelector, multiSelect, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { addLane } from '../toolbar-util';
 
 test.describe('tool bar - color palette', () => {
   const PALETTE_BODY = '.color-palette-body';

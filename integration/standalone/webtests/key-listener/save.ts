@@ -12,18 +12,18 @@ test.describe('key listener - save', () => {
     const text = 'test label';
     const start = page.locator(startSelector);
 
-    editNodeLabel(page, start, text);
-    page.reload();
+    await editNodeLabel(page, start, text);
+    await page.reload();
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
 
-    editNodeLabel(page, start, text);
+    await editNodeLabel(page, start, text);
     await page.keyboard.press(`${getCtrl(browserName)}+S`);
-    page.reload();
+    await page.reload();
     await expect(start.locator('.sprotty-label div')).toHaveText(text);
   });
 
   async function editNodeLabel(page: Page, node: Locator, text: string): Promise<void> {
-    editLabel(page, node, text);
+    await editLabel(page, node, text);
     await expect(node.locator('.sprotty-label div')).toHaveText(text);
   }
 });

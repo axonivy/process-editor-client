@@ -53,7 +53,7 @@ test.describe('quick actions - connectors', () => {
   });
 
   async function editConnectorLabel(page: Page, connector: Locator): Promise<void> {
-    editLabel(page, connector);
+    await editLabel(page, connector);
     await expect(connector.locator('.sprotty-label div')).toHaveText('test label');
   }
 
