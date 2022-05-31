@@ -3,7 +3,9 @@ import {
   EnableToolPaletteAction,
   GLSPDiagramServer,
   RequestTypeHintsAction,
-  GLSPActionDispatcher
+  GLSPActionDispatcher,
+  RankingMouseTool,
+  GLSP_TYPES
 } from '@eclipse-glsp/client';
 import {
   appendIconFontToDom,
@@ -13,7 +15,8 @@ import {
   ToolBar,
   ivyToolBarModule,
   IVY_TYPES,
-  ivyHoverModule
+  ivyHoverModule,
+  IvyHoverMouseListener
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 import { RequestModelAction, TYPES, SelectAction, Action, CenterAction } from 'sprotty';
@@ -114,6 +117,8 @@ function isNumeric(num: any): boolean {
 function setViewerMode(): void {
   container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
   container.unload(ivyToolBarModule);
+  const mouseListener = container.get<IvyHoverMouseListener>(IVY_TYPES.IvyHoverMouseListener);
+  container.get<RankingMouseTool>(GLSP_TYPES.MouseTool).deregister(mouseListener);
   container.unload(ivyHoverModule);
 }
 
