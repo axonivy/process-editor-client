@@ -1,4 +1,4 @@
-import { EditorContextService, GLSP_TYPES, GLSPActionDispatcher, EnableToolPaletteAction, isViewport } from '@eclipse-glsp/client';
+import { EditorContextService, GLSP_TYPES, GLSPActionDispatcher, isViewport } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable } from 'inversify';
 import {
@@ -15,6 +15,13 @@ import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton 
 
 import { createIcon } from '../tool-bar/tool-bar-helper';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { IvySetViewportZoomAction } from './viewport-commands';
+
+@injectable()
+export class EnableViewportAction implements Action {
+  static readonly KIND = 'enableViewport';
+  readonly kind = EnableViewportAction.KIND;
+}
 
 @injectable()
 export class ViewportBar extends AbstractUIExtension implements IActionHandler {
@@ -82,11 +89,13 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   }
 
   handle(action: Action): ICommand | Action | void {
-    if (action.kind === EnableToolPaletteAction.KIND) {
+    if (action.kind === EnableViewportAction.KIND) {
       this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ViewportBar.ID, true));
     }
     if (isSetViewportAction(action)) {
       this.updateZoomLevel(action.newViewport.zoom);
+    } else if (isIvySetViewportZoomAction(action)) {
+      this.updateZoomLevel(action.zoom);
     }
   }
 
@@ -99,4 +108,8 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
 
 function isSetViewportAction(action: Action): action is SetViewportAction {
   return action !== undefined && action.kind === SetViewportAction.KIND && (action as SetViewportAction).newViewport !== undefined;
+}
+
+function isIvySetViewportZoomAction(action: Action): action is IvySetViewportZoomAction {
+  return action !== undefined && action.kind === IvySetViewportZoomAction.KIND && (action as IvySetViewportZoomAction).zoom !== undefined;
 }

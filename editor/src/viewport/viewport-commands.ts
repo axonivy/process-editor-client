@@ -1,6 +1,19 @@
 import { center, FitToScreenAction, FitToScreenCommand, isBoundsAware, ORIGIN_POINT, Point } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
-import { Action, Bounds, BoundsAwareViewportCommand, combine, isValidDimension, isViewport, SModelRoot, TYPES, Viewport } from 'sprotty';
+import {
+  Action,
+  Bounds,
+  BoundsAwareViewportCommand,
+  combine,
+  isValidDimension,
+  isViewport,
+  SModelRoot,
+  TYPES,
+  Viewport,
+  CommandExecutionContext,
+  CommandReturn,
+  Command
+} from 'sprotty';
 
 export class OriginViewportAction implements Action {
   static readonly KIND = 'originViewport';
@@ -100,4 +113,36 @@ export function moveIntoViewport(viewPort: Bounds, currentScrollPos: Point, elem
 function calculateScroll(viewPort: number, currentScrollPos: number, elementPos: number, zoom: number): number {
   const effectivePos = elementPos - currentScrollPos;
   return effectivePos > viewPort || effectivePos < 0 ? elementPos - (0.5 * viewPort) / zoom : currentScrollPos;
+}
+
+export class IvySetViewportZoomAction {
+  static readonly KIND = 'ivyviewportzoom';
+  kind = IvySetViewportZoomAction.KIND;
+
+  constructor(public readonly zoom: number) {}
+}
+
+export class IvySetViewportZoomCommand extends Command {
+  static readonly KIND = IvySetViewportZoomAction.KIND;
+
+  constructor(@inject(TYPES.Action) protected readonly action: IvySetViewportZoomAction) {
+    super();
+  }
+
+  execute(context: CommandExecutionContext): CommandReturn {
+    const model = context.root;
+    if (isViewport(model)) {
+      model.zoom = this.action.zoom;
+    }
+    return model;
+  }
+
+  undo(context: CommandExecutionContext): CommandReturn {
+    context.logger.error(this, 'Cannot undo a ivy viewport zoom command');
+    return context.root;
+  }
+  redo(context: CommandExecutionContext): CommandReturn {
+    context.logger.error(this, 'Cannot redo a ivy viewport zoom command');
+    return context.root;
+  }
 }

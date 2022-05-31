@@ -5,12 +5,21 @@ import {
   RequestTypeHintsAction,
   GLSPActionDispatcher
 } from '@eclipse-glsp/client';
-import { appendIconFontToDom } from '@ivyteam/process-editor';
+import {
+  appendIconFontToDom,
+  MoveIntoViewportAction,
+  IvySetViewportZoomAction,
+  EnableViewportAction,
+  ToolBar,
+  ivyToolBarModule,
+  IVY_TYPES,
+  ivyHoverModule
+} from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
-import { IActionDispatcher, RequestModelAction, TYPES, SelectAction } from 'sprotty';
+import { RequestModelAction, TYPES, SelectAction, Action, CenterAction } from 'sprotty';
 
 import createContainer from './di.config';
-import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
+import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -28,6 +37,7 @@ const pid = parameters['pid'] ?? '';
 const givenFile = parameters['file'] ?? '';
 const highlight = parameters['highlight'];
 const selectElementIds = parameters['selectElementIds'];
+const zoom = parameters['zoom'];
 
 appendIconFontToDom(`${isSecureConnection() ? 'https' : 'http'}://${server}`);
 
@@ -48,7 +58,7 @@ async function initialize(client: GLSPClient): Promise<void> {
   });
   await configureServerActions(result, diagramType, container);
 
-  const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
+  const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
 
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   actionDispatcher
@@ -65,15 +75,46 @@ async function initialize(client: GLSPClient): Promise<void> {
     )
     .then(() => dispatchAfterModelInitialized(actionDispatcher));
   actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
-  actionDispatcher.dispatch(new EnableToolPaletteAction());
+  if (isInViewerMode() || isInPreviewMode()) {
+    setViewerMode();
+  } else {
+    actionDispatcher.dispatch(new EnableToolPaletteAction());
+  }
+  if (!isInPreviewMode()) {
+    actionDispatcher.dispatch(new EnableViewportAction());
+  }
 }
 
-function dispatchAfterModelInitialized(dispatcher: IActionDispatcher): void {
-  if (dispatcher instanceof GLSPActionDispatcher && selectElementIds) {
-    dispatcher
-      .onceModelInitialized()
-      .finally(() => dispatcher.dispatch(new SelectAction(selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR))));
+function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
+  const actions: Action[] = [];
+  if (isNumeric(zoom)) {
+    actions.push(new IvySetViewportZoomAction(+zoom / 100));
+    actions.push(...showElement((ids: string[]) => new CenterAction(ids, false, true)));
+  } else {
+    actions.push(...showElement((ids: string[]) => new MoveIntoViewportAction(ids, false, true)));
   }
+  dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
+}
+
+function showElement(action: (elementIds: string[]) => Action): Action[] {
+  if (highlight) {
+    return [action([highlight])];
+  }
+  if (selectElementIds) {
+    const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+    return [new SelectAction(elementIds), action(elementIds)];
+  }
+  return [];
+}
+
+function isNumeric(num: any): boolean {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+}
+
+function setViewerMode(): void {
+  container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
+  container.unload(ivyToolBarModule);
+  container.unload(ivyHoverModule);
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');

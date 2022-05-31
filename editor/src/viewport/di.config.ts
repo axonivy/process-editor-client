@@ -1,4 +1,3 @@
-import { EnableToolPaletteAction } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 import {
   CenterCommand,
@@ -14,15 +13,22 @@ import {
   ZoomMouseListener
 } from 'sprotty';
 
-import { IvyFitToScreenCommand, MoveIntoViewportCommand, OriginViewportCommand } from './viewport-commands';
+import {
+  IvyFitToScreenCommand,
+  IvySetViewportZoomAction,
+  IvySetViewportZoomCommand,
+  MoveIntoViewportCommand,
+  OriginViewportCommand
+} from './viewport-commands';
 import { IvyScrollMouseListener } from './scroll-mouse-listener';
-import { ViewportBar } from './viewport-bar';
+import { EnableViewportAction, ViewportBar } from './viewport-bar';
 
 const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ViewportBar).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(ViewportBar);
-  configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ViewportBar);
+  configureActionHandler({ bind, isBound }, EnableViewportAction.KIND, ViewportBar);
   configureActionHandler({ bind, isBound }, SetViewportAction.KIND, ViewportBar);
+  configureActionHandler({ bind, isBound }, IvySetViewportZoomAction.KIND, ViewportBar);
 
   configureCommand({ bind, isBound }, CenterCommand);
   configureCommand({ bind, isBound }, IvyFitToScreenCommand);
@@ -30,6 +36,7 @@ const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, MoveIntoViewportCommand);
   configureCommand({ bind, isBound }, GetViewportCommand);
   configureCommand({ bind, isBound }, SetViewportCommand);
+  configureCommand({ bind, isBound }, IvySetViewportZoomCommand);
   bind(TYPES.KeyListener).to(CenterKeyboardListener);
   bind(TYPES.MouseListener).to(ZoomMouseListener);
   bind(IvyScrollMouseListener).toSelf().inSingletonScope();
