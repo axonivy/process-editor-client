@@ -1,5 +1,6 @@
 export const IVY_TYPES = {
   QuickActionProvider: Symbol.for('QuickActionProvider'),
   ToolBarButtonProvider: Symbol.for('ToolBarButtonProvider'),
-  ToolBar: Symbol.for('ToolBar')
+  ToolBar: Symbol.for('ToolBar'),
+  IvyHoverMouseListener: Symbol.for('IvyHoverMouseListener')
 };

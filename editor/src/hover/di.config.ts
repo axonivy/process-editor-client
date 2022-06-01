@@ -16,11 +16,14 @@ import {
   TYPES
 } from 'sprotty';
 import { PopupPositionUpdater } from 'sprotty/lib/features/hover/popup-position-updater';
+import { IVY_TYPES } from '../types';
 import { IvyHoverMouseListener } from './hover';
 
 const ivyHoverModule = new ContainerModule((bind, _unbind, isBound) => {
+  bind(IvyHoverMouseListener).toSelf().inSingletonScope();
+  bind(TYPES.MouseListener).toService(IvyHoverMouseListener);
+  bind(IVY_TYPES.IvyHoverMouseListener).toService(IvyHoverMouseListener);
   bind(TYPES.PopupVNodePostprocessor).to(PopupPositionUpdater).inSingletonScope();
-  bind(TYPES.MouseListener).to(IvyHoverMouseListener);
   bind(TYPES.PopupMouseListener).to(PopupHoverMouseListener);
   bind(TYPES.KeyListener).to(HoverKeyListener);
   bind<HoverState>(TYPES.HoverState).toConstantValue({
