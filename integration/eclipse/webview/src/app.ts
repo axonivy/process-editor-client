@@ -5,7 +5,7 @@ import {
   GLSPDiagramServer,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { appendIconFontToDom } from '@ivyteam/process-editor';
+import { appendIconFontToDom, EnableViewportAction } from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 import { RequestModelAction, TYPES } from 'sprotty';
@@ -60,6 +60,7 @@ async function initialize(client: GLSPClient): Promise<void> {
   );
   actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
   actionDispatcher.dispatch(new EnableToolPaletteAction());
+  actionDispatcher.dispatch(new EnableViewportAction());
 }
 
 function setWidgetId(mainWidgetId: string): void {
