@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { procurementRequestParallelUrl, triggerNewEmployeeUrl } from '../process-editor-url-util';
+import { processEditorUrl } from '../process-editor-url-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
 
 test.describe('Jump to external target', () => {
@@ -25,5 +25,17 @@ test.describe('Jump to external target', () => {
     expect(page.url()).toContain(`selectElementIds=${expectedElementPid}`);
     await expect(page.locator(`#sprotty_${expectedElementPid}`)).toHaveAttribute('class', /selected/);
     await expect(page.locator('.sprotty-node.selected')).toHaveCount(1);
+  }
+
+  function procurementRequestParallelUrl(): string {
+    return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.p.json');
+  }
+
+  function triggerNewEmployeeUrl(): string {
+    return workflowDemosUrl('/processes/Trigger/NewEmployee.p.json');
+  }
+
+  function workflowDemosUrl(file: string): string {
+    return processEditorUrl('workflow-demos', file);
   }
 });

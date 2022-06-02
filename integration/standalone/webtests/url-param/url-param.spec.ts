@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 import { startSelector } from '../diagram-util';
-import { procurementRequestParallelUrl } from '../process-editor-url-util';
+import { gotoRandomTestProcessUrl, processEditorUrl } from '../process-editor-url-util';
 
 test.describe('url parameters', () => {
   test('readonly', async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl() + '&readonly=true');
+    await gotoRandomTestProcessUrl(page, '&readonly=true');
     const defaultMouseToolBtn = page.locator('#btn_default_tools');
     const elementPickerTools = page.locator('.element-pickers');
     await expect(defaultMouseToolBtn).toBeVisible();
@@ -12,7 +12,7 @@ test.describe('url parameters', () => {
   });
 
   test('edit mode', async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl());
+    await gotoRandomTestProcessUrl(page);
     const defaultMouseToolBtn = page.locator('#btn_default_tools');
     const elementPickerTools = page.locator('.element-pickers');
     await expect(defaultMouseToolBtn).toBeVisible();
@@ -20,7 +20,7 @@ test.describe('url parameters', () => {
   });
 
   test('viewer mode', async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl() + '&mode=viewer');
+    await gotoRandomTestProcessUrl(page, '&mode=viewer');
     const toolbar = page.locator('.ivy-tool-bar');
     const viewport = page.locator('.ivy-viewport-bar');
     const start = page.locator(startSelector);
@@ -30,7 +30,7 @@ test.describe('url parameters', () => {
   });
 
   test('preview mode', async ({ page }) => {
-    await page.goto(procurementRequestParallelUrl() + '&mode=preview');
+    await gotoRandomTestProcessUrl(page, '&mode=preview');
     const toolbar = page.locator('.ivy-tool-bar');
     const viewport = page.locator('.ivy-viewport-bar');
     const start = page.locator(startSelector);
@@ -56,4 +56,12 @@ test.describe('url parameters', () => {
     await expect(viewport).toBeVisible();
     await expect(viewport).toHaveText('123%');
   });
+
+  function procurementRequestParallelUrl(): string {
+    return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.p.json');
+  }
+
+  function workflowDemosUrl(file: string): string {
+    return processEditorUrl('workflow-demos', file);
+  }
 });

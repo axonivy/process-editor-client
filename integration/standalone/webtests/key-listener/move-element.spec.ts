@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
-import { resetSelection, addPool, multiSelect, assertPosition, getPosition, startSelector, endSelector } from '../diagram-util';
+import { resetSelection, multiSelect, assertPosition, getPosition, startSelector, endSelector } from '../diagram-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
+import { addPool } from '../toolbar-util';
 
 const delay = { delay: 100 };
 const clickPosition = { x: 1, y: 1 };

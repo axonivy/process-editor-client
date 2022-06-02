@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { addLane, addPool } from '../diagram-util';
+import { addLane, addPool } from '../toolbar-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { assertQuickActionsCount, clickQuickAction, clickQuickActionStartsWith, editLabel } from './quick-actions-util';
 
@@ -85,7 +85,7 @@ test.describe('quick actions - lanes', () => {
   }
 
   async function editLaneLabel(page: Page, lane: Locator): Promise<void> {
-    editLabel(page, lane);
+    await editLabel(page, lane);
     await expect(lane.locator('text tspan')).toHaveText('test label');
   }
 });

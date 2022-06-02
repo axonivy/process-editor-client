@@ -1,6 +1,7 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { addActivity, embeddedSelector, endSelector, multiSelect, startSelector } from '../diagram-util';
+import { embeddedSelector, endSelector, multiSelect, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { addActivity } from '../toolbar-util';
 import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
 
 test.describe('quick actions - nodes', () => {
@@ -64,7 +65,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('error boundary', async ({ page }) => {
-    addActivity(page, 'User Dialog', 200, 200);
+    await addActivity(page, 'User Dialog', 200, 200);
     const hd = page.locator('.sprotty-graph .dialogCall');
     const errorBoundary = page.locator('.sprotty-graph .boundary\\:errorBoundaryEvent');
     await expect(errorBoundary).toBeHidden();
@@ -75,7 +76,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('signal boundary', async ({ page }) => {
-    addActivity(page, 'User Task', 200, 200);
+    await addActivity(page, 'User Task', 200, 200);
     const userTask = page.locator('.sprotty-graph .userTask');
     const signalBoundary = page.locator('.sprotty-graph .boundary\\:signalBoundaryEvent');
     await expect(signalBoundary).toBeHidden();
@@ -132,7 +133,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   async function editNodeLabel(page: Page, node: Locator, text = 'test label'): Promise<void> {
-    editLabel(page, node, text);
+    await editLabel(page, node, text);
     await expect(node.locator('.sprotty-label div')).toHaveText(text);
   }
 
