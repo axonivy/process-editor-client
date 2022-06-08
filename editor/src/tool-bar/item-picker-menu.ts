@@ -148,7 +148,7 @@ export class ItemPickerMenu {
     button.classList.add('tool-button');
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
-    if (this.handleEditDialogClose && item.label !== 'Default') {
+    if (this.handleEditDialogClose && item.label !== 'default') {
       button.appendChild(this.createEditButton('fa-pencil', 'Edit Color', item));
     }
     button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, this.actions(item));
