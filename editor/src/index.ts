@@ -1,10 +1,9 @@
 import ivyBreakpointModule from './breakpoint/di.config';
 import createIvyDiagramContainer from './di.config';
-import ivyKeyListenerModule from './key-listener/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
 import ivyHoverModule from './hover/di.config';
 
-export { createIvyDiagramContainer, ivyBreakpointModule, ivyKeyListenerModule, ivyToolBarModule, ivyHoverModule };
+export { createIvyDiagramContainer, ivyBreakpointModule, ivyToolBarModule, ivyHoverModule };
 
 /* Features */
 export * from './jump/action';

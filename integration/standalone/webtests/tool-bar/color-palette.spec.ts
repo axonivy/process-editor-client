@@ -27,7 +27,7 @@ test.describe('tool bar - color palette', () => {
     await searchInput.fill('ef');
     await searchInput.dispatchEvent('keyup');
     await expect(toolButtons).toHaveCount(1);
-    await expect(toolButtons).toHaveText('Default');
+    await expect(toolButtons).toHaveText('default');
 
     await searchInput.fill('bla');
     await searchInput.dispatchEvent('keyup');
