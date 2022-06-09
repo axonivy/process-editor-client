@@ -22,7 +22,7 @@ export class SetBreakpointActionHandler implements IActionHandler {
       for (const breakpoint of this.breakpoints) {
         elementBreakpoints.push({ elementId: breakpoint, condition: 'true', disabled: false });
       }
-      return new ShowBreakpointAction(elementBreakpoints, false);
+      return ShowBreakpointAction.create({ elementBreakpoints: elementBreakpoints, globalDisabled: false });
     }
     return;
   }

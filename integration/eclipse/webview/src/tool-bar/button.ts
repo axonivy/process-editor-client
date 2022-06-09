@@ -10,7 +10,7 @@ class InscribeProcessButton implements ToolBarButton {
     public readonly title = 'Inscribe Process (I)',
     public readonly sorting = 'D',
     public readonly visible = true,
-    public readonly action = () => new OpenInscriptionAction(''),
+    public readonly action = () => OpenInscriptionAction.create(''),
     public readonly location = ToolBarButtonLocation.Left
   ) {}
 }
@@ -28,7 +28,7 @@ class OpenDataClassButton implements ToolBarButton {
     public readonly title = 'Open Data Class (C)',
     public readonly sorting = 'E',
     public readonly visible = true,
-    public readonly action = () => new OpenDataClassAction(),
+    public readonly action = () => OpenDataClassAction.create(),
     public readonly location = ToolBarButtonLocation.Left
   ) {}
 }
@@ -47,7 +47,7 @@ export class OpenInsertConnectorButton implements ToolBarButton {
     public readonly title = 'Insert Connector',
     public readonly sorting = 'E',
     public readonly visible = true,
-    public readonly action = () => new OpenInsertConnectorAction(),
+    public readonly action = () => OpenInsertConnectorAction.create(),
     public readonly id = OpenInsertConnectorButton.ID,
     public readonly location = ToolBarButtonLocation.Right
   ) {}

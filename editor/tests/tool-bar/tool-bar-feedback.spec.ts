@@ -5,9 +5,7 @@ import {
   configureCommand,
   defaultGLSPModule,
   defaultModule,
-  EMPTY_BOUNDS,
   FeedbackActionDispatcher,
-  GLSP_TYPES,
   glspSelectModule,
   InitializeCanvasBoundsAction,
   LocalModelSource,
@@ -17,7 +15,8 @@ import {
   SModelFactory,
   SModelRoot,
   TYPES,
-  glspMouseToolModule
+  glspMouseToolModule,
+  Bounds
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
@@ -43,7 +42,7 @@ function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, glspMouseToolModule, ivyToolPaletteModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   container.bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
   configureCommand(container, ToolBarFeedbackCommandMock);
   return container;
@@ -60,26 +59,26 @@ describe('ToolPaletteFeedback', () => {
     root.args = {};
     customIconHandler = container.get<CustomIconToggleActionHandler>(CustomIconToggleActionHandler);
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
+    actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
   });
 
   it('jumpOutBtn is not shown on main process (contains no "-")', async () => {
-    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
+    await actionDispatcher.dispatch(ToolBarFeedbackAction.create());
     expect(jumpOutBtn).to.be.false;
   });
 
   it('jumpOutBtn is shown on sub process (root pid contains "-")', async () => {
     root.id = 'graph-f1';
-    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
+    await actionDispatcher.dispatch(ToolBarFeedbackAction.create());
     expect(jumpOutBtn).to.be.true;
   });
 
   it('customIconsBtn is active if root arg is set', async () => {
-    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
+    await actionDispatcher.dispatch(ToolBarFeedbackAction.create());
     expect(customIconsBtn).to.be.true;
 
     customIconHandler.setShowCustomIcons = false;
-    await actionDispatcher.dispatch(new ToolBarFeedbackAction());
+    await actionDispatcher.dispatch(ToolBarFeedbackAction.create());
     expect(customIconsBtn).to.be.false;
   });
 });

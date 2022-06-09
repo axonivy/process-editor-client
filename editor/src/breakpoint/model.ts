@@ -1,4 +1,13 @@
-import { Action, BoundsAware, Hoverable, hoverFeedbackFeature, SChildElement, selectFeature, SModelElement, SParentElement } from 'sprotty';
+import {
+  Action,
+  BoundsAware,
+  Hoverable,
+  hoverFeedbackFeature,
+  SChildElement,
+  selectFeature,
+  SModelElement,
+  SParentElement
+} from '@eclipse-glsp/client';
 
 export const breakpointFeature = Symbol('breakpointFeature');
 

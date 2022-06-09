@@ -1,4 +1,4 @@
-import { Action, IActionHandler, SModelElement } from '@eclipse-glsp/client';
+import { Action, hasStringProp, IActionHandler, SModelElement } from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
@@ -6,23 +6,33 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isJumpable } from './model';
 
-export class JumpAction implements Action {
-  static readonly KIND = 'jumpInto';
+export interface JumpAction extends Action {
+  kind: typeof JumpAction.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = JumpAction.KIND) {}
+export namespace JumpAction {
+  export const KIND = 'jumpInto';
+
+  export function create(options: { elementId: string }): JumpAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
+
+  export function is(object: any): object is JumpAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId');
+  }
 }
 
 @injectable()
 export class JumpActionHandler implements IActionHandler {
   handle(action: Action): Action | void {
-    if (isJumpAction(action)) {
-      return new SelectAllAction(false);
+    if (JumpAction.is(action)) {
+      return SelectAllAction.create(false);
     }
   }
-}
-
-export function isJumpAction(action: Action): action is JumpAction {
-  return action !== undefined && action.kind === JumpAction.KIND;
 }
 
 @injectable()
@@ -42,7 +52,7 @@ class JumpQuickAction implements QuickAction {
     public readonly title = 'Jump (J)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new JumpAction(elementId),
+    public readonly action = JumpAction.create({ elementId: elementId }),
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyJ'
   ) {}

@@ -1,16 +1,22 @@
-import { SChildElement } from '@eclipse-glsp/client';
+import { SChildElement, Command, CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Command, CommandExecutionContext, SModelRoot, TYPES } from 'sprotty';
 import { addCssClass, removeCssClass } from '../utils/element-css-classes';
 
 import { isAnimateable } from './model';
 
-export class AnimateFeedbackAction {
-  constructor(
-    public readonly animatedIDs: string[] = [],
-    public readonly deAnimatedIDs: string[] = [],
-    public readonly kind: string = AnimateFeedbackCommand.KIND
-  ) {}
+export interface AnimateFeedbackAction extends Action {
+  kind: typeof AnimateFeedbackCommand.KIND;
+  animatedIDs: string[];
+  deAnimatedIDs?: string[];
+}
+
+export namespace AnimateFeedbackAction {
+  export function create(options: { animatedIDs: string[]; deAnimatedIDs?: string[] }): AnimateFeedbackAction {
+    return {
+      kind: AnimateFeedbackCommand.KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -33,7 +39,7 @@ export class AnimateFeedbackCommand extends Command {
         this.animated.push(element);
       }
     });
-    this.action.deAnimatedIDs.forEach(id => {
+    this.action.deAnimatedIDs?.forEach(id => {
       const element = model.index.getById(id);
       if (element instanceof SChildElement && isAnimateable(element)) {
         this.deanimated.push(element);

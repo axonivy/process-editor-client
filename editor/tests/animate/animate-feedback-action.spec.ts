@@ -1,12 +1,11 @@
 import {
   ActionDispatcher,
+  Bounds,
   CommandExecutionContext,
   configureCommand,
   createFeatureSet,
   defaultModule,
-  EMPTY_BOUNDS,
   FeedbackActionDispatcher,
-  GLSP_TYPES,
   InitializeCanvasBoundsAction,
   SChildElement,
   SModelRoot,
@@ -35,7 +34,7 @@ class AnimationNode extends SChildElement {
 function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, AnimateFeedbackCommandMock);
   return container;
 }
@@ -46,7 +45,7 @@ describe('AnimateFeedbackAction', () => {
   beforeEach(() => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
+    actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
     root = new SModelRoot();
   });
 
@@ -55,10 +54,10 @@ describe('AnimateFeedbackAction', () => {
     node.id = 'foo';
     root.add(node);
 
-    await actionDispatcher.dispatch(new AnimateFeedbackAction(['foo']));
+    await actionDispatcher.dispatch(AnimateFeedbackAction.create({ animatedIDs: ['foo'] }));
     expect(node.cssClasses).to.include('animate');
 
-    await actionDispatcher.dispatch(new AnimateFeedbackAction([], ['foo']));
+    await actionDispatcher.dispatch(AnimateFeedbackAction.create({ animatedIDs: [], deAnimatedIDs: ['foo'] }));
     expect(node.cssClasses).to.not.include('animate');
   });
 });

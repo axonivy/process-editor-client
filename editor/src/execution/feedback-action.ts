@@ -1,18 +1,28 @@
-import { SChildElement } from '@eclipse-glsp/client';
+import { SChildElement, Command, CommandExecutionContext, SModelElement, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Command, CommandExecutionContext, SModelElement, SModelRoot, TYPES } from 'sprotty';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 import { ElementExecution } from './action';
 
 import { isExecutable, Executable } from './model';
 
-export class ExecutedFeedbackAction {
-  constructor(
-    public readonly oldElementExecutions: ElementExecution[] = [],
-    public readonly elementExecutions: ElementExecution[] = [],
-    public readonly lastExecutedElementId: string,
-    public readonly kind: string = ExecutedFeedbackCommand.KIND
-  ) {}
+export interface ExecutedFeedbackAction extends Action {
+  kind: typeof ExecutedFeedbackCommand.KIND;
+  oldElementExecutions?: ElementExecution[];
+  elementExecutions: ElementExecution[];
+  lastExecutedElementId: string;
+}
+
+export namespace ExecutedFeedbackAction {
+  export function create(options: {
+    oldElementExecutions?: ElementExecution[];
+    elementExecutions: ElementExecution[];
+    lastExecutedElementId: string;
+  }): ExecutedFeedbackAction {
+    return {
+      kind: ExecutedFeedbackCommand.KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -33,7 +43,7 @@ export class ExecutedFeedbackCommand extends Command {
   execute(context: CommandExecutionContext): SModelRoot {
     const model = context.root;
     this.lastExecutedElement = model.index.getById(this.action.lastExecutedElementId);
-    this.action.oldElementExecutions.forEach(elementExecution => {
+    this.action.oldElementExecutions?.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
       if (element instanceof SChildElement && isExecutable(element)) {
         setExecutionCount(element as Executable, 0);
@@ -72,12 +82,19 @@ export class ExecutedFeedbackCommand extends Command {
   }
 }
 
-export class StoppedFeedbackAction {
-  constructor(
-    public readonly oldStoppedElement: string,
-    public readonly stoppedElement: string,
-    public readonly kind: string = StoppedFeedbackCommand.KIND
-  ) {}
+export interface StoppedFeedbackAction extends Action {
+  kind: typeof StoppedFeedbackCommand.KIND;
+  oldStoppedElement: string;
+  stoppedElement: string;
+}
+
+export namespace StoppedFeedbackAction {
+  export function create(options: { oldStoppedElement: string; stoppedElement: string }): StoppedFeedbackAction {
+    return {
+      kind: StoppedFeedbackCommand.KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()

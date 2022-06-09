@@ -1,11 +1,10 @@
 import { injectable } from 'inversify';
-import { Action, IActionHandler } from 'sprotty';
-import { isNavigateToExternalTargetAction, NavigationTarget } from '@eclipse-glsp/protocol';
+import { Action, IActionHandler, NavigateToExternalTargetAction, NavigationTarget } from '@eclipse-glsp/client';
 
 @injectable()
 export class NavigateToExternalTargetActionHandler implements IActionHandler {
   handle(action: Action): void {
-    if (isNavigateToExternalTargetAction(action)) {
+    if (NavigateToExternalTargetAction.is(action)) {
       window.open(this.evaluateTargetUrl(action.target), '_self');
     }
   }

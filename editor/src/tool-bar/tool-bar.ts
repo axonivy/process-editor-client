@@ -1,33 +1,30 @@
 import {
-  EditModeListener,
-  EditorContextService,
-  GLSP_TYPES,
-  GLSPActionDispatcher,
-  IFeedbackActionDispatcher,
-  isSetContextActionsAction,
-  PaletteItem,
-  RequestContextActions,
-  EnableToolPaletteAction,
-  isNotUndefined
-} from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { inject, injectable, postConstruct, multiInject } from 'inversify';
-import {
   AbstractUIExtension,
   Action,
-  EnableDefaultToolsAction,
-  EnableToolsAction,
+  EditModeListener,
+  EditorContextService,
   IActionHandler,
   ICommand,
   isConnectable,
   isDeletable,
   IToolManager,
+  TYPES,
+  GLSPActionDispatcher,
+  IFeedbackActionDispatcher,
+  PaletteItem,
+  RequestContextActions,
+  EnableDefaultToolsAction,
+  EnableToolPaletteAction,
+  EnableToolsAction,
+  isNotUndefined,
   SChildElement,
   SEdge,
   SetUIExtensionVisibilityAction,
-  SModelRoot,
-  TYPES
-} from 'sprotty';
+  SetContextActions,
+  SModelRoot
+} from '@eclipse-glsp/client';
+import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { inject, injectable, postConstruct, multiInject } from 'inversify';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
@@ -59,10 +56,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   static readonly ID = 'ivy-tool-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
-  @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
+  @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
 
   protected elementPickerMenu?: ItemPickerMenu;
@@ -100,7 +97,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
     this.modelRootId = root.id;
     this.containerElement.style.maxHeight = '50px';
-    this.feedbackDispatcher.registerFeedback(this, [new ToolBarFeedbackAction()]);
+    this.feedbackDispatcher.registerFeedback(this, [ToolBarFeedbackAction.create()]);
     this.selectionService.register(this);
   }
 
@@ -131,7 +128,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.toggleCustomIconsButton = this.createDynamicToolButton(
       'fa-solid fa-image',
       'Toggle custom icons',
-      () => new CustomIconToggleAction(!this.toggleCustomIconsButton.classList.contains('active')),
+      () => CustomIconToggleAction.create({ showCustomIcons: !this.toggleCustomIconsButton.classList.contains('active') }),
       true
     );
     headerTools.appendChild(this.toggleCustomIconsButton);
@@ -237,7 +234,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected onClickStaticToolButton(button: HTMLElement, toolId?: string) {
     return (_ev: MouseEvent) => {
-      const action = toolId ? new EnableToolsAction([toolId]) : new EnableDefaultToolsAction();
+      const action = toolId ? EnableToolsAction.create([toolId]) : EnableDefaultToolsAction.create();
       this.dispatchAction([action]);
       this.changeActiveButton(button);
       button.focus();
@@ -247,10 +244,18 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   private dispatchAction(actions: Action[]): void {
     const selectedElements = this.selectionService.getSelectedElements();
     if (selectedElements.length === 1 && selectedElements[0] instanceof SEdge) {
-      this.actionDispatcher.dispatchAll(actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false)));
+      this.actionDispatcher.dispatchAll(
+        actions.concat(SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }))
+      );
     } else {
       this.actionDispatcher.dispatchAll(
-        actions.concat(new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()]))
+        actions.concat(
+          SetUIExtensionVisibilityAction.create({
+            extensionId: QuickActionUI.ID,
+            visible: true,
+            contextElementsId: [...this.selectionService.getSelectedElementIDs()]
+          })
+        )
       );
     }
   }
@@ -265,7 +270,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   clearToolOnEscape = (event: KeyboardEvent): void => {
     if (matchesKeystroke(event, 'Escape')) {
-      this.actionDispatcher.dispatch(new EnableDefaultToolsAction());
+      this.actionDispatcher.dispatch(EnableDefaultToolsAction.create());
     }
   };
 
@@ -281,7 +286,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       colorName = newColor.Name.toString();
       color = newColor.Color.toString();
     }
-    this.actionDispatcher.dispatch(new ChangeColorOperation(color, colorName, oldColor));
+    this.actionDispatcher.dispatch(ChangeColorOperation.create({ color: color, colorName: colorName, oldColor: oldColor }));
   };
 
   changeActiveButton(button?: HTMLElement): void {
@@ -303,10 +308,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   handle(action: Action): ICommand | Action | void {
     if (action.kind === EnableToolPaletteAction.KIND) {
       this.updateElementPalette().then(() => this.updateColorPalette().then(() => this.updateActivityTypePalette()));
-      return new SetUIExtensionVisibilityAction(ToolBar.ID, true);
+      return SetUIExtensionVisibilityAction.create({ extensionId: ToolBar.ID, visible: true });
     } else if (action.kind === UpdateColorPaletteAction.KIND) {
       this.updateColorPalette();
-    } else if (action instanceof EnableDefaultToolsAction) {
+    } else if (EnableDefaultToolsAction.is(action)) {
       this.changeActiveButton();
       this.restoreFocus();
     }
@@ -314,11 +319,9 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private async updateElementPalette(): Promise<void> {
     const response = await this.actionDispatcher.request(
-      new RequestContextActions(ToolBar.ID, {
-        selectedElementIds: []
-      })
+      RequestContextActions.create({ contextId: ToolBar.ID, editorContext: { selectedElementIds: [] } })
     );
-    if (isSetContextActionsAction(response)) {
+    if (SetContextActions.is(response)) {
       const paletteItems = response.actions.map(e => e as PaletteItem);
       const actions = (item_1: PaletteItem): Action[] => item_1.actions;
       this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
@@ -328,12 +331,12 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private async updateActivityTypePalette(): Promise<void> {
     const response = await this.actionDispatcher.request(
-      new RequestContextActions('ivy-tool-activity-type-palette', { selectedElementIds: [] })
+      RequestContextActions.create({ contextId: 'ivy-tool-activity-type-palette', editorContext: { selectedElementIds: [] } })
     );
-    if (isSetContextActionsAction(response)) {
+    if (SetContextActions.is(response)) {
       const paletteItems = response.actions.map(e => e as PaletteItem);
       const actions = (item: PaletteItem): Action[] => [
-        new ChangeActivityTypeOperation([...this.selectionService.getSelectedElementIDs()][0], item.id)
+        ChangeActivityTypeOperation.create({ elementId: [...this.selectionService.getSelectedElementIDs()][0], typeId: item.id })
       ];
       this.activityTypePickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
       this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
@@ -341,11 +344,17 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   private async updateColorPalette(): Promise<void> {
-    const response = await this.actionDispatcher.request(new RequestContextActions('ivy-tool-color-palette', { selectedElementIds: [] }));
-    if (isSetContextActionsAction(response)) {
+    const response = await this.actionDispatcher.request(
+      RequestContextActions.create({ contextId: 'ivy-tool-color-palette', editorContext: { selectedElementIds: [] } })
+    );
+    if (SetContextActions.is(response)) {
       const paletteItems = response.actions.map(e => e as PaletteItem);
       const actions = (item: PaletteItem): Action[] => [
-        new ColorizeOperation([...this.selectionService.getSelectedElementIDs()], item.icon!, item.label)
+        ColorizeOperation.create({
+          elementIds: [...this.selectionService.getSelectedElementIDs()],
+          color: item.icon!,
+          colorName: item.label
+        })
       ];
       this.colorPickerMenu?.removeMenuBody();
       this.colorPickerMenu = new ItemPickerMenu(
@@ -361,7 +370,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   editModeChanged(_oldValue: string, _newValue: string): void {
     if (_oldValue) {
-      this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, !this.editorContext.isReadonly));
+      this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ToolBar.ID, visible: true }));
     }
   }
 

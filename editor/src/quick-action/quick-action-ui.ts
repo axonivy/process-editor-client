@@ -3,15 +3,12 @@ import {
   Action,
   Bounds,
   BoundsAware,
-  combine,
   EditorContextService,
   getAbsoluteBounds,
-  GLSP_TYPES,
   IActionDispatcherProvider,
   isNotUndefined,
   MouseListener,
   MouseTool,
-  ORIGIN_POINT,
   Point,
   SEdge,
   SetUIExtensionVisibilityAction,
@@ -36,8 +33,8 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   private activeQuickActions: QuickAction[] = [];
 
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(GLSP_TYPES.MouseTool) protected mouseTool: MouseTool;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.MouseTool) protected mouseTool: MouseTool;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
@@ -73,7 +70,11 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   public showUi(): void {
     this.actionDispatcherProvider().then(actionDispatcher =>
       actionDispatcher.dispatch(
-        new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()])
+        SetUIExtensionVisibilityAction.create({
+          extensionId: QuickActionUI.ID,
+          visible: true,
+          contextElementsId: [...this.selectionService.getSelectedElementIDs()]
+        })
       )
     );
   }
@@ -81,7 +82,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   public hideUi(): void {
     this.activeQuickActions = [];
     this.actionDispatcherProvider().then(actionDispatcher =>
-      actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(QuickActionUI.ID, false))
+      actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }))
     );
   }
 
@@ -104,7 +105,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   }
 
   private showMultiQuickActionUi(containerElement: HTMLElement, elements: SModelElement[]): void {
-    const selectionBounds = elements.map(e => getAbsoluteBounds(e)).reduce((b1, b2) => combine(b1, b2));
+    const selectionBounds = elements.map(e => getAbsoluteBounds(e)).reduce((b1, b2) => Bounds.combine(b1, b2));
     containerElement.style.left = `${selectionBounds.x}px`;
     containerElement.style.top = `${selectionBounds.y}px`;
 
@@ -158,7 +159,10 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     button.title = quickAction.title;
     button.onclick = () =>
       this.actionDispatcherProvider().then(dispatcher =>
-        dispatcher.dispatchAll([new SetUIExtensionVisibilityAction(QuickActionUI.ID, false), quickAction.action])
+        dispatcher.dispatchAll([
+          SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }),
+          quickAction.action
+        ])
       );
     button.style.left = `${position.x}px`;
     button.style.top = `${position.y}px`;
@@ -182,7 +186,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     } else if (location === QuickActionLocation.BottomLeft) {
       return { x: -30 + position * 32, y: parentDimension.height + 10 };
     }
-    return ORIGIN_POINT;
+    return Point.ORIGIN;
   }
 
   protected isReadonly(): boolean {

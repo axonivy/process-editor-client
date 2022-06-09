@@ -1,14 +1,23 @@
-import { Action, KeyListener, SModelElement } from 'sprotty';
+import { Action, KeyListener, SModelElement } from '@eclipse-glsp/client';
 
-export class OpenQuickOutlineAction implements Action {
-  static readonly KIND = 'openQuickOutline';
-  constructor(public readonly kind: string = OpenQuickOutlineAction.KIND) {}
+export interface OpenQuickOutlineAction extends Action {
+  kind: typeof OpenQuickOutlineAction.KIND;
+}
+
+export namespace OpenQuickOutlineAction {
+  export const KIND = 'openQuickOutline';
+
+  export function create(): OpenQuickOutlineAction {
+    return {
+      kind: KIND
+    };
+  }
 }
 
 export class OpenQuickOutlineKeyListener extends KeyListener {
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
     if (event.ctrlKey && event.key === 'o') {
-      return [new OpenQuickOutlineAction()];
+      return [OpenQuickOutlineAction.create()];
     }
     return [];
   }

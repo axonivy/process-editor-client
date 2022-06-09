@@ -21,7 +21,7 @@ class EditSourceQuickAction implements QuickAction {
     public readonly title = 'Edit (E)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new EditSourceAction(elementId),
+    public readonly action = EditSourceAction.create(elementId),
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyE'
   ) {}

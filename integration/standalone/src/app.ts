@@ -1,11 +1,15 @@
 import {
+  Action,
+  CenterAction,
   configureServerActions,
   EnableToolPaletteAction,
   GLSPDiagramServer,
   RequestTypeHintsAction,
   GLSPActionDispatcher,
   RankingMouseTool,
-  GLSP_TYPES
+  RequestModelAction,
+  SelectAction,
+  TYPES
 } from '@eclipse-glsp/client';
 import {
   appendIconFontToDom,
@@ -19,7 +23,6 @@ import {
   IvyHoverMouseListener
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
-import { RequestModelAction, TYPES, SelectAction, Action, CenterAction } from 'sprotty';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
@@ -66,26 +69,20 @@ async function initialize(client: GLSPClient): Promise<void> {
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   actionDispatcher
     .dispatch(
-      new RequestModelAction({
-        sourceUri: givenFile,
-        app: app,
-        pmv: pmv,
-        pid: pid,
-        highlight: highlight,
-        readonly: isReadonly(),
-        diagramType
+      RequestModelAction.create({
+        options: { sourceUri: givenFile, app: app, pmv: pmv, pid: pid, highlight: highlight, readonly: isReadonly(), diagramType }
       })
     )
     .then(() => dispatchAfterModelInitialized(actionDispatcher))
-    .then(() => actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType)))
+    .then(() => actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType })))
     .then(() => {
       if (isInViewerMode() || isInPreviewMode()) {
         setViewerMode();
       } else {
-        actionDispatcher.dispatch(new EnableToolPaletteAction());
+        actionDispatcher.dispatch(EnableToolPaletteAction.create());
       }
       if (!isInPreviewMode()) {
-        actionDispatcher.dispatch(new EnableViewportAction());
+        actionDispatcher.dispatch(EnableViewportAction.create());
       }
     });
 }
@@ -93,10 +90,10 @@ async function initialize(client: GLSPClient): Promise<void> {
 async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
   const actions: Action[] = [];
   if (isNumeric(zoom)) {
-    actions.push(new IvySetViewportZoomAction(+zoom / 100));
-    actions.push(...showElement((ids: string[]) => new CenterAction(ids, false, true)));
+    actions.push(IvySetViewportZoomAction.create({ zoom: +zoom / 100 }));
+    actions.push(...showElement((ids: string[]) => CenterAction.create(ids, { animate: false, retainZoom: true })));
   } else {
-    actions.push(...showElement((ids: string[]) => new MoveIntoViewportAction(ids, false, true)));
+    actions.push(...showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true })));
   }
   return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
@@ -107,7 +104,7 @@ function showElement(action: (elementIds: string[]) => Action): Action[] {
   }
   if (selectElementIds) {
     const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
-    return [new SelectAction(elementIds), action(elementIds)];
+    return [SelectAction.create({ selectedElementsIDs: elementIds }), action(elementIds)];
   }
   return [];
 }
@@ -120,7 +117,7 @@ function setViewerMode(): void {
   container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
   container.unload(ivyToolBarModule);
   const mouseListener = container.get<IvyHoverMouseListener>(IVY_TYPES.IvyHoverMouseListener);
-  container.get<RankingMouseTool>(GLSP_TYPES.MouseTool).deregister(mouseListener);
+  container.get<RankingMouseTool>(TYPES.MouseTool).deregister(mouseListener);
   container.unload(ivyHoverModule);
 }
 

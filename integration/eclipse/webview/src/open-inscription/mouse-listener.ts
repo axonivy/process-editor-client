@@ -6,7 +6,7 @@ export class OpenInscriptionMouseListener extends MouseListener {
   doubleClick(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
     const element = findParentByFeature(target, isOpenable);
     if (element) {
-      return [new OpenInscriptionAction(element.id)];
+      return [OpenInscriptionAction.create(element.id)];
     }
     return [];
   }

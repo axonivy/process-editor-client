@@ -1,18 +1,37 @@
-import { MouseListener } from '@eclipse-glsp/client';
+import {
+  MouseListener,
+  Action,
+  Command,
+  CommandExecutionContext,
+  SChildElement,
+  SModelElement,
+  SModelRoot,
+  TYPES
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Action, Command, CommandExecutionContext, SChildElement, SModelElement, SModelRoot, TYPES } from 'sprotty';
 import { ToggleBreakpointAction } from './action';
 import { ElementBreakpoint } from './action-handler';
 
 import { addBreakpointHandles, Breakable, isBreakable, removeBreakpointHandles, SBreakpointHandle } from './model';
 
-export class BreakpointFeedbackAction {
-  constructor(
-    public readonly breakpoints: ElementBreakpoint[] = [],
-    public readonly oldBreakpoints: ElementBreakpoint[] = [],
-    public readonly globalDisabled: boolean = false,
-    public readonly kind: string = BreakpointFeedbackCommand.KIND
-  ) {}
+export interface BreakpointFeedbackAction extends Action {
+  kind: typeof BreakpointFeedbackCommand.KIND;
+  breakpoints: ElementBreakpoint[];
+  oldBreakpoints?: ElementBreakpoint[];
+  globalDisabled?: boolean;
+}
+
+export namespace BreakpointFeedbackAction {
+  export function create(options: {
+    breakpoints: ElementBreakpoint[];
+    oldBreakpoints?: ElementBreakpoint[];
+    globalDisabled?: boolean;
+  }): BreakpointFeedbackAction {
+    return {
+      kind: BreakpointFeedbackCommand.KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -26,7 +45,7 @@ export class BreakpointFeedbackCommand extends Command {
   }
 
   execute(context: CommandExecutionContext): SModelRoot {
-    this.action.oldBreakpoints.forEach(breakpoint => {
+    this.action.oldBreakpoints?.forEach(breakpoint => {
       const element = context.root.index.getById(breakpoint.elementId);
       if (element instanceof SChildElement && isBreakable(element)) {
         removeBreakpointHandles(element);
@@ -39,7 +58,7 @@ export class BreakpointFeedbackCommand extends Command {
           element: element,
           condition: breakpoint.condition,
           disabled: breakpoint.disabled,
-          globalDisabled: this.action.globalDisabled
+          globalDisabled: this.action.globalDisabled ?? false
         });
       }
     });
@@ -65,7 +84,7 @@ export class BreakpointFeedbackCommand extends Command {
 export class BreakpointMouseListener extends MouseListener {
   mouseUp(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
     if (target instanceof SBreakpointHandle) {
-      return [new ToggleBreakpointAction(target.parent.id, !target.disabled)];
+      return [ToggleBreakpointAction.create({ elementId: target.parent.id, disable: !target.disabled })];
     }
     return [];
   }

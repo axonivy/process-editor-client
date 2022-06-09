@@ -1,26 +1,38 @@
-import { EditorContextService, GLSP_TYPES, GLSPActionDispatcher, isViewport } from '@eclipse-glsp/client';
-import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { inject, injectable } from 'inversify';
 import {
-  AbstractUIExtension,
   Action,
+  AbstractUIExtension,
+  EditorContextService,
+  GLSPActionDispatcher,
   IActionHandler,
   ICommand,
+  isViewport,
   IToolManager,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
   TYPES
-} from 'sprotty';
+} from '@eclipse-glsp/client';
+import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { inject, injectable } from 'inversify';
 import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
 
 import { createIcon } from '../tool-bar/tool-bar-helper';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { IvySetViewportZoomAction } from './viewport-commands';
 
-@injectable()
-export class EnableViewportAction implements Action {
-  static readonly KIND = 'enableViewport';
-  readonly kind = EnableViewportAction.KIND;
+export interface EnableViewportAction extends Action {
+  kind: typeof EnableViewportAction.KIND;
+}
+
+export namespace EnableViewportAction {
+  export const KIND = 'enableViewport';
+
+  export function is(object: any): object is EnableViewportAction {
+    return Action.hasKind(object, KIND);
+  }
+
+  export function create(): EnableViewportAction {
+    return { kind: KIND };
+  }
 }
 
 @injectable()
@@ -30,7 +42,7 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
 
   protected zoomLevel = '100%';
   protected zoomLevelElement?: HTMLElement;
@@ -82,7 +94,11 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
         if (isViewport(model)) {
           this.updateZoomLevel(model.zoom);
           this.actionDispatcher.dispatch(
-            new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...this.selectionService.getSelectedElementIDs()])
+            SetUIExtensionVisibilityAction.create({
+              extensionId: QuickActionUI.ID,
+              visible: true,
+              contextElementsId: [...this.selectionService.getSelectedElementIDs()]
+            })
           );
         }
       });
@@ -90,12 +106,12 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   }
 
   handle(action: Action): ICommand | Action | void {
-    if (action.kind === EnableViewportAction.KIND) {
-      this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ViewportBar.ID, true));
+    if (EnableViewportAction.is(action)) {
+      this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ViewportBar.ID, visible: true }));
     }
-    if (isSetViewportAction(action)) {
+    if (SetViewportAction.is(action)) {
       this.updateZoomLevel(action.newViewport.zoom);
-    } else if (isIvySetViewportZoomAction(action)) {
+    } else if (IvySetViewportZoomAction.is(action)) {
       this.updateZoomLevel(action.zoom);
     }
   }
@@ -106,12 +122,4 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
       this.zoomLevelElement.textContent = this.zoomLevel;
     }
   }
-}
-
-function isSetViewportAction(action: Action): action is SetViewportAction {
-  return action !== undefined && action.kind === SetViewportAction.KIND && (action as SetViewportAction).newViewport !== undefined;
-}
-
-function isIvySetViewportZoomAction(action: Action): action is IvySetViewportZoomAction {
-  return action !== undefined && action.kind === IvySetViewportZoomAction.KIND && (action as IvySetViewportZoomAction).zoom !== undefined;
 }

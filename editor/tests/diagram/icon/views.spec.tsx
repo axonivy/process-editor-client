@@ -2,7 +2,7 @@ import 'reflect-metadata';
 
 import { expect } from 'chai';
 import { VNode } from 'snabbdom';
-import { Bounds } from 'sprotty';
+import { Bounds } from '@eclipse-glsp/client';
 
 import { getActivityIconDecorator, getIconDecorator } from '../../../src/diagram/icon/views';
 import { setupGlobal } from '../../test-helper';

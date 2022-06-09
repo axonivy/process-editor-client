@@ -7,12 +7,6 @@
     "guard-for-in": "error",
     "no-caller": "error",
     "no-eval": "error",
-    "no-redeclare": [
-      "error",
-      {
-        "builtinGlobals": false
-      }
-    ],
     "no-restricted-imports": ["error", "..", "../index", "../..", "../../index"],
     "no-sequences": "error",
     "no-throw-literal": "error",

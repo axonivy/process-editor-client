@@ -1,6 +1,17 @@
 import { Action } from '@eclipse-glsp/protocol';
 
-export class OpenDecoratorBrowserAction implements Action {
-  static readonly KIND = 'openDecoratorBrowser';
-  constructor(readonly elementId: string, public readonly kind: string = OpenDecoratorBrowserAction.KIND) {}
+export interface OpenDecoratorBrowserAction extends Action {
+  kind: typeof OpenDecoratorBrowserAction.KIND;
+  elementId: string;
+}
+
+export namespace OpenDecoratorBrowserAction {
+  export const KIND = 'openDecoratorBrowser';
+
+  export function create(elementId: string): OpenDecoratorBrowserAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
 }

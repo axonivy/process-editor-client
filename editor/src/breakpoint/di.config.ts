@@ -1,7 +1,7 @@
 import '../../css/breakpoint.css';
 
 import { ContainerModule } from 'inversify';
-import { configureActionHandler, configureCommand, configureView } from 'sprotty';
+import { configureActionHandler, configureCommand, configureView, TYPES } from '@eclipse-glsp/client';
 
 import { IVY_TYPES } from '../types';
 import { BreakpointQuickActionProvider } from './action';
@@ -9,7 +9,6 @@ import { ShowBreakpointAction, ShowBreakpointActionHandler } from './action-hand
 import { BreakpointFeedbackCommand, BreakpointMouseListener } from './feedback-action';
 import { SBreakpointHandle } from './model';
 import { SBreakpointHandleView } from './view';
-import { TYPES } from '@eclipse-glsp/client';
 
 const ivyBreakpointModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ShowBreakpointActionHandler).toSelf().inSingletonScope();

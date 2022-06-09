@@ -1,15 +1,32 @@
-import { FeedbackCommand, isNotUndefined } from '@eclipse-glsp/client';
+import { FeedbackCommand, isNotUndefined, Action, CommandExecutionContext, CommandReturn, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Action, CommandExecutionContext, CommandReturn, TYPES } from 'sprotty';
 
 import { addLaneResizeHandles, isLaneResizable, removeLaneResizeHandles } from './model';
 
-export class ShowChangeLaneBoundsToolFeedbackAction implements Action {
-  constructor(readonly elementId?: string, public readonly kind: string = ShowChangeLaneBoundsToolFeedbackCommand.KIND) {}
+export interface ShowChangeLaneBoundsToolFeedbackAction extends Action {
+  kind: typeof ShowChangeLaneBoundsToolFeedbackCommand.KIND;
+  elementId?: string;
 }
 
-export class HideChangeLaneBoundsToolFeedbackAction implements Action {
-  constructor(public readonly kind: string = HideChangeLaneBoundsToolFeedbackCommand.KIND) {}
+export namespace ShowChangeLaneBoundsToolFeedbackAction {
+  export function create(elementId?: string): ShowChangeLaneBoundsToolFeedbackAction {
+    return {
+      kind: ShowChangeLaneBoundsToolFeedbackCommand.KIND,
+      elementId
+    };
+  }
+}
+
+export interface HideChangeLaneBoundsToolFeedbackAction extends Action {
+  kind: typeof HideChangeLaneBoundsToolFeedbackCommand.KIND;
+}
+
+export namespace HideChangeLaneBoundsToolFeedbackAction {
+  export function create(): HideChangeLaneBoundsToolFeedbackAction {
+    return {
+      kind: HideChangeLaneBoundsToolFeedbackCommand.KIND
+    };
+  }
 }
 
 @injectable()

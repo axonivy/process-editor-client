@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
-import { isBoundsAware, IView, RenderingContext, svg } from 'sprotty';
+import { isBoundsAware, IView, RenderingContext, svg } from '@eclipse-glsp/client';
 
 import { SBreakpointHandle } from './model';
 

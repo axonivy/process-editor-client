@@ -1,4 +1,12 @@
-import { Action, GLSP_TYPES, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
+import {
+  Action,
+  hasArrayProp,
+  hasStringProp,
+  IActionDispatcher,
+  IActionHandler,
+  IFeedbackActionDispatcher,
+  TYPES
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
@@ -9,22 +17,40 @@ export interface ElementExecution {
   failed: boolean;
 }
 
-export class SetExecutedElementsAction implements Action {
-  static readonly KIND = 'setExecutedElements';
-  kind = SetExecutedElementsAction.KIND;
+export interface SetExecutedElementsAction extends Action {
+  kind: typeof SetExecutedElementsAction.KIND;
+  elementExecutions: ElementExecution[];
+  lastExecutedElementId: string;
+}
 
-  constructor(public readonly elementExecutions: ElementExecution[], public readonly lastExecutedElementId: string = '') {}
+export namespace SetExecutedElementsAction {
+  export const KIND = 'setExecutedElements';
+
+  export function is(object: any): object is SetExecutedElementsAction {
+    return Action.hasKind(object, KIND) && hasArrayProp(object, 'elementExecutions');
+  }
+
+  export function create(options: { elementExecutions: ElementExecution[]; lastExecutedElementId: string }): SetExecutedElementsAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
 export class SetExecutedElementsActionHandler implements IActionHandler {
-  @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
+  @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
   oldExecutions: ElementExecution[];
 
   handle(action: Action): Action | void {
-    if (isSetExecutedElementsAction(action)) {
-      const feedbackAction = new ExecutedFeedbackAction(this.oldExecutions, action.elementExecutions, action.lastExecutedElementId);
+    if (SetExecutedElementsAction.is(action)) {
+      const feedbackAction = ExecutedFeedbackAction.create({
+        oldElementExecutions: this.oldExecutions,
+        elementExecutions: action.elementExecutions,
+        lastExecutedElementId: action.lastExecutedElementId
+      });
       if (action.elementExecutions.length > 0) {
         this.feedbackDispatcher.registerFeedback(this, [feedbackAction]);
       } else {
@@ -35,30 +61,35 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
   }
 }
 
-export function isSetExecutedElementsAction(action: Action): action is SetExecutedElementsAction {
-  return (
-    action !== undefined &&
-    action.kind === SetExecutedElementsAction.KIND &&
-    (action as SetExecutedElementsAction).elementExecutions !== undefined
-  );
+export interface StoppedAction extends Action {
+  kind: typeof StoppedAction.KIND;
+  elementId: string;
 }
 
-export class StoppedAction implements Action {
-  static readonly KIND = 'elementStopped';
-  kind = StoppedAction.KIND;
+export namespace StoppedAction {
+  export const KIND = 'elementStopped';
 
-  constructor(public readonly elementId: string) {}
+  export function is(object: any): object is StoppedAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId');
+  }
+
+  export function create(options: { elementId: string }): StoppedAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
 export class StoppedActionHandler implements IActionHandler {
-  @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
+  @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
   oldStoppedElement: string;
 
   handle(action: Action): Action | void {
-    if (isStoppedAction(action)) {
-      const feedbackAction = new StoppedFeedbackAction(this.oldStoppedElement, action.elementId);
+    if (StoppedAction.is(action)) {
+      const feedbackAction = StoppedFeedbackAction.create({ oldStoppedElement: this.oldStoppedElement, stoppedElement: action.elementId });
       if (action.elementId && action.elementId.length > 0) {
         this.feedbackDispatcher.registerFeedback(this, [feedbackAction]);
       } else {
@@ -67,8 +98,4 @@ export class StoppedActionHandler implements IActionHandler {
       this.oldStoppedElement = action.elementId;
     }
   }
-}
-
-export function isStoppedAction(action: Action): action is StoppedAction {
-  return action !== undefined && action.kind === StoppedAction.KIND;
 }

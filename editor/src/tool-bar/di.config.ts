@@ -1,14 +1,7 @@
 import '../../css/tool-bar.css';
 
-import {
-  configureActionHandler,
-  configureCommand,
-  EnableDefaultToolsAction,
-  EnableToolPaletteAction,
-  GLSP_TYPES
-} from '@eclipse-glsp/client';
+import { configureActionHandler, configureCommand, EnableDefaultToolsAction, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, interfaces } from 'inversify';
-import { TYPES } from 'sprotty';
 import { IVY_TYPES } from '../types';
 import { AutoAlignButtonProvider, DeleteButtonProvider, JumpOutButtonProvider, WrapToSubButtonProvider } from './button';
 
@@ -25,7 +18,7 @@ const ivyToolBarModule = new ContainerModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
   configureActionHandler({ bind, isBound }, UpdateColorPaletteAction.KIND, ToolBar);
   configureCommand({ bind, isBound }, ToolBarFeedbackCommand);
-  bind(GLSP_TYPES.ITool).to(IvyMarqueeMouseTool);
+  bind(TYPES.ITool).to(IvyMarqueeMouseTool);
   configureToolBarButtonProvider({ bind });
 });
 

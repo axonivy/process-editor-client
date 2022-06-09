@@ -1,4 +1,4 @@
-import { boundsFeature, createFeatureSet, getOrCreateSIssueMarker, ORIGIN_POINT, SModelElement, SModelRoot } from '@eclipse-glsp/client';
+import { boundsFeature, createFeatureSet, getOrCreateSIssueMarker, Point, SModelElement, SModelRoot } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 
 import { IvyDecorationPlacer } from '../../src/decorator/decoration-placer';
@@ -9,7 +9,7 @@ describe('IvyDecorationPlacer', () => {
 
   it('elemnt should return origin point', () => {
     const element = new SModelElement();
-    expect(placer.getPosition(element)).to.deep.equals(ORIGIN_POINT);
+    expect(placer.getPosition(element)).to.deep.equals(Point.ORIGIN);
   });
 
   it('resizable element should has position bottom left', () => {

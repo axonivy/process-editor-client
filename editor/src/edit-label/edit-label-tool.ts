@@ -1,6 +1,5 @@
-import { DirectLabelEditTool } from '@eclipse-glsp/client';
+import { DirectLabelEditTool, EditLabelKeyListener, EditLabelMouseListener, KeyListener, MouseListener } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { EditLabelKeyListener, EditLabelMouseListener, KeyListener, MouseListener } from 'sprotty';
 
 @injectable()
 export class IvyDirectLabelEditTool extends DirectLabelEditTool {

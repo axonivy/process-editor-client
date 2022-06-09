@@ -1,5 +1,5 @@
 import { ContainerModule } from 'inversify';
-import { configureActionHandler } from 'sprotty';
+import { configureActionHandler } from '@eclipse-glsp/client';
 import { StandaloneShowBreakpointAction, StandaloneShowBreakpointActionHandler } from './action-handler';
 
 const ivyStandaloneBreakpointModule = new ContainerModule((bind, _unbind, isBound) => {

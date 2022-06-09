@@ -4,10 +4,21 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 
-export class StraightenEdgeOperation implements Operation {
-  static readonly KIND = 'straightenEdge';
+export interface StraightenEdgeOperation extends Operation {
+  kind: typeof StraightenEdgeOperation.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = StraightenEdgeOperation.KIND) {}
+export namespace StraightenEdgeOperation {
+  export const KIND = 'straightenEdge';
+
+  export function create(options: { elementId: string }): StraightenEdgeOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -27,15 +38,26 @@ class StraightenEdgeQuickAction implements QuickAction {
     public readonly title = 'Straighten (S)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new StraightenEdgeOperation(elementId),
+    public readonly action = StraightenEdgeOperation.create({ elementId: elementId }),
     public readonly shortcut: KeyCode = 'KeyS'
   ) {}
 }
 
-export class AutoBendEdgeOperation implements Operation {
-  static readonly KIND = 'autoBendEdge';
+export interface AutoBendEdgeOperation extends Operation {
+  kind: typeof AutoBendEdgeOperation.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = AutoBendEdgeOperation.KIND) {}
+export namespace AutoBendEdgeOperation {
+  export const KIND = 'autoBendEdge';
+
+  export function create(options: { elementId: string }): AutoBendEdgeOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -55,7 +77,7 @@ class AutoBendEdgeQuickAction implements QuickAction {
     public readonly title = 'Bend (B)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new AutoBendEdgeOperation(elementId),
+    public readonly action = AutoBendEdgeOperation.create({ elementId: elementId }),
     public readonly shortcut: KeyCode = 'KeyB'
   ) {}
 }

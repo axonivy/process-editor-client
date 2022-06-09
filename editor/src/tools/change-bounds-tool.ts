@@ -1,6 +1,5 @@
-import { ChangeBoundsTool, MouseListener, ChangeBoundsListener, SModelElement } from '@eclipse-glsp/client';
+import { ChangeBoundsTool, MouseListener, ChangeBoundsListener, SModelElement, Operation } from '@eclipse-glsp/client';
 import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { Action } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -11,7 +10,7 @@ export class IvyChangeBoundsTool extends ChangeBoundsTool {
 }
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Action[] {
+  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
     return [];
   }
 }

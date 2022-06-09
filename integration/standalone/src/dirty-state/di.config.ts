@@ -1,5 +1,5 @@
 import { ContainerModule } from 'inversify';
-import { configureActionHandler } from 'sprotty';
+import { configureActionHandler } from '@eclipse-glsp/client';
 import { SetDirtyStateAction, SetDirtyStateActionHandler } from './action-handler';
 
 const ivyDirtyStateModule = new ContainerModule((bind, _unbind, isBound) => {

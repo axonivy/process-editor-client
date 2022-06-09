@@ -1,6 +1,7 @@
-import { isOpenable, OpenAction, SModelElement } from '@eclipse-glsp/client';
+import { isOpenable, SModelElement } from '@eclipse-glsp/client';
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
+import { OpenAction } from 'sprotty-protocol';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 @injectable()
@@ -20,7 +21,7 @@ class InscribeQuickAction implements QuickAction {
     public readonly title = 'Edit (I)',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
-    public readonly action = new OpenAction(elementId),
+    public readonly action = OpenAction.create(elementId),
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyI'
   ) {}

@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Decoration, DecorationPlacer, isSizeable, ORIGIN_POINT, Point, SChildElement, SModelElement, SRoutableElement } from 'sprotty';
+import { Decoration, DecorationPlacer, isSizeable, Point, SChildElement, SModelElement, SRoutableElement } from '@eclipse-glsp/client';
 
 @injectable()
 export class IvyDecorationPlacer extends DecorationPlacer {
@@ -21,6 +21,6 @@ export class IvyDecorationPlacer extends DecorationPlacer {
         y: IvyDecorationPlacer.DECORATION_OFFSET.y * element.bounds.height
       };
     }
-    return ORIGIN_POINT;
+    return Point.ORIGIN;
   }
 }

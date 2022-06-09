@@ -1,18 +1,17 @@
-import { KeyListener, Action, SModelElement } from 'sprotty';
 import { inject } from 'inversify';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { GLSP_TYPES } from '@eclipse-glsp/client';
+import { Action, KeyListener, SModelElement, TYPES } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { JumpAction } from '../jump/action';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 export class ToolBarKeyListener extends KeyListener {
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
   @inject(QuickActionUI) protected quickActionUi: QuickActionUI;
 
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
     if (matchesKeystroke(event, 'KeyJ') && this.isJumpOutActive()) {
-      return [new JumpAction('')];
+      return [JumpAction.create({ elementId: '' })];
     } else {
       return [];
     }

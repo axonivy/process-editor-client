@@ -1,10 +1,21 @@
 import { injectable } from 'inversify';
-import { Action, IActionHandler } from 'sprotty';
+import { Action, IActionHandler } from '@eclipse-glsp/client';
 
-export class SetDirtyStateAction implements Action {
-  static readonly KIND = 'setDirtyState';
+export interface SetDirtyStateAction extends Action {
+  kind: typeof SetDirtyStateAction.KIND;
+  isDirty: boolean;
+  reason: string;
+}
 
-  constructor(public readonly isDirty: boolean, public readonly reason: string, public readonly kind: string = SetDirtyStateAction.KIND) {}
+export namespace SetDirtyStateAction {
+  export const KIND = 'setDirtyState';
+
+  export function create(options: { isDirty: boolean; reason: string }): SetDirtyStateAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()

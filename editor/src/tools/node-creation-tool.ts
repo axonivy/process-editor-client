@@ -5,11 +5,12 @@ import {
   getAbsolutePosition,
   NodeCreationTool,
   NodeCreationToolMouseListener,
-  SModelElement
+  SModelElement,
+  ISnapper,
+  TYPES
 } from '@eclipse-glsp/client';
 import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { inject, injectable, optional } from 'inversify';
-import { ISnapper, TYPES } from 'sprotty';
 
 @injectable()
 export class IvyNodeCreationTool extends NodeCreationTool {

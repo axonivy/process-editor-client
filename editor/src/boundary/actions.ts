@@ -4,14 +4,22 @@ import { injectable } from 'inversify';
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { canAddErrorBoundary, canAddSignalBoundary } from './model';
 
-export class AttachBoundaryOperation implements Operation {
-  static readonly KIND = 'attachBoundary';
+export interface AttachBoundaryOperation extends Operation {
+  kind: typeof AttachBoundaryOperation.KIND;
+  elementId: string;
+  eventKind: string;
+}
 
-  constructor(
-    public readonly elementId: string,
-    public readonly eventKind: string,
-    public readonly kind: string = AttachBoundaryOperation.KIND
-  ) {}
+export namespace AttachBoundaryOperation {
+  export const KIND = 'attachBoundary';
+
+  export function create(options: { elementId: string; eventKind: string }): AttachBoundaryOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -31,7 +39,7 @@ class AttachErrorBoundaryQuickAction implements QuickAction {
     public readonly title = 'Attach Error',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'E',
-    public readonly action = new AttachBoundaryOperation(elementId, 'error')
+    public readonly action = AttachBoundaryOperation.create({ elementId: elementId, eventKind: 'error' })
   ) {}
 }
 
@@ -52,6 +60,6 @@ class AttachSignalBoundaryQuickAction implements QuickAction {
     public readonly title = 'Attach Signal',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'S',
-    public readonly action = new AttachBoundaryOperation(elementId, 'signal')
+    public readonly action = AttachBoundaryOperation.create({ elementId: elementId, eventKind: 'signal' })
   ) {}
 }

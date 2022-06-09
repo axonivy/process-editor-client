@@ -1,22 +1,27 @@
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { KeyListener, Action, SModelElement, BoundsAware, SChildElement, isBoundsAware } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, optional } from 'inversify';
 import {
+  Action,
+  BoundsAware,
   boundsFeature,
   getElements,
-  GLSP_TYPES,
   IMovementRestrictor,
+  isBoundsAware,
+  KeyListener,
+  SChildElement,
   SetUIExtensionVisibilityAction,
-  toElementAndBounds
+  SModelElement,
+  toElementAndBounds,
+  TYPES
 } from '@eclipse-glsp/client';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { IvyGridSnapper } from '../diagram/snap';
 
 export class MoveElementKeyListener extends KeyListener {
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(GLSP_TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
 
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
     if (this.selectionService.hasSelectedElements()) {
@@ -52,8 +57,12 @@ export class MoveElementKeyListener extends KeyListener {
       return [];
     }
     return [
-      new ChangeBoundsOperation(newBounds),
-      new SetUIExtensionVisibilityAction(QuickActionUI.ID, true, [...selectedElements.map(e => e.id)])
+      ChangeBoundsOperation.create(newBounds),
+      SetUIExtensionVisibilityAction.create({
+        extensionId: QuickActionUI.ID,
+        visible: true,
+        contextElementsId: [...selectedElements.map(e => e.id)]
+      })
     ];
   }
 
@@ -64,7 +73,7 @@ export class MoveElementKeyListener extends KeyListener {
   protected isMovementAllowed(element: SModelElement & BoundsAware, delta: Point): boolean {
     if (this.movementRestrictor) {
       const newPosition = this.updatePosition(element, delta);
-      return this.movementRestrictor.validate(newPosition, element);
+      return this.movementRestrictor.validate(element, newPosition);
     }
     return true;
   }

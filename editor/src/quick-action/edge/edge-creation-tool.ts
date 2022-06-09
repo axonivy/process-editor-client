@@ -1,29 +1,27 @@
 import {
+  Action,
+  AnchorComputerRegistry,
+  Args,
   CreateEdgeOperation,
   CursorCSS,
   cursorFeedbackAction,
   DragAwareMouseListener,
   DrawFeedbackEdgeAction,
-  FeedbackEdgeEndMovingMouseListener,
-  isTriggerElementTypeCreationAction,
-  RemoveFeedbackEdgeAction,
-  SNode,
-  TriggerElementCreationAction
-} from '@eclipse-glsp/client';
-import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
-import { inject, injectable } from 'inversify';
-import {
-  Action,
-  AnchorComputerRegistry,
   EnableDefaultToolsAction,
   EnableToolsAction,
+  FeedbackEdgeEndMovingMouseListener,
   findParentByFeature,
+  hasStringProp,
   IActionHandler,
   isConnectable,
   isCtrlOrCmd,
+  RemoveFeedbackEdgeAction,
   SEdge,
-  SModelElement
-} from 'sprotty';
+  SModelElement,
+  SNode
+} from '@eclipse-glsp/client';
+import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
+import { inject, injectable } from 'inversify';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 
@@ -58,13 +56,13 @@ export class QuickActionEdgeCreationTool extends BaseGLSPTool implements IAction
   disable(): void {
     this.mouseTool.deregister(this.creationToolMouseListener);
     this.mouseTool.deregister(this.feedbackEndMovingMouseListener);
-    this.deregisterFeedback([new RemoveFeedbackEdgeAction(), cursorFeedbackAction()]);
+    this.deregisterFeedback([RemoveFeedbackEdgeAction.create(), cursorFeedbackAction()]);
   }
 
   handle(action: Action): Action | void {
-    if (isTriggerElementTypeCreationAction(action) && action instanceof QuickActionTriggerEdgeCreationAction) {
+    if (QuickActionTriggerEdgeCreationAction.is(action)) {
       this.triggerAction = action;
-      return new EnableToolsAction([this.id]);
+      return EnableToolsAction.create([this.id]);
     }
   }
 }
@@ -82,7 +80,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     this.proxyEdge.type = triggerAction.elementTypeId;
     this.proxyEdge.sourceId = triggerAction.sourceId;
     this.source = this.triggerAction.sourceId;
-    this.tool.dispatchFeedback([new DrawFeedbackEdgeAction(this.triggerAction.elementTypeId, this.source)]);
+    this.tool.dispatchFeedback([DrawFeedbackEdgeAction.create({ elementTypeId: this.triggerAction.elementTypeId, sourceId: this.source })]);
   }
 
   protected reinitialize(): void {
@@ -90,7 +88,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     this.target = undefined;
     this.currentTarget = undefined;
     this.allowedTarget = false;
-    this.tool.dispatchFeedback([new RemoveFeedbackEdgeAction()]);
+    this.tool.dispatchFeedback([RemoveFeedbackEdgeAction.create()]);
   }
 
   nonDraggingMouseUp(_element: SModelElement, event: MouseEvent): Action[] {
@@ -100,15 +98,22 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
         this.target = this.currentTarget.id;
       }
       if (this.source && this.target) {
-        result.push(new CreateEdgeOperation(this.triggerAction.elementTypeId, this.source, this.target, this.triggerAction.args));
+        result.push(
+          CreateEdgeOperation.create({
+            elementTypeId: this.triggerAction.elementTypeId,
+            sourceElementId: this.source,
+            targetElementId: this.target,
+            args: this.triggerAction.args
+          })
+        );
         if (!isCtrlOrCmd(event)) {
-          result.push(new EnableDefaultToolsAction());
+          result.push(EnableDefaultToolsAction.create());
         } else {
           this.reinitialize();
         }
       }
     } else if (event.button === 2) {
-      result.push(new EnableDefaultToolsAction());
+      result.push(EnableDefaultToolsAction.create());
     }
     return result;
   }
@@ -152,11 +157,27 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
   }
 }
 
-export class QuickActionTriggerEdgeCreationAction extends TriggerElementCreationAction {
-  static readonly KIND = 'quickActionTriggerEdgeCreation';
+export interface QuickActionTriggerEdgeCreationAction extends Action {
+  kind: typeof QuickActionTriggerEdgeCreationAction.KIND;
+  elementTypeId: string;
+  sourceId: string;
+  args?: Args;
+}
 
-  constructor(public readonly elementTypeId: string, public readonly sourceId: string) {
-    super(elementTypeId, undefined, QuickActionTriggerEdgeCreationAction.KIND);
+export namespace QuickActionTriggerEdgeCreationAction {
+  export const KIND = 'quickActionTriggerEdgeCreation';
+
+  export function is(object: any): object is QuickActionTriggerEdgeCreationAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementTypeId') && hasStringProp(object, 'sourceId');
+  }
+
+  export function create(elementTypeId: string, sourceId: string, options: { args?: Args } = {}): QuickActionTriggerEdgeCreationAction {
+    return {
+      kind: KIND,
+      elementTypeId,
+      sourceId,
+      ...options
+    };
   }
 }
 
@@ -179,6 +200,6 @@ class ConnectQuickAction implements QuickAction {
     public readonly title = 'Connect',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
-    public readonly action = new QuickActionTriggerEdgeCreationAction('edge', elementId)
+    public readonly action = QuickActionTriggerEdgeCreationAction.create('edge', elementId)
   ) {}
 }

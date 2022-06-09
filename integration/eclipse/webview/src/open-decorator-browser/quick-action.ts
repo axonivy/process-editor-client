@@ -20,6 +20,6 @@ class CustomIconQuickAction implements QuickAction {
     public readonly title = 'Custom Icon',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'C',
-    public readonly action = new OpenDecoratorBrowserAction(elementId)
+    public readonly action = OpenDecoratorBrowserAction.create(elementId)
   ) {}
 }
