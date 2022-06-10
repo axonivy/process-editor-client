@@ -34,6 +34,7 @@ import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
 import ivyNodeModule from './node/di.config';
 import ivyEditLabelModule from './edit-label/di.config';
+import ivyKeyListenerModule from './key-listener/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -56,7 +57,8 @@ export default function createContainer(widgetId: string): Container {
     ivyConnectorModule,
     ivyToolsModule,
     ivyNodeModule,
-    ivyEditLabelModule
+    ivyEditLabelModule,
+    ivyKeyListenerModule
   );
   container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
