@@ -76,19 +76,21 @@ async function initialize(client: GLSPClient): Promise<void> {
         diagramType
       })
     )
-    .then(() => dispatchAfterModelInitialized(actionDispatcher));
-  actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
-  if (isInViewerMode() || isInPreviewMode()) {
-    setViewerMode();
-  } else {
-    actionDispatcher.dispatch(new EnableToolPaletteAction());
-  }
-  if (!isInPreviewMode()) {
-    actionDispatcher.dispatch(new EnableViewportAction());
-  }
+    .then(() => dispatchAfterModelInitialized(actionDispatcher))
+    .then(() => actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType)))
+    .then(() => {
+      if (isInViewerMode() || isInPreviewMode()) {
+        setViewerMode();
+      } else {
+        actionDispatcher.dispatch(new EnableToolPaletteAction());
+      }
+      if (!isInPreviewMode()) {
+        actionDispatcher.dispatch(new EnableViewportAction());
+      }
+    });
 }
 
-function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
+async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
   const actions: Action[] = [];
   if (isNumeric(zoom)) {
     actions.push(new IvySetViewportZoomAction(+zoom / 100));
@@ -96,7 +98,7 @@ function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): void {
   } else {
     actions.push(...showElement((ids: string[]) => new MoveIntoViewportAction(ids, false, true)));
   }
-  dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
+  return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 
 function showElement(action: (elementIds: string[]) => Action): Action[] {

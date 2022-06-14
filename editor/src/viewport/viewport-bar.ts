@@ -32,7 +32,8 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
 
-  protected zoomLevel?: HTMLElement;
+  protected zoomLevel = '100%';
+  protected zoomLevelElement?: HTMLElement;
 
   id(): string {
     return ViewportBar.ID;
@@ -65,9 +66,9 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
     const centerViewportButton = this.createViewportButton(new CenterButton(() => [...this.selectionService.getSelectedElementIDs()]));
     viewportTools.appendChild(centerViewportButton);
 
-    this.zoomLevel = document.createElement('label');
-    this.zoomLevel.textContent = '100%';
-    viewportTools.appendChild(this.zoomLevel);
+    this.zoomLevelElement = document.createElement('label');
+    this.zoomLevelElement.textContent = this.zoomLevel;
+    viewportTools.appendChild(this.zoomLevelElement);
     return viewportTools;
   }
 
@@ -100,8 +101,9 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   }
 
   private updateZoomLevel(zoom: number): void {
-    if (this.zoomLevel) {
-      this.zoomLevel.textContent = (zoom * 100).toFixed(0).toString() + '%';
+    this.zoomLevel = (zoom * 100).toFixed(0).toString() + '%';
+    if (this.zoomLevelElement) {
+      this.zoomLevelElement.textContent = this.zoomLevel;
     }
   }
 }
