@@ -1,4 +1,4 @@
-# Axon Ivy Process Editor (Prototype)
+# Axon Ivy Process Editor Client
 
 This repository contains the Axon Ivy (GLSP-based) process editor.
 
@@ -6,7 +6,7 @@ This repository contains the Axon Ivy (GLSP-based) process editor.
 
 The following libraries/frameworks need to be installed on your system:
 
-- [Node.js](https://nodejs.org/en/) `>= 12.14.1 AND < 13`
+- [Node.js](https://nodejs.org/en/) `>= 16.15.0 AND < 17`
 - [Yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable) `>=1.7.0`
 
 The editor is developed using [Visual Studio Code](https://code.visualstudio.com/).
@@ -33,21 +33,14 @@ The build is automatically triggered if you open the folder in VS Code or you ca
 yarn
 ```
 
-- **Theia / Eclipse Integraion**:
-  If you build the process editor also the eclipse and theia integraions are build too.
-
-- **VS Code Integration**:
-  If you open the folder in VS Code the also the build for the VS Code Integration is triggered automatically. Or you can run:
-
-  ```bash
-  cd integration/vscode
-  yarn
-  ```
-
 - **Standalone Integration**:
-  Run:
+  If you build the process editor also the standalone integraion is build too.
+
+- **Other Integraions (Theia, Eclipse, VS Code)**:
+  Run bash command or run task in vscode:
+
   ```bash
-  cd integration/standalone
+  cd integration/theia (or eclipse, vscode)
   yarn
   ```
 
@@ -55,7 +48,10 @@ yarn
 
 ## Running the process editor
 
-The simplest way to start the process editor is by download a [Axon Ivy Designer](https://developer.axonivy.com/download/nightly) and open a process with the `Next Gen Process Editor (Preview)` editor. This will launch the latest prebuild **process editor within the eclipse integration**.
+The simplest way to start the process editor is by download a [Axon Ivy Designer](https://developer.axonivy.com/download/nightly) and open a process. This will launch the latest prebuild **process editor within the eclipse integration**.
+
+- **Standalone / VS Code Integration**:
+  To start the Standalone or VS Code integration you can start the specific launch config directly inside the VS Code.
 
 - **Theia Integration**:
   To start the Theia integration you can run it directly over a VS Code launch config or by run:
@@ -65,13 +61,6 @@ The simplest way to start the process editor is by download a [Axon Ivy Designer
   ```
 
   This will launch the example in the browser on [localhost:3000](http://localhost:3000).
-
-- **VSCode Integration**:
-  To start the VS Code integration you can start the specific launch config directly inside the VS Code.
-  
-- **Standalone Integration**:
-  To start the Standalone integration you can start the specific launch config directly inside the VS Code or open the index.html in a browser with a given process json file as parameter:
-  `integration/standalone/app/index.html?file=<path-to-your-project>/processes/<your-process-file>.p.json`
 
 ---
 
