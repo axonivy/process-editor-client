@@ -20,15 +20,18 @@ test.describe('key listener - move elements with arrow keys', () => {
 
     await multiSelect(page, [start, end], browserName);
     await page.keyboard.press('ArrowUp', delay);
+    await assertPosition(start, { x: startPos.x, y: startPos.y - 8 });
+    await assertPosition(end, { x: endPos.x, y: endPos.y - 8 });
+
     await page.keyboard.press('ArrowLeft', delay);
-    await resetSelection(page);
     await assertPosition(start, { x: startPos.x - 8, y: startPos.y - 8 });
     await assertPosition(end, { x: endPos.x - 8, y: endPos.y - 8 });
 
-    await multiSelect(page, [start, end], browserName);
     await page.keyboard.press('ArrowDown', delay);
+    await assertPosition(start, { x: startPos.x - 8, y: startPos.y });
+    await assertPosition(end, { x: endPos.x - 8, y: endPos.y });
+
     await page.keyboard.press('ArrowRight', delay);
-    await resetSelection(page);
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(end, { x: endPos.x, y: endPos.y });
   });
@@ -47,24 +50,18 @@ test.describe('key listener - move elements with arrow keys', () => {
 
     await multiSelect(page, [pool, lane], browserName, clickPosition);
     await page.keyboard.press('ArrowDown', delay);
-    await page.keyboard.press('ArrowLeft', delay);
-    await resetSelection(page);
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(pool, { x: poolPos.x, y: poolPos.y + 8 });
     await assertPosition(lane, { x: lanePos.x, y: lanePos.y });
 
-    await multiSelect(page, [pool, lane], browserName, clickPosition);
     await page.keyboard.press('ArrowUp', delay);
-    await page.keyboard.press('ArrowRight', delay);
-    await resetSelection(page);
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(pool, { x: poolPos.x, y: poolPos.y });
     await assertPosition(lane, { x: lanePos.x, y: lanePos.y });
 
-    await multiSelect(page, [lane], browserName, clickPosition);
-    await page.keyboard.press('ArrowDown', delay);
-    await page.keyboard.press('ArrowLeft', delay);
     await resetSelection(page);
+    await lane.click();
+    await page.keyboard.press('ArrowDown', delay);
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(pool, { x: poolPos.x, y: poolPos.y });
     await assertPosition(lane, { x: lanePos.x, y: lanePos.y + 8 });

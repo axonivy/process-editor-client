@@ -360,7 +360,9 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
-    this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, true));
+    if (_oldValue) {
+      this.actionDispatcher.dispatch(new SetUIExtensionVisibilityAction(ToolBar.ID, !this.editorContext.isReadonly));
+    }
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {

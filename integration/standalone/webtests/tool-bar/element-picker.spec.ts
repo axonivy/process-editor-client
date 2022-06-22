@@ -84,6 +84,7 @@ test.describe('tool bar - element picker', () => {
     for (let i = 0; i < pickersCount; i++) {
       await pickers.nth(i).click();
       await page.locator('.sprotty-graph').click({ position: { x: 30 + 80 * i, y: 100 } });
+      await expect(page.locator('.sprotty-graph > g > g')).toHaveCount(i + 1);
       await openElementPalette(page, group);
     }
     await expect(page.locator('.sprotty-graph > g > g')).toHaveCount(expectedElementCount);

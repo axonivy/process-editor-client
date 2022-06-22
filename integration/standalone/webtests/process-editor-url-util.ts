@@ -27,10 +27,11 @@ export async function gotoRandomTestProcessUrl(page: Page, urlQueryParam = ''): 
   const start = page.locator(startSelector);
   // wait for start element, give a reload if was not visible the first time
   await start.waitFor({ state: 'visible', timeout: 10000 });
-  if (!start.isVisible()) {
+  if (!(await start.isVisible())) {
     await page.reload();
     await expect(start).toBeVisible();
   }
+  page.addStyleTag({ content: '.palette-body {transition: none !important;}' });
 }
 
 function randomTestProcessUrl(): string {

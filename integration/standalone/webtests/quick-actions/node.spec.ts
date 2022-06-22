@@ -89,14 +89,18 @@ test.describe('quick actions - nodes', () => {
   test('auto align', async ({ page, browserName }) => {
     const start = page.locator(startSelector);
     const end = page.locator(endSelector);
+
+    await expect(end).toBeVisible();
+    const startPos = await start.getAttribute('transform');
+    const endPos = await end.getAttribute('transform');
     await end.dragTo(page.locator('.sprotty-graph'));
-    const startTransform = await start.getAttribute('transform');
-    const endTransform = await end.getAttribute('transform');
+    await expect(end).not.toHaveAttribute('transform', endPos!);
+    const draggedEndPos = await end.getAttribute('transform');
 
     await multiSelect(page, [start, end], browserName);
     await clickQuickActionStartsWith(page, 'Auto');
-    await expect(start).toHaveAttribute('transform', startTransform);
-    await expect(end).not.toHaveAttribute('transform', endTransform);
+    await expect(start).toHaveAttribute('transform', startPos!);
+    await expect(end).not.toHaveAttribute('transform', draggedEndPos!);
     // end element should only be moved vertically
     await expect(end).toHaveAttribute('transform', /translate\(625, \d+\)/);
   });
