@@ -52,7 +52,7 @@ test.describe('tool bar - BPMN type palette', () => {
     await expect(user).toBeVisible();
     await expect(embedded).toBeHidden();
 
-    await openTypePalette(page, user);
+    await openTypePalette(page, false);
     await toolButtons.locator('text=Sub').click();
     await expect(embedded).toBeVisible();
     await expect(user).toBeHidden();
@@ -64,17 +64,16 @@ test.describe('tool bar - BPMN type palette', () => {
     await clickQuickActionStartsWith(page, 'Wrap');
   }
 
-  async function openTypePalette(page: Page, element?: Locator): Promise<Locator> {
+  async function openTypePalette(page: Page, select = true): Promise<Locator> {
     const paletteBody = page.locator(PALETTE_BODY);
     const dynamicTools = page.locator('.dynamic-tools');
     const typePaletteBtn = dynamicTools.locator('i[title$=Type]');
-    await expect(dynamicTools).toBeHidden();
 
-    if (element) {
-      await element.click();
-    } else {
+    if (select) {
+      await expect(dynamicTools).toBeHidden();
       await page.locator(embeddedSelector).click();
     }
+
     await expect(dynamicTools).toBeVisible();
     await expect(typePaletteBtn).toBeVisible();
     await typePaletteBtn.click();
