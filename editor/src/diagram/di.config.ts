@@ -6,11 +6,11 @@ import {
   ConsoleLogger,
   CustomFeatures,
   DeleteElementContextMenuItemProvider,
+  GLSPProjectionView,
   IView,
   LogLevel,
   moveFeature,
   selectFeature,
-  SGraphView,
   SModelElement,
   TYPES
 } from '@eclipse-glsp/client';
@@ -64,7 +64,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   const context = { bind, unbind, isBound, rebind };
 
-  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, SGraphView);
+  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, GLSPProjectionView);
 
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);

@@ -1,9 +1,11 @@
 .sprotty-issue .sprotty-issue-background {
   fill: var(--glsp-issue-background);
+  background-color: var(--glsp-issue-background);
 }
 
 .sprotty-issue.sprotty-error {
   fill: var(--glsp-error-foreground);
+  background-color: var(--glsp-error-foreground);
 }
 .sprotty-popup-title .codicon-error {
   color: var(--glsp-error-foreground);
@@ -11,6 +13,7 @@
 
 .sprotty-issue.sprotty-warning {
   fill: var(--glsp-warning-foreground);
+  background-color: var(--glsp-warning-foreground);
 }
 .sprotty-popup-title .codicon-warning {
   color: var(--glsp-warning-foreground);
@@ -18,6 +21,7 @@
 
 .sprotty-issue.sprotty-info {
   fill: var(--glsp-info-foreground);
+  background-color: var(--glsp-info-foreground);
 }
 .sprotty-popup-title .codicon-info {
   color: var(--glsp-info-foreground);
