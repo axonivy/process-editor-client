@@ -74,15 +74,15 @@ test.describe('tool bar', () => {
   });
 
   test('options - toggle grid', async ({ page }) => {
-    const graph = page.locator('.sprotty-graph');
-    await expect(graph).not.toHaveAttribute('class', /grid/);
+    const grid = page.locator('.grid');
+    await expect(grid).toBeHidden();
 
     const menu = await openOptionsMenu(page);
     await toggleOption(menu, 'Grid', false);
-    await expect(graph).toHaveAttribute('class', /grid/);
+    await expect(grid).toBeVisible();
 
     await toggleOption(menu, 'Grid', true);
-    await expect(graph).not.toHaveAttribute('class', /grid/);
+    await expect(grid).toBeHidden();
   });
 
   test('options - toggle custom icons', async ({ page }) => {

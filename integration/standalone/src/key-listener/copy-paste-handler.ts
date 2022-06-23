@@ -58,7 +58,7 @@ export class InvokeCopyPasteActionHandler implements IActionHandler {
   protected shouldCopy(): boolean | null {
     return (
       this.editorContext.get().selectedElementIds.length > 0 &&
-      document.activeElement instanceof SVGElement &&
+      (document.activeElement instanceof SVGElement || document.activeElement instanceof HTMLElement) &&
       document.activeElement.parentElement &&
       document.activeElement.parentElement.id === this.viewerOptions.baseDiv
     );
