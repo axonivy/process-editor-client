@@ -6,10 +6,10 @@ import {
   isOpenable,
   isSelectable,
   KeyListener,
-  OpenAction,
   SModelElement,
   TYPES
-} from 'sprotty';
+} from '@eclipse-glsp/client';
+import { OpenAction } from 'sprotty-protocol';
 import { toArray } from 'sprotty/lib/utils/iterable';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
@@ -27,13 +27,24 @@ export class OpenInscriptionActionHandler implements IActionHandler {
   }
 
   handleOpen(elementId: string): void {
-    this.actionDispatcher.dispatch(new OpenInscriptionAction(elementId));
+    this.actionDispatcher.dispatch(OpenInscriptionAction.create(elementId));
   }
 }
 
-export class OpenInscriptionAction implements Action {
-  static readonly KIND = 'openInscription';
-  constructor(readonly elementId: string, public readonly kind: string = OpenInscriptionAction.KIND) {}
+export interface OpenInscriptionAction extends Action {
+  kind: typeof OpenInscriptionAction.KIND;
+  elementId: string;
+}
+
+export namespace OpenInscriptionAction {
+  export const KIND = 'openInscription';
+
+  export function create(elementId: string): OpenInscriptionAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
 }
 
 export class OpenInscriptionKeyListener extends KeyListener {
@@ -41,11 +52,11 @@ export class OpenInscriptionKeyListener extends KeyListener {
     if (matchesKeystroke(event, 'Enter')) {
       const openableElements = this.getOpenableElements(element);
       if (openableElements.length === 1) {
-        return [new OpenInscriptionAction(openableElements[0].id)];
+        return [OpenInscriptionAction.create(openableElements[0].id)];
       }
     }
     if (matchesKeystroke(event, 'KeyI') && this.getOpenableElements(element).length === 0) {
-      return [new OpenInscriptionAction('')];
+      return [OpenInscriptionAction.create('')];
     }
     return [];
   }

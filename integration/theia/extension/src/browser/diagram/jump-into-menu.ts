@@ -22,14 +22,14 @@ export class JumpIntoCommandContribution implements CommandContribution {
     commands.registerCommand(
       { id: JumpIntoNavigationCommands.JUMP_INTO, label: 'Jump into' },
       new GLSPCommandHandler(this.shell, {
-        actions: context => [new JumpAction(context.selectedElements[0].id)],
+        actions: context => [JumpAction.create({ elementId: context.selectedElements[0].id })],
         isEnabled: context => context.selectedElements[0]?.hasFeature(jumpFeature)
       })
     );
     commands.registerCommand(
       { id: JumpIntoNavigationCommands.JUMP_OUT, label: 'Jump out' },
       new GLSPCommandHandler(this.shell, {
-        actions: context => [new JumpAction('')],
+        actions: context => [JumpAction.create({ elementId: '' })],
         isEnabled: context => context.modelRoot.id.includes('-')
       })
     );

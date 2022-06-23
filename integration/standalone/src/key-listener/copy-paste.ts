@@ -1,17 +1,17 @@
-import { KeyListener, Action, SModelElement } from 'sprotty';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { InvokeCopyAction, InvokeCutAction, InvokePasteAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-context-menu';
+import { InvokeCopyPasteAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-context-menu';
+import { Action, KeyListener, SModelElement } from '@eclipse-glsp/client';
 
 export class CopyPasteKeyListener extends KeyListener {
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
     if (matchesKeystroke(event, 'KeyC', 'ctrlCmd')) {
-      return [new InvokeCopyAction()];
+      return [InvokeCopyPasteAction.create('copy')];
     }
     if (matchesKeystroke(event, 'KeyV', 'ctrlCmd')) {
-      return [new InvokePasteAction()];
+      return [InvokeCopyPasteAction.create('paste')];
     }
     if (matchesKeystroke(event, 'KeyX', 'ctrlCmd')) {
-      return [new InvokeCutAction()];
+      return [InvokeCopyPasteAction.create('cut')];
     }
     return [];
   }

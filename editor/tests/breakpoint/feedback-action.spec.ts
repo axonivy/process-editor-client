@@ -1,12 +1,11 @@
 import {
   ActionDispatcher,
+  Bounds,
   CommandExecutionContext,
   configureCommand,
   createFeatureSet,
   defaultModule,
-  EMPTY_BOUNDS,
   FeedbackActionDispatcher,
-  GLSP_TYPES,
   InitializeCanvasBoundsAction,
   SChildElement,
   SModelRoot,
@@ -31,7 +30,7 @@ class BreakpointFeedbackCommandMock extends BreakpointFeedbackCommand {
 function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, BreakpointFeedbackCommandMock);
   return container;
 }
@@ -42,7 +41,7 @@ describe('BreakpointFeedbackAction', () => {
   beforeEach(() => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
+    actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
     root = new SModelRoot();
   });
 
@@ -52,7 +51,7 @@ describe('BreakpointFeedbackAction', () => {
     root.add(node);
 
     const invalidBreakpoint = { elementId: 'notbreakable', condition: '', disabled: false };
-    await actionDispatcher.dispatch(new BreakpointFeedbackAction([invalidBreakpoint]));
+    await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [invalidBreakpoint] }));
     expect(node.children).to.be.empty;
   });
 
@@ -63,12 +62,12 @@ describe('BreakpointFeedbackAction', () => {
     root.add(node);
 
     const elementBreakpoint = { elementId: 'foo', condition: '', disabled: false };
-    await actionDispatcher.dispatch(new BreakpointFeedbackAction([elementBreakpoint]));
+    await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [elementBreakpoint] }));
     expect(node.children).to.have.lengthOf(1);
     assertBreakpoint(node.children[0], '', false, false);
     expect(node.children[0]).to.be.an.instanceOf(SBreakpointHandle);
 
-    await actionDispatcher.dispatch(new BreakpointFeedbackAction([], [elementBreakpoint]));
+    await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [], oldBreakpoints: [elementBreakpoint] }));
     expect(node.children).to.be.empty;
   });
 
@@ -79,7 +78,7 @@ describe('BreakpointFeedbackAction', () => {
     root.add(node);
 
     const elementBreakpoint = { elementId: 'foo', condition: 'test condition', disabled: true };
-    await actionDispatcher.dispatch(new BreakpointFeedbackAction([elementBreakpoint], [], true));
+    await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [elementBreakpoint], oldBreakpoints: [], globalDisabled: true }));
     expect(node.children).to.have.lengthOf(1);
     assertBreakpoint(node.children[0], 'test condition', true, true);
     expect(node.children[0]).to.be.an.instanceOf(SBreakpointHandle);

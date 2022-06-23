@@ -1,6 +1,5 @@
-import { findParentByFeature, GLSPScrollMouseListener, ICommand, SModelElement } from '@eclipse-glsp/client';
+import { Action, EnableToolsAction, findParentByFeature, GLSPScrollMouseListener, ICommand, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { Action, EnableToolsAction } from 'sprotty';
 import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
 
 import { isLaneResizeHandle } from '../lanes/model';
@@ -8,7 +7,7 @@ import { isLaneResizeHandle } from '../lanes/model';
 @injectable()
 export class IvyScrollMouseListener extends GLSPScrollMouseListener {
   handle(action: Action): void | Action | ICommand {
-    if (action instanceof EnableToolsAction) {
+    if (EnableToolsAction.is(action)) {
       if (action.toolIds.includes(IvyMarqueeMouseTool.ID)) {
         this.preventScrolling = true;
       }

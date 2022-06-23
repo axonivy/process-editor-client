@@ -2,10 +2,8 @@ import {
   Args,
   Bounds,
   boundsFeature,
-  center,
   centerOfLine,
   CircularNode,
-  combine,
   connectableFeature,
   deletableFeature,
   DiamondNode,
@@ -13,7 +11,6 @@ import {
   EditableLabel,
   editFeature,
   editLabelFeature,
-  EMPTY_BOUNDS,
   fadeFeature,
   GLSPGraph,
   hoverFeedbackFeature,
@@ -24,7 +21,6 @@ import {
   Nameable,
   nameFeature,
   openFeature,
-  ORIGIN_POINT,
   Point,
   popupFeature,
   reconnectFeature,
@@ -37,7 +33,6 @@ import {
   SLabel,
   SParentElement,
   SRoutableElement,
-  translate,
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
@@ -258,7 +253,7 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
     // this should also work for splines, which have the convex hull property
     return this.routingPoints.reduce<Bounds>(
       (bounds, routingPoint) =>
-        combine(bounds, {
+        Bounds.combine(bounds, {
           x: routingPoint.x,
           y: routingPoint.y,
           width: 0,
@@ -269,9 +264,9 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
   }
 
   private centerBounds(): Bounds {
-    const sourcePoint: Point = center(this.source?.bounds || EMPTY_BOUNDS);
-    const targetPoint: Point = center(this.target?.bounds || EMPTY_BOUNDS);
-    return translate(EMPTY_BOUNDS, centerOfLine(sourcePoint, targetPoint));
+    const sourcePoint: Point = Bounds.center(this.source?.bounds || Bounds.EMPTY);
+    const targetPoint: Point = Bounds.center(this.target?.bounds || Bounds.EMPTY);
+    return Bounds.translate(Bounds.EMPTY, centerOfLine(sourcePoint, targetPoint));
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -307,7 +302,7 @@ export class ActivityLabel extends MulitlineEditLabel {
     return { width: this.bounds.width, height: this.bounds.height };
   }
   get editControlPositionCorrection(): Point {
-    return ORIGIN_POINT;
+    return Point.ORIGIN;
   }
 }
 

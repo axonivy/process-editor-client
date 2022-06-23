@@ -1,10 +1,18 @@
 import { injectable } from 'inversify';
-import { Action, IActionHandler } from 'sprotty';
+import { Action, IActionHandler } from '@eclipse-glsp/client';
 
-export class StandaloneShowBreakpointAction implements Action {
-  static readonly KIND = 'showBreakpoints';
+export interface StandaloneShowBreakpointAction extends Action {
+  kind: typeof StandaloneShowBreakpointAction.KIND;
+}
 
-  constructor(public readonly kind: string = StandaloneShowBreakpointAction.KIND) {}
+export namespace StandaloneShowBreakpointAction {
+  export const KIND = 'showBreakpoints';
+
+  export function create(): StandaloneShowBreakpointAction {
+    return {
+      kind: KIND
+    };
+  }
 }
 
 @injectable()

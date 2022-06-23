@@ -1,6 +1,10 @@
 import {
+  Action,
   applyCssClasses,
   BaseGLSPTool,
+  Bounds,
+  BoundsAware,
+  Dimension,
   ChangeBoundsOperation,
   ChangeRoutingPointsOperation,
   CompoundOperation,
@@ -8,37 +12,30 @@ import {
   cursorFeedbackAction,
   deleteCssClasses,
   DragAwareMouseListener,
-  ElementAndRoutingPoints,
-  forEachElement,
-  GLSP_TYPES,
-  isNonRoutableSelectedMovableBoundsAware,
-  Operation,
-  toElementAndBounds,
-  toElementAndRoutingPoints
-} from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { isValidSize, WriteablePoint } from '@eclipse-glsp/client/lib/utils/layout-utils';
-import { inject, injectable, optional } from 'inversify';
-import {
-  Action,
-  Bounds,
-  BoundsAware,
-  Dimension,
   EdgeRouterRegistry,
   ElementAndBounds,
+  ElementAndRoutingPoints,
   findParentByFeature,
+  forEachElement,
   ISnapper,
+  isNonRoutableSelectedMovableBoundsAware,
   isSelected,
   isViewport,
   MouseListener,
+  Operation,
   Point,
+  toElementAndBounds,
+  toElementAndRoutingPoints,
   SConnectableElement,
-  SetBoundsAction,
   SModelElement,
   SModelRoot,
   SParentElement,
   TYPES
-} from 'sprotty';
+} from '@eclipse-glsp/client';
+import { SetBoundsAction, Writable } from '@eclipse-glsp/protocol';
+import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { isValidSize } from '@eclipse-glsp/client/lib/utils/layout-utils';
+import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
 import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
@@ -47,7 +44,7 @@ import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHa
 export class ChangeLaneBoundsTool extends BaseGLSPTool {
   static ID = 'ivy.change-lane-bounds-tool';
 
-  @inject(GLSP_TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
   @inject(EdgeRouterRegistry) @optional() readonly edgeRouterRegistry?: EdgeRouterRegistry;
   @inject(TYPES.ISnapper) @optional() readonly snapper?: ISnapper;
   protected feedbackMoveMouseListener: MouseListener;
@@ -73,7 +70,7 @@ export class ChangeLaneBoundsTool extends BaseGLSPTool {
     this.selectionService.deregister(this.changeBoundsListener);
     this.mouseTool.deregister(this.feedbackMoveMouseListener);
     this.deregisterFeedback([], this.feedbackMoveMouseListener);
-    this.deregisterFeedback([new HideChangeLaneBoundsToolFeedbackAction()], this.changeBoundsListener);
+    this.deregisterFeedback([HideChangeLaneBoundsToolFeedbackAction.create()], this.changeBoundsListener);
   }
 }
 
@@ -83,7 +80,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   // members for calculating the correct position change
   protected initialBounds: Bounds | undefined;
   protected lastDragPosition?: Point;
-  protected positionDelta: WriteablePoint = { x: 0, y: 0 };
+  protected positionDelta: Writable<Point> = { x: 0, y: 0 };
 
   // members for resize mode
   protected activeResizeElement?: SModelElement;
@@ -155,24 +152,24 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     operations.push(...this.handleMoveElementsOnServer(target));
     operations.push(...this.handleMoveRoutingPointsOnServer(target));
     if (operations.length > 0) {
-      return [new CompoundOperation(operations)];
+      return [CompoundOperation.create(operations)];
     }
     return operations;
   }
 
-  protected handleMoveElementsOnServer(target: SModelElement): Action[] {
+  protected handleMoveElementsOnServer(target: SModelElement): Operation[] {
     const result: Operation[] = [];
     const newBounds: ElementAndBounds[] = [];
     forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
       this.createElementAndBounds(element).forEach(bounds => newBounds.push(bounds));
     });
     if (newBounds.length > 0) {
-      result.push(new ChangeBoundsOperation(newBounds));
+      result.push(ChangeBoundsOperation.create(newBounds));
     }
     return result;
   }
 
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Action[] {
+  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
     const result: Operation[] = [];
     const newRoutingPoints: ElementAndRoutingPoints[] = [];
     forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
@@ -183,7 +180,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
       }
     });
     if (newRoutingPoints.length > 0) {
-      result.push(new ChangeRoutingPointsOperation(newRoutingPoints));
+      result.push(ChangeRoutingPointsOperation.create(newRoutingPoints));
     }
     return result;
   }
@@ -224,7 +221,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
       // only allow one element to have the element resize handles
       this.activeResizeElement = moveableElement;
       if (isLaneResizable(this.activeResizeElement)) {
-        this.tool.dispatchFeedback([new ShowChangeLaneBoundsToolFeedbackAction(this.activeResizeElement.id)], this);
+        this.tool.dispatchFeedback([ShowChangeLaneBoundsToolFeedbackAction.create(this.activeResizeElement.id)], this);
       }
       return true;
     }
@@ -280,7 +277,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
   protected reset(): void {
     if (this.activeResizeElement && isLaneResizable(this.activeResizeElement)) {
-      this.tool.dispatchFeedback([new HideChangeLaneBoundsToolFeedbackAction()], this);
+      this.tool.dispatchFeedback([HideChangeLaneBoundsToolFeedbackAction.create()], this);
     }
     this.tool.dispatchActions([cursorFeedbackAction(CursorCSS.DEFAULT)]);
     this.resetPosition();
@@ -331,9 +328,9 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
   protected createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {
     if (this.isValidSize(element, element.bounds)) {
-      return [new ChangeBoundsOperation([toElementAndBounds(element)])];
+      return [ChangeBoundsOperation.create([toElementAndBounds(element)])];
     } else if (this.initialBounds) {
-      return [new SetBoundsAction([{ elementId: element.id, newPosition: this.initialBounds, newSize: this.initialBounds }])];
+      return [SetBoundsAction.create([{ elementId: element.id, newPosition: this.initialBounds, newSize: this.initialBounds }])];
     }
     return [];
   }
@@ -351,7 +348,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     const result: Action[] = [];
 
     if (this.isValidSize(element, newSize)) {
-      result.push(new SetBoundsAction([{ elementId: element.id, newPosition, newSize }]));
+      result.push(SetBoundsAction.create([{ elementId: element.id, newPosition, newSize }]));
     }
 
     return result;

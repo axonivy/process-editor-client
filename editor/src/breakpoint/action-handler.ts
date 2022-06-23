@@ -1,7 +1,6 @@
-import { GLSP_TYPES } from '@eclipse-glsp/client/lib/base/types';
 import { IFeedbackActionDispatcher } from '@eclipse-glsp/client/lib/features/tool-feedback/feedback-action-dispatcher';
 import { inject, injectable } from 'inversify';
-import { Action, IActionHandler } from 'sprotty';
+import { Action, hasArrayProp, hasBooleanProp, IActionHandler, TYPES } from '@eclipse-glsp/client';
 
 import { BreakpointFeedbackAction } from './feedback-action';
 
@@ -11,30 +10,42 @@ export interface ElementBreakpoint {
   disabled: boolean;
 }
 
-export class ShowBreakpointAction implements Action {
-  static readonly KIND = 'showBreakpoints';
-  kind = ShowBreakpointAction.KIND;
+export interface ShowBreakpointAction extends Action {
+  kind: typeof ShowBreakpointAction.KIND;
+  elementBreakpoints: ElementBreakpoint[];
+  globalDisabled: boolean;
+}
 
-  constructor(public readonly elementBreakpoints: ElementBreakpoint[] = [], public readonly globalDisabled: boolean) {}
+export namespace ShowBreakpointAction {
+  export const KIND = 'showBreakpoints';
+
+  export function is(object: any): object is ShowBreakpointAction {
+    return Action.hasKind(object, KIND) && hasArrayProp(object, 'elementBreakpoints') && hasBooleanProp(object, 'globalDisabled');
+  }
+
+  export function create(options: { elementBreakpoints: ElementBreakpoint[]; globalDisabled: boolean }): ShowBreakpointAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
 export class ShowBreakpointActionHandler implements IActionHandler {
   private oldBreakpoints: ElementBreakpoint[] = [];
 
-  @inject(GLSP_TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
+  @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
 
   handle(action: Action): Action | void {
-    if (isShowBreakpointAction(action)) {
-      const breakpointFeedback = new BreakpointFeedbackAction(action.elementBreakpoints, this.oldBreakpoints, action.globalDisabled);
+    if (ShowBreakpointAction.is(action)) {
+      const breakpointFeedback = BreakpointFeedbackAction.create({
+        breakpoints: action.elementBreakpoints,
+        oldBreakpoints: this.oldBreakpoints,
+        globalDisabled: action.globalDisabled
+      });
       this.feedbackDispatcher.registerFeedback(this, [breakpointFeedback]);
       this.oldBreakpoints = action.elementBreakpoints;
     }
   }
-}
-
-export function isShowBreakpointAction(action: Action): action is ShowBreakpointAction {
-  return (
-    action !== undefined && action.kind === ShowBreakpointAction.KIND && (action as ShowBreakpointAction).elementBreakpoints !== undefined
-  );
 }

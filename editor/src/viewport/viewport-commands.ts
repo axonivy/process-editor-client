@@ -1,25 +1,37 @@
-import { center, FitToScreenAction, FitToScreenCommand, isBoundsAware, ORIGIN_POINT, Point } from '@eclipse-glsp/client';
-import { inject } from 'inversify';
 import {
   Action,
   Bounds,
-  BoundsAwareViewportCommand,
-  combine,
-  isValidDimension,
-  isViewport,
-  SModelRoot,
-  TYPES,
-  Viewport,
+  Command,
   CommandExecutionContext,
   CommandReturn,
-  Command
-} from 'sprotty';
+  BoundsAwareViewportCommand,
+  Dimension,
+  FitToScreenAction,
+  FitToScreenCommand,
+  isBoundsAware,
+  isViewport,
+  Point,
+  SModelRoot,
+  TYPES,
+  Viewport
+} from '@eclipse-glsp/client';
+import { inject } from 'inversify';
 
-export class OriginViewportAction implements Action {
-  static readonly KIND = 'originViewport';
-  readonly kind = OriginViewportAction.KIND;
+export interface OriginViewportAction extends Action {
+  kind: typeof OriginViewportAction.KIND;
+  animate: boolean;
+}
 
-  constructor(public readonly animate: boolean = true) {}
+export namespace OriginViewportAction {
+  export const KIND = 'originViewport';
+
+  export function create(options: { animate?: boolean } = {}): OriginViewportAction {
+    return {
+      kind: KIND,
+      animate: true,
+      ...options
+    };
+  }
 }
 
 export class OriginViewportCommand extends BoundsAwareViewportCommand {
@@ -60,8 +72,8 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
         });
       }
       if (allBounds.length !== 0) {
-        const bounds = allBounds.reduce((b0, b1) => combine(b0, b1));
-        if (isValidDimension(bounds)) {
+        const bounds = allBounds.reduce((b0, b1) => Bounds.combine(b0, b1));
+        if (Dimension.isValid(bounds)) {
           this.newViewport = this.getNewViewport(bounds, model);
         }
       }
@@ -69,11 +81,24 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
   }
 }
 
-export class MoveIntoViewportAction implements Action {
-  static readonly KIND = 'moveIntoViewport';
-  readonly kind = MoveIntoViewportAction.KIND;
+export interface MoveIntoViewportAction extends Action {
+  kind: typeof MoveIntoViewportAction.KIND;
+  elementIds: string[];
+  animate: boolean;
+  retainZoom: boolean;
+}
 
-  constructor(public readonly elementIds: string[], public readonly animate: boolean = true, public readonly retainZoom: boolean = false) {}
+export namespace MoveIntoViewportAction {
+  export const KIND = 'moveIntoViewport';
+
+  export function create(options: { elementIds: string[]; animate?: boolean; retainZoom?: boolean }): MoveIntoViewportAction {
+    return {
+      kind: KIND,
+      animate: true,
+      retainZoom: false,
+      ...options
+    };
+  }
 }
 
 export class MoveIntoViewportCommand extends BoundsAwareViewportCommand {
@@ -88,13 +113,13 @@ export class MoveIntoViewportCommand extends BoundsAwareViewportCommand {
   }
 
   getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
-    if (!isValidDimension(model.canvasBounds)) {
+    if (!Dimension.isValid(model.canvasBounds)) {
       return undefined;
     }
     return moveIntoViewport(
       model.canvasBounds,
-      isViewport(model) ? model.scroll : ORIGIN_POINT,
-      center(bounds),
+      isViewport(model) ? model.scroll : Point.ORIGIN,
+      Bounds.center(bounds),
       this.action.retainZoom && isViewport(model) ? model.zoom : 1
     );
   }
@@ -115,11 +140,24 @@ function calculateScroll(viewPort: number, currentScrollPos: number, elementPos:
   return effectivePos > viewPort || effectivePos < 0 ? elementPos - (0.5 * viewPort) / zoom : currentScrollPos;
 }
 
-export class IvySetViewportZoomAction {
-  static readonly KIND = 'ivyviewportzoom';
-  kind = IvySetViewportZoomAction.KIND;
+export interface IvySetViewportZoomAction extends Action {
+  kind: typeof IvySetViewportZoomAction.KIND;
+  zoom: number;
+}
 
-  constructor(public readonly zoom: number) {}
+export namespace IvySetViewportZoomAction {
+  export const KIND = 'ivyviewportzoom';
+
+  export function is(object: any): object is IvySetViewportZoomAction {
+    return Action.hasKind(object, KIND);
+  }
+
+  export function create(options: { zoom: number }): IvySetViewportZoomAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 export class IvySetViewportZoomCommand extends Command {

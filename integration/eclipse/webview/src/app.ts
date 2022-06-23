@@ -3,12 +3,13 @@ import {
   EnableToolPaletteAction,
   GLSPActionDispatcher,
   GLSPDiagramServer,
+  TYPES,
+  RequestModelAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
 import { appendIconFontToDom, EnableViewportAction } from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
-import { RequestModelAction, TYPES } from 'sprotty';
 
 import createContainer from './di.config';
 
@@ -51,16 +52,18 @@ async function initialize(client: GLSPClient): Promise<void> {
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
   actionDispatcher.dispatch(
-    new RequestModelAction({
+    RequestModelAction.create({
       // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
       // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
-      sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-      diagramType: diagramType
+      options: {
+        sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
+        diagramType: diagramType
+      }
     })
   );
-  actionDispatcher.dispatch(new RequestTypeHintsAction(diagramType));
-  actionDispatcher.dispatch(new EnableToolPaletteAction());
-  actionDispatcher.dispatch(new EnableViewportAction());
+  actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
+  actionDispatcher.dispatch(EnableToolPaletteAction.create());
+  actionDispatcher.dispatch(EnableViewportAction.create());
 }
 
 function setWidgetId(mainWidgetId: string): void {

@@ -5,16 +5,38 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { MultipleQuickActionProvider, QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isUnwrapable } from './model';
 
-export class WrapToSubOperation implements Operation {
-  static readonly KIND = 'wrapToSub';
-
-  constructor(public readonly elementIds: string[], public readonly kind: string = WrapToSubOperation.KIND) {}
+export interface WrapToSubOperation extends Operation {
+  kind: typeof WrapToSubOperation.KIND;
+  elementIds: string[];
 }
 
-export class UnwrapSubOperation implements Operation {
-  static readonly KIND = 'unwrapSub';
+export namespace WrapToSubOperation {
+  export const KIND = 'wrapToSub';
 
-  constructor(public readonly elementId: string, public readonly kind: string = UnwrapSubOperation.KIND) {}
+  export function create(options: { elementIds: string[] }): WrapToSubOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
+}
+
+export interface UnwrapSubOperation extends Operation {
+  kind: typeof UnwrapSubOperation.KIND;
+  elementId: string;
+}
+
+export namespace UnwrapSubOperation {
+  export const KIND = 'unwrapSub';
+
+  export function create(options: { elementId: string }): UnwrapSubOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -34,7 +56,7 @@ class UnwrapQuickAction implements QuickAction {
     public readonly title = 'Unwrap embedded subprocess (U)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new UnwrapSubOperation(elementId),
+    public readonly action = UnwrapSubOperation.create({ elementId }),
     public readonly shortcut: KeyCode = 'KeyU'
   ) {}
 }
@@ -57,7 +79,7 @@ class WrapQuickAction implements QuickAction {
     public readonly title = 'Wrap to embedded process (S)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new WrapToSubOperation(elementIds),
+    public readonly action = WrapToSubOperation.create({ elementIds: elementIds }),
     public readonly shortcut: KeyCode = 'KeyS'
   ) {}
 }

@@ -37,7 +37,7 @@
   },
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
-    "clean": "rimraf lib pack",
+    "clean": "rimraf lib",
     "build": "tsc && webpack --mode development --config webpack.config.js",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "webpack --mode development --watch --info-verbosity verbose"

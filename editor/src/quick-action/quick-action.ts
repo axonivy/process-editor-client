@@ -88,7 +88,7 @@ class DeleteQuickAction implements QuickAction {
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'A',
-    public readonly action = new DeleteElementOperation(elementIds)
+    public readonly action = DeleteElementOperation.create(elementIds)
   ) {}
 }
 
@@ -99,7 +99,7 @@ class AutoAlignQuickAction implements QuickAction {
     public readonly title = 'Auto Align (A)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'Z',
-    public readonly action = new AutoAlignOperation(elementIds),
+    public readonly action = AutoAlignOperation.create({ elementIds: elementIds }),
     public readonly shortcut: KeyCode = 'KeyA'
   ) {}
 }
@@ -111,7 +111,7 @@ class EditLabelQuickAction implements QuickAction {
     public readonly title = 'Edit Label (L)',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'B',
-    public readonly action = new EditLabelAction(labelId),
+    public readonly action = EditLabelAction.create(labelId),
     public readonly shortcut: KeyCode = 'KeyL'
   ) {}
 }

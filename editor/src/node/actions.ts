@@ -4,10 +4,21 @@ import { ActivityTypes } from '../diagram/view-types';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 
-export class AttachCommentOperation implements Operation {
-  static readonly KIND = 'attachComment';
+export interface AttachCommentOperation extends Operation {
+  kind: typeof AttachCommentOperation.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = AttachCommentOperation.KIND) {}
+export namespace AttachCommentOperation {
+  export const KIND = 'attachComment';
+
+  export function create(options: { elementId: string }): AttachCommentOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -27,6 +38,6 @@ class AttachCommentQuickAction implements QuickAction {
     public readonly title = 'Attach Comment',
     public readonly location = QuickActionLocation.TopLeft,
     public readonly sorting = 'C',
-    public readonly action = new AttachCommentOperation(elementId)
+    public readonly action = AttachCommentOperation.create({ elementId: elementId })
   ) {}
 }

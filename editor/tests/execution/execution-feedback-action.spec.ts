@@ -1,12 +1,11 @@
 import {
   ActionDispatcher,
+  Bounds,
   CommandExecutionContext,
   configureCommand,
   createFeatureSet,
   defaultModule,
-  EMPTY_BOUNDS,
   FeedbackActionDispatcher,
-  GLSP_TYPES,
   InitializeCanvasBoundsAction,
   SChildElement,
   SModelRoot,
@@ -36,7 +35,7 @@ class ExecutionNode extends SChildElement {
 function createContainer(): Container {
   const container = new Container();
   container.load(defaultModule);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, ExecutedFeedbackCommandMock);
   return container;
 }
@@ -51,26 +50,26 @@ describe('ExecutedFeedbackAction', () => {
   beforeEach(() => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
-    actionDispatcher.dispatch(new InitializeCanvasBoundsAction(EMPTY_BOUNDS));
+    actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
     node.cssClasses = undefined;
   });
 
   it('Executed css class is set on element', async () => {
     const execution: ElementExecution = { elementId: 'foo', count: 2, failed: false };
 
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution], node.id));
+    await actionDispatcher.dispatch(ExecutedFeedbackAction.create({ elementExecutions: [execution], oldElementExecutions: [], lastExecutedElementId: node.id }));
     expect(node.cssClasses).to.include('executed');
     expect(node.cssClasses).to.include('last');
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], [], ''));
+    await actionDispatcher.dispatch(ExecutedFeedbackAction.create({ elementExecutions: [], oldElementExecutions: [execution], lastExecutedElementId: '' }));
     expect(node.cssClasses).to.not.include('executed');
   });
 
   it('Failed css class is set on element', async () => {
     const execution: ElementExecution = { elementId: 'foo', count: 2, failed: true };
 
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([], [execution], ''));
+    await actionDispatcher.dispatch(ExecutedFeedbackAction.create({ elementExecutions: [execution], oldElementExecutions: [], lastExecutedElementId: '' }));
     expect(node.cssClasses).to.include('failed');
-    await actionDispatcher.dispatch(new ExecutedFeedbackAction([execution], [], ''));
+    await actionDispatcher.dispatch(ExecutedFeedbackAction.create({ elementExecutions: [], oldElementExecutions: [execution], lastExecutedElementId: '' }));
     expect(node.cssClasses).to.not.include('failed');
   });
 });

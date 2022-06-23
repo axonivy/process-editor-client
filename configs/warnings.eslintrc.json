@@ -12,6 +12,7 @@
     "no-invalid-this": "warn",
     "no-new-wrappers": "warn",
     "no-return-await": "warn",
+    "no-redeclare": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": [
       "warn",

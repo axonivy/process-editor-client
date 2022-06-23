@@ -1,39 +1,74 @@
 import { Operation } from '@eclipse-glsp/client';
 
-export class AutoAlignOperation implements Operation {
-  static readonly KIND = 'autoAlign';
-
-  constructor(public readonly elementIds: string[], public readonly kind: string = AutoAlignOperation.KIND) {}
+export interface AutoAlignOperation extends Operation {
+  kind: typeof AutoAlignOperation.KIND;
+  elementIds: string[];
 }
 
-export class ColorizeOperation implements Operation {
-  static readonly KIND = 'colorize';
+export namespace AutoAlignOperation {
+  export const KIND = 'autoAlign';
 
-  constructor(
-    public readonly elementIds: string[],
-    public readonly color: string,
-    public readonly colorName: string,
-    public readonly kind: string = ColorizeOperation.KIND
-  ) {}
+  export function create(options: { elementIds: string[] }): AutoAlignOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }
 
-export class ChangeActivityTypeOperation implements Operation {
-  static readonly KIND = 'changeActivityType';
-
-  constructor(
-    public readonly elementId: string,
-    public readonly typeId: string,
-    public readonly kind: string = ChangeActivityTypeOperation.KIND
-  ) {}
+export interface ColorizeOperation extends Operation {
+  kind: typeof ColorizeOperation.KIND;
+  elementIds: string[];
+  color: string;
+  colorName: string;
 }
 
-export class ChangeColorOperation implements Operation {
-  static readonly KIND = 'changeColor';
+export namespace ColorizeOperation {
+  export const KIND = 'colorize';
 
-  constructor(
-    public readonly color: string,
-    public readonly colorName: string,
-    public readonly oldColor: string,
-    public readonly kind: string = ChangeColorOperation.KIND
-  ) {}
+  export function create(options: { elementIds: string[]; color: string; colorName: string }): ColorizeOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
+}
+
+export interface ChangeActivityTypeOperation extends Operation {
+  kind: typeof ChangeActivityTypeOperation.KIND;
+  elementId: string;
+  typeId: string;
+}
+
+export namespace ChangeActivityTypeOperation {
+  export const KIND = 'changeActivityType';
+
+  export function create(options: { elementId: string; typeId: string }): ChangeActivityTypeOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
+}
+
+export interface ChangeColorOperation extends Operation {
+  kind: typeof ChangeColorOperation.KIND;
+  color: string;
+  colorName: string;
+  oldColor: string;
+}
+
+export namespace ChangeColorOperation {
+  export const KIND = 'changeColor';
+
+  export function create(options: { color: string; colorName: string; oldColor: string }): ChangeColorOperation {
+    return {
+      kind: KIND,
+      isOperation: true,
+      ...options
+    };
+  }
 }

@@ -1,6 +1,5 @@
-import { isBoundsAwareMoveable } from '@eclipse-glsp/client';
+import { isBoundsAwareMoveable, ISnapper, Point, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { ISnapper, Point, SModelElement } from 'sprotty';
 
 @injectable()
 export class IvyGridSnapper implements ISnapper {

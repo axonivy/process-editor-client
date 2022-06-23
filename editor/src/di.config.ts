@@ -2,7 +2,7 @@ import '../css/colors.css';
 
 import {
   DEFAULT_MODULES,
-  GLSP_TYPES,
+  TYPES,
   glspDecorationModule,
   glspViewportModule,
   openModule,
@@ -60,7 +60,7 @@ export default function createContainer(widgetId: string): Container {
     ivyEditLabelModule,
     ivyKeyListenerModule
   );
-  container.bind(GLSP_TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
+  container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,

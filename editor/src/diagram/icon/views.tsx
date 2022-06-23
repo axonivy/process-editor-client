@@ -1,6 +1,5 @@
-import { svg } from '@eclipse-glsp/client';
+import { svg, Bounds } from '@eclipse-glsp/client';
 import { VNode } from 'snabbdom';
-import { Bounds } from 'sprotty';
 import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { IconStyle, resolveIcon } from './icons';

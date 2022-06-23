@@ -20,7 +20,7 @@ export class WrapToSubContribution implements CommandContribution {
     commands.registerCommand(
       { id: WrapToSubCommands.WRAP, label: 'Wrap' },
       new GLSPCommandHandler(this.shell, {
-        actions: context => [new WrapToSubOperation(context.selectedElements.map(e => e.id))],
+        actions: context => [WrapToSubOperation.create({ elementIds: context.selectedElements.map(e => e.id) })],
         isEnabled: context => context.selectedElements.length > 0
       })
     );

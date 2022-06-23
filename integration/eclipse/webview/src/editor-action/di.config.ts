@@ -2,7 +2,7 @@ import { IVY_TYPES } from '@ivyteam/process-editor';
 import { ContainerModule } from 'inversify';
 import { SearchProcessCallersActionProvider, StarProcessQuickActionProvider } from './actions';
 
-const ivyEditorActionModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyEditorActionModule = new ContainerModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(StarProcessQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(SearchProcessCallersActionProvider);
 });

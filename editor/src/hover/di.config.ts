@@ -1,6 +1,5 @@
-import { FocusStateChangedAction } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
 import {
+  FocusStateChangedAction,
   CenterCommand,
   ClosePopupActionHandler,
   configureActionHandler,
@@ -14,7 +13,8 @@ import {
   SetPopupModelCommand,
   SetViewportCommand,
   TYPES
-} from 'sprotty';
+} from '@eclipse-glsp/client';
+import { ContainerModule } from 'inversify';
 import { PopupPositionUpdater } from 'sprotty/lib/features/hover/popup-position-updater';
 import { IVY_TYPES } from '../types';
 import { IvyHoverMouseListener } from './hover';

@@ -159,6 +159,7 @@
   stroke: var(--glsp-editor-foreground);
   top: 1px;
   position: relative;
+  flex: none;
 }
 .tool-button .color-icon,
 .color-palette-body .tool-button .empty-icon {

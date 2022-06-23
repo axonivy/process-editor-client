@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
-import { IView, Point, RenderingContext, setAttr, svg } from 'sprotty';
+import { IView, Point, RenderingContext, setAttr, svg } from '@eclipse-glsp/client';
 
 import { isLaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 

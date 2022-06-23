@@ -11,7 +11,7 @@ import {
   SetViewportCommand,
   TYPES,
   ZoomMouseListener
-} from 'sprotty';
+} from '@eclipse-glsp/client';
 
 import {
   IvyFitToScreenCommand,

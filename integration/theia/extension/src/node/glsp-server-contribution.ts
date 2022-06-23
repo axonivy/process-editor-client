@@ -1,5 +1,4 @@
-import { getPort } from '@eclipse-glsp/protocol';
-import { JavaSocketServerContribution, JavaSocketServerLaunchOptions } from '@eclipse-glsp/theia-integration/lib/node';
+import { getPort, GLSPSocketServerContribution, GLSPSocketServerContributionOptions } from '@eclipse-glsp/theia-integration/lib/node';
 import { injectable } from '@theia/core/shared/inversify';
 import { join } from 'path';
 
@@ -10,25 +9,17 @@ export const PORT_ARG_KEY = 'IVY_PROCESS_GLSP';
 export const SERVER_DIR = join(__dirname, '..', '..', 'server');
 
 @injectable()
-export class IvyGLSPServerContribution extends JavaSocketServerContribution {
+export class IvyGLSPServerContribution extends GLSPSocketServerContribution {
   readonly id = IvyProcessLanguage.contributionId;
 
-  createLaunchOptions(): Partial<JavaSocketServerLaunchOptions> {
+  createContributionOptions(): Partial<GLSPSocketServerContributionOptions> {
     return {
-      jarPath: '',
+      executable: '',
       additionalArgs: ['--consoleLog', 'false', '--fileLog', 'true', '--logDir', SERVER_DIR],
       socketConnectionOptions: {
         port: getPort(PORT_ARG_KEY, DEFAULT_PORT)
       },
       launchedExternally: true
     };
-  }
-
-  async launch(): Promise<void> {
-    if (this.launchOptions.launchedExternally) {
-      this.resolveReady();
-      return this.onReady;
-    }
-    return super.launch();
   }
 }

@@ -1,6 +1,6 @@
 import '../../css/quick-action.css';
 
-import { configureActionHandler, GLSP_TYPES, TYPES } from '@eclipse-glsp/client';
+import { configureActionHandler, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, interfaces } from 'inversify';
 
 import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
@@ -18,7 +18,7 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
 
 export function configureQuickActionEdgeTool(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
   context.bind(QuickActionEdgeCreationTool).toSelf().inSingletonScope();
-  context.bind(GLSP_TYPES.ITool).toService(QuickActionEdgeCreationTool);
+  context.bind(TYPES.ITool).toService(QuickActionEdgeCreationTool);
   configureActionHandler(context, QuickActionTriggerEdgeCreationAction.KIND, QuickActionEdgeCreationTool);
 }
 

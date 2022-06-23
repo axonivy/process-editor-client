@@ -1,12 +1,29 @@
-import { FeedbackCommand } from '@eclipse-glsp/client';
+import {
+  FeedbackCommand,
+  Action,
+  CommandExecutionContext,
+  CommandReturn,
+  SModelRoot,
+  TYPES,
+  UIExtensionRegistry
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Action, CommandExecutionContext, CommandReturn, SModelRoot, TYPES, UIExtensionRegistry } from 'sprotty';
 
 import { CustomIconToggleActionHandler } from '../diagram/icon/custom-icon-toggle-action-handler';
 import { ToolBar } from './tool-bar';
 
-export class ToolBarFeedbackAction implements Action {
-  constructor(readonly elementId?: string, public readonly kind: string = ToolBarFeedbackCommand.KIND) {}
+export interface ToolBarFeedbackAction extends Action {
+  kind: typeof ToolBarFeedbackCommand.KIND;
+  elementId?: string;
+}
+
+export namespace ToolBarFeedbackAction {
+  export function create(elementId?: string): ToolBarFeedbackAction {
+    return {
+      kind: ToolBarFeedbackCommand.KIND,
+      elementId
+    };
+  }
 }
 
 @injectable()

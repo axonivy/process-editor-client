@@ -1,10 +1,24 @@
-import { Action, IActionHandler, UpdateModelAction } from '@eclipse-glsp/client';
+import { Action, EMPTY_ROOT, hasBooleanProp, IActionHandler, UpdateModelAction } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
-export class CustomIconToggleAction implements Action {
-  static readonly KIND = 'toggleCustomIcons';
+export interface CustomIconToggleAction extends Action {
+  kind: typeof CustomIconToggleAction.KIND;
+  showCustomIcons: boolean;
+}
 
-  constructor(public readonly showCustomIcons: boolean, public readonly kind: string = CustomIconToggleAction.KIND) {}
+export namespace CustomIconToggleAction {
+  export const KIND = 'toggleCustomIcons';
+
+  export function is(object: any): object is CustomIconToggleAction {
+    return Action.hasKind(object, KIND) && hasBooleanProp(object, 'showCustomIcons');
+  }
+
+  export function create(options: { showCustomIcons: boolean }): CustomIconToggleAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -12,9 +26,9 @@ export class CustomIconToggleActionHandler implements IActionHandler {
   private showCustomIcons = true;
 
   handle(action: Action): Action | void {
-    if (isCustomIconToggleAction(action)) {
+    if (CustomIconToggleAction.is(action)) {
       this.showCustomIcons = action.showCustomIcons;
-      return new UpdateModelAction([]);
+      return UpdateModelAction.create({ type: EMPTY_ROOT.type, id: EMPTY_ROOT.id });
     }
   }
 
@@ -25,10 +39,4 @@ export class CustomIconToggleActionHandler implements IActionHandler {
   set setShowCustomIcons(show: boolean) {
     this.showCustomIcons = show;
   }
-}
-
-export function isCustomIconToggleAction(action: Action): action is CustomIconToggleAction {
-  return (
-    action !== undefined && action.kind === CustomIconToggleAction.KIND && (action as CustomIconToggleAction).showCustomIcons !== undefined
-  );
 }

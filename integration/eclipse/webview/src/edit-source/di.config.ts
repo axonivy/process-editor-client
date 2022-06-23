@@ -3,7 +3,7 @@ import { ContainerModule } from 'inversify';
 
 import { EditSourceQuickActionProvider } from './quick-action';
 
-const ivyEditSourceModule = new ContainerModule((bind, _unbind) => {
+const ivyEditSourceModule = new ContainerModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(EditSourceQuickActionProvider);
 });
 

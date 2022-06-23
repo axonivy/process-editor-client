@@ -6,7 +6,6 @@ import {
   defaultModule,
   Dimension,
   FeedbackActionDispatcher,
-  GLSP_TYPES,
   glspMouseToolModule,
   glspSelectModule,
   LocalModelSource,
@@ -44,7 +43,7 @@ function createContainerReadonly(): Container {
   const container = new Container();
   container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyJumpModule, ivyLaneModule, ivyConnectorModule);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   container.bind(QuickActionUIReadonly).toSelf().inSingletonScope();
   container.bind(TYPES.IUIExtension).toService(QuickActionUIReadonly);
   configureQuickActionProviders(container);
@@ -66,7 +65,7 @@ function createContainer(): Container {
     ivyConnectorModule
   );
   container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(GLSP_TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
 }
 

@@ -20,16 +20,26 @@ class StartProcessQuickAction implements QuickAction {
     public readonly title = 'Start Process (X)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new StartProcessAction(elementId),
+    public readonly action = StartProcessAction.create(elementId),
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyX'
   ) {}
 }
 
-export class StartProcessAction implements Action {
-  static readonly KIND = 'startProcess';
+export interface StartProcessAction extends Action {
+  kind: typeof StartProcessAction.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = StartProcessAction.KIND) {}
+export namespace StartProcessAction {
+  export const KIND = 'startProcess';
+
+  export function create(elementId: string): StartProcessAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
 }
 
 @injectable()
@@ -60,14 +70,24 @@ class SearchProcessCallersQuickAction implements QuickAction {
     public readonly title = 'Search callers of this process (O)',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'B',
-    public readonly action = new SearchProcessCallersAction(elementId),
+    public readonly action = SearchProcessCallersAction.create(elementId),
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyO'
   ) {}
 }
 
-export class SearchProcessCallersAction implements Action {
-  static readonly KIND = 'searchProcessCallers';
+export interface SearchProcessCallersAction extends Action {
+  kind: typeof SearchProcessCallersAction.KIND;
+  elementId: string;
+}
 
-  constructor(public readonly elementId: string, public readonly kind: string = SearchProcessCallersAction.KIND) {}
+export namespace SearchProcessCallersAction {
+  export const KIND = 'searchProcessCallers';
+
+  export function create(elementId: string): SearchProcessCallersAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
 }

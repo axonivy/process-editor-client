@@ -1,6 +1,17 @@
-import { Action } from 'sprotty';
+import { Action } from '@eclipse-glsp/client';
 
-export class EditSourceAction implements Action {
-  static readonly KIND = 'editSource';
-  constructor(readonly elementId: string, public readonly kind: string = EditSourceAction.KIND) {}
+export interface EditSourceAction extends Action {
+  kind: typeof EditSourceAction.KIND;
+  elementId: string;
+}
+
+export namespace EditSourceAction {
+  export const KIND = 'editSource';
+
+  export function create(elementId: string): EditSourceAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
 }

@@ -1,21 +1,40 @@
 import { injectable } from 'inversify';
-import { Action, SModelElement } from 'sprotty';
+import { Action, SModelElement } from '@eclipse-glsp/client';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
 import { isBreakable } from './model';
 
-export class SetBreakpointAction implements Action {
-  static readonly KIND = 'setBreakpoint';
-  kind = SetBreakpointAction.KIND;
-
-  constructor(public readonly elementId: string) {}
+export interface SetBreakpointAction extends Action {
+  kind: typeof SetBreakpointAction.KIND;
+  elementId: string;
 }
 
-export class ToggleBreakpointAction implements Action {
-  static readonly KIND = 'toggleBreakpoint';
-  kind = ToggleBreakpointAction.KIND;
+export namespace SetBreakpointAction {
+  export const KIND = 'setBreakpoint';
 
-  constructor(public readonly elementId: string, public readonly disable: boolean) {}
+  export function create(options: { elementId: string }): SetBreakpointAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
+}
+
+export interface ToggleBreakpointAction extends Action {
+  kind: typeof ToggleBreakpointAction.KIND;
+  elementId: string;
+  disable: boolean;
+}
+
+export namespace ToggleBreakpointAction {
+  export const KIND = 'toggleBreakpoint';
+
+  export function create(options: { elementId: string; disable: boolean }): ToggleBreakpointAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
 }
 
 @injectable()
@@ -35,7 +54,7 @@ class BreakpointQuickAction implements QuickAction {
     public readonly title = 'Toggle Breakpoint',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',
-    public readonly action = new SetBreakpointAction(elementId),
+    public readonly action = SetBreakpointAction.create({ elementId: elementId }),
     public readonly readonlySupport = true
   ) {}
 }

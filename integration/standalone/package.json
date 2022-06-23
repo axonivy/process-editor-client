@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@ivyteam/process-editor": "^0.9.3-s26",
-    "@eclipse-glsp/ide": "next"
+    "@eclipse-glsp/client": "next"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",

@@ -22,6 +22,6 @@ class CreateLaneQuickAction implements QuickAction {
     public readonly title = 'Create Lane',
     public readonly location = QuickActionLocation.BottomLeft,
     public readonly sorting = 'A',
-    public readonly action = new CreateNodeOperation(LaneTypes.LANE, undefined, poolId)
+    public readonly action = CreateNodeOperation.create(LaneTypes.LANE, { containerId: poolId })
   ) {}
 }

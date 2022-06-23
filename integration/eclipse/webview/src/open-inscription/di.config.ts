@@ -1,6 +1,7 @@
 import { IVY_TYPES } from '@ivyteam/process-editor';
 import { ContainerModule } from 'inversify';
-import { configureActionHandler, OpenAction, TYPES } from 'sprotty';
+import { configureActionHandler, TYPES } from '@eclipse-glsp/client';
+import { OpenAction } from 'sprotty-protocol';
 
 import { OpenInscriptionMouseListener } from './mouse-listener';
 import { OpenInscriptionActionHandler, OpenInscriptionKeyListener } from './open-inscription-handler';
