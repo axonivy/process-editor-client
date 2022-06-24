@@ -1,6 +1,6 @@
 import '../css/colors.css';
 
-import { eclipseCopyPasteModule, eclipseDeleteModule, EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
+import { EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
 import { ivyBreakpointModule, createIvyDiagramContainer } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
@@ -12,6 +12,8 @@ import ivyEditSourceModule from './edit-source/di.config';
 import ivyEditorActionModule from './editor-action/di.config';
 import ivyOpenDataClassModule from './open-data-class/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
+import ivyEclipseCopyPasteModule from './copy-paste/di.config';
+import ivyEclipseDeleteModule from './invoke-delete/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -20,8 +22,10 @@ export default function createContainer(widgetId: string): Container {
   container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
   container.load(keepAliveModule);
-  container.load(eclipseCopyPasteModule);
-  container.load(eclipseDeleteModule);
+  // Revert after Issue 690 is merged
+  container.load(ivyEclipseCopyPasteModule);
+  // Revert after Issue 690 is merged
+  container.load(ivyEclipseDeleteModule);
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
   container.load(ivyOpenQuickOutlineModule);
