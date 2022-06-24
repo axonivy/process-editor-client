@@ -110,8 +110,8 @@ pipeline {
             maven cmd: '-f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
             maven cmd: '-f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
-          archiveArtifacts 'integration/eclipse/webview/target/glsp-client-*.zip'
-          archiveArtifacts 'integration/standalone/target/glsp-client-standalone*.jar'
+          archiveArtifacts 'integration/eclipse/webview/target/editor-client-eclipse-*.zip'
+          archiveArtifacts 'integration/standalone/target/editor-client-standalone*.jar'
         }
       }
     }
