@@ -13,7 +13,10 @@ export interface NodeIcon {
 export const NoIcon = { res: '', style: IconStyle.NO };
 
 const StandardIcons: { [icon: string]: NodeIcon } = {
+  // No icon
   'std:NoDecorator': NoIcon,
+  'std:End': NoIcon,
+  // Standard icons
   'std:Step': { res: 'fa-solid fa-cog', style: IconStyle.FA },
   'std:UserDialog': { res: 'fa-solid fa-display', style: IconStyle.FA },
   'std:User': { res: 'fa-solid fa-user', style: IconStyle.FA },
@@ -37,13 +40,19 @@ const StandardIcons: { [icon: string]: NodeIcon } = {
   'std:Method': { res: 'fa-solid fa-arrow-circle-right', style: IconStyle.FA },
   'std:Event': { res: 'fa-solid fa-caret-square-right', style: IconStyle.FA },
   'std:Exit': { res: 'fa-solid fa-window-close', style: IconStyle.FA },
-  'std:End': NoIcon,
   'std:Signal': { res: 'M5,0 L10,10 l-10,0 Z', style: IconStyle.SVG },
   'std:Error': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
   'std:Alternative': { res: 'M2,2 L8,8 M2,8 L8,2', style: IconStyle.SVG },
   'std:Join': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
   'std:Split': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
-  'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG }
+  'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG },
+  // Error/Signal icons
+  'std:Message': { res: 'fa-regular fa-envelope', style: IconStyle.FA },
+  'std:Timer': { res: 'fa-regular fa-clock', style: IconStyle.FA },
+  'std:Conditional': { res: 'fa-solid fa-align-justify', style: IconStyle.FA },
+  'std:Escalation': { res: 'fa-solid fa-angles-up', style: IconStyle.FA },
+  'std:Compensation': { res: 'fa-solid fa-angles-left', style: IconStyle.FA },
+  'std:Cancel': { res: 'fa-solid fa-xmark', style: IconStyle.FA }
 };
 
 const PaletteIcons: { [icon: string]: NodeIcon } = {

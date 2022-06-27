@@ -36,6 +36,15 @@ describe('StandardIcons', () => {
     expect(resolveIcon('std:Tasks')).to.be.deep.equals({ res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG });
   });
 
+  it('show error/signal start icons', () => {
+    expect(resolveIcon('std:Message')).to.be.deep.equals({ res: 'fa-regular fa-envelope', style: IconStyle.FA });
+    expect(resolveIcon('std:Timer')).to.be.deep.equals({ res: 'fa-regular fa-clock', style: IconStyle.FA });
+    expect(resolveIcon('std:Conditional')).to.be.deep.equals({ res: 'fa-solid fa-align-justify', style: IconStyle.FA });
+    expect(resolveIcon('std:Escalation')).to.be.deep.equals({ res: 'fa-solid fa-angles-up', style: IconStyle.FA });
+    expect(resolveIcon('std:Compensation')).to.be.deep.equals({ res: 'fa-solid fa-angles-left', style: IconStyle.FA });
+    expect(resolveIcon('std:Cancel')).to.be.deep.equals({ res: 'fa-solid fa-xmark', style: IconStyle.FA });
+  });
+
   it('external icons are replaced by generic icon', () => {
     expect(resolveIcon('ext:1131930634')).to.be.deep.equals({ res: 'fa-puzzle-piece', style: IconStyle.FA });
   });
