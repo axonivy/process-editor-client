@@ -1,5 +1,5 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { cleanDiagram } from '../diagram-util';
+import { cleanDiagram, resetSelection } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar - element picker', () => {
@@ -72,19 +72,24 @@ test.describe('tool bar - element picker', () => {
   });
 
   test('create lanes', async ({ page }) => {
-    await createAllElements(page, 'swimlane-group', 2);
+    await createAllElements(page, 'swimlane-group', 2, false);
   });
 
-  async function createAllElements(page: Page, group: string, expectedElementCount: number): Promise<void> {
+  async function createAllElements(page: Page, group: string, expectedElementCount: number, checkSelection = true): Promise<void> {
     await cleanDiagram(page);
     await openElementPalette(page, group);
 
+    const elements = page.locator('.sprotty-graph > g > g');
     const pickers = page.locator(PALETTE_BODY + ' .tool-group:not(.collapsed) .tool-button');
     const pickersCount = await pickers.count();
     for (let i = 0; i < pickersCount; i++) {
       await pickers.nth(i).click();
       await page.locator('.sprotty-graph').click({ position: { x: 30 + 80 * i, y: 100 } });
-      await expect(page.locator('.sprotty-graph > g > g')).toHaveCount(i + 1);
+      await expect(elements).toHaveCount(i + 1);
+      if (checkSelection) {
+        await expect(elements.last()).toHaveAttribute('class', /selected/);
+      }
+      await resetSelection(page);
       await openElementPalette(page, group);
     }
     await expect(page.locator('.sprotty-graph > g > g')).toHaveCount(expectedElementCount);

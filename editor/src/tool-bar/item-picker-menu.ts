@@ -18,7 +18,8 @@ export class ItemPickerMenu {
     readonly actions: (item: PaletteItem) => Action[],
     readonly onClickElementPickerToolButton: (button: HTMLElement, actions: Action[]) => void,
     readonly clearToolOnEscape: (event: KeyboardEvent) => void,
-    readonly handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void
+    readonly handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void,
+    readonly hideItemsContaning?: string
   ) {
     this.paletteItems = paletteItems;
   }
@@ -42,7 +43,7 @@ export class ItemPickerMenu {
   }
 
   public showGroup(groupId: string): void {
-    this.bodyDiv!.classList.remove(COLLAPSED_CSS);
+    this.showMenu();
     Array.from(this.bodyDiv!.getElementsByClassName('tool-group')).forEach(element => {
       if (element.id === groupId) {
         element.classList.remove(COLLAPSED_CSS);
@@ -62,6 +63,7 @@ export class ItemPickerMenu {
 
   public showMenu(): void {
     this.bodyDiv!.classList.remove(COLLAPSED_CSS);
+    this.searchField.focus();
   }
 
   public getPaletteItems(): PaletteItem[] {
@@ -122,7 +124,10 @@ export class ItemPickerMenu {
     this.paletteItems.sort(compare).forEach(item => {
       if (item.children) {
         const group = this.createToolGroup(item);
-        item.children.sort(compare).forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
+        item.children
+          .sort(compare)
+          .filter(child => this.hideItemsContaning === undefined || !child.label.includes(this.hideItemsContaning))
+          .forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
         itemsDiv.appendChild(group);
       } else {
         itemsDiv.appendChild(this.createToolButton(item, tabIndex++));

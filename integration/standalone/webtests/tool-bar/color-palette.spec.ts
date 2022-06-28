@@ -183,7 +183,7 @@ test.describe('tool bar - color palette', () => {
     await expect(paletteBody).toBeHidden();
     await expect(dynamicTools).toBeHidden();
 
-    if (elements) {
+    if (elements && browserName) {
       await multiSelect(page, elements, browserName);
     } else {
       await page.locator(startSelector).click();

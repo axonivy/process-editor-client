@@ -24,7 +24,7 @@ function createContainer(): Container {
   return container;
 }
 
-describe('AnimateActionHandler', () => {
+describe('ExecutionActionHandler', () => {
   let actionDispatcher: ActionDispatcher;
   let feedbackDispatcher: FeedbackActionDispatcher;
 

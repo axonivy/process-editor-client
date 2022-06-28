@@ -1,6 +1,7 @@
 import { expect, Page, test } from '@playwright/test';
 import { resetSelection, multiSelect, startSelector, endSelector, embeddedSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { QUICK_ACTION_BTN } from '../quick-actions/quick-actions-util';
 
 test.describe('key listener - quick action shortcuts', () => {
   const STRAIGHT_CONNECTOR_PATH = /M \d+.?\d*,\d+.?\d* L \d+.?\d*,\d+.?\d*/;
@@ -53,8 +54,8 @@ test.describe('key listener - quick action shortcuts', () => {
 
     await multiSelect(page, [start, end], browserName);
     await pressQuickActionShortcut(page, 'A');
-    await expect(start).toHaveAttribute('transform', startTransform);
-    await expect(end).not.toHaveAttribute('transform', endTransform);
+    await expect(start).toHaveAttribute('transform', startTransform!);
+    await expect(end).not.toHaveAttribute('transform', endTransform!);
     // end element should only be moved vertically
     await expect(end).toHaveAttribute('transform', /translate\(625, \d+\)/);
   });
@@ -89,9 +90,30 @@ test.describe('key listener - quick action shortcuts', () => {
     await expect(end).toBeVisible();
     await expect(embedded).toBeHidden();
   });
+
+  test('create node', async ({ page }) => {
+    const createNodePalette = page.locator('.create-node-palette-body');
+    const start = page.locator(startSelector);
+    await expect(createNodePalette).toBeHidden();
+
+    await start.click();
+    await pressHiddenQuickActionShortcut(page, 'A');
+    await expect(createNodePalette).toBeVisible();
+
+    const toolGroup = createNodePalette.locator('.tool-group');
+    const count = await toolGroup.count();
+    for (let i = 0; i < count; i++) {
+      await expect(toolGroup.nth(i)).not.toHaveClass(/collapsed/);
+    }
+  });
 });
 
 async function pressQuickActionShortcut(page: Page, shortcut: string): Promise<void> {
-  await expect(page.locator(`#sprotty_quickActionsUi i[title$="(${shortcut})"]`)).toBeVisible();
+  await expect(page.locator(`${QUICK_ACTION_BTN}[title$="(${shortcut})"]`)).toBeVisible();
+  await page.keyboard.press(shortcut);
+}
+
+async function pressHiddenQuickActionShortcut(page: Page, shortcut: string): Promise<void> {
+  await expect(page.locator(QUICK_ACTION_BTN).first()).toBeVisible();
   await page.keyboard.press(shortcut);
 }

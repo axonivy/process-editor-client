@@ -7,6 +7,8 @@ import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTri
 import { AutoAlignQuickActionProvider, DeleteQuickActionProvider, EditLabelActionProvider } from './quick-action';
 import { IVY_TYPES } from '../types';
 import { QuickActionUI } from './quick-action-ui';
+import { CreateNodeUi } from './node/create-node-ui';
+import { AttachCommentProvider, CreateElementQuickActionProvider } from './node/actions';
 
 const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(QuickActionUI).toSelf().inSingletonScope();
@@ -14,6 +16,7 @@ const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
 
   configureQuickActionEdgeTool({ bind, isBound });
   configureQuickActionProviders({ bind });
+  configureNodeCreationTool({ bind });
 });
 
 export function configureQuickActionEdgeTool(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
@@ -27,6 +30,13 @@ export function configureQuickActionProviders(context: { bind: interfaces.Bind }
   context.bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
   context.bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
   context.bind(IVY_TYPES.QuickActionProvider).to(EditLabelActionProvider);
+}
+
+export function configureNodeCreationTool(context: { bind: interfaces.Bind }): void {
+  context.bind(CreateNodeUi).toSelf().inSingletonScope();
+  context.bind(TYPES.IUIExtension).toService(CreateNodeUi);
+  context.bind(IVY_TYPES.QuickActionProvider).to(AttachCommentProvider);
+  context.bind(IVY_TYPES.CategoryQuickActionProvider).to(CreateElementQuickActionProvider);
 }
 
 export default ivyQuickActionModule;
