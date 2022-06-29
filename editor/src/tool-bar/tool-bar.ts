@@ -129,7 +129,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       'fa-solid fa-image',
       'Toggle custom icons',
       () => CustomIconToggleAction.create({ showCustomIcons: !this.toggleCustomIconsButton.classList.contains('active') }),
-      true
+      true,
+      'btn_toggle_custom_icons'
     );
     headerTools.appendChild(this.toggleCustomIconsButton);
 
@@ -161,6 +162,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   protected createMarqueeToolButton(): HTMLElement {
     const marqueeToolButton = createIcon(['fa-regular', 'fa-object-group', 'fa-xs']);
+    marqueeToolButton.id = 'btn_marquee_tools';
     marqueeToolButton.title = 'Enable marquee tool';
     marqueeToolButton.onclick = this.onClickStaticToolButton(marqueeToolButton, IvyMarqueeMouseTool.ID);
     return marqueeToolButton;
@@ -208,9 +210,12 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     return containerElement.querySelector('#' + id) as HTMLElement;
   }
 
-  protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean): HTMLElement {
+  protected createDynamicToolButton(icon: string, title: string, action: () => Action, visible: boolean, id?: string): HTMLElement {
     const button = createIcon([icon, 'fa-xs']);
     button.title = title;
+    if (id) {
+      button.id = id;
+    }
     this.showDynamicBtn(button, visible);
     button.onclick = _event => this.dispatchAction([action()]);
     return button;
