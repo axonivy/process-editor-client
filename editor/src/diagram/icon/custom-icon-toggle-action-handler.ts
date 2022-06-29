@@ -1,5 +1,6 @@
-import { Action, EMPTY_ROOT, hasBooleanProp, IActionHandler, UpdateModelAction } from '@eclipse-glsp/client';
+import { Action, hasBooleanProp, IActionHandler, SModelRootSchema, UpdateModelAction } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import * as sprotty from 'sprotty-protocol/lib/actions';
 
 export interface CustomIconToggleAction extends Action {
   kind: typeof CustomIconToggleAction.KIND;
@@ -21,6 +22,22 @@ export namespace CustomIconToggleAction {
   }
 }
 
+export interface ReloadModelAction extends Action, Omit<sprotty.UpdateModelAction, 'matches' | 'cause'> {
+  kind: typeof UpdateModelAction.KIND;
+  newRoot?: SModelRootSchema;
+  animate?: boolean;
+}
+
+export namespace ReloadModelAction {
+  export function create(newRoot?: SModelRootSchema, options: { animate?: boolean } = {}): ReloadModelAction {
+    return {
+      kind: UpdateModelAction.KIND,
+      newRoot: newRoot,
+      ...options
+    };
+  }
+}
+
 @injectable()
 export class CustomIconToggleActionHandler implements IActionHandler {
   private showCustomIcons = true;
@@ -28,7 +45,7 @@ export class CustomIconToggleActionHandler implements IActionHandler {
   handle(action: Action): Action | void {
     if (CustomIconToggleAction.is(action)) {
       this.showCustomIcons = action.showCustomIcons;
-      return UpdateModelAction.create({ type: EMPTY_ROOT.type, id: EMPTY_ROOT.id });
+      return ReloadModelAction.create();
     }
   }
 
