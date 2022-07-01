@@ -327,7 +327,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (SetContextActions.is(response)) {
       const paletteItems = response.actions.map(e => e as PaletteItem);
       const actions = (item_1: PaletteItem): Action[] => item_1.actions;
-      this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
+      this.elementPickerMenu = new ItemPickerMenu(
+        paletteItems,
+        'element-palette-body',
+        actions,
+        this.onClickElementPickerToolButton,
+        this.clearToolOnEscape
+      );
       this.createElementPickerMenu();
     }
   }
@@ -345,8 +351,14 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       const actions = (item: PaletteItem): Action[] => [
         ChangeActivityTypeOperation.create({ elementId: [...this.selectionService.getSelectedElementIDs()][0], typeId: item.id })
       ];
-      this.activityTypePickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
-      this.activityTypePickerMenu.createMenuBody(this.containerElement, 'activity-type-palette-body');
+      this.activityTypePickerMenu = new ItemPickerMenu(
+        paletteItems,
+        'activity-type-palette-body',
+        actions,
+        this.onClickElementPickerToolButton,
+        this.clearToolOnEscape
+      );
+      this.activityTypePickerMenu.createMenuBody(this.containerElement);
     }
   }
 
@@ -366,12 +378,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.colorPickerMenu?.removeMenuBody();
       this.colorPickerMenu = new ItemPickerMenu(
         paletteItems,
+        'color-palette-body',
         actions,
         this.onClickElementPickerToolButton,
         this.clearToolOnEscape,
         this.handleEditDialogClose
       );
-      this.colorPickerMenu.createMenuBody(this.containerElement, 'color-palette-body');
+      this.colorPickerMenu.createMenuBody(this.containerElement);
     }
   }
 
@@ -410,7 +423,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (this.editorContext.isReadonly) {
       return;
     }
-    this.elementPickerMenu?.createMenuBody(this.containerElement, 'element-palette-body');
+    this.elementPickerMenu?.createMenuBody(this.containerElement);
     const headerCompartment = this.containerElement.getElementsByClassName('bar-header')[0];
     const elementPickers = document.createElement('div');
     elementPickers.classList.add('element-pickers');

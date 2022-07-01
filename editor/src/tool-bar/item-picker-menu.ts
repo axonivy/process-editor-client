@@ -1,4 +1,3 @@
-const COLLAPSED_CSS = 'collapsed';
 import { Action, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { IconStyle, resolvePaletteIcon } from '../diagram/icon/icons';
@@ -6,6 +5,11 @@ import { EditDialog } from './edit-dialog';
 import { changeCSSClass, compare, createIcon } from './tool-bar-helper';
 
 export class ItemPickerMenu {
+  static ACTIVE_ELEMENT = 'focus';
+  static COLLAPSED_GROUP = 'collapsed';
+  static TOOL_GROUP = 'tool-group';
+  static TOOL_BUTTON = 'tool-button';
+
   protected paletteItems: PaletteItem[];
   protected paletteItemsCopy: PaletteItem[] = [];
   protected bodyDiv?: HTMLElement;
@@ -15,6 +19,7 @@ export class ItemPickerMenu {
 
   constructor(
     paletteItems: PaletteItem[],
+    readonly paletteBodyCssClass: string,
     readonly actions: (item: PaletteItem) => Action[],
     readonly onClickElementPickerToolButton: (button: HTMLElement, actions: Action[]) => void,
     readonly clearToolOnEscape: (event: KeyboardEvent) => void,
@@ -24,10 +29,10 @@ export class ItemPickerMenu {
     this.paletteItems = paletteItems;
   }
 
-  public createMenuBody(containerElement: HTMLElement, paletteBodyCssClass: string): void {
+  public createMenuBody(containerElement: HTMLElement): void {
     const bodyDiv = document.createElement('div');
     containerElement.appendChild(bodyDiv);
-    bodyDiv.classList.add(paletteBodyCssClass, 'palette-body', 'collapsible-palette', COLLAPSED_CSS);
+    bodyDiv.classList.add(this.paletteBodyCssClass, 'palette-body', 'collapsible-palette', ItemPickerMenu.COLLAPSED_GROUP);
     bodyDiv.appendChild((this.searchField = this.createPaletteItemSearchField(containerElement.id)));
     this.bodyDiv = bodyDiv;
     this.createItemsDiv(bodyDiv);
@@ -44,26 +49,26 @@ export class ItemPickerMenu {
 
   public showGroup(groupId: string): void {
     this.showMenu();
-    Array.from(this.bodyDiv!.getElementsByClassName('tool-group')).forEach(element => {
+    Array.from(this.bodyDiv!.getElementsByClassName(ItemPickerMenu.TOOL_GROUP)).forEach(element => {
       if (element.id === groupId) {
-        element.classList.remove(COLLAPSED_CSS);
+        element.classList.remove(ItemPickerMenu.COLLAPSED_GROUP);
       } else {
-        element.classList.add(COLLAPSED_CSS);
+        element.classList.add(ItemPickerMenu.COLLAPSED_GROUP);
       }
     });
   }
 
   public isMenuHidden(): boolean | undefined {
-    return this.bodyDiv?.classList.contains(COLLAPSED_CSS);
+    return this.bodyDiv?.classList.contains(ItemPickerMenu.COLLAPSED_GROUP);
   }
 
   public hideMenu(): void {
-    this.bodyDiv!.classList.add(COLLAPSED_CSS);
+    this.bodyDiv!.classList.add(ItemPickerMenu.COLLAPSED_GROUP);
   }
 
   public showMenu(): void {
-    this.bodyDiv!.classList.remove(COLLAPSED_CSS);
-    this.searchField.focus();
+    this.bodyDiv!.classList.remove(ItemPickerMenu.COLLAPSED_GROUP);
+    setTimeout(() => this.searchField.focus(), 1);
   }
 
   public getPaletteItems(): PaletteItem[] {
@@ -75,9 +80,21 @@ export class ItemPickerMenu {
     searchField.classList.add('search-input');
     searchField.type = 'text';
     searchField.placeholder = ' Search...';
-    searchField.onkeyup = () => this.requestFilterUpdate(this.searchField.value);
+    searchField.onkeyup = ev => this.filterKeyUp(ev);
     searchField.onkeydown = ev => this.clearSearchInputOnEscape(ev);
     return searchField;
+  }
+
+  private filterKeyUp(event: KeyboardEvent): void {
+    if (matchesKeystroke(event, 'ArrowUp')) {
+      this.navigateUpOrDown(-1);
+    } else if (matchesKeystroke(event, 'ArrowDown')) {
+      this.navigateUpOrDown(1);
+    } else if (matchesKeystroke(event, 'Enter')) {
+      this.triggerFocusItem();
+    } else {
+      this.requestFilterUpdate(this.searchField.value);
+    }
   }
 
   private clearSearchInputOnEscape(event: KeyboardEvent): void {
@@ -118,6 +135,36 @@ export class ItemPickerMenu {
     }
   }
 
+  private navigateUpOrDown(move: number): void {
+    if (this.itemsDiv) {
+      const allButtons = Array.from(this.itemsDiv.querySelectorAll(`.${this.paletteBodyCssClass} .${ItemPickerMenu.TOOL_BUTTON}`));
+      const currentSelection = allButtons.filter(e => e.classList.contains(ItemPickerMenu.ACTIVE_ELEMENT))[0];
+      if (!currentSelection) {
+        allButtons[0].classList.add(ItemPickerMenu.ACTIVE_ELEMENT);
+      } else {
+        currentSelection.classList.remove(ItemPickerMenu.ACTIVE_ELEMENT);
+        let nextIndex = allButtons.indexOf(currentSelection) + move;
+        if (nextIndex < 0) {
+          nextIndex = allButtons.length - 1;
+        } else if (nextIndex >= allButtons.length) {
+          nextIndex = 0;
+        }
+        allButtons[nextIndex].classList.add(ItemPickerMenu.ACTIVE_ELEMENT);
+        allButtons[nextIndex].parentElement?.classList.remove(ItemPickerMenu.COLLAPSED_GROUP);
+        allButtons[nextIndex].scrollIntoView(false);
+      }
+    }
+  }
+
+  private triggerFocusItem(): void {
+    const currentItem = this.currentItem() as HTMLElement;
+    currentItem?.click();
+  }
+
+  private currentItem(): Element | null | undefined {
+    return this.itemsDiv?.querySelector(`.${this.paletteBodyCssClass} .${ItemPickerMenu.TOOL_BUTTON}.${ItemPickerMenu.ACTIVE_ELEMENT}`);
+  }
+
   private createItemsDiv(bodyDiv: HTMLElement): void {
     const itemsDiv = document.createElement('div');
     let tabIndex = 0;
@@ -136,7 +183,7 @@ export class ItemPickerMenu {
     if (this.paletteItems.length === 0) {
       const noResultsDiv = document.createElement('div');
       noResultsDiv.innerText = 'No results found.';
-      noResultsDiv.classList.add('tool-button');
+      noResultsDiv.classList.add(ItemPickerMenu.TOOL_BUTTON);
       itemsDiv.appendChild(noResultsDiv);
     }
     // Remove existing body to refresh filtered entries
@@ -145,12 +192,13 @@ export class ItemPickerMenu {
     }
     bodyDiv.appendChild(itemsDiv);
     this.itemsDiv = itemsDiv;
+    this.navigateUpOrDown(1);
   }
 
   private createToolButton(item: PaletteItem, index: number): HTMLElement {
     const button = document.createElement('div');
     button.tabIndex = index;
-    button.classList.add('tool-button');
+    button.classList.add(ItemPickerMenu.TOOL_BUTTON);
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
     if (this.handleEditDialogClose && item.label !== 'default') {
@@ -158,6 +206,10 @@ export class ItemPickerMenu {
     }
     button.onclick = (ev: MouseEvent) => this.onClickElementPickerToolButton(button, this.actions(item));
     button.onkeydown = ev => this.clearToolOnEscape(ev);
+    button.onmouseover = _ev => {
+      this.currentItem()?.classList.remove(ItemPickerMenu.ACTIVE_ELEMENT);
+      button.classList.add(ItemPickerMenu.ACTIVE_ELEMENT);
+    };
     return button;
   }
 
@@ -189,7 +241,7 @@ export class ItemPickerMenu {
 
   private createToolGroup(item: PaletteItem): HTMLElement {
     const group = document.createElement('div');
-    group.classList.add('tool-group');
+    group.classList.add(ItemPickerMenu.TOOL_GROUP);
     group.id = item.id;
     const header = document.createElement('div');
     header.classList.add('group-header');
@@ -201,9 +253,10 @@ export class ItemPickerMenu {
       header.appendChild(this.createEditButton('fa-add', 'Add Color'));
     }
     header.onclick = _ev => {
-      changeCSSClass(group, COLLAPSED_CSS);
+      changeCSSClass(group, ItemPickerMenu.COLLAPSED_GROUP);
       window!.getSelection()!.removeAllRanges();
     };
+    header.onmouseover = _ev => this.currentItem()?.classList.remove(ItemPickerMenu.ACTIVE_ELEMENT);
 
     group.appendChild(header);
     return group;
