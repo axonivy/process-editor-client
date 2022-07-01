@@ -4,9 +4,11 @@ import {
   Bounds,
   BoundsAware,
   EditorContextService,
+  findParentByFeature,
   getAbsoluteBounds,
   IActionDispatcherProvider,
   isNotUndefined,
+  isReconnectable,
   MouseListener,
   MouseTool,
   Point,
@@ -23,8 +25,9 @@ import { createIcon } from '../tool-bar/tool-bar-helper';
 
 import { Edge, LaneNode } from '../diagram/model';
 import { isQuickActionAware } from './model';
-import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
+import { CategoryQuickActionProvider, QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { IVY_TYPES } from '../types';
+import { CreateNodeUi } from './node/create-node-ui';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements SelectionListener {
@@ -36,6 +39,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   @inject(TYPES.SelectionService) protected selectionService: SelectionService;
   @inject(TYPES.MouseTool) protected mouseTool: MouseTool;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
+  @inject(IVY_TYPES.CategoryQuickActionProvider) protected categoryQuickActionProvider: CategoryQuickActionProvider;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   public id(): string {
@@ -64,6 +68,8 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
     if (selectedElements.length < 1) {
       this.hideUi();
+    } else {
+      this.showUi();
     }
   }
 
@@ -83,6 +89,13 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     this.activeQuickActions = [];
     this.actionDispatcherProvider().then(actionDispatcher =>
       actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }))
+    );
+  }
+
+  hide(): void {
+    super.hide();
+    this.actionDispatcherProvider().then(actionDispatcher =>
+      actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: CreateNodeUi.ID, visible: false }))
     );
   }
 
@@ -126,6 +139,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
       containerElement.style.top = `${absoluteBounds.y}px`;
 
       const quickActions = this.quickActionProviders.map(provider => provider.singleQuickAction(element)).filter(isNotUndefined);
+      quickActions.push(...this.categoryQuickActionProvider.categoryQuickActions(element));
       this.createQuickActions(containerElement, absoluteBounds, quickActions, element instanceof LaneNode);
     }
   }
@@ -143,27 +157,28 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
 
   private createQuickActions(containerElement: HTMLElement, absoluteBounds: Bounds, quickActions: QuickAction[], inline: boolean): void {
     this.activeQuickActions = quickActions.filter(quickAction => !this.isReadonly() || quickAction.readonlySupport);
-    Object.values(QuickActionLocation).forEach(loc => {
-      this.activeQuickActions
-        .filter(quickAction => quickAction.location === loc)
-        .sort((a, b) => a.sorting.localeCompare(b.sorting))
-        .forEach((quickAction, position) => {
-          const buttonPos = this.getPosition(absoluteBounds, quickAction.location, position, inline);
-          containerElement.appendChild(this.createQuickActionBtn(quickAction, buttonPos));
-        });
-    });
+    Object.values(QuickActionLocation)
+      .filter(loc => loc !== QuickActionLocation.Hidden)
+      .forEach(loc => {
+        this.activeQuickActions
+          .filter(quickAction => quickAction.location === loc)
+          .sort((a, b) => a.sorting.localeCompare(b.sorting))
+          .forEach((quickAction, position) => {
+            const buttonPos = this.getPosition(absoluteBounds, quickAction.location, position, inline);
+            containerElement.appendChild(this.createQuickActionBtn(quickAction, buttonPos));
+          });
+      });
   }
 
   private createQuickActionBtn(quickAction: QuickAction, position: Point): HTMLElement {
-    const button = createIcon([quickAction.icon, 'fa-xs', 'fa-fw']);
+    const button = document.createElement('span');
+    button.appendChild(createIcon([quickAction.icon, 'fa-xs', 'fa-fw']));
     button.title = quickAction.title;
-    button.onclick = () =>
-      this.actionDispatcherProvider().then(dispatcher =>
-        dispatcher.dispatchAll([
-          SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }),
-          quickAction.action
-        ])
-      );
+    let actions = [SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }), quickAction.action];
+    if (quickAction.letQuickActionsOpen) {
+      actions = [quickAction.action];
+    }
+    button.onclick = () => this.actionDispatcherProvider().then(dispatcher => dispatcher.dispatchAll(actions));
     button.style.left = `${position.x}px`;
     button.style.top = `${position.y}px`;
     return button;
@@ -182,7 +197,7 @@ export class QuickActionUI extends AbstractUIExtension implements SelectionListe
     } else if (location === QuickActionLocation.Left) {
       return { x: -30, y: parentDimension.height / 2 - 11 };
     } else if (location === QuickActionLocation.Right) {
-      return { x: parentDimension.width + 10, y: position * 32 };
+      return { x: parentDimension.width + 10 + (position % 3) * 32, y: ((position / 3) | 0) * 32 };
     } else if (location === QuickActionLocation.BottomLeft) {
       return { x: -30 + position * 32, y: parentDimension.height + 10 };
     }
@@ -213,7 +228,7 @@ export class QuickActionUiMouseListener extends MouseListener {
   }
 
   mouseUp(target: SModelElement, event: MouseEvent): Action[] {
-    if (this.mouseActive) {
+    if (this.mouseActive && findParentByFeature(target, isReconnectable)) {
       this.quickActionUi.setCursorPosition({ x: event.pageX, y: event.pageY });
       this.quickActionUi.showUi();
     }

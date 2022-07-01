@@ -8,12 +8,17 @@ export enum QuickActionLocation {
   TopLeft = 'top-left',
   Left = 'left',
   Right = 'right',
-  BottomLeft = 'bottom-left'
+  BottomLeft = 'bottom-left',
+  Hidden = 'hidden'
 }
 
 export interface QuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined;
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
+}
+
+export interface CategoryQuickActionProvider {
+  categoryQuickActions(element: SModelElement): QuickAction[];
 }
 
 @injectable()
@@ -77,6 +82,7 @@ export interface QuickAction {
   location: QuickActionLocation;
   sorting: string;
   action: Action;
+  letQuickActionsOpen?: boolean;
   readonlySupport?: boolean;
   shortcut?: KeyCode;
 }

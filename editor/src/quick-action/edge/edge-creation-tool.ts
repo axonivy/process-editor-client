@@ -199,7 +199,7 @@ class ConnectQuickAction implements QuickAction {
     public readonly icon = 'fa-solid fa-arrow-right-long',
     public readonly title = 'Connect',
     public readonly location = QuickActionLocation.Right,
-    public readonly sorting = 'A',
+    public readonly sorting = 'Z',
     public readonly action = QuickActionTriggerEdgeCreationAction.create('edge', elementId)
   ) {}
 }

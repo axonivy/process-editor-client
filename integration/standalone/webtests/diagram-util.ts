@@ -24,7 +24,7 @@ export async function resetSelection(page: Page): Promise<void> {
   const graph = page.locator('#sprotty');
   await expect(graph).toBeVisible();
   const bounds = await graph.boundingBox();
-  await graph.click({ position: { x: bounds.width - 1, y: bounds.height - 80 } });
+  await graph.click({ position: { x: bounds!.width - 1, y: bounds!.height - 80 } });
   await expect(page.locator('.selected')).toHaveCount(0);
 }
 
@@ -37,12 +37,14 @@ export function getCtrl(browserName: string): string {
 }
 
 export async function cleanDiagram(page: Page): Promise<void> {
-  await page.locator(startSelector).click();
+  await removeElement(page, startSelector);
+  await removeElement(page, endSelector);
+}
+
+export async function removeElement(page: Page, element: string): Promise<void> {
+  await page.locator(element).click();
   await page.keyboard.press('Delete');
-  await expect(page.locator(startSelector)).toBeHidden();
-  await page.locator(endSelector).click();
-  await page.keyboard.press('Delete');
-  await expect(page.locator(endSelector)).toBeHidden();
+  await expect(page.locator(element)).toBeHidden();
 }
 
 export interface Point {
@@ -60,7 +62,7 @@ export async function assertPositionIsNot(element: Locator, expectedPosition: Po
 
 export async function getPosition(element: Locator): Promise<Point> {
   const transform = await element.getAttribute('transform');
-  const position = transform.substring(transform.indexOf('(') + 1, transform.indexOf(')'));
+  const position = transform!.substring(transform!.indexOf('(') + 1, transform!.indexOf(')'));
   const x = parseInt(position.split(',')[0].trim(), 10);
   const y = parseInt(position.split(',')[1].trim(), 10);
   return { x: x, y: y };

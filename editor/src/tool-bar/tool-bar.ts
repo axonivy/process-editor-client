@@ -7,7 +7,6 @@ import {
   ICommand,
   isConnectable,
   isDeletable,
-  IToolManager,
   TYPES,
   GLSPActionDispatcher,
   IFeedbackActionDispatcher,
@@ -57,7 +56,6 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
-  @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(TYPES.SelectionService) protected selectionService: SelectionService;
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
@@ -332,6 +330,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       this.elementPickerMenu = new ItemPickerMenu(paletteItems, actions, this.onClickElementPickerToolButton, this.clearToolOnEscape);
       this.createElementPickerMenu();
     }
+  }
+
+  public getElementPaletteItems(): PaletteItem[] | undefined {
+    return this.elementPickerMenu?.getPaletteItems();
   }
 
   private async updateActivityTypePalette(): Promise<void> {

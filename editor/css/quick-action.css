@@ -1,13 +1,15 @@
-.quick-actions-container i {
-  width: 24px;
+.quick-actions-container span {
   height: 24px;
   background-color: var(--glsp-quick-action-background);
-  font-size: 16px;
-  line-height: 24px;
   position: absolute;
   cursor: pointer;
 }
-.quick-actions-container i:hover {
+.quick-actions-container i {
+  width: 24px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.quick-actions-container span:hover {
   background-color: var(--glsp-quick-action-hover);
 }
 
@@ -18,4 +20,9 @@
   border: 1px dashed var(--glsp-multiselect-box-border);
   background: none;
   pointer-events: none;
+}
+
+.create-node-palette-body {
+  font-size: 13px;
+  user-select: none;
 }

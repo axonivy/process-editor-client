@@ -27,30 +27,14 @@ import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes,
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
 import ivyLaneModule from '../../src/lanes/di.config';
-import ivyQuickActionModule, { configureQuickActionProviders } from '../../src/quick-action/di.config';
+import ivyQuickActionModule from '../../src/quick-action/di.config';
 import { quickActionFeature } from '../../src/quick-action/model';
 import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
 import { setupGlobal } from '../test-helper';
 import ivyConnectorModule from '../../src/connector/di.config';
+import ivyToolBarModule from '../../src/tool-bar/di.config';
 
-class QuickActionUIReadonly extends QuickActionUI {
-  protected isReadonly(): boolean {
-    return true;
-  }
-}
-
-function createContainerReadonly(): Container {
-  const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, modelSourceModule, glspSelectModule, glspMouseToolModule, routingModule, ivyJumpModule, ivyLaneModule, ivyConnectorModule);
-  container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
-  container.bind(QuickActionUIReadonly).toSelf().inSingletonScope();
-  container.bind(TYPES.IUIExtension).toService(QuickActionUIReadonly);
-  configureQuickActionProviders(container);
-  return container;
-}
-
-function createContainer(): Container {
+export function createContainer(): Container {
   const container = new Container();
   container.load(
     defaultModule,
@@ -62,14 +46,15 @@ function createContainer(): Container {
     ivyQuickActionModule,
     ivyJumpModule,
     ivyLaneModule,
-    ivyConnectorModule
+    ivyConnectorModule,
+    ivyToolBarModule
   );
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   return container;
 }
 
-function createRoot(container: Container): SGraph {
+export function createRoot(container: Container): SGraph {
   const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
   const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph;
   root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
@@ -78,6 +63,7 @@ function createRoot(container: Container): SGraph {
   root.add(createDefaultNode('start', EventStartTypes.START, { x: 200, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createNode(new EndEventNode(), 'end', EventEndTypes.END, { x: 300, y: 200, width: 30, height: 30 }, EventNode.DEFAULT_FEATURES));
   root.add(createDefaultNode('noQuickActions', ActivityTypes.HD, { x: 500, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, { disable: [quickActionFeature] }));
+  root.add(createDefaultNode('comment', ActivityTypes.COMMENT, { x: 600, y: 500, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
   const edge = createEdge('edge', EdgeTypes.DEFAULT, 'start', 'end', Edge.DEFAULT_FEATURES);
   root.add(edge);
   edge.add(createLabel(edge.id));
@@ -117,37 +103,12 @@ function createLabel(id: string): SLabel {
   return label;
 }
 
-function setupSprottyDiv(): void {
+export function setupSprottyDiv(): void {
   setupGlobal();
   const baseDiv = document.createElement('div') as HTMLElement;
   baseDiv.id = 'sprotty';
   document.body.appendChild(baseDiv);
 }
-
-describe('QuickActionUiReadonly', () => {
-  let quickActionUi: QuickActionUI;
-  let root: SModelRoot;
-
-  before(() => {
-    setupSprottyDiv();
-    const container = createContainerReadonly();
-    quickActionUi = container.get<QuickActionUI>(QuickActionUIReadonly);
-    root = createRoot(container);
-  });
-
-  it('ui is rendered for activity element', () => {
-    quickActionUi.show(root, 'foo');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 0, { x: 100, y: 100 });
-  });
-
-  it('ui is rendered for activity embedded element', () => {
-    quickActionUi.show(root, 'sub');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 1, { x: 300, y: 100 });
-    assertQuickAction(uiDiv.children[0], 'Jump (J)', 'fa-solid fa-turn-down', { x: -30, y: 60 });
-  });
-});
 
 describe('QuickActionUi', () => {
   let quickActionUi: QuickActionUI;
@@ -185,37 +146,43 @@ describe('QuickActionUi', () => {
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 2, { x: 100, y: 100 });
+    assertQuickActionUi(uiDiv, 3, { x: 100, y: 100 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-solid fa-arrow-right-long', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[1], 'Attach Comment', 'fa-regular fa-message', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-solid fa-arrow-right-long', { x: 242, y: 0 });
   });
 
   it('ui is rendered for activity embedded element', () => {
     quickActionUi.show(root, 'sub');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 3, { x: 300, y: 100 });
+    assertQuickActionUi(uiDiv, 4, { x: 300, y: 100 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-solid fa-arrow-right-long', { x: 210, y: 0 });
-    assertQuickAction(uiDiv.children[2], 'Jump (J)', 'fa-solid fa-turn-down', { x: -30, y: 60 });
+    assertQuickAction(uiDiv.children[1], 'Attach Comment', 'fa-regular fa-message', { x: 210, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-solid fa-arrow-right-long', { x: 242, y: 0 });
+    assertQuickAction(uiDiv.children[3], 'Jump (J)', 'fa-solid fa-turn-down', { x: -30, y: 60 });
   });
 
   it('ui is rendered for event element', () => {
     quickActionUi.show(root, 'start');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 2, { x: 200, y: 200 });
+    assertQuickActionUi(uiDiv, 3, { x: 200, y: 200 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-solid fa-arrow-right-long', { x: 40, y: 0 });
+    assertQuickAction(uiDiv.children[1], 'Attach Comment', 'fa-regular fa-message', { x: 40, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-solid fa-arrow-right-long', { x: 72, y: 0 });
 
     quickActionUi.show(root, 'end');
-    assertQuickActionUi(uiDiv, 1, { x: 300, y: 200 });
+    assertQuickActionUi(uiDiv, 2, { x: 300, y: 200 });
+    assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
+    assertQuickAction(uiDiv.children[1], 'Attach Comment', 'fa-regular fa-message', { x: 40, y: 0 });
   });
 
   it('ui is rendered for gateway element', () => {
     quickActionUi.show(root, 'alternative');
     const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 2, { x: 100, y: 200 });
+    assertQuickActionUi(uiDiv, 3, { x: 100, y: 200 });
     assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Connect', 'fa-solid fa-arrow-right-long', { x: 42, y: 0 });
+    assertQuickAction(uiDiv.children[1], 'Attach Comment', 'fa-regular fa-message', { x: 42, y: 0 });
+    assertQuickAction(uiDiv.children[2], 'Connect', 'fa-solid fa-arrow-right-long', { x: 74, y: 0 });
   });
 
   it('ui is rendered for pool', () => {
@@ -245,11 +212,11 @@ describe('QuickActionUi', () => {
   });
 });
 
-function getQuickActionDiv(): HTMLElement {
+export function getQuickActionDiv(): HTMLElement {
   return document.getElementById('sprotty_quickActionsUi') as HTMLElement;
 }
 
-function assertMultiQuickActionUi(uiDiv: HTMLElement, childCount: number, dimension: Dimension, position?: Point): void {
+export function assertMultiQuickActionUi(uiDiv: HTMLElement, childCount: number, dimension: Dimension, position?: Point): void {
   assertQuickActionUi(uiDiv, childCount + 1, position);
   const selectionBorder = uiDiv.children[0] as HTMLElement;
   expect(selectionBorder.tagName).to.be.equals('DIV');
@@ -257,7 +224,7 @@ function assertMultiQuickActionUi(uiDiv: HTMLElement, childCount: number, dimens
   expect(selectionBorder.style.width).to.be.equals(`${dimension.width}px`);
 }
 
-function assertQuickActionUi(uiDiv: HTMLElement, childCount: number, position?: Point): void {
+export function assertQuickActionUi(uiDiv: HTMLElement, childCount: number, position?: Point): void {
   expect(uiDiv.style.visibility).to.be.equals('visible');
   expect(uiDiv.children.length).to.be.equals(childCount);
   if (position) {
@@ -266,11 +233,16 @@ function assertQuickActionUi(uiDiv: HTMLElement, childCount: number, position?: 
   }
 }
 
-function assertQuickAction(child: Element, title: string, icon: string, position: Point): void {
+export function assertQuickAction(child: Element, title: string, icon?: string, position?: Point): void {
   const quickAction = child as HTMLElement;
-  expect(quickAction.tagName).to.be.equals('I');
-  expect(quickAction.className).to.contains(icon);
+  expect(quickAction.tagName).to.be.equals('SPAN');
   expect(quickAction.title).to.be.equals(title);
-  expect(quickAction.style.top).to.be.equals(`${position.y}px`);
-  expect(quickAction.style.left).to.be.equals(`${position.x}px`);
+  if (icon) {
+    const iconElement = quickAction.children[0];
+    expect(iconElement.className).to.contains(icon);
+  }
+  if (position) {
+    expect(quickAction.style.top).to.be.equals(`${position.y}px`);
+    expect(quickAction.style.left).to.be.equals(`${position.x}px`);
+  }
 }
