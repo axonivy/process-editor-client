@@ -5,6 +5,10 @@ import { clickQuickActionStartsWith } from './quick-actions-util';
 
 test.describe('quick actions - create node', () => {
   const CREATE_NODE_PALETTE = '.create-node-palette-body';
+  const EVENT_GROUP = '#event-group';
+  const GATEWAY_GROUP = '#gateway-group';
+  const ACTIVITY_GROUP = '#activity-group';
+  const BPMN_ACTIVITY_GROUP = '#bpmn-activity-group';
   const COLLAPSED_CSS_CLASS = /collapsed/;
 
   test.beforeEach(async ({ page }) => {
@@ -15,10 +19,10 @@ test.describe('quick actions - create node', () => {
   test('switch categories', async ({ page }) => {
     const start = page.locator(startSelector);
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
-    const eventGroup = createNodePalette.locator('#event-group');
-    const gatewayGroup = createNodePalette.locator('#gateway-group');
-    const activityGroup = createNodePalette.locator('#activity-group');
-    const bpmnActivityGroup = createNodePalette.locator('#bpmn-activity-group');
+    const eventGroup = createNodePalette.locator(EVENT_GROUP);
+    const gatewayGroup = createNodePalette.locator(GATEWAY_GROUP);
+    const activityGroup = createNodePalette.locator(ACTIVITY_GROUP);
+    const bpmnActivityGroup = createNodePalette.locator(BPMN_ACTIVITY_GROUP);
     await expect(createNodePalette).toBeHidden();
 
     await start.click();
@@ -43,9 +47,9 @@ test.describe('quick actions - create node', () => {
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
     const searchInput = createNodePalette.locator('.search-input');
     const button = createNodePalette.locator('.tool-button');
-    const eventGroup = createNodePalette.locator('#event-group');
-    const gatewayGroup = createNodePalette.locator('#gateway-group');
-    const activityGroup = createNodePalette.locator('#activity-group');
+    const eventGroup = createNodePalette.locator(EVENT_GROUP);
+    const gatewayGroup = createNodePalette.locator(GATEWAY_GROUP);
+    const activityGroup = createNodePalette.locator(ACTIVITY_GROUP);
     await expect(createNodePalette).toBeHidden();
 
     await start.click();
@@ -66,6 +70,31 @@ test.describe('quick actions - create node', () => {
     await searchInput.dispatchEvent('keyup');
     await expect(button).toHaveCount(1);
     await expect(button).toHaveText('No results found.');
+  });
+
+  test('navigate with arrows', async ({ page }) => {
+    const start = page.locator(startSelector);
+    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
+    const eventGroup = createNodePalette.locator(EVENT_GROUP);
+    const bpmnActivityGroup = createNodePalette.locator(BPMN_ACTIVITY_GROUP);
+    await expect(createNodePalette).toBeHidden();
+
+    await start.click();
+    await clickQuickActionStartsWith(page, 'Events');
+    await expect(createNodePalette).toBeVisible();
+    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
+    await expect(bpmnActivityGroup).toHaveClass(COLLAPSED_CSS_CLASS);
+    await expect(createNodePalette.locator('.search-input')).toBeFocused();
+    await expect(createNodePalette.locator('.tool-button').first()).toHaveClass(/focus/);
+
+    await page.keyboard.press('ArrowUp');
+    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
+    await expect(bpmnActivityGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
+    await expect(createNodePalette.locator('.tool-button').last()).toHaveClass(/focus/);
+
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
+    await expect(createNodePalette.locator('.tool-button').nth(1)).toHaveClass(/focus/);
   });
 
   test('add element', async ({ page }) => {

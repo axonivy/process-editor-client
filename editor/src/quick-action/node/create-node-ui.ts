@@ -63,13 +63,14 @@ export class CreateNodeUi extends AbstractUIExtension {
       paletteItem.actions.map(action => this.convertToCreateNodeOperation(action, elementId)).filter(isNotUndefined);
     const menu = new ItemPickerMenu(
       filteredPaletteItems,
+      'create-node-palette-body',
       actions,
       this.onClickElementPickerToolButton,
       this.clearToolOnEscape,
       undefined,
       'Start'
     );
-    menu.createMenuBody(containerElement, 'create-node-palette-body');
+    menu.createMenuBody(containerElement);
     return menu;
   }
 

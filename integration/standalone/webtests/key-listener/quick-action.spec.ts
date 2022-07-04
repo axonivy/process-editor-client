@@ -92,21 +92,33 @@ test.describe('key listener - quick action shortcuts', () => {
   });
 
   test('create node', async ({ page }) => {
-    const createNodePalette = page.locator('.create-node-palette-body');
     const start = page.locator(startSelector);
-    await expect(createNodePalette).toBeHidden();
-
     await start.click();
-    await pressHiddenQuickActionShortcut(page, 'A');
-    await expect(createNodePalette).toBeVisible();
+    await openCreateNodeMenu(page);
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.intermediate\\:taskSwitchEvent.selected')).toBeVisible();
 
-    const toolGroup = createNodePalette.locator('.tool-group');
-    const count = await toolGroup.count();
-    for (let i = 0; i < count; i++) {
-      await expect(toolGroup.nth(i)).not.toHaveClass(/collapsed/);
-    }
+    await openCreateNodeMenu(page);
+    await page.keyboard.type('mail');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.eMail.selected')).toBeVisible();
   });
 });
+
+async function openCreateNodeMenu(page: Page): Promise<void> {
+  const createNodePalette = page.locator('.create-node-palette-body');
+  await expect(createNodePalette).toBeHidden();
+
+  await pressHiddenQuickActionShortcut(page, 'A');
+  await expect(createNodePalette).toBeVisible();
+  const toolGroup = createNodePalette.locator('.tool-group');
+  const count = await toolGroup.count();
+  for (let i = 0; i < count; i++) {
+    await expect(toolGroup.nth(i)).not.toHaveClass(/collapsed/);
+  }
+  await expect(createNodePalette.locator('.search-input')).toBeFocused();
+  await expect(createNodePalette.locator('.tool-button').first()).toHaveClass(/focus/);
+}
 
 async function pressQuickActionShortcut(page: Page, shortcut: string): Promise<void> {
   await expect(page.locator(`${QUICK_ACTION_BTN}[title$="(${shortcut})"]`)).toBeVisible();

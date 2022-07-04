@@ -25,7 +25,7 @@ export async function resetSelection(page: Page): Promise<void> {
   await expect(graph).toBeVisible();
   const bounds = await graph.boundingBox();
   await graph.click({ position: { x: bounds!.width - 1, y: bounds!.height - 80 } });
-  await expect(page.locator('.selected')).toHaveCount(0);
+  await expect(page.locator('g.selected')).toHaveCount(0);
 }
 
 export function getCtrl(browserName: string): string {

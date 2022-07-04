@@ -123,11 +123,9 @@
   font-weight: bold;
   background: inherit;
 }
-
 .group-header:hover {
   background: var(--glsp-tool-bar-hover);
 }
-
 .group-header i {
   padding: 0.4em;
 }
@@ -137,11 +135,12 @@
   padding: 0;
   height: 24px;
 }
-
-.tool-button:hover {
+.tool-button:hover:not(.focus) {
+  background: var(--glsp-tool-bar-background);
+}
+.tool-button.focus {
   background: var(--glsp-tool-bar-hover);
 }
-
 .tool-button.clicked {
   background: var(--glsp-tool-bar-selection);
 }
