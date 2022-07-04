@@ -11,8 +11,8 @@ if (process.env.CI) {
   config = {
     use: {
       screenshot: 'only-on-failure',
-      video: 'retain-on-failure',
-      trace: 'retain-on-failure'
+      video: 'on-first-retry',
+      trace: 'on-first-retry'
     },
     retries: 1,
     reporter: 'junit',
