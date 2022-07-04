@@ -17,7 +17,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@types/uuid": "^8.3.4",
-    "@playwright/test": "^1.22.0",
+    "@playwright/test": "^1.23.0",
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^2.1.0",
     "eslint": "^8.3.0",
