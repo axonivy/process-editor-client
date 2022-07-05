@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@ivyteam/vscode-integration",
-  "version": "0.9.0",
+  "version": "9.4.0-s44",
   "description": "VSCode extension to model Axon Ivy Processes and debug them",
   "displayName": "Axon Ivy Process Editor",
   "publisher": "ivyteam",
@@ -33,6 +33,8 @@
     "*"
   ],
   "dependencies": {
+    "@eclipse-glsp/vscode-integration": "^1.0.0",
+    "@ivyteam/vscode-integration-webview": "9.4.0-s44",
     "await-notify": "1.0.1",
     "vscode-debugadapter": "^1.46.0"
   },
@@ -42,10 +44,8 @@
     "@types/node": "^16.11.36",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
-    "@eclipse-glsp/vscode-integration": "next",
     "ts-loader": "^6.2.1",
     "ts-node": "^10.7.0",
-    "@ivyteam/vscode-integration-webview": "0.9.0",
     "glob": "^7.1.6",
     "reflect-metadata": "^0.1.13",
     "typescript": "^4.5.2"

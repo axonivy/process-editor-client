@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "theia-parent",
-  "version": "0.9.0",
+  "version": "9.4.0-s44",
   "engines": {
     "yarn": "1.0.x || >=1.2.1",
     "node": ">=16.15.0 <17"
@@ -32,6 +32,20 @@
   },
   "eslintConfig": {
     "root": true
+  },
+  "resolutions": {
+    "**/@theia/core": "1.26.0",
+    "**/@theia/editor": "1.26.0",
+    "**/@theia/filesystem": "1.26.0",
+    "**/@theia/markers": "1.26.0",
+    "**/@theia/messages": "1.26.0",
+    "**/@theia/monaco": "1.26.0",
+    "**/@theia/navigator": "1.26.0",
+    "**/@theia/preferences": "1.26.0",
+    "**/@theia/process": "1.26.0",
+    "**/@theia/terminal": "1.26.0",
+    "**/@theia/workspace": "1.26.0",
+    "**/@theia/cli": "1.26.0"
   },
   "workspaces": {
     "packages": [
