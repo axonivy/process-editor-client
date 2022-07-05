@@ -7,6 +7,8 @@ import {
   IActionDispatcher,
   isNotUndefined,
   PaletteItem,
+  SConnectableElement,
+  SModelElement,
   SModelRoot,
   TriggerNodeCreationAction,
   TYPES
@@ -47,7 +49,7 @@ export class CreateNodeUi extends AbstractUIExtension {
     }
     const element = this.editorContext.selectedElements[0];
     this.elementPickerMenu?.removeMenuBody();
-    this.elementPickerMenu = this.createElementPickerMenu(paletteItems, containerElement, element.id);
+    this.elementPickerMenu = this.createElementPickerMenu(paletteItems, containerElement, element);
     const absoluteBounds = getAbsoluteBounds(element);
     containerElement.style.left = `${absoluteBounds.x + absoluteBounds.width + 10 + 3 * 32}px`;
     containerElement.style.top = `${absoluteBounds.y}px`;
@@ -57,10 +59,18 @@ export class CreateNodeUi extends AbstractUIExtension {
     this.elementPickerMenu.showMenu();
   }
 
-  private createElementPickerMenu(paletteItems: PaletteItem[], containerElement: HTMLElement, elementId: string): ItemPickerMenu {
+  private createElementPickerMenu(
+    paletteItems: PaletteItem[],
+    containerElement: HTMLElement,
+    element: Readonly<SModelElement>
+  ): ItemPickerMenu {
     const filteredPaletteItems = paletteItems.filter(item => CreateNodeUi.KNOWN_CATEGORIES.includes(item.id));
     const actions = (paletteItem: PaletteItem): Action[] =>
-      paletteItem.actions.map(action => this.convertToCreateNodeOperation(action, elementId)).filter(isNotUndefined);
+      paletteItem.actions.map(action => this.convertToCreateNodeOperation(action, element.id)).filter(isNotUndefined);
+    const hideItemsContaining = ['Start', 'Note'];
+    if (element instanceof SConnectableElement && Array.from(element.outgoingEdges).length > 0) {
+      hideItemsContaining.push('End');
+    }
     const menu = new ItemPickerMenu(
       filteredPaletteItems,
       'create-node-palette-body',
@@ -68,7 +78,7 @@ export class CreateNodeUi extends AbstractUIExtension {
       this.onClickElementPickerToolButton,
       this.clearToolOnEscape,
       undefined,
-      'Start'
+      hideItemsContaining
     );
     menu.createMenuBody(containerElement);
     return menu;
