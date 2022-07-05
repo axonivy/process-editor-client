@@ -24,7 +24,7 @@ export class ItemPickerMenu {
     readonly onClickElementPickerToolButton: (button: HTMLElement, actions: Action[]) => void,
     readonly clearToolOnEscape: (event: KeyboardEvent) => void,
     readonly handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void,
-    readonly hideItemsContaning?: string
+    readonly hideItemsContaining?: string[]
   ) {
     this.paletteItems = paletteItems;
   }
@@ -118,7 +118,9 @@ export class ItemPickerMenu {
     for (const itemGroup of this.paletteItems) {
       if (itemGroup.children) {
         // Fetch the labels according to the filter
-        const matchingChildren = itemGroup.children.filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
+        const matchingChildren = itemGroup.children
+          .filter(child => !this.shouldItemBeHidden(child.label))
+          .filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
         // Add the itemgroup containing the correct entries
         if (matchingChildren.length > 0) {
           // Clear existing children
@@ -173,7 +175,7 @@ export class ItemPickerMenu {
         const group = this.createToolGroup(item);
         item.children
           .sort(compare)
-          .filter(child => this.hideItemsContaning === undefined || !child.label.includes(this.hideItemsContaning))
+          .filter(child => !this.shouldItemBeHidden(child.label))
           .forEach(child => group.appendChild(this.createToolButton(child, tabIndex++)));
         itemsDiv.appendChild(group);
       } else {
@@ -193,6 +195,13 @@ export class ItemPickerMenu {
     bodyDiv.appendChild(itemsDiv);
     this.itemsDiv = itemsDiv;
     this.navigateUpOrDown(1);
+  }
+
+  private shouldItemBeHidden(label: string): boolean {
+    if (this.hideItemsContaining === undefined || this.hideItemsContaining.length === 0) {
+      return false;
+    }
+    return this.hideItemsContaining.find(hideItem => label.includes(hideItem)) !== undefined;
   }
 
   private createToolButton(item: PaletteItem, index: number): HTMLElement {

@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { endSelector, removeElement, startSelector } from '../diagram-util';
+import { endSelector, removeElement, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { clickQuickActionStartsWith } from './quick-actions-util';
 
@@ -43,34 +43,44 @@ test.describe('quick actions - create node', () => {
   }
 
   test('search', async ({ page }) => {
+    await page.locator(startSelector).click();
+    await clickQuickActionStartsWith(page, 'Events');
+    await searchAndAssert(page, 'sk', 3);
+    await searchAndAssert(page, 'bla', 0);
+  });
+
+  test('not all elements are listed', async ({ page }) => {
     const start = page.locator(startSelector);
-    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
-    const searchInput = createNodePalette.locator('.search-input');
-    const button = createNodePalette.locator('.tool-button');
-    const eventGroup = createNodePalette.locator(EVENT_GROUP);
-    const gatewayGroup = createNodePalette.locator(GATEWAY_GROUP);
-    const activityGroup = createNodePalette.locator(ACTIVITY_GROUP);
-    await expect(createNodePalette).toBeHidden();
 
     await start.click();
     await clickQuickActionStartsWith(page, 'Events');
-    await expect(createNodePalette).toBeVisible();
-    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(gatewayGroup).toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(activityGroup).toHaveClass(COLLAPSED_CSS_CLASS);
+    await searchAndAssert(page, 'Start', 0);
+    await searchAndAssert(page, 'Note', 0);
+    await searchAndAssert(page, 'End', 1);
 
-    await searchInput.fill('sk');
-    await searchInput.dispatchEvent('keyup');
-    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(gatewayGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(activityGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(button).toHaveCount(3);
+    await resetSelection(page);
+    await removeElement(page, endSelector);
 
-    await searchInput.fill('bla');
-    await searchInput.dispatchEvent('keyup');
-    await expect(button).toHaveCount(1);
-    await expect(button).toHaveText('No results found.');
+    await start.click();
+    await clickQuickActionStartsWith(page, 'Events');
+    await searchAndAssert(page, 'End', 4);
   });
+
+  async function searchAndAssert(page: Page, input: string, expectedFindingCount: number): Promise<void> {
+    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
+    const searchInput = createNodePalette.locator('.search-input');
+    const button = createNodePalette.locator('.tool-button');
+
+    await expect(createNodePalette).toBeVisible();
+    await searchInput.fill(input);
+    await searchInput.dispatchEvent('keyup');
+    if (expectedFindingCount > 0) {
+      await expect(button).toHaveCount(expectedFindingCount);
+    } else {
+      await expect(button).toHaveCount(1);
+      await expect(button).toHaveText('No results found.');
+    }
+  }
 
   test('navigate with arrows', async ({ page }) => {
     const start = page.locator(startSelector);
