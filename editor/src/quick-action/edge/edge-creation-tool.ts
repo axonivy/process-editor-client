@@ -24,6 +24,7 @@ import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-
 import { inject, injectable } from 'inversify';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { isMultipleOutgoingEdgesFeature } from './model';
 
 /**
  * Tool to create connections in a Diagram, by selecting a source and target node.
@@ -186,7 +187,11 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     const edge = new SEdge();
     edge.type = 'edge';
-    if (element instanceof SNode && element.canConnect(edge, 'source')) {
+    if (
+      element instanceof SNode &&
+      element.canConnect(edge, 'source') &&
+      (Array.from(element.outgoingEdges).length === 0 || isMultipleOutgoingEdgesFeature(element))
+    ) {
       return new ConnectQuickAction(element.id);
     }
     return undefined;
