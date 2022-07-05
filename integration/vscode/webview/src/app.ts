@@ -8,6 +8,7 @@ import { Container } from 'inversify';
 import { SprottyDiagramIdentifier, VscodeDiagramServer, VscodeDiagramWidget, VscodeDiagramWidgetFactory } from 'sprotty-vscode-webview';
 import { GLSPDiagramIdentifier } from '@eclipse-glsp/vscode-integration-webview/lib/diagram-identifer';
 import { CopyPasteHandlerProvider } from '@eclipse-glsp/vscode-integration-webview/lib/copy-paste-handler-provider';
+import { VsCodeApi } from 'sprotty-vscode-webview/lib/services';
 import { IvyGLSPVscodeDiagramWidget } from './ivy-vscode-diagram-widget';
 
 class IvyGLSPStarter extends GLSPStarter {
@@ -18,6 +19,7 @@ class IvyGLSPStarter extends GLSPStarter {
   }
 
   protected override addVscodeBindings(container: Container, diagramIdentifier: GLSPDiagramIdentifier): void {
+    container.bind(VsCodeApi).toConstantValue(this.vscodeApi);
     container.bind(IvyGLSPVscodeDiagramWidget).toSelf().inSingletonScope();
     container.bind(VscodeDiagramWidget).toService(IvyGLSPVscodeDiagramWidget);
     container
