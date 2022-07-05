@@ -52,6 +52,7 @@ import {
   LaneTypes
 } from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
+import { multipleOutgoingEdgesFeature } from '../quick-action/edge/model';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -93,7 +94,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureIvyModelElement(EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
 
   configureGateway(GatewayTypes.TASK);
-  configureGateway(GatewayTypes.JOIN);
+  configureGateway(GatewayTypes.JOIN, { disable: [multipleOutgoingEdgesFeature] });
   configureGateway(GatewayTypes.SPLIT);
   configureGateway(GatewayTypes.ALTERNATIVE);
 
@@ -150,8 +151,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureIvyModelElement(type, EndEventNode, EventNodeView, features);
   }
 
-  function configureGateway(type: string): void {
-    configureIvyModelElement(type, GatewayNode, GatewayNodeView);
+  function configureGateway(type: string, features?: CustomFeatures): void {
+    configureIvyModelElement(type, GatewayNode, GatewayNodeView, features);
   }
 
   function configureActivity(type: string, features?: CustomFeatures): void {
@@ -160,7 +161,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   function configureEmbedded(type: string): void {
     configureIvyModelElement(type, ActivityNode, SubActivityNodeView, {
-      enable: [jumpFeature, unwrapFeature]
+      enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature]
     });
   }
 });

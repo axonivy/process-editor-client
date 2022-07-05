@@ -3,7 +3,7 @@ import { Container } from 'inversify';
 
 import ivyQuickActionModule, { configureQuickActionProviders, configureNodeCreationTool } from '../../src/quick-action/di.config';
 import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
-import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui.spec';
+import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui-util';
 
 class QuickActionUIReadonly extends QuickActionUI {
   protected isReadonly(): boolean {

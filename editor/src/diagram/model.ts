@@ -45,6 +45,7 @@ import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../quick-action/model';
 import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, LabelType, LaneTypes } from './view-types';
+import { multipleOutgoingEdgesFeature } from '../quick-action/edge/model';
 
 export class IvyGLSPGraph extends GLSPGraph {
   scroll = { x: 0, y: -50 };
@@ -201,7 +202,8 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     quickActionFeature,
     withEditLabelFeature,
     executionFeature,
-    wrapFeature
+    wrapFeature,
+    multipleOutgoingEdgesFeature
   ];
 
   args: Args;

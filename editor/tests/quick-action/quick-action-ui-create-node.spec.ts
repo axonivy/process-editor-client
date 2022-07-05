@@ -5,7 +5,7 @@ import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
 import ivyToolBarModule, { configureToolBarButtonProvider } from '../../src/tool-bar/di.config';
 import { ToolBar } from '../../src/tool-bar/tool-bar';
 import { IVY_TYPES } from '../../src/types';
-import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui.spec';
+import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui-util';
 
 class ToolBarMock extends ToolBar {
   public getElementPaletteItems(): PaletteItem[] | undefined {

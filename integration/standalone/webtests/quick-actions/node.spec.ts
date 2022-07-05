@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { embeddedSelector, endSelector, multiSelect, startSelector } from '../diagram-util';
+import { embeddedSelector, endSelector, multiSelect, removeElement, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { addActivity } from '../toolbar-util';
 import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
@@ -15,9 +15,13 @@ test.describe('quick actions - nodes', () => {
 
     await assertQuickActionsCount(page, 0);
     await start.click();
-    await assertQuickActionsCount(page, 8);
+    await assertQuickActionsCount(page, 7);
     await end.click();
     await assertQuickActionsCount(page, 3);
+
+    await removeElement(page, endSelector);
+    await start.click();
+    await assertQuickActionsCount(page, 8);
   });
 
   test('label edit', async ({ page }) => {
