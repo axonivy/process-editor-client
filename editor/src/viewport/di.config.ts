@@ -9,8 +9,7 @@ import {
   GetViewportCommand,
   SetViewportAction,
   SetViewportCommand,
-  TYPES,
-  ZoomMouseListener
+  TYPES
 } from '@eclipse-glsp/client';
 
 import {
@@ -20,8 +19,9 @@ import {
   MoveIntoViewportCommand,
   OriginViewportCommand
 } from './viewport-commands';
-import { IvyScrollMouseListener } from './scroll-mouse-listener';
+import { IvyScrollMouseListener } from './scroll';
 import { EnableViewportAction, ViewportBar } from './viewport-bar';
+import { IvyZoomMouseListener } from './zoom';
 
 const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(ViewportBar).toSelf().inSingletonScope();
@@ -38,7 +38,7 @@ const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureCommand({ bind, isBound }, SetViewportCommand);
   configureCommand({ bind, isBound }, IvySetViewportZoomCommand);
   bind(TYPES.KeyListener).to(CenterKeyboardListener);
-  bind(TYPES.MouseListener).to(ZoomMouseListener);
+  bind(TYPES.MouseListener).to(IvyZoomMouseListener);
   bind(IvyScrollMouseListener).toSelf().inSingletonScope();
   bind(TYPES.MouseListener).toService(IvyScrollMouseListener);
 

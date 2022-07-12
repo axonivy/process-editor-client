@@ -27,7 +27,7 @@ if (process.env.CI) {
       },
       {
         name: 'webkit',
-        use: { ...devices['Desktop Safari'] }
+        use: { ...devices['Desktop Safari'], headless: false }
       }
     ]
   };
