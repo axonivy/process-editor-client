@@ -15,13 +15,13 @@ test.describe('quick actions - nodes', () => {
 
     await assertQuickActionsCount(page, 0);
     await start.click();
-    await assertQuickActionsCount(page, 7);
+    await assertQuickActionsCount(page, 6);
     await end.click();
     await assertQuickActionsCount(page, 3);
 
     await removeElement(page, endSelector);
     await start.click();
-    await assertQuickActionsCount(page, 8);
+    await assertQuickActionsCount(page, 7);
   });
 
   test('label edit', async ({ page }) => {
@@ -34,20 +34,6 @@ test.describe('quick actions - nodes', () => {
     const start = page.locator(startSelector);
     await deleteNode(page, start);
     await expect(start).not.toBeVisible();
-  });
-
-  test('attach comment', async ({ page }) => {
-    const end = page.locator(endSelector);
-    const comment = page.locator('.sprotty-graph .processAnnotation');
-    const connectors = page.locator('.sprotty-graph > g > .sprotty-edge');
-    await expect(comment).not.toBeVisible();
-    await expect(connectors).toHaveCount(1);
-
-    await end.dragTo(page.locator('.sprotty-graph'));
-    await end.click();
-    await clickQuickActionEndsWith(page, 'Comment');
-    await expect(comment).toBeVisible();
-    await expect(connectors).toHaveCount(2);
   });
 
   test('connect', async ({ page }) => {
@@ -66,28 +52,6 @@ test.describe('quick actions - nodes', () => {
     await end.click();
     await expect(connectorFeedback).not.toBeVisible();
     await expect(connector).toBeVisible();
-  });
-
-  test('error boundary', async ({ page }) => {
-    await addActivity(page, 'User Dialog', 200, 200);
-    const hd = page.locator('.sprotty-graph .dialogCall');
-    const errorBoundary = page.locator('.sprotty-graph .boundary\\:errorBoundaryEvent');
-    await expect(errorBoundary).toBeHidden();
-
-    await hd.click();
-    await clickQuickActionEndsWith(page, 'Error');
-    await expect(errorBoundary).toBeVisible();
-  });
-
-  test('signal boundary', async ({ page }) => {
-    await addActivity(page, 'User Task', 200, 200);
-    const userTask = page.locator('.sprotty-graph .userTask');
-    const signalBoundary = page.locator('.sprotty-graph .boundary\\:signalBoundaryEvent');
-    await expect(signalBoundary).toBeHidden();
-
-    await userTask.click();
-    await clickQuickActionEndsWith(page, 'Signal');
-    await expect(signalBoundary).toBeVisible();
   });
 
   test('auto align', async ({ page, browserName }) => {
@@ -110,7 +74,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
-    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
+    const jumpOutBtn = page.locator('#sprotty_jumpOutUi .jump-out-btn i');
     const start = page.locator(startSelector);
     const end = page.locator(endSelector);
     const embedded = page.locator(embeddedSelector);

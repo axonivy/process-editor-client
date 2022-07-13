@@ -1,0 +1,246 @@
+.bar-menu {
+  background: var(--glsp-bar-menu-bg);
+  width: 372px;
+  margin-left: calc(-372px / 2);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
+    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
+    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+}
+.bar-menu.border-radius {
+  border-radius: 4px;
+}
+.bar-menu-search {
+  height: 32px;
+  background: var(--glsp-bar-menu-header-bg);
+  display: flex;
+  align-items: center;
+}
+.bar-menu.border-radius .bar-menu-search {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.bar-menu-search i {
+  margin: 0 0.5rem 0 0.8rem;
+}
+.bar-menu-search .menu-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  color: var(--glsp-bar-menu-item);
+}
+.bar-menu-items {
+  display: flex;
+  flex-wrap: wrap;
+  color: var(--glsp-bar-menu-item);
+  padding: 0.5rem;
+  max-height: 213px;
+  overflow: auto;
+}
+.bar-menu-items .menu-group {
+  width: 100%;
+  margin-bottom: 12px;
+}
+.bar-menu-items .menu-group-header {
+  margin: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+}
+.bar-menu-items .menu-group-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bar-menu-items .menu-group-items .menu-item {
+  flex-grow: 0;
+}
+.bar-menu-items .menu-item {
+  height: 2rem;
+  width: 100px;
+  max-width: 106px;
+  flex-grow: 1;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 10px;
+  display: flex;
+  align-items: center;
+  padding-right: 0.8rem;
+  cursor: pointer;
+}
+.bar-menu-items .menu-item.focus {
+  background: var(--glsp-bar-menu-item-hover);
+  border-radius: 2px;
+}
+.bar-menu-items .menu-item i {
+  width: 2rem;
+  font-size: 14px;
+  line-height: 2rem;
+  flex: none;
+}
+.bar-menu-items .menu-item svg {
+  margin: 0.8em;
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--glsp-bar-menu-item);
+  flex: none;
+}
+.bar-menu.colors-menu .menu-item span {
+  height: 1em;
+  width: 1em;
+  margin: 0.5rem;
+  border-radius: 1em;
+}
+.bar-menu.colors-menu .menu-item .empty-icon {
+  border: 1px solid var(--glsp-foreground);
+  background-color: var(--glsp-foreground);
+}
+.bar-menu .color-edit-button {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+.bar-menu .menu-item .color-edit-button {
+  justify-content: end;
+}
+.bar-menu .color-edit-button:hover {
+  background: var(--glsp-bar-menu-item-hover);
+  border-radius: 2px;
+}
+.bar-menu .no-result {
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.tool-bar-options-menu {
+  position: absolute;
+  top: 3.5rem;
+  right: 0.5rem;
+  width: 134px;
+  background: var(--glsp-bar-menu-bg);
+  filter: drop-shadow(0px 9px 27px rgba(0, 0, 0, 0.07)) drop-shadow(0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198))
+    drop-shadow(0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275)) drop-shadow(0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035))
+    drop-shadow(0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725)) drop-shadow(0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802));
+  border-radius: 4px;
+  --menu-arrow-pos: 10px;
+}
+.bar-menu.tool-bar-menu {
+  position: absolute;
+  top: 3.5rem;
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+}
+.bar-menu.tool-bar-menu .bar-menu-search {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.bar-menu.tool-bar-menu:before,
+.tool-bar-options-menu:before {
+  content: '';
+  position: absolute;
+  right: var(--menu-arrow-pos);
+  top: -8px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 6px 10px 6px;
+  border-color: transparent transparent var(--glsp-bar-menu-header-bg) transparent;
+}
+.tool-bar-options-menu .tool-bar-options-header {
+  background: var(--glsp-bar-menu-header-bg);
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.tool-bar-options-menu .tool-bar-options-header i {
+  margin: 1rem;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
+}
+.tool-bar-options-menu .tool-bar-options-header label {
+  font-weight: 600;
+  font-size: 12px;
+}
+.tool-bar-options-menu .tool-bar-options {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+.tool-bar-options-menu .tool-bar-option {
+  display: flex;
+  align-items: center;
+}
+.tool-bar-options-menu .tool-bar-option i {
+  margin-right: 6px;
+}
+.tool-bar-options-menu .tool-bar-option label {
+  font-size: 10px;
+}
+.tool-bar-options-menu .tool-bar-option .switch {
+  margin-left: auto;
+}
+
+/* Color Dialog */
+.edit-color-dialog {
+  background: var(--glsp-bar-menu-bg);
+  /* color: var(--glsp-tool-bar-foreground); */
+  border: none;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.edit-color-dialog .edit-color-form {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: start;
+}
+.edit-color-dialog .edit-color-body {
+  display: grid;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+.edit-color-dialog .edit-color-input {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.edit-color-dialog .edit-color-input input {
+  border: 1px solid;
+  background-color: var(--glsp-editor-background);
+  color: var(--glsp-editor-foreground);
+}
+.edit-color-dialog .edit-color-input input.error {
+  border-color: var(--glsp-error-foreground);
+}
+.edit-color-dialog .edit-color-input input:not([type='color']) {
+  width: 100%;
+}
+.edit-color-dialog .edit-color-input input[type='color'] {
+  height: 21px;
+  margin-left: 0.2rem;
+  padding: 0;
+  border-width: 1px;
+}
+.edit-color-dialog .edit-color-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem;
+}
+.edit-color-dialog .edit-color-footer .edit-color-cancel-btn {
+  margin-left: auto;
+}

@@ -18,14 +18,13 @@ import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { Container, ContainerModule } from 'inversify';
 
 import ivyAnimateModule from './animate/di.config';
-import ivyBoundaryModule from './boundary/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import ivyJumpModule from './jump/di.config';
 import ivyLaneModule from './lanes/di.config';
-import ivyQuickActionModule from './quick-action/di.config';
-import ivyToolBarModule from './tool-bar/di.config';
-import ivyViewportModule from './viewport/di.config';
+import ivyQuickActionModule from './ui-tools/quick-action/di.config';
+import ivyToolBarModule from './ui-tools/tool-bar/di.config';
+import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
 import ivyHoverModule from './hover/di.config';
@@ -44,7 +43,6 @@ export default function createContainer(widgetId: string): Container {
     ivyToolBarModule,
     ivyDecorationModule,
     ivyViewportModule,
-    ivyBoundaryModule,
     ivyQuickActionModule,
     ivyWrapModule,
     ivyJumpModule,

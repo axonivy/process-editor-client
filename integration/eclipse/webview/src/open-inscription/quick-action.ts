@@ -19,7 +19,7 @@ class InscribeQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-pen',
     public readonly title = 'Edit (I)',
-    public readonly location = QuickActionLocation.TopLeft,
+    public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',
     public readonly action = OpenAction.create(elementId),
     public readonly readonlySupport = true,

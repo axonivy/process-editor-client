@@ -1,6 +1,6 @@
 import { KeyListener, Action, SModelElement } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
-import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 
 export class QuickActionKeyListener extends KeyListener {

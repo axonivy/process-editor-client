@@ -38,14 +38,14 @@ import {
 } from '@eclipse-glsp/client';
 import { wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
-import { errorBoundaryFeature } from '../boundary/model';
+import { errorBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { Executable, executionFeature } from '../execution/model';
 import { laneResizeFeature } from '../lanes/model';
-import { quickActionFeature } from '../quick-action/model';
+import { quickActionFeature } from '../ui-tools/quick-action/model';
 import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, LabelType, LaneTypes } from './view-types';
-import { multipleOutgoingEdgesFeature } from '../quick-action/edge/model';
+import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
 export class IvyGLSPGraph extends GLSPGraph {
   scroll = { x: 0, y: -50 };

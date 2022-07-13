@@ -5,18 +5,26 @@ import { gotoRandomTestProcessUrl, processEditorUrl } from '../process-editor-ur
 test.describe('url parameters', () => {
   test('readonly', async ({ page }) => {
     await gotoRandomTestProcessUrl(page, '&readonly=true');
-    const defaultMouseToolBtn = page.locator('#btn_default_tools');
-    const elementPickerTools = page.locator('.element-pickers');
-    await expect(defaultMouseToolBtn).toBeVisible();
-    await expect(elementPickerTools).not.toBeVisible();
+    const defaultMouseBtn = page.locator('#btn_default_tools');
+    const optionsBtn = page.locator('#btn_options_menu');
+    const editButtonGroup = page.locator('.edit-buttons');
+    const middleButtonGroup = page.locator('.middle-buttons > span');
+    await expect(defaultMouseBtn).toBeVisible();
+    await expect(optionsBtn).toBeVisible();
+    await expect(editButtonGroup).not.toBeVisible();
+    await expect(middleButtonGroup).not.toBeVisible();
   });
 
   test('edit mode', async ({ page }) => {
     await gotoRandomTestProcessUrl(page);
-    const defaultMouseToolBtn = page.locator('#btn_default_tools');
-    const elementPickerTools = page.locator('.element-pickers');
-    await expect(defaultMouseToolBtn).toBeVisible();
-    await expect(elementPickerTools).toBeVisible();
+    const defaultMouseBtn = page.locator('#btn_default_tools');
+    const optionsBtn = page.locator('#btn_options_menu');
+    const editButtonGroup = page.locator('.edit-buttons');
+    const middleButtonGroup = page.locator('.middle-buttons > span');
+    await expect(defaultMouseBtn).toBeVisible();
+    await expect(optionsBtn).toBeVisible();
+    await expect(editButtonGroup).toBeVisible();
+    await expect(middleButtonGroup).toHaveCount(5);
   });
 
   test('viewer mode', async ({ page }) => {

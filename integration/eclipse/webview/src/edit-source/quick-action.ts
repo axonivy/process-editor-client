@@ -19,7 +19,7 @@ class EditSourceQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-pen-to-square',
     public readonly title = 'Edit (E)',
-    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
     public readonly action = EditSourceAction.create(elementId),
     public readonly readonlySupport = true,

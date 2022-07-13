@@ -1,9 +1,9 @@
 import { SModelRoot, TYPES } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 
-import ivyQuickActionModule, { configureQuickActionProviders, configureNodeCreationTool } from '../../src/quick-action/di.config';
-import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
-import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui-util';
+import ivyQuickActionModule, { configureQuickActionProviders } from '../../src/ui-tools/quick-action/di.config';
+import { QuickActionUI } from '../../src/ui-tools/quick-action/quick-action-ui';
+import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, setupSprottyDiv } from './quick-action-ui-util';
 
 class QuickActionUIReadonly extends QuickActionUI {
   protected isReadonly(): boolean {
@@ -17,7 +17,6 @@ function createContainerReadonly(): Container {
   container.bind(QuickActionUIReadonly).toSelf().inSingletonScope();
   container.bind(TYPES.IUIExtension).toService(QuickActionUIReadonly);
   configureQuickActionProviders(container);
-  configureNodeCreationTool(container);
   return container;
 }
 
@@ -34,14 +33,12 @@ describe('QuickActionUi - Readonly', () => {
 
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 0, { x: 100, y: 100 });
+    assertQuickActionUi(0);
   });
 
   it('ui is rendered for activity embedded element', () => {
     quickActionUi.show(root, 'sub');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 1, { x: 300, y: 100 });
-    assertQuickAction(uiDiv.children[0], 'Jump (J)');
+    assertQuickActionUi(1, { x: 400, y: 150 });
+    assertQuickAction(0, 'Jump (J)');
   });
 });

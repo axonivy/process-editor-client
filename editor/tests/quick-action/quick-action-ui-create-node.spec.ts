@@ -1,13 +1,12 @@
-import { SModelRoot, TYPES, PaletteItem } from '@eclipse-glsp/client';
+import { SModelRoot, PaletteItem, EnableToolPaletteAction, configureActionHandler } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 
-import { QuickActionUI } from '../../src/quick-action/quick-action-ui';
-import ivyToolBarModule, { configureToolBarButtonProvider } from '../../src/tool-bar/di.config';
-import { ToolBar } from '../../src/tool-bar/tool-bar';
-import { IVY_TYPES } from '../../src/types';
-import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, getQuickActionDiv, setupSprottyDiv } from './quick-action-ui-util';
+import { QuickActionUI } from '../../src/ui-tools/quick-action/quick-action-ui';
+import ivyToolBarModule from '../../src/ui-tools/tool-bar/di.config';
+import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, setupSprottyDiv } from './quick-action-ui-util';
+import { ElementsPaletteHandler } from '../../src/ui-tools/tool-bar/node/action-handler';
 
-class ToolBarMock extends ToolBar {
+class ElementsPaletteHandlerMock extends ElementsPaletteHandler {
   public getElementPaletteItems(): PaletteItem[] | undefined {
     return [
       { id: 'event-group', icon: 'event-group', label: 'Events', sortString: 'A', actions: [] },
@@ -23,10 +22,8 @@ class ToolBarMock extends ToolBar {
 function createNodeContainer(): Container {
   const container = createContainer();
   container.unload(ivyToolBarModule);
-  container.bind(ToolBarMock).toSelf().inSingletonScope();
-  container.bind(TYPES.IUIExtension).toService(ToolBarMock);
-  container.bind(IVY_TYPES.ToolBar).toService(ToolBarMock);
-  configureToolBarButtonProvider(container);
+  container.bind(ElementsPaletteHandlerMock).toSelf().inSingletonScope();
+  configureActionHandler(container, EnableToolPaletteAction.KIND, ElementsPaletteHandler);
   return container;
 }
 
@@ -43,30 +40,27 @@ describe('QuickActionUi - Create Nodes', () => {
 
   it('create nodes quick actions are rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 7, { x: 100, y: 100 });
-    assertQuickAction(uiDiv.children[0], 'Delete', 'fa-solid fa-trash', { x: -30, y: -30 });
-    assertQuickAction(uiDiv.children[1], 'Events (A)', 'fa-regular fa-circle', { x: 210, y: 0 });
-    assertQuickAction(uiDiv.children[2], 'Gateways (A)', 'fa-regular fa-square fa-rotate-45', { x: 242, y: 0 });
-    assertQuickAction(uiDiv.children[3], 'Activities (A)', 'fa-regular fa-square', { x: 274, y: 0 });
-    assertQuickAction(uiDiv.children[4], 'BPMN Activities (A)', 'fa-solid fa-diagram-next', { x: 210, y: 32 });
-    assertQuickAction(uiDiv.children[5], 'Attach Comment', 'fa-regular fa-message', { x: 242, y: 32 });
-    assertQuickAction(uiDiv.children[6], 'Connect', 'fa-solid fa-arrow-right-long', { x: 274, y: 32 });
+    assertQuickActionUi(6, { x: 200, y: 150 });
+    assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
+    assertQuickAction(1, 'Select color', 'fa-solid fa-palette');
+    assertQuickAction(2, 'Events (A)', 'fa-regular fa-circle');
+    assertQuickAction(3, 'Gateways (A)', 'fa-regular fa-square fa-rotate-45');
+    assertQuickAction(4, 'Activities (A)', 'fa-regular fa-square');
+    assertQuickAction(5, 'Connect', 'fa-solid fa-arrow-right-long');
   });
 
   it('create nodes quick actions are not rendered for comment element', () => {
     quickActionUi.show(root, 'comment');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 2);
-    assertQuickAction(uiDiv.children[0], 'Delete');
-    assertQuickAction(uiDiv.children[1], 'Connect');
+    assertQuickActionUi(3);
+    assertQuickAction(0, 'Delete');
+    assertQuickAction(1, 'Select color');
+    assertQuickAction(2, 'Connect');
   });
 
   it('create nodes quick actions are not rendered for end element', () => {
     quickActionUi.show(root, 'end');
-    const uiDiv = getQuickActionDiv();
-    assertQuickActionUi(uiDiv, 2);
-    assertQuickAction(uiDiv.children[0], 'Delete');
-    assertQuickAction(uiDiv.children[1], 'Attach Comment');
+    assertQuickActionUi(2);
+    assertQuickAction(0, 'Delete');
+    assertQuickAction(1, 'Select color');
   });
 });

@@ -3,7 +3,7 @@ import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
 
 export interface JumpAction extends Action {
@@ -50,7 +50,7 @@ class JumpQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-turn-down',
     public readonly title = 'Jump (J)',
-    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'A',
     public readonly action = JumpAction.create({ elementId: elementId }),
     public readonly readonlySupport = true,

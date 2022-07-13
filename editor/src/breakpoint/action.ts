@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { Action, SModelElement } from '@eclipse-glsp/client';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isBreakable } from './model';
 
 export interface SetBreakpointAction extends Action {

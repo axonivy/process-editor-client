@@ -2,7 +2,7 @@ import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
 export interface StraightenEdgeOperation extends Operation {
   kind: typeof StraightenEdgeOperation.KIND;
@@ -36,7 +36,7 @@ class StraightenEdgeQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-arrows-left-right',
     public readonly title = 'Straighten (S)',
-    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'A',
     public readonly action = StraightenEdgeOperation.create({ elementId: elementId }),
     public readonly shortcut: KeyCode = 'KeyS'
@@ -75,7 +75,7 @@ class AutoBendEdgeQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-ruler-combined',
     public readonly title = 'Bend (B)',
-    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
     public readonly action = AutoBendEdgeOperation.create({ elementId: elementId }),
     public readonly shortcut: KeyCode = 'KeyB'

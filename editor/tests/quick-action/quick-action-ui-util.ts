@@ -26,14 +26,16 @@ import { Container } from 'inversify';
 
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../../src/diagram/model';
 import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LabelType, LaneTypes } from '../../src/diagram/view-types';
+import ivyEditLabelModule from '../../src/edit-label/di.config';
+import ivyWrapModule from '../../src/wrap/di.config';
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
 import ivyLaneModule from '../../src/lanes/di.config';
-import ivyQuickActionModule from '../../src/quick-action/di.config';
-import { quickActionFeature } from '../../src/quick-action/model';
+import ivyQuickActionModule from '../../src/ui-tools/quick-action/di.config';
+import { quickActionFeature } from '../../src/ui-tools/quick-action/model';
 import { setupGlobal } from '../test-helper';
 import ivyConnectorModule from '../../src/connector/di.config';
-import ivyToolBarModule from '../../src/tool-bar/di.config';
+import ivyToolBarModule from '../../src/ui-tools/tool-bar/di.config';
 
 export function createContainer(): Container {
   const container = new Container();
@@ -48,7 +50,9 @@ export function createContainer(): Container {
     ivyJumpModule,
     ivyLaneModule,
     ivyConnectorModule,
-    ivyToolBarModule
+    ivyToolBarModule,
+    ivyEditLabelModule,
+    ivyWrapModule
   );
   configureModelElement(container, DefaultTypes.GRAPH, SGraph, SGraphView);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
@@ -150,36 +154,35 @@ export function setupSprottyDiv(): void {
 }
 
 export function getQuickActionDiv(): HTMLElement {
-  return document.getElementById('sprotty_quickActionsUi') as HTMLElement;
+  return document.querySelector('#sprotty_quickActionsUi') as HTMLElement;
 }
 
-export function assertMultiQuickActionUi(uiDiv: HTMLElement, childCount: number, dimension: Dimension, position?: Point): void {
-  assertQuickActionUi(uiDiv, childCount + 1, position);
-  const selectionBorder = uiDiv.children[0] as HTMLElement;
+export function assertMultiQuickActionUi(childCount: number, dimension: Dimension, position?: Point): void {
+  const uiDiv = getQuickActionDiv();
+  assertQuickActionUi(childCount, position);
+  const selectionBorder = uiDiv.querySelector('.multi-selection-box') as HTMLElement;
   expect(selectionBorder.tagName).to.be.equals('DIV');
   expect(selectionBorder.style.height).to.be.equals(`${dimension.height}px`);
   expect(selectionBorder.style.width).to.be.equals(`${dimension.width}px`);
 }
 
-export function assertQuickActionUi(uiDiv: HTMLElement, childCount: number, position?: Point): void {
-  expect(uiDiv.style.visibility).to.be.equals('visible');
-  expect(uiDiv.children.length).to.be.equals(childCount);
+export function assertQuickActionUi(childCount: number, position?: Point): void {
+  const uiDiv = getQuickActionDiv();
+  const children = uiDiv.querySelectorAll('.quick-actions-group > span');
+  expect(children.length).to.be.equals(childCount);
   if (position) {
     expect(uiDiv.style.top).to.be.equals(`${position.y}px`);
     expect(uiDiv.style.left).to.be.equals(`${position.x}px`);
   }
 }
 
-export function assertQuickAction(child: Element, title: string, icon?: string, position?: Point): void {
-  const quickAction = child as HTMLElement;
+export function assertQuickAction(childIndex: number, title: string, icon?: string): void {
+  const uiDiv = getQuickActionDiv();
+  const quickAction = uiDiv.querySelectorAll('.quick-actions-group > span')[childIndex] as HTMLElement;
   expect(quickAction.tagName).to.be.equals('SPAN');
   expect(quickAction.title).to.be.equals(title);
   if (icon) {
     const iconElement = quickAction.children[0];
     expect(iconElement.className).to.contains(icon);
-  }
-  if (position) {
-    expect(quickAction.style.top).to.be.equals(`${position.y}px`);
-    expect(quickAction.style.left).to.be.equals(`${position.x}px`);
   }
 }

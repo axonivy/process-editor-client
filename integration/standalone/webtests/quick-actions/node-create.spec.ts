@@ -1,15 +1,11 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { endSelector, removeElement, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { addActivity } from '../toolbar-util';
 import { clickQuickActionStartsWith } from './quick-actions-util';
 
 test.describe('quick actions - create node', () => {
-  const CREATE_NODE_PALETTE = '.create-node-palette-body';
-  const EVENT_GROUP = '#event-group';
-  const GATEWAY_GROUP = '#gateway-group';
-  const ACTIVITY_GROUP = '#activity-group';
-  const BPMN_ACTIVITY_GROUP = '#bpmn-activity-group';
-  const COLLAPSED_CSS_CLASS = /collapsed/;
+  const CREATE_NODE_PALETTE = '.quick-action-bar-menu';
 
   test.beforeEach(async ({ page }) => {
     await gotoRandomTestProcessUrl(page);
@@ -19,93 +15,45 @@ test.describe('quick actions - create node', () => {
   test('switch categories', async ({ page }) => {
     const start = page.locator(startSelector);
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
-    const eventGroup = createNodePalette.locator(EVENT_GROUP);
-    const gatewayGroup = createNodePalette.locator(GATEWAY_GROUP);
-    const activityGroup = createNodePalette.locator(ACTIVITY_GROUP);
-    const bpmnActivityGroup = createNodePalette.locator(BPMN_ACTIVITY_GROUP);
     await expect(createNodePalette).toBeHidden();
 
     await start.click();
-    await switchAndAssertGroup(page, 'Events', eventGroup, [gatewayGroup, activityGroup, bpmnActivityGroup]);
-    await switchAndAssertGroup(page, 'Gateways', gatewayGroup, [eventGroup, activityGroup, bpmnActivityGroup]);
-    await switchAndAssertGroup(page, 'Activities', activityGroup, [eventGroup, gatewayGroup, bpmnActivityGroup]);
-    await switchAndAssertGroup(page, 'BPMN', bpmnActivityGroup, [eventGroup, gatewayGroup, activityGroup]);
+    await switchAndAssertGroup(page, 'Events', ['Events']);
+    await switchAndAssertGroup(page, 'Gateways', ['Gateways']);
+    await switchAndAssertGroup(page, 'Activities', ['Activities', 'BPMN Activities']);
   });
 
-  async function switchAndAssertGroup(page: Page, quickAction: string, openGroup: Locator, closedGroups: Locator[]): Promise<void> {
+  async function switchAndAssertGroup(page: Page, quickAction: string, groups: string[]): Promise<void> {
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
     await clickQuickActionStartsWith(page, quickAction);
     await expect(createNodePalette).toBeVisible();
-    await expect(openGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    for (const closedGroup of closedGroups) {
-      await expect(closedGroup).toHaveClass(COLLAPSED_CSS_CLASS);
+    const headers = page.locator('.menu-group-header');
+    await expect(headers).toHaveCount(groups.length);
+    for (const [index, group] of groups.entries()) {
+      await expect(headers.nth(index)).toHaveText(group);
     }
   }
-
-  test('search', async ({ page }) => {
-    await page.locator(startSelector).click();
-    await clickQuickActionStartsWith(page, 'Events');
-    await searchAndAssert(page, 'sk', 3);
-    await searchAndAssert(page, 'bla', 0);
-  });
 
   test('not all elements are listed', async ({ page }) => {
     const start = page.locator(startSelector);
 
     await start.click();
     await clickQuickActionStartsWith(page, 'Events');
-    await searchAndAssert(page, 'Start', 0);
-    await searchAndAssert(page, 'Note', 0);
-    await searchAndAssert(page, 'End', 1);
+    await searchAndAssert(page, 2);
 
     await resetSelection(page);
     await removeElement(page, endSelector);
 
     await start.click();
     await clickQuickActionStartsWith(page, 'Events');
-    await searchAndAssert(page, 'End', 4);
+    await searchAndAssert(page, 5);
   });
 
-  async function searchAndAssert(page: Page, input: string, expectedFindingCount: number): Promise<void> {
+  async function searchAndAssert(page: Page, expectedFindingCount: number): Promise<void> {
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
-    const searchInput = createNodePalette.locator('.search-input');
-    const button = createNodePalette.locator('.tool-button');
-
     await expect(createNodePalette).toBeVisible();
-    await searchInput.fill(input);
-    await searchInput.dispatchEvent('keyup');
-    if (expectedFindingCount > 0) {
-      await expect(button).toHaveCount(expectedFindingCount);
-    } else {
-      await expect(button).toHaveCount(1);
-      await expect(button).toHaveText('No results found.');
-    }
+    await expect(createNodePalette.locator('.menu-item')).toHaveCount(expectedFindingCount);
   }
-
-  test('navigate with arrows', async ({ page }) => {
-    const start = page.locator(startSelector);
-    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
-    const eventGroup = createNodePalette.locator(EVENT_GROUP);
-    const bpmnActivityGroup = createNodePalette.locator(BPMN_ACTIVITY_GROUP);
-    await expect(createNodePalette).toBeHidden();
-
-    await start.click();
-    await clickQuickActionStartsWith(page, 'Events');
-    await expect(createNodePalette).toBeVisible();
-    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(bpmnActivityGroup).toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(createNodePalette.locator('.search-input')).toBeFocused();
-    await expect(createNodePalette.locator('.tool-button').first()).toHaveClass(/focus/);
-
-    await page.keyboard.press('ArrowUp');
-    await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(bpmnActivityGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-    await expect(createNodePalette.locator('.tool-button').last()).toHaveClass(/focus/);
-
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('ArrowDown');
-    await expect(createNodePalette.locator('.tool-button').nth(1)).toHaveClass(/focus/);
-  });
 
   test('add element', async ({ page }) => {
     await removeElement(page, endSelector);
@@ -130,10 +78,44 @@ test.describe('quick actions - create node', () => {
     await expect(edge).toHaveCount(2);
   });
 
+  test('attach comment', async ({ page }) => {
+    const comment = page.locator('.sprotty-graph .processAnnotation');
+    const connectors = page.locator('.sprotty-graph > g > .sprotty-edge');
+    await expect(comment).not.toBeVisible();
+    await expect(connectors).toHaveCount(1);
+
+    await page.locator(startSelector).click();
+    await addElement(page, 'Activities', 'Note');
+    await expect(comment).toBeVisible();
+    await expect(connectors).toHaveCount(2);
+  });
+
+  test('attach error boundary', async ({ page }) => {
+    await addActivity(page, 'User Dialog', 200, 200);
+    const hd = page.locator('.sprotty-graph .dialogCall');
+    const errorBoundary = page.locator('.sprotty-graph .boundary\\:errorBoundaryEvent');
+    await expect(errorBoundary).toBeHidden();
+
+    await hd.click();
+    await addElement(page, 'Events', 'Error Boundary');
+    await expect(errorBoundary).toBeVisible();
+  });
+
+  test('attach signal boundary', async ({ page }) => {
+    await addActivity(page, 'User Task', 200, 200);
+    const userTask = page.locator('.sprotty-graph .userTask');
+    const signalBoundary = page.locator('.sprotty-graph .boundary\\:signalBoundaryEvent');
+    await expect(signalBoundary).toBeHidden();
+
+    await userTask.click();
+    await addElement(page, 'Events', 'Signal Boundary');
+    await expect(signalBoundary).toBeVisible();
+  });
+
   async function addElement(page: Page, category: string, activityName: string): Promise<void> {
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
     await clickQuickActionStartsWith(page, category);
     await expect(createNodePalette).toBeVisible();
-    await createNodePalette.locator(`.tool-button:visible:has-text("${activityName}")`).click();
+    await createNodePalette.locator(`.menu-item:visible:has-text("${activityName}")`).first().click();
   }
 });

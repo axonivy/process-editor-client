@@ -1,11 +1,8 @@
 import { expect, Locator, Page } from '@playwright/test';
 
-export const ELEMENT_PALETTE_BODY = '.element-palette-body';
-export const COLLAPSED_CSS_CLASS = /collapsed/;
-
 export async function addActivity(page: Page, activityName: string, xPos: number, yPos: number): Promise<void> {
-  await openElementPalette(page, 'activity-group');
-  await page.locator(`.element-palette-body .tool-button:has-text("${activityName}")`).click();
+  const toolBarMenu = await openElementPalette(page, 'activities');
+  await toolBarMenu.locator(`.menu-item:has-text("${activityName}")`).click();
   await page.locator('.sprotty-graph').click({ position: { x: xPos, y: yPos } });
 }
 
@@ -18,19 +15,17 @@ export async function addLane(page: Page, yPos: number): Promise<void> {
 }
 
 async function createLane(page: Page, createBtn: string, yPos: number): Promise<void> {
-  await openElementPalette(page, 'swimlane-group');
-  await page.locator(`${ELEMENT_PALETTE_BODY} .tool-button:has-text("${createBtn}")`).click();
+  const toolBarMenu = await openElementPalette(page, 'swimlanes');
+  await toolBarMenu.locator(`.menu-item:has-text("${createBtn}")`).click();
   await page.locator('.sprotty-graph').click({ position: { x: 10, y: yPos } });
 }
 
 async function openElementPalette(page: Page, group: string): Promise<Locator> {
-  const paletteBody = page.locator(ELEMENT_PALETTE_BODY);
-  const paletteBtn = page.locator(`#btn_ele_picker_${group}`);
-  await paletteBody.innerHTML();
-  await expect(paletteBtn).toBeVisible();
-  await paletteBtn.click();
-  await expect(paletteBody).toBeVisible();
-  const eventGroup = page.locator(`#${group}`);
-  await expect(eventGroup).not.toHaveClass(COLLAPSED_CSS_CLASS);
-  return paletteBody;
+  const toolbarMenu = page.locator('.tool-bar-menu');
+  await expect(toolbarMenu).toBeHidden();
+  const elementBtn = page.locator(`#btn_${group}_menu`);
+  await expect(elementBtn).toBeVisible();
+  await elementBtn.click();
+  await expect(toolbarMenu).toBeVisible();
+  return toolbarMenu;
 }

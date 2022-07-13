@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { moveIntoViewport } from '../../src/viewport/viewport-commands';
+import { moveIntoViewport } from '../../src/ui-tools/viewport/viewport-commands';
 
 describe('MoveIntoViewportCommand', () => {
   const viewPort = { x: 0, y: 0, width: 500, height: 500 };
