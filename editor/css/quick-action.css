@@ -1,16 +1,38 @@
-.quick-actions-container span {
-  height: 24px;
-  background-color: var(--glsp-quick-action-background);
-  position: absolute;
+.quick-actions-bar {
+  position: relative;
+  margin-top: 1rem;
+  max-height: 44px;
+  background: var(--glsp-tool-bg);
+  box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
+    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
+    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  border-radius: 4px;
+  padding: 6px;
+  display: inline-flex;
+  gap: 1rem;
+}
+.quick-actions-bar.no-bottom-border-radius {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.quick-actions-group {
+  display: inline-flex;
+}
+.quick-actions-group span {
+  height: 2rem;
+  width: 2rem;
   cursor: pointer;
 }
-.quick-actions-container i {
-  width: 24px;
-  font-size: 16px;
-  line-height: 24px;
+.quick-actions-group span:hover,
+.quick-actions-group span.active {
+  background: var(--glsp-tool-button-active-bg);
+  border-radius: 2px;
 }
-.quick-actions-container span:hover {
-  background-color: var(--glsp-quick-action-hover);
+.quick-actions-group span i {
+  width: 2rem;
+  font-size: 14px;
+  line-height: 2rem;
+  color: var(--glsp-tool-button);
 }
 
 .multi-selection-box {
@@ -20,9 +42,4 @@
   border: 1px dashed var(--glsp-multiselect-box-border);
   background: none;
   pointer-events: none;
-}
-
-.create-node-palette-body {
-  font-size: 13px;
-  user-select: none;
 }

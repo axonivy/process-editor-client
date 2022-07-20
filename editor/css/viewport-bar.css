@@ -1,0 +1,45 @@
+.ivy-viewport-bar {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  color: var(--glsp-tool-text);
+  font-size: 13px;
+  user-select: none;
+}
+.ivy-viewport-bar .viewport-bar {
+  background: var(--glsp-tool-bg);
+  border-radius: 4px;
+  box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
+    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
+    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  padding: 6px;
+  font-size: 1.5em;
+}
+.ivy-viewport-bar .viewport-bar-tools {
+  display: flex;
+  align-items: center;
+}
+.ivy-viewport-bar .viewport-bar-tools span {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+}
+.ivy-viewport-bar .viewport-bar-tools span i {
+  margin-right: 0.2em;
+  font-size: 14px;
+  width: 2rem;
+  font-size: 14px;
+  line-height: 2rem;
+  color: var(--glsp-tool-button);
+}
+.ivy-viewport-bar .viewport-bar-tools span i:hover {
+  background: var(--glsp-tool-button-active-bg);
+  border-radius: 2px;
+}
+.ivy-viewport-bar .viewport-bar-tools label {
+  font-size: 0.75em;
+  padding: 0 0.5rem;
+  border-left: 1px solid var(--glsp-tool-border);
+  margin-left: 0.2rem;
+}

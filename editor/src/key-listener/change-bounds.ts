@@ -16,7 +16,7 @@ import {
   TYPES
 } from '@eclipse-glsp/client';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
-import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { IvyGridSnapper } from '../diagram/snap';
 
 export class MoveElementKeyListener extends KeyListener {

@@ -1,9 +1,9 @@
 import { RectangularNodeView, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
-import { inject, injectable } from 'inversify';
+import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
 
-import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
+import { CustomIconToggleActionHandler } from '../../ui-tools/tool-bar/options/action-handler';
 import { getActivityIconDecorator } from '../icon/views';
 import { ActivityNode } from '../model';
 
@@ -12,7 +12,7 @@ const JSX = { createElement: svg };
 
 @injectable()
 export class ActivityNodeView extends RectangularNodeView {
-  @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
+  @inject(CustomIconToggleActionHandler) @optional() protected customIconHandler?: CustomIconToggleActionHandler;
 
   render(node: ActivityNode, context: RenderingContext): VNode {
     const rcr = this.getRoundedCornerRadius(node);
@@ -33,7 +33,7 @@ export class ActivityNodeView extends RectangularNodeView {
           height={height}
           style={{ stroke: node.color }}
         ></rect>
-        {getActivityIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon)}
+        {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, width)}

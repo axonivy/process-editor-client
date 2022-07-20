@@ -7,7 +7,7 @@ import {
   RequestModelAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { appendIconFontToDom, EnableViewportAction } from '@ivyteam/process-editor';
+import { appendIconFontToDom, EnableViewportAction, SwitchThemeAction } from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 
@@ -64,6 +64,7 @@ async function initialize(client: GLSPClient): Promise<void> {
   actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
   actionDispatcher.dispatch(EnableToolPaletteAction.create());
   actionDispatcher.dispatch(EnableViewportAction.create());
+  actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme || 'light' }));
 }
 
 function setWidgetId(mainWidgetId: string): void {
@@ -72,6 +73,3 @@ function setWidgetId(mainWidgetId: string): void {
     mainWidget.id = mainWidgetId;
   }
 }
-
-const theme = urlParameters.theme || 'light';
-document.documentElement.dataset.theme = theme;

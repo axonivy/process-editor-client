@@ -18,7 +18,7 @@ class CustomIconQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-image',
     public readonly title = 'Custom Icon',
-    public readonly location = QuickActionLocation.TopLeft,
+    public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'C',
     public readonly action = OpenDecoratorBrowserAction.create(elementId)
   ) {}

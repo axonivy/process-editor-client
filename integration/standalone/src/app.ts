@@ -20,7 +20,9 @@ import {
   ivyToolBarModule,
   IVY_TYPES,
   ivyHoverModule,
-  IvyHoverMouseListener
+  IvyHoverMouseListener,
+  SwitchThemeAction,
+  SwitchThemeActionHandler
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 
@@ -95,6 +97,7 @@ async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): 
   } else {
     actions.push(...showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true })));
   }
+  actions.push(SwitchThemeAction.create({ theme: SwitchThemeActionHandler.prefsColorScheme() }));
   return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 

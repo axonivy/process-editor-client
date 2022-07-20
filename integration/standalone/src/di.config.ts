@@ -1,5 +1,5 @@
 import { ConsoleLogger, GLSPDiagramServer, LogLevel, TYPES } from '@eclipse-glsp/client';
-import { createIvyDiagramContainer } from '@ivyteam/process-editor';
+import { createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import ivyStandaloneBreakpointModule from './breakpoint/di.config';
 import ivyDirtyStateModule from './dirty-state/di.config';
@@ -16,5 +16,6 @@ export default function createContainer(): Container {
   container.load(ivyNavigationModule);
   container.load(ivyDirtyStateModule);
   container.load(ivyStandaloneBreakpointModule);
+  container.load(ivyThemeModule);
   return container;
 }

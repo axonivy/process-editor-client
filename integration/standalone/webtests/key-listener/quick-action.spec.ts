@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@playwright/test';
+import { expect, Locator, Page, test } from '@playwright/test';
 import { resetSelection, multiSelect, startSelector, endSelector, embeddedSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { QUICK_ACTION_BTN } from '../quick-actions/quick-actions-util';
@@ -61,7 +61,7 @@ test.describe('key listener - quick action shortcuts', () => {
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
-    const jumpOutBtn = page.locator('.dynamic-tools i[title^="Jump"]');
+    const jumpOutBtn = page.locator('#sprotty_jumpOutUi .jump-out-btn i');
     const start = page.locator(startSelector);
     const end = page.locator(endSelector);
     const embedded = page.locator(embeddedSelector);
@@ -94,7 +94,13 @@ test.describe('key listener - quick action shortcuts', () => {
   test('create node', async ({ page }) => {
     const start = page.locator(startSelector);
     await start.click();
-    await openCreateNodeMenu(page);
+    const menu = await openCreateNodeMenu(page);
+
+    await page.keyboard.press('ArrowDown');
+    await expect(menu.locator('.menu-item').nth(1)).toHaveClass(/focus/);
+    await page.keyboard.press('ArrowUp');
+    await expect(menu.locator('.menu-item').first()).toHaveClass(/focus/);
+
     await page.keyboard.press('Enter');
     await expect(page.locator('.intermediate\\:taskSwitchEvent.selected')).toBeVisible();
 
@@ -105,19 +111,15 @@ test.describe('key listener - quick action shortcuts', () => {
   });
 });
 
-async function openCreateNodeMenu(page: Page): Promise<void> {
-  const createNodePalette = page.locator('.create-node-palette-body');
+async function openCreateNodeMenu(page: Page): Promise<Locator> {
+  const createNodePalette = page.locator('.quick-action-bar-menu');
   await expect(createNodePalette).toBeHidden();
 
   await pressHiddenQuickActionShortcut(page, 'A');
   await expect(createNodePalette).toBeVisible();
-  const toolGroup = createNodePalette.locator('.tool-group');
-  const count = await toolGroup.count();
-  for (let i = 0; i < count; i++) {
-    await expect(toolGroup.nth(i)).not.toHaveClass(/collapsed/);
-  }
-  await expect(createNodePalette.locator('.search-input')).toBeFocused();
-  await expect(createNodePalette.locator('.tool-button').first()).toHaveClass(/focus/);
+  await expect(createNodePalette.locator('.menu-search-input')).toBeFocused();
+  await expect(createNodePalette.locator('.menu-item').first()).toHaveClass(/focus/);
+  return createNodePalette;
 }
 
 async function pressQuickActionShortcut(page: Page, shortcut: string): Promise<void> {

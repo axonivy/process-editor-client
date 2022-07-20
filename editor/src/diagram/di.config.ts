@@ -2,6 +2,7 @@ import '../../css/diagram.css';
 
 import {
   configureActionHandler,
+  configureCommand,
   configureModelElement,
   ConsoleLogger,
   CustomFeatures,
@@ -17,14 +18,13 @@ import {
 import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { ContainerModule, interfaces } from 'inversify';
 
-import { errorBoundaryFeature, signalBoundaryFeature } from '../boundary/model';
+import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { editSourceFeature, jumpFeature } from '../jump/model';
 import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { GatewayNodeView } from './gateways/gateway-views';
-import { CustomIconToggleAction, CustomIconToggleActionHandler } from './icon/custom-icon-toggle-action-handler';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   ActivityLabel,
@@ -52,7 +52,9 @@ import {
   LaneTypes
 } from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
-import { multipleOutgoingEdgesFeature } from '../quick-action/edge/model';
+import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
+import { ShowGridAction, ShowGridActionHandler } from './grid/action-handler';
+import { GridFeedbackCommand } from './grid/feedback-action';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -60,8 +62,9 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   bind(TYPES.ISnapper).to(IvyGridSnapper);
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
 
-  bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
-  configureActionHandler({ bind, isBound }, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
+  bind(ShowGridActionHandler).toSelf().inSingletonScope();
+  configureActionHandler({ bind, isBound }, ShowGridAction.KIND, ShowGridActionHandler);
+  configureCommand({ bind, isBound }, GridFeedbackCommand);
 
   const context = { bind, unbind, isBound, rebind };
 

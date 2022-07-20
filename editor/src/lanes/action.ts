@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action/quick-action';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
 @injectable()
 export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
@@ -20,7 +20,7 @@ class CreateLaneQuickAction implements QuickAction {
     public readonly poolId: string,
     public readonly icon = 'fa-solid fa-table-columns fa-rotate-270',
     public readonly title = 'Create Lane',
-    public readonly location = QuickActionLocation.BottomLeft,
+    public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
     public readonly action = CreateNodeOperation.create(LaneTypes.LANE, { containerId: poolId })
   ) {}

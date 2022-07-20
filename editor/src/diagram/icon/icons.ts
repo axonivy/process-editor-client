@@ -56,13 +56,6 @@ const StandardIcons: { [icon: string]: NodeIcon } = {
 };
 
 const PaletteIcons: { [icon: string]: NodeIcon } = {
-  'event-group': { res: 'fa-regular fa-circle', style: IconStyle.FA },
-  'gateway-group': { res: 'fa-regular fa-square fa-rotate-45', style: IconStyle.FA },
-  'activity-group': { res: 'fa-regular fa-square', style: IconStyle.FA },
-  'bpmn-activity-group': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
-  'swimlane-group': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
-  colors: { res: 'fa-solid fa-palette', style: IconStyle.FA },
-  'activity-types': { res: 'fa-solid fa-list', style: IconStyle.FA },
   'std:Pool': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
   'std:Lane': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
   'std:Start': { res: 'fa-regular fa-circle', style: IconStyle.FA },

@@ -14,7 +14,7 @@ test.describe('quick actions - lanes', () => {
 
     await assertQuickActionsCount(page, 0);
     await lane.click();
-    await assertQuickActionsCount(page, 2);
+    await assertQuickActionsCount(page, 3);
   });
 
   test('root lane label', async ({ page }) => {
@@ -37,7 +37,7 @@ test.describe('quick actions - lanes', () => {
 
     await assertQuickActionsCount(page, 0);
     await pool.click();
-    await assertQuickActionsCount(page, 3);
+    await assertQuickActionsCount(page, 4);
   });
 
   test('pool label', async ({ page }) => {

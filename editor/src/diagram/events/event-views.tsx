@@ -1,9 +1,9 @@
 import { CircularNodeView, RenderingContext, svg } from '@eclipse-glsp/client';
-import { inject, injectable } from 'inversify';
+import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
 
-import { CustomIconToggleActionHandler } from '../icon/custom-icon-toggle-action-handler';
+import { CustomIconToggleActionHandler } from '../../ui-tools/tool-bar/options/action-handler';
 import { getIconDecorator } from '../icon/views';
 import { EventNode } from '../model';
 
@@ -12,7 +12,7 @@ const JSX = { createElement: svg };
 
 @injectable()
 export class EventNodeView extends CircularNodeView {
-  @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
+  @inject(CustomIconToggleActionHandler) @optional() protected customIconHandler?: CustomIconToggleActionHandler;
 
   render(node: EventNode, context: RenderingContext): VNode {
     const radius = this.getRadius(node);
@@ -28,7 +28,7 @@ export class EventNodeView extends CircularNodeView {
           style={{ stroke: node.color }}
         ></circle>
         {this.getEventDecorator(radius)}
-        {getIconDecorator(this.customIconHandler.isShowCustomIcons ? node.customIcon : node.icon, radius)}
+        {getIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon, radius)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, 2 * radius)}
       </g>

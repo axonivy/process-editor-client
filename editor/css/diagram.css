@@ -10,9 +10,11 @@ body {
   font-size: 10pt;
   border: none;
   height: 100%;
-  /* Grid? */
-  /* background-size: 10px 10px;
-  background-image: linear-gradient(to right, #e4e4e4 1px, transparent 1px), linear-gradient(to bottom, #e4e4e4 1px, transparent 1px); */
+}
+.sprotty-graph.grid {
+  background-image: radial-gradient(var(--glsp-grid) 1px, transparent 0);
+  background-size: 16px 16px;
+  background-position: 0 2px;
 }
 
 /* Pool / Lane */
