@@ -1,12 +1,9 @@
 .bar-menu {
   background: var(--glsp-bar-menu-bg);
   width: 372px;
-  margin-left: calc(-372px / 2);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
-    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
-    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  box-shadow: var(--glsp-box-shadow);
 }
 .bar-menu.border-radius {
   border-radius: 4px;
@@ -89,10 +86,10 @@
   flex: none;
 }
 .bar-menu.colors-menu .menu-item span {
-  height: 1em;
-  width: 1em;
+  height: 1rem;
+  min-width: 1rem;
   margin: 0.5rem;
-  border-radius: 1em;
+  border-radius: 1rem;
 }
 .bar-menu.colors-menu .menu-item .empty-icon {
   border: 1px solid var(--glsp-foreground);
@@ -197,7 +194,7 @@
   background: var(--glsp-bar-menu-bg);
   /* color: var(--glsp-tool-bar-foreground); */
   border: none;
-  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  box-shadow: var(--glsp-box-shadow);
 }
 .edit-color-dialog .edit-color-form {
   display: grid;

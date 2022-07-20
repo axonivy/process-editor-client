@@ -11,6 +11,7 @@ import {
   LogLevel,
   moveFeature,
   selectFeature,
+  SetViewportAction,
   SGraphView,
   SModelElement,
   TYPES
@@ -64,6 +65,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   bind(ShowGridActionHandler).toSelf().inSingletonScope();
   configureActionHandler({ bind, isBound }, ShowGridAction.KIND, ShowGridActionHandler);
+  configureActionHandler({ bind, isBound }, SetViewportAction.KIND, ShowGridActionHandler);
   configureCommand({ bind, isBound }, GridFeedbackCommand);
 
   const context = { bind, unbind, isBound, rebind };

@@ -92,6 +92,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
         menu.classList.add('border-radius');
         this.quickActionBar.classList.add('no-bottom-border-radius');
       }
+      this.shiftBar(menu, 8);
     } else {
       this.setActiveQuickActionBtn();
     }
@@ -170,11 +171,16 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     }
   }
 
-  private shiftBar(bar: HTMLElement): void {
-    let shift = bar.offsetWidth / 2;
-    const maxShift = bar.getBoundingClientRect().x - 5;
+  private shiftBar(bar: HTMLElement, distanceToWindow = 16): void {
+    const bounds = bar.getBoundingClientRect();
+    let shift = bounds.width / 2;
+    const maxShift = bounds.x - distanceToWindow;
     if (shift > maxShift) {
       shift = maxShift;
+    }
+    const minShift = bounds.x + bounds.width + distanceToWindow - shift;
+    if (minShift > window.innerWidth) {
+      shift += minShift - window.innerWidth;
     }
     bar.style.marginLeft = `${-shift}px`;
   }

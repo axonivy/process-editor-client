@@ -1,11 +1,13 @@
+.quick-actions-container {
+  width: 0;
+  height: 0;
+}
 .quick-actions-bar {
   position: relative;
   margin-top: 1rem;
   max-height: 44px;
   background: var(--glsp-tool-bg);
-  box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
-    0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
-    0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
+  box-shadow: var(--glsp-box-shadow);
   border-radius: 4px;
   padding: 6px;
   display: inline-flex;
