@@ -118,7 +118,7 @@ export abstract class MenuUi implements Menu {
       }
       const nextButton = buttons[nextIndex];
       this.focusButton(nextButton);
-      nextButton?.scrollIntoView(false);
+      nextButton?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
   }
 
