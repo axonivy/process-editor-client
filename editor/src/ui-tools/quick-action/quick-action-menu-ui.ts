@@ -8,7 +8,7 @@ export interface ShowQuickActionMenuAction extends ShowMenuAction {
   elementIds: string[];
   actions: (item: PaletteItem, elementIds: string[]) => Action[];
   hideItemsContaining?: string[];
-  handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void;
+  isEditable?: boolean;
 }
 
 export namespace ShowQuickActionMenuAction {
@@ -20,8 +20,8 @@ export namespace ShowQuickActionMenuAction {
     actions: (item: PaletteItem, elementIds: string[]) => Action[];
     hideItemsContaining?: string[];
     showSearch?: boolean;
-    handleEditDialogClose?: (returnValue: string, formData: FormData, item?: PaletteItem) => void;
     customCssClass?: string;
+    isEditable?: boolean;
   }): ShowQuickActionMenuAction {
     return {
       kind: KIND,
@@ -30,7 +30,11 @@ export namespace ShowQuickActionMenuAction {
   }
 
   export function empty(): ShowQuickActionMenuAction {
-    return create({ elementIds: [], paletteItems: () => [], actions: (item: PaletteItem, elementIds: string[]) => [] });
+    return create({
+      elementIds: [],
+      paletteItems: () => [],
+      actions: (item: PaletteItem, elementIds: string[]) => []
+    });
   }
 
   export function is(object: any): object is ShowQuickActionMenuAction {
@@ -47,8 +51,8 @@ export class QuickActionMenu extends MenuUi {
   }
 
   protected appendMenuParts(body: HTMLElement): void {
-    if (this.action.handleEditDialogClose) {
-      this.editDialog = new EditColorUi(body);
+    if (this.action.isEditable) {
+      this.editDialog = new EditColorUi(this.actionDispatcher, this.action.elementIds, body);
     }
   }
 
@@ -64,7 +68,7 @@ export class QuickActionMenu extends MenuUi {
   }
 
   protected appendToGroupHeader(groupHeader: HTMLElement): void {
-    if (this.action.handleEditDialogClose) {
+    if (this.action.isEditable) {
       groupHeader.appendChild(this.createEditButton('fa-add', 'Add Color'));
     }
   }
@@ -74,7 +78,7 @@ export class QuickActionMenu extends MenuUi {
   }
 
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {
-    if (this.action.handleEditDialogClose && item.label !== 'default') {
+    if (this.action.isEditable && item.label !== 'default') {
       button.appendChild(this.createEditButton('fa-pencil', 'Edit Color', item));
     }
   }
@@ -84,7 +88,7 @@ export class QuickActionMenu extends MenuUi {
     editButton.title = title;
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
-      this.editDialog?.showDialog(this.action.handleEditDialogClose!, item);
+      this.editDialog?.showDialog(item);
     };
     return editButton;
   }

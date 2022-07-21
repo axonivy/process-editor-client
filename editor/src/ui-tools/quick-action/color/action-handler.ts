@@ -14,6 +14,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 
 export interface UpdateColorPaletteAction extends Action {
   kind: typeof UpdateColorPaletteAction.KIND;
+  paletteItems: PaletteItem[];
 }
 
 export namespace UpdateColorPaletteAction {
@@ -21,12 +22,6 @@ export namespace UpdateColorPaletteAction {
 
   export function is(object: any): object is UpdateColorPaletteAction {
     return Action.hasKind(object, KIND);
-  }
-
-  export function create(): UpdateColorPaletteAction {
-    return {
-      kind: KIND
-    };
   }
 }
 
@@ -41,8 +36,11 @@ export class ColorPaletteHandler implements IActionHandler {
   }
 
   handle(action: Action): void | Action | ICommand {
-    if (EnableToolPaletteAction.is(action) || UpdateColorPaletteAction.is(action)) {
+    if (EnableToolPaletteAction.is(action)) {
       this.updateColorPalette();
+    }
+    if (UpdateColorPaletteAction.is(action)) {
+      this.paletteItems = action.paletteItems;
       this.actionDispatcher.dispatch(ShowQuickActionMenuAction.empty());
     }
   }

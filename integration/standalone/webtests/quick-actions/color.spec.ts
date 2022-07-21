@@ -56,7 +56,7 @@ test.describe('quick actions - color', () => {
     await expect(endElement).toHaveAttribute('style', 'stroke: rgb(0, 0, 255);');
   });
 
-  test('cancel change color dialog', async ({ page, browserName }) => {
+  test('cancel change color dialog', async ({ page }) => {
     const paletteBody = await openColorPalette(page);
     await paletteBody.locator(ADD_COLOR_BTN).click();
 
@@ -67,7 +67,7 @@ test.describe('quick actions - color', () => {
     await expect(dialog).toBeHidden();
   });
 
-  test('add new and remove color', async ({ page, browserName }) => {
+  test('add new and remove color', async ({ page }) => {
     await addColor(page);
     await resetSelection(page);
     const paletteBody = await openColorPalette(page);
@@ -126,9 +126,6 @@ test.describe('quick actions - color', () => {
 
   async function colorizeElement(page: Page, elements: Locator[], browserName: string): Promise<void> {
     await addColor(page, elements, browserName, 'Blue', 'rgb(0, 0, 255)');
-    await resetSelection(page);
-    await openColorPalette(page, elements, browserName);
-    await page.locator(PALETTE_BODY + ' .menu-item:has-text("Blue")').click();
   }
 
   async function addColor(page: Page, elements?: Locator[], browserName?: string, name = 'TestColor', color = '#fff000'): Promise<void> {
