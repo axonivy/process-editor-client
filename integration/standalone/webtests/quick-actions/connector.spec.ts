@@ -16,7 +16,7 @@ test.describe('quick actions - connectors', () => {
 
     await assertQuickActionsCount(page, 0);
     await connector.click();
-    await assertQuickActionsCount(page, 5);
+    await assertQuickActionsCount(page, 6);
   });
 
   test('connector label edit', async ({ page }) => {

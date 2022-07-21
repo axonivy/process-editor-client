@@ -28,14 +28,19 @@ body {
 .pool > .sprotty-node,
 .lane > .sprotty-node {
   cursor: default;
-  fill: transparent;
-  stroke: gray;
+  stroke: var(--glsp-border);
+}
+.pool > .sprotty-node {
+  fill: var(--glsp-pool-bg);
+}
+.lane > .sprotty-node {
+  fill: var(--glsp-lane-bg);
 }
 .lane-resize-handle {
   cursor: row-resize;
 }
 .lane-resize-handle line {
-  stroke: #66a;
+  stroke: var(--glsp-editor-selected);
   stroke-width: 2px;
 }
 .lane-resize-handle.mouseover line {
@@ -47,8 +52,8 @@ body {
 
 /* Nodes */
 .sprotty-node {
-  fill: var(--glsp-editor-background);
-  stroke: var(--glsp-editor-foreground);
+  fill: var(--glsp-node);
+  stroke: var(--glsp-border);
   stroke-width: 1px;
   font-weight: bold;
   cursor: pointer;
@@ -56,41 +61,26 @@ body {
 .sprotty-node:not(.selected) {
   stroke-width: 1px;
 }
-.executed .sprotty-node {
-  fill: hsl(80 50% 70% / 50%);
-}
-
-.executed.last .sprotty-node {
-  stroke: magenta;
-}
-
-.failed .sprotty-node {
-  fill: hsl(0 100% 50% / 50%);
-}
-.stopped .sprotty-node {
-  fill: hsl(60 100% 50% / 50%);
-}
-.executed.animate .sprotty-node {
-  animation: background-pulse 1s infinite ease-in-out;
-}
-.failed.animate .sprotty-node {
-  animation: background-pulse-failed 1s infinite ease-in-out;
-}
-.stopped.animate .sprotty-node {
-  animation: background-pulse-stopped 1s infinite ease-in-out;
-}
-.sprotty-node.mouseover {
-  stroke: var(--glsp-editor-mouseover);
-}
 .sprotty-node.selected {
-  stroke-width: 3px;
+  stroke-width: 2px;
   stroke: var(--glsp-editor-selected);
+}
+.sprotty-resize-handle.selected {
+  fill: var(--glsp-editor-selected);
+}
+.sprotty-resize-handle[data-kind='bottom-right'],
+.sprotty-resize-handle[data-kind='top-left'] {
+  cursor: nwse-resize;
+}
+.sprotty-resize-handle[data-kind='bottom-left'],
+.sprotty-resize-handle[data-kind='top-right'] {
+  cursor: nesw-resize;
 }
 .sprotty-node.sprotty-task-node {
   stroke-width: 1px;
 }
 g[class^='end'] .sprotty-node {
-  stroke-width: 3px;
+  stroke-width: 2px;
 }
 .sprotty-node-decorator {
   stroke: var(--glsp-editor-foreground);
@@ -100,31 +90,31 @@ g[class^='end'] .sprotty-node {
 .embeddedProcessElement .sprotty-node {
   stroke-width: 2px;
 }
-
-.execution-badge {
-  fill: var(--glsp-editor-background);
-  stroke: var(--glsp-editor-foreground);
+.embeddedProcessElement svg .sprotty-node {
+  stroke-width: 1px;
 }
-
-.execution-text {
-  fill: var(--glsp-editor-foreground);
+.warning > .sprotty-node {
+  filter: unset !important;
+  stroke: var(--glsp-warning-foreground) !important;
+}
+.error > .sprotty-node {
+  filter: unset !important;
+  stroke: var(--glsp-error-foreground) !important;
 }
 
 /* Edges */
 .sprotty-edge {
   stroke: var(--glsp-editor-foreground);
   fill: none;
+  stroke-width: 1px;
   cursor: pointer;
 }
-.sprotty-edge.executed {
-  stroke: hsl(80 50% 70%);
-  filter: drop-shadow(0px 0px 5px hsl(80 50% 70%));
+.sprotty-edge.selected,
+.sprotty-edge.mouseover:not(.selected) path {
+  stroke-width: 2px;
 }
 .sprotty-edge.arrow {
   fill: var(--glsp-editor-foreground);
-}
-.sprotty-edge.executed .arrow {
-  stroke: hsl(80 50% 70%);
 }
 .sprotty-edge > .sprotty-routing-handle {
   r: 5px;
@@ -160,11 +150,12 @@ g[class^='end'] .sprotty-node {
   cursor: pointer;
 }
 .sprotty-icon i {
-  font-size: 16px;
+  display: flex;
+  font-size: 11px;
 }
 .sprotty-icon img {
-  height: 16px;
-  width: 20px;
+  height: 12px;
+  width: 12px;
   object-fit: contain;
 }
 .sprotty-icon.icon-small i {
@@ -178,32 +169,7 @@ g[class^='end'] .sprotty-node {
 
 /* Tooltip */
 .sprotty-popup {
-  background: var(--glsp-editor-background);
-  color: var(--glsp-editor-foreground);
-  border-radius: 5px;
-  border: 1px solid gray;
-  font-size: 13px;
-}
-.sprotty-popup-title {
-  font-weight: 700;
-}
-.sprotty-popup-title ul {
-  padding: 0;
-}
-.sprotty-popup-title li {
-  list-style: none;
-  font-weight: normal;
-  line-height: 16px;
-  padding: 3px;
-  display: inline-flex;
-}
-.sprotty-popup-title li .codicon {
-  float: left;
-  margin-right: 3px;
-}
-.sprotty-popup-title li span {
-  position: relative;
-  top: 1px;
+  display: none;
 }
 
 /* Comments */
@@ -241,40 +207,4 @@ g[class^='end'] .sprotty-node {
 }
 svg {
   border: none;
-}
-
-@keyframes background-pulse {
-  0% {
-    fill: hsl(80 50% 70% / 50%);
-  }
-  50% {
-    fill: hsl(80 50% 50% / 50%);
-  }
-  100% {
-    fill: hsl(80 50% 50% / 50%);
-  }
-}
-
-@keyframes background-pulse-failed {
-  0% {
-    fill: hsl(0 100% 50% / 50%);
-  }
-  50% {
-    fill: hsl(0 100% 30% / 50%);
-  }
-  100% {
-    fill: hsl(0 100% 50% / 50%);
-  }
-}
-
-@keyframes background-pulse-stopped {
-  0% {
-    fill: hsl(60 100% 50% / 50%);
-  }
-  50% {
-    fill: hsl(60 100% 30% / 50%);
-  }
-  100% {
-    fill: hsl(60 100% 50% / 50%);
-  }
 }

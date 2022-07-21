@@ -13,16 +13,18 @@ import {
   CreateEventQuickActionProvider,
   CreateGatewayQuickActionProvider
 } from './node/actions';
-import { ShowQuickActionMenuAction } from './quick-action-menu-ui';
 import { SelectColorQuickActionProvider } from './color/action';
 import { UpdateColorPaletteAction, ColorPaletteHandler } from './color/action-handler';
 import { TypesPaletteHandler } from './types/action-handler';
 import { SelectActivityTypeQuickActionProvider } from './types/action';
+import { InfoQuickActionProvider } from './info/action';
+import { ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
 
 const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(QuickActionUI).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(QuickActionUI);
   configureActionHandler({ bind, isBound }, ShowQuickActionMenuAction.KIND, QuickActionUI);
+  configureActionHandler({ bind, isBound }, ShowInfoQuickActionMenuAction.KIND, QuickActionUI);
 
   configureQuickActionEdgeTool({ bind, isBound });
   configureQuickActionProviders({ bind });
@@ -38,6 +40,7 @@ export function configureQuickActionEdgeTool(context: { bind: interfaces.Bind; i
 
 export function configureQuickActionProviders(context: { bind: interfaces.Bind }): void {
   context.bind(IVY_TYPES.QuickActionProvider).to(DeleteQuickActionProvider);
+  context.bind(IVY_TYPES.QuickActionProvider).to(InfoQuickActionProvider);
   context.bind(IVY_TYPES.QuickActionProvider).to(ConnectQuickActionProvider);
   context.bind(IVY_TYPES.QuickActionProvider).to(AutoAlignQuickActionProvider);
 

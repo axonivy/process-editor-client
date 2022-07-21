@@ -27,12 +27,13 @@ import ivyToolBarModule from './ui-tools/tool-bar/di.config';
 import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
-import ivyHoverModule from './hover/di.config';
 import ivyExecutionModule from './execution/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
 import ivyEditLabelModule from './edit-label/di.config';
 import ivyKeyListenerModule from './key-listener/di.config';
+import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
+import { IVY_TYPES } from './types';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -49,7 +50,6 @@ export default function createContainer(widgetId: string): Container {
     ivyZorderModule,
     ivyLaneModule,
     ivyAnimateModule,
-    ivyHoverModule,
     ivyExecutionModule,
     ivyConnectorModule,
     ivyToolsModule,
@@ -57,6 +57,7 @@ export default function createContainer(widgetId: string): Container {
     ivyKeyListenerModule
   );
   container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
+  container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,

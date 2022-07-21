@@ -65,11 +65,7 @@ describe('GatewayNodeView', () => {
     const task = graph.index.getById('gatewayTask') as GatewayNode;
     task.executionCount = 3;
     const vnode = view.render(task, context);
-    const expectation =
-      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
-      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg>' +
-      '<g><circle class="execution-badge" r="8" cx="32" /><text class="execution-text" x="32" dy=".3em">3</text></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    const executionBadge = '<g><rect class="execution-badge" rx="6" ry="6" x="21" y="-6" width="22" height="12" /><text class="execution-text" x="32" dy=".3em">3</text></g>';
+    expect(toHTML(vnode)).to.contains(executionBadge);
   });
 });

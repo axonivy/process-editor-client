@@ -11,18 +11,24 @@ const JSX = { createElement: svg };
 export class SBreakpointHandleView implements IView {
   render(handle: SBreakpointHandle, context: RenderingContext): VNode {
     if (isBoundsAware(handle.parent)) {
+      const parentHeight = handle.parent.bounds.height;
       return (
         <g>
-          <circle
+          <rect
             class-ivy-breakpoint-handle={true}
             class-disabled={handle.disabled}
             class-condition={handle.condition?.length > 0 && handle.condition !== 'true'}
             class-mouseover={handle.hoverFeedback}
-            cx={-7}
-            cy={7}
-            r={5}
-          ></circle>
-          {handle.globalDisabled && <line class-ivy-breakpoint-handle-globaldisable x1={-12} y1={2} x2={-2} y2={12} />}
+            x={-20}
+            y={parentHeight - 13}
+            rx={4}
+            ry={4}
+            width={12}
+            height={8}
+          ></rect>
+          {handle.globalDisabled && (
+            <line class-ivy-breakpoint-handle-globaldisable x1={-19} y1={parentHeight - 4} x2={-9} y2={parentHeight - 14} />
+          )}
         </g>
       );
     }

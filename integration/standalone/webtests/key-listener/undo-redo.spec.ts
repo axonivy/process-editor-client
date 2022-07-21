@@ -11,6 +11,7 @@ test.describe('key listener - undo redo', () => {
     const start = page.locator(startSelector);
     const startPos = await getPosition(start);
 
+    await start.click();
     await start.dragTo(page.locator('.sprotty-graph'));
     await assertPositionIsNot(start, startPos);
 

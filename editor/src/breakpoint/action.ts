@@ -55,6 +55,7 @@ class BreakpointQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',
     public readonly action = SetBreakpointAction.create({ elementId: elementId }),
+    public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true
   ) {}
 }

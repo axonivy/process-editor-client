@@ -5,6 +5,7 @@ import { expect } from 'chai';
 
 import { ActivityTypes, EdgeTypes, EventStartTypes, EventEndTypes } from '../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../test-helper';
+import { Edge } from '../../src/diagram/model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -50,7 +51,7 @@ describe('EdgeView', () => {
     const vnode = view.render(graph.index.getById('edge') as SEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
-      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
+      '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -59,7 +60,7 @@ describe('EdgeView', () => {
     const vnode = view.render(graph.index.getById('edgeWithRoutes') as SEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 116.35803619063778,129.93839809701555 L 150,500 L 212.5028714424112,129.79068453341068" />' +
-      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
+      '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
       'translate(212.5028714424112 129.79068453341068)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
@@ -67,11 +68,8 @@ describe('EdgeView', () => {
   it('render edge with padding', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('edgeWithPadding') as SEdge, context);
-    const expectation =
-      '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
-      '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />' +
-      '<path class="sprotty-edge arrow" d="M 1.5,0 L 10,-4 L 10,4 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    const mouseHandle = '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />';
+    expect(toHTML(vnode)).to.contains(mouseHandle);
   });
 
   it('render edge assoziation', () => {
@@ -79,5 +77,14 @@ describe('EdgeView', () => {
     const vnode = view.render(graph.index.getById('assoziation') as SEdge, context);
     const expectation = '<g class="sprotty-edge"><path d="M 675,150 L 675,150" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render edge with color', () => {
+    const view = viewRegistry.get(EdgeTypes.DEFAULT);
+    const edge = graph.index.getById('edge') as Edge;
+    edge.args = { color: 'red' };
+    const vnode = view.render(edge, context);
+    const color = 'style="stroke: red"';
+    expect(toHTML(vnode)).to.contain(color);
   });
 });

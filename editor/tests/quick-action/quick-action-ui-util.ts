@@ -36,6 +36,7 @@ import { quickActionFeature } from '../../src/ui-tools/quick-action/model';
 import { setupGlobal } from '../test-helper';
 import ivyConnectorModule from '../../src/connector/di.config';
 import ivyToolBarModule from '../../src/ui-tools/tool-bar/di.config';
+import { configureIvyViewerOptions } from '../../src/options';
 
 export function createContainer(): Container {
   const container = new Container();
@@ -57,6 +58,7 @@ export function createContainer(): Container {
   configureModelElement(container, DefaultTypes.GRAPH, SGraph, SGraphView);
   container.bind(TYPES.ModelSource).to(LocalModelSource);
   container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  configureIvyViewerOptions(container, {});
   return container;
 }
 

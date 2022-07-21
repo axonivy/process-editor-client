@@ -22,7 +22,6 @@ export class ActivityNodeView extends RectangularNodeView {
       <g>
         <rect
           class-sprotty-node={true}
-          class-task={true}
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           x={0}
@@ -34,6 +33,7 @@ export class ActivityNodeView extends RectangularNodeView {
           style={{ stroke: node.color }}
         ></rect>
         {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon)}
+        {this.colorDot(node)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, width)}
@@ -48,19 +48,36 @@ export class ActivityNodeView extends RectangularNodeView {
   protected getRoundedCornerRadius(node: SShapeElement): number {
     return 5;
   }
+
+  protected colorDot(node: ActivityNode): VNode {
+    if (node.color) {
+      return <circle r={6} cx={Math.max(node.size.width - 9, 0)} cy={9} style={{ fill: node.color }}></circle>;
+    }
+    return <g></g>;
+  }
 }
 
 @injectable()
 export class SubActivityNodeView extends ActivityNodeView {
   protected getNodeDecorator(node: ActivityNode): VNode {
-    const diameter = 10;
+    const diameter = 12;
     const radius = diameter / 2;
     const padding = 2;
+    const innerPadding = 3;
     return (
-      <svg x={node.bounds.width / 2 - radius} y={node.bounds.height - diameter} height={diameter} width={diameter}>
-        <rect class-sprotty-node={true} class-sprotty-task-node={true} width={diameter} height={diameter} />
-        <line class-sprotty-node-decorator x1={radius} y1={padding} x2={radius} y2={diameter - padding} />
-        <line class-sprotty-node-decorator x1={padding} y1={radius} x2={diameter - padding} y2={radius} />
+      <svg x={node.bounds.width / 2 - radius} y={node.bounds.height - diameter - 1} height={diameter} width={diameter}>
+        <rect
+          class-sprotty-node={true}
+          class-sprotty-task-node={true}
+          x={1}
+          y={1}
+          rx={2}
+          ry={2}
+          width={diameter - padding}
+          height={diameter - padding}
+        />
+        <line class-sprotty-node-decorator x1={radius} y1={innerPadding} x2={radius} y2={diameter - innerPadding} />
+        <line class-sprotty-node-decorator x1={innerPadding} y1={radius} x2={diameter - innerPadding} y2={radius} />
       </svg>
     );
   }

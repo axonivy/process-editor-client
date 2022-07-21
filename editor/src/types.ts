@@ -4,5 +4,5 @@ export const IVY_TYPES = {
   ToolBar: Symbol.for('ToolBar'),
   ColorPalette: Symbol.for('ColorPalette'),
   ActivityTypesPalette: Symbol.for('ActivityTypesPalette'),
-  IvyHoverMouseListener: Symbol.for('IvyHoverMouseListener')
+  IvyViewerOptions: Symbol.for('IvyViewerOptions')
 };

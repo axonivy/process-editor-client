@@ -18,6 +18,7 @@ import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { expect } from 'chai';
 import { Container } from 'inversify';
+import { VNode } from 'snabbdom';
 
 import { SBreakpointHandle } from '../../src/breakpoint/model';
 import { SBreakpointHandleView } from '../../src/breakpoint/view';
@@ -53,7 +54,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   return graph;
 }
 
-describe('GeneralView', () => {
+describe('BreakpointView', () => {
   let context: ModelRenderer;
   let graphFactory: SModelFactory;
   let viewRegistry: ViewRegistry;
@@ -69,62 +70,37 @@ describe('GeneralView', () => {
   });
 
   it('render breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint') as SNode, context);
-    const expectation = '<g><circle class="ivy-breakpoint-handle" cx="-7" cy="7" r="5" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    const vnode = renderBreakpoint('breakpoint');
+    const expectation = '<g><rect class="ivy-breakpoint-handle" x="-20" y="37" rx="4" ry="4" width="12" height="8" /></g>';
+    expect(toHTML(vnode)).to.be.equals(expectation);
   });
 
   it('render disabled breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-disabled') as SNode, context);
-    const expectation = '<g><circle class="ivy-breakpoint-handle disabled" cx="-7" cy="7" r="5" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpoint('breakpoint-disabled', 'disabled');
   });
 
   it('render condition breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-condition') as SNode, context);
-    const expectation = '<g><circle class="ivy-breakpoint-handle condition" cx="-7" cy="7" r="5" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpoint('breakpoint-condition', 'condition');
   });
 
   it('render condition disabled breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-condition-disabled') as SNode, context);
-    const expectation = '<g><circle class="ivy-breakpoint-handle disabled condition" cx="-7" cy="7" r="5" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpoint('breakpoint-condition-disabled', 'disabled condition');
   });
 
   it('render (globalDisabled) breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-globaldisabled') as SNode, context);
-    const expectation = '<g><circle class="ivy-breakpoint-handle" cx="-7" cy="7" r="5" /><line class="ivy-breakpoint-handle-globaldisable" x1="-12" y1="2" x2="-2" y2="12" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpointGlobalDisable('breakpoint-globaldisabled');
   });
 
   it('render disabled (globalDisabled) breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-disabled-globaldisabled') as SNode, context);
-    const expectation =
-      '<g><circle class="ivy-breakpoint-handle disabled" cx="-7" cy="7" r="5" /><line class="ivy-breakpoint-handle-globaldisable" x1="-12" y1="2" x2="-2" y2="12" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpointGlobalDisable('breakpoint-disabled-globaldisabled', 'disabled');
   });
 
   it('render condition (globalDisabled) breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-condition-globaldisabled') as SNode, context);
-    const expectation =
-      '<g><circle class="ivy-breakpoint-handle condition" cx="-7" cy="7" r="5" /><line class="ivy-breakpoint-handle-globaldisable" x1="-12" y1="2" x2="-2" y2="12" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpointGlobalDisable('breakpoint-condition-globaldisabled', 'condition');
   });
 
   it('render condition disabled (globalDisabled) breakpoint', () => {
-    const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    const vnode = view.render(graph.index.getById('breakpoint-condition-disabled-globaldisabled') as SNode, context);
-    const expectation =
-      '<g><circle class="ivy-breakpoint-handle disabled condition" cx="-7" cy="7" r="5" /><line class="ivy-breakpoint-handle-globaldisable" x1="-12" y1="2" x2="-2" y2="12" /></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertBreakpointGlobalDisable('breakpoint-condition-disabled-globaldisabled', 'disabled condition');
   });
 
   it('render full graph', () => {
@@ -134,13 +110,35 @@ describe('GeneralView', () => {
       '<g id="sprotty_node" transform="translate(100, 100)"><rect class="sprotty-node" x="0" y="0" width="200" height="50" />';
     expect(toHTML(vnode))
       .to.contains(graphAndNode)
-      .and.contains('<g id="sprotty_breakpoint"><circle')
-      .and.contains('<g id="sprotty_breakpoint-disabled"><circle')
-      .and.contains('<g id="sprotty_breakpoint-condition"><circle')
-      .and.contains('<g id="sprotty_breakpoint-condition-disabled"><circle')
-      .and.contains('<g id="sprotty_breakpoint-globaldisabled"><circle')
-      .and.contains('<g id="sprotty_breakpoint-disabled-globaldisabled"><circle')
-      .and.contains('<g id="sprotty_breakpoint-condition-globaldisabled"><circle')
-      .and.contains('<g id="sprotty_breakpoint-condition-disabled-globaldisabled"><circle');
+      .and.contains('<g id="sprotty_breakpoint">')
+      .and.contains('<g id="sprotty_breakpoint-disabled">')
+      .and.contains('<g id="sprotty_breakpoint-condition">')
+      .and.contains('<g id="sprotty_breakpoint-condition-disabled">')
+      .and.contains('<g id="sprotty_breakpoint-globaldisabled">')
+      .and.contains('<g id="sprotty_breakpoint-disabled-globaldisabled">')
+      .and.contains('<g id="sprotty_breakpoint-condition-globaldisabled">')
+      .and.contains('<g id="sprotty_breakpoint-condition-disabled-globaldisabled">');
   });
+
+  function renderBreakpoint(breakpointId: string): VNode | undefined {
+    const view = viewRegistry.get(SBreakpointHandle.TYPE);
+    return view.render(graph.index.getById(breakpointId) as SNode, context);
+  }
+
+  function assertBreakpoint(breakpointId: string, expectedCssClass: string): void {
+    const vnode = renderBreakpoint(breakpointId);
+    const breakpoint = `class="ivy-breakpoint-handle ${expectedCssClass}"`;
+    expect(toHTML(vnode)).to.contain(breakpoint);
+  }
+
+  function assertBreakpointGlobalDisable(breakpointId: string, expectedCssClass?: string): void {
+    const vnode = renderBreakpoint(breakpointId);
+    let breakpoint = 'class="ivy-breakpoint-handle';
+    if (expectedCssClass) {
+      breakpoint = `class="ivy-breakpoint-handle ${expectedCssClass}"`;
+    }
+    const line = '<line class="ivy-breakpoint-handle-globaldisable" x1="-19" y1="46" x2="-9" y2="36" />';
+    expect(toHTML(vnode)).to.contain(breakpoint);
+    expect(toHTML(vnode)).to.contain(line);
+  }
 });
