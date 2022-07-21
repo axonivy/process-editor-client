@@ -192,7 +192,7 @@
 /* Color Dialog */
 .edit-color-dialog {
   background: var(--glsp-bar-menu-bg);
-  /* color: var(--glsp-tool-bar-foreground); */
+  color: var(--glsp-bar-menu-item);
   border: none;
   box-shadow: var(--glsp-box-shadow);
 }
