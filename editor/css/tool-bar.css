@@ -73,6 +73,12 @@
   border-radius: 2px;
 }
 
+@media screen and (max-width: 530px) {
+  .tool-bar-header .middle-buttons .tool-bar-title-button:not(:first-child) {
+    display: none;
+  }
+}
+
 /* Font Awesome Rotate 45 */
 .fa-rotate-45 {
   -webkit-transform: rotate(45deg);
