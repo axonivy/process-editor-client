@@ -1,5 +1,6 @@
-import { PaletteItem } from '@eclipse-glsp/client';
+import { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { createElement } from '../../../utils/ui-utils';
+import { ChangeColorOperation } from './action';
 
 export class EditColorUi {
   public static DIALOG_CLOSE = 'close';
@@ -10,22 +11,43 @@ export class EditColorUi {
   private static COLOR_PICKER_INPUT_ID = 'editInputColorPicker';
 
   private dialog: HTMLElement;
-  private handleDialogClose: (returnValue: string, formData: FormData, item?: PaletteItem | undefined) => void;
-  private item: PaletteItem | undefined;
+  private item?: PaletteItem;
 
-  constructor(containerElement: HTMLElement) {
+  constructor(readonly actionDispatcher: IActionDispatcher, readonly elementIds: string[], containerElement: HTMLElement) {
     this.dialog = this.createEditDialog(containerElement);
     this.dialog.addEventListener('close', this.dialogClosed);
   }
 
   dialogClosed = ({ target: dialog }: any): void => {
     const dialogFormData = new FormData(dialog.querySelector('form'));
-    this.handleDialogClose(dialog.returnValue, dialogFormData, this.item);
+    this.handleEditDialogClose(dialog.returnValue, dialogFormData);
     dialog.querySelector('form')?.reset();
   };
 
-  public showDialog(handleDialogClose: (returnValue: string, formData: FormData, item?: PaletteItem) => void, item?: PaletteItem): void {
-    this.handleDialogClose = handleDialogClose;
+  handleEditDialogClose(returnValue: string, formData: FormData): void {
+    switch (returnValue) {
+      case EditColorUi.DIALOG_DELETE:
+        this.deleteColor();
+        break;
+      case EditColorUi.DIALOG_CONFIRM:
+        this.changeColor(formData);
+    }
+  }
+
+  deleteColor(): void {
+    if (this.item) {
+      this.actionDispatcher.dispatch(ChangeColorOperation.deleteColor({ elementIds: this.elementIds, oldColor: this.item.label }));
+    }
+  }
+
+  changeColor(formData: FormData): void {
+    const newColor = Object.fromEntries(formData.entries());
+    const colorName = newColor.Name.toString();
+    const color = newColor.Color.toString();
+    this.actionDispatcher.dispatch(ChangeColorOperation.create({ elementIds: this.elementIds, color: color, colorName: colorName }));
+  }
+
+  public showDialog(item?: PaletteItem): void {
     this.item = item;
     this.setInputValue(EditColorUi.NAME_INPUT_ID, item?.label ?? '');
     this.setInputValue(EditColorUi.COLOR_INPUT_ID, item?.icon ?? '');
