@@ -42,7 +42,7 @@ test.describe('quick actions - color', () => {
 
     await expect(laneRect).not.toHaveAttribute('style', /fill: rgb(\d+, \d+, \d+); fill-opacity: 0.1;/);
     await colorizeElement(page, [lane], browserName);
-    await expect(laneRect).toHaveAttribute('style', 'fill: rgb(0, 0, 255); fill-opacity: 0.1;');
+    await expect(laneRect).toHaveAttribute('style', 'stroke: rgb(0, 0, 255);');
   });
 
   test('colorize multiple elements', async ({ page, browserName }) => {

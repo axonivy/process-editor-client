@@ -40,27 +40,28 @@ describe('QuickActionUi - Create Nodes', () => {
 
   it('create nodes quick actions are rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    assertQuickActionUi(6, { x: 200, y: 150 });
+    assertQuickActionUi(7, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Select color', 'fa-solid fa-palette');
-    assertQuickAction(2, 'Events (A)', 'fa-regular fa-circle');
-    assertQuickAction(3, 'Gateways (A)', 'fa-regular fa-square fa-rotate-45');
-    assertQuickAction(4, 'Activities (A)', 'fa-regular fa-square');
-    assertQuickAction(5, 'Connect', 'fa-solid fa-arrow-right-long');
+    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
+    assertQuickAction(3, 'Events (A)', 'fa-regular fa-circle');
+    assertQuickAction(4, 'Gateways (A)', 'fa-regular fa-square fa-rotate-45');
+    assertQuickAction(5, 'Activities (A)', 'fa-regular fa-square');
+    assertQuickAction(6, 'Connect', 'fa-solid fa-arrow-right-long');
   });
 
   it('create nodes quick actions are not rendered for comment element', () => {
     quickActionUi.show(root, 'comment');
-    assertQuickActionUi(3);
+    assertQuickActionUi(4);
     assertQuickAction(0, 'Delete');
-    assertQuickAction(1, 'Select color');
-    assertQuickAction(2, 'Connect');
+    assertQuickAction(2, 'Select color');
+    assertQuickAction(3, 'Connect');
   });
 
   it('create nodes quick actions are not rendered for end element', () => {
     quickActionUi.show(root, 'end');
-    assertQuickActionUi(2);
+    assertQuickActionUi(3);
     assertQuickAction(0, 'Delete');
-    assertQuickAction(1, 'Select color');
+    assertQuickAction(2, 'Select color');
   });
 });

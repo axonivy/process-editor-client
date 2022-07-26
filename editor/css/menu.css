@@ -29,23 +29,59 @@
   height: 100%;
   color: var(--glsp-bar-menu-item);
 }
+.bar-menu-text,
 .bar-menu-items {
-  display: flex;
-  flex-wrap: wrap;
   color: var(--glsp-bar-menu-item);
   padding: 0.5rem;
   max-height: 213px;
   overflow: auto;
 }
+.bar-menu-items {
+  display: flex;
+  flex-wrap: wrap;
+}
 .bar-menu-items .menu-group {
   width: 100%;
   margin-bottom: 12px;
 }
+.bar-menu-text .simple-menu-header,
+.bar-menu-text .simple-menu-text,
 .bar-menu-items .menu-group-header {
   margin: 6px;
   font-weight: 600;
   font-size: 14px;
+}
+.bar-menu-items .menu-group-header {
   display: flex;
+}
+.bar-menu-text .simple-menu-text {
+  font-weight: 400;
+}
+.bar-menu-text .simple-menu-small {
+  font-weight: 400;
+  font-size: 10px;
+}
+.bar-menu-text .menu-issue {
+  margin: 6px;
+  font-size: 12px;
+}
+.bar-menu-text .menu-issue-title {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 700;
+}
+.bar-menu-text .menu-issue-title i {
+  font-size: 12px;
+}
+.bar-menu-text .menu-issue-title .codicon-error {
+  color: var(--glsp-error-foreground);
+}
+.bar-menu-text .menu-issue-title .codicon-warning {
+  color: var(--glsp-warning-foreground);
+}
+.bar-menu-text .menu-issue-message {
+  margin: 0.5rem 0 1rem 0;
 }
 .bar-menu-items .menu-group-items {
   display: flex;

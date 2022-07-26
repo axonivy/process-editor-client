@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
 import { expect } from 'chai';
+import { VNode } from 'snabbdom';
 
 import { ActivityTypes, LabelType } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
@@ -59,134 +60,59 @@ describe('ActivityNodeView', () => {
   });
 
   it('render comment node', () => {
-    const view = viewRegistry.get(ActivityTypes.COMMENT);
-    const vnode = view.render(graph.index.getById('comment') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g><g></g><g id="sprotty_commentLabel">' +
-      '<foreignObject class="sprotty-label node-child-label" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="30" width="100" x="0" y="0" z="10" />' +
-      '</g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.COMMENT, 'comment', { label: true });
   });
 
   it('render script node', () => {
-    const view = viewRegistry.get(ActivityTypes.SCRIPT);
-    const vnode = view.render(graph.index.getById('script') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.SCRIPT, 'script', { icon: true });
   });
 
   it('render hd node', () => {
-    const view = viewRegistry.get(ActivityTypes.HD);
-    const vnode = view.render(graph.index.getById('hd') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.HD, 'hd', { icon: true });
   });
 
   it('render user node', () => {
-    const view = viewRegistry.get(ActivityTypes.USER);
-    const vnode = view.render(graph.index.getById('user') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.USER, 'user', { icon: true });
   });
 
   it('render soap node', () => {
-    const view = viewRegistry.get(ActivityTypes.SOAP);
-    const vnode = view.render(graph.index.getById('soap') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.SOAP, 'soap', { icon: true });
   });
 
   it('render rest node', () => {
-    const view = viewRegistry.get(ActivityTypes.REST);
-    const vnode = view.render(graph.index.getById('rest') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.REST, 'rest', { icon: true });
   });
 
   it('render db node', () => {
-    const view = viewRegistry.get(ActivityTypes.DB);
-    const vnode = view.render(graph.index.getById('db') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.DB, 'db', { icon: true });
   });
 
   it('render email node', () => {
-    const view = viewRegistry.get(ActivityTypes.EMAIL);
-    const vnode = view.render(graph.index.getById('email') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.EMAIL, 'email', { icon: true });
   });
 
   it('render sub process node', () => {
-    const view = viewRegistry.get(ActivityTypes.SUB_PROCESS);
-    const vnode = view.render(graph.index.getById('subProcess') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
-      '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
-      '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
-      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true });
   });
 
   it('render embedded process node', () => {
-    const view = viewRegistry.get(ActivityTypes.EMBEDDED_PROCESS);
-    const vnode = view.render(graph.index.getById('embeddedProcess') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g></g>' +
-      '<svg x="70" y="40" height="10" width="10"><rect class="sprotty-node sprotty-task-node" width="10" height="10" />' +
-      '<line class="sprotty-node-decorator" x1="5" y1="2" x2="5" y2="8" />' +
-      '<line class="sprotty-node-decorator" x1="2" y1="5" x2="8" y2="5" /></svg><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true });
   });
 
   it('render web page node', () => {
-    const view = viewRegistry.get(ActivityTypes.WEB_PAGE);
-    const vnode = view.render(graph.index.getById('webPage') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.WEB_PAGE, 'webPage', { icon: true });
   });
 
   it('render trigger node', () => {
-    const view = viewRegistry.get(ActivityTypes.TRIGGER);
-    const vnode = view.render(graph.index.getById('trigger') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.TRIGGER, 'trigger', { icon: true });
   });
 
   it('render program node', () => {
-    const view = viewRegistry.get(ActivityTypes.PROGRAM);
-    const vnode = view.render(graph.index.getById('program') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.PROGRAM, 'program', { icon: true });
   });
 
   it('render third party node', () => {
-    const view = viewRegistry.get(ActivityTypes.WEB_PAGE);
-    const vnode = view.render(graph.index.getById('thirdParty') as SNode, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', { icon: true });
   });
 
   it('render activity with execution badge', () => {
@@ -194,10 +120,45 @@ describe('ActivityNodeView', () => {
     const script = graph.index.getById('script') as ActivityNode;
     script.executionCount = 3;
     const vnode = view.render(script, context);
-    const expectation =
-      '<g><rect class="sprotty-node task" x="0" y="0" rx="5" ry="5" width="150" height="50" /><g>' +
-      '<foreignObject class="sprotty-icon" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="16" width="20" x="2" y="2" /></g><g></g>' +
-      '<g><circle class="execution-badge" r="8" cx="150" /><text class="execution-text" x="150" dy=".3em">3</text></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    const executionBadge = '<g><rect class="execution-badge" rx="6" ry="6" x="139" y="-6" width="22" height="12" /><text class="execution-text" x="150" dy=".3em">3</text></g>';
+    expect(toHTML(vnode)).to.contains(executionBadge);
   });
+
+  it('render activity with color dot', () => {
+    const view = viewRegistry.get(ActivityTypes.SCRIPT);
+    const script = graph.index.getById('script') as ActivityNode;
+    script.args.color = 'red';
+    const vnode = view.render(script, context);
+    const colorDot = '<circle r="6" cx="141" cy="9" style="fill: red" />';
+    expect(toHTML(vnode)).to.contain(colorDot);
+  });
+
+  function renderNode(type: string, nodeId: string): VNode | undefined {
+    const view = viewRegistry.get(type);
+    return view.render(graph.index.getById(nodeId) as SNode, context);
+  }
+
+  function assertNode(type: string, nodeId: string, options: { label?: boolean; icon?: boolean; decorator?: boolean }): void {
+    const node = toHTML(renderNode(type, nodeId));
+    expect(node).to.contain('class="sprotty-node');
+    if (options.label) {
+      expect(node).to.contain('class="sprotty-label node-child-label"');
+    } else {
+      expect(node).to.not.contain('class="sprotty-label node-child-label"');
+    }
+    if (options.icon) {
+      expect(node).to.contain('class="sprotty-icon"');
+    } else {
+      expect(node).to.not.contain('class="sprotty-icon"');
+    }
+    if (options.decorator) {
+      const decorator =
+        '<svg x="69" y="37" height="12" width="12"><rect class="sprotty-node sprotty-task-node" x="1" y="1" rx="2" ry="2" width="10" height="10" />' +
+        '<line class="sprotty-node-decorator" x1="6" y1="3" x2="6" y2="9" />' +
+        '<line class="sprotty-node-decorator" x1="3" y1="6" x2="9" y2="6" /></svg>';
+      expect(node).to.contain(decorator);
+    } else {
+      expect(node).to.not.contain('sprotty-node-decorator');
+    }
+  }
 });

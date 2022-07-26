@@ -74,6 +74,26 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, SArg
     return this.args?.color as string;
   }
 
+  isFirstChild(): boolean {
+    if (this.parent instanceof LaneNode) {
+      const embeddedLanes = this.parent.embeddedLanes();
+      return embeddedLanes.indexOf(this) === 0;
+    }
+    return false;
+  }
+
+  isLastChild(): boolean {
+    if (this.parent instanceof LaneNode) {
+      const embeddedLanes = this.parent.embeddedLanes();
+      return embeddedLanes.indexOf(this) === embeddedLanes.length - 1;
+    }
+    return false;
+  }
+
+  private embeddedLanes(): LaneNode[] {
+    return this.children.filter(child => child instanceof LaneNode).map(child => <LaneNode>child);
+  }
+
   canConnect(routable: SRoutableElement, role: string): boolean {
     return false;
   }

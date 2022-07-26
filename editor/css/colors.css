@@ -1,10 +1,13 @@
 :root {
-  --glsp-editor-background: white;
-  --glsp-editor-foreground: black;
-  --glsp-editor-mouseover: #616161;
-  --glsp-editor-selected: #007095;
+  --glsp-editor-background: #fafafa;
+  --glsp-editor-foreground: #202020;
+  --glsp-editor-selected: #0065ff;
   --glsp-foreground: #616161;
   --glsp-grid: #c9c9c9;
+  --glsp-node: #ffffff;
+  --glsp-border: #7a7a7a;
+  --glsp-lane-bg: #ffffff;
+  --glsp-pool-bg: #f5f5f5;
   --glsp-box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
     0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
     0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
@@ -28,24 +31,28 @@
   --glsp-multiselect-box-border: var(--glsp-editor-selected);
 
   --glsp-issue-background: var(--glsp-editor-background);
-  --glsp-error-foreground: #e51400;
-  --glsp-warning-foreground: #bf8803;
+  --glsp-error-foreground: #ff796f;
+  --glsp-warning-foreground: #ff9f46;
   --glsp-info-foreground: #75beff;
 
-  --glsp-breakpoint: #e51400;
-  --glsp-breakpoint-condition: #bf8803;
-  --glsp-breakpoint-hover: rgba(229, 20, 0, 0.5);
+  --glsp-breakpoint: #ff796f;
+  --glsp-breakpoint-condition: #48c46b;
+
+  --glsp-execution: #48c46b;
+  --glsp-execution-failed: #ff796f;
+  --glsp-execution-stopped: #cca700;
 
   --glsp-inline-label-background: rgba(0, 0, 0, 0.18);
 }
 
 html[data-theme='dark'] body {
-  --glsp-editor-background: #1e1e1e;
+  --glsp-editor-background: #3c3b3a;
   --glsp-editor-foreground: #d4d4d4;
-  --glsp-editor-mouseover: #cccccc;
-  --glsp-editor-selected: #264f78;
   --glsp-foreground: #cccccc;
   --glsp-grid: #5a5a5a;
+  --glsp-node: #202020;
+  --glsp-lane-bg: #2c2c2c;
+  --glsp-pool-bg: #202020;
 
   --glsp-bar-menu-bg: #2c2c2c;
   --glsp-bar-menu-header-bg: #202020;
@@ -54,9 +61,7 @@ html[data-theme='dark'] body {
   --glsp-bar-menu-switch: #2c2c2c;
   --glsp-bar-menu-switch-bg: #202020;
 
-  --glsp-error-foreground: #f48771;
-  --glsp-warning-foreground: #cca700;
-  --glsp-info-foreground: #75beff;
+  --glsp-issue-background: var(--glsp-editor-background);
 
   --glsp-breakpoint: #f48771;
   --glsp-breakpoint-condition: #cca700;

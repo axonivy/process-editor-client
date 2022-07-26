@@ -63,14 +63,14 @@ test.describe('tool bar', () => {
 
   test('options - toggle theme', async ({ page }) => {
     const graph = page.locator('.sprotty-graph');
-    await expect(graph).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(graph).toHaveCSS('background-color', 'rgb(250, 250, 250)');
 
     const menu = await openOptionsMenu(page);
     await toggleOption(menu, 'Darkmode', false);
-    await expect(graph).toHaveCSS('background-color', 'rgb(30, 30, 30)');
+    await expect(graph).toHaveCSS('background-color', 'rgb(60, 59, 58)');
 
     await toggleOption(menu, 'Darkmode', true);
-    await expect(graph).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(graph).toHaveCSS('background-color', 'rgb(250, 250, 250)');
   });
 
   test('options - toggle grid', async ({ page }) => {

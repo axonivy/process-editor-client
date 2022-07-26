@@ -55,12 +55,12 @@ describe('Activity Icons', () => {
 
   it('fa icon', () => {
     const node = getActivityIconDecorator('std:Step');
-    assertFaIcon(node, { height: 16, width: 20, x: 2, y: 2 }, 'fa-cog');
+    assertFaIcon(node, { height: 12, width: 14, x: 4, y: 3 }, 'fa-cog');
   });
 
   it('img icon', () => {
     const node = getActivityIconDecorator('/faces/javax.faces.resource/url');
-    assertImgIcon(node, { height: 16, width: 20, x: 2, y: 2 }, '/faces/javax.faces.resource/url');
+    assertImgIcon(node, { height: 12, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
   });
 });
 

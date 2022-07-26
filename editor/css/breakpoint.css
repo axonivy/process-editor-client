@@ -1,9 +1,11 @@
 .ivy-breakpoint-handle {
   fill: var(--glsp-breakpoint);
+  cursor: pointer;
 }
 .ivy-breakpoint-handle-globaldisable {
   stroke: var(--glsp-editor-foreground);
-  stroke-width: 2;
+  stroke-width: 1;
+  cursor: pointer;
 }
 .ivy-breakpoint-handle.condition {
   fill: var(--glsp-breakpoint-condition);
@@ -13,5 +15,5 @@
   stroke: var(--glsp-breakpoint);
 }
 .ivy-breakpoint-handle.mouseover {
-  fill: var(--glsp-breakpoint-hover);
+  opacity: 0.5;
 }

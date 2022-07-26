@@ -10,6 +10,29 @@ const JSX = { createElement: svg };
 @injectable()
 export class LaneNodeView extends RectangularNodeView {
   render(node: LaneNode, context: RenderingContext): VNode {
+    if (this.isEmbeddedLane(node)) {
+      const topRightRadius = node.isFirstChild() ? 4 : 0;
+      const bottomRightRadius = node.isLastChild() ? 4 : 0;
+      const path = `M0,0
+      h${Math.max(node.size.width - topRightRadius, 0)}
+      q${topRightRadius},0 ${topRightRadius},${topRightRadius}
+      v${Math.max(node.size.height - 1 - topRightRadius - bottomRightRadius, 0)}
+      q0,${bottomRightRadius} -${bottomRightRadius},${bottomRightRadius}
+      h-${Math.max(node.size.width - bottomRightRadius, 0)}
+      z`;
+      return (
+        <g>
+          <path
+            class-sprotty-node={true}
+            class-selected={node.selected}
+            d={path}
+            {...(node.color ? { style: { stroke: node.color } } : {})}
+          ></path>
+          {this.colorDot(node)}
+          {context.renderChildren(node)}
+        </g>
+      );
+    }
     return (
       <g>
         <rect
@@ -17,17 +40,31 @@ export class LaneNodeView extends RectangularNodeView {
           class-selected={node.selected}
           x='0'
           y='0'
+          rx='4px'
+          ry='4px'
           width={Math.max(node.size.width, 0)}
-          height={Math.max(node.size.height, 0)}
-          {...(node.color ? { style: { fill: node.color, 'fill-opacity': '0.1' } } : {})}
+          height={Math.max(node.size.height - 1, 0)}
+          {...(node.color ? { style: { stroke: node.color } } : {})}
         ></rect>
         {this.getDecoratorLine(node)}
+        {this.colorDot(node)}
         {context.renderChildren(node)}
       </g>
     );
   }
 
+  private isEmbeddedLane(node: LaneNode): boolean {
+    return node.parent instanceof LaneNode;
+  }
+
   protected getDecoratorLine(node: LaneNode): VNode {
+    return <g></g>;
+  }
+
+  protected colorDot(node: LaneNode): VNode {
+    if (node.color) {
+      return <circle r={6} cx={12} cy={Math.max(node.size.height - 13, 0)} style={{ fill: node.color }}></circle>;
+    }
     return <g></g>;
   }
 }
@@ -36,7 +73,16 @@ export class LaneNodeView extends RectangularNodeView {
 export class PoolNodeView extends LaneNodeView {
   protected getDecoratorLine(node: LaneNode): VNode {
     const poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
-    return <rect class-sprotty-node={true} x='0' y='0' width={poolLaneSpace} height={Math.max(node.size.height, 0)}></rect>;
+    return (
+      <line
+        class-sprotty-node={true}
+        x1={poolLaneSpace}
+        y1='0'
+        x2={poolLaneSpace}
+        y2={Math.max(node.size.height - 1, 0)}
+        {...(node.color ? { style: { stroke: node.color } } : {})}
+      ></line>
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import { SModelRoot, TYPES } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
+import { overrideIvyViewerOptions } from '../../src/options';
 
 import ivyQuickActionModule, { configureQuickActionProviders } from '../../src/ui-tools/quick-action/di.config';
 import { QuickActionUI } from '../../src/ui-tools/quick-action/quick-action-ui';
@@ -33,12 +34,44 @@ describe('QuickActionUi - Readonly', () => {
 
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    assertQuickActionUi(0);
+    assertQuickActionUi(1);
+    assertQuickAction(0, 'Information');
   });
 
   it('ui is rendered for activity embedded element', () => {
     quickActionUi.show(root, 'sub');
-    assertQuickActionUi(1, { x: 400, y: 150 });
-    assertQuickAction(0, 'Jump (J)');
+    assertQuickActionUi(2, { x: 400, y: 150 });
+    assertQuickAction(0, 'Information');
+    assertQuickAction(1, 'Jump (J)');
+  });
+
+  it('ui is rendered for edge', () => {
+    quickActionUi.show(root, 'edge');
+    assertQuickActionUi(1);
+    assertQuickAction(0, 'Information');
+  });
+});
+
+describe('QuickActionUi - Readonly (hide sensitive infos)', () => {
+  let quickActionUi: QuickActionUI;
+  let root: SModelRoot;
+
+  before(() => {
+    setupSprottyDiv();
+    const container = createContainerReadonly();
+    overrideIvyViewerOptions(container, { hideSensitiveInfo: true });
+    quickActionUi = container.get<QuickActionUI>(QuickActionUIReadonly);
+    root = createRoot(container);
+  });
+
+  it('ui is rendered for activity element', () => {
+    quickActionUi.show(root, 'foo');
+    assertQuickActionUi(1);
+    assertQuickAction(0, 'Information');
+  });
+
+  it('ui is rendered for edge', () => {
+    quickActionUi.show(root, 'edge');
+    assertQuickActionUi(0);
   });
 });

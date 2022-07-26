@@ -14,7 +14,25 @@ export interface Menu {
   remove(): void;
 }
 
-export abstract class MenuUi implements Menu {
+export abstract class SimpleMenu implements Menu {
+  protected menuCssClass = ['bar-menu', 'simple-menu'];
+  bodyDiv?: HTMLElement;
+
+  public create(containerElement: HTMLElement): HTMLElement {
+    this.bodyDiv = createElement('div', this.menuCssClass);
+    containerElement.appendChild(this.bodyDiv);
+    this.createMenuBody(this.bodyDiv);
+    return this.bodyDiv;
+  }
+
+  abstract createMenuBody(bodyDiv: HTMLElement): void;
+
+  public remove(): void {
+    this.bodyDiv?.remove();
+  }
+}
+
+export abstract class ItemMenu implements Menu {
   static ACTIVE_ELEMENT = 'focus';
   static ITEM_GROUP = 'menu-group';
   static ITEM_BUTTON = 'menu-item';
@@ -108,8 +126,8 @@ export abstract class MenuUi implements Menu {
 
   private navigateUpOrDown(move: number): void {
     if (this.itemsDiv) {
-      const buttons = Array.from(this.itemsDiv.querySelectorAll(`.${MenuUi.ITEM_BUTTON}`));
-      const currentFocus = buttons.filter(e => e.classList.contains(MenuUi.ACTIVE_ELEMENT))[0];
+      const buttons = Array.from(this.itemsDiv.querySelectorAll(`.${ItemMenu.ITEM_BUTTON}`));
+      const currentFocus = buttons.filter(e => e.classList.contains(ItemMenu.ACTIVE_ELEMENT))[0];
       let nextIndex = buttons.indexOf(currentFocus) + move;
       if (nextIndex < 0) {
         nextIndex = buttons.length - 1;
@@ -161,7 +179,7 @@ export abstract class MenuUi implements Menu {
   }
 
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
-    const group = createElement('div', [MenuUi.ITEM_GROUP]);
+    const group = createElement('div', [ItemMenu.ITEM_GROUP]);
     group.id = item.id;
     parent.appendChild(group);
 
@@ -180,7 +198,7 @@ export abstract class MenuUi implements Menu {
   protected appendToGroupHeader(groupHeader: HTMLElement): void {}
 
   private createToolButton(item: PaletteItem, index: number): HTMLElement {
-    const button = createElement('div', [MenuUi.ITEM_BUTTON]);
+    const button = createElement('div', [ItemMenu.ITEM_BUTTON]);
     button.tabIndex = index;
     button.appendChild(this.appendPaletteIcon(button, item));
     button.insertAdjacentText('beforeend', item.label);
@@ -196,12 +214,12 @@ export abstract class MenuUi implements Menu {
   abstract toolButtonOnClick(item: PaletteItem): Action[];
 
   private focusButton(button?: Element): void {
-    this.currentItem()?.classList.remove(MenuUi.ACTIVE_ELEMENT);
-    button?.classList.add(MenuUi.ACTIVE_ELEMENT);
+    this.currentItem()?.classList.remove(ItemMenu.ACTIVE_ELEMENT);
+    button?.classList.add(ItemMenu.ACTIVE_ELEMENT);
   }
 
   private currentItem(): Element | null | undefined {
-    return this.itemsDiv?.querySelector(`.${MenuUi.ITEM_BUTTON}.${MenuUi.ACTIVE_ELEMENT}`);
+    return this.itemsDiv?.querySelector(`.${ItemMenu.ITEM_BUTTON}.${ItemMenu.ACTIVE_ELEMENT}`);
   }
 
   private appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {

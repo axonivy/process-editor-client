@@ -6,7 +6,6 @@ import {
   GLSPDiagramServer,
   RequestTypeHintsAction,
   GLSPActionDispatcher,
-  RankingMouseTool,
   RequestModelAction,
   SelectAction,
   TYPES
@@ -19,10 +18,9 @@ import {
   ToolBar,
   ivyToolBarModule,
   IVY_TYPES,
-  ivyHoverModule,
-  IvyHoverMouseListener,
   SwitchThemeAction,
-  SwitchThemeActionHandler
+  SwitchThemeActionHandler,
+  overrideIvyViewerOptions
 } from '@ivyteam/process-editor';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 
@@ -119,9 +117,7 @@ function isNumeric(num: any): boolean {
 function setViewerMode(): void {
   container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
   container.unload(ivyToolBarModule);
-  const mouseListener = container.get<IvyHoverMouseListener>(IVY_TYPES.IvyHoverMouseListener);
-  container.get<RankingMouseTool>(TYPES.MouseTool).deregister(mouseListener);
-  container.unload(ivyHoverModule);
+  overrideIvyViewerOptions(container, { hideSensitiveInfo: true });
 }
 
 websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');

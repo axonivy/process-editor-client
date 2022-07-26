@@ -1,0 +1,91 @@
+/* Execution */
+.executed .sprotty-node {
+  stroke: var(--glsp-execution) !important;
+}
+.executed.last .sprotty-node {
+  filter: drop-shadow(0px 0px 5px var(--glsp-execution));
+}
+.failed .sprotty-node {
+  stroke: var(--glsp-execution-failed) !important;
+}
+.failed.last .sprotty-node {
+  filter: drop-shadow(0px 0px 5px var(--glsp-execution-failed));
+}
+.stopped .sprotty-node {
+  stroke: var(--glsp-execution-stopped) !important;
+}
+.stopped.last .sprotty-node {
+  filter: drop-shadow(0px 0px 5px var(--glsp-execution-stopped));
+}
+.executed.animate .sprotty-node {
+  animation: shadow-pulse 1s infinite ease-in-out;
+}
+.failed.animate .sprotty-node {
+  animation: shadow-pulse-failed 1s infinite ease-in-out;
+}
+.stopped.animate .sprotty-node {
+  animation: shadow-pulse-stopped 1s infinite ease-in-out;
+}
+.sprotty-edge.executed {
+  stroke: var(--glsp-execution);
+}
+.sprotty-edge.executed .arrow {
+  stroke: var(--glsp-execution);
+  fill: var(--glsp-execution);
+}
+.execution-badge {
+  fill: var(--glsp-node);
+  stroke: var(--glsp-execution);
+}
+.failed .execution-badge {
+  stroke: var(--glsp-execution-failed);
+}
+.stopped .execution-badge {
+  stroke: var(--glsp-execution-stopped);
+}
+.execution-text {
+  fill: var(--glsp-execution);
+  font-size: 7pt;
+}
+.failed .execution-text {
+  fill: var(--glsp-execution-failed);
+}
+.stopped .execution-text {
+  fill: var(--glsp-execution-stopped);
+}
+
+@keyframes shadow-pulse {
+  0% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution));
+  }
+  50% {
+    filter: drop-shadow(0px 0px 5px var(--glsp-execution));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution));
+  }
+}
+
+@keyframes shadow-pulse-failed {
+  0% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution-failed));
+  }
+  50% {
+    filter: drop-shadow(0px 0px 5px var(--glsp-execution-failed));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution-failed));
+  }
+}
+
+@keyframes shadow-pulse-stopped {
+  0% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution-stopped));
+  }
+  50% {
+    filter: drop-shadow(0px 0px 5px var(--glsp-execution-stopped));
+  }
+  100% {
+    filter: drop-shadow(0px 0px 0px var(--glsp-execution-stopped));
+  }
+}

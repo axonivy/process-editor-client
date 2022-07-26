@@ -1,7 +1,8 @@
-import { Action, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
-import { createIcon } from '../../utils/ui-utils';
+import { Action, GIssueMarker, IActionDispatcher, PaletteItem, SIssue } from '@eclipse-glsp/client';
+import { Converter } from 'showdown';
+import { createElement, createIcon } from '../../utils/ui-utils';
 import { EditColorUi } from './color/edit-color-ui';
-import { MenuUi, ShowMenuAction } from '../menu/menu';
+import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
   kind: typeof ShowQuickActionMenuAction.KIND;
@@ -42,7 +43,7 @@ export namespace ShowQuickActionMenuAction {
   }
 }
 
-export class QuickActionMenu extends MenuUi {
+export class QuickActionMenu extends ItemMenu {
   protected menuCssClass = ['bar-menu', 'quick-action-bar-menu'];
   protected editDialog?: EditColorUi;
 
@@ -91,5 +92,89 @@ export class QuickActionMenu extends MenuUi {
       this.editDialog?.showDialog(item);
     };
     return editButton;
+  }
+}
+
+export interface ShowInfoQuickActionMenuAction extends Action {
+  kind: typeof ShowInfoQuickActionMenuAction.KIND;
+  elementId: string;
+  markers: GIssueMarker[];
+  title?: string;
+  text?: string;
+}
+
+export namespace ShowInfoQuickActionMenuAction {
+  export const KIND = 'showSimpleQuickActionMenu';
+
+  export function create(options: {
+    elementId: string;
+    markers: GIssueMarker[];
+    title?: string;
+    text?: string;
+  }): ShowInfoQuickActionMenuAction {
+    return {
+      kind: KIND,
+      ...options
+    };
+  }
+
+  export function is(object: any): object is ShowInfoQuickActionMenuAction {
+    return Action.hasKind(object, KIND);
+  }
+}
+
+export class InfoQuickActionMenu extends SimpleMenu {
+  constructor(readonly action: ShowInfoQuickActionMenuAction) {
+    super();
+  }
+
+  createMenuBody(bodyDiv: HTMLElement): void {
+    const menu = createElement('div', ['bar-menu-text']);
+    bodyDiv.appendChild(menu);
+
+    this.action.markers.forEach(marker => menu.appendChild(this.createMarker(marker)));
+
+    if (this.action.title) {
+      const title = createElement('p', ['simple-menu-header']);
+      title.textContent = this.action.title;
+      menu.appendChild(title);
+    }
+
+    if (this.action.text) {
+      const converter = new Converter({ simpleLineBreaks: true });
+      const htmlText = converter.makeHtml(this.action.text);
+      const template = document.createElement('template');
+      template.innerHTML = htmlText;
+      const text = createElement('div', ['simple-menu-text']);
+      for (const child of template.content.childNodes) {
+        text.appendChild(child);
+      }
+      menu.appendChild(text);
+    }
+
+    const elementId = createElement('p', ['simple-menu-text', 'simple-menu-small']);
+    elementId.textContent = `PID: ${this.action.elementId}`;
+    menu.appendChild(elementId);
+  }
+
+  createMarker(gMarker: GIssueMarker): HTMLElement {
+    const marker = createElement('div', ['menu-marker']);
+    gMarker.issues.forEach(issue => marker.appendChild(this.createIssue(issue)));
+    return marker;
+  }
+
+  createIssue(sIssue: SIssue): HTMLElement {
+    const issue = createElement('div', ['menu-issue']);
+    const issueTitle = createElement('div', ['menu-issue-title']);
+    issueTitle.appendChild(createElement('i', ['codicon', `codicon-${sIssue.severity}`]));
+    const issueTitleSpan = createElement('span');
+    issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
+    issueTitle.appendChild(issueTitleSpan);
+    issue.appendChild(issueTitle);
+
+    const issueMessage = createElement('p', ['menu-issue-message']);
+    issueMessage.textContent = sIssue.message;
+    issue.appendChild(issueMessage);
+    return issue;
   }
 }

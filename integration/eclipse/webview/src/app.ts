@@ -51,20 +51,25 @@ async function initialize(client: GLSPClient): Promise<void> {
 
   await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
-  actionDispatcher.dispatch(
-    RequestModelAction.create({
-      // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
-      // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
-      options: {
-        sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
-        diagramType: diagramType
-      }
-    })
-  );
-  actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
-  actionDispatcher.dispatch(EnableToolPaletteAction.create());
-  actionDispatcher.dispatch(EnableViewportAction.create());
-  actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme || 'light' }));
+  actionDispatcher
+    .dispatch(
+      RequestModelAction.create({
+        // Java's URLEncoder.encode encodes spaces as plus sign but decodeURI expects spaces to be encoded as %20.
+        // See also https://en.wikipedia.org/wiki/Query_string#URL_encoding for URL encoding in forms vs generic URL encoding.
+        options: {
+          sourceUri: 'file://' + decodeURI(filePath.replace(/\+/g, '%20')),
+          diagramType: diagramType
+        }
+      })
+    )
+    .then(() =>
+      actionDispatcher.onceModelInitialized().finally(() => {
+        actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
+        actionDispatcher.dispatch(EnableToolPaletteAction.create());
+        actionDispatcher.dispatch(EnableViewportAction.create());
+        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme || 'light' }));
+      })
+    );
 }
 
 function setWidgetId(mainWidgetId: string): void {

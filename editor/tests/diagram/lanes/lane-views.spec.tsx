@@ -5,6 +5,7 @@ import { expect } from 'chai';
 
 import { LaneTypes } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
+import { LaneNode } from '../../../src/diagram/model';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -62,8 +63,8 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.POOL);
     const vnode = view.render(graph.index.getById('pool') as SNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" width="800" height="500" />' +
-      '<rect class="sprotty-node" x="0" y="0" width="24" height="500" />' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
+      '<line class="sprotty-node" x1="24" y1="0" x2="24" y2="499" /><g></g>' +
       '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
@@ -72,8 +73,8 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.POOL);
     const vnode = view.render(graph.index.getById('pool2') as SNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" width="800" height="500" />' +
-      '<rect class="sprotty-node" x="0" y="0" width="38" height="500" />' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
+      '<line class="sprotty-node" x1="38" y1="0" x2="38" y2="499" /><g></g>' +
       '<text id="sprotty_poolLabel2" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /><tspan dy="1.2em" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
@@ -82,8 +83,17 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.LANE);
     const vnode = view.render(graph.index.getById('lane') as SNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" width="770" height="500" /><g></g>' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="499" /><g></g><g></g>' +
       '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
+  });
+
+  it('render lane with color dot', () => {
+    const view = viewRegistry.get(LaneTypes.LANE);
+    const lane = graph.index.getById('lane') as LaneNode;
+    lane.args = { color: 'red' };
+    const vnode = view.render(lane, context);
+    const colorDot = '<circle r="6" cx="12" cy="487" style="fill: red" />';
+    expect(toHTML(vnode)).to.contain(colorDot);
   });
 });

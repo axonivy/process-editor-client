@@ -213,9 +213,7 @@ describe('EventNodeView', () => {
     const start = graph.index.getById('start') as EventNode;
     start.executionCount = 3;
     const vnode = view.render(start, context);
-    const expectation =
-      '<g><circle class="sprotty-node" r="15" cx="15" cy="15" /><g></g><g></g>' +
-      '<g><circle class="execution-badge" r="8" cx="30" /><text class="execution-text" x="30" dy=".3em">3</text></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    const executionBadge = '<g><rect class="execution-badge" rx="6" ry="6" x="19" y="-6" width="22" height="12" /><text class="execution-text" x="30" dy=".3em">3</text></g>';
+    expect(toHTML(vnode)).to.contains(executionBadge);
   });
 });

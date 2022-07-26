@@ -1,8 +1,7 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { embeddedSelector, endSelector, multiSelect, removeElement, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
-import { addActivity } from '../toolbar-util';
-import { clickQuickAction, clickQuickActionEndsWith, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
+import { clickQuickAction, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';
 
 test.describe('quick actions - nodes', () => {
   test.beforeEach(async ({ page }) => {
@@ -15,13 +14,13 @@ test.describe('quick actions - nodes', () => {
 
     await assertQuickActionsCount(page, 0);
     await start.click();
-    await assertQuickActionsCount(page, 6);
+    await assertQuickActionsCount(page, 7);
     await end.click();
-    await assertQuickActionsCount(page, 3);
+    await assertQuickActionsCount(page, 4);
 
     await removeElement(page, endSelector);
     await start.click();
-    await assertQuickActionsCount(page, 7);
+    await assertQuickActionsCount(page, 8);
   });
 
   test('label edit', async ({ page }) => {
@@ -34,6 +33,12 @@ test.describe('quick actions - nodes', () => {
     const start = page.locator(startSelector);
     await deleteNode(page, start);
     await expect(start).not.toBeVisible();
+  });
+
+  test('info', async ({ page }) => {
+    await assertInformation(page, startSelector, 'start.ivp');
+    await assertInformation(page, endSelector);
+    await assertInformation(page, '.sprotty-graph > g > .sprotty-edge');
   });
 
   test('connect', async ({ page }) => {
@@ -112,5 +117,17 @@ test.describe('quick actions - nodes', () => {
   async function deleteNode(page: Page, node: Locator): Promise<void> {
     await node.click();
     await clickQuickAction(page, 'Delete');
+  }
+
+  async function assertInformation(page: Page, selector: string, expectedTitle?: string): Promise<void> {
+    await page.locator(selector).click();
+    await clickQuickAction(page, 'Information');
+    const title = page.locator('.simple-menu-header');
+    if (expectedTitle) {
+      await expect(title).toHaveText(expectedTitle);
+    } else {
+      await expect(title).toBeHidden();
+    }
+    await expect(page.locator('.simple-menu-text.simple-menu-small')).toContainText('PID: ');
   }
 });

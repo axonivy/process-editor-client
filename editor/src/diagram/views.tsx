@@ -68,7 +68,7 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
       <path
         class-sprotty-edge={true}
         class-arrow={true}
-        d='M 1.5,0 L 10,-4 L 10,4 Z'
+        d='M 0.5,0 L 6,-3 L 6,3 Z'
         transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`}
         style={{ stroke: edge.color }}
       />

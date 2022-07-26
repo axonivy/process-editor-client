@@ -29,7 +29,8 @@ import { Edge } from '../../diagram/model';
 import { isQuickActionAware } from './model';
 import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { IVY_TYPES } from '../../types';
-import { QuickActionMenu, ShowQuickActionMenuAction } from './quick-action-menu-ui';
+import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuAction, InfoQuickActionMenu } from './quick-action-menu-ui';
+import { Menu } from '../menu/menu';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements IActionHandler, SelectionListener {
@@ -37,7 +38,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   private activeQuickActions: QuickAction[] = [];
   private activeQuickActionBtn?: HTMLElement;
   private quickActionBar?: HTMLElement;
-  private quickActionMenu?: QuickActionMenu;
+  private quickActionMenu?: Menu;
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
@@ -79,23 +80,43 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
 
   handle(action: Action): void | Action | ICommand {
     if (ShowQuickActionMenuAction.is(action)) {
-      this.showMenu(action);
+      this.showItemMenu(action);
+    }
+    if (ShowInfoQuickActionMenuAction.is(action)) {
+      this.showSimpleMenu(action);
     }
   }
 
-  private showMenu(action: ShowQuickActionMenuAction): void {
-    this.quickActionMenu?.remove();
-    if (this.quickActionBar && action.elementIds.length > 0) {
+  private showSimpleMenu(action: ShowInfoQuickActionMenuAction): void {
+    this.removeMenu();
+    this.quickActionMenu = new InfoQuickActionMenu(action);
+    this.createMenu(this.quickActionMenu);
+  }
+
+  private showItemMenu(action: ShowQuickActionMenuAction): void {
+    this.removeMenu();
+    if (action.elementIds.length > 0) {
       this.quickActionMenu = new QuickActionMenu(this.actionDispatcher, action);
-      const menu = this.quickActionMenu.create(this.containerElement);
+      this.createMenu(this.quickActionMenu);
+    } else {
+      this.setActiveQuickActionBtn();
+    }
+  }
+
+  private createMenu(quickActionMenu: Menu): void {
+    if (this.quickActionBar) {
+      const menu = quickActionMenu.create(this.containerElement);
       if (menu.offsetWidth > this.quickActionBar.offsetWidth) {
         menu.classList.add('border-radius');
         this.quickActionBar.classList.add('no-bottom-border-radius');
       }
       this.shiftBar(menu, 8);
-    } else {
-      this.setActiveQuickActionBtn();
     }
+  }
+
+  private removeMenu(): void {
+    this.quickActionMenu?.remove();
+    this.quickActionMenu = undefined;
   }
 
   public showUi(): void {
@@ -231,9 +252,9 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   }
 
   private triggerQuickActionBtn(button: HTMLElement, actions: Action[]): void {
-    if (this.activeQuickActionBtn === button) {
+    if (this.activeQuickActionBtn === button && this.quickActionMenu) {
       this.setActiveQuickActionBtn();
-      this.quickActionMenu?.remove();
+      this.removeMenu();
     } else {
       this.setActiveQuickActionBtn(button);
       this.actionDispatcherProvider().then(dispatcher => dispatcher.dispatchAll(actions));
