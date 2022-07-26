@@ -4,6 +4,7 @@
   width: 100%;
   height: 3rem;
   background: var(--glsp-tool-bar-bg);
+  z-index: 10;
 }
 .tool-bar-header {
   margin: 0.5rem;

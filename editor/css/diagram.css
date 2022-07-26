@@ -12,6 +12,7 @@ body {
   border: none;
   height: 100%;
 }
+.projection-graph.grid .sprotty-graph,
 .sprotty-graph.grid {
   background-image: radial-gradient(var(--glsp-grid) 1px, transparent 0);
   background-size: 16px 16px;
@@ -195,6 +196,51 @@ g[class^='end'] .sprotty-node {
 .edge-modification-not-allowed-mode [class^='sprotty-'],
 .edge-modification-not-allowed-mode .node-child-label {
   cursor: not-allowed;
+}
+
+/* Projection Bars */
+.projection-graph {
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.sprotty-projection-bar.horizontal {
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  left: 0;
+  bottom: 0;
+}
+.sprotty-projection-bar.vertical {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+.projection-scroll-bar {
+  opacity: 0.2;
+  background: transparent;
+  background-color: var(--glsp-editor-foreground);
+  z-index: 1;
+}
+.sprotty-projection-bar.horizontal .sprotty-projection,
+.sprotty-projection-bar.horizontal .sprotty-viewport {
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+.sprotty-projection-bar.vertical .sprotty-projection,
+.sprotty-projection-bar.vertical .sprotty-viewport {
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
+.sprotty-projection-bar.vertical.bordered-projection-bar {
+  width: 10px;
+}
+.sprotty-projection-bar.horizontal.bordered-projection-bar {
+  height: 10px;
 }
 
 /* General */
