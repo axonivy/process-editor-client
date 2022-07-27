@@ -32,6 +32,9 @@ body {
   stroke: var(--glsp-border);
 }
 .pool > .sprotty-node {
+  fill: transparent;
+}
+.pool > .pool-label-rect {
   fill: var(--glsp-pool-bg);
 }
 .lane > .sprotty-node {

@@ -72,16 +72,11 @@ export class LaneNodeView extends RectangularNodeView {
 @injectable()
 export class PoolNodeView extends LaneNodeView {
   protected getDecoratorLine(node: LaneNode): VNode {
-    const poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
+    const poolLaneSpace = (GArgument.getNumber(node, 'poolLabelSpace') ?? 24) - 1;
+    const nodeHeight = node.size.height - 1;
+    const path = `M${poolLaneSpace},0 v${nodeHeight} h-${poolLaneSpace - 4} q-4,0 -4,-4 v-${nodeHeight - 8} q0,-4 4,-4 z`;
     return (
-      <line
-        class-sprotty-node={true}
-        x1={poolLaneSpace}
-        y1='0'
-        x2={poolLaneSpace}
-        y2={Math.max(node.size.height - 1, 0)}
-        {...(node.color ? { style: { stroke: node.color } } : {})}
-      ></line>
+      <path class-sprotty-node={true} class-pool-label-rect d={path} {...(node.color ? { style: { stroke: node.color } } : {})}></path>
     );
   }
 }
