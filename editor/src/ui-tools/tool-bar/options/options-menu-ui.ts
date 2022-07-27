@@ -27,10 +27,10 @@ class GridOption implements Option {
   ) {}
 }
 
-class CustomImageOption implements Option {
+class CustomIconOption implements Option {
   constructor(
     public readonly icon = 'fa-solid fa-image',
-    public readonly label = 'Custom Image',
+    public readonly label = 'Custom Icon',
     public readonly action = (state: boolean) => CustomIconToggleAction.create({ showCustomIcons: state })
   ) {}
 }
@@ -63,7 +63,7 @@ export class ToolBarOptionsMenu implements Menu {
       options.appendChild(this.createOption(new ThemeOption(), this.showAction.theme() === 'dark'));
     }
     options.appendChild(this.createOption(new GridOption(), this.showAction.grid()));
-    options.appendChild(this.createOption(new CustomImageOption(), this.showAction.customIconState()));
+    options.appendChild(this.createOption(new CustomIconOption(), this.showAction.customIconState()));
     return options;
   }
 
@@ -75,6 +75,7 @@ export class ToolBarOptionsMenu implements Menu {
     option.appendChild(label);
     const toggle = new ToggleSwitch(state, newState => this.actionDispatcher.dispatch(setting.action(newState)));
     option.appendChild(toggle.create());
+    label.onclick = _ev => toggle.switch();
     return option;
   }
 

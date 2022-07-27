@@ -70,8 +70,8 @@ test.describe('tool bar', () => {
 
   test('options - toggle custom icons', async ({ page }) => {
     const menu = await openOptionsMenu(page);
-    await toggleOption(menu, 'Custom Image', true);
-    await toggleOption(menu, 'Custom Image', false);
+    await toggleOption(menu, 'Custom Icon', true);
+    await toggleOption(menu, 'Custom Icon', false);
   });
 
   async function toggleOption(menu: Locator, option: string, initalValue: boolean): Promise<void> {

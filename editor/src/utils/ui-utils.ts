@@ -14,6 +14,7 @@ export function createElement(tagName: string, cssClasses?: string[]): HTMLEleme
 export class ToggleSwitch {
   private state: boolean;
   private onclick: (state: boolean) => void;
+  private input?: HTMLInputElement;
 
   constructor(state: boolean, onclick: (state: boolean) => void) {
     this.state = state;
@@ -22,17 +23,24 @@ export class ToggleSwitch {
 
   public create(): HTMLElement {
     const toggle = createElement('label', ['switch']);
-
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.checked = this.state;
-    input.onchange = ev => {
-      this.state = !this.state;
-      this.onclick(this.state);
+    this.input = document.createElement('input');
+    this.input.type = 'checkbox';
+    this.input.checked = this.state;
+    this.input.onchange = _ev => {
+      const newState = this.input?.checked ?? !this.state;
+      this.state = newState;
+      this.onclick(newState);
     };
-    toggle.appendChild(input);
+    toggle.appendChild(this.input);
     toggle.appendChild(createElement('span', ['slider', 'round']));
     return toggle;
+  }
+
+  public switch(): void {
+    if (this.input) {
+      this.input.checked = !this.state;
+      this.input?.dispatchEvent(new UIEvent('change'));
+    }
   }
 }
 

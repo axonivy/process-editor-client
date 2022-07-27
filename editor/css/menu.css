@@ -220,6 +220,7 @@
 }
 .tool-bar-options-menu .tool-bar-option label {
   font-size: 10px;
+  cursor: pointer;
 }
 .tool-bar-options-menu .tool-bar-option .switch {
   margin-left: auto;
