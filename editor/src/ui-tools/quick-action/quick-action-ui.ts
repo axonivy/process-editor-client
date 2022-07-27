@@ -3,6 +3,7 @@ import {
   Action,
   Bounds,
   BoundsAware,
+  CursorCSS,
   EditorContextService,
   getAbsoluteBounds,
   IActionDispatcher,
@@ -31,6 +32,7 @@ import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-a
 import { IVY_TYPES } from '../../types';
 import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuAction, InfoQuickActionMenu } from './quick-action-menu-ui';
 import { Menu } from '../menu/menu';
+import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements IActionHandler, SelectionListener {
@@ -71,7 +73,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    if (selectedElements.length < 1) {
+    if (this.editorContext.modelRoot.cssClasses?.includes(CursorCSS.MARQUEE) || selectedElements.length < 1) {
       this.hideUi();
     } else {
       this.showUi();
@@ -84,6 +86,9 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     }
     if (ShowInfoQuickActionMenuAction.is(action)) {
       this.showSimpleMenu(action);
+    }
+    if (RemoveMarqueeAction.is(action) && this.editorContext.selectedElements.length > 0) {
+      this.showUi();
     }
   }
 
