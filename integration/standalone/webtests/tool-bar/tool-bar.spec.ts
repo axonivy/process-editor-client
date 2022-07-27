@@ -28,23 +28,6 @@ test.describe('tool bar', () => {
     await expect(marqueeToolBtn).not.toHaveClass(ACTIVE_CSS_CLASS);
   });
 
-  test('marquee tool', async ({ page }) => {
-    const MARQUEE_MODE_CSS_CLASS = /marquee-mode/;
-    const marqueeToolBtn = page.locator(MARQUEE_TOOL);
-    const graph = page.locator('.sprotty-graph');
-    await expect(graph).not.toHaveClass(MARQUEE_MODE_CSS_CLASS);
-
-    await marqueeToolBtn.click();
-    await expect(graph).not.toHaveClass(MARQUEE_MODE_CSS_CLASS);
-
-    await page.mouse.move(10, 50);
-    await page.mouse.down();
-    await page.mouse.move(400, 200);
-    await page.mouse.up();
-
-    await expect(page.locator('g.selected')).toHaveCount(3);
-  });
-
   test('undo / redo', async ({ page }) => {
     const undoToolBtn = page.locator('#btn_undo_tools');
     const redoToolBtn = page.locator('#btn_redo_tools');

@@ -19,12 +19,14 @@ import { TypesPaletteHandler } from './types/action-handler';
 import { SelectActivityTypeQuickActionProvider } from './types/action';
 import { InfoQuickActionProvider } from './info/action';
 import { ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
+import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
 
 const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(QuickActionUI).toSelf().inSingletonScope();
   bind(TYPES.IUIExtension).toService(QuickActionUI);
   configureActionHandler({ bind, isBound }, ShowQuickActionMenuAction.KIND, QuickActionUI);
   configureActionHandler({ bind, isBound }, ShowInfoQuickActionMenuAction.KIND, QuickActionUI);
+  configureActionHandler({ bind, isBound }, RemoveMarqueeAction.KIND, QuickActionUI);
 
   configureQuickActionEdgeTool({ bind, isBound });
   configureQuickActionProviders({ bind });
