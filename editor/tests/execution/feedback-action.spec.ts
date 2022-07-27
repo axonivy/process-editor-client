@@ -15,20 +15,29 @@ import { expect } from 'chai';
 import { Container, injectable } from 'inversify';
 import { ElementExecution } from '../../src/execution/action';
 
-import { ExecutedFeedbackAction, ExecutedFeedbackCommand } from '../../src/execution/feedback-action';
+import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction, StoppedFeedbackCommand } from '../../src/execution/feedback-action';
 import { executionFeature } from '../../src/execution/model';
 
-let root: SModelRoot;
+let executedRoot: SModelRoot;
+let stoppedRoot: SModelRoot;
 
 @injectable()
 class ExecutedFeedbackCommandMock extends ExecutedFeedbackCommand {
   execute(context: CommandExecutionContext): SModelRoot {
-    context.root = root;
+    context.root = executedRoot;
     return super.execute(context);
   }
 }
 
-class ExecutionNode extends SChildElement {
+@injectable()
+class StoppedFeedbackCommandMock extends StoppedFeedbackCommand {
+  execute(context: CommandExecutionContext): SModelRoot {
+    context.root = stoppedRoot;
+    return super.execute(context);
+  }
+}
+
+class Node extends SChildElement {
   features = createFeatureSet([executionFeature]);
 }
 
@@ -37,15 +46,16 @@ function createContainer(): Container {
   container.load(defaultModule);
   container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
   configureCommand(container, ExecutedFeedbackCommandMock);
+  configureCommand(container, StoppedFeedbackCommandMock);
   return container;
 }
 
 describe('ExecutedFeedbackAction', () => {
   let actionDispatcher: ActionDispatcher;
-  root = new SModelRoot();
-  const node = new ExecutionNode();
+  executedRoot = new SModelRoot();
+  const node = new Node();
   node.id = 'foo';
-  root.add(node);
+  executedRoot.add(node);
 
   beforeEach(() => {
     const container = createContainer();
@@ -71,5 +81,27 @@ describe('ExecutedFeedbackAction', () => {
     expect(node.cssClasses).to.include('failed');
     await actionDispatcher.dispatch(ExecutedFeedbackAction.create({ elementExecutions: [], oldElementExecutions: [execution], lastExecutedElementId: '' }));
     expect(node.cssClasses).to.not.include('failed');
+  });
+});
+
+describe('StoppedFeedbackAction', () => {
+  let actionDispatcher: ActionDispatcher;
+  stoppedRoot = new SModelRoot();
+  const node = new Node();
+  node.id = 'foo';
+  stoppedRoot.add(node);
+
+  beforeEach(() => {
+    const container = createContainer();
+    actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
+    actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
+    node.cssClasses = undefined;
+  });
+
+  it('Stopped css class is set on element', async () => {
+    await actionDispatcher.dispatch(StoppedFeedbackAction.create({ oldStoppedElement: '', stoppedElement: 'foo' }));
+    expect(node.cssClasses).to.include('stopped');
+    await actionDispatcher.dispatch(StoppedFeedbackAction.create({ oldStoppedElement: 'foo' }));
+    expect(node.cssClasses).to.not.include('stopped');
   });
 });

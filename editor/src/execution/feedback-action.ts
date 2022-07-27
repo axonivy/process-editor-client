@@ -85,11 +85,11 @@ export class ExecutedFeedbackCommand extends Command {
 export interface StoppedFeedbackAction extends Action {
   kind: typeof StoppedFeedbackCommand.KIND;
   oldStoppedElement: string;
-  stoppedElement: string;
+  stoppedElement?: string;
 }
 
 export namespace StoppedFeedbackAction {
-  export function create(options: { oldStoppedElement: string; stoppedElement: string }): StoppedFeedbackAction {
+  export function create(options: { oldStoppedElement: string; stoppedElement?: string }): StoppedFeedbackAction {
     return {
       kind: StoppedFeedbackCommand.KIND,
       ...options
@@ -114,7 +114,7 @@ export class StoppedFeedbackCommand extends Command {
     if (oldElement instanceof SChildElement && isExecutable(oldElement)) {
       removeCssClass(oldElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     }
-    const element = model.index.getById(this.action.stoppedElement);
+    const element = model.index.getById(this.action.stoppedElement ?? '');
     if (element instanceof SChildElement && isExecutable(element)) {
       this.stoppedElement = element;
     }

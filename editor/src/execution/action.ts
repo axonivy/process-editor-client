@@ -1,12 +1,4 @@
-import {
-  Action,
-  hasArrayProp,
-  hasStringProp,
-  IActionDispatcher,
-  IActionHandler,
-  IFeedbackActionDispatcher,
-  TYPES
-} from '@eclipse-glsp/client';
+import { Action, hasArrayProp, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
@@ -63,17 +55,17 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
 
 export interface StoppedAction extends Action {
   kind: typeof StoppedAction.KIND;
-  elementId: string;
+  elementId?: string;
 }
 
 export namespace StoppedAction {
   export const KIND = 'elementStopped';
 
   export function is(object: any): object is StoppedAction {
-    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId');
+    return Action.hasKind(object, KIND);
   }
 
-  export function create(options: { elementId: string }): StoppedAction {
+  export function create(options: { elementId?: string }): StoppedAction {
     return {
       kind: KIND,
       ...options
@@ -95,7 +87,7 @@ export class StoppedActionHandler implements IActionHandler {
       } else {
         this.feedbackDispatcher.deregisterFeedback(this, [feedbackAction]);
       }
-      this.oldStoppedElement = action.elementId;
+      this.oldStoppedElement = action.elementId ?? '';
     }
   }
 }
