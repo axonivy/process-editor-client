@@ -18,11 +18,11 @@ class InscribeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-pen',
-    public readonly title = 'Edit (I)',
+    public readonly title = 'Edit (E)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',
     public readonly action = OpenAction.create(elementId),
     public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyI'
+    public readonly shortcut: KeyCode = 'KeyE'
   ) {}
 }

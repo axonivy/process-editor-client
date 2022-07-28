@@ -55,9 +55,6 @@ export class OpenInscriptionKeyListener extends KeyListener {
         return [OpenInscriptionAction.create(openableElements[0].id)];
       }
     }
-    if (matchesKeystroke(event, 'KeyI') && this.getOpenableElements(element).length === 0) {
-      return [OpenInscriptionAction.create('')];
-    }
     return [];
   }
 

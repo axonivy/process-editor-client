@@ -125,6 +125,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   }
 
   public showUi(): void {
+    this.activeQuickActions = [];
     this.actionDispatcherProvider().then(actionDispatcher =>
       actionDispatcher.dispatch(
         SetUIExtensionVisibilityAction.create({

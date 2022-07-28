@@ -35,20 +35,20 @@ describe('QuickActionUi - Readonly', () => {
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(1);
-    assertQuickAction(0, 'Information');
+    assertQuickAction(0, 'Information (I)');
   });
 
   it('ui is rendered for activity embedded element', () => {
     quickActionUi.show(root, 'sub');
     assertQuickActionUi(2, { x: 400, y: 150 });
-    assertQuickAction(0, 'Information');
+    assertQuickAction(0, 'Information (I)');
     assertQuickAction(1, 'Jump (J)');
   });
 
   it('ui is rendered for edge', () => {
     quickActionUi.show(root, 'edge');
     assertQuickActionUi(1);
-    assertQuickAction(0, 'Information');
+    assertQuickAction(0, 'Information (I)');
   });
 });
 
@@ -67,7 +67,7 @@ describe('QuickActionUi - Readonly (hide sensitive infos)', () => {
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(1);
-    assertQuickAction(0, 'Information');
+    assertQuickAction(0, 'Information (I)');
   });
 
   it('ui is rendered for edge', () => {

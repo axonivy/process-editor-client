@@ -1,5 +1,6 @@
 import { injectable } from 'inversify';
 import { Action, SModelElement } from '@eclipse-glsp/client';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isBreakable } from './model';
@@ -51,11 +52,12 @@ class BreakpointQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-bug',
-    public readonly title = 'Toggle Breakpoint',
+    public readonly title = 'Toggle Breakpoint (B)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',
     public readonly action = SetBreakpointAction.create({ elementId: elementId }),
     public readonly letQuickActionsOpen = true,
-    public readonly readonlySupport = true
+    public readonly readonlySupport = true,
+    public readonly shortcut: KeyCode = 'KeyB'
   ) {}
 }

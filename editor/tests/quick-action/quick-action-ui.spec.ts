@@ -28,7 +28,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'edge');
     assertQuickActionUi(6, { x: 265, y: 215 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Straighten (S)', 'fa-solid fa-arrows-left-right');
     assertQuickAction(3, 'Bend (B)', 'fa-solid fa-ruler-combined');
     assertQuickAction(4, 'Edit Label (L)', 'fa-solid fa-tag');
@@ -39,7 +39,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(7, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
     assertQuickAction(6, 'Connect', 'fa-solid fa-arrow-right-long');
   });
@@ -48,7 +48,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'sub');
     assertQuickActionUi(8, { x: 400, y: 150 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
 
     assertQuickAction(2, 'Jump (J)', 'fa-solid fa-turn-down');
     assertQuickAction(3, 'Select color', 'fa-solid fa-palette');
@@ -59,7 +59,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'start');
     assertQuickActionUi(7, { x: 215, y: 230 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
     assertQuickAction(6, 'Connect', 'fa-solid fa-arrow-right-long');
 
@@ -72,7 +72,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'alternative');
     assertQuickActionUi(7, { x: 116, y: 232 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
     assertQuickAction(6, 'Connect', 'fa-solid fa-arrow-right-long');
 
