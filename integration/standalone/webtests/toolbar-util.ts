@@ -15,7 +15,7 @@ export async function addLane(page: Page, yPos: number): Promise<void> {
 }
 
 async function createLane(page: Page, createBtn: string, yPos: number): Promise<void> {
-  const toolBarMenu = await openElementPalette(page, 'swimlanes');
+  const toolBarMenu = await openElementPalette(page, 'artifacts');
   await toolBarMenu.locator(`.menu-item:has-text("${createBtn}")`).click();
   await page.locator('.sprotty-graph').click({ position: { x: 10, y: yPos } });
 }

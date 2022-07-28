@@ -49,7 +49,7 @@ export class AllElementsToolButton implements ToolBarButton {
 @injectable()
 export class EventsButtonProvider extends CreateElementsButtonProvider {
   paletteItems(): () => PaletteItem[] {
-    return () => this.paletteHandler.getPaletteItems().filter(item => item.id === 'event-group');
+    return () => this.paletteHandler.getPaletteItems().filter(item => item.id.match(/event-[a-z]+-group/));
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]): ToolBarButton {
@@ -109,15 +109,7 @@ export class GatewaysToolButton implements ToolBarButton {
 @injectable()
 export class ActivitiesButtonProvider extends CreateElementsButtonProvider {
   paletteItems(): () => PaletteItem[] {
-    return () => {
-      const items = this.paletteHandler.getPaletteItems();
-      const activities = items.find(item => item.id === 'activity-group');
-      const bpmnActivities = items.find(item => item.id === 'bpmn-activity-group');
-      if (activities && bpmnActivities) {
-        return [activities, bpmnActivities];
-      }
-      return [];
-    };
+    return () => this.paletteHandler.getPaletteItems().filter(item => item.id === 'activity-group' || item.id === 'bpmn-activity-group');
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]): ToolBarButton {
@@ -145,29 +137,29 @@ export class ActivitiesToolButton implements ToolBarButton {
 }
 
 @injectable()
-export class SwimlanesButtonProvider extends CreateElementsButtonProvider {
+export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
   paletteItems(): () => PaletteItem[] {
-    return () => this.paletteHandler.getPaletteItems().filter(item => item.id === 'swimlane-group');
+    return () => this.paletteHandler.getPaletteItems().filter(item => item.id === 'swimlane-group' || item.id === 'annotation-group');
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]): ToolBarButton {
-    return new SwimlanesToolButton(paletteItems, this.actions);
+    return new ArtifactsToolButton(paletteItems, this.actions);
   }
 }
 
-export class SwimlanesToolButton implements ToolBarButton {
+export class ArtifactsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
     public readonly icon = 'fa-solid fa-columns fa-rotate-270',
-    public readonly title = 'Swimlanes',
+    public readonly title = 'Artifacts',
     public readonly sorting = 'E',
     public readonly action = () =>
       ShowToolBarMenuAction.create({
         paletteItems: paletteItems,
         actions: actions
       }),
-    public readonly id = 'btn_swimlanes_menu',
+    public readonly id = 'btn_artifacts_menu',
     public readonly location = ToolBarButtonLocation.Middle,
     public readonly switchFocus = true,
     public readonly showTitle = true

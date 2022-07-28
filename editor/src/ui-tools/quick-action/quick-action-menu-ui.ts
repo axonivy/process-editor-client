@@ -8,7 +8,6 @@ export interface ShowQuickActionMenuAction extends ShowMenuAction {
   kind: typeof ShowQuickActionMenuAction.KIND;
   elementIds: string[];
   actions: (item: PaletteItem, elementIds: string[]) => Action[];
-  hideItemsContaining?: string[];
   isEditable?: boolean;
 }
 
@@ -19,7 +18,6 @@ export namespace ShowQuickActionMenuAction {
     elementIds: string[];
     paletteItems: () => PaletteItem[];
     actions: (item: PaletteItem, elementIds: string[]) => Action[];
-    hideItemsContaining?: string[];
     showSearch?: boolean;
     customCssClass?: string;
     isEditable?: boolean;
@@ -59,13 +57,6 @@ export class QuickActionMenu extends ItemMenu {
 
   public remove(): void {
     this.bodyDiv?.remove();
-  }
-
-  protected filterItemByLabel(label: string): boolean {
-    if (this.action.hideItemsContaining === undefined || this.action.hideItemsContaining.length === 0) {
-      return true;
-    }
-    return this.action.hideItemsContaining.find(hideItem => label.includes(hideItem)) === undefined;
   }
 
   protected appendToGroupHeader(groupHeader: HTMLElement): void {

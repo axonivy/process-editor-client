@@ -53,15 +53,23 @@ export abstract class CreateElementQuickActionProvider extends SingleQuickAction
     if (!isConnectable(element) || !element.canConnect(new SEdge(), 'source') || element.type === ActivityTypes.COMMENT) {
       return;
     }
-    const hideItemsContaining = ['Start'];
-    if (element instanceof SConnectableElement && Array.from(element.outgoingEdges).length > 0) {
-      hideItemsContaining.push('End');
-    }
-    return this.createQuickAction(element, hideItemsContaining);
+    return this.createQuickAction();
+  }
+
+  protected hasOutgoingEdges(): boolean {
+    return this.element instanceof SConnectableElement && Array.from(this.element.outgoingEdges).length > 0;
   }
 
   protected paletteItems(): () => PaletteItem[] {
-    return () => this.paletteHandler.getPaletteItems();
+    return () => this.paletteHandler.getPaletteItems().filter(item => !this.filterPaletteGroups().includes(item.id));
+  }
+
+  protected filterPaletteGroups(): string[] {
+    const filterGroup = ['event-start-group', 'swimlane-group'];
+    if (this.hasOutgoingEdges()) {
+      filterGroup.push('event-end-group');
+    }
+    return filterGroup;
   }
 
   protected actions = (paletteItem: PaletteItem, elementIds: string[]): Action[] => [
@@ -73,18 +81,14 @@ export abstract class CreateElementQuickActionProvider extends SingleQuickAction
     return { id: '', actions: [], label: '', sortString: '' };
   }
 
-  abstract createQuickAction(element: SModelElement, hideItemsContaining: string[]): QuickAction | undefined;
+  abstract createQuickAction(): QuickAction | undefined;
 }
 
 @injectable()
 export class CreateEventQuickActionProvider extends CreateElementQuickActionProvider {
   paletteItems(): () => PaletteItem[] {
     return () => {
-      const items = [];
-      const events = this.paletteHandler.getPaletteItems().find(item => item.id === 'event-group');
-      if (events) {
-        items.push(events);
-      }
+      const items = this.paletteHandler.getPaletteItems().filter(item => this.filterPaletteGroups().includes(item.id));
       const boundaries = boundaryEventGroup(this.element);
       if (boundaries) {
         items.push(boundaries);
@@ -93,12 +97,20 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
     };
   }
 
+  protected filterPaletteGroups(): string[] {
+    const paletteGroups = ['event-intermediate-group'];
+    if (!this.hasOutgoingEdges()) {
+      paletteGroups.push('event-end-group');
+    }
+    return paletteGroups;
+  }
+
   quickActionItem(): PaletteItem {
     return { label: 'Events', icon: 'fa-regular fa-circle', sortString: 'A', id: '', actions: [] };
   }
 
-  createQuickAction(element: SModelElement, hideItemsContaining: string[]): QuickAction | undefined {
-    return new CreateElementQuickAction(element.id, this.quickActionItem(), this.paletteItems(), this.actions, hideItemsContaining);
+  createQuickAction(): QuickAction | undefined {
+    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
   }
 }
 
@@ -112,8 +124,8 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
     return { label: 'Gateways', icon: 'fa-regular fa-square fa-rotate-45', sortString: 'B', id: '', actions: [] };
   }
 
-  createQuickAction(element: SModelElement, hideItemsContaining: string[]): QuickAction | undefined {
-    return new CreateElementQuickAction(element.id, this.quickActionItem(), this.paletteItems(), this.actions, hideItemsContaining);
+  createQuickAction(): QuickAction | undefined {
+    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
   }
 }
 
@@ -135,16 +147,15 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
     return { label: 'Activities', icon: 'fa-regular fa-square', sortString: 'C', id: '', actions: [] };
   }
 
-  createQuickAction(element: SModelElement, hideItemsContaining: string[]): QuickAction | undefined {
-    return new CreateElementQuickAction(element.id, this.quickActionItem(), this.paletteItems(), this.actions, hideItemsContaining);
+  createQuickAction(): QuickAction | undefined {
+    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
   }
 }
 
 @injectable()
 export class CreateAllElementsQuickActionProvider extends CreateElementQuickActionProvider {
-  createQuickAction(element: SModelElement, hideItemsContaining: string[]): QuickAction | undefined {
-    hideItemsContaining.push('Pool', 'Lane');
-    return new CreateAllElementsQuickAction(element.id, this.paletteItems(), this.actions, hideItemsContaining);
+  createQuickAction(): QuickAction | undefined {
+    return new CreateAllElementsQuickAction(this.element.id, this.paletteItems(), this.actions);
   }
 }
 
@@ -154,7 +165,6 @@ class CreateElementQuickAction implements QuickAction {
     public readonly item: PaletteItem,
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly hideItemsContaining: string[],
     public readonly icon = item.icon!,
     public readonly title = `${item.label} (A)`,
     public readonly location = QuickActionLocation.Right,
@@ -162,8 +172,7 @@ class CreateElementQuickAction implements QuickAction {
     public readonly action = ShowQuickActionMenuAction.create({
       elementIds: [elementId],
       paletteItems: paletteItems,
-      actions: actions,
-      hideItemsContaining: hideItemsContaining
+      actions: actions
     }),
     public readonly readonlySupport = false,
     public readonly letQuickActionsOpen = true
@@ -175,7 +184,6 @@ class CreateAllElementsQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly hideItemsContaining: string[],
     public readonly icon = 'fa-regular fa-square',
     public readonly title = 'Create Node',
     public readonly location = QuickActionLocation.Hidden,
@@ -184,7 +192,6 @@ class CreateAllElementsQuickAction implements QuickAction {
       elementIds: [elementId],
       paletteItems: paletteItems,
       actions: actions,
-      hideItemsContaining: hideItemsContaining,
       showSearch: true
     }),
     public readonly letQuickActionsOpen = true,

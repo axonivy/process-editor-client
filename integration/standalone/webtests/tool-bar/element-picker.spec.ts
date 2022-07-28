@@ -26,11 +26,11 @@ test.describe('tool bar - element picker', () => {
     const elementGroup = menu.locator('.menu-group');
     const elements = menu.locator('.menu-item');
     const noResult = menu.locator('.no-result');
-    await expect(elementGroup).toHaveCount(5);
+    await expect(elementGroup).toHaveCount(8);
 
     await searchInput.fill('ta');
     await searchInput.dispatchEvent('keyup');
-    await expect(elementGroup).toHaveCount(3);
+    await expect(elementGroup).toHaveCount(4);
     await expect(elements).toHaveCount(8);
 
     await searchInput.fill('bla');
@@ -46,8 +46,16 @@ test.describe('tool bar - element picker', () => {
     await expect(searchInput).toBeEmpty();
   });
 
-  test('create all events', async ({ page }) => {
-    await createAllElements(page, 'events', 0, 9);
+  test('create all start events', async ({ page }) => {
+    await createAllElements(page, 'events', 0, 4);
+  });
+
+  test('create all intermediate events', async ({ page }) => {
+    await createAllElements(page, 'events', 1, 2);
+  });
+
+  test('create all end events', async ({ page }) => {
+    await createAllElements(page, 'events', 2, 3);
   });
 
   test('create all gateways', async ({ page }) => {
@@ -55,15 +63,19 @@ test.describe('tool bar - element picker', () => {
   });
 
   test('create all activities', async ({ page }) => {
-    await createAllElements(page, 'activities', 0, 13);
+    await createAllElements(page, 'activities', 0, 12);
   });
 
   test('create all bpmn activities', async ({ page }) => {
     await createAllElements(page, 'activities', 1, 8);
   });
 
+  test('create annotation', async ({ page }) => {
+    await createAllElements(page, 'artifacts', 0, 1, false);
+  });
+
   test('create lanes', async ({ page }) => {
-    await createAllElements(page, 'swimlanes', 0, 2, false);
+    await createAllElements(page, 'artifacts', 1, 2, false);
   });
 
   async function createAllElements(page: Page, btn: string, groupIndex: number, expectedElementCount: number, checkSelection = true): Promise<void> {

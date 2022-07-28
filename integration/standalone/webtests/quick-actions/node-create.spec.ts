@@ -13,12 +13,13 @@ test.describe('quick actions - create node', () => {
   });
 
   test('switch categories', async ({ page }) => {
-    const start = page.locator(startSelector);
+    await addActivity(page, 'User Dialog', 100, 100);
+    const hd = page.locator('.sprotty-graph .dialogCall');
     const createNodePalette = page.locator(CREATE_NODE_PALETTE);
     await expect(createNodePalette).toBeHidden();
 
-    await start.click();
-    await switchAndAssertGroup(page, 'Events', ['Events']);
+    await hd.click();
+    await switchAndAssertGroup(page, 'Events', ['Intermediate Events', 'End Events', 'Boundary Events']);
     await switchAndAssertGroup(page, 'Gateways', ['Gateways']);
     await switchAndAssertGroup(page, 'Activities', ['Activities', 'BPMN Activities']);
   });
@@ -85,7 +86,8 @@ test.describe('quick actions - create node', () => {
     await expect(connectors).toHaveCount(1);
 
     await page.locator(startSelector).click();
-    await addElement(page, 'Activities', 'Note');
+    await page.keyboard.press('KeyA');
+    await addElementFromMenu(page, 'Note');
     await expect(comment).toBeVisible();
     await expect(connectors).toHaveCount(2);
   });
@@ -112,10 +114,14 @@ test.describe('quick actions - create node', () => {
     await expect(signalBoundary).toBeVisible();
   });
 
-  async function addElement(page: Page, category: string, activityName: string): Promise<void> {
-    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
+  async function addElement(page: Page, category: string, element: string): Promise<void> {
     await clickQuickActionStartsWith(page, category);
+    await addElementFromMenu(page, element);
+  }
+
+  async function addElementFromMenu(page: Page, element: string): Promise<void> {
+    const createNodePalette = page.locator(CREATE_NODE_PALETTE);
     await expect(createNodePalette).toBeVisible();
-    await createNodePalette.locator(`.menu-item:visible:has-text("${activityName}")`).first().click();
+    await createNodePalette.locator(`.menu-item:visible:has-text("${element}")`).first().click();
   }
 });

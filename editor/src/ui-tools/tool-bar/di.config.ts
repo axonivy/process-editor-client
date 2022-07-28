@@ -17,7 +17,7 @@ import {
   AllElementsButtonProvider,
   EventsButtonProvider,
   GatewaysButtonProvider,
-  SwimlanesButtonProvider
+  ArtifactsButtonProvider
 } from './node/button';
 import { ShowToolBarMenuAction } from './tool-bar-menu';
 
@@ -44,7 +44,7 @@ function configureToolBarButtons(context: { bind: interfaces.Bind; isBound: inte
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(EventsButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(GatewaysButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(ActivitiesButtonProvider);
-  context.bind(IVY_TYPES.ToolBarButtonProvider).to(SwimlanesButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(ArtifactsButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(OptionsButtonProvider);
 }
 

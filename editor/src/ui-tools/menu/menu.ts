@@ -108,9 +108,7 @@ export abstract class ItemMenu implements Menu {
     const filteredPaletteItems: PaletteItem[] = [];
     for (const itemGroup of this.paletteItems) {
       if (itemGroup.children) {
-        const matchingChildren = itemGroup.children
-          .filter(child => this.filterItemByLabel(child.label))
-          .filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
+        const matchingChildren = itemGroup.children.filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
         if (matchingChildren.length > 0) {
           itemGroup.children.splice(0, itemGroup.children.length);
           matchingChildren.forEach(child => itemGroup.children!.push(child));
@@ -151,12 +149,7 @@ export abstract class ItemMenu implements Menu {
     this.paletteItems.sort(compare).forEach(item => {
       if (item.children) {
         const groupItems = this.createToolGroup(itemsDiv, item);
-        item.children
-          .sort(compare)
-          .filter(child => this.filterItemByLabel(child.label))
-          .forEach(child => groupItems.appendChild(this.createToolButton(child, tabIndex++)));
-      } else if (this.filterItemByLabel(item.label)) {
-        itemsDiv.appendChild(this.createToolButton(item, tabIndex++));
+        item.children.sort(compare).forEach(child => groupItems.appendChild(this.createToolButton(child, tabIndex++)));
       }
     });
     if (this.paletteItems.length === 0) {
@@ -172,10 +165,6 @@ export abstract class ItemMenu implements Menu {
     bodyDiv.appendChild(itemsDiv);
     this.itemsDiv = itemsDiv;
     this.navigateUpOrDown(1);
-  }
-
-  protected filterItemByLabel(label: string): boolean {
-    return true;
   }
 
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
