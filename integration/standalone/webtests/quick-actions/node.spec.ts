@@ -121,7 +121,7 @@ test.describe('quick actions - nodes', () => {
 
   async function assertInformation(page: Page, selector: string, expectedTitle?: string): Promise<void> {
     await page.locator(selector).click();
-    await clickQuickAction(page, 'Information');
+    await clickQuickActionStartsWith(page, 'Information');
     const title = page.locator('.simple-menu-header');
     if (expectedTitle) {
       await expect(title).toHaveText(expectedTitle);

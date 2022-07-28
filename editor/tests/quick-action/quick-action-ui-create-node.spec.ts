@@ -42,7 +42,7 @@ describe('QuickActionUi - Create Nodes', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(7, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information', 'fa-solid fa-info');
+    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
     assertQuickAction(3, 'Events (A)', 'fa-regular fa-circle');
     assertQuickAction(4, 'Gateways (A)', 'fa-regular fa-square fa-rotate-45');

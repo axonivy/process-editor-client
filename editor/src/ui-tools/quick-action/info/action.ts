@@ -11,6 +11,7 @@ import {
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
+import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IVY_TYPES } from '../../../types';
 import { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
@@ -62,7 +63,7 @@ class InfoQuickAction implements QuickAction {
     public readonly textTitle?: string,
     public readonly text?: string,
     public readonly icon = 'fa-solid fa-info',
-    public readonly title = 'Information',
+    public readonly title = 'Information (I)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',
     public readonly action = ShowInfoQuickActionMenuAction.create({
@@ -72,6 +73,7 @@ class InfoQuickAction implements QuickAction {
       text: text
     }),
     public readonly letQuickActionsOpen = true,
-    public readonly readonlySupport = true
+    public readonly readonlySupport = true,
+    public readonly shortcut: KeyCode = 'KeyI'
   ) {}
 }
