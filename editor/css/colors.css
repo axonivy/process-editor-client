@@ -42,7 +42,7 @@
   --glsp-execution-failed: #ff796f;
   --glsp-execution-stopped: #cca700;
 
-  --glsp-inline-label-background: rgba(0, 0, 0, 0.18);
+  --glsp-inline-label-background: rgba(245, 245, 245, 0.9);
 }
 
 html[data-theme='dark'] body {
@@ -67,5 +67,5 @@ html[data-theme='dark'] body {
   --glsp-breakpoint-condition: #cca700;
   --glsp-breakpoint-hover: rgba(244, 135, 113, 0.5);
 
-  --glsp-inline-label-background: rgba(255, 255, 255, 0.18);
+  --glsp-inline-label-background: rgba(32, 32, 32, 0.9);
 }
