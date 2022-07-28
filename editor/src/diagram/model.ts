@@ -301,7 +301,7 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
   readonly isMultiLine = true;
   get editControlDimension(): Dimension {
-    return { width: Math.max(this.bounds.width + 25, 50), height: Math.max(this.bounds.height, 16) };
+    return { width: Math.max(this.bounds.width + 25, 144), height: Math.max(this.bounds.height, 44) };
   }
 
   get editControlPositionCorrection(): Point {
@@ -311,7 +311,7 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
 export class RotateLabel extends MulitlineEditLabel {
   get editControlDimension(): Dimension {
-    return { width: this.bounds.height, height: this.bounds.width };
+    return { width: Math.min(this.bounds.height + 25, 144), height: Math.max(this.bounds.width, 44) };
   }
 }
 
