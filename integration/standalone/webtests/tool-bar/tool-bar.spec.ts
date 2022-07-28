@@ -1,5 +1,5 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { removeElement, startSelector } from '../diagram-util';
+import { removeElement, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('tool bar', () => {
@@ -43,6 +43,56 @@ test.describe('tool bar', () => {
     await redoToolBtn.click();
     await expect(start).toBeHidden();
   });
+
+  test('menus show / hide', async ({ page }) => {
+    const optionsBtn = page.locator('#btn_options_menu');
+    const eventsBtn = page.locator('#btn_events_menu');
+    const gatewaysBtn = page.locator('#btn_gateways_menu');
+    const optionsMenu = page.locator('.tool-bar-options-menu');
+    const elementsMenu = page.locator('.tool-bar-menu');
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+    await openMenuAndAssert(optionsBtn, optionsMenu, elementsMenu);
+
+    await optionsBtn.click();
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+    await openMenuAndAssert(optionsBtn, optionsMenu, elementsMenu);
+    await openMenuAndAssert(eventsBtn, elementsMenu, optionsMenu);
+    await openMenuAndAssert(gatewaysBtn, elementsMenu, optionsMenu);
+
+    await gatewaysBtn.click();
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+  });
+
+  test('menus close on focus loose', async ({ page }) => {
+    const optionsBtn = page.locator('#btn_options_menu');
+    const eventsBtn = page.locator('#btn_events_menu');
+    const optionsMenu = page.locator('.tool-bar-options-menu');
+    const elementsMenu = page.locator('.tool-bar-menu');
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+    await openMenuAndAssert(optionsBtn, optionsMenu, elementsMenu);
+
+    await page.locator(startSelector).click();
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+    await openMenuAndAssert(optionsBtn, optionsMenu, elementsMenu);
+    await openMenuAndAssert(eventsBtn, elementsMenu, optionsMenu);
+
+    await resetSelection(page);
+    await assertNoOpenMenu(page, optionsMenu, elementsMenu);
+    await openMenuAndAssert(eventsBtn, elementsMenu, optionsMenu);
+  });
+
+  async function assertNoOpenMenu(page: Page, optionsMenu: Locator, elementsMenu: Locator): Promise<void> {
+    await expect(page.locator(DEFAULT_TOOL)).toHaveClass(ACTIVE_CSS_CLASS);
+    await expect(optionsMenu).toBeHidden();
+    await expect(elementsMenu).toBeHidden();
+  }
+
+  async function openMenuAndAssert(activeButton: Locator, openMenu: Locator, closedMenu: Locator): Promise<void> {
+    await activeButton.click();
+    await expect(activeButton).toHaveClass(ACTIVE_CSS_CLASS);
+    await expect(openMenu).toBeVisible();
+    await expect(closedMenu).toBeHidden();
+  }
 
   test('options - toggle theme', async ({ page }) => {
     const graph = page.locator('.sprotty-graph');
