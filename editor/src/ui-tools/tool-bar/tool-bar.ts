@@ -11,7 +11,10 @@ import {
   EnableToolPaletteAction,
   SetUIExtensionVisibilityAction,
   SModelRoot,
-  SelectAllAction
+  SelectAllAction,
+  MouseTool,
+  MouseListener,
+  SModelElement
 } from '@eclipse-glsp/client';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct, multiInject } from 'inversify';
@@ -42,6 +45,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(TYPES.MouseTool) protected mouseTool: MouseTool;
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
 
   protected lastActivebutton?: HTMLElement;
@@ -61,6 +65,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @postConstruct()
   postConstruct(): void {
     this.editorContext.register(this);
+    const mouseListener = new ToolBarFocusMouseListener(this);
+    this.mouseTool.register(mouseListener);
   }
 
   protected initializeContents(_containerElement: HTMLElement): void {
@@ -186,10 +192,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
         const buttonCenter = this.lastActivebutton.offsetLeft + this.lastActivebutton.offsetWidth / 2;
         menu.style.setProperty('--menu-arrow-pos', `${menuRight - buttonCenter - 6}px`);
       }
-      this.lastMenuAction = action;
+      this.setLastMenuAction(action);
     } else {
       this.changeActiveButton();
-      this.lastMenuAction = undefined;
+      this.setLastMenuAction(undefined);
     }
   }
 
@@ -197,16 +203,15 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (!ShowToolBarOptionsMenuAction.is(this.lastMenuAction)) {
       this.toolBarMenu = new ToolBarOptionsMenu(this.actionDispatcher, action);
       this.toolBarMenu.create(this.containerElement);
-      this.lastMenuAction = action;
+      this.setLastMenuAction(action);
     } else {
       this.changeActiveButton();
-      this.lastMenuAction = undefined;
+      this.setLastMenuAction(undefined);
     }
   }
 
-  hideMenus(): void {
-    this.toolBarMenu?.remove();
-    this.toolBarMenu = undefined;
+  setLastMenuAction(menuAction?: Action): void {
+    this.lastMenuAction = menuAction;
   }
 
   changeActiveButton(button?: HTMLElement): void {
@@ -218,6 +223,11 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     activeButton.classList.add(CLICKED_CSS_CLASS);
     this.lastActivebutton = activeButton;
     this.hideMenus();
+  }
+
+  hideMenus(): void {
+    this.toolBarMenu?.remove();
+    this.toolBarMenu = undefined;
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
@@ -234,5 +244,17 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   disable(): void {
     this.editorContext.deregister(this);
+  }
+}
+
+class ToolBarFocusMouseListener extends MouseListener {
+  constructor(private readonly toolBar: ToolBar) {
+    super();
+  }
+
+  mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+    this.toolBar.changeActiveButton();
+    this.toolBar.setLastMenuAction();
+    return [];
   }
 }
