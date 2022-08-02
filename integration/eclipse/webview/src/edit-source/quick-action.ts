@@ -18,11 +18,11 @@ class EditSourceQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-pen-to-square',
-    public readonly title = 'Edit (E)',
+    public readonly title = 'Edit (T)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
     public readonly action = EditSourceAction.create(elementId),
     public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyE'
+    public readonly shortcut: KeyCode = 'KeyT'
   ) {}
 }

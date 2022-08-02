@@ -54,8 +54,9 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
     return ViewportBar.ID;
   }
 
-  protected initializeContents(_containerElement: HTMLElement): void {
+  protected initializeContents(containerElement: HTMLElement): void {
     this.createBar();
+    containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
   protected createBar(): void {

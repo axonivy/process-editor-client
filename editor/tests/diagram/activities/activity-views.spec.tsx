@@ -115,22 +115,22 @@ describe('ActivityNodeView', () => {
     assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', { icon: true });
   });
 
-  it('render activity with execution badge', () => {
+  it('render with execution badge', () => {
     const view = viewRegistry.get(ActivityTypes.SCRIPT);
     const script = graph.index.getById('script') as ActivityNode;
     script.executionCount = 3;
     const vnode = view.render(script, context);
-    const executionBadge = '<g><rect class="execution-badge" rx="6" ry="6" x="139" y="-6" width="22" height="12" /><text class="execution-text" x="150" dy=".3em">3</text></g>';
+    const executionBadge = '<g><rect class="execution-badge" rx="7" ry="7" x="139" y="-7" width="22" height="14" /><text class="execution-text" x="150" dy=".4em">3</text></g>';
     expect(toHTML(vnode)).to.contains(executionBadge);
   });
 
-  it('render activity with color dot', () => {
+  it('render with color', () => {
     const view = viewRegistry.get(ActivityTypes.SCRIPT);
     const script = graph.index.getById('script') as ActivityNode;
     script.args.color = 'red';
     const vnode = view.render(script, context);
-    const colorDot = '<circle r="6" cx="141" cy="9" style="fill: red" />';
-    expect(toHTML(vnode)).to.contain(colorDot);
+    const colorRect = /<rect.*style="stroke: red".*\/>/;
+    expect(toHTML(vnode)).to.matches(colorRect);
   });
 
   function renderNode(type: string, nodeId: string): VNode | undefined {

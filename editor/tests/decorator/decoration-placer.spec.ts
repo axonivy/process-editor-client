@@ -20,7 +20,7 @@ describe('IvyDecorationPlacer', () => {
     element.features = createFeatureSet([boundsFeature]);
     root.add(element);
     const marker = getOrCreateSIssueMarker(element);
-    const expectedPosition = { x: element.size.width / 2 - 6, y: 3 };
+    const expectedPosition = { x: -18, y: element.bounds.height - 16 };
     expect(placer.getPosition(marker)).to.deep.equals(expectedPosition);
   });
 
@@ -32,7 +32,7 @@ describe('IvyDecorationPlacer', () => {
     element.features = createFeatureSet([boundsFeature]);
     root.add(element);
     const marker = getOrCreateSIssueMarker(element);
-    const expectedPosition = { x: element.size.width / 2 - 6, y: element.size.height - 6 };
+    const expectedPosition = { x: -16, y: element.bounds.height - 12 };
     expect(placer.getPosition(marker)).to.deep.equals(expectedPosition);
   });
 });

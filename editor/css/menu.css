@@ -33,12 +33,15 @@
 .bar-menu-items {
   color: var(--glsp-bar-menu-item);
   padding: 0.5rem;
-  max-height: 213px;
+  max-height: 200px;
   overflow: auto;
 }
 .bar-menu-items {
   display: flex;
   flex-wrap: wrap;
+}
+.tool-bar-menu .bar-menu-items {
+  max-height: 75vh;
 }
 .bar-menu-items .menu-group {
   width: 100%;

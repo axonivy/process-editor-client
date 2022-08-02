@@ -40,32 +40,42 @@ describe('GatewayNodeView', () => {
     expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
   });
 
-  it('render gateway task node', () => {
+  it('render task', () => {
     const view = viewRegistry.get(GatewayTypes.TASK);
     const vnode = view.render(graph.index.getById('gatewayTask') as SNode, context);
     const expectation =
-      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
+      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" style="stroke: " />' +
       '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path fill="none" d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" /></svg><g></g></g>';
+      '<path d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" style="stroke: " /></svg><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
-  it('render gateway alternative node', () => {
+  it('render alternative', () => {
     const view = viewRegistry.get(GatewayTypes.ALTERNATIVE);
     const vnode = view.render(graph.index.getById('gatewayAlternative') as SNode, context);
     const expectation =
-      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" />' +
+      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" style="stroke: " />' +
       '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path fill="none" d="M2,2 L8,8 M2,8 L8,2" /></svg><g></g></g>';
+      '<path d="M2,2 L8,8 M2,8 L8,2" style="stroke: " /></svg><g></g></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
-  it('render gateway with execution badge', () => {
+  it('render with execution badge', () => {
     const view = viewRegistry.get(GatewayTypes.TASK);
     const task = graph.index.getById('gatewayTask') as GatewayNode;
     task.executionCount = 3;
     const vnode = view.render(task, context);
-    const executionBadge = '<g><rect class="execution-badge" rx="6" ry="6" x="21" y="-6" width="22" height="12" /><text class="execution-text" x="32" dy=".3em">3</text></g>';
+    const executionBadge = '<g><rect class="execution-badge" rx="7" ry="7" x="21" y="-7" width="22" height="14" /><text class="execution-text" x="32" dy=".4em">3</text></g>';
     expect(toHTML(vnode)).to.contains(executionBadge);
+  });
+
+  it('render with color', () => {
+    const view = viewRegistry.get(GatewayTypes.TASK);
+    const task = graph.index.getById('gatewayTask') as GatewayNode;
+    task.args.color = 'red';
+    const vnode = view.render(task, context);
+    const colorPolygon = /<polygon.*style="stroke: red".*\/>/;
+    const colorPath = /<path.*style="stroke: red".*\/>/;
+    expect(toHTML(vnode)).to.matches(colorPolygon).and.matches(colorPath);
   });
 });

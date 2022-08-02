@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--glsp-tool-border);
+  color: var(--glsp-tool-button);
   cursor: pointer;
 }
 .jump-out-container .jump-out-btn:hover {

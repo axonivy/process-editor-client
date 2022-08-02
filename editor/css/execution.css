@@ -45,7 +45,7 @@
 }
 .execution-text {
   fill: var(--glsp-execution);
-  font-size: 7pt;
+  font-size: 8pt;
 }
 .failed .execution-text {
   fill: var(--glsp-execution-failed);

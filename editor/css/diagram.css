@@ -91,6 +91,9 @@ g[class^='end'] .sprotty-node {
   fill: var(--glsp-editor-foreground);
   text-anchor: middle;
 }
+.sprotty-node-decorator path {
+  fill: none;
+}
 .embeddedProcessElement .sprotty-node {
   stroke-width: 2px;
 }

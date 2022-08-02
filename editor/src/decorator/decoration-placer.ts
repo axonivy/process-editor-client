@@ -8,15 +8,17 @@ export class IvyDecorationPlacer extends DecorationPlacer {
 
   getPosition(element: SModelElement & Decoration): Point {
     if (element instanceof SChildElement && isSizeable(element.parent)) {
+      const xPos = -IvyDecorationPlacer.DECORATOR_RADIUS * 2;
+      const yPos = element.parent.bounds.height - IvyDecorationPlacer.DECORATOR_RADIUS * 2;
       if (element.parent instanceof ActivityNode) {
         return {
-          x: element.parent.bounds.width / 2 - IvyDecorationPlacer.DECORATOR_RADIUS,
-          y: 3
+          x: xPos - 6,
+          y: yPos - 4
         };
       }
       return {
-        x: element.parent.bounds.width / 2 - IvyDecorationPlacer.DECORATOR_RADIUS,
-        y: element.parent.bounds.height - IvyDecorationPlacer.DECORATOR_RADIUS
+        x: xPos - 4,
+        y: yPos
       };
     }
     return Point.ORIGIN;

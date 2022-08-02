@@ -70,6 +70,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
 
   protected initializeContents(containerElement: HTMLElement): void {
     containerElement.style.position = 'absolute';
+    containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {

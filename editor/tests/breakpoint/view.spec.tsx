@@ -71,7 +71,7 @@ describe('BreakpointView', () => {
 
   it('render breakpoint', () => {
     const vnode = renderBreakpoint('breakpoint');
-    const expectation = '<g><rect class="ivy-breakpoint-handle" x="-20" y="37" rx="4" ry="4" width="12" height="8" /></g>';
+    const expectation = '<g><circle class="ivy-breakpoint-handle" cx="-10" cy="9" r="4" /></g>';
     expect(toHTML(vnode)).to.be.equals(expectation);
   });
 
