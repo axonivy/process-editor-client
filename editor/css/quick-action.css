@@ -12,6 +12,7 @@
   padding: 6px;
   display: inline-flex;
   gap: 1rem;
+  z-index: 10;
 }
 .quick-actions-bar.no-bottom-border-radius {
   border-bottom-left-radius: 0;

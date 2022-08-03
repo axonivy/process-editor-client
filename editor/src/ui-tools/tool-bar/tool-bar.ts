@@ -69,12 +69,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.mouseTool.register(mouseListener);
   }
 
-  protected initializeContents(_containerElement: HTMLElement): void {
+  protected initializeContents(containerElement: HTMLElement): void {
     this.createHeader();
     this.lastActivebutton = this.defaultToolsButton;
+    containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
-  protected onBeforeShow(_containerElement: HTMLElement, root: Readonly<SModelRoot>): void {
+  protected onBeforeShow(_containerElement: HTMLElement, _root: Readonly<SModelRoot>): void {
     this.selectionService.register(this);
   }
 

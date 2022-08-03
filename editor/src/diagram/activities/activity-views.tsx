@@ -32,8 +32,7 @@ export class ActivityNodeView extends RectangularNodeView {
           height={height}
           style={{ stroke: node.color }}
         ></rect>
-        {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon)}
-        {this.colorDot(node)}
+        {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon, node.color)}
         {this.getNodeDecorator(node)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, width)}
@@ -47,13 +46,6 @@ export class ActivityNodeView extends RectangularNodeView {
 
   protected getRoundedCornerRadius(node: SShapeElement): number {
     return 5;
-  }
-
-  protected colorDot(node: ActivityNode): VNode {
-    if (node.color) {
-      return <circle r={6} cx={Math.max(node.size.width - 9, 0)} cy={9} style={{ fill: node.color }}></circle>;
-    }
-    return <g></g>;
   }
 }
 

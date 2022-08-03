@@ -71,7 +71,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, SArg
   }
 
   get color(): string {
-    return this.args?.color as string;
+    return (this.args?.color as string) ?? '';
   }
 
   isFirstChild(): boolean {
@@ -142,7 +142,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 
   get color(): string {
-    return this.args?.color as string;
+    return (this.args?.color as string) ?? '';
   }
 }
 
@@ -178,7 +178,7 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
   }
 
   get color(): string {
-    return this.args?.color as string;
+    return (this.args?.color as string) ?? '';
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
@@ -242,7 +242,7 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
   }
 
   get color(): string {
-    return this.args?.color as string;
+    return (this.args?.color as string) ?? '';
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {

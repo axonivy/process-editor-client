@@ -14,18 +14,15 @@ export class SBreakpointHandleView implements IView {
       const parentHeight = handle.parent.bounds.height;
       return (
         <g>
-          <rect
+          <circle
             class-ivy-breakpoint-handle={true}
             class-disabled={handle.disabled}
             class-condition={handle.condition?.length > 0 && handle.condition !== 'true'}
             class-mouseover={handle.hoverFeedback}
-            x={-20}
-            y={parentHeight - 13}
-            rx={4}
-            ry={4}
-            width={12}
-            height={8}
-          ></rect>
+            cx={-10}
+            cy={9}
+            r={4}
+          ></circle>
           {handle.globalDisabled && (
             <line class-ivy-breakpoint-handle-globaldisable x1={-19} y1={parentHeight - 4} x2={-9} y2={parentHeight - 14} />
           )}
