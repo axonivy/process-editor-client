@@ -12,6 +12,7 @@ import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
+import { ShowGridAction } from '@ivyteam/process-editor/lib/diagram/grid/action-handler';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -67,7 +68,8 @@ async function initialize(client: GLSPClient): Promise<void> {
         actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
         actionDispatcher.dispatch(EnableToolPaletteAction.create());
         actionDispatcher.dispatch(EnableViewportAction.create());
-        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme || 'light' }));
+        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme ?? 'light' }));
+        actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
       })
     );
 }
