@@ -30,6 +30,18 @@ test.describe('key listener - quick action shortcuts', () => {
     await expect(connectorPath).toHaveAttribute('d', STRAIGHT_CONNECTOR_PATH);
   });
 
+  test('connector reconnect', async ({ page }) => {
+    const connector = page.locator('.sprotty-graph > g > .sprotty-edge:not(.feedback-edge)');
+    const connectorFeedback = page.locator('.sprotty-graph > g > .sprotty-edge.feedback-edge');
+    await expect(connector).toBeVisible();
+    await expect(connectorFeedback).toBeHidden();
+
+    await connector.click();
+    await pressQuickActionShortcut(page, 'C');
+    await expect(connector).toBeVisible();
+    await expect(connectorFeedback).toBeVisible();
+  });
+
   test('label edit', async ({ page, browserName }) => {
     const label = page.locator('.label-edit textarea');
     const start = page.locator(startSelector);
