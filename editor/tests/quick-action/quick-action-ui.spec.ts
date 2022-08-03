@@ -26,13 +26,14 @@ describe('QuickActionUi', () => {
 
   it('ui is rendered for edges', () => {
     quickActionUi.show(root, 'edge');
-    assertQuickActionUi(6, { x: 265, y: 215 });
+    assertQuickActionUi(7, { x: 265, y: 215 });
     assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
     assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
     assertQuickAction(2, 'Straighten (S)', 'fa-solid fa-arrows-left-right');
     assertQuickAction(3, 'Bend (B)', 'fa-solid fa-ruler-combined');
     assertQuickAction(4, 'Edit Label (L)', 'fa-solid fa-tag');
     assertQuickAction(5, 'Select color', 'fa-solid fa-palette');
+    assertQuickAction(6, 'Reconnect (C)', 'fa-solid fa-arrows-split-up-and-left');
   });
 
   it('ui is rendered for activity element', () => {

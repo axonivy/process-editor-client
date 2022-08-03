@@ -15,6 +15,8 @@ import {
   IActionHandler,
   isConnectable,
   isCtrlOrCmd,
+  Operation,
+  ReconnectEdgeOperation,
   RemoveFeedbackEdgeAction,
   SEdge,
   SModelElement,
@@ -99,14 +101,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
         this.target = this.currentTarget.id;
       }
       if (this.source && this.target) {
-        result.push(
-          CreateEdgeOperation.create({
-            elementTypeId: this.triggerAction.elementTypeId,
-            sourceElementId: this.source,
-            targetElementId: this.target,
-            args: this.triggerAction.args
-          })
-        );
+        result.push(this.edgeOperation(this.source, this.target));
         if (!isCtrlOrCmd(event)) {
           result.push(EnableDefaultToolsAction.create());
         } else {
@@ -117,6 +112,23 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
       result.push(EnableDefaultToolsAction.create());
     }
     return result;
+  }
+
+  private edgeOperation(sourceId: string, targetId: string): Operation {
+    if (this.triggerAction.reconnect && this.triggerAction.edgeId) {
+      return ReconnectEdgeOperation.create({
+        edgeElementId: this.triggerAction.edgeId,
+        sourceElementId: sourceId,
+        targetElementId: targetId,
+        args: this.triggerAction.args
+      });
+    }
+    return CreateEdgeOperation.create({
+      elementTypeId: this.triggerAction.elementTypeId,
+      sourceElementId: sourceId,
+      targetElementId: targetId,
+      args: this.triggerAction.args
+    });
   }
 
   protected isSourceSelected(): boolean {
@@ -162,6 +174,8 @@ export interface QuickActionTriggerEdgeCreationAction extends Action {
   kind: typeof QuickActionTriggerEdgeCreationAction.KIND;
   elementTypeId: string;
   sourceId: string;
+  reconnect?: boolean;
+  edgeId?: string;
   args?: Args;
 }
 
@@ -172,7 +186,11 @@ export namespace QuickActionTriggerEdgeCreationAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'elementTypeId') && hasStringProp(object, 'sourceId');
   }
 
-  export function create(elementTypeId: string, sourceId: string, options: { args?: Args } = {}): QuickActionTriggerEdgeCreationAction {
+  export function create(
+    elementTypeId: string,
+    sourceId: string,
+    options: { reconnect?: boolean; edgeId?: string; args?: Args } = {}
+  ): QuickActionTriggerEdgeCreationAction {
     return {
       kind: KIND,
       elementTypeId,

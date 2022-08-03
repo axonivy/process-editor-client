@@ -1,6 +1,7 @@
 import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/edge/edge-creation-tool';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
@@ -79,5 +80,30 @@ class AutoBendEdgeQuickAction implements QuickAction {
     public readonly sorting = 'B',
     public readonly action = AutoBendEdgeOperation.create({ elementId: elementId }),
     public readonly shortcut: KeyCode = 'KeyB'
+  ) {}
+}
+
+@injectable()
+export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
+    if (element instanceof SEdge) {
+      return new ReconnectEdgeQuickAction(element);
+    }
+    return undefined;
+  }
+}
+
+class ReconnectEdgeQuickAction implements QuickAction {
+  constructor(
+    public readonly edge: SEdge,
+    public readonly icon = 'fa-solid fa-arrows-split-up-and-left',
+    public readonly title = 'Reconnect (C)',
+    public readonly location = QuickActionLocation.Right,
+    public readonly sorting = 'A',
+    public readonly action = QuickActionTriggerEdgeCreationAction.create(edge.type, edge.sourceId, {
+      edgeId: edge.id,
+      reconnect: true
+    }),
+    public readonly shortcut: KeyCode = 'KeyC'
   ) {}
 }

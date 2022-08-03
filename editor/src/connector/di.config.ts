@@ -1,11 +1,12 @@
 import { ContainerModule } from 'inversify';
 
 import { IVY_TYPES } from '../types';
-import { AutoBendEdgeQuickActionProvider, StraightenEdgeQuickActionProvider } from './actions';
+import { AutoBendEdgeQuickActionProvider, ReconnectEdgeQuickActionProvider, StraightenEdgeQuickActionProvider } from './actions';
 
 const ivyConnectorModule = new ContainerModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(StraightenEdgeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(AutoBendEdgeQuickActionProvider);
+  bind(IVY_TYPES.QuickActionProvider).to(ReconnectEdgeQuickActionProvider);
 });
 
 export default ivyConnectorModule;
