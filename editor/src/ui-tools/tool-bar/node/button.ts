@@ -109,7 +109,10 @@ export class GatewaysToolButton implements ToolBarButton {
 @injectable()
 export class ActivitiesButtonProvider extends CreateElementsButtonProvider {
   paletteItems(): () => PaletteItem[] {
-    return () => this.paletteHandler.getPaletteItems().filter(item => item.id === 'activity-group' || item.id === 'bpmn-activity-group');
+    return () =>
+      this.paletteHandler
+        .getPaletteItems()
+        .filter(item => item.id === 'activity-group' || item.id === 'interface-activity-group' || item.id === 'bpmn-activity-group');
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]): ToolBarButton {

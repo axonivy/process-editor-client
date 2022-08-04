@@ -132,15 +132,10 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
 @injectable()
 export class CreateActivityQuickActionProvider extends CreateElementQuickActionProvider {
   paletteItems(): () => PaletteItem[] {
-    return () => {
-      const items = this.paletteHandler.getPaletteItems();
-      const activities = items.find(item => item.id === 'activity-group');
-      const bpmnActivities = items.find(item => item.id === 'bpmn-activity-group');
-      if (activities && bpmnActivities) {
-        return [activities, bpmnActivities];
-      }
-      return [];
-    };
+    return () =>
+      this.paletteHandler
+        .getPaletteItems()
+        .filter(item => item.id === 'activity-group' || item.id === 'interface-activity-group' || item.id === 'bpmn-activity-group');
   }
 
   quickActionItem(): PaletteItem {
