@@ -1,13 +1,19 @@
 import { test, expect, Page } from '@playwright/test';
 import { getCtrl } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import {
+  assertGraphNotOriginViewport,
+  assertGraphOriginViewport,
+  assertGraphTransform,
+  assertGridNotOriginSize,
+  assertGridOriginPosition,
+  assertGridPosition
+} from './viewport-util';
 
 test.describe('viewport bar', () => {
-  const ORIGIN_VIEWPORT = 'scale(1) translate(0,50)';
-
   test.beforeEach(async ({ page }) => {
     await gotoRandomTestProcessUrl(page);
-    await assertGraphTransform(page, ORIGIN_VIEWPORT);
+    await assertGraphOriginViewport(page);
   });
 
   test('origin', async ({ page }) => {
@@ -15,7 +21,7 @@ test.describe('viewport bar', () => {
     await expect(originBtn).toBeVisible();
 
     await originBtn.click();
-    await assertGraphTransform(page, ORIGIN_VIEWPORT);
+    await assertGraphOriginViewport(page);
 
     await page.mouse.move(10, 80);
     await page.mouse.down();
@@ -25,7 +31,8 @@ test.describe('viewport bar', () => {
     await assertGraphNotOriginViewport(page);
 
     await originBtn.click();
-    await assertGraphTransform(page, ORIGIN_VIEWPORT);
+    await assertGraphOriginViewport(page);
+    await assertGridOriginPosition(page);
   });
 
   test('center', async ({ page }) => {
@@ -47,37 +54,37 @@ test.describe('viewport bar', () => {
   });
 
   test('zoom level', async ({ page, browserName }) => {
-    const zoomLevel = page.locator('.ivy-viewport-bar label');
-    expect(zoomLevel).toHaveText('100%');
+    await assertZoom(page);
 
     await page.mouse.move(10, 80);
     await page.mouse.wheel(0, 100);
-    expect(zoomLevel).toHaveText('100%');
+    await assertZoom(page);
+    await assertGridPosition(page, { x: 0, y: -100 });
 
-    await scrollAndAssert(page, browserName, 100, /^\d{2}%$/);
-    await scrollAndAssert(page, browserName, -200, /^\d{3}%$/);
+    await zoomAndAssert(page, browserName, 100, /^\d{2}%$/);
+    await zoomAndAssert(page, browserName, -200, /^\d{3}%$/);
 
     const originBtn = page.locator('#originBtn');
     await originBtn.click();
-    await expect(zoomLevel).toHaveText('100%');
+    await assertZoom(page);
+    await assertGridOriginPosition(page);
   });
 
-  async function scrollAndAssert(page: Page, browserName: string, wheelDelta: number, expectedZoomLevel: RegExp): Promise<void> {
-    const zoomLevel = page.locator('.ivy-viewport-bar label');
+  async function zoomAndAssert(page: Page, browserName: string, wheelDelta: number, expectedZoomLevel: RegExp): Promise<void> {
     await page.keyboard.down(getCtrl(browserName));
     await page.mouse.wheel(0, wheelDelta);
-    await expect(zoomLevel).not.toHaveText('100%');
-    await expect(zoomLevel).toHaveText(expectedZoomLevel);
     await page.keyboard.up(getCtrl(browserName));
+    await assertZoom(page, expectedZoomLevel);
+    await assertGridNotOriginSize(page);
   }
 
-  async function assertGraphTransform(page: Page, expected: string | RegExp): Promise<void> {
-    const graph = page.locator('.sprotty-graph > g');
-    await expect(graph).toHaveAttribute('transform', expected);
-  }
-
-  async function assertGraphNotOriginViewport(page: Page): Promise<void> {
-    const graph = page.locator('.sprotty-graph > g');
-    await expect(graph).not.toHaveAttribute('transform', ORIGIN_VIEWPORT);
+  async function assertZoom(page: Page, expectedZoomLevel?: RegExp): Promise<void> {
+    const zoomLevel = page.locator('.ivy-viewport-bar label');
+    if (expectedZoomLevel) {
+      await expect(zoomLevel).not.toHaveText('100%');
+      await expect(zoomLevel).toHaveText(expectedZoomLevel);
+    } else {
+      await expect(zoomLevel).toHaveText('100%');
+    }
   }
 });

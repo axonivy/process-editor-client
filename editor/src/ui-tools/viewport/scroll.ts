@@ -41,6 +41,7 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
     if (event.shiftKey) {
       scrollPos.x += event.deltaY !== 0 ? event.deltaY : event.deltaX;
     } else {
+      scrollPos.x += event.deltaX;
       scrollPos.y += event.deltaY;
     }
     if (viewport) {

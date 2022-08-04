@@ -87,14 +87,14 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
       this.actionDispatcher.dispatch(toolButton.action()).then(() => {
         const model = this.editorContext.modelRoot;
         if (isViewport(model)) {
-          this.updateZoomLevel(model.zoom);
-          this.actionDispatcher.dispatch(
+          this.actionDispatcher.dispatchAll([
             SetUIExtensionVisibilityAction.create({
               extensionId: QuickActionUI.ID,
               visible: true,
               contextElementsId: [...this.selectionService.getSelectedElementIDs()]
-            })
-          );
+            }),
+            SetViewportAction.create(model.id, model, {})
+          ]);
         }
       });
     return button;
