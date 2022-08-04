@@ -94,10 +94,10 @@ g[class^='end'] .sprotty-node {
 .sprotty-node-decorator path {
   fill: none;
 }
-.embeddedProcessElement .sprotty-node {
+.subProcessCall .sprotty-node {
   stroke-width: 2px;
 }
-.embeddedProcessElement svg .sprotty-node {
+.subProcessCall svg .sprotty-node {
   stroke-width: 1px;
 }
 .warning > .sprotty-node {

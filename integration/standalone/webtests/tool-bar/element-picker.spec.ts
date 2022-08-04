@@ -26,11 +26,11 @@ test.describe('tool bar - element picker', () => {
     const elementGroup = menu.locator('.menu-group');
     const elements = menu.locator('.menu-item');
     const noResult = menu.locator('.no-result');
-    await expect(elementGroup).toHaveCount(8);
+    await expect(elementGroup).toHaveCount(9);
 
     await searchInput.fill('ta');
     await searchInput.dispatchEvent('keyup');
-    await expect(elementGroup).toHaveCount(4);
+    await expect(elementGroup).toHaveCount(5);
     await expect(elements).toHaveCount(8);
 
     await searchInput.fill('bla');
@@ -62,12 +62,16 @@ test.describe('tool bar - element picker', () => {
     await createAllElements(page, 'gateways', 0, 4);
   });
 
-  test('create all activities', async ({ page }) => {
-    await createAllElements(page, 'activities', 0, 12);
+  test('create all workflow activities', async ({ page }) => {
+    await createAllElements(page, 'activities', 0, 6);
+  });
+
+  test('create all interface activities', async ({ page }) => {
+    await createAllElements(page, 'activities', 1, 6);
   });
 
   test('create all bpmn activities', async ({ page }) => {
-    await createAllElements(page, 'activities', 1, 8);
+    await createAllElements(page, 'activities', 2, 8);
   });
 
   test('create annotation', async ({ page }) => {

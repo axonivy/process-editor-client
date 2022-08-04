@@ -21,7 +21,7 @@ test.describe('quick actions - create node', () => {
     await hd.click();
     await switchAndAssertGroup(page, 'Events', ['Intermediate Events', 'End Events', 'Boundary Events']);
     await switchAndAssertGroup(page, 'Gateways', ['Gateways']);
-    await switchAndAssertGroup(page, 'Activities', ['Activities', 'BPMN Activities']);
+    await switchAndAssertGroup(page, 'Activities', ['Workflow Activities', 'Interface Activities', 'BPMN Activities']);
   });
 
   async function switchAndAssertGroup(page: Page, quickAction: string, groups: string[]): Promise<void> {

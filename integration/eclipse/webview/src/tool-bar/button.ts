@@ -43,7 +43,7 @@ export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
 export class OpenInsertConnectorButton implements ToolBarButton {
   constructor(
     public readonly icon = 'fa-solid fa-plug',
-    public readonly title = 'Connector',
+    public readonly title = 'Connectors',
     public readonly sorting = 'F',
     public readonly action = () => OpenInsertConnectorAction.create(),
     public readonly id = 'insertconnectorbutton',
