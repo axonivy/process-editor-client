@@ -973,13 +973,13 @@
   dependencies:
     "@octokit/openapi-types" "^12.7.0"
 
-"@playwright/test@^1.23.0":
-  version "1.23.1"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@playwright/test/-/test-1.23.1.tgz#209cceb81c579d1cd2835f15c2bb3a8345103d60"
-  integrity sha512-dKplLPSYPZgnsBk1xxOophhpx3ZVg8DveoNJgLPe096lDCfmaIIreLsYF+4hqzy3PG61IP+aEnG5VAOjC3bhbA==
+"@playwright/test@^1.24.2":
+  version "1.24.2"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@playwright/test/-/test-1.24.2.tgz#283ea8cc497f9742037458659bf235f4776cf1f0"
+  integrity sha512-Q4X224pRHw4Dtkk5PoNJplZCokLNvVbXD9wDQEMrHcEuvWpJWEQDeJ9gEwkZ3iCWSFSWBshIX177B231XW4wOQ==
   dependencies:
     "@types/node" "*"
-    playwright-core "1.23.1"
+    playwright-core "1.24.2"
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -5979,10 +5979,10 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
-playwright-core@1.23.1:
-  version "1.23.1"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/playwright-core/-/playwright-core-1.23.1.tgz#af02bd7568af1017e477433b1b003ba84e1eb312"
-  integrity sha512-9CXsE0gawph4KXl6oUaa0ehHRySZjHvly4TybcBXDvzK3N3o6L/eZ8Q6iVWUiMn0LLS5bRFxo1qEtOETlYJxjw==
+playwright-core@1.24.2:
+  version "1.24.2"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/playwright-core/-/playwright-core-1.24.2.tgz#47bc5adf3dcfcc297a5a7a332449c9009987db26"
+  integrity sha512-zfAoDoPY/0sDLsgSgLZwWmSCevIg1ym7CppBwllguVBNiHeixZkc1AdMuYUPZC6AdEYc4CxWEyLMBTw2YcmRrA==
 
 posix-character-classes@^0.1.0:
   version "0.1.1"
