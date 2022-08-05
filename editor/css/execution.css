@@ -1,17 +1,17 @@
 /* Execution */
-.executed .sprotty-node {
+.executed .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution) !important;
 }
 .executed.last .sprotty-node {
   filter: drop-shadow(0px 0px 5px var(--glsp-execution));
 }
-.failed .sprotty-node {
+.failed .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution-failed) !important;
 }
 .failed.last .sprotty-node {
   filter: drop-shadow(0px 0px 5px var(--glsp-execution-failed));
 }
-.stopped .sprotty-node {
+.stopped .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution-stopped) !important;
 }
 .stopped.last .sprotty-node {

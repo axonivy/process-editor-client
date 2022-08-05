@@ -65,12 +65,11 @@ body {
 .sprotty-node:not(.selected) {
   stroke-width: 1px;
 }
-.sprotty-node.selected {
-  stroke-width: 2px;
-  stroke: var(--glsp-editor-selected);
-}
 .sprotty-resize-handle.selected {
   fill: var(--glsp-editor-selected);
+  r: 4;
+  stroke: var(--glsp-editor-background);
+  stroke-width: 2;
 }
 .sprotty-resize-handle[data-kind='bottom-right'],
 .sprotty-resize-handle[data-kind='top-left'] {
@@ -107,6 +106,10 @@ g[class^='end'] .sprotty-node {
 .error > .sprotty-node {
   filter: unset !important;
   stroke: var(--glsp-error-foreground) !important;
+}
+.sprotty-node.selected {
+  stroke-width: 2px;
+  stroke: var(--glsp-editor-selected) !important;
 }
 
 /* Edges */
