@@ -1,6 +1,7 @@
 import { test, expect, Page, Locator } from '@playwright/test';
 import { removeElement, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
+import { assertElementPaletteHidden, openElementPalette } from '../toolbar-util';
 
 test.describe('tool bar', () => {
   const ACTIVE_CSS_CLASS = /clicked/;
@@ -11,6 +12,7 @@ test.describe('tool bar', () => {
     await gotoRandomTestProcessUrl(page);
     await expect(page.locator('.ivy-tool-bar')).toBeVisible();
     await expect(page.locator(startSelector)).toBeVisible();
+    await assertElementPaletteHidden(page);
   });
 
   test('switch tool', async ({ page }) => {
@@ -42,6 +44,35 @@ test.describe('tool bar', () => {
 
     await redoToolBtn.click();
     await expect(start).toBeHidden();
+  });
+
+  test('search', async ({ page }) => {
+    const eventGroup = page.locator('#event-group');
+    const gatewayGroup = page.locator('#gateway-group');
+
+    const menu = await openElementPalette(page, 'all_elements');
+    const searchInput = menu.locator('.menu-search-input');
+    const elementGroup = menu.locator('.menu-group');
+    const elements = menu.locator('.menu-item');
+    const noResult = menu.locator('.no-result');
+    await expect(elementGroup).toHaveCount(9);
+
+    await searchInput.fill('ta');
+    await searchInput.dispatchEvent('keyup');
+    await expect(elementGroup).toHaveCount(5);
+    await expect(elements).toHaveCount(8);
+
+    await searchInput.fill('bla');
+    await searchInput.dispatchEvent('keyup');
+    await expect(eventGroup).toBeHidden();
+    await expect(gatewayGroup).toBeHidden();
+    await expect(elementGroup).toHaveCount(0);
+    await expect(elements).toHaveCount(0);
+    await expect(noResult).toHaveCount(1);
+    await expect(noResult).toHaveText('No results found.');
+
+    await page.keyboard.press('Escape');
+    await expect(searchInput).toBeEmpty();
   });
 
   test('menus show / hide', async ({ page }) => {
