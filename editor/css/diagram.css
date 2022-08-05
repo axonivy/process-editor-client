@@ -154,6 +154,9 @@ g[class^='end'] .sprotty-node {
 .sprotty-label {
   font-size: 12px;
   cursor: pointer;
+  text-align: center;
+  max-height: 100%;
+  overflow: hidden;
 }
 .sprotty-icon {
   border-radius: 3px;
