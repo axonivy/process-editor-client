@@ -1,3 +1,4 @@
+/** @jsx html */
 import {
   AbstractUIExtension,
   Action,
@@ -15,6 +16,16 @@ import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selec
 import { inject, injectable, postConstruct } from 'inversify';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from './action';
+import { init, h, VNode, propsModule, classModule, eventListenersModule } from 'snabbdom';
+import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  html,
+  IViewArgs,
+  RenderingContext,
+  ViewportRootElement
+} from 'sprotty';
+
+const patch = init([propsModule, classModule, eventListenersModule]);
 
 @injectable()
 export class JumpOutUi extends AbstractUIExtension {
@@ -43,12 +54,31 @@ export class JumpOutUi extends AbstractUIExtension {
   }
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
-    containerElement.innerHTML = '';
-    const button = createElement('div', ['jump-out-btn']);
-    button.title = 'Jump out (J)';
-    button.appendChild(createIcon(['fa-solid', 'fa-turn-up']));
-    button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
-    containerElement.appendChild(button);
+    // containerElement.innerHTML = '';
+    // const button = createElement('div', ['jump-out-btn']);
+    // button.title = 'Jump out (J)';
+    // button.appendChild(createIcon(['fa-solid', 'fa-turn-up']));
+    // button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
+    // containerElement.appendChild(button);
+    const rootNode: VNode = h(
+      `div#sprotty_${this.id()}.${this.containerClass()}`,
+      h('div.jump-out-btn', {
+        props: { title: 'Jump out (J)' },
+        on: { click: (_ev: MouseEvent) => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' })) }
+      })
+    );
+    // const htmljsxNode: VNode = (
+    //   <div id={'sprotty_' + this.id()} class={{ 'jump-out-container': true }}>
+    //     <div
+    //       class={{ 'jump-out-btn': true }}
+    //       on={{ click: (_ev: MouseEvent) => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' })) }}
+    //     ></div>
+    //   </div>
+    // );
+    // const rootNode: VNode = h('div.jump-out-btn', {
+    //   props: { title: 'Jump out (J)', onclick: (_ev: MouseEvent) => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' })) }
+    // });
+    patch(containerElement, rootNode);
   }
 }
 
