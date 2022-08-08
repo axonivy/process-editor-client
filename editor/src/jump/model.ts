@@ -6,8 +6,8 @@ export function isJumpable(element: SModelElement): element is SModelElement {
   return element.hasFeature(jumpFeature);
 }
 
-export const editSourceFeature = Symbol('editSourceFeature');
+export const goToSourceFeature = Symbol('goToSourceFeature');
 
-export function hasEditSourceFeature(element: SModelElement): element is SModelElement {
-  return element.hasFeature(editSourceFeature);
+export function hasGoToSourceFeature(element: SModelElement): element is SModelElement {
+  return element.hasFeature(goToSourceFeature);
 }

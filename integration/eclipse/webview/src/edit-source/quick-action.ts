@@ -1,28 +1,28 @@
 import { SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider, hasEditSourceFeature } from '@ivyteam/process-editor';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider, hasGoToSourceFeature } from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import { EditSourceAction } from './action';
+import { GoToSourceAction } from './action';
 
 @injectable()
-export class EditSourceQuickActionProvider extends SingleQuickActionProvider {
+export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (hasEditSourceFeature(element)) {
-      return new EditSourceQuickAction(element.id);
+    if (hasGoToSourceFeature(element)) {
+      return new GoToSourceQuickAction(element.id);
     }
     return undefined;
   }
 }
 
-class EditSourceQuickAction implements QuickAction {
+class GoToSourceQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
     public readonly icon = 'fa-solid fa-pen-to-square',
-    public readonly title = 'Edit (T)',
+    public readonly title = 'Go To Source (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
-    public readonly action = EditSourceAction.create(elementId),
+    public readonly action = GoToSourceAction.create(elementId),
     public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyT'
+    public readonly shortcut: KeyCode = 'KeyS'
   ) {}
 }

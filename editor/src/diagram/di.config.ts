@@ -20,7 +20,7 @@ import { ContainerModule, interfaces } from 'inversify';
 
 import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { editSourceFeature, jumpFeature } from '../jump/model';
+import { goToSourceFeature, jumpFeature } from '../jump/model';
 import { unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
@@ -75,7 +75,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);
   configureStartEvent(EventStartTypes.START_SIGNAL);
-  configureStartEvent(EventStartTypes.START_PROGRAM, { enable: [editSourceFeature] });
+  configureStartEvent(EventStartTypes.START_PROGRAM, { enable: [goToSourceFeature] });
   configureStartEvent(EventStartTypes.START_SUB);
   configureStartEvent(EventStartTypes.START_WS);
   configureStartEvent(EventStartTypes.START_HD);
@@ -93,7 +93,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureEndEvent(EventEndTypes.END_EMBEDDED);
 
   configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
-  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [editSourceFeature] });
+  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [goToSourceFeature] });
 
   configureIvyModelElement(EventBoundaryTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
   configureIvyModelElement(EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
@@ -113,12 +113,12 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureActivity(ActivityTypes.WEB_PAGE);
   configureActivity(ActivityTypes.THIRD_PARTY);
   configureActivity(ActivityTypes.THIRD_PARTY_RULE);
-  configureActivity(ActivityTypes.PROGRAM, { enable: [editSourceFeature] });
+  configureActivity(ActivityTypes.PROGRAM, { enable: [goToSourceFeature] });
   configureActivity(ActivityTypes.TRIGGER, { enable: [jumpFeature] });
   configureActivity(ActivityTypes.COMMENT, { disable: [breakpointFeature, errorBoundaryFeature] });
-  configureActivity(ActivityTypes.HD, { enable: [jumpFeature, editSourceFeature] });
+  configureActivity(ActivityTypes.HD, { enable: [jumpFeature, goToSourceFeature] });
   configureActivity(ActivityTypes.USER, {
-    enable: [signalBoundaryFeature, jumpFeature, editSourceFeature]
+    enable: [signalBoundaryFeature, jumpFeature, goToSourceFeature]
   });
   configureEmbedded(ActivityTypes.EMBEDDED_PROCESS);
   configureEmbedded(ActivityTypes.BPMN_GENERIC);

@@ -1,14 +1,14 @@
 import { Action } from '@eclipse-glsp/client';
 
-export interface EditSourceAction extends Action {
-  kind: typeof EditSourceAction.KIND;
+export interface GoToSourceAction extends Action {
+  kind: typeof GoToSourceAction.KIND;
   elementId: string;
 }
 
-export namespace EditSourceAction {
-  export const KIND = 'editSource';
+export namespace GoToSourceAction {
+  export const KIND = 'goToSource';
 
-  export function create(elementId: string): EditSourceAction {
+  export function create(elementId: string): GoToSourceAction {
     return {
       kind: KIND,
       elementId

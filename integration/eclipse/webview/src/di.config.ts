@@ -8,7 +8,7 @@ import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
 import ivyOpenInscriptionModule from './open-inscription/di.config';
 import ivyOpenDecoratorBrowserModule from './open-decorator-browser/di.config';
 import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
-import ivyEditSourceModule from './edit-source/di.config';
+import ivyGoToSourceModule from './edit-source/di.config';
 import ivyEditorActionModule from './editor-action/di.config';
 import ivyOpenDataClassModule from './open-data-class/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
@@ -29,7 +29,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
   container.load(ivyOpenQuickOutlineModule);
-  container.load(ivyEditSourceModule);
+  container.load(ivyGoToSourceModule);
   container.load(ivyBreakpointModule);
   container.load(ivyEditorActionModule);
   container.load(ivyOpenDataClassModule);
