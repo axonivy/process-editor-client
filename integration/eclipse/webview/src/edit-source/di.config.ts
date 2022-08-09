@@ -1,10 +1,10 @@
 import { IVY_TYPES } from '@ivyteam/process-editor';
 import { ContainerModule } from 'inversify';
 
-import { EditSourceQuickActionProvider } from './quick-action';
+import { GoToSourceQuickActionProvider } from './quick-action';
 
-const ivyEditSourceModule = new ContainerModule(bind => {
-  bind(IVY_TYPES.QuickActionProvider).to(EditSourceQuickActionProvider);
+const ivyGoToSourceModule = new ContainerModule(bind => {
+  bind(IVY_TYPES.QuickActionProvider).to(GoToSourceQuickActionProvider);
 });
 
-export default ivyEditSourceModule;
+export default ivyGoToSourceModule;

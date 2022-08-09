@@ -137,7 +137,7 @@ describe('BreakpointView', () => {
     if (expectedCssClass) {
       breakpoint = `class="ivy-breakpoint-handle ${expectedCssClass}"`;
     }
-    const line = '<line class="ivy-breakpoint-handle-globaldisable" x1="-19" y1="46" x2="-9" y2="36" />';
+    const line = '<line class="ivy-breakpoint-handle-globaldisable" x1="-15" y1="14" x2="-5" y2="4" />';
     expect(toHTML(vnode)).to.contain(breakpoint);
     expect(toHTML(vnode)).to.contain(line);
   }
