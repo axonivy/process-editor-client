@@ -298,14 +298,41 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
 
 export class MulitlineEditLabel extends SLabel implements EditableLabel {
   static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
-
   readonly isMultiLine = true;
+
   get editControlDimension(): Dimension {
     return { width: Math.max(this.bounds.width + 25, 144), height: Math.max(this.bounds.height, 44) };
   }
 
   get editControlPositionCorrection(): Point {
     return { x: -2, y: -3 };
+  }
+
+  get labelBounds(): Bounds {
+    const textDimension = this.textWidth(this.text, this.font());
+    return { x: -textDimension.width / 2, y: 0, width: textDimension.width, height: textDimension.height * this.text.split('\n').length };
+  }
+
+  textWidth(text: string, font: string): Dimension {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    if (context) {
+      context.font = font;
+      const metrics = context.measureText(text);
+      return { width: metrics.width, height: 14 };
+    }
+    return { width: this.bounds.width, height: this.bounds.height };
+  }
+
+  font(el = document.body): string {
+    const fontWeight = this.cssStyle(el, 'font-weight');
+    const fontSize = '14px';
+    const fontFamily = this.cssStyle(el, 'font-family');
+    return `${fontWeight} ${fontSize} ${fontFamily}`;
+  }
+
+  cssStyle(element: HTMLElement, prop: string): string {
+    return window.getComputedStyle(element, undefined).getPropertyValue(prop);
   }
 }
 
@@ -317,14 +344,20 @@ export class RotateLabel extends MulitlineEditLabel {
 
 export class ActivityLabel extends MulitlineEditLabel {
   readonly isMultiLine = true;
+
   get editControlDimension(): Dimension {
     if (isBoundsAware(this.parent)) {
       return { width: this.parent.bounds.width, height: this.parent.bounds.height };
     }
     return { width: this.bounds.width, height: this.bounds.height };
   }
+
   get editControlPositionCorrection(): Point {
     return Point.ORIGIN;
+  }
+
+  get labelBounds(): Bounds {
+    return { x: -this.bounds.width / 2, y: 18, width: this.bounds.width, height: this.bounds.height - 18 };
   }
 }
 

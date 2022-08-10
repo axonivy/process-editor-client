@@ -49,7 +49,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
 
   protected lastActivebutton?: HTMLElement;
-  protected defaultToolsButton: HTMLElement;
+  protected defaultToolsButton?: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
   protected lastMenuAction?: Action;
@@ -221,7 +221,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     if (button) {
       activeButton = button;
     }
-    activeButton.classList.add(CLICKED_CSS_CLASS);
+    activeButton?.classList.add(CLICKED_CSS_CLASS);
     this.lastActivebutton = activeButton;
     this.hideMenus();
   }

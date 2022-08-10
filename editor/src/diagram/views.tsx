@@ -6,14 +6,13 @@ import {
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
-  SLabel,
   svg,
   toDegrees
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
-import { Edge } from './model';
+import { Edge, MulitlineEditLabel } from './model';
 import { escapeHtmlWithLineBreaks } from './util';
 
 import { ActivityTypes } from './view-types';
@@ -23,17 +22,18 @@ const JSX = { createElement: svg };
 
 @injectable()
 export class ForeignLabelView implements IView {
-  render(model: SLabel, context: RenderingContext): VNode {
+  render(model: MulitlineEditLabel, context: RenderingContext): VNode {
     const replacement = escapeHtmlWithLineBreaks(model.text);
     const foreignObjectContents = virtualize(`<div>${replacement}</div>`);
-    const node = (
+    const labelBounds = model.labelBounds;
+    return (
       <g>
         <foreignObject
           requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
-          height={model.bounds.height}
-          width={model.bounds.width}
-          x={0}
-          y={0}
+          height={labelBounds.height}
+          width={labelBounds.width}
+          x={labelBounds.x}
+          y={labelBounds.y}
           z={10}
           class-sprotty-label
           class-node-child-label={model.parent.type.startsWith(ActivityTypes.DEFAULT)}
@@ -43,7 +43,6 @@ export class ForeignLabelView implements IView {
         {context.renderChildren(model)}
       </g>
     );
-    return node;
   }
 }
 
