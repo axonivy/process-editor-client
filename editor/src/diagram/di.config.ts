@@ -31,6 +31,7 @@ import {
   ActivityNode,
   CommentNode,
   Edge,
+  EdgeLabel,
   EndEventNode,
   EventNode,
   GatewayNode,
@@ -138,6 +139,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureIvyModelElement(EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
   configureIvyModelElement(EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
+  configureIvyModelElement(EdgeTypes.LABEL, EdgeLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 
   configureIvyModelElement(LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 

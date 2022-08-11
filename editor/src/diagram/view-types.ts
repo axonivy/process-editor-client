@@ -82,6 +82,7 @@ export namespace LaneTypes {
 export namespace EdgeTypes {
   export const DEFAULT = 'edge';
   export const ASSOCIATION = DEFAULT + ':association';
+  export const LABEL = DEFAULT + ':label';
 }
 
 export namespace LabelType {

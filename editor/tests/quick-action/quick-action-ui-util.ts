@@ -25,7 +25,7 @@ import { expect } from 'chai';
 import { Container } from 'inversify';
 
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../../src/diagram/model';
-import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LabelType, LaneTypes } from '../../src/diagram/view-types';
+import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
 import ivyEditLabelModule from '../../src/edit-label/di.config';
 import ivyWrapModule from '../../src/wrap/di.config';
 import ivyJumpModule from '../../src/jump/di.config';
@@ -97,7 +97,7 @@ export function createRoot(container: Container): SGraph {
   const edge2 = createEdge('edge2', EdgeTypes.DEFAULT, 'alternativeWithConnection', 'end', Edge.DEFAULT_FEATURES);
   root.add(edge);
   root.add(edge2);
-  edge.add(createLabel(edge.id));
+  edge.add(createEdgeLabel(edge.id));
   root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   return root;
@@ -140,10 +140,10 @@ function createEdge(
   return edge;
 }
 
-function createLabel(id: string): SLabel {
+function createEdgeLabel(id: string): SLabel {
   const label = new MulitlineEditLabel();
   label.text = '';
-  label.type = LabelType.DEFAULT;
+  label.type = EdgeTypes.LABEL;
   label.features = createFeatureSet(MulitlineEditLabel.DEFAULT_FEATURES);
   return label;
 }
