@@ -16,7 +16,7 @@ export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
 class StartProcessQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-play',
+    public readonly icon = 'si si-play',
     public readonly title = 'Start Process (X)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'A',
@@ -66,7 +66,7 @@ export class SearchProcessCallersActionProvider extends SingleQuickActionProvide
 class SearchProcessCallersQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-magnifying-glass',
+    public readonly icon = 'si si-search',
     public readonly title = 'Search callers of this process (O)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',

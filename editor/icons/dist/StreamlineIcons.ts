@@ -3,6 +3,7 @@ export type StreamlineIconsId =
   | "align-horizontal"
   | "align-vertical"
   | "aternative"
+  | "bend"
   | "bug"
   | "call"
   | "caution"
@@ -10,6 +11,8 @@ export type StreamlineIconsId =
   | "color"
   | "comment"
   | "connector"
+  | "cursor-select"
+  | "cursor"
   | "custom-icon"
   | "darkmode"
   | "data-models"
@@ -36,24 +39,31 @@ export type StreamlineIconsId =
   | "lane-swimlanes"
   | "manual"
   | "market"
+  | "menu"
   | "note"
   | "origin-screen"
   | "pen-edit"
+  | "play"
   | "pool-swimlanes"
   | "program"
   | "receive"
+  | "redo"
   | "rest-client"
   | "rule"
   | "script"
+  | "search"
   | "send"
   | "service"
+  | "settings"
   | "signal"
   | "split"
   | "start-program"
   | "start"
+  | "straighten"
   | "sub"
   | "task"
   | "trigger"
+  | "undo"
   | "unwrap"
   | "user-dialog"
   | "user-task"
@@ -67,6 +77,7 @@ export type StreamlineIconsKey =
   | "AlignHorizontal"
   | "AlignVertical"
   | "Aternative"
+  | "Bend"
   | "Bug"
   | "Call"
   | "Caution"
@@ -74,6 +85,8 @@ export type StreamlineIconsKey =
   | "Color"
   | "Comment"
   | "Connector"
+  | "CursorSelect"
+  | "Cursor"
   | "CustomIcon"
   | "Darkmode"
   | "DataModels"
@@ -100,24 +113,31 @@ export type StreamlineIconsKey =
   | "LaneSwimlanes"
   | "Manual"
   | "Market"
+  | "Menu"
   | "Note"
   | "OriginScreen"
   | "PenEdit"
+  | "Play"
   | "PoolSwimlanes"
   | "Program"
   | "Receive"
+  | "Redo"
   | "RestClient"
   | "Rule"
   | "Script"
+  | "Search"
   | "Send"
   | "Service"
+  | "Settings"
   | "Signal"
   | "Split"
   | "StartProgram"
   | "Start"
+  | "Straighten"
   | "Sub"
   | "Task"
   | "Trigger"
+  | "Undo"
   | "Unwrap"
   | "UserDialog"
   | "UserTask"
@@ -131,6 +151,7 @@ export enum StreamlineIcons {
   AlignHorizontal = "align-horizontal",
   AlignVertical = "align-vertical",
   Aternative = "aternative",
+  Bend = "bend",
   Bug = "bug",
   Call = "call",
   Caution = "caution",
@@ -138,6 +159,8 @@ export enum StreamlineIcons {
   Color = "color",
   Comment = "comment",
   Connector = "connector",
+  CursorSelect = "cursor-select",
+  Cursor = "cursor",
   CustomIcon = "custom-icon",
   Darkmode = "darkmode",
   DataModels = "data-models",
@@ -164,24 +187,31 @@ export enum StreamlineIcons {
   LaneSwimlanes = "lane-swimlanes",
   Manual = "manual",
   Market = "market",
+  Menu = "menu",
   Note = "note",
   OriginScreen = "origin-screen",
   PenEdit = "pen-edit",
+  Play = "play",
   PoolSwimlanes = "pool-swimlanes",
   Program = "program",
   Receive = "receive",
+  Redo = "redo",
   RestClient = "rest-client",
   Rule = "rule",
   Script = "script",
+  Search = "search",
   Send = "send",
   Service = "service",
+  Settings = "settings",
   Signal = "signal",
   Split = "split",
   StartProgram = "start-program",
   Start = "start",
+  Straighten = "straighten",
   Sub = "sub",
   Task = "task",
   Trigger = "trigger",
+  Undo = "undo",
   Unwrap = "unwrap",
   UserDialog = "user-dialog",
   UserTask = "user-task",
@@ -196,62 +226,72 @@ export const STREAMLINE_ICONS_CODEPOINTS: { [key in StreamlineIcons]: string } =
   [StreamlineIcons.AlignHorizontal]: "61698",
   [StreamlineIcons.AlignVertical]: "61699",
   [StreamlineIcons.Aternative]: "61700",
-  [StreamlineIcons.Bug]: "61701",
-  [StreamlineIcons.Call]: "61702",
-  [StreamlineIcons.Caution]: "61703",
-  [StreamlineIcons.Center]: "61704",
-  [StreamlineIcons.Color]: "61705",
-  [StreamlineIcons.Comment]: "61706",
-  [StreamlineIcons.Connector]: "61707",
-  [StreamlineIcons.CustomIcon]: "61708",
-  [StreamlineIcons.Darkmode]: "61709",
-  [StreamlineIcons.DataModels]: "61710",
-  [StreamlineIcons.Database]: "61711",
-  [StreamlineIcons.Delete]: "61712",
-  [StreamlineIcons.Dialogs]: "61713",
-  [StreamlineIcons.EMailIcon]: "61714",
-  [StreamlineIcons.EMail]: "61715",
-  [StreamlineIcons.EndPage]: "61716",
-  [StreamlineIcons.End]: "61717",
-  [StreamlineIcons.Error]: "61718",
-  [StreamlineIcons.EventsGroup]: "61719",
-  [StreamlineIcons.FitToScreen]: "61720",
-  [StreamlineIcons.GatewaysGroup_2]: "61721",
-  [StreamlineIcons.GatewaysGroup]: "61722",
-  [StreamlineIcons.Generic]: "61723",
-  [StreamlineIcons.Grid]: "61724",
-  [StreamlineIcons.Helplines]: "61725",
-  [StreamlineIcons.Information]: "61726",
-  [StreamlineIcons.Join]: "61727",
-  [StreamlineIcons.JumpOut]: "61728",
-  [StreamlineIcons.Jump]: "61729",
-  [StreamlineIcons.Label]: "61730",
-  [StreamlineIcons.LaneSwimlanes]: "61731",
-  [StreamlineIcons.Manual]: "61732",
-  [StreamlineIcons.Market]: "61733",
-  [StreamlineIcons.Note]: "61734",
-  [StreamlineIcons.OriginScreen]: "61735",
-  [StreamlineIcons.PenEdit]: "61736",
-  [StreamlineIcons.PoolSwimlanes]: "61737",
-  [StreamlineIcons.Program]: "61738",
-  [StreamlineIcons.Receive]: "61739",
-  [StreamlineIcons.RestClient]: "61740",
-  [StreamlineIcons.Rule]: "61741",
-  [StreamlineIcons.Script]: "61742",
-  [StreamlineIcons.Send]: "61743",
-  [StreamlineIcons.Service]: "61744",
-  [StreamlineIcons.Signal]: "61745",
-  [StreamlineIcons.Split]: "61746",
-  [StreamlineIcons.StartProgram]: "61747",
-  [StreamlineIcons.Start]: "61748",
-  [StreamlineIcons.Sub]: "61749",
-  [StreamlineIcons.Task]: "61750",
-  [StreamlineIcons.Trigger]: "61751",
-  [StreamlineIcons.Unwrap]: "61752",
-  [StreamlineIcons.UserDialog]: "61753",
-  [StreamlineIcons.UserTask]: "61754",
-  [StreamlineIcons.User]: "61755",
-  [StreamlineIcons.Wait]: "61756",
-  [StreamlineIcons.WebService]: "61757",
-  [StreamlineIcons.WrapToSubprocess]: "61758",
+  [StreamlineIcons.Bend]: "61701",
+  [StreamlineIcons.Bug]: "61702",
+  [StreamlineIcons.Call]: "61703",
+  [StreamlineIcons.Caution]: "61704",
+  [StreamlineIcons.Center]: "61705",
+  [StreamlineIcons.Color]: "61706",
+  [StreamlineIcons.Comment]: "61707",
+  [StreamlineIcons.Connector]: "61708",
+  [StreamlineIcons.CursorSelect]: "61709",
+  [StreamlineIcons.Cursor]: "61710",
+  [StreamlineIcons.CustomIcon]: "61711",
+  [StreamlineIcons.Darkmode]: "61712",
+  [StreamlineIcons.DataModels]: "61713",
+  [StreamlineIcons.Database]: "61714",
+  [StreamlineIcons.Delete]: "61715",
+  [StreamlineIcons.Dialogs]: "61716",
+  [StreamlineIcons.EMailIcon]: "61717",
+  [StreamlineIcons.EMail]: "61718",
+  [StreamlineIcons.EndPage]: "61719",
+  [StreamlineIcons.End]: "61720",
+  [StreamlineIcons.Error]: "61721",
+  [StreamlineIcons.EventsGroup]: "61722",
+  [StreamlineIcons.FitToScreen]: "61723",
+  [StreamlineIcons.GatewaysGroup_2]: "61724",
+  [StreamlineIcons.GatewaysGroup]: "61725",
+  [StreamlineIcons.Generic]: "61726",
+  [StreamlineIcons.Grid]: "61727",
+  [StreamlineIcons.Helplines]: "61728",
+  [StreamlineIcons.Information]: "61729",
+  [StreamlineIcons.Join]: "61730",
+  [StreamlineIcons.JumpOut]: "61731",
+  [StreamlineIcons.Jump]: "61732",
+  [StreamlineIcons.Label]: "61733",
+  [StreamlineIcons.LaneSwimlanes]: "61734",
+  [StreamlineIcons.Manual]: "61735",
+  [StreamlineIcons.Market]: "61736",
+  [StreamlineIcons.Menu]: "61737",
+  [StreamlineIcons.Note]: "61738",
+  [StreamlineIcons.OriginScreen]: "61739",
+  [StreamlineIcons.PenEdit]: "61740",
+  [StreamlineIcons.Play]: "61741",
+  [StreamlineIcons.PoolSwimlanes]: "61742",
+  [StreamlineIcons.Program]: "61743",
+  [StreamlineIcons.Receive]: "61744",
+  [StreamlineIcons.Redo]: "61745",
+  [StreamlineIcons.RestClient]: "61746",
+  [StreamlineIcons.Rule]: "61747",
+  [StreamlineIcons.Script]: "61748",
+  [StreamlineIcons.Search]: "61749",
+  [StreamlineIcons.Send]: "61750",
+  [StreamlineIcons.Service]: "61751",
+  [StreamlineIcons.Settings]: "61752",
+  [StreamlineIcons.Signal]: "61753",
+  [StreamlineIcons.Split]: "61754",
+  [StreamlineIcons.StartProgram]: "61755",
+  [StreamlineIcons.Start]: "61756",
+  [StreamlineIcons.Straighten]: "61757",
+  [StreamlineIcons.Sub]: "61758",
+  [StreamlineIcons.Task]: "61759",
+  [StreamlineIcons.Trigger]: "61760",
+  [StreamlineIcons.Undo]: "61761",
+  [StreamlineIcons.Unwrap]: "61762",
+  [StreamlineIcons.UserDialog]: "61763",
+  [StreamlineIcons.UserTask]: "61764",
+  [StreamlineIcons.User]: "61765",
+  [StreamlineIcons.Wait]: "61766",
+  [StreamlineIcons.WebService]: "61767",
+  [StreamlineIcons.WrapToSubprocess]: "61768",
 };

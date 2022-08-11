@@ -35,7 +35,7 @@ export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider
 class StraightenEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-arrows-left-right',
+    public readonly icon = 'si si-straighten',
     public readonly title = 'Straighten (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'A',
@@ -74,7 +74,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
 class AutoBendEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-ruler-combined',
+    public readonly icon = 'si si-bend',
     public readonly title = 'Bend (B)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',

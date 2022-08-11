@@ -46,7 +46,7 @@ export class JumpOutUi extends AbstractUIExtension {
     containerElement.innerHTML = '';
     const button = createElement('div', ['jump-out-btn']);
     button.title = 'Jump out (J)';
-    button.appendChild(createIcon(['fa-solid', 'fa-turn-up']));
+    button.appendChild(createIcon(['si', 'si-jump-out']));
     button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
     containerElement.appendChild(button);
   }

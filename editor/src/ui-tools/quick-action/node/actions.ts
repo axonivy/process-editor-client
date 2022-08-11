@@ -106,7 +106,7 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Events', icon: 'fa-regular fa-circle', sortString: 'A', id: '', actions: [] };
+    return { label: 'Events', icon: 'si si-events-group', sortString: 'A', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -121,7 +121,7 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Gateways', icon: 'fa-regular fa-square fa-rotate-45', sortString: 'B', id: '', actions: [] };
+    return { label: 'Gateways', icon: 'si si-gateways-group', sortString: 'B', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -139,7 +139,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Activities', icon: 'fa-regular fa-square', sortString: 'C', id: '', actions: [] };
+    return { label: 'Activities', icon: 'si si-activities-group', sortString: 'C', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -179,7 +179,7 @@ class CreateAllElementsQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'fa-regular fa-square',
+    public readonly icon = 'si si-menu',
     public readonly title = 'Create Node',
     public readonly location = QuickActionLocation.Hidden,
     public readonly sorting = 'Z',

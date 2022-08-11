@@ -1,10 +1,10 @@
 @font-face {
   font-family: "StreamlineIcons";
-  src: url("./StreamlineIcons.ttf?52721eac96074118eb10b6c674091169") format("truetype"),
-url("./StreamlineIcons.woff?52721eac96074118eb10b6c674091169") format("woff"),
-url("./StreamlineIcons.woff2?52721eac96074118eb10b6c674091169") format("woff2"),
-url("./StreamlineIcons.eot?52721eac96074118eb10b6c674091169#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?52721eac96074118eb10b6c674091169#StreamlineIcons") format("svg");
+  src: url("./StreamlineIcons.ttf?53f22648353118812781421b0c43c093") format("truetype"),
+url("./StreamlineIcons.woff?53f22648353118812781421b0c43c093") format("woff"),
+url("./StreamlineIcons.woff2?53f22648353118812781421b0c43c093") format("woff2"),
+url("./StreamlineIcons.eot?53f22648353118812781421b0c43c093#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?53f22648353118812781421b0c43c093#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -175,177 +175,207 @@ i[class^="si-"]:before, i[class*=" si-"]:before {
 .si-aternative:before {
   content: "\f104";
 }
-.si-bug:before {
+.si-bend:before {
   content: "\f105";
 }
-.si-call:before {
+.si-bug:before {
   content: "\f106";
 }
-.si-caution:before {
+.si-call:before {
   content: "\f107";
 }
-.si-center:before {
+.si-caution:before {
   content: "\f108";
 }
-.si-color:before {
+.si-center:before {
   content: "\f109";
 }
-.si-comment:before {
+.si-color:before {
   content: "\f10a";
 }
-.si-connector:before {
+.si-comment:before {
   content: "\f10b";
 }
-.si-custom-icon:before {
+.si-connector:before {
   content: "\f10c";
 }
-.si-darkmode:before {
+.si-cursor-select:before {
   content: "\f10d";
 }
-.si-data-models:before {
+.si-cursor:before {
   content: "\f10e";
 }
-.si-database:before {
+.si-custom-icon:before {
   content: "\f10f";
 }
-.si-delete:before {
+.si-darkmode:before {
   content: "\f110";
 }
-.si-dialogs:before {
+.si-data-models:before {
   content: "\f111";
 }
-.si-e-mail-icon:before {
+.si-database:before {
   content: "\f112";
 }
-.si-e-mail:before {
+.si-delete:before {
   content: "\f113";
 }
-.si-end-page:before {
+.si-dialogs:before {
   content: "\f114";
 }
-.si-end:before {
+.si-e-mail-icon:before {
   content: "\f115";
 }
-.si-error:before {
+.si-e-mail:before {
   content: "\f116";
 }
-.si-events-group:before {
+.si-end-page:before {
   content: "\f117";
 }
-.si-fit-to-screen:before {
+.si-end:before {
   content: "\f118";
 }
-.si-gateways-group-2:before {
+.si-error:before {
   content: "\f119";
 }
-.si-gateways-group:before {
+.si-events-group:before {
   content: "\f11a";
 }
-.si-generic:before {
+.si-fit-to-screen:before {
   content: "\f11b";
 }
-.si-grid:before {
+.si-gateways-group-2:before {
   content: "\f11c";
 }
-.si-helplines:before {
+.si-gateways-group:before {
   content: "\f11d";
 }
-.si-information:before {
+.si-generic:before {
   content: "\f11e";
 }
-.si-join:before {
+.si-grid:before {
   content: "\f11f";
 }
-.si-jump-out:before {
+.si-helplines:before {
   content: "\f120";
 }
-.si-jump:before {
+.si-information:before {
   content: "\f121";
 }
-.si-label:before {
+.si-join:before {
   content: "\f122";
 }
-.si-lane-swimlanes:before {
+.si-jump-out:before {
   content: "\f123";
 }
-.si-manual:before {
+.si-jump:before {
   content: "\f124";
 }
-.si-market:before {
+.si-label:before {
   content: "\f125";
 }
-.si-note:before {
+.si-lane-swimlanes:before {
   content: "\f126";
 }
-.si-origin-screen:before {
+.si-manual:before {
   content: "\f127";
 }
-.si-pen-edit:before {
+.si-market:before {
   content: "\f128";
 }
-.si-pool-swimlanes:before {
+.si-menu:before {
   content: "\f129";
 }
-.si-program:before {
+.si-note:before {
   content: "\f12a";
 }
-.si-receive:before {
+.si-origin-screen:before {
   content: "\f12b";
 }
-.si-rest-client:before {
+.si-pen-edit:before {
   content: "\f12c";
 }
-.si-rule:before {
+.si-play:before {
   content: "\f12d";
 }
-.si-script:before {
+.si-pool-swimlanes:before {
   content: "\f12e";
 }
-.si-send:before {
+.si-program:before {
   content: "\f12f";
 }
-.si-service:before {
+.si-receive:before {
   content: "\f130";
 }
-.si-signal:before {
+.si-redo:before {
   content: "\f131";
 }
-.si-split:before {
+.si-rest-client:before {
   content: "\f132";
 }
-.si-start-program:before {
+.si-rule:before {
   content: "\f133";
 }
-.si-start:before {
+.si-script:before {
   content: "\f134";
 }
-.si-sub:before {
+.si-search:before {
   content: "\f135";
 }
-.si-task:before {
+.si-send:before {
   content: "\f136";
 }
-.si-trigger:before {
+.si-service:before {
   content: "\f137";
 }
-.si-unwrap:before {
+.si-settings:before {
   content: "\f138";
 }
-.si-user-dialog:before {
+.si-signal:before {
   content: "\f139";
 }
-.si-user-task:before {
+.si-split:before {
   content: "\f13a";
 }
-.si-user:before {
+.si-start-program:before {
   content: "\f13b";
 }
-.si-wait:before {
+.si-start:before {
   content: "\f13c";
 }
-.si-web-service:before {
+.si-straighten:before {
   content: "\f13d";
 }
-.si-wrap-to-subprocess:before {
+.si-sub:before {
   content: "\f13e";
+}
+.si-task:before {
+  content: "\f13f";
+}
+.si-trigger:before {
+  content: "\f140";
+}
+.si-undo:before {
+  content: "\f141";
+}
+.si-unwrap:before {
+  content: "\f142";
+}
+.si-user-dialog:before {
+  content: "\f143";
+}
+.si-user-task:before {
+  content: "\f144";
+}
+.si-user:before {
+  content: "\f145";
+}
+.si-wait:before {
+  content: "\f146";
+}
+.si-web-service:before {
+  content: "\f147";
+}
+.si-wrap-to-subprocess:before {
+  content: "\f148";
 }

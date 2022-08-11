@@ -69,7 +69,7 @@ const PaletteIcons: { [icon: string]: NodeIcon } = {
   'std:ErrorEnd': StandardIcons['std:Error'],
   'std:EmbeddedProcess': { res: 'si si-call', style: IconStyle.SI },
   'std:SubProcessCall': { res: 'si si-sub', style: IconStyle.SI },
-  'std:Annotation': { res: 'si si-note', style: IconStyle.SI },
+  'std:Annotation': { res: 'si si-comment', style: IconStyle.SI },
   'std:BpmnGeneric': { res: 'si si-generic', style: IconStyle.SI },
   'std:BpmnUser': StandardIcons['std:User'],
   'std:BpmnManual': StandardIcons['std:Manual'],

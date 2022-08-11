@@ -17,7 +17,7 @@ export class InscribeQuickActionProvider extends SingleQuickActionProvider {
 class InscribeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-solid fa-pen',
+    public readonly icon = 'si si-settings',
     public readonly title = 'Edit (E)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',

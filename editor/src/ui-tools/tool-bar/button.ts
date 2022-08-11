@@ -39,7 +39,7 @@ export function compareButtons(a: ToolBarButton, b: ToolBarButton): number {
 
 export class DefaultSelectButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-solid fa-mouse-pointer',
+    public readonly icon = 'si si-cursor',
     public readonly title = 'Selection Tool',
     public readonly sorting = 'A',
     public readonly action = () => EnableDefaultToolsAction.create(),
@@ -52,7 +52,7 @@ export class DefaultSelectButton implements ToolBarButton {
 
 export class MarqueeToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-regular fa-object-group',
+    public readonly icon = 'si si-cursor-select',
     public readonly title = 'Marquee Tool (Shift)',
     public readonly sorting = 'B',
     public readonly action = () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),
@@ -65,7 +65,7 @@ export class MarqueeToolButton implements ToolBarButton {
 
 export class UndoToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-solid fa-rotate-left',
+    public readonly icon = 'si si-undo',
     public readonly title = 'Undo',
     public readonly sorting = 'C',
     public readonly action = () => UndoAction.create(),
@@ -76,7 +76,7 @@ export class UndoToolButton implements ToolBarButton {
 
 export class RedoToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'fa-solid fa-rotate-right',
+    public readonly icon = 'si si-redo',
     public readonly title = 'Redo',
     public readonly sorting = 'D',
     public readonly action = () => RedoAction.create(),
@@ -105,7 +105,7 @@ export class OptionsToolButton implements ToolBarButton {
     public readonly customIconState: () => boolean,
     public readonly grid: () => boolean,
     public readonly theme?: () => string,
-    public readonly icon = 'fa-solid fa-gear',
+    public readonly icon = 'si si-settings',
     public readonly title = 'Options',
     public readonly sorting = 'Z',
     public readonly action = () => ShowToolBarOptionsMenuAction.create({ customIconState: customIconState, grid: grid, theme: theme }),
