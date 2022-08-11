@@ -144,6 +144,22 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   get color(): string {
     return (this.args?.color as string) ?? '';
   }
+
+  get labelBounds(): Bounds {
+    return { x: -this.bounds.width / 2 + 3, y: 18, width: this.bounds.width - 6, height: this.bounds.height - 18 };
+  }
+}
+
+export class SubActivityNode extends ActivityNode {
+  get labelBounds(): Bounds {
+    return { ...super.labelBounds, height: super.labelBounds.height - 14 };
+  }
+}
+
+export class CommentNode extends ActivityNode {
+  get labelBounds(): Bounds {
+    return { ...super.labelBounds, y: 0, height: this.bounds.height };
+  }
 }
 
 export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
@@ -357,6 +373,9 @@ export class ActivityLabel extends MulitlineEditLabel {
   }
 
   get labelBounds(): Bounds {
+    if (this.parent instanceof ActivityNode) {
+      return this.parent.labelBounds;
+    }
     return { x: -this.bounds.width / 2, y: 18, width: this.bounds.width, height: this.bounds.height - 18 };
   }
 }
