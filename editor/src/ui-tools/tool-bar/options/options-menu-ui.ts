@@ -50,7 +50,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createHeader(): HTMLElement {
     const header = createElement('div', ['tool-bar-options-header']);
-    header.appendChild(createIcon(['fa-solid', 'fa-gear']));
+    header.appendChild(createIcon(['si', 'si-settings']));
     const label = document.createElement('label');
     label.textContent = 'Settings';
     header.appendChild(label);
