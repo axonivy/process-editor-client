@@ -29,6 +29,7 @@ import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views'
 import {
   ActivityLabel,
   ActivityNode,
+  CommentNode,
   Edge,
   EndEventNode,
   EventNode,
@@ -37,7 +38,8 @@ import {
   LaneNode,
   MulitlineEditLabel,
   RotateLabel,
-  StartEventNode
+  StartEventNode,
+  SubActivityNode
 } from './model';
 import { IvyGridSnapper } from './snap';
 import {
@@ -103,8 +105,8 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureGateway(GatewayTypes.SPLIT);
   configureGateway(GatewayTypes.ALTERNATIVE);
 
-  configureIvyModelElement(ActivityTypes.SUB_PROCESS, ActivityNode, SubActivityNodeView, { enable: [jumpFeature] });
   configureIvyModelElement(ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
+  configureIvyModelElement(ActivityTypes.COMMENT, CommentNode, ActivityNodeView, { disable: [breakpointFeature, errorBoundaryFeature] });
   configureActivity(ActivityTypes.SCRIPT);
   configureActivity(ActivityTypes.SOAP);
   configureActivity(ActivityTypes.REST);
@@ -115,11 +117,11 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureActivity(ActivityTypes.THIRD_PARTY_RULE);
   configureActivity(ActivityTypes.PROGRAM, { enable: [goToSourceFeature] });
   configureActivity(ActivityTypes.TRIGGER, { enable: [jumpFeature] });
-  configureActivity(ActivityTypes.COMMENT, { disable: [breakpointFeature, errorBoundaryFeature] });
   configureActivity(ActivityTypes.HD, { enable: [jumpFeature, goToSourceFeature] });
   configureActivity(ActivityTypes.USER, {
     enable: [signalBoundaryFeature, jumpFeature, goToSourceFeature]
   });
+  configureEmbedded(ActivityTypes.SUB_PROCESS, { enable: [jumpFeature] });
   configureEmbedded(ActivityTypes.EMBEDDED_PROCESS);
   configureEmbedded(ActivityTypes.BPMN_GENERIC);
   configureEmbedded(ActivityTypes.BPMN_MANUAL);
@@ -164,10 +166,13 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
     configureIvyModelElement(type, ActivityNode, ActivityNodeView, features);
   }
 
-  function configureEmbedded(type: string): void {
-    configureIvyModelElement(type, ActivityNode, SubActivityNodeView, {
-      enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature]
-    });
+  function configureEmbedded(type: string, features?: CustomFeatures): void {
+    configureIvyModelElement(
+      type,
+      SubActivityNode,
+      SubActivityNodeView,
+      features ? features : { enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature] }
+    );
   }
 });
 
