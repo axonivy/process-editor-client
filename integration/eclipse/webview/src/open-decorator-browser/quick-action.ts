@@ -16,7 +16,7 @@ export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
 class CustomIconQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-image',
+    public readonly icon = 'si si-custom-icon',
     public readonly title = 'Custom Icon',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'C',

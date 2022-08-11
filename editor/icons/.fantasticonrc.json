@@ -1,0 +1,28 @@
+{
+  "name": "StreamlineIcons",
+  "inputDir": "./icons/source",
+  "outputDir": "./icons/dist",
+  "fontTypes": ["ttf", "woff", "woff2", "eot", "svg"],
+  "assetTypes": ["ts", "css", "scss", "html", "json"],
+  "prefix": "si",
+  "templates": {
+    "css": "./icons/templates/css.hbs"
+  },
+  "formatOptions": {
+    "svg": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    },
+    "ttf": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    },
+    "woff": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    },
+    "woff2": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    },
+    "eot": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    }
+  }
+}

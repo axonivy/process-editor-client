@@ -1,0 +1,273 @@
+$StreamlineIcons-font: "StreamlineIcons";
+
+@font-face {
+    font-family: $StreamlineIcons-font;
+    src: url("./StreamlineIcons.ttf?52721eac96074118eb10b6c674091169") format("truetype"),
+url("./StreamlineIcons.woff?52721eac96074118eb10b6c674091169") format("woff"),
+url("./StreamlineIcons.woff2?52721eac96074118eb10b6c674091169") format("woff2"),
+url("./StreamlineIcons.eot?52721eac96074118eb10b6c674091169#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?52721eac96074118eb10b6c674091169#StreamlineIcons") format("svg");
+}
+
+i[class^="si-"]:before, i[class*=" si-"]:before {
+    font-family: StreamlineIcons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$StreamlineIcons-map: (
+    "activities-group": "\f101",
+    "align-horizontal": "\f102",
+    "align-vertical": "\f103",
+    "aternative": "\f104",
+    "bug": "\f105",
+    "call": "\f106",
+    "caution": "\f107",
+    "center": "\f108",
+    "color": "\f109",
+    "comment": "\f10a",
+    "connector": "\f10b",
+    "custom-icon": "\f10c",
+    "darkmode": "\f10d",
+    "data-models": "\f10e",
+    "database": "\f10f",
+    "delete": "\f110",
+    "dialogs": "\f111",
+    "e-mail-icon": "\f112",
+    "e-mail": "\f113",
+    "end-page": "\f114",
+    "end": "\f115",
+    "error": "\f116",
+    "events-group": "\f117",
+    "fit-to-screen": "\f118",
+    "gateways-group-2": "\f119",
+    "gateways-group": "\f11a",
+    "generic": "\f11b",
+    "grid": "\f11c",
+    "helplines": "\f11d",
+    "information": "\f11e",
+    "join": "\f11f",
+    "jump-out": "\f120",
+    "jump": "\f121",
+    "label": "\f122",
+    "lane-swimlanes": "\f123",
+    "manual": "\f124",
+    "market": "\f125",
+    "note": "\f126",
+    "origin-screen": "\f127",
+    "pen-edit": "\f128",
+    "pool-swimlanes": "\f129",
+    "program": "\f12a",
+    "receive": "\f12b",
+    "rest-client": "\f12c",
+    "rule": "\f12d",
+    "script": "\f12e",
+    "send": "\f12f",
+    "service": "\f130",
+    "signal": "\f131",
+    "split": "\f132",
+    "start-program": "\f133",
+    "start": "\f134",
+    "sub": "\f135",
+    "task": "\f136",
+    "trigger": "\f137",
+    "unwrap": "\f138",
+    "user-dialog": "\f139",
+    "user-task": "\f13a",
+    "user": "\f13b",
+    "wait": "\f13c",
+    "web-service": "\f13d",
+    "wrap-to-subprocess": "\f13e",
+);
+
+.si-activities-group:before {
+    content: map-get($StreamlineIcons-map, "activities-group");
+}
+.si-align-horizontal:before {
+    content: map-get($StreamlineIcons-map, "align-horizontal");
+}
+.si-align-vertical:before {
+    content: map-get($StreamlineIcons-map, "align-vertical");
+}
+.si-aternative:before {
+    content: map-get($StreamlineIcons-map, "aternative");
+}
+.si-bug:before {
+    content: map-get($StreamlineIcons-map, "bug");
+}
+.si-call:before {
+    content: map-get($StreamlineIcons-map, "call");
+}
+.si-caution:before {
+    content: map-get($StreamlineIcons-map, "caution");
+}
+.si-center:before {
+    content: map-get($StreamlineIcons-map, "center");
+}
+.si-color:before {
+    content: map-get($StreamlineIcons-map, "color");
+}
+.si-comment:before {
+    content: map-get($StreamlineIcons-map, "comment");
+}
+.si-connector:before {
+    content: map-get($StreamlineIcons-map, "connector");
+}
+.si-custom-icon:before {
+    content: map-get($StreamlineIcons-map, "custom-icon");
+}
+.si-darkmode:before {
+    content: map-get($StreamlineIcons-map, "darkmode");
+}
+.si-data-models:before {
+    content: map-get($StreamlineIcons-map, "data-models");
+}
+.si-database:before {
+    content: map-get($StreamlineIcons-map, "database");
+}
+.si-delete:before {
+    content: map-get($StreamlineIcons-map, "delete");
+}
+.si-dialogs:before {
+    content: map-get($StreamlineIcons-map, "dialogs");
+}
+.si-e-mail-icon:before {
+    content: map-get($StreamlineIcons-map, "e-mail-icon");
+}
+.si-e-mail:before {
+    content: map-get($StreamlineIcons-map, "e-mail");
+}
+.si-end-page:before {
+    content: map-get($StreamlineIcons-map, "end-page");
+}
+.si-end:before {
+    content: map-get($StreamlineIcons-map, "end");
+}
+.si-error:before {
+    content: map-get($StreamlineIcons-map, "error");
+}
+.si-events-group:before {
+    content: map-get($StreamlineIcons-map, "events-group");
+}
+.si-fit-to-screen:before {
+    content: map-get($StreamlineIcons-map, "fit-to-screen");
+}
+.si-gateways-group-2:before {
+    content: map-get($StreamlineIcons-map, "gateways-group-2");
+}
+.si-gateways-group:before {
+    content: map-get($StreamlineIcons-map, "gateways-group");
+}
+.si-generic:before {
+    content: map-get($StreamlineIcons-map, "generic");
+}
+.si-grid:before {
+    content: map-get($StreamlineIcons-map, "grid");
+}
+.si-helplines:before {
+    content: map-get($StreamlineIcons-map, "helplines");
+}
+.si-information:before {
+    content: map-get($StreamlineIcons-map, "information");
+}
+.si-join:before {
+    content: map-get($StreamlineIcons-map, "join");
+}
+.si-jump-out:before {
+    content: map-get($StreamlineIcons-map, "jump-out");
+}
+.si-jump:before {
+    content: map-get($StreamlineIcons-map, "jump");
+}
+.si-label:before {
+    content: map-get($StreamlineIcons-map, "label");
+}
+.si-lane-swimlanes:before {
+    content: map-get($StreamlineIcons-map, "lane-swimlanes");
+}
+.si-manual:before {
+    content: map-get($StreamlineIcons-map, "manual");
+}
+.si-market:before {
+    content: map-get($StreamlineIcons-map, "market");
+}
+.si-note:before {
+    content: map-get($StreamlineIcons-map, "note");
+}
+.si-origin-screen:before {
+    content: map-get($StreamlineIcons-map, "origin-screen");
+}
+.si-pen-edit:before {
+    content: map-get($StreamlineIcons-map, "pen-edit");
+}
+.si-pool-swimlanes:before {
+    content: map-get($StreamlineIcons-map, "pool-swimlanes");
+}
+.si-program:before {
+    content: map-get($StreamlineIcons-map, "program");
+}
+.si-receive:before {
+    content: map-get($StreamlineIcons-map, "receive");
+}
+.si-rest-client:before {
+    content: map-get($StreamlineIcons-map, "rest-client");
+}
+.si-rule:before {
+    content: map-get($StreamlineIcons-map, "rule");
+}
+.si-script:before {
+    content: map-get($StreamlineIcons-map, "script");
+}
+.si-send:before {
+    content: map-get($StreamlineIcons-map, "send");
+}
+.si-service:before {
+    content: map-get($StreamlineIcons-map, "service");
+}
+.si-signal:before {
+    content: map-get($StreamlineIcons-map, "signal");
+}
+.si-split:before {
+    content: map-get($StreamlineIcons-map, "split");
+}
+.si-start-program:before {
+    content: map-get($StreamlineIcons-map, "start-program");
+}
+.si-start:before {
+    content: map-get($StreamlineIcons-map, "start");
+}
+.si-sub:before {
+    content: map-get($StreamlineIcons-map, "sub");
+}
+.si-task:before {
+    content: map-get($StreamlineIcons-map, "task");
+}
+.si-trigger:before {
+    content: map-get($StreamlineIcons-map, "trigger");
+}
+.si-unwrap:before {
+    content: map-get($StreamlineIcons-map, "unwrap");
+}
+.si-user-dialog:before {
+    content: map-get($StreamlineIcons-map, "user-dialog");
+}
+.si-user-task:before {
+    content: map-get($StreamlineIcons-map, "user-task");
+}
+.si-user:before {
+    content: map-get($StreamlineIcons-map, "user");
+}
+.si-wait:before {
+    content: map-get($StreamlineIcons-map, "wait");
+}
+.si-web-service:before {
+    content: map-get($StreamlineIcons-map, "web-service");
+}
+.si-wrap-to-subprocess:before {
+    content: map-get($StreamlineIcons-map, "wrap-to-subprocess");
+}

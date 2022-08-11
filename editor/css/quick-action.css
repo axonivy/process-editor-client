@@ -37,7 +37,9 @@
   line-height: 2rem;
   color: var(--glsp-tool-button);
 }
-
+.quick-actions-group span .si {
+  font-size: 18px;
+}
 .multi-selection-box {
   position: absolute;
   left: -5px;

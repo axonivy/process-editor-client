@@ -18,7 +18,7 @@ export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
 class CreateLaneQuickAction implements QuickAction {
   constructor(
     public readonly poolId: string,
-    public readonly icon = 'fa-solid fa-table-columns fa-rotate-270',
+    public readonly icon = 'si si-lane-swimlanes',
     public readonly title = 'Create Lane',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',

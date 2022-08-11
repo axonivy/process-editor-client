@@ -13,7 +13,7 @@ interface Option {
 
 class ThemeOption implements Option {
   constructor(
-    public readonly icon = 'fa-solid fa-circle-half-stroke',
+    public readonly icon = 'si si-darkmode',
     public readonly label = 'Darkmode',
     public readonly action = (state: boolean) => SwitchThemeAction.create({ theme: state ? 'dark' : 'light' })
   ) {}
@@ -21,7 +21,7 @@ class ThemeOption implements Option {
 
 class GridOption implements Option {
   constructor(
-    public readonly icon = 'fa-solid fa-border-all',
+    public readonly icon = 'si si-grid',
     public readonly label = 'Grid',
     public readonly action = (state: boolean) => ShowGridAction.create({ show: state })
   ) {}
@@ -29,7 +29,7 @@ class GridOption implements Option {
 
 class CustomIconOption implements Option {
   constructor(
-    public readonly icon = 'fa-solid fa-image',
+    public readonly icon = 'si si-custom-icon',
     public readonly label = 'Custom Icon',
     public readonly action = (state: boolean) => CustomIconToggleAction.create({ showCustomIcons: state })
   ) {}

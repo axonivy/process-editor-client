@@ -116,6 +116,10 @@
   line-height: 2rem;
   flex: none;
 }
+.bar-menu-items .menu-item .si {
+  text-align: center;
+  font-size: 24px;
+}
 .bar-menu-items .menu-item svg {
   margin: 0.8em;
   width: 14px;

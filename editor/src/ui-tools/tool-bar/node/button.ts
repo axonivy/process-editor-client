@@ -61,7 +61,7 @@ export class EventsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-circle',
+    public readonly icon = 'si si-events-group',
     public readonly title = 'Events',
     public readonly sorting = 'B',
     public readonly action = () =>
@@ -91,7 +91,7 @@ export class GatewaysToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-square fa-rotate-45',
+    public readonly icon = 'si si-gateways-group',
     public readonly title = 'Gateways',
     public readonly sorting = 'C',
     public readonly action = () =>
@@ -124,7 +124,7 @@ export class ActivitiesToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-square',
+    public readonly icon = 'si si-activities-group',
     public readonly title = 'Activities',
     public readonly sorting = 'D',
     public readonly action = () =>
@@ -154,7 +154,7 @@ export class ArtifactsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-solid fa-columns fa-rotate-270',
+    public readonly icon = 'si si-pool-swimlanes',
     public readonly title = 'Artifacts',
     public readonly sorting = 'E',
     public readonly action = () =>

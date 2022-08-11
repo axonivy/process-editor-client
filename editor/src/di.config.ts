@@ -1,4 +1,5 @@
 import '../css/colors.css';
+import '../icons/dist/StreamlineIcons.css';
 
 import {
   DEFAULT_MODULES,

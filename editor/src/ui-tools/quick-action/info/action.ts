@@ -62,7 +62,7 @@ class InfoQuickAction implements QuickAction {
     public readonly markers: GIssueMarker[],
     public readonly textTitle?: string,
     public readonly text?: string,
-    public readonly icon = 'fa-solid fa-info',
+    public readonly icon = 'si si-information',
     public readonly title = 'Information (I)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',

@@ -16,7 +16,7 @@ export class EditLabelActionProvider extends SingleQuickActionProvider {
 class EditLabelQuickAction implements QuickAction {
   constructor(
     public readonly labelId: string,
-    public readonly icon = 'fa-solid fa-tag',
+    public readonly icon = 'si si-label',
     public readonly title = 'Edit Label (L)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',

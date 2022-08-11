@@ -69,7 +69,7 @@ class SelectColorQuickAction implements QuickAction {
     public readonly elementIds: string[],
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'fa-solid fa-palette',
+    public readonly icon = 'si si-color',
     public readonly title = 'Select color',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

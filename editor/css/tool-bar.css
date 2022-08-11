@@ -59,9 +59,11 @@
   margin-right: 0.2em;
   font-size: 14px;
   width: 2rem;
-  font-size: 14px;
   line-height: 2rem;
   color: var(--glsp-tool-button);
+}
+.tool-bar-header .tool-bar-button .si {
+  font-size: 18px;
 }
 .tool-bar-header .tool-bar-title-button .tool-bar-button i {
   width: 1rem;

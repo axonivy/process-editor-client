@@ -216,6 +216,9 @@ export abstract class ItemMenu implements Menu {
       if (icon.style === IconStyle.FA) {
         return createIcon([icon.res, 'fa-fw']);
       }
+      if (icon.style === IconStyle.SI) {
+        return createIcon([icon.res]);
+      }
       if (icon.style === IconStyle.SVG) {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('viewBox', '0 0 10 10');

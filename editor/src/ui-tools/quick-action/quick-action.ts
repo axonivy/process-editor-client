@@ -75,7 +75,7 @@ export interface QuickAction {
 class DeleteQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-solid fa-trash',
+    public readonly icon = 'si si-delete',
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'A',
