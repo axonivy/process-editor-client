@@ -44,7 +44,7 @@ import { Executable, executionFeature } from '../execution/model';
 import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
 import { WithCustomIcon } from './icon/model';
-import { ActivityTypes, LabelType, LaneTypes } from './view-types';
+import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
 export class IvyGLSPGraph extends GLSPGraph {
@@ -308,7 +308,7 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
   }
 
   get editableLabel(): (SChildElement & EditableLabel) | undefined {
-    return findEditableLabel(this, LabelType.DEFAULT);
+    return findEditableLabel(this, EdgeTypes.LABEL);
   }
 }
 
@@ -325,19 +325,23 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
   }
 
   get labelBounds(): Bounds {
-    const textDimension = this.textWidth(this.text, this.font());
-    return { x: -textDimension.width / 2, y: 0, width: textDimension.width, height: textDimension.height * this.text.split('\n').length };
+    const font = this.font();
+    const lines = this.text.split('\n');
+    const textWidth = Math.max(...lines.map(line => this.textWidth(line, font)));
+    const textHeight = 14 * lines.length;
+    return { x: -textWidth / 2, y: 0, width: textWidth, height: textHeight };
   }
 
-  textWidth(text: string, font: string): Dimension {
+  textWidth(text: string, font: string): number {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     if (context) {
       context.font = font;
       const metrics = context.measureText(text);
-      return { width: metrics.width, height: 14 };
+      console.log(`${text} ${metrics.width}`);
+      return metrics.width;
     }
-    return { width: this.bounds.width, height: this.bounds.height };
+    return this.bounds.width;
   }
 
   font(el = document.body): string {
@@ -349,6 +353,12 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
   cssStyle(element: HTMLElement, prop: string): string {
     return window.getComputedStyle(element, undefined).getPropertyValue(prop);
+  }
+}
+
+export class EdgeLabel extends MulitlineEditLabel {
+  get labelBounds(): Bounds {
+    return { ...super.labelBounds, y: -super.labelBounds.height / 2 };
   }
 }
 
