@@ -146,13 +146,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   }
 
   get labelBounds(): Bounds {
-    return { x: -this.bounds.width / 2 + 3, y: 18, width: this.bounds.width - 6, height: this.bounds.height - 18 };
-  }
-}
-
-export class SubActivityNode extends ActivityNode {
-  get labelBounds(): Bounds {
-    return { ...super.labelBounds, height: super.labelBounds.height - 14 };
+    return { x: -this.bounds.width / 2 + 3, y: 0, width: this.bounds.width - 6, height: this.bounds.height };
   }
 }
 

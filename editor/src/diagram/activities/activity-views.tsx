@@ -32,9 +32,9 @@ export class ActivityNodeView extends RectangularNodeView {
           height={height}
           style={{ stroke: node.color }}
         ></rect>
+        {context.renderChildren(node)}
         {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon, node.color)}
         {this.getNodeDecorator(node)}
-        {context.renderChildren(node)}
         {createExecutionBadge(node, width)}
       </g>
     );

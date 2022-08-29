@@ -158,11 +158,15 @@ g[class^='end'] .sprotty-node {
   max-height: 100%;
   overflow: hidden;
 }
+.node-child-label > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .processAnnotation .sprotty-label div {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   text-align: left;
+  justify-content: start;
 }
 .sprotty-icon {
   border-radius: 3px;

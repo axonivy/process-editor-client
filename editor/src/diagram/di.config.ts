@@ -39,8 +39,7 @@ import {
   LaneNode,
   MulitlineEditLabel,
   RotateLabel,
-  StartEventNode,
-  SubActivityNode
+  StartEventNode
 } from './model';
 import { IvyGridSnapper } from './snap';
 import {
@@ -171,7 +170,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   function configureEmbedded(type: string, features?: CustomFeatures): void {
     configureIvyModelElement(
       type,
-      SubActivityNode,
+      ActivityNode,
       SubActivityNodeView,
       features ? features : { enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature] }
     );
