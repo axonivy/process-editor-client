@@ -3,35 +3,129 @@ import { createElement } from '../../../utils/ui-utils';
 import { ChangeColorOperation } from './action';
 
 export class EditColorUi {
-  public static DIALOG_CLOSE = 'close';
-  public static DIALOG_CONFIRM = 'confirm';
-  public static DIALOG_DELETE = 'delete';
-  private static NAME_INPUT_ID = 'editInputName';
-  private static COLOR_INPUT_ID = 'editInputColor';
-  private static COLOR_PICKER_INPUT_ID = 'editInputColorPicker';
-
-  private dialog: HTMLElement;
+  private editUi: HTMLElement;
   private item?: PaletteItem;
+  private colorNameInput: HTMLInputElement;
+  private colorInput: HTMLInputElement;
+  private colorPickerInput?: HTMLInputElement;
+  private colorPickerDecorator?: HTMLElement;
+  private deleteBtn?: HTMLButtonElement;
 
   constructor(readonly actionDispatcher: IActionDispatcher, readonly elementIds: string[], containerElement: HTMLElement) {
-    this.dialog = this.createEditDialog(containerElement);
-    this.dialog.addEventListener('close', this.dialogClosed);
+    this.editUi = this.createEditUi(containerElement);
   }
 
-  dialogClosed = ({ target: dialog }: any): void => {
-    const dialogFormData = new FormData(dialog.querySelector('form'));
-    this.handleEditDialogClose(dialog.returnValue, dialogFormData);
-    dialog.querySelector('form')?.reset();
-  };
-
-  handleEditDialogClose(returnValue: string, formData: FormData): void {
-    switch (returnValue) {
-      case EditColorUi.DIALOG_DELETE:
-        this.deleteColor();
-        break;
-      case EditColorUi.DIALOG_CONFIRM:
-        this.changeColor(formData);
+  public showEditUi(item?: PaletteItem): void {
+    this.item = item;
+    this.setInputValue(this.colorNameInput, item?.label);
+    this.setInputValue(this.colorInput, item?.icon);
+    this.setInputValue(this.colorPickerInput, item?.icon);
+    if (this.colorPickerDecorator) {
+      this.colorPickerDecorator.style.backgroundColor = item?.icon ?? '';
     }
+    if (this.deleteBtn) {
+      this.deleteBtn.style.display = item ? 'block' : 'none';
+    }
+    this.editUi.style.display = 'block';
+  }
+
+  private setInputValue(inputElement?: HTMLInputElement, value?: string): void {
+    if (inputElement) {
+      inputElement.value = value ?? '';
+    }
+  }
+
+  private createEditUi(containerElement: HTMLElement): HTMLElement {
+    const editUi = createElement('div', ['edit-color']);
+    editUi.appendChild(this.createBody());
+    editUi.appendChild(this.createFooter());
+    containerElement.appendChild(editUi);
+    return editUi;
+  }
+
+  private createBody(): HTMLElement {
+    const body = createElement('div', ['edit-color-body']);
+    const [nameDiv, nameInput] = this.createInput('Name', this.colorNameInput);
+    body.appendChild(nameDiv);
+    this.colorNameInput = nameInput;
+    const [colorDiv, colorInput] = this.createInput('Color', this.colorInput, true);
+    body.appendChild(colorDiv);
+    this.colorInput = colorInput;
+    return body;
+  }
+
+  private createInput(labelText: string, input?: HTMLInputElement, showColorPicker = false): [HTMLElement, HTMLInputElement] {
+    const id = `input-${labelText}`;
+    const div = createElement('div', ['edit-color-input']);
+    const label = createElement('label') as HTMLLabelElement;
+    label.htmlFor = id;
+    label.textContent = labelText;
+    div.appendChild(label);
+
+    input = document.createElement('input');
+    input.name = labelText;
+    input.id = id;
+    if (showColorPicker) {
+      const colorDiv = createElement('div', ['color-picker']);
+      this.colorPickerDecorator = createElement('span', ['decorator']);
+      this.colorPickerInput = document.createElement('input');
+      this.colorPickerDecorator.onclick = () => this.colorPickerInput!.click();
+      this.colorPickerInput.type = 'color';
+      this.colorPickerInput.onchange = e => this.colorInputChange(e.target);
+      input.onchange = e => this.colorInputChange(e.target);
+      colorDiv.appendChild(this.colorPickerDecorator);
+      colorDiv.appendChild(this.colorPickerInput);
+      colorDiv.appendChild(input);
+      div.appendChild(colorDiv);
+    } else {
+      div.appendChild(input);
+    }
+    return [div, input];
+  }
+
+  private colorInputChange(inputElement: EventTarget | null): void {
+    if (inputElement instanceof HTMLInputElement) {
+      const value = inputElement.value;
+      this.colorPickerInput!.value = value;
+      this.colorPickerDecorator!.style.backgroundColor = value;
+      this.colorInput!.value = value;
+    }
+  }
+
+  private createFooter(): HTMLElement {
+    const footer = createElement('footer', ['edit-color-footer']);
+    this.deleteBtn = createElement('button', ['edit-color-delete']) as HTMLButtonElement;
+    this.deleteBtn.textContent = 'Delete';
+    this.deleteBtn.autofocus = true;
+    this.deleteBtn.type = 'button';
+    this.deleteBtn.onclick = () => this.deleteColor();
+    const confirmBtn = createElement('button', ['edit-color-save']) as HTMLButtonElement;
+    confirmBtn.textContent = 'Save';
+    confirmBtn.type = 'button';
+    confirmBtn.onclick = e => this.validateInputsAndRun(() => this.changeColor());
+    footer.appendChild(this.deleteBtn);
+    footer.appendChild(confirmBtn);
+    return footer;
+  }
+
+  private validateInputsAndRun(callable: () => void): void {
+    const validNameInput = this.validateInput(this.colorNameInput);
+    const validColorInput = this.validateInput(this.colorInput);
+    if (validNameInput && validColorInput) {
+      callable();
+    }
+  }
+
+  private validateInput(inputElement?: HTMLInputElement): boolean {
+    if (inputElement) {
+      if (inputElement.value === '') {
+        inputElement.classList.add('error');
+        return false;
+      } else {
+        inputElement.classList.remove('error');
+      }
+    }
+    return true;
   }
 
   deleteColor(): void {
@@ -40,115 +134,9 @@ export class EditColorUi {
     }
   }
 
-  changeColor(formData: FormData): void {
-    const newColor = Object.fromEntries(formData.entries());
-    const colorName = newColor.Name.toString();
-    const color = newColor.Color.toString();
+  changeColor(): void {
+    const colorName = this.colorNameInput?.value ?? '';
+    const color = this.colorInput?.value ?? '';
     this.actionDispatcher.dispatch(ChangeColorOperation.create({ elementIds: this.elementIds, color: color, colorName: colorName }));
-  }
-
-  public showDialog(item?: PaletteItem): void {
-    this.item = item;
-    this.setInputValue(EditColorUi.NAME_INPUT_ID, item?.label ?? '');
-    this.setInputValue(EditColorUi.COLOR_INPUT_ID, item?.icon ?? '');
-    this.setInputValue(EditColorUi.COLOR_PICKER_INPUT_ID, item?.icon ?? '');
-    const deleteBtn = this.dialog.querySelector('.edit-color-delete-btn') as HTMLElement;
-    if (deleteBtn) {
-      deleteBtn.style.display = item ? 'block' : 'none';
-    }
-    (this.dialog as any).showModal();
-  }
-
-  private setInputValue(id: string, value: string): void {
-    const input = this.dialog.querySelector(`#${id}`) as HTMLInputElement;
-    if (input) {
-      input.value = value;
-    }
-  }
-
-  private getInputElement(id: string): HTMLInputElement | undefined {
-    return this.dialog.querySelector(`#${id}`) as HTMLInputElement;
-  }
-
-  private createEditDialog(containerElement: HTMLElement): HTMLElement {
-    const dialog = createElement('dialog', ['edit-color-dialog']);
-    const form = createElement('form', ['edit-color-form']) as HTMLFormElement;
-    form.method = 'dialog';
-    form.appendChild(this.createDialogBody());
-    form.appendChild(this.createFooter());
-    dialog.appendChild(form);
-    containerElement.appendChild(dialog);
-    return dialog;
-  }
-
-  private createDialogBody(): HTMLElement {
-    const body = createElement('div', ['edit-color-body']);
-    body.appendChild(this.createInput(EditColorUi.NAME_INPUT_ID, 'Name'));
-    body.appendChild(this.createInput(EditColorUi.COLOR_INPUT_ID, 'Color', true));
-    return body;
-  }
-
-  private createInput(id: string, labelText: string, showColorPicker = false): HTMLElement {
-    const div = createElement('div', ['edit-color-input']);
-    const label = createElement('label') as HTMLLabelElement;
-    label.htmlFor = id;
-    label.textContent = labelText;
-    const input = document.createElement('input');
-    input.name = labelText;
-    input.id = id;
-    div.appendChild(label);
-    if (showColorPicker) {
-      const colorPicker = document.createElement('input');
-      colorPicker.id = id + 'Picker';
-      colorPicker.type = 'color';
-      colorPicker.onchange = e => (input.value = (e.target as HTMLInputElement).value);
-      div.appendChild(colorPicker);
-      input.onchange = e => (colorPicker.value = (e.target as HTMLInputElement).value);
-    }
-    div.appendChild(input);
-    return div;
-  }
-
-  private createFooter(): HTMLElement {
-    const footer = createElement('footer', ['edit-color-footer']);
-    const deleteBtn = createElement('button', ['edit-color-delete-btn']) as HTMLButtonElement;
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.autofocus = true;
-    deleteBtn.type = 'submit';
-    deleteBtn.value = EditColorUi.DIALOG_DELETE;
-    const cancelBtn = createElement('button', ['edit-color-cancel-btn']) as HTMLButtonElement;
-    cancelBtn.textContent = 'Cancel';
-    cancelBtn.autofocus = true;
-    cancelBtn.type = 'button';
-    cancelBtn.onclick = e => (this.dialog as any).close(EditColorUi.DIALOG_CLOSE);
-    const confirmBtn = createElement('button', ['edit-color-confirm-btn']) as HTMLButtonElement;
-    confirmBtn.textContent = 'Ok';
-    confirmBtn.type = 'button';
-    confirmBtn.onclick = e => this.validateInputsAndRun(() => (this.dialog as any).close(EditColorUi.DIALOG_CONFIRM));
-    footer.appendChild(deleteBtn);
-    footer.appendChild(cancelBtn);
-    footer.appendChild(confirmBtn);
-    return footer;
-  }
-
-  private validateInputsAndRun(callable: () => void): void {
-    const validNameInput = this.validateInput(EditColorUi.NAME_INPUT_ID);
-    const validColorInput = this.validateInput(EditColorUi.COLOR_INPUT_ID);
-    if (validNameInput && validColorInput) {
-      callable();
-    }
-  }
-
-  private validateInput(inputId: string): boolean {
-    const input = this.getInputElement(inputId);
-    if (input) {
-      if (input.value === '') {
-        input.classList.add('error');
-        return false;
-      } else {
-        input.classList.remove('error');
-      }
-    }
-    return true;
   }
 }

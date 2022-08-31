@@ -1,8 +1,8 @@
 import { Action, GIssueMarker, IActionDispatcher, PaletteItem, SIssue } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { createElement, createIcon } from '../../utils/ui-utils';
-import { EditColorUi } from './color/edit-color-ui';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
+import { EditColorUi } from './color/edit-color-ui';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
   kind: typeof ShowQuickActionMenuAction.KIND;
@@ -43,7 +43,7 @@ export namespace ShowQuickActionMenuAction {
 
 export class QuickActionMenu extends ItemMenu {
   protected menuCssClass = ['bar-menu', 'quick-action-bar-menu'];
-  protected editDialog?: EditColorUi;
+  protected editUi?: EditColorUi;
 
   constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowQuickActionMenuAction) {
     super(actionDispatcher, action);
@@ -51,7 +51,7 @@ export class QuickActionMenu extends ItemMenu {
 
   protected appendMenuParts(body: HTMLElement): void {
     if (this.action.isEditable) {
-      this.editDialog = new EditColorUi(this.actionDispatcher, this.action.elementIds, body);
+      this.editUi = new EditColorUi(this.actionDispatcher, this.action.elementIds, body);
     }
   }
 
@@ -59,9 +59,14 @@ export class QuickActionMenu extends ItemMenu {
     this.bodyDiv?.remove();
   }
 
-  protected appendToGroupHeader(groupHeader: HTMLElement): void {
+  protected appendItemToGroup(group: HTMLElement): void {
     if (this.action.isEditable) {
-      groupHeader.appendChild(this.createEditButton('fa-add', 'Add Color'));
+      const button = createElement('div', [ItemMenu.ITEM_BUTTON, 'new-color-btn']);
+      button.appendChild(createElement('span', ['new-color-icon', 'fa-solid', 'fa-add', 'fa-fw']));
+      button.insertAdjacentText('beforeend', 'New Color');
+      button.onclick = () => this.editUi?.showEditUi();
+      button.onmouseenter = _ev => this.focusButton(button);
+      group.appendChild(button);
     }
   }
 
@@ -75,12 +80,12 @@ export class QuickActionMenu extends ItemMenu {
     }
   }
 
-  private createEditButton(icon: string, title: string, item?: PaletteItem): HTMLElement {
+  private createEditButton(icon: string, title: string, item: PaletteItem): HTMLElement {
     const editButton = createIcon(['fa-solid', icon, 'color-edit-button']);
     editButton.title = title;
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
-      this.editDialog?.showDialog(item);
+      this.editUi?.showEditUi(item);
     };
     return editButton;
   }
