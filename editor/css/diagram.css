@@ -67,9 +67,9 @@ body {
 }
 .sprotty-resize-handle.selected {
   fill: var(--glsp-editor-selected);
-  r: 4;
-  stroke: var(--glsp-editor-background);
-  stroke-width: 2;
+  r: 3;
+  stroke: var(--glsp-editor-foreground);
+  stroke-width: 1;
 }
 .sprotty-resize-handle[data-kind='bottom-right'],
 .sprotty-resize-handle[data-kind='top-left'] {
@@ -122,15 +122,24 @@ g[class^='end'] .sprotty-node {
 .sprotty-edge.selected,
 .sprotty-edge.mouseover:not(.selected) path {
   stroke-width: 2px;
+  stroke: var(--glsp-editor-selected);
 }
 .sprotty-edge.arrow {
   fill: var(--glsp-editor-foreground);
 }
+.sprotty-edge.selected .arrow {
+  fill: var(--glsp-editor-selected);
+  stroke: var(--glsp-editor-selected);
+}
 .sprotty-edge > .sprotty-routing-handle {
-  r: 5px;
   fill: var(--glsp-foreground);
   stroke: none;
   z-index: 1000;
+  r: 3;
+  stroke: var(--glsp-editor-foreground);
+  stroke-width: 1;
+  stroke-dasharray: none;
+  cursor: move;
 }
 .sprotty-edge > .sprotty-routing-handle[data-kind='line'] {
   opacity: 0.35;

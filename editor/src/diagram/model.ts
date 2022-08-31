@@ -332,7 +332,6 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
     if (context) {
       context.font = font;
       const metrics = context.measureText(text);
-      console.log(`${text} ${metrics.width}`);
       return metrics.width;
     }
     return this.bounds.width;
