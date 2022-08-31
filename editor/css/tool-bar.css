@@ -19,8 +19,10 @@
   width: 33%;
 }
 .tool-bar-header .middle-buttons {
-  min-width: 225px;
   justify-content: center;
+}
+.tool-bar-header .middle-buttons .tool-bar-title-button {
+  min-width: 45px;
 }
 .tool-bar-header .right-buttons {
   justify-content: end;
@@ -74,8 +76,13 @@
   border-radius: 2px;
 }
 
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 600px) {
   .tool-bar-header .middle-buttons .tool-bar-title-button:not(:first-child) {
+    display: none;
+  }
+}
+@media screen and (max-width: 400px) {
+  .tool-bar-header .edit-buttons {
     display: none;
   }
 }
