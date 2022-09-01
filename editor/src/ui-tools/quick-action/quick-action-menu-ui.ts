@@ -76,18 +76,31 @@ export class QuickActionMenu extends ItemMenu {
 
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {
     if (this.action.isEditable && item.label !== 'default') {
-      button.appendChild(this.createEditButton('si-edit', 'Edit Color', item));
+      button.appendChild(this.createEditButton(item));
     }
   }
 
-  private createEditButton(icon: string, title: string, item: PaletteItem): HTMLElement {
-    const editButton = createIcon(['si', icon, 'color-edit-button']);
-    editButton.title = title;
+  private createEditButton(item: PaletteItem): HTMLElement {
+    const editButton = createIcon(['si', 'si-edit', 'color-edit-button']);
+    editButton.title = 'Edit Color';
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
       this.editUi?.showEditUi(item);
     };
     return editButton;
+  }
+
+  protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+    if (this.action.isEditable) {
+      if (item.icon && item.icon.length > 0) {
+        const span = createElement('span', ['color-icon']);
+        span.style.backgroundColor = item.icon;
+        return span;
+      } else {
+        return createElement('span', ['empty-icon']);
+      }
+    }
+    return super.appendPaletteIcon(button, item);
   }
 }
 

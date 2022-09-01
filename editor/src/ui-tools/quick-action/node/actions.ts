@@ -13,7 +13,7 @@ import {
   SetUIExtensionVisibilityAction
 } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
-import { ActivityTypes } from '../../../diagram/view-types';
+import { ActivityTypes, EventBoundaryTypes } from '../../../diagram/view-types';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
@@ -213,7 +213,7 @@ function boundaryEventGroup(element: SModelElement): PaletteItem | undefined {
       label: 'Error Boundary',
       sortString: 'A',
       actions: [AttachBoundaryOperation.create({ elementId: element.id, eventKind: 'error' })],
-      icon: 'std:Error'
+      icon: EventBoundaryTypes.BOUNDARY_ERROR
     });
   }
   if (canAddSignalBoundary(element)) {
@@ -222,7 +222,7 @@ function boundaryEventGroup(element: SModelElement): PaletteItem | undefined {
       label: 'Signal Boundary',
       sortString: 'B',
       actions: [AttachBoundaryOperation.create({ elementId: element.id, eventKind: 'signal' })],
-      icon: 'std:Signal'
+      icon: EventBoundaryTypes.BOUNDARY_SIGNAL
     });
   }
   if (children.length === 0) {

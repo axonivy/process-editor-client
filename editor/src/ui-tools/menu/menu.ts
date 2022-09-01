@@ -1,7 +1,7 @@
 import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { createElement, createIcon } from '../../utils/ui-utils';
-import { IconStyle, resolvePaletteIcon } from '../../diagram/icon/icons';
+import { MenuIcons } from './icons';
 
 export interface ShowMenuAction extends Action {
   paletteItems: () => PaletteItem[];
@@ -211,28 +211,10 @@ export abstract class ItemMenu implements Menu {
   }
 
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
-    if (item.icon) {
-      const icon = resolvePaletteIcon(item.icon);
-      if (icon.style === IconStyle.FA) {
-        return createIcon([icon.res, 'fa-fw']);
-      }
-      if (icon.style === IconStyle.SI) {
-        return createIcon([icon.res]);
-      }
-      if (icon.style === IconStyle.SVG) {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', '0 0 10 10');
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path.setAttribute('d', icon.res);
-        svg.appendChild(path);
-        return svg;
-      }
-      if (icon.style === IconStyle.UNKNOWN) {
-        const span = createElement('span', ['color-icon']);
-        span.style.backgroundColor = item.icon;
-        return span;
-      }
+    const icon = MenuIcons.get(item.icon!);
+    if (icon) {
+      return createIcon(['si', `si-${icon ?? ''}`, 'fa-fw']);
     }
-    return createElement('span', ['empty-icon']);
+    return createIcon([]);
   }
 }

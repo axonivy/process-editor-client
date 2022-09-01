@@ -1,7 +1,15 @@
 import { StreamlineIcons } from '../../StreamlineIcons';
-import { ActivityTypes, EventEndTypes, EventIntermediateTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../../diagram/view-types';
+import {
+  ActivityTypes,
+  EventBoundaryTypes,
+  EventEndTypes,
+  EventIntermediateTypes,
+  EventStartTypes,
+  GatewayTypes,
+  LaneTypes
+} from '../../diagram/view-types';
 
-export const ToolbarIcons = new Map<string, string>([
+export const MenuIcons = new Map<string, string>([
   // Start Events
   [EventStartTypes.START, StreamlineIcons.Start],
   [EventStartTypes.START_SIGNAL, StreamlineIcons.Signal],
@@ -10,6 +18,9 @@ export const ToolbarIcons = new Map<string, string>([
   // Intermediate Events
   [EventIntermediateTypes.INTERMEDIATE_TASK, StreamlineIcons.Task],
   [EventIntermediateTypes.INTERMEDIATE_WAIT, StreamlineIcons.Wait],
+  // Boundary Events
+  [EventBoundaryTypes.BOUNDARY_ERROR, StreamlineIcons.ErrorEvent],
+  [EventBoundaryTypes.BOUNDARY_SIGNAL, StreamlineIcons.Signal],
   // End Events
   [EventEndTypes.END, StreamlineIcons.End],
   [EventEndTypes.END_PAGE, StreamlineIcons.EndPage],
