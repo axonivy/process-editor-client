@@ -6,6 +6,7 @@
   width: 99%;
   height: 99%;
   box-shadow: var(--glsp-box-shadow);
+  z-index: 100;
 }
 
 .label-edit input:focus,
