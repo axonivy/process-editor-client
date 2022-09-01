@@ -1,10 +1,10 @@
 @font-face {
   font-family: "StreamlineIcons";
-  src: url("./StreamlineIcons.ttf?b15c21887f496ec8d899330268159eba") format("truetype"),
-url("./StreamlineIcons.woff?b15c21887f496ec8d899330268159eba") format("woff"),
-url("./StreamlineIcons.woff2?b15c21887f496ec8d899330268159eba") format("woff2"),
-url("./StreamlineIcons.eot?b15c21887f496ec8d899330268159eba#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?b15c21887f496ec8d899330268159eba#StreamlineIcons") format("svg");
+  src: url("./StreamlineIcons.ttf?4e44bec06abbe7af78452582ab8daae0") format("truetype"),
+url("./StreamlineIcons.woff?4e44bec06abbe7af78452582ab8daae0") format("woff"),
+url("./StreamlineIcons.woff2?4e44bec06abbe7af78452582ab8daae0") format("woff2"),
+url("./StreamlineIcons.eot?4e44bec06abbe7af78452582ab8daae0#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?4e44bec06abbe7af78452582ab8daae0#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -223,174 +223,168 @@ i[class^="si-"]:before, i[class*=" si-"]:before {
 .si-database:before {
   content: "\f114";
 }
-.si-database2:before {
+.si-delete:before {
   content: "\f115";
 }
-.si-delete:before {
+.si-dialogs:before {
   content: "\f116";
 }
-.si-dialogs:before {
+.si-e-mail-icon:before {
   content: "\f117";
 }
-.si-e-mail-icon:before {
+.si-e-mail:before {
   content: "\f118";
 }
-.si-e-mail:before {
+.si-edit:before {
   content: "\f119";
 }
-.si-edit:before {
+.si-end-page:before {
   content: "\f11a";
 }
-.si-edit2:before {
+.si-end:before {
   content: "\f11b";
 }
-.si-end-page:before {
+.si-error:before {
   content: "\f11c";
 }
-.si-end:before {
+.si-events-group:before {
   content: "\f11d";
 }
-.si-error:before {
+.si-fit-to-screen:before {
   content: "\f11e";
 }
-.si-events-group:before {
+.si-gateways-group:before {
   content: "\f11f";
 }
-.si-fit-to-screen:before {
+.si-generic:before {
   content: "\f120";
 }
-.si-gateways-group:before {
+.si-go-to-source:before {
   content: "\f121";
 }
-.si-generic:before {
+.si-grid:before {
   content: "\f122";
 }
-.si-go-to-source:before {
+.si-helplines:before {
   content: "\f123";
 }
-.si-grid:before {
+.si-information:before {
   content: "\f124";
 }
-.si-helplines:before {
+.si-join:before {
   content: "\f125";
 }
-.si-information:before {
+.si-jump-out:before {
   content: "\f126";
 }
-.si-join:before {
+.si-jump:before {
   content: "\f127";
 }
-.si-jump-out:before {
+.si-label:before {
   content: "\f128";
 }
-.si-jump:before {
+.si-lane-swimlanes:before {
   content: "\f129";
 }
-.si-label:before {
+.si-manual:before {
   content: "\f12a";
 }
-.si-lane-swimlanes:before {
+.si-market:before {
   content: "\f12b";
 }
-.si-manual:before {
+.si-note:before {
   content: "\f12c";
 }
-.si-market:before {
+.si-origin-screen:before {
   content: "\f12d";
 }
-.si-note:before {
+.si-pen-edit:before {
   content: "\f12e";
 }
-.si-origin-screen:before {
+.si-play:before {
   content: "\f12f";
 }
-.si-pen-edit:before {
+.si-pool-swimlanes:before {
   content: "\f130";
 }
-.si-play:before {
+.si-program:before {
   content: "\f131";
 }
-.si-pool-swimlanes:before {
+.si-receive:before {
   content: "\f132";
 }
-.si-program:before {
+.si-reconnect:before {
   content: "\f133";
 }
-.si-receive:before {
+.si-redo:before {
   content: "\f134";
 }
-.si-reconnect:before {
+.si-rest-client:before {
   content: "\f135";
 }
-.si-redo:before {
+.si-rule:before {
   content: "\f136";
 }
-.si-rest-client:before {
+.si-script:before {
   content: "\f137";
 }
-.si-rule:before {
+.si-search:before {
   content: "\f138";
 }
-.si-script:before {
+.si-send:before {
   content: "\f139";
 }
-.si-search:before {
+.si-service:before {
   content: "\f13a";
 }
-.si-send:before {
+.si-settings:before {
   content: "\f13b";
 }
-.si-service:before {
+.si-signal:before {
   content: "\f13c";
 }
-.si-settings:before {
+.si-split:before {
   content: "\f13d";
 }
-.si-signal:before {
+.si-start-program:before {
   content: "\f13e";
 }
-.si-split:before {
+.si-start:before {
   content: "\f13f";
 }
-.si-start-program:before {
+.si-straighten:before {
   content: "\f140";
 }
-.si-start:before {
+.si-sub:before {
   content: "\f141";
 }
-.si-straighten:before {
+.si-task:before {
   content: "\f142";
 }
-.si-sub:before {
+.si-trigger:before {
   content: "\f143";
 }
-.si-task:before {
+.si-undo:before {
   content: "\f144";
 }
-.si-trigger:before {
+.si-unwrap:before {
   content: "\f145";
 }
-.si-undo:before {
+.si-user-dialog:before {
   content: "\f146";
 }
-.si-unwrap:before {
+.si-user-task:before {
   content: "\f147";
 }
-.si-user-dialog:before {
+.si-user:before {
   content: "\f148";
 }
-.si-user-task:before {
+.si-wait:before {
   content: "\f149";
 }
-.si-user:before {
+.si-web-service:before {
   content: "\f14a";
 }
-.si-wait:before {
-  content: "\f14b";
-}
-.si-web-service:before {
-  content: "\f14c";
-}
 .si-wrap-to-subprocess:before {
-  content: "\f14d";
+  content: "\f14b";
 }
