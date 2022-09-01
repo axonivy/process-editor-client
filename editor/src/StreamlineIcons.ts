@@ -3,6 +3,7 @@ export type StreamlineIconsId =
   | "align-horizontal"
   | "align-vertical"
   | "all-elements"
+  | "alternative-element"
   | "alternative"
   | "auto-align"
   | "bend"
@@ -21,7 +22,7 @@ export type StreamlineIconsId =
   | "database"
   | "delete"
   | "dialogs"
-  | "e-mail-icon"
+  | "e-mail-element"
   | "e-mail"
   | "edit"
   | "end-page"
@@ -70,6 +71,7 @@ export type StreamlineIconsId =
   | "trigger"
   | "undo"
   | "unwrap"
+  | "user-dialog-element"
   | "user-dialog"
   | "user-task"
   | "user"
@@ -82,6 +84,7 @@ export type StreamlineIconsKey =
   | "AlignHorizontal"
   | "AlignVertical"
   | "AllElements"
+  | "AlternativeElement"
   | "Alternative"
   | "AutoAlign"
   | "Bend"
@@ -100,7 +103,7 @@ export type StreamlineIconsKey =
   | "Database"
   | "Delete"
   | "Dialogs"
-  | "EMailIcon"
+  | "EMailElement"
   | "EMail"
   | "Edit"
   | "EndPage"
@@ -149,6 +152,7 @@ export type StreamlineIconsKey =
   | "Trigger"
   | "Undo"
   | "Unwrap"
+  | "UserDialogElement"
   | "UserDialog"
   | "UserTask"
   | "User"
@@ -161,6 +165,7 @@ export enum StreamlineIcons {
   AlignHorizontal = "align-horizontal",
   AlignVertical = "align-vertical",
   AllElements = "all-elements",
+  AlternativeElement = "alternative-element",
   Alternative = "alternative",
   AutoAlign = "auto-align",
   Bend = "bend",
@@ -179,7 +184,7 @@ export enum StreamlineIcons {
   Database = "database",
   Delete = "delete",
   Dialogs = "dialogs",
-  EMailIcon = "e-mail-icon",
+  EMailElement = "e-mail-element",
   EMail = "e-mail",
   Edit = "edit",
   EndPage = "end-page",
@@ -228,6 +233,7 @@ export enum StreamlineIcons {
   Trigger = "trigger",
   Undo = "undo",
   Unwrap = "unwrap",
+  UserDialogElement = "user-dialog-element",
   UserDialog = "user-dialog",
   UserTask = "user-task",
   User = "user",
@@ -241,77 +247,79 @@ export const STREAMLINE_ICONS_CODEPOINTS: { [key in StreamlineIcons]: string } =
   [StreamlineIcons.AlignHorizontal]: "61698",
   [StreamlineIcons.AlignVertical]: "61699",
   [StreamlineIcons.AllElements]: "61700",
-  [StreamlineIcons.Alternative]: "61701",
-  [StreamlineIcons.AutoAlign]: "61702",
-  [StreamlineIcons.Bend]: "61703",
-  [StreamlineIcons.Bug]: "61704",
-  [StreamlineIcons.Call]: "61705",
-  [StreamlineIcons.Caution]: "61706",
-  [StreamlineIcons.Center]: "61707",
-  [StreamlineIcons.Color]: "61708",
-  [StreamlineIcons.Comment]: "61709",
-  [StreamlineIcons.Connector]: "61710",
-  [StreamlineIcons.CursorSelect]: "61711",
-  [StreamlineIcons.Cursor]: "61712",
-  [StreamlineIcons.CustomIcon]: "61713",
-  [StreamlineIcons.Darkmode]: "61714",
-  [StreamlineIcons.DataModels]: "61715",
-  [StreamlineIcons.Database]: "61716",
-  [StreamlineIcons.Delete]: "61717",
-  [StreamlineIcons.Dialogs]: "61718",
-  [StreamlineIcons.EMailIcon]: "61719",
-  [StreamlineIcons.EMail]: "61720",
-  [StreamlineIcons.Edit]: "61721",
-  [StreamlineIcons.EndPage]: "61722",
-  [StreamlineIcons.End]: "61723",
-  [StreamlineIcons.ErrorEvent]: "61724",
-  [StreamlineIcons.Error]: "61725",
-  [StreamlineIcons.EventsGroup]: "61726",
-  [StreamlineIcons.FitToScreen]: "61727",
-  [StreamlineIcons.GatewaysGroup]: "61728",
-  [StreamlineIcons.Generic]: "61729",
-  [StreamlineIcons.GoToSource]: "61730",
-  [StreamlineIcons.Grid]: "61731",
-  [StreamlineIcons.Helplines]: "61732",
-  [StreamlineIcons.Information]: "61733",
-  [StreamlineIcons.Join]: "61734",
-  [StreamlineIcons.JumpOut]: "61735",
-  [StreamlineIcons.Jump]: "61736",
-  [StreamlineIcons.Label]: "61737",
-  [StreamlineIcons.LaneSwimlanes]: "61738",
-  [StreamlineIcons.Manual]: "61739",
-  [StreamlineIcons.Market]: "61740",
-  [StreamlineIcons.Note]: "61741",
-  [StreamlineIcons.OriginScreen]: "61742",
-  [StreamlineIcons.PenEdit]: "61743",
-  [StreamlineIcons.Play]: "61744",
-  [StreamlineIcons.PoolSwimlanes]: "61745",
-  [StreamlineIcons.Program]: "61746",
-  [StreamlineIcons.Receive]: "61747",
-  [StreamlineIcons.Reconnect]: "61748",
-  [StreamlineIcons.Redo]: "61749",
-  [StreamlineIcons.RestClient]: "61750",
-  [StreamlineIcons.Rule]: "61751",
-  [StreamlineIcons.Script]: "61752",
-  [StreamlineIcons.Search]: "61753",
-  [StreamlineIcons.Send]: "61754",
-  [StreamlineIcons.Service]: "61755",
-  [StreamlineIcons.Settings]: "61756",
-  [StreamlineIcons.Signal]: "61757",
-  [StreamlineIcons.Split]: "61758",
-  [StreamlineIcons.StartProgram]: "61759",
-  [StreamlineIcons.Start]: "61760",
-  [StreamlineIcons.Straighten]: "61761",
-  [StreamlineIcons.Sub]: "61762",
-  [StreamlineIcons.Task]: "61763",
-  [StreamlineIcons.Tasks]: "61764",
-  [StreamlineIcons.Trigger]: "61765",
-  [StreamlineIcons.Undo]: "61766",
-  [StreamlineIcons.Unwrap]: "61767",
-  [StreamlineIcons.UserDialog]: "61768",
-  [StreamlineIcons.UserTask]: "61769",
-  [StreamlineIcons.User]: "61770",
-  [StreamlineIcons.Wait]: "61771",
-  [StreamlineIcons.WebService]: "61772",
-  [StreamlineIcons.WrapToSubprocess]: "61773",
+  [StreamlineIcons.AlternativeElement]: "61701",
+  [StreamlineIcons.Alternative]: "61702",
+  [StreamlineIcons.AutoAlign]: "61703",
+  [StreamlineIcons.Bend]: "61704",
+  [StreamlineIcons.Bug]: "61705",
+  [StreamlineIcons.Call]: "61706",
+  [StreamlineIcons.Caution]: "61707",
+  [StreamlineIcons.Center]: "61708",
+  [StreamlineIcons.Color]: "61709",
+  [StreamlineIcons.Comment]: "61710",
+  [StreamlineIcons.Connector]: "61711",
+  [StreamlineIcons.CursorSelect]: "61712",
+  [StreamlineIcons.Cursor]: "61713",
+  [StreamlineIcons.CustomIcon]: "61714",
+  [StreamlineIcons.Darkmode]: "61715",
+  [StreamlineIcons.DataModels]: "61716",
+  [StreamlineIcons.Database]: "61717",
+  [StreamlineIcons.Delete]: "61718",
+  [StreamlineIcons.Dialogs]: "61719",
+  [StreamlineIcons.EMailElement]: "61720",
+  [StreamlineIcons.EMail]: "61721",
+  [StreamlineIcons.Edit]: "61722",
+  [StreamlineIcons.EndPage]: "61723",
+  [StreamlineIcons.End]: "61724",
+  [StreamlineIcons.ErrorEvent]: "61725",
+  [StreamlineIcons.Error]: "61726",
+  [StreamlineIcons.EventsGroup]: "61727",
+  [StreamlineIcons.FitToScreen]: "61728",
+  [StreamlineIcons.GatewaysGroup]: "61729",
+  [StreamlineIcons.Generic]: "61730",
+  [StreamlineIcons.GoToSource]: "61731",
+  [StreamlineIcons.Grid]: "61732",
+  [StreamlineIcons.Helplines]: "61733",
+  [StreamlineIcons.Information]: "61734",
+  [StreamlineIcons.Join]: "61735",
+  [StreamlineIcons.JumpOut]: "61736",
+  [StreamlineIcons.Jump]: "61737",
+  [StreamlineIcons.Label]: "61738",
+  [StreamlineIcons.LaneSwimlanes]: "61739",
+  [StreamlineIcons.Manual]: "61740",
+  [StreamlineIcons.Market]: "61741",
+  [StreamlineIcons.Note]: "61742",
+  [StreamlineIcons.OriginScreen]: "61743",
+  [StreamlineIcons.PenEdit]: "61744",
+  [StreamlineIcons.Play]: "61745",
+  [StreamlineIcons.PoolSwimlanes]: "61746",
+  [StreamlineIcons.Program]: "61747",
+  [StreamlineIcons.Receive]: "61748",
+  [StreamlineIcons.Reconnect]: "61749",
+  [StreamlineIcons.Redo]: "61750",
+  [StreamlineIcons.RestClient]: "61751",
+  [StreamlineIcons.Rule]: "61752",
+  [StreamlineIcons.Script]: "61753",
+  [StreamlineIcons.Search]: "61754",
+  [StreamlineIcons.Send]: "61755",
+  [StreamlineIcons.Service]: "61756",
+  [StreamlineIcons.Settings]: "61757",
+  [StreamlineIcons.Signal]: "61758",
+  [StreamlineIcons.Split]: "61759",
+  [StreamlineIcons.StartProgram]: "61760",
+  [StreamlineIcons.Start]: "61761",
+  [StreamlineIcons.Straighten]: "61762",
+  [StreamlineIcons.Sub]: "61763",
+  [StreamlineIcons.Task]: "61764",
+  [StreamlineIcons.Tasks]: "61765",
+  [StreamlineIcons.Trigger]: "61766",
+  [StreamlineIcons.Undo]: "61767",
+  [StreamlineIcons.Unwrap]: "61768",
+  [StreamlineIcons.UserDialogElement]: "61769",
+  [StreamlineIcons.UserDialog]: "61770",
+  [StreamlineIcons.UserTask]: "61771",
+  [StreamlineIcons.User]: "61772",
+  [StreamlineIcons.Wait]: "61773",
+  [StreamlineIcons.WebService]: "61774",
+  [StreamlineIcons.WrapToSubprocess]: "61775",
 };

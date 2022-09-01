@@ -1,3 +1,6 @@
+import { StreamlineIcons } from '../../StreamlineIcons';
+import { ActivityTypes, EventBoundaryTypes, EventEndTypes, EventIntermediateTypes, EventStartTypes, GatewayTypes } from '../view-types';
+
 export enum IconStyle {
   FA,
   SI,
@@ -12,6 +15,50 @@ export interface NodeIcon {
   style: IconStyle;
 }
 export const NoIcon = { res: '', style: IconStyle.NO };
+
+export const ElementIcons = new Map<string, string>([
+  // Start Events
+  [EventStartTypes.START_SIGNAL, StreamlineIcons.Signal],
+  [EventStartTypes.START_PROGRAM, StreamlineIcons.StartProgram],
+  [EventStartTypes.START_ERROR, StreamlineIcons.ErrorEvent],
+  // Intermediate Events
+  [EventIntermediateTypes.INTERMEDIATE_TASK, StreamlineIcons.Task],
+  [EventIntermediateTypes.INTERMEDIATE_WAIT, StreamlineIcons.Wait],
+  // Boundary Events
+  [EventBoundaryTypes.BOUNDARY_ERROR, StreamlineIcons.ErrorEvent],
+  [EventBoundaryTypes.BOUNDARY_SIGNAL, StreamlineIcons.Signal],
+  // End Events
+  [EventEndTypes.END_PAGE, StreamlineIcons.EndPage],
+  [EventEndTypes.END_ERROR, StreamlineIcons.ErrorEvent],
+  // Gateways
+  [GatewayTypes.ALTERNATIVE, StreamlineIcons.AlternativeElement],
+  [GatewayTypes.SPLIT, StreamlineIcons.Split],
+  [GatewayTypes.JOIN, StreamlineIcons.Join],
+  [GatewayTypes.TASK, StreamlineIcons.Tasks],
+  // Workflow Activities
+  [ActivityTypes.USER, StreamlineIcons.UserTask],
+  [ActivityTypes.HD, StreamlineIcons.UserDialogElement],
+  [ActivityTypes.SCRIPT, StreamlineIcons.Script],
+  [ActivityTypes.EMBEDDED_PROCESS, StreamlineIcons.Sub],
+  [ActivityTypes.SUB_PROCESS, StreamlineIcons.Call],
+  [ActivityTypes.TRIGGER, StreamlineIcons.Trigger],
+  // Interface Activities
+  [ActivityTypes.DB, StreamlineIcons.Database],
+  [ActivityTypes.SOAP, StreamlineIcons.WebService],
+  [ActivityTypes.REST, StreamlineIcons.RestClient],
+  [ActivityTypes.EMAIL, StreamlineIcons.EMailElement],
+  [ActivityTypes.THIRD_PARTY_RULE, StreamlineIcons.Rule],
+  [ActivityTypes.PROGRAM, StreamlineIcons.Program],
+  // BPMN Activities
+  [ActivityTypes.BPMN_GENERIC, StreamlineIcons.Generic],
+  [ActivityTypes.BPMN_USER, StreamlineIcons.User],
+  [ActivityTypes.BPMN_MANUAL, StreamlineIcons.Manual],
+  [ActivityTypes.BPMN_SCRIPT, StreamlineIcons.Script],
+  [ActivityTypes.BPMN_SERVICE, StreamlineIcons.Service],
+  [ActivityTypes.BPMN_RULE, StreamlineIcons.Rule],
+  [ActivityTypes.BPMN_SEND, StreamlineIcons.Send],
+  [ActivityTypes.BPMN_RECEIVE, StreamlineIcons.Receive]
+]);
 
 const StandardIcons: { [icon: string]: NodeIcon } = {
   // No icon
@@ -89,7 +136,8 @@ export const resolveIcon = (iconUri: string): NodeIcon => {
   } else if (iconUri.startsWith('ext:')) {
     return { res: 'fa-puzzle-piece', style: IconStyle.FA };
   }
-  return StandardIcons[iconUri] ?? { res: iconUri, style: IconStyle.UNKNOWN };
+  const elementIcon = ElementIcons.get(iconUri);
+  return elementIcon ? { res: elementIcon, style: IconStyle.SI } : { res: iconUri, style: IconStyle.UNKNOWN };
 };
 
 export const resolvePaletteIcon = (iconUri: string): NodeIcon => PaletteIcons[iconUri] ?? resolveIcon(iconUri);
