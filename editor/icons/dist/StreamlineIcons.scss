@@ -2,11 +2,11 @@ $StreamlineIcons-font: "StreamlineIcons";
 
 @font-face {
     font-family: $StreamlineIcons-font;
-    src: url("./StreamlineIcons.ttf?4e44bec06abbe7af78452582ab8daae0") format("truetype"),
-url("./StreamlineIcons.woff?4e44bec06abbe7af78452582ab8daae0") format("woff"),
-url("./StreamlineIcons.woff2?4e44bec06abbe7af78452582ab8daae0") format("woff2"),
-url("./StreamlineIcons.eot?4e44bec06abbe7af78452582ab8daae0#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?4e44bec06abbe7af78452582ab8daae0#StreamlineIcons") format("svg");
+    src: url("./StreamlineIcons.ttf?a842ba5da60503ac37893d2ff847b9ab") format("truetype"),
+url("./StreamlineIcons.woff?a842ba5da60503ac37893d2ff847b9ab") format("woff"),
+url("./StreamlineIcons.woff2?a842ba5da60503ac37893d2ff847b9ab") format("woff2"),
+url("./StreamlineIcons.eot?a842ba5da60503ac37893d2ff847b9ab#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?a842ba5da60503ac37893d2ff847b9ab#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -25,7 +25,7 @@ $StreamlineIcons-map: (
     "align-horizontal": "\f102",
     "align-vertical": "\f103",
     "all-elements": "\f104",
-    "aternative": "\f105",
+    "alternative": "\f105",
     "auto-align": "\f106",
     "bend": "\f107",
     "bug": "\f108",
@@ -48,54 +48,56 @@ $StreamlineIcons-map: (
     "edit": "\f119",
     "end-page": "\f11a",
     "end": "\f11b",
-    "error": "\f11c",
-    "events-group": "\f11d",
-    "fit-to-screen": "\f11e",
-    "gateways-group": "\f11f",
-    "generic": "\f120",
-    "go-to-source": "\f121",
-    "grid": "\f122",
-    "helplines": "\f123",
-    "information": "\f124",
-    "join": "\f125",
-    "jump-out": "\f126",
-    "jump": "\f127",
-    "label": "\f128",
-    "lane-swimlanes": "\f129",
-    "manual": "\f12a",
-    "market": "\f12b",
-    "note": "\f12c",
-    "origin-screen": "\f12d",
-    "pen-edit": "\f12e",
-    "play": "\f12f",
-    "pool-swimlanes": "\f130",
-    "program": "\f131",
-    "receive": "\f132",
-    "reconnect": "\f133",
-    "redo": "\f134",
-    "rest-client": "\f135",
-    "rule": "\f136",
-    "script": "\f137",
-    "search": "\f138",
-    "send": "\f139",
-    "service": "\f13a",
-    "settings": "\f13b",
-    "signal": "\f13c",
-    "split": "\f13d",
-    "start-program": "\f13e",
-    "start": "\f13f",
-    "straighten": "\f140",
-    "sub": "\f141",
-    "task": "\f142",
-    "trigger": "\f143",
-    "undo": "\f144",
-    "unwrap": "\f145",
-    "user-dialog": "\f146",
-    "user-task": "\f147",
-    "user": "\f148",
-    "wait": "\f149",
-    "web-service": "\f14a",
-    "wrap-to-subprocess": "\f14b",
+    "error-event": "\f11c",
+    "error": "\f11d",
+    "events-group": "\f11e",
+    "fit-to-screen": "\f11f",
+    "gateways-group": "\f120",
+    "generic": "\f121",
+    "go-to-source": "\f122",
+    "grid": "\f123",
+    "helplines": "\f124",
+    "information": "\f125",
+    "join": "\f126",
+    "jump-out": "\f127",
+    "jump": "\f128",
+    "label": "\f129",
+    "lane-swimlanes": "\f12a",
+    "manual": "\f12b",
+    "market": "\f12c",
+    "note": "\f12d",
+    "origin-screen": "\f12e",
+    "pen-edit": "\f12f",
+    "play": "\f130",
+    "pool-swimlanes": "\f131",
+    "program": "\f132",
+    "receive": "\f133",
+    "reconnect": "\f134",
+    "redo": "\f135",
+    "rest-client": "\f136",
+    "rule": "\f137",
+    "script": "\f138",
+    "search": "\f139",
+    "send": "\f13a",
+    "service": "\f13b",
+    "settings": "\f13c",
+    "signal": "\f13d",
+    "split": "\f13e",
+    "start-program": "\f13f",
+    "start": "\f140",
+    "straighten": "\f141",
+    "sub": "\f142",
+    "task": "\f143",
+    "tasks": "\f144",
+    "trigger": "\f145",
+    "undo": "\f146",
+    "unwrap": "\f147",
+    "user-dialog": "\f148",
+    "user-task": "\f149",
+    "user": "\f14a",
+    "wait": "\f14b",
+    "web-service": "\f14c",
+    "wrap-to-subprocess": "\f14d",
 );
 
 .si-activities-group:before {
@@ -110,8 +112,8 @@ $StreamlineIcons-map: (
 .si-all-elements:before {
     content: map-get($StreamlineIcons-map, "all-elements");
 }
-.si-aternative:before {
-    content: map-get($StreamlineIcons-map, "aternative");
+.si-alternative:before {
+    content: map-get($StreamlineIcons-map, "alternative");
 }
 .si-auto-align:before {
     content: map-get($StreamlineIcons-map, "auto-align");
@@ -178,6 +180,9 @@ $StreamlineIcons-map: (
 }
 .si-end:before {
     content: map-get($StreamlineIcons-map, "end");
+}
+.si-error-event:before {
+    content: map-get($StreamlineIcons-map, "error-event");
 }
 .si-error:before {
     content: map-get($StreamlineIcons-map, "error");
@@ -295,6 +300,9 @@ $StreamlineIcons-map: (
 }
 .si-task:before {
     content: map-get($StreamlineIcons-map, "task");
+}
+.si-tasks:before {
+    content: map-get($StreamlineIcons-map, "tasks");
 }
 .si-trigger:before {
     content: map-get($StreamlineIcons-map, "trigger");

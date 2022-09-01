@@ -210,7 +210,7 @@ export abstract class ItemMenu implements Menu {
     return this.itemsDiv?.querySelector(`.${ItemMenu.ITEM_BUTTON}.${ItemMenu.ACTIVE_ELEMENT}`);
   }
 
-  private appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+  protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     if (item.icon) {
       const icon = resolvePaletteIcon(item.icon);
       if (icon.style === IconStyle.FA) {
