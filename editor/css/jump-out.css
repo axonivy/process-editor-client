@@ -1,5 +1,5 @@
 .jump-out-container {
-  inset: calc(50px + 1rem) 0 0 1rem;
+  inset: calc(48px + 1rem) 0 0 1rem;
   width: 2rem;
   height: 2rem;
 }

@@ -46,7 +46,7 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
   }
 
   getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
-    return { zoom: 1, scroll: { x: 0, y: -50 } };
+    return { zoom: 1, scroll: { x: 0, y: -48 } };
   }
 }
 

@@ -1,10 +1,20 @@
-import { DelKeyDeleteTool, EdgeCreationTool, EdgeEditTool, TYPES, MouseDeleteTool, configureActionHandler } from '@eclipse-glsp/client';
+import {
+  DelKeyDeleteTool,
+  EdgeCreationTool,
+  EdgeEditTool,
+  TYPES,
+  MouseDeleteTool,
+  configureActionHandler,
+  configureView
+} from '@eclipse-glsp/client';
 import { configureMarqueeTool } from '@eclipse-glsp/client/lib/features/tools/di.config';
 
 import { TriggerEdgeCreationAction, TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { ContainerModule } from 'inversify';
 import { IvyChangeBoundsTool } from './change-bounds-tool';
 import { IvyMovementRestrictor } from './movement-restrictor';
+import { NegativeMarker } from './negative-area/model';
+import { SNegativeMarkerView } from './negative-area/view';
 import { IvyNodeCreationTool } from './node-creation-tool';
 
 const ivyToolsModule = new ContainerModule((bind, _unbind, isBound) => {
@@ -24,6 +34,8 @@ const ivyToolsModule = new ContainerModule((bind, _unbind, isBound) => {
   configureMarqueeTool({ bind, isBound });
   configureActionHandler({ bind, isBound }, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
   configureActionHandler({ bind, isBound }, TriggerEdgeCreationAction.KIND, EdgeCreationTool);
+
+  configureView({ bind, isBound }, NegativeMarker.TYPE, SNegativeMarkerView);
 });
 
 export default ivyToolsModule;

@@ -39,6 +39,7 @@ import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
 import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
+import { addNegativeArea, removeNegativeArea } from '../tools/negative-area/model';
 
 @injectable()
 export class ChangeLaneBoundsTool extends BaseGLSPTool {
@@ -123,6 +124,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
         const resizeActions = this.handleResizeOnClient(positionUpdate);
         actions.push(...resizeActions);
       }
+      addNegativeArea(target);
       return actions;
     }
     return [];
@@ -143,6 +145,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
       actions.push(...this.handleMoveOnServer(target));
     }
     this.resetPosition();
+    removeNegativeArea(target);
     return actions;
   }
 
