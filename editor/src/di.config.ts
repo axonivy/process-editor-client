@@ -11,7 +11,8 @@ import {
   glspHoverModule,
   toolsModule,
   navigationModule,
-  glspEditLabelModule
+  glspEditLabelModule,
+  labelEditUiModule
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -30,10 +31,10 @@ import ivyZorderModule from './zorder/di.config';
 import ivyExecutionModule from './execution/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
-import ivyEditLabelModule from './edit-label/di.config';
 import ivyKeyListenerModule from './key-listener/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import { IVY_TYPES } from './types';
+import { ivyEditLabelModule, ivyEditLabelUiModule } from './edit-label/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -54,6 +55,7 @@ export default function createContainer(widgetId: string): Container {
     ivyConnectorModule,
     ivyToolsModule,
     ivyEditLabelModule,
+    ivyEditLabelUiModule,
     ivyKeyListenerModule
   );
   container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
@@ -77,6 +79,7 @@ function isNotOverridenModule(module: ContainerModule): boolean {
     module !== glspHoverModule &&
     module !== toolsModule &&
     module !== navigationModule &&
-    module !== glspEditLabelModule
+    module !== glspEditLabelModule &&
+    module !== labelEditUiModule
   );
 }
