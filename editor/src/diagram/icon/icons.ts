@@ -21,6 +21,11 @@ export const ElementIcons = new Map<string, string>([
   [EventStartTypes.START_SIGNAL, StreamlineIcons.Signal],
   [EventStartTypes.START_PROGRAM, StreamlineIcons.StartProgram],
   [EventStartTypes.START_ERROR, StreamlineIcons.ErrorEvent],
+  [EventStartTypes.START_SUB, StreamlineIcons.Jump],
+  [EventStartTypes.START_WS, StreamlineIcons.WsEvent],
+  [EventStartTypes.START_HD, StreamlineIcons.InitStart],
+  [EventStartTypes.START_HD_METHOD, StreamlineIcons.MethodStart],
+  [EventStartTypes.START_HD_EVENT, StreamlineIcons.EventStart],
   // Intermediate Events
   [EventIntermediateTypes.INTERMEDIATE_TASK, StreamlineIcons.Task],
   [EventIntermediateTypes.INTERMEDIATE_WAIT, StreamlineIcons.Wait],
@@ -30,6 +35,10 @@ export const ElementIcons = new Map<string, string>([
   // End Events
   [EventEndTypes.END_PAGE, StreamlineIcons.EndPage],
   [EventEndTypes.END_ERROR, StreamlineIcons.ErrorEvent],
+  [EventEndTypes.END_SUB, StreamlineIcons.SubEnd],
+  [EventEndTypes.END_WS, StreamlineIcons.WsEvent],
+  [EventEndTypes.END_HD, StreamlineIcons.End],
+  [EventEndTypes.END_HD_EXIT, StreamlineIcons.ExitEnd],
   // Gateways
   [GatewayTypes.ALTERNATIVE, StreamlineIcons.AlternativeElement],
   [GatewayTypes.SPLIT, StreamlineIcons.Split],
