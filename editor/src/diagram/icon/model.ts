@@ -1,7 +1,6 @@
 import { openFeature, SModelElement, SModelExtension } from '@eclipse-glsp/client';
 
 export interface WithCustomIcon extends SModelExtension {
-  get icon(): string;
   get customIcon(): string;
 }
 
