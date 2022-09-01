@@ -5,14 +5,17 @@ import {
   ServerEditLabelValidator,
   TYPES,
   ApplyLabelEditCommand,
-  configureCommand
+  configureCommand,
+  EditLabelAction,
+  configureActionHandler
 } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
 import { IvyDirectLabelEditTool } from './edit-label-tool';
 import { IVY_TYPES } from '../types';
 import { EditLabelActionProvider } from './quick-action';
+import { IvyEditLabelActionHandler, IvyEditLabelUI } from './edit-label-ui';
 
-const ivyEditLabelModule = new ContainerModule((bind, _unbind, isBound, _rebind) => {
+export const ivyEditLabelModule = new ContainerModule((bind, _unbind, isBound, _rebind) => {
   bind(TYPES.IEditLabelValidator).to(ServerEditLabelValidator);
   bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
   bind(TYPES.IDefaultTool).to(IvyDirectLabelEditTool);
@@ -20,4 +23,9 @@ const ivyEditLabelModule = new ContainerModule((bind, _unbind, isBound, _rebind)
   bind(IVY_TYPES.QuickActionProvider).to(EditLabelActionProvider);
 });
 
-export default ivyEditLabelModule;
+export const ivyEditLabelUiModule = new ContainerModule((bind, _unbind, isBound) => {
+  const context = { bind, isBound };
+  configureActionHandler(context, EditLabelAction.KIND, IvyEditLabelActionHandler);
+  bind(IvyEditLabelUI).toSelf().inSingletonScope();
+  bind(TYPES.IUIExtension).toService(IvyEditLabelUI);
+});

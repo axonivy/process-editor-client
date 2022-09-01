@@ -26,7 +26,7 @@ import { Container } from 'inversify';
 
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../../src/diagram/model';
 import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../../src/diagram/view-types';
-import ivyEditLabelModule from '../../src/edit-label/di.config';
+import { ivyEditLabelModule } from '../../src/edit-label/di.config';
 import ivyWrapModule from '../../src/wrap/di.config';
 import ivyJumpModule from '../../src/jump/di.config';
 import { jumpFeature } from '../../src/jump/model';
