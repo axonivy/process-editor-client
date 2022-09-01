@@ -1,10 +1,10 @@
 @font-face {
   font-family: "StreamlineIcons";
-  src: url("./StreamlineIcons.ttf?d72edd413749681c7062778c98a5eda8") format("truetype"),
-url("./StreamlineIcons.woff?d72edd413749681c7062778c98a5eda8") format("woff"),
-url("./StreamlineIcons.woff2?d72edd413749681c7062778c98a5eda8") format("woff2"),
-url("./StreamlineIcons.eot?d72edd413749681c7062778c98a5eda8#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?d72edd413749681c7062778c98a5eda8#StreamlineIcons") format("svg");
+  src: url("./StreamlineIcons.ttf?3ecd08701c3532796f1de5fb34b72f3c") format("truetype"),
+url("./StreamlineIcons.woff?3ecd08701c3532796f1de5fb34b72f3c") format("woff"),
+url("./StreamlineIcons.woff2?3ecd08701c3532796f1de5fb34b72f3c") format("woff2"),
+url("./StreamlineIcons.eot?3ecd08701c3532796f1de5fb34b72f3c#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?3ecd08701c3532796f1de5fb34b72f3c#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -178,246 +178,249 @@ i[class^="si-"]:before, i[class*=" si-"]:before {
 .si-alternative-element:before {
   content: "\f105";
 }
-.si-alternative:before {
+.si-alternative-element2:before {
   content: "\f106";
 }
-.si-auto-align:before {
+.si-alternative:before {
   content: "\f107";
 }
-.si-bend:before {
+.si-auto-align:before {
   content: "\f108";
 }
-.si-bug:before {
+.si-bend:before {
   content: "\f109";
 }
-.si-call:before {
+.si-bug:before {
   content: "\f10a";
 }
-.si-caution:before {
+.si-call:before {
   content: "\f10b";
 }
-.si-center:before {
+.si-caution:before {
   content: "\f10c";
 }
-.si-color:before {
+.si-center:before {
   content: "\f10d";
 }
-.si-comment:before {
+.si-color:before {
   content: "\f10e";
 }
-.si-connector:before {
+.si-comment:before {
   content: "\f10f";
 }
-.si-cursor-select:before {
+.si-connector:before {
   content: "\f110";
 }
-.si-cursor:before {
+.si-cursor-select:before {
   content: "\f111";
 }
-.si-custom-icon:before {
+.si-cursor:before {
   content: "\f112";
 }
-.si-darkmode:before {
+.si-custom-icon:before {
   content: "\f113";
 }
-.si-data-models:before {
+.si-darkmode:before {
   content: "\f114";
 }
-.si-database:before {
+.si-data-models:before {
   content: "\f115";
 }
-.si-delete:before {
+.si-database:before {
   content: "\f116";
 }
-.si-dialogs:before {
+.si-delete:before {
   content: "\f117";
 }
-.si-e-mail-element:before {
+.si-dialogs:before {
   content: "\f118";
 }
-.si-e-mail:before {
+.si-e-mail-element:before {
   content: "\f119";
 }
-.si-edit:before {
+.si-e-mail:before {
   content: "\f11a";
 }
-.si-end-page:before {
+.si-edit:before {
   content: "\f11b";
 }
-.si-end:before {
+.si-end-page:before {
   content: "\f11c";
 }
-.si-error-event:before {
+.si-end:before {
   content: "\f11d";
 }
-.si-error:before {
+.si-error-event:before {
   content: "\f11e";
 }
-.si-event-start:before {
+.si-error:before {
   content: "\f11f";
 }
-.si-events-group:before {
+.si-event-start:before {
   content: "\f120";
 }
-.si-exit-end:before {
+.si-events-group:before {
   content: "\f121";
 }
-.si-fit-to-screen:before {
+.si-exit-end:before {
   content: "\f122";
 }
-.si-gateways-group:before {
+.si-fit-to-screen:before {
   content: "\f123";
 }
-.si-generic:before {
+.si-gateways-group:before {
   content: "\f124";
 }
-.si-go-to-source:before {
+.si-generic:before {
   content: "\f125";
 }
-.si-grid:before {
+.si-go-to-source:before {
   content: "\f126";
 }
-.si-helplines:before {
+.si-grid:before {
   content: "\f127";
 }
-.si-information:before {
+.si-helplines:before {
   content: "\f128";
 }
-.si-init-start:before {
+.si-information:before {
   content: "\f129";
 }
-.si-join:before {
+.si-init-start:before {
   content: "\f12a";
 }
-.si-jump-out:before {
+.si-join:before {
   content: "\f12b";
 }
-.si-jump:before {
+.si-jump-out:before {
   content: "\f12c";
 }
-.si-label:before {
+.si-jump:before {
   content: "\f12d";
 }
-.si-lane-swimlanes:before {
+.si-label:before {
   content: "\f12e";
 }
-.si-manual:before {
+.si-lane-swimlanes:before {
   content: "\f12f";
 }
-.si-market:before {
+.si-manual:before {
   content: "\f130";
 }
-.si-method-start:before {
+.si-market:before {
   content: "\f131";
 }
-.si-note:before {
+.si-method-start:before {
   content: "\f132";
 }
-.si-origin-screen:before {
+.si-note:before {
   content: "\f133";
 }
-.si-pen-edit:before {
+.si-origin-screen:before {
   content: "\f134";
 }
-.si-play:before {
+.si-pen-edit:before {
   content: "\f135";
 }
-.si-pool-swimlanes:before {
+.si-play:before {
   content: "\f136";
 }
-.si-program:before {
+.si-pool-swimlanes:before {
   content: "\f137";
 }
-.si-receive:before {
+.si-program:before {
   content: "\f138";
 }
-.si-reconnect:before {
+.si-receive:before {
   content: "\f139";
 }
-.si-redo:before {
+.si-reconnect:before {
   content: "\f13a";
 }
-.si-rest-client:before {
+.si-redo:before {
   content: "\f13b";
 }
-.si-rule:before {
+.si-rest-client:before {
   content: "\f13c";
 }
-.si-script:before {
+.si-rule:before {
   content: "\f13d";
 }
-.si-search:before {
+.si-script:before {
   content: "\f13e";
 }
-.si-send:before {
+.si-search:before {
   content: "\f13f";
 }
-.si-service:before {
+.si-send:before {
   content: "\f140";
 }
-.si-settings:before {
+.si-service:before {
   content: "\f141";
 }
-.si-signal:before {
+.si-settings:before {
   content: "\f142";
 }
-.si-split:before {
+.si-signal:before {
   content: "\f143";
 }
-.si-start-program:before {
+.si-split:before {
   content: "\f144";
 }
-.si-start:before {
+.si-start-program:before {
   content: "\f145";
 }
-.si-straighten:before {
+.si-start:before {
   content: "\f146";
 }
-.si-sub-end:before {
+.si-straighten:before {
   content: "\f147";
 }
-.si-sub-start:before {
+.si-sub-end:before {
   content: "\f148";
 }
-.si-sub:before {
+.si-sub-start:before {
   content: "\f149";
 }
-.si-task:before {
+.si-sub:before {
   content: "\f14a";
 }
-.si-tasks:before {
+.si-task:before {
   content: "\f14b";
 }
-.si-trigger:before {
+.si-tasks:before {
   content: "\f14c";
 }
-.si-undo:before {
+.si-trigger:before {
   content: "\f14d";
 }
-.si-unwrap:before {
+.si-undo:before {
   content: "\f14e";
 }
-.si-user-dialog-element:before {
+.si-unwrap:before {
   content: "\f14f";
 }
-.si-user-dialog:before {
+.si-user-dialog-element:before {
   content: "\f150";
 }
-.si-user-task:before {
+.si-user-dialog:before {
   content: "\f151";
 }
-.si-user:before {
+.si-user-task:before {
   content: "\f152";
 }
-.si-wait:before {
+.si-user:before {
   content: "\f153";
 }
-.si-web-service:before {
+.si-wait:before {
   content: "\f154";
 }
-.si-wrap-to-subprocess:before {
+.si-web-service:before {
   content: "\f155";
 }
-.si-ws-event:before {
+.si-wrap-to-subprocess:before {
   content: "\f156";
+}
+.si-ws-event:before {
+  content: "\f157";
 }
