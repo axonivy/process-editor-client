@@ -72,7 +72,7 @@ export abstract class ItemMenu implements Menu {
 
   private createPaletteItemSearchField(): HTMLElement {
     const searchDiv = createElement('div', ['bar-menu-search']);
-    searchDiv.appendChild(createElement('i', ['fa-solid', 'fa-magnifying-glass']));
+    searchDiv.appendChild(createElement('i', ['si', 'si-search']));
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';

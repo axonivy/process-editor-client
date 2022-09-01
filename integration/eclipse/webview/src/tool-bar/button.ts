@@ -6,7 +6,7 @@ import { OpenInsertConnectorAction } from '../open-insert-connector/open-insert-
 
 class InscribeProcessButton implements ToolBarButton {
   constructor(
-    public readonly icon = 'si si-edit-pen',
+    public readonly icon = 'si si-pen-edit',
     public readonly title = 'Inscribe Process',
     public readonly sorting = 'D',
     public readonly action = () => OpenInscriptionAction.create(''),

@@ -76,12 +76,12 @@ export class QuickActionMenu extends ItemMenu {
 
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {
     if (this.action.isEditable && item.label !== 'default') {
-      button.appendChild(this.createEditButton('fa-pencil', 'Edit Color', item));
+      button.appendChild(this.createEditButton('si-edit', 'Edit Color', item));
     }
   }
 
   private createEditButton(icon: string, title: string, item: PaletteItem): HTMLElement {
-    const editButton = createIcon(['fa-solid', icon, 'color-edit-button']);
+    const editButton = createIcon(['si', icon, 'color-edit-button']);
     editButton.title = title;
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();

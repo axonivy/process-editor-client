@@ -86,7 +86,7 @@ class DeleteQuickAction implements QuickAction {
 class AutoAlignQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-solid fa-up-down-left-right',
+    public readonly icon = 'si si-auto-align',
     public readonly title = 'Auto Align (A)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

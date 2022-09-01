@@ -46,7 +46,7 @@ class ChangeActivityTypeQuickAction implements QuickAction {
     public readonly elementIds: string[],
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'fa-solid fa-list',
+    public readonly icon = 'si si-user-task',
     public readonly title = 'si si-menu',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

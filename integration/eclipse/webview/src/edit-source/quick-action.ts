@@ -17,7 +17,7 @@ export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
 class GoToSourceQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-pen-edit',
+    public readonly icon = 'si si-go-to-source',
     public readonly title = 'Go To Source (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',

@@ -35,7 +35,7 @@ export class AllElementsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-solid fa-bars',
+    public readonly icon = 'si si-all-elements',
     public readonly title = 'All Elements',
     public readonly sorting = 'A',
     public readonly action = () => ShowToolBarMenuAction.create({ paletteItems: paletteItems, actions: actions, showSearch: true }),

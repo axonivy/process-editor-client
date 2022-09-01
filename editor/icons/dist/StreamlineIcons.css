@@ -1,10 +1,10 @@
 @font-face {
   font-family: "StreamlineIcons";
-  src: url("./StreamlineIcons.ttf?53f22648353118812781421b0c43c093") format("truetype"),
-url("./StreamlineIcons.woff?53f22648353118812781421b0c43c093") format("woff"),
-url("./StreamlineIcons.woff2?53f22648353118812781421b0c43c093") format("woff2"),
-url("./StreamlineIcons.eot?53f22648353118812781421b0c43c093#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?53f22648353118812781421b0c43c093#StreamlineIcons") format("svg");
+  src: url("./StreamlineIcons.ttf?b15c21887f496ec8d899330268159eba") format("truetype"),
+url("./StreamlineIcons.woff?b15c21887f496ec8d899330268159eba") format("woff"),
+url("./StreamlineIcons.woff2?b15c21887f496ec8d899330268159eba") format("woff2"),
+url("./StreamlineIcons.eot?b15c21887f496ec8d899330268159eba#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?b15c21887f496ec8d899330268159eba#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -172,210 +172,225 @@ i[class^="si-"]:before, i[class*=" si-"]:before {
 .si-align-vertical:before {
   content: "\f103";
 }
-.si-aternative:before {
+.si-all-elements:before {
   content: "\f104";
 }
-.si-bend:before {
+.si-aternative:before {
   content: "\f105";
 }
-.si-bug:before {
+.si-auto-align:before {
   content: "\f106";
 }
-.si-call:before {
+.si-bend:before {
   content: "\f107";
 }
-.si-caution:before {
+.si-bug:before {
   content: "\f108";
 }
-.si-center:before {
+.si-call:before {
   content: "\f109";
 }
-.si-color:before {
+.si-caution:before {
   content: "\f10a";
 }
-.si-comment:before {
+.si-center:before {
   content: "\f10b";
 }
-.si-connector:before {
+.si-color:before {
   content: "\f10c";
 }
-.si-cursor-select:before {
+.si-comment:before {
   content: "\f10d";
 }
-.si-cursor:before {
+.si-connector:before {
   content: "\f10e";
 }
-.si-custom-icon:before {
+.si-cursor-select:before {
   content: "\f10f";
 }
-.si-darkmode:before {
+.si-cursor:before {
   content: "\f110";
 }
-.si-data-models:before {
+.si-custom-icon:before {
   content: "\f111";
 }
-.si-database:before {
+.si-darkmode:before {
   content: "\f112";
 }
-.si-delete:before {
+.si-data-models:before {
   content: "\f113";
 }
-.si-dialogs:before {
+.si-database:before {
   content: "\f114";
 }
-.si-e-mail-icon:before {
+.si-database2:before {
   content: "\f115";
 }
-.si-e-mail:before {
+.si-delete:before {
   content: "\f116";
 }
-.si-end-page:before {
+.si-dialogs:before {
   content: "\f117";
 }
-.si-end:before {
+.si-e-mail-icon:before {
   content: "\f118";
 }
-.si-error:before {
+.si-e-mail:before {
   content: "\f119";
 }
-.si-events-group:before {
+.si-edit:before {
   content: "\f11a";
 }
-.si-fit-to-screen:before {
+.si-edit2:before {
   content: "\f11b";
 }
-.si-gateways-group-2:before {
+.si-end-page:before {
   content: "\f11c";
 }
-.si-gateways-group:before {
+.si-end:before {
   content: "\f11d";
 }
-.si-generic:before {
+.si-error:before {
   content: "\f11e";
 }
-.si-grid:before {
+.si-events-group:before {
   content: "\f11f";
 }
-.si-helplines:before {
+.si-fit-to-screen:before {
   content: "\f120";
 }
-.si-information:before {
+.si-gateways-group:before {
   content: "\f121";
 }
-.si-join:before {
+.si-generic:before {
   content: "\f122";
 }
-.si-jump-out:before {
+.si-go-to-source:before {
   content: "\f123";
 }
-.si-jump:before {
+.si-grid:before {
   content: "\f124";
 }
-.si-label:before {
+.si-helplines:before {
   content: "\f125";
 }
-.si-lane-swimlanes:before {
+.si-information:before {
   content: "\f126";
 }
-.si-manual:before {
+.si-join:before {
   content: "\f127";
 }
-.si-market:before {
+.si-jump-out:before {
   content: "\f128";
 }
-.si-menu:before {
+.si-jump:before {
   content: "\f129";
 }
-.si-note:before {
+.si-label:before {
   content: "\f12a";
 }
-.si-origin-screen:before {
+.si-lane-swimlanes:before {
   content: "\f12b";
 }
-.si-pen-edit:before {
+.si-manual:before {
   content: "\f12c";
 }
-.si-play:before {
+.si-market:before {
   content: "\f12d";
 }
-.si-pool-swimlanes:before {
+.si-note:before {
   content: "\f12e";
 }
-.si-program:before {
+.si-origin-screen:before {
   content: "\f12f";
 }
-.si-receive:before {
+.si-pen-edit:before {
   content: "\f130";
 }
-.si-redo:before {
+.si-play:before {
   content: "\f131";
 }
-.si-rest-client:before {
+.si-pool-swimlanes:before {
   content: "\f132";
 }
-.si-rule:before {
+.si-program:before {
   content: "\f133";
 }
-.si-script:before {
+.si-receive:before {
   content: "\f134";
 }
-.si-search:before {
+.si-reconnect:before {
   content: "\f135";
 }
-.si-send:before {
+.si-redo:before {
   content: "\f136";
 }
-.si-service:before {
+.si-rest-client:before {
   content: "\f137";
 }
-.si-settings:before {
+.si-rule:before {
   content: "\f138";
 }
-.si-signal:before {
+.si-script:before {
   content: "\f139";
 }
-.si-split:before {
+.si-search:before {
   content: "\f13a";
 }
-.si-start-program:before {
+.si-send:before {
   content: "\f13b";
 }
-.si-start:before {
+.si-service:before {
   content: "\f13c";
 }
-.si-straighten:before {
+.si-settings:before {
   content: "\f13d";
 }
-.si-sub:before {
+.si-signal:before {
   content: "\f13e";
 }
-.si-task:before {
+.si-split:before {
   content: "\f13f";
 }
-.si-trigger:before {
+.si-start-program:before {
   content: "\f140";
 }
-.si-undo:before {
+.si-start:before {
   content: "\f141";
 }
-.si-unwrap:before {
+.si-straighten:before {
   content: "\f142";
 }
-.si-user-dialog:before {
+.si-sub:before {
   content: "\f143";
 }
-.si-user-task:before {
+.si-task:before {
   content: "\f144";
 }
-.si-user:before {
+.si-trigger:before {
   content: "\f145";
 }
-.si-wait:before {
+.si-undo:before {
   content: "\f146";
 }
-.si-web-service:before {
+.si-unwrap:before {
   content: "\f147";
 }
-.si-wrap-to-subprocess:before {
+.si-user-dialog:before {
   content: "\f148";
+}
+.si-user-task:before {
+  content: "\f149";
+}
+.si-user:before {
+  content: "\f14a";
+}
+.si-wait:before {
+  content: "\f14b";
+}
+.si-web-service:before {
+  content: "\f14c";
+}
+.si-wrap-to-subprocess:before {
+  content: "\f14d";
 }

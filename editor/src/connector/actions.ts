@@ -96,7 +96,7 @@ export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider 
 class ReconnectEdgeQuickAction implements QuickAction {
   constructor(
     public readonly edge: SEdge,
-    public readonly icon = 'fa-solid fa-arrows-split-up-and-left',
+    public readonly icon = 'si si-reconnect',
     public readonly title = 'Reconnect (C)',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',

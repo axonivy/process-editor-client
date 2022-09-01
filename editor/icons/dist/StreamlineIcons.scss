@@ -2,11 +2,11 @@ $StreamlineIcons-font: "StreamlineIcons";
 
 @font-face {
     font-family: $StreamlineIcons-font;
-    src: url("./StreamlineIcons.ttf?53f22648353118812781421b0c43c093") format("truetype"),
-url("./StreamlineIcons.woff?53f22648353118812781421b0c43c093") format("woff"),
-url("./StreamlineIcons.woff2?53f22648353118812781421b0c43c093") format("woff2"),
-url("./StreamlineIcons.eot?53f22648353118812781421b0c43c093#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?53f22648353118812781421b0c43c093#StreamlineIcons") format("svg");
+    src: url("./StreamlineIcons.ttf?b15c21887f496ec8d899330268159eba") format("truetype"),
+url("./StreamlineIcons.woff?b15c21887f496ec8d899330268159eba") format("woff"),
+url("./StreamlineIcons.woff2?b15c21887f496ec8d899330268159eba") format("woff2"),
+url("./StreamlineIcons.eot?b15c21887f496ec8d899330268159eba#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?b15c21887f496ec8d899330268159eba#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -24,75 +24,80 @@ $StreamlineIcons-map: (
     "activities-group": "\f101",
     "align-horizontal": "\f102",
     "align-vertical": "\f103",
-    "aternative": "\f104",
-    "bend": "\f105",
-    "bug": "\f106",
-    "call": "\f107",
-    "caution": "\f108",
-    "center": "\f109",
-    "color": "\f10a",
-    "comment": "\f10b",
-    "connector": "\f10c",
-    "cursor-select": "\f10d",
-    "cursor": "\f10e",
-    "custom-icon": "\f10f",
-    "darkmode": "\f110",
-    "data-models": "\f111",
-    "database": "\f112",
-    "delete": "\f113",
-    "dialogs": "\f114",
-    "e-mail-icon": "\f115",
-    "e-mail": "\f116",
-    "end-page": "\f117",
-    "end": "\f118",
-    "error": "\f119",
-    "events-group": "\f11a",
-    "fit-to-screen": "\f11b",
-    "gateways-group-2": "\f11c",
-    "gateways-group": "\f11d",
-    "generic": "\f11e",
-    "grid": "\f11f",
-    "helplines": "\f120",
-    "information": "\f121",
-    "join": "\f122",
-    "jump-out": "\f123",
-    "jump": "\f124",
-    "label": "\f125",
-    "lane-swimlanes": "\f126",
-    "manual": "\f127",
-    "market": "\f128",
-    "menu": "\f129",
-    "note": "\f12a",
-    "origin-screen": "\f12b",
-    "pen-edit": "\f12c",
-    "play": "\f12d",
-    "pool-swimlanes": "\f12e",
-    "program": "\f12f",
-    "receive": "\f130",
-    "redo": "\f131",
-    "rest-client": "\f132",
-    "rule": "\f133",
-    "script": "\f134",
-    "search": "\f135",
-    "send": "\f136",
-    "service": "\f137",
-    "settings": "\f138",
-    "signal": "\f139",
-    "split": "\f13a",
-    "start-program": "\f13b",
-    "start": "\f13c",
-    "straighten": "\f13d",
-    "sub": "\f13e",
-    "task": "\f13f",
-    "trigger": "\f140",
-    "undo": "\f141",
-    "unwrap": "\f142",
-    "user-dialog": "\f143",
-    "user-task": "\f144",
-    "user": "\f145",
-    "wait": "\f146",
-    "web-service": "\f147",
-    "wrap-to-subprocess": "\f148",
+    "all-elements": "\f104",
+    "aternative": "\f105",
+    "auto-align": "\f106",
+    "bend": "\f107",
+    "bug": "\f108",
+    "call": "\f109",
+    "caution": "\f10a",
+    "center": "\f10b",
+    "color": "\f10c",
+    "comment": "\f10d",
+    "connector": "\f10e",
+    "cursor-select": "\f10f",
+    "cursor": "\f110",
+    "custom-icon": "\f111",
+    "darkmode": "\f112",
+    "data-models": "\f113",
+    "database": "\f114",
+    "database2": "\f115",
+    "delete": "\f116",
+    "dialogs": "\f117",
+    "e-mail-icon": "\f118",
+    "e-mail": "\f119",
+    "edit": "\f11a",
+    "edit2": "\f11b",
+    "end-page": "\f11c",
+    "end": "\f11d",
+    "error": "\f11e",
+    "events-group": "\f11f",
+    "fit-to-screen": "\f120",
+    "gateways-group": "\f121",
+    "generic": "\f122",
+    "go-to-source": "\f123",
+    "grid": "\f124",
+    "helplines": "\f125",
+    "information": "\f126",
+    "join": "\f127",
+    "jump-out": "\f128",
+    "jump": "\f129",
+    "label": "\f12a",
+    "lane-swimlanes": "\f12b",
+    "manual": "\f12c",
+    "market": "\f12d",
+    "note": "\f12e",
+    "origin-screen": "\f12f",
+    "pen-edit": "\f130",
+    "play": "\f131",
+    "pool-swimlanes": "\f132",
+    "program": "\f133",
+    "receive": "\f134",
+    "reconnect": "\f135",
+    "redo": "\f136",
+    "rest-client": "\f137",
+    "rule": "\f138",
+    "script": "\f139",
+    "search": "\f13a",
+    "send": "\f13b",
+    "service": "\f13c",
+    "settings": "\f13d",
+    "signal": "\f13e",
+    "split": "\f13f",
+    "start-program": "\f140",
+    "start": "\f141",
+    "straighten": "\f142",
+    "sub": "\f143",
+    "task": "\f144",
+    "trigger": "\f145",
+    "undo": "\f146",
+    "unwrap": "\f147",
+    "user-dialog": "\f148",
+    "user-task": "\f149",
+    "user": "\f14a",
+    "wait": "\f14b",
+    "web-service": "\f14c",
+    "wrap-to-subprocess": "\f14d",
 );
 
 .si-activities-group:before {
@@ -104,8 +109,14 @@ $StreamlineIcons-map: (
 .si-align-vertical:before {
     content: map-get($StreamlineIcons-map, "align-vertical");
 }
+.si-all-elements:before {
+    content: map-get($StreamlineIcons-map, "all-elements");
+}
 .si-aternative:before {
     content: map-get($StreamlineIcons-map, "aternative");
+}
+.si-auto-align:before {
+    content: map-get($StreamlineIcons-map, "auto-align");
 }
 .si-bend:before {
     content: map-get($StreamlineIcons-map, "bend");
@@ -149,6 +160,9 @@ $StreamlineIcons-map: (
 .si-database:before {
     content: map-get($StreamlineIcons-map, "database");
 }
+.si-database2:before {
+    content: map-get($StreamlineIcons-map, "database2");
+}
 .si-delete:before {
     content: map-get($StreamlineIcons-map, "delete");
 }
@@ -160,6 +174,12 @@ $StreamlineIcons-map: (
 }
 .si-e-mail:before {
     content: map-get($StreamlineIcons-map, "e-mail");
+}
+.si-edit:before {
+    content: map-get($StreamlineIcons-map, "edit");
+}
+.si-edit2:before {
+    content: map-get($StreamlineIcons-map, "edit2");
 }
 .si-end-page:before {
     content: map-get($StreamlineIcons-map, "end-page");
@@ -176,14 +196,14 @@ $StreamlineIcons-map: (
 .si-fit-to-screen:before {
     content: map-get($StreamlineIcons-map, "fit-to-screen");
 }
-.si-gateways-group-2:before {
-    content: map-get($StreamlineIcons-map, "gateways-group-2");
-}
 .si-gateways-group:before {
     content: map-get($StreamlineIcons-map, "gateways-group");
 }
 .si-generic:before {
     content: map-get($StreamlineIcons-map, "generic");
+}
+.si-go-to-source:before {
+    content: map-get($StreamlineIcons-map, "go-to-source");
 }
 .si-grid:before {
     content: map-get($StreamlineIcons-map, "grid");
@@ -215,9 +235,6 @@ $StreamlineIcons-map: (
 .si-market:before {
     content: map-get($StreamlineIcons-map, "market");
 }
-.si-menu:before {
-    content: map-get($StreamlineIcons-map, "menu");
-}
 .si-note:before {
     content: map-get($StreamlineIcons-map, "note");
 }
@@ -238,6 +255,9 @@ $StreamlineIcons-map: (
 }
 .si-receive:before {
     content: map-get($StreamlineIcons-map, "receive");
+}
+.si-reconnect:before {
+    content: map-get($StreamlineIcons-map, "reconnect");
 }
 .si-redo:before {
     content: map-get($StreamlineIcons-map, "redo");
