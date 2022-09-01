@@ -58,8 +58,8 @@ export abstract class ItemMenu implements Menu {
     if (this.action.showSearch) {
       this.bodyDiv.appendChild(this.createPaletteItemSearchField());
     }
-    this.appendMenuParts(this.bodyDiv);
     this.createItemsDiv(this.bodyDiv);
+    this.appendMenuParts(this.bodyDiv);
     return this.bodyDiv;
   }
 
@@ -150,6 +150,7 @@ export abstract class ItemMenu implements Menu {
       if (item.children) {
         const groupItems = this.createToolGroup(itemsDiv, item);
         item.children.sort(compare).forEach(child => groupItems.appendChild(this.createToolButton(child, tabIndex++)));
+        this.appendItemToGroup(groupItems);
       }
     });
     if (this.paletteItems.length === 0) {
@@ -167,6 +168,9 @@ export abstract class ItemMenu implements Menu {
     this.navigateUpOrDown(1);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected appendItemToGroup(group: HTMLElement): void {}
+
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
     const group = createElement('div', [ItemMenu.ITEM_GROUP]);
     group.id = item.id;
@@ -176,15 +180,10 @@ export abstract class ItemMenu implements Menu {
     groupHeader.textContent = item.label;
     group.appendChild(groupHeader);
 
-    this.appendToGroupHeader(groupHeader);
-
     const groupItems = createElement('div', ['menu-group-items']);
     group.appendChild(groupItems);
     return groupItems;
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected appendToGroupHeader(groupHeader: HTMLElement): void {}
 
   private createToolButton(item: PaletteItem, index: number): HTMLElement {
     const button = createElement('div', [ItemMenu.ITEM_BUTTON]);
@@ -202,7 +201,7 @@ export abstract class ItemMenu implements Menu {
 
   abstract toolButtonOnClick(item: PaletteItem): Action[];
 
-  private focusButton(button?: Element): void {
+  protected focusButton(button?: Element): void {
     this.currentItem()?.classList.remove(ItemMenu.ACTIVE_ELEMENT);
     button?.classList.add(ItemMenu.ACTIVE_ELEMENT);
   }

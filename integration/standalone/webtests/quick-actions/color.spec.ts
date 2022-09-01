@@ -6,7 +6,7 @@ import { clickQuickActionEndsWith } from './quick-actions-util';
 
 test.describe('quick actions - color', () => {
   const PALETTE_BODY = '.colors-menu';
-  const ADD_COLOR_BTN = '.menu-group-header .color-edit-button';
+  const ADD_COLOR_BTN = '.menu-group-items .new-color-btn';
 
   test.beforeEach(async ({ page }) => {
     await gotoRandomTestProcessUrl(page);
@@ -56,17 +56,6 @@ test.describe('quick actions - color', () => {
     await expect(endElement).toHaveAttribute('style', 'stroke: rgb(0, 0, 255);');
   });
 
-  test('cancel change color dialog', async ({ page }) => {
-    const paletteBody = await openColorPalette(page);
-    await paletteBody.locator(ADD_COLOR_BTN).click();
-
-    const dialog = paletteBody.locator('.edit-color-dialog');
-    await expect(dialog).toBeVisible();
-
-    await dialog.locator('.edit-color-cancel-btn').click();
-    await expect(dialog).toBeHidden();
-  });
-
   test('add new and remove color', async ({ page }) => {
     await addColor(page);
     await resetSelection(page);
@@ -75,18 +64,20 @@ test.describe('quick actions - color', () => {
     await expect(newColor).toBeVisible();
     await newColor.locator('.color-edit-button').click();
 
-    const dialog = paletteBody.locator('.edit-color-dialog');
-    const nameInput = dialog.locator('#editInputName');
-    const colorInput = dialog.locator('#editInputColor');
-    const colorPickerInput = dialog.locator('#editInputColor');
+    const editUi = paletteBody.locator('.edit-color');
+    const nameInput = editUi.locator('#input-Name');
+    const colorInput = editUi.locator('#input-Color');
+    const colorPickerInput = editUi.locator('input[type="color"]');
+    const colorPickerDecorator = editUi.locator('.color-picker .decorator');
 
-    await expect(dialog).toBeVisible();
+    await expect(editUi).toBeVisible();
     await expect(nameInput).toHaveValue('TestColor');
     await expect(colorInput).toHaveValue('#fff000');
     await expect(colorPickerInput).toHaveValue('#fff000');
+    await expect(colorPickerDecorator).toHaveCSS('background-color', 'rgb(255, 240, 0)');
 
-    await dialog.locator('.edit-color-delete-btn').click();
-    await expect(dialog).toBeHidden();
+    await editUi.locator('.edit-color-delete').click();
+    await expect(editUi).toBeHidden();
     await expect(paletteBody).toBeHidden();
     await resetSelection(page);
     await openColorPalette(page);
@@ -97,10 +88,10 @@ test.describe('quick actions - color', () => {
     const paletteBody = await openColorPalette(page);
     await paletteBody.locator(ADD_COLOR_BTN).click();
 
-    const dialog = paletteBody.locator('.edit-color-dialog');
-    const nameInput = dialog.locator('#editInputName');
-    const colorInput = dialog.locator('#editInputColor');
-    const confirmBtn = paletteBody.locator('.edit-color-confirm-btn');
+    const dialog = paletteBody.locator('.edit-color');
+    const nameInput = dialog.locator('#input-Name');
+    const colorInput = dialog.locator('#input-Color');
+    const confirmBtn = paletteBody.locator('.edit-color-save');
 
     await expect(dialog).toBeVisible();
     await expect(nameInput).toBeEmpty();
@@ -132,20 +123,20 @@ test.describe('quick actions - color', () => {
     const paletteBody = await openColorPalette(page, elements, browserName);
     await paletteBody.locator(ADD_COLOR_BTN).click();
 
-    const dialog = paletteBody.locator('.edit-color-dialog');
-    await expect(dialog).toBeVisible();
-    await expect(dialog.locator('.edit-color-delete-btn')).toBeHidden();
+    const editUi = paletteBody.locator('.edit-color');
+    await expect(editUi).toBeVisible();
+    await expect(editUi.locator('.edit-color-delete')).toBeHidden();
 
-    const nameInput = dialog.locator('#editInputName');
+    const nameInput = editUi.locator('#input-Name');
     await expect(nameInput).toBeEmpty();
     await nameInput.fill(name);
 
-    const colorInput = dialog.locator('#editInputColor');
+    const colorInput = editUi.locator('#input-Color');
     await expect(colorInput).toBeEmpty();
     await colorInput.fill(color);
 
-    await dialog.locator('.edit-color-confirm-btn').click();
-    await expect(dialog).toBeHidden();
+    await editUi.locator('.edit-color-save').click();
+    await expect(editUi).toBeHidden();
     await expect(paletteBody).toBeHidden();
   }
 
