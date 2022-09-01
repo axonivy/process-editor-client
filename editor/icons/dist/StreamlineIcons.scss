@@ -2,11 +2,11 @@ $StreamlineIcons-font: "StreamlineIcons";
 
 @font-face {
     font-family: $StreamlineIcons-font;
-    src: url("./StreamlineIcons.ttf?2e80c9d55d4703f9f4f4e6186fc56e89") format("truetype"),
-url("./StreamlineIcons.woff?2e80c9d55d4703f9f4f4e6186fc56e89") format("woff"),
-url("./StreamlineIcons.woff2?2e80c9d55d4703f9f4f4e6186fc56e89") format("woff2"),
-url("./StreamlineIcons.eot?2e80c9d55d4703f9f4f4e6186fc56e89#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?2e80c9d55d4703f9f4f4e6186fc56e89#StreamlineIcons") format("svg");
+    src: url("./StreamlineIcons.ttf?d72edd413749681c7062778c98a5eda8") format("truetype"),
+url("./StreamlineIcons.woff?d72edd413749681c7062778c98a5eda8") format("woff"),
+url("./StreamlineIcons.woff2?d72edd413749681c7062778c98a5eda8") format("woff2"),
+url("./StreamlineIcons.eot?d72edd413749681c7062778c98a5eda8#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?d72edd413749681c7062778c98a5eda8#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -51,55 +51,62 @@ $StreamlineIcons-map: (
     "end": "\f11c",
     "error-event": "\f11d",
     "error": "\f11e",
-    "events-group": "\f11f",
-    "fit-to-screen": "\f120",
-    "gateways-group": "\f121",
-    "generic": "\f122",
-    "go-to-source": "\f123",
-    "grid": "\f124",
-    "helplines": "\f125",
-    "information": "\f126",
-    "join": "\f127",
-    "jump-out": "\f128",
-    "jump": "\f129",
-    "label": "\f12a",
-    "lane-swimlanes": "\f12b",
-    "manual": "\f12c",
-    "market": "\f12d",
-    "note": "\f12e",
-    "origin-screen": "\f12f",
-    "pen-edit": "\f130",
-    "play": "\f131",
-    "pool-swimlanes": "\f132",
-    "program": "\f133",
-    "receive": "\f134",
-    "reconnect": "\f135",
-    "redo": "\f136",
-    "rest-client": "\f137",
-    "rule": "\f138",
-    "script": "\f139",
-    "search": "\f13a",
-    "send": "\f13b",
-    "service": "\f13c",
-    "settings": "\f13d",
-    "signal": "\f13e",
-    "split": "\f13f",
-    "start-program": "\f140",
-    "start": "\f141",
-    "straighten": "\f142",
-    "sub": "\f143",
-    "task": "\f144",
-    "tasks": "\f145",
-    "trigger": "\f146",
-    "undo": "\f147",
-    "unwrap": "\f148",
-    "user-dialog-element": "\f149",
-    "user-dialog": "\f14a",
-    "user-task": "\f14b",
-    "user": "\f14c",
-    "wait": "\f14d",
-    "web-service": "\f14e",
-    "wrap-to-subprocess": "\f14f",
+    "event-start": "\f11f",
+    "events-group": "\f120",
+    "exit-end": "\f121",
+    "fit-to-screen": "\f122",
+    "gateways-group": "\f123",
+    "generic": "\f124",
+    "go-to-source": "\f125",
+    "grid": "\f126",
+    "helplines": "\f127",
+    "information": "\f128",
+    "init-start": "\f129",
+    "join": "\f12a",
+    "jump-out": "\f12b",
+    "jump": "\f12c",
+    "label": "\f12d",
+    "lane-swimlanes": "\f12e",
+    "manual": "\f12f",
+    "market": "\f130",
+    "method-start": "\f131",
+    "note": "\f132",
+    "origin-screen": "\f133",
+    "pen-edit": "\f134",
+    "play": "\f135",
+    "pool-swimlanes": "\f136",
+    "program": "\f137",
+    "receive": "\f138",
+    "reconnect": "\f139",
+    "redo": "\f13a",
+    "rest-client": "\f13b",
+    "rule": "\f13c",
+    "script": "\f13d",
+    "search": "\f13e",
+    "send": "\f13f",
+    "service": "\f140",
+    "settings": "\f141",
+    "signal": "\f142",
+    "split": "\f143",
+    "start-program": "\f144",
+    "start": "\f145",
+    "straighten": "\f146",
+    "sub-end": "\f147",
+    "sub-start": "\f148",
+    "sub": "\f149",
+    "task": "\f14a",
+    "tasks": "\f14b",
+    "trigger": "\f14c",
+    "undo": "\f14d",
+    "unwrap": "\f14e",
+    "user-dialog-element": "\f14f",
+    "user-dialog": "\f150",
+    "user-task": "\f151",
+    "user": "\f152",
+    "wait": "\f153",
+    "web-service": "\f154",
+    "wrap-to-subprocess": "\f155",
+    "ws-event": "\f156",
 );
 
 .si-activities-group:before {
@@ -192,8 +199,14 @@ $StreamlineIcons-map: (
 .si-error:before {
     content: map-get($StreamlineIcons-map, "error");
 }
+.si-event-start:before {
+    content: map-get($StreamlineIcons-map, "event-start");
+}
 .si-events-group:before {
     content: map-get($StreamlineIcons-map, "events-group");
+}
+.si-exit-end:before {
+    content: map-get($StreamlineIcons-map, "exit-end");
 }
 .si-fit-to-screen:before {
     content: map-get($StreamlineIcons-map, "fit-to-screen");
@@ -216,6 +229,9 @@ $StreamlineIcons-map: (
 .si-information:before {
     content: map-get($StreamlineIcons-map, "information");
 }
+.si-init-start:before {
+    content: map-get($StreamlineIcons-map, "init-start");
+}
 .si-join:before {
     content: map-get($StreamlineIcons-map, "join");
 }
@@ -236,6 +252,9 @@ $StreamlineIcons-map: (
 }
 .si-market:before {
     content: map-get($StreamlineIcons-map, "market");
+}
+.si-method-start:before {
+    content: map-get($StreamlineIcons-map, "method-start");
 }
 .si-note:before {
     content: map-get($StreamlineIcons-map, "note");
@@ -300,6 +319,12 @@ $StreamlineIcons-map: (
 .si-straighten:before {
     content: map-get($StreamlineIcons-map, "straighten");
 }
+.si-sub-end:before {
+    content: map-get($StreamlineIcons-map, "sub-end");
+}
+.si-sub-start:before {
+    content: map-get($StreamlineIcons-map, "sub-start");
+}
 .si-sub:before {
     content: map-get($StreamlineIcons-map, "sub");
 }
@@ -338,4 +363,7 @@ $StreamlineIcons-map: (
 }
 .si-wrap-to-subprocess:before {
     content: map-get($StreamlineIcons-map, "wrap-to-subprocess");
+}
+.si-ws-event:before {
+    content: map-get($StreamlineIcons-map, "ws-event");
 }

@@ -29,7 +29,9 @@ export type StreamlineIconsId =
   | "end"
   | "error-event"
   | "error"
+  | "event-start"
   | "events-group"
+  | "exit-end"
   | "fit-to-screen"
   | "gateways-group"
   | "generic"
@@ -37,6 +39,7 @@ export type StreamlineIconsId =
   | "grid"
   | "helplines"
   | "information"
+  | "init-start"
   | "join"
   | "jump-out"
   | "jump"
@@ -44,6 +47,7 @@ export type StreamlineIconsId =
   | "lane-swimlanes"
   | "manual"
   | "market"
+  | "method-start"
   | "note"
   | "origin-screen"
   | "pen-edit"
@@ -65,6 +69,8 @@ export type StreamlineIconsId =
   | "start-program"
   | "start"
   | "straighten"
+  | "sub-end"
+  | "sub-start"
   | "sub"
   | "task"
   | "tasks"
@@ -77,7 +83,8 @@ export type StreamlineIconsId =
   | "user"
   | "wait"
   | "web-service"
-  | "wrap-to-subprocess";
+  | "wrap-to-subprocess"
+  | "ws-event";
 
 export type StreamlineIconsKey =
   | "ActivitiesGroup"
@@ -110,7 +117,9 @@ export type StreamlineIconsKey =
   | "End"
   | "ErrorEvent"
   | "Error"
+  | "EventStart"
   | "EventsGroup"
+  | "ExitEnd"
   | "FitToScreen"
   | "GatewaysGroup"
   | "Generic"
@@ -118,6 +127,7 @@ export type StreamlineIconsKey =
   | "Grid"
   | "Helplines"
   | "Information"
+  | "InitStart"
   | "Join"
   | "JumpOut"
   | "Jump"
@@ -125,6 +135,7 @@ export type StreamlineIconsKey =
   | "LaneSwimlanes"
   | "Manual"
   | "Market"
+  | "MethodStart"
   | "Note"
   | "OriginScreen"
   | "PenEdit"
@@ -146,6 +157,8 @@ export type StreamlineIconsKey =
   | "StartProgram"
   | "Start"
   | "Straighten"
+  | "SubEnd"
+  | "SubStart"
   | "Sub"
   | "Task"
   | "Tasks"
@@ -158,7 +171,8 @@ export type StreamlineIconsKey =
   | "User"
   | "Wait"
   | "WebService"
-  | "WrapToSubprocess";
+  | "WrapToSubprocess"
+  | "WsEvent";
 
 export enum StreamlineIcons {
   ActivitiesGroup = "activities-group",
@@ -191,7 +205,9 @@ export enum StreamlineIcons {
   End = "end",
   ErrorEvent = "error-event",
   Error = "error",
+  EventStart = "event-start",
   EventsGroup = "events-group",
+  ExitEnd = "exit-end",
   FitToScreen = "fit-to-screen",
   GatewaysGroup = "gateways-group",
   Generic = "generic",
@@ -199,6 +215,7 @@ export enum StreamlineIcons {
   Grid = "grid",
   Helplines = "helplines",
   Information = "information",
+  InitStart = "init-start",
   Join = "join",
   JumpOut = "jump-out",
   Jump = "jump",
@@ -206,6 +223,7 @@ export enum StreamlineIcons {
   LaneSwimlanes = "lane-swimlanes",
   Manual = "manual",
   Market = "market",
+  MethodStart = "method-start",
   Note = "note",
   OriginScreen = "origin-screen",
   PenEdit = "pen-edit",
@@ -227,6 +245,8 @@ export enum StreamlineIcons {
   StartProgram = "start-program",
   Start = "start",
   Straighten = "straighten",
+  SubEnd = "sub-end",
+  SubStart = "sub-start",
   Sub = "sub",
   Task = "task",
   Tasks = "tasks",
@@ -240,6 +260,7 @@ export enum StreamlineIcons {
   Wait = "wait",
   WebService = "web-service",
   WrapToSubprocess = "wrap-to-subprocess",
+  WsEvent = "ws-event",
 }
 
 export const STREAMLINE_ICONS_CODEPOINTS: { [key in StreamlineIcons]: string } = {
@@ -273,53 +294,60 @@ export const STREAMLINE_ICONS_CODEPOINTS: { [key in StreamlineIcons]: string } =
   [StreamlineIcons.End]: "61724",
   [StreamlineIcons.ErrorEvent]: "61725",
   [StreamlineIcons.Error]: "61726",
-  [StreamlineIcons.EventsGroup]: "61727",
-  [StreamlineIcons.FitToScreen]: "61728",
-  [StreamlineIcons.GatewaysGroup]: "61729",
-  [StreamlineIcons.Generic]: "61730",
-  [StreamlineIcons.GoToSource]: "61731",
-  [StreamlineIcons.Grid]: "61732",
-  [StreamlineIcons.Helplines]: "61733",
-  [StreamlineIcons.Information]: "61734",
-  [StreamlineIcons.Join]: "61735",
-  [StreamlineIcons.JumpOut]: "61736",
-  [StreamlineIcons.Jump]: "61737",
-  [StreamlineIcons.Label]: "61738",
-  [StreamlineIcons.LaneSwimlanes]: "61739",
-  [StreamlineIcons.Manual]: "61740",
-  [StreamlineIcons.Market]: "61741",
-  [StreamlineIcons.Note]: "61742",
-  [StreamlineIcons.OriginScreen]: "61743",
-  [StreamlineIcons.PenEdit]: "61744",
-  [StreamlineIcons.Play]: "61745",
-  [StreamlineIcons.PoolSwimlanes]: "61746",
-  [StreamlineIcons.Program]: "61747",
-  [StreamlineIcons.Receive]: "61748",
-  [StreamlineIcons.Reconnect]: "61749",
-  [StreamlineIcons.Redo]: "61750",
-  [StreamlineIcons.RestClient]: "61751",
-  [StreamlineIcons.Rule]: "61752",
-  [StreamlineIcons.Script]: "61753",
-  [StreamlineIcons.Search]: "61754",
-  [StreamlineIcons.Send]: "61755",
-  [StreamlineIcons.Service]: "61756",
-  [StreamlineIcons.Settings]: "61757",
-  [StreamlineIcons.Signal]: "61758",
-  [StreamlineIcons.Split]: "61759",
-  [StreamlineIcons.StartProgram]: "61760",
-  [StreamlineIcons.Start]: "61761",
-  [StreamlineIcons.Straighten]: "61762",
-  [StreamlineIcons.Sub]: "61763",
-  [StreamlineIcons.Task]: "61764",
-  [StreamlineIcons.Tasks]: "61765",
-  [StreamlineIcons.Trigger]: "61766",
-  [StreamlineIcons.Undo]: "61767",
-  [StreamlineIcons.Unwrap]: "61768",
-  [StreamlineIcons.UserDialogElement]: "61769",
-  [StreamlineIcons.UserDialog]: "61770",
-  [StreamlineIcons.UserTask]: "61771",
-  [StreamlineIcons.User]: "61772",
-  [StreamlineIcons.Wait]: "61773",
-  [StreamlineIcons.WebService]: "61774",
-  [StreamlineIcons.WrapToSubprocess]: "61775",
+  [StreamlineIcons.EventStart]: "61727",
+  [StreamlineIcons.EventsGroup]: "61728",
+  [StreamlineIcons.ExitEnd]: "61729",
+  [StreamlineIcons.FitToScreen]: "61730",
+  [StreamlineIcons.GatewaysGroup]: "61731",
+  [StreamlineIcons.Generic]: "61732",
+  [StreamlineIcons.GoToSource]: "61733",
+  [StreamlineIcons.Grid]: "61734",
+  [StreamlineIcons.Helplines]: "61735",
+  [StreamlineIcons.Information]: "61736",
+  [StreamlineIcons.InitStart]: "61737",
+  [StreamlineIcons.Join]: "61738",
+  [StreamlineIcons.JumpOut]: "61739",
+  [StreamlineIcons.Jump]: "61740",
+  [StreamlineIcons.Label]: "61741",
+  [StreamlineIcons.LaneSwimlanes]: "61742",
+  [StreamlineIcons.Manual]: "61743",
+  [StreamlineIcons.Market]: "61744",
+  [StreamlineIcons.MethodStart]: "61745",
+  [StreamlineIcons.Note]: "61746",
+  [StreamlineIcons.OriginScreen]: "61747",
+  [StreamlineIcons.PenEdit]: "61748",
+  [StreamlineIcons.Play]: "61749",
+  [StreamlineIcons.PoolSwimlanes]: "61750",
+  [StreamlineIcons.Program]: "61751",
+  [StreamlineIcons.Receive]: "61752",
+  [StreamlineIcons.Reconnect]: "61753",
+  [StreamlineIcons.Redo]: "61754",
+  [StreamlineIcons.RestClient]: "61755",
+  [StreamlineIcons.Rule]: "61756",
+  [StreamlineIcons.Script]: "61757",
+  [StreamlineIcons.Search]: "61758",
+  [StreamlineIcons.Send]: "61759",
+  [StreamlineIcons.Service]: "61760",
+  [StreamlineIcons.Settings]: "61761",
+  [StreamlineIcons.Signal]: "61762",
+  [StreamlineIcons.Split]: "61763",
+  [StreamlineIcons.StartProgram]: "61764",
+  [StreamlineIcons.Start]: "61765",
+  [StreamlineIcons.Straighten]: "61766",
+  [StreamlineIcons.SubEnd]: "61767",
+  [StreamlineIcons.SubStart]: "61768",
+  [StreamlineIcons.Sub]: "61769",
+  [StreamlineIcons.Task]: "61770",
+  [StreamlineIcons.Tasks]: "61771",
+  [StreamlineIcons.Trigger]: "61772",
+  [StreamlineIcons.Undo]: "61773",
+  [StreamlineIcons.Unwrap]: "61774",
+  [StreamlineIcons.UserDialogElement]: "61775",
+  [StreamlineIcons.UserDialog]: "61776",
+  [StreamlineIcons.UserTask]: "61777",
+  [StreamlineIcons.User]: "61778",
+  [StreamlineIcons.Wait]: "61779",
+  [StreamlineIcons.WebService]: "61780",
+  [StreamlineIcons.WrapToSubprocess]: "61781",
+  [StreamlineIcons.WsEvent]: "61782",
 };

@@ -1,10 +1,10 @@
 @font-face {
   font-family: "StreamlineIcons";
-  src: url("./StreamlineIcons.ttf?2e80c9d55d4703f9f4f4e6186fc56e89") format("truetype"),
-url("./StreamlineIcons.woff?2e80c9d55d4703f9f4f4e6186fc56e89") format("woff"),
-url("./StreamlineIcons.woff2?2e80c9d55d4703f9f4f4e6186fc56e89") format("woff2"),
-url("./StreamlineIcons.eot?2e80c9d55d4703f9f4f4e6186fc56e89#iefix") format("embedded-opentype"),
-url("./StreamlineIcons.svg?2e80c9d55d4703f9f4f4e6186fc56e89#StreamlineIcons") format("svg");
+  src: url("./StreamlineIcons.ttf?d72edd413749681c7062778c98a5eda8") format("truetype"),
+url("./StreamlineIcons.woff?d72edd413749681c7062778c98a5eda8") format("woff"),
+url("./StreamlineIcons.woff2?d72edd413749681c7062778c98a5eda8") format("woff2"),
+url("./StreamlineIcons.eot?d72edd413749681c7062778c98a5eda8#iefix") format("embedded-opentype"),
+url("./StreamlineIcons.svg?d72edd413749681c7062778c98a5eda8#StreamlineIcons") format("svg");
 }
 
 i[class^="si-"]:before, i[class*=" si-"]:before {
@@ -253,150 +253,171 @@ i[class^="si-"]:before, i[class*=" si-"]:before {
 .si-error:before {
   content: "\f11e";
 }
-.si-events-group:before {
+.si-event-start:before {
   content: "\f11f";
 }
-.si-fit-to-screen:before {
+.si-events-group:before {
   content: "\f120";
 }
-.si-gateways-group:before {
+.si-exit-end:before {
   content: "\f121";
 }
-.si-generic:before {
+.si-fit-to-screen:before {
   content: "\f122";
 }
-.si-go-to-source:before {
+.si-gateways-group:before {
   content: "\f123";
 }
-.si-grid:before {
+.si-generic:before {
   content: "\f124";
 }
-.si-helplines:before {
+.si-go-to-source:before {
   content: "\f125";
 }
-.si-information:before {
+.si-grid:before {
   content: "\f126";
 }
-.si-join:before {
+.si-helplines:before {
   content: "\f127";
 }
-.si-jump-out:before {
+.si-information:before {
   content: "\f128";
 }
-.si-jump:before {
+.si-init-start:before {
   content: "\f129";
 }
-.si-label:before {
+.si-join:before {
   content: "\f12a";
 }
-.si-lane-swimlanes:before {
+.si-jump-out:before {
   content: "\f12b";
 }
-.si-manual:before {
+.si-jump:before {
   content: "\f12c";
 }
-.si-market:before {
+.si-label:before {
   content: "\f12d";
 }
-.si-note:before {
+.si-lane-swimlanes:before {
   content: "\f12e";
 }
-.si-origin-screen:before {
+.si-manual:before {
   content: "\f12f";
 }
-.si-pen-edit:before {
+.si-market:before {
   content: "\f130";
 }
-.si-play:before {
+.si-method-start:before {
   content: "\f131";
 }
-.si-pool-swimlanes:before {
+.si-note:before {
   content: "\f132";
 }
-.si-program:before {
+.si-origin-screen:before {
   content: "\f133";
 }
-.si-receive:before {
+.si-pen-edit:before {
   content: "\f134";
 }
-.si-reconnect:before {
+.si-play:before {
   content: "\f135";
 }
-.si-redo:before {
+.si-pool-swimlanes:before {
   content: "\f136";
 }
-.si-rest-client:before {
+.si-program:before {
   content: "\f137";
 }
-.si-rule:before {
+.si-receive:before {
   content: "\f138";
 }
-.si-script:before {
+.si-reconnect:before {
   content: "\f139";
 }
-.si-search:before {
+.si-redo:before {
   content: "\f13a";
 }
-.si-send:before {
+.si-rest-client:before {
   content: "\f13b";
 }
-.si-service:before {
+.si-rule:before {
   content: "\f13c";
 }
-.si-settings:before {
+.si-script:before {
   content: "\f13d";
 }
-.si-signal:before {
+.si-search:before {
   content: "\f13e";
 }
-.si-split:before {
+.si-send:before {
   content: "\f13f";
 }
-.si-start-program:before {
+.si-service:before {
   content: "\f140";
 }
-.si-start:before {
+.si-settings:before {
   content: "\f141";
 }
-.si-straighten:before {
+.si-signal:before {
   content: "\f142";
 }
-.si-sub:before {
+.si-split:before {
   content: "\f143";
 }
-.si-task:before {
+.si-start-program:before {
   content: "\f144";
 }
-.si-tasks:before {
+.si-start:before {
   content: "\f145";
 }
-.si-trigger:before {
+.si-straighten:before {
   content: "\f146";
 }
-.si-undo:before {
+.si-sub-end:before {
   content: "\f147";
 }
-.si-unwrap:before {
+.si-sub-start:before {
   content: "\f148";
 }
-.si-user-dialog-element:before {
+.si-sub:before {
   content: "\f149";
 }
-.si-user-dialog:before {
+.si-task:before {
   content: "\f14a";
 }
-.si-user-task:before {
+.si-tasks:before {
   content: "\f14b";
 }
-.si-user:before {
+.si-trigger:before {
   content: "\f14c";
 }
-.si-wait:before {
+.si-undo:before {
   content: "\f14d";
 }
-.si-web-service:before {
+.si-unwrap:before {
   content: "\f14e";
 }
-.si-wrap-to-subprocess:before {
+.si-user-dialog-element:before {
   content: "\f14f";
+}
+.si-user-dialog:before {
+  content: "\f150";
+}
+.si-user-task:before {
+  content: "\f151";
+}
+.si-user:before {
+  content: "\f152";
+}
+.si-wait:before {
+  content: "\f153";
+}
+.si-web-service:before {
+  content: "\f154";
+}
+.si-wrap-to-subprocess:before {
+  content: "\f155";
+}
+.si-ws-event:before {
+  content: "\f156";
 }
