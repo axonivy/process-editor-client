@@ -70,7 +70,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createOption(setting: Option, state: boolean): HTMLElement {
     const option = createElement('div', ['tool-bar-option']);
-    option.appendChild(createIcon([setting.icon]));
+    option.appendChild(createIcon(['si', `si-${setting.icon}`]));
     const label = document.createElement('label');
     label.textContent = setting.label;
     option.appendChild(label);

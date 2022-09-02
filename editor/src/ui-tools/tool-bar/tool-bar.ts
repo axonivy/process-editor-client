@@ -127,7 +127,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private createToolButton(toolBarButton: ToolBarButton): HTMLElement {
     const button = createElement('span', ['tool-bar-button']);
-    button.appendChild(createIcon([toolBarButton.icon, 'fa-fw']));
+    button.appendChild(createIcon(['si', `si-${toolBarButton.icon}`, 'fa-fw']));
     button.title = toolBarButton.title;
     if (toolBarButton.id) {
       button.id = toolBarButton.id;
