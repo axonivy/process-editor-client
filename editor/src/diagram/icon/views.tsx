@@ -9,7 +9,7 @@ const JSX = { createElement: svg };
 
 export function getActivityIconDecorator(iconUri: string, color: string): VNode {
   const svgBounds = { height: 14, width: 14, x: 2, y: 2 };
-  const bounds = { height: 12, width: 14, x: 4, y: 3 };
+  const bounds = { height: 13, width: 14, x: 4, y: 3 };
   return iconDecorator(iconUri, bounds, svgBounds, false, color);
 }
 
