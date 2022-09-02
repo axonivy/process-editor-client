@@ -4,6 +4,7 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isBreakable } from './model';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 export interface SetBreakpointAction extends Action {
   kind: typeof SetBreakpointAction.KIND;
@@ -51,7 +52,7 @@ export class BreakpointQuickActionProvider extends SingleQuickActionProvider {
 class BreakpointQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-bug',
+    public readonly icon = StreamlineIcons.Bug,
     public readonly title = 'Toggle Breakpoint (B)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'C',

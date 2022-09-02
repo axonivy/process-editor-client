@@ -21,6 +21,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';
 import { QuickActionUI } from '../quick-action-ui';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 export interface AttachBoundaryOperation extends Operation {
   kind: typeof AttachBoundaryOperation.KIND;
@@ -106,7 +107,7 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Events', icon: 'si si-events-group', sortString: 'A', id: '', actions: [] };
+    return { label: 'Events', icon: StreamlineIcons.EventsGroup, sortString: 'A', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -121,7 +122,7 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Gateways', icon: 'si si-gateways-group', sortString: 'B', id: '', actions: [] };
+    return { label: 'Gateways', icon: StreamlineIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -139,7 +140,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Activities', icon: 'si si-activities-group', sortString: 'C', id: '', actions: [] };
+    return { label: 'Activities', icon: StreamlineIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
   }
 
   createQuickAction(): QuickAction | undefined {
@@ -179,7 +180,7 @@ class CreateAllElementsQuickAction implements QuickAction {
     public readonly elementId: string,
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'si si-menu',
+    public readonly icon = StreamlineIcons.AllElements,
     public readonly title = 'Create Node',
     public readonly location = QuickActionLocation.Hidden,
     public readonly sorting = 'Z',

@@ -13,6 +13,7 @@ import {
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct } from 'inversify';
+import { StreamlineIcons } from '../StreamlineIcons';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from './action';
 
@@ -46,7 +47,7 @@ export class JumpOutUi extends AbstractUIExtension {
     containerElement.innerHTML = '';
     const button = createElement('div', ['jump-out-btn']);
     button.title = 'Jump out (J)';
-    button.appendChild(createIcon(['si', 'si-jump-out']));
+    button.appendChild(createIcon(['si', `si-${StreamlineIcons.JumpOut}`]));
     button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
     containerElement.appendChild(button);
   }

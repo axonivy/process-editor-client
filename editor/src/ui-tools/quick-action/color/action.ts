@@ -4,6 +4,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { ColorPaletteHandler } from './action-handler';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 export interface ChangeColorOperation extends Operation {
   kind: typeof ChangeColorOperation.KIND;
@@ -69,7 +70,7 @@ class SelectColorQuickAction implements QuickAction {
     public readonly elementIds: string[],
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'si si-color',
+    public readonly icon = StreamlineIcons.Color,
     public readonly title = 'Select color',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

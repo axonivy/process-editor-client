@@ -1,6 +1,7 @@
 import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { StreamlineIcons } from '../StreamlineIcons';
 import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/edge/edge-creation-tool';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
@@ -35,7 +36,7 @@ export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider
 class StraightenEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-straighten',
+    public readonly icon = StreamlineIcons.Straighten,
     public readonly title = 'Straighten (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'A',
@@ -74,7 +75,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
 class AutoBendEdgeQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-bend',
+    public readonly icon = StreamlineIcons.Bend,
     public readonly title = 'Bend (B)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
@@ -96,7 +97,7 @@ export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider 
 class ReconnectEdgeQuickAction implements QuickAction {
   constructor(
     public readonly edge: SEdge,
-    public readonly icon = 'si si-reconnect',
+    public readonly icon = StreamlineIcons.Reconnect,
     public readonly title = 'Reconnect (C)',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',

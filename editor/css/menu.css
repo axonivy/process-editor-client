@@ -154,6 +154,7 @@
 }
 .bar-menu .menu-item .color-edit-button {
   justify-content: end;
+  font-size: 14px;
 }
 .bar-menu .color-edit-button:hover {
   background: var(--glsp-bar-menu-item-hover);

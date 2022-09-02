@@ -3,6 +3,7 @@ import { ToolBarButton, ToolBarButtonLocation, ToolBarButtonProvider } from '../
 import { ShowToolBarMenuAction } from '../tool-bar-menu';
 import { injectable, inject } from 'inversify';
 import { ElementsPaletteHandler } from './action-handler';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 @injectable()
 export abstract class CreateElementsButtonProvider implements ToolBarButtonProvider {
@@ -35,7 +36,7 @@ export class AllElementsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'si si-all-elements',
+    public readonly icon = StreamlineIcons.AllElements,
     public readonly title = 'All Elements',
     public readonly sorting = 'A',
     public readonly action = () => ShowToolBarMenuAction.create({ paletteItems: paletteItems, actions: actions, showSearch: true }),
@@ -61,7 +62,7 @@ export class EventsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'si si-events-group',
+    public readonly icon = StreamlineIcons.EventsGroup,
     public readonly title = 'Events',
     public readonly sorting = 'B',
     public readonly action = () =>
@@ -91,7 +92,7 @@ export class GatewaysToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'si si-gateways-group',
+    public readonly icon = StreamlineIcons.GatewaysGroup,
     public readonly title = 'Gateways',
     public readonly sorting = 'C',
     public readonly action = () =>
@@ -124,7 +125,7 @@ export class ActivitiesToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'si si-activities-group',
+    public readonly icon = StreamlineIcons.ActivitiesGroup,
     public readonly title = 'Activities',
     public readonly sorting = 'D',
     public readonly action = () =>
@@ -154,7 +155,7 @@ export class ArtifactsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'si si-pool-swimlanes',
+    public readonly icon = StreamlineIcons.PoolSwimlanes,
     public readonly title = 'Artifacts',
     public readonly sorting = 'E',
     public readonly action = () =>

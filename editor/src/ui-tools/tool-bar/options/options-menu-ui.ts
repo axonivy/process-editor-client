@@ -4,6 +4,7 @@ import { ShowGridAction } from '../../../diagram/grid/action-handler';
 import { SwitchThemeAction } from '../../../theme/action';
 import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
 import { CustomIconToggleAction, ShowToolBarOptionsMenuAction } from './action';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 interface Option {
   icon: string;
@@ -13,7 +14,7 @@ interface Option {
 
 class ThemeOption implements Option {
   constructor(
-    public readonly icon = 'si si-darkmode',
+    public readonly icon = StreamlineIcons.Darkmode,
     public readonly label = 'Darkmode',
     public readonly action = (state: boolean) => SwitchThemeAction.create({ theme: state ? 'dark' : 'light' })
   ) {}
@@ -21,7 +22,7 @@ class ThemeOption implements Option {
 
 class GridOption implements Option {
   constructor(
-    public readonly icon = 'si si-grid',
+    public readonly icon = StreamlineIcons.Grid,
     public readonly label = 'Grid',
     public readonly action = (state: boolean) => ShowGridAction.create({ show: state })
   ) {}
@@ -29,7 +30,7 @@ class GridOption implements Option {
 
 class CustomIconOption implements Option {
   constructor(
-    public readonly icon = 'si si-custom-icon',
+    public readonly icon = StreamlineIcons.CustomIcon,
     public readonly label = 'Custom Icon',
     public readonly action = (state: boolean) => CustomIconToggleAction.create({ showCustomIcons: state })
   ) {}
@@ -50,7 +51,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createHeader(): HTMLElement {
     const header = createElement('div', ['tool-bar-options-header']);
-    header.appendChild(createIcon(['si', 'si-settings']));
+    header.appendChild(createIcon(['si', `si-${StreamlineIcons.Settings}`]));
     const label = document.createElement('label');
     label.textContent = 'Settings';
     header.appendChild(label);

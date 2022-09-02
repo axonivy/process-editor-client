@@ -1,5 +1,6 @@
 import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
+import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
 
@@ -72,7 +73,7 @@ export abstract class ItemMenu implements Menu {
 
   private createPaletteItemSearchField(): HTMLElement {
     const searchDiv = createElement('div', ['bar-menu-search']);
-    searchDiv.appendChild(createElement('i', ['si', 'si-search']));
+    searchDiv.appendChild(createElement('i', ['si', `si-${StreamlineIcons.Search}`]));
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';

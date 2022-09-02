@@ -24,6 +24,7 @@ import {
 } from '@eclipse-glsp/client';
 import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
 import { inject, injectable } from 'inversify';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
@@ -219,7 +220,7 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
 class ConnectQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-connector',
+    public readonly icon = StreamlineIcons.Connector,
     public readonly title = 'Connect',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'Z',

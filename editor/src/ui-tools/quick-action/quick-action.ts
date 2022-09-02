@@ -1,6 +1,7 @@
 import { Action, DeleteElementOperation, isDeletable, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { StreamlineIcons } from '../../StreamlineIcons';
 
 import { AutoAlignOperation } from './operation';
 
@@ -75,7 +76,7 @@ export interface QuickAction {
 class DeleteQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'si si-delete',
+    public readonly icon = StreamlineIcons.Delete,
     public readonly title = 'Delete',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'A',
@@ -86,7 +87,7 @@ class DeleteQuickAction implements QuickAction {
 class AutoAlignQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'si si-auto-align',
+    public readonly icon = StreamlineIcons.AutoAlign,
     public readonly title = 'Auto Align (A)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

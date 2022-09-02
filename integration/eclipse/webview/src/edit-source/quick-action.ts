@@ -1,5 +1,11 @@
 import { SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider, hasGoToSourceFeature } from '@ivyteam/process-editor';
+import {
+  QuickAction,
+  QuickActionLocation,
+  SingleQuickActionProvider,
+  hasGoToSourceFeature,
+  StreamlineIcons
+} from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { GoToSourceAction } from './action';
@@ -17,7 +23,7 @@ export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
 class GoToSourceQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'si si-go-to-source',
+    public readonly icon = StreamlineIcons.GoToSource,
     public readonly title = 'Go To Source (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',

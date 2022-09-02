@@ -1,5 +1,6 @@
 import { Action, GIssueMarker, IActionDispatcher, PaletteItem, SIssue } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
+import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
@@ -81,7 +82,7 @@ export class QuickActionMenu extends ItemMenu {
   }
 
   private createEditButton(item: PaletteItem): HTMLElement {
-    const editButton = createIcon(['si', 'si-edit', 'color-edit-button']);
+    const editButton = createIcon(['si', `si-${StreamlineIcons.Edit}`, 'color-edit-button']);
     editButton.title = 'Edit Color';
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
