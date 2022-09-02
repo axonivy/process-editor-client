@@ -4,5 +4,6 @@ lib
 **/app/bundle.js
 **/app/bundle.js.map
 **/app/codicon.ttf
+**/app/StreamlineIcons.*
 
 *.log
