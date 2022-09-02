@@ -248,7 +248,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
 
   private createQuickActionBtn(quickAction: QuickAction): HTMLElement {
     const button = createElement('span');
-    button.appendChild(createIcon(['si', `si-${quickAction.icon}`, 'fa-xs', 'fa-fw']));
+    button.appendChild(createIcon(['si', `si-${quickAction.icon}`]));
     button.title = quickAction.title;
     const actions = [quickAction.action];
     if (!quickAction.letQuickActionsOpen) {

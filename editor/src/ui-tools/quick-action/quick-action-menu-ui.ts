@@ -63,7 +63,7 @@ export class QuickActionMenu extends ItemMenu {
   protected appendItemToGroup(group: HTMLElement): void {
     if (this.action.isEditable) {
       const button = createElement('div', [ItemMenu.ITEM_BUTTON, 'new-color-btn']);
-      button.appendChild(createElement('span', ['new-color-icon', 'fa-solid', 'fa-add', 'fa-fw']));
+      button.appendChild(createElement('span', ['new-color-icon', 'si', `si-${StreamlineIcons.Add}`]));
       button.insertAdjacentText('beforeend', 'New Color');
       button.onclick = () => this.editUi?.showEditUi();
       button.onmouseenter = _ev => this.focusButton(button);

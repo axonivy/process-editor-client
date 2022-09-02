@@ -39,9 +39,7 @@ function iconDecorator(iconUri: string, bounds: Bounds, svgBounds: Bounds, small
     );
   }
   let foreignObjectContents;
-  if (icon.style === IconStyle.FA) {
-    foreignObjectContents = virtualize(`<i class="${icon.res} fa-fw" style="color: ${color}"></i>`);
-  } else if (icon.style === IconStyle.SI) {
+  if (icon.style === IconStyle.SI) {
     foreignObjectContents = virtualize(`<i class="si si-${icon.res}" style="color: ${color}"></i>`);
   } else {
     foreignObjectContents = virtualize(`<img src="${icon.res}"></img>`);

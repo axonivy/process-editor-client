@@ -35,6 +35,7 @@ import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
 import { Menu } from '../menu/menu';
+import { StreamlineIcons } from '../../StreamlineIcons';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -127,7 +128,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
 
   private createToolButton(toolBarButton: ToolBarButton): HTMLElement {
     const button = createElement('span', ['tool-bar-button']);
-    button.appendChild(createIcon(['si', `si-${toolBarButton.icon}`, 'fa-fw']));
+    button.appendChild(createIcon(['si', `si-${toolBarButton.icon}`]));
     button.title = toolBarButton.title;
     if (toolBarButton.id) {
       button.id = toolBarButton.id;
@@ -147,7 +148,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       const title = document.createElement('label');
       title.textContent = toolBarButton.title;
       if (!toolBarButton.isNotMenu) {
-        button.appendChild(createIcon(['fa-solid', 'fa-angle-down', 'fa-fw']));
+        button.appendChild(createIcon(['si', `si-${StreamlineIcons.AngleDown}`]));
       }
       titleButton.appendChild(title);
       titleButton.appendChild(button);

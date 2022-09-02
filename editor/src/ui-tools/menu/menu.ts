@@ -214,7 +214,7 @@ export abstract class ItemMenu implements Menu {
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     const icon = MenuIcons.get(item.icon!);
     if (icon) {
-      return createIcon(['si', `si-${icon ?? ''}`, 'fa-fw']);
+      return createIcon(['si', `si-${icon ?? ''}`]);
     }
     return createIcon([]);
   }

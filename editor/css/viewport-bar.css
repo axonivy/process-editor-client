@@ -29,6 +29,7 @@
   font-size: 18px;
   line-height: 2rem;
   color: var(--glsp-tool-button);
+  text-align: center;
 }
 .ivy-viewport-bar .viewport-bar-tools span i:hover {
   background: var(--glsp-tool-button-active-bg);
