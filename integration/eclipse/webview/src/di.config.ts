@@ -1,5 +1,3 @@
-import '../css/colors.css';
-
 import { EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
 import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
