@@ -39,9 +39,9 @@
     "jsdom": "^18.0.1"
   },
   "scripts": {
-    "prepare": "yarn clean && yarn build:icons && yarn build && yarn lint",
+    "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
-    "build": "tsc",
+    "build": "yarn build:icons && tsc",
     "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && cpx icons/dist/*.ts src/",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
