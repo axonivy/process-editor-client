@@ -2,11 +2,8 @@ import { StreamlineIcons } from '../../StreamlineIcons';
 import { ActivityTypes, EventBoundaryTypes, EventEndTypes, EventIntermediateTypes, EventStartTypes, GatewayTypes } from '../view-types';
 
 export enum IconStyle {
-  FA,
   SI,
-  SVG,
   IMG,
-  UNKNOWN,
   NO
 }
 
@@ -78,5 +75,5 @@ export const resolveIcon = (iconUri: string): NodeIcon => {
     return { res: StreamlineIcons.Dialogs, style: IconStyle.SI };
   }
   const elementIcon = ElementIcons.get(iconUri);
-  return elementIcon ? { res: elementIcon, style: IconStyle.SI } : { res: iconUri, style: IconStyle.UNKNOWN };
+  return elementIcon ? { res: elementIcon, style: IconStyle.SI } : NoIcon;
 };
