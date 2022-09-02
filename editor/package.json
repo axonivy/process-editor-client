@@ -41,8 +41,8 @@
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
-    "build": "yarn build:icons && tsc",
-    "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && cpx icons/dist/*.ts src/",
+    "build": "yarn build:icons && yarn tsc",
+    "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && yarn cpx icons/dist/*.ts src/",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
     "test:mocha": "mocha --config ../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
