@@ -133,12 +133,8 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     return findEditableLabel(this, ActivityTypes.LABEL);
   }
 
-  get icon(): string {
-    return this.args?.iconUri as string;
-  }
-
   get customIcon(): string {
-    return (this.args?.customIconUri as string) ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.type;
   }
 
   get color(): string {
@@ -179,12 +175,8 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
   args: Args;
   executionCount?: number;
 
-  get icon(): string {
-    return this.args?.iconUri as string;
-  }
-
   get customIcon(): string {
-    return (this.args?.customIconUri as string) ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.type;
   }
 
   get color(): string {
@@ -243,12 +235,8 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     height: 32
   };
 
-  get icon(): string {
-    return this.args?.iconUri as string;
-  }
-
   get customIcon(): string {
-    return (this.args?.customIconUri as string) ?? this.icon;
+    return (this.args?.customIconUri as string) ?? this.type;
   }
 
   get color(): string {

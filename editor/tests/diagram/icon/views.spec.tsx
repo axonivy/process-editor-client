@@ -6,6 +6,8 @@ import { Bounds } from '@eclipse-glsp/client';
 
 import { getActivityIconDecorator, getIconDecorator } from '../../../src/diagram/icon/views';
 import { setupGlobal } from '../../test-helper';
+import { GatewayTypes, EventStartTypes, ActivityTypes } from '../../../src/diagram/view-types';
+import { StreamlineIcons } from '../../../src/StreamlineIcons';
 
 describe('Event and Gateway Icons', () => {
   before(() => {
@@ -19,18 +21,11 @@ describe('Event and Gateway Icons', () => {
     assertNoIcon(node);
   });
 
-  it('svg icon', () => {
-    let node = getIconDecorator('std:Signal', 20, '');
-    assertSvgIcon(node);
-    node = getIconDecorator('std:Signal', 20, 'red');
-    assertSvgIcon(node, 'red');
-  });
-
-  it('fa icon', () => {
-    let node = getIconDecorator('std:Event', 25, '');
-    assertFaIcon(node, { height: 14, width: 18, x: 17, y: 18 }, 'fa-caret-square-right');
-    node = getIconDecorator('std:Event', 25, 'red');
-    assertFaIcon(node, { height: 14, width: 18, x: 17, y: 18 }, 'fa-caret-square-right', 'red');
+  it('icon', () => {
+    let node = getIconDecorator(GatewayTypes.ALTERNATIVE, 25, '');
+    assertIcon(node, { height: 14, width: 18, x: 17, y: 18 }, `si-${StreamlineIcons.AlternativeElement}`, '');
+    node = getIconDecorator(EventStartTypes.START_ERROR, 25, 'red');
+    assertIcon(node, { height: 14, width: 18, x: 17, y: 18 }, `si-${StreamlineIcons.ErrorEventElement}`, 'red');
   });
 
   it('img icon', () => {
@@ -53,18 +48,18 @@ describe('Activity Icons', () => {
     assertNoIcon(node);
   });
 
-  it('fa icon', () => {
-    let node = getActivityIconDecorator('std:Step', '');
-    assertFaIcon(node, { height: 12, width: 14, x: 4, y: 3 }, 'fa-cog');
-    node = getActivityIconDecorator('std:Step', 'red');
-    assertFaIcon(node, { height: 12, width: 14, x: 4, y: 3 }, 'fa-cog', 'red');
+  it('icon', () => {
+    let node = getActivityIconDecorator(ActivityTypes.SCRIPT, '');
+    assertIcon(node, { height: 13, width: 14, x: 4, y: 3 }, `si-${StreamlineIcons.ScriptElement}`);
+    node = getActivityIconDecorator(ActivityTypes.SCRIPT, 'red');
+    assertIcon(node, { height: 13, width: 14, x: 4, y: 3 }, `si-${StreamlineIcons.ScriptElement}`, 'red');
   });
 
   it('img icon', () => {
     let node = getActivityIconDecorator('/faces/javax.faces.resource/url', '');
-    assertImgIcon(node, { height: 12, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
+    assertImgIcon(node, { height: 13, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
     node = getActivityIconDecorator('/faces/javax.faces.resource/url', 'red');
-    assertImgIcon(node, { height: 12, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
+    assertImgIcon(node, { height: 13, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
   });
 });
 
@@ -73,21 +68,7 @@ function assertNoIcon(node: VNode): void {
   expect(node.children).to.be.empty;
 }
 
-function assertSvgIcon(node: VNode, color?: string): void {
-  expect(node.sel).to.be.equals('svg');
-  expect(node.children).to.be.not.empty;
-  assertIconBounds(node.data, { height: 14, width: 14, x: 13, y: 13 });
-
-  const child = node.children![0] as any;
-  expect(child.sel).to.be.equals('path');
-  expect(child.data.attrs.d).to.be.equals('M5,0 L10,10 l-10,0 Z');
-
-  if (color) {
-    expect(child.data.style.stroke).to.be.equals(color);
-  }
-}
-
-function assertFaIcon(node: VNode, expectedBounds: Bounds, expectedFaIcon: string, color?: string): void {
+function assertIcon(node: VNode, expectedBounds: Bounds, expectedIcon: string, color?: string): void {
   expect(node.sel).to.be.equals('g');
   expect(node.children).to.be.not.empty;
 
@@ -98,7 +79,7 @@ function assertFaIcon(node: VNode, expectedBounds: Bounds, expectedFaIcon: strin
 
   const icon = foreignObject.children![0] as any;
   expect(icon.sel).to.be.equals('i');
-  expect(icon.data.class[expectedFaIcon]).to.be.true;
+  expect(icon.data.class[expectedIcon]).to.be.true;
 
   if (color) {
     expect(icon.data.style.color).to.be.equals(color);

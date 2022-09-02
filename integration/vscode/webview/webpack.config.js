@@ -28,7 +28,7 @@ const config = {
         use: ['source-map-loader'],
         enforce: 'pre'
       },
-      { 
+      {
         test: /\.css$/,
         exclude: /(codicon|\.useable)\.css$/,
         use: ['style-loader', 'css-loader']
@@ -36,6 +36,10 @@ const config = {
       {
         test: /codicon.css$/,
         use: ['ignore-loader']
+      },
+      {
+        test: /\.ttf$/,
+        use: ['file-loader']
       }
     ]
   },

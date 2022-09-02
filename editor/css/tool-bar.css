@@ -41,6 +41,7 @@
 .tool-bar-header .tool-bar-title-button {
   height: 2rem;
   width: 3.5rem;
+  min-width: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,18 +58,15 @@
 }
 .tool-bar-header .tool-bar-button i {
   margin-right: 0.2em;
-  font-size: 14px;
   width: 2rem;
-  font-size: 14px;
   line-height: 2rem;
   color: var(--glsp-tool-button);
+  font-size: 18px;
+  text-align: center;
 }
 .tool-bar-header .tool-bar-title-button .tool-bar-button i {
   width: 1rem;
   line-height: 1.5rem;
-}
-.tool-bar-header .tool-bar-title-button .tool-bar-button i.fa-angle-down {
-  font-size: 9px;
 }
 .tool-bar-header .tool-bar-button.clicked,
 .tool-bar-header .tool-bar-button:hover {
@@ -85,13 +83,4 @@
   .tool-bar-header .edit-buttons {
     display: none;
   }
-}
-
-/* Font Awesome Rotate 45 */
-.fa-rotate-45 {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
 }

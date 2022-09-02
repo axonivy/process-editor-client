@@ -28,7 +28,7 @@ export class EventNodeView extends CircularNodeView {
           style={{ stroke: node.color }}
         ></circle>
         {this.getEventDecorator(radius)}
-        {getIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon, radius, node.color)}
+        {getIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.type, radius, node.color)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, 2 * radius)}
       </g>

@@ -2,6 +2,7 @@ import { Action, hasStringProp, IActionHandler, SModelElement } from '@eclipse-g
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
@@ -48,7 +49,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
 class JumpQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-turn-down',
+    public readonly icon = StreamlineIcons.Jump,
     public readonly title = 'Jump (J)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'A',
