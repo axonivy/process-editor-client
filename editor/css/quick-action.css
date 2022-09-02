@@ -33,11 +33,11 @@
 }
 .quick-actions-group span i {
   width: 2rem;
-  font-size: 14px;
   line-height: 2rem;
   color: var(--glsp-tool-button);
+  text-align: center;
+  font-size: 18px;
 }
-
 .multi-selection-box {
   position: absolute;
   left: -5px;

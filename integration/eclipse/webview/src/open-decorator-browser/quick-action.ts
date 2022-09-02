@@ -1,5 +1,12 @@
 import { SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider, isWithCustomIcon, ActivityTypes } from '@ivyteam/process-editor';
+import {
+  QuickAction,
+  QuickActionLocation,
+  SingleQuickActionProvider,
+  isWithCustomIcon,
+  ActivityTypes,
+  StreamlineIcons
+} from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
 import { OpenDecoratorBrowserAction } from './action';
 
@@ -16,7 +23,7 @@ export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
 class CustomIconQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-image',
+    public readonly icon = StreamlineIcons.CustomIcon,
     public readonly title = 'Custom Icon',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'C',

@@ -5,6 +5,7 @@ import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { TypesPaletteHandler } from './action-handler';
 import { isUnwrapable } from '../../../wrap/model';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 export interface ChangeActivityTypeOperation extends Operation {
   kind: typeof ChangeActivityTypeOperation.KIND;
@@ -46,7 +47,7 @@ class ChangeActivityTypeQuickAction implements QuickAction {
     public readonly elementIds: string[],
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = 'fa-solid fa-list',
+    public readonly icon = StreamlineIcons.UserTask,
     public readonly title = 'Select Activity Type',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',

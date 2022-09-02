@@ -1,6 +1,7 @@
 import { Operation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 import {
   MultipleQuickActionProvider,
@@ -57,7 +58,7 @@ export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
 class UnwrapQuickAction implements QuickAction {
   constructor(
     public readonly elementId: string,
-    public readonly icon = 'fa-solid fa-maximize',
+    public readonly icon = StreamlineIcons.Unwrap,
     public readonly title = 'Unwrap embedded subprocess (U)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
@@ -80,7 +81,7 @@ export class WrapQuickActionProvider extends MultipleQuickActionProvider {
 class WrapQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
-    public readonly icon = 'fa-solid fa-minimize',
+    public readonly icon = StreamlineIcons.WrapToSubprocess,
     public readonly title = 'Wrap to embedded process (S)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',

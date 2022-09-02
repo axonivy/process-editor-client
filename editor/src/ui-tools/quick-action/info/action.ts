@@ -15,6 +15,7 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IVY_TYPES } from '../../../types';
 import { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 @injectable()
 export class InfoQuickActionProvider extends SingleQuickActionProvider {
@@ -62,7 +63,7 @@ class InfoQuickAction implements QuickAction {
     public readonly markers: GIssueMarker[],
     public readonly textTitle?: string,
     public readonly text?: string,
-    public readonly icon = 'fa-solid fa-info',
+    public readonly icon = StreamlineIcons.Information,
     public readonly title = 'Information (I)',
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',

@@ -88,7 +88,7 @@ pipeline {
         script {
           docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
             dir ('integration/standalone') {
-              maven cmd: "-f pom.webtest.xml verify -Dengine.page.url=${params.engineSource}"
+              maven cmd: "-ntp -f pom.webtest.xml verify -Dengine.page.url=${params.engineSource}"
             }
           }
           archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
@@ -107,8 +107,8 @@ pipeline {
       steps {
         script {
           docker.image('maven:3.6.3-jdk-11').inside {
-            maven cmd: '-f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
-            maven cmd: '-f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+            maven cmd: '-ntp -f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+            maven cmd: '-ntp -f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
           archiveArtifacts 'integration/eclipse/webview/target/editor-client-eclipse-*.zip'
           archiveArtifacts 'integration/standalone/target/editor-client-standalone*.jar'

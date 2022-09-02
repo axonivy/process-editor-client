@@ -5,6 +5,7 @@ import { QuickActionUI } from '../../src/ui-tools/quick-action/quick-action-ui';
 import ivyToolBarModule from '../../src/ui-tools/tool-bar/di.config';
 import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, setupSprottyDiv } from './quick-action-ui-util';
 import { ElementsPaletteHandler } from '../../src/ui-tools/tool-bar/node/action-handler';
+import { StreamlineIcons } from '../../src/StreamlineIcons';
 
 class ElementsPaletteHandlerMock extends ElementsPaletteHandler {
   public getElementPaletteItems(): PaletteItem[] | undefined {
@@ -41,13 +42,13 @@ describe('QuickActionUi - Create Nodes', () => {
   it('create nodes quick actions are rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(7, { x: 200, y: 150 });
-    assertQuickAction(0, 'Delete', 'fa-solid fa-trash');
-    assertQuickAction(1, 'Information (I)', 'fa-solid fa-info');
-    assertQuickAction(2, 'Select color', 'fa-solid fa-palette');
-    assertQuickAction(3, 'Events (A)', 'fa-regular fa-circle');
-    assertQuickAction(4, 'Gateways (A)', 'fa-regular fa-square fa-rotate-45');
-    assertQuickAction(5, 'Activities (A)', 'fa-regular fa-square');
-    assertQuickAction(6, 'Connect', 'fa-solid fa-arrow-right-long');
+    assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
+    assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
+    assertQuickAction(2, 'Select color', `si si-${StreamlineIcons.Color}`);
+    assertQuickAction(3, 'Events (A)', `si si-${StreamlineIcons.EventsGroup}`);
+    assertQuickAction(4, 'Gateways (A)', `si si-${StreamlineIcons.GatewaysGroup}`);
+    assertQuickAction(5, 'Activities (A)', `si si-${StreamlineIcons.ActivitiesGroup}`);
+    assertQuickAction(6, 'Connect', `si si-${StreamlineIcons.Connector}`);
   });
 
   it('create nodes quick actions are not rendered for comment element', () => {

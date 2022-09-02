@@ -1,5 +1,6 @@
 import { Action, GIssueMarker, IActionDispatcher, PaletteItem, SIssue } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
+import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
@@ -62,7 +63,7 @@ export class QuickActionMenu extends ItemMenu {
   protected appendItemToGroup(group: HTMLElement): void {
     if (this.action.isEditable) {
       const button = createElement('div', [ItemMenu.ITEM_BUTTON, 'new-color-btn']);
-      button.appendChild(createElement('span', ['new-color-icon', 'fa-solid', 'fa-add', 'fa-fw']));
+      button.appendChild(createElement('span', ['new-color-icon', 'si', `si-${StreamlineIcons.Add}`]));
       button.insertAdjacentText('beforeend', 'New Color');
       button.onclick = () => this.editUi?.showEditUi();
       button.onmouseenter = _ev => this.focusButton(button);
@@ -76,18 +77,31 @@ export class QuickActionMenu extends ItemMenu {
 
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {
     if (this.action.isEditable && item.label !== 'default') {
-      button.appendChild(this.createEditButton('fa-pencil', 'Edit Color', item));
+      button.appendChild(this.createEditButton(item));
     }
   }
 
-  private createEditButton(icon: string, title: string, item: PaletteItem): HTMLElement {
-    const editButton = createIcon(['fa-solid', icon, 'color-edit-button']);
-    editButton.title = title;
+  private createEditButton(item: PaletteItem): HTMLElement {
+    const editButton = createIcon(['si', `si-${StreamlineIcons.Edit}`, 'color-edit-button']);
+    editButton.title = 'Edit Color';
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
       this.editUi?.showEditUi(item);
     };
     return editButton;
+  }
+
+  protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+    if (this.action.isEditable) {
+      if (item.icon && item.icon.length > 0) {
+        const span = createElement('span', ['color-icon']);
+        span.style.backgroundColor = item.icon;
+        return span;
+      } else {
+        return createElement('span', ['empty-icon']);
+      }
+    }
+    return super.appendPaletteIcon(button, item);
   }
 }
 

@@ -21,19 +21,19 @@ function createModel(graphFactory: SModelFactory): SGraph {
     size: taskNodeSize,
     children: [{ id: 'commentLabel', type: LabelType.DEFAULT, text: 'comment', position: { x: 0, y: 0 }, size: { width: 100, height: 30 } }]
   });
-  children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: taskNodeSize, args: { iconUri: 'std:Step' } });
-  children.push({ id: 'hd', type: ActivityTypes.HD, position: { x: 600, y: 200 }, size: taskNodeSize, args: { iconUri: 'std:UserDialog' } });
-  children.push({ id: 'user', type: ActivityTypes.USER, position: { x: 600, y: 250 }, size: taskNodeSize, args: { iconUri: 'std:User' } });
-  children.push({ id: 'soap', type: ActivityTypes.SOAP, position: { x: 600, y: 300 }, size: taskNodeSize, args: { iconUri: 'std:WebService' } });
-  children.push({ id: 'rest', type: ActivityTypes.REST, position: { x: 600, y: 350 }, size: taskNodeSize, args: { iconUri: 'std:RestClient' } });
-  children.push({ id: 'db', type: ActivityTypes.DB, position: { x: 600, y: 400 }, size: taskNodeSize, args: { iconUri: 'std:Database' } });
-  children.push({ id: 'email', type: ActivityTypes.EMAIL, position: { x: 600, y: 450 }, size: taskNodeSize, args: { iconUri: 'std:Mail' } });
-  children.push({ id: 'subProcess', type: ActivityTypes.SUB_PROCESS, position: { x: 600, y: 500 }, size: taskNodeSize, args: { iconUri: 'std:NoDecorator' } });
-  children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize, args: { iconUri: 'std:NoDecorator' } });
-  children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize, args: { iconUri: 'std:Page' } });
-  children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize, args: { iconUri: 'std:Trigger' } });
-  children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize, args: { iconUri: 'std:Program' } });
-  children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize, args: { iconUri: 'std:Rule' } });
+  children.push({ id: 'script', type: ActivityTypes.SCRIPT, position: { x: 600, y: 150 }, size: taskNodeSize });
+  children.push({ id: 'hd', type: ActivityTypes.HD, position: { x: 600, y: 200 }, size: taskNodeSize });
+  children.push({ id: 'user', type: ActivityTypes.USER, position: { x: 600, y: 250 }, size: taskNodeSize });
+  children.push({ id: 'soap', type: ActivityTypes.SOAP, position: { x: 600, y: 300 }, size: taskNodeSize });
+  children.push({ id: 'rest', type: ActivityTypes.REST, position: { x: 600, y: 350 }, size: taskNodeSize });
+  children.push({ id: 'db', type: ActivityTypes.DB, position: { x: 600, y: 400 }, size: taskNodeSize });
+  children.push({ id: 'email', type: ActivityTypes.EMAIL, position: { x: 600, y: 450 }, size: taskNodeSize });
+  children.push({ id: 'subProcess', type: ActivityTypes.SUB_PROCESS, position: { x: 600, y: 500 }, size: taskNodeSize });
+  children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize });
+  children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize });
+  children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize });
+  children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize });
+  children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -92,15 +92,15 @@ describe('ActivityNodeView', () => {
   });
 
   it('render sub process node', () => {
-    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true });
+    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true, icon: true });
   });
 
   it('render embedded process node', () => {
-    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true });
+    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true, icon: true });
   });
 
   it('render web page node', () => {
-    assertNode(ActivityTypes.WEB_PAGE, 'webPage', { icon: true });
+    assertNode(ActivityTypes.WEB_PAGE, 'webPage', {});
   });
 
   it('render trigger node', () => {
@@ -112,7 +112,7 @@ describe('ActivityNodeView', () => {
   });
 
   it('render third party node', () => {
-    assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', { icon: true });
+    assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', {});
   });
 
   it('render with execution badge', () => {
@@ -127,7 +127,7 @@ describe('ActivityNodeView', () => {
   it('render with color', () => {
     const view = viewRegistry.get(ActivityTypes.SCRIPT);
     const script = graph.index.getById('script') as ActivityNode;
-    script.args.color = 'red';
+    script.args = { color: 'red' };
     const vnode = view.render(script, context);
     const colorRect = /<rect.*style="stroke: red".*\/>/;
     expect(toHTML(vnode)).to.matches(colorRect);

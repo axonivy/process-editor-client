@@ -1,5 +1,6 @@
 import { CreateNodeOperation, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';
@@ -18,7 +19,7 @@ export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
 class CreateLaneQuickAction implements QuickAction {
   constructor(
     public readonly poolId: string,
-    public readonly icon = 'fa-solid fa-table-columns fa-rotate-270',
+    public readonly icon = StreamlineIcons.LaneSwimlanes,
     public readonly title = 'Create Lane',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',

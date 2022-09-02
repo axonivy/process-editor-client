@@ -1,0 +1,16 @@
+{
+  "name": "StreamlineIcons",
+  "inputDir": "./icons/source",
+  "outputDir": "./icons/dist",
+  "fontTypes": ["ttf"],
+  "assetTypes": ["ts", "css", "html"],
+  "prefix": "si",
+  "templates": {
+    "css": "./icons/templates/css.hbs"
+  },
+  "formatOptions": {
+    "ttf": {
+      "metadata": "Licence by Streamline Icons (https://streamlinehq.com/), Provided by Axon Ivy AG"
+    }
+  }
+}

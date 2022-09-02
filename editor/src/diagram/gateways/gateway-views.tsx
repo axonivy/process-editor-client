@@ -29,7 +29,7 @@ export class GatewayNodeView extends DiamondNodeView {
           points={points}
           style={{ stroke: node.color }}
         />
-        {getIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.icon, radius, node.color)}
+        {getIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.type, radius, node.color)}
         {context.renderChildren(node)}
         {createExecutionBadge(node, Math.max(node.size.width, 0))}
       </g>

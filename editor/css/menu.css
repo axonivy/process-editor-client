@@ -116,6 +116,10 @@
   line-height: 2rem;
   flex: none;
 }
+.bar-menu-items .menu-item .si {
+  text-align: center;
+  font-size: 24px;
+}
 .bar-menu-items .menu-item svg {
   margin: 0.8em;
   width: 14px;
@@ -150,6 +154,7 @@
 }
 .bar-menu .menu-item .color-edit-button {
   justify-content: end;
+  font-size: 14px;
 }
 .bar-menu .color-edit-button:hover {
   background: var(--glsp-bar-menu-item-hover);

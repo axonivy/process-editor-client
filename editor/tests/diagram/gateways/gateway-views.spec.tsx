@@ -13,8 +13,10 @@ const toHTML = require('snabbdom-to-html');
 function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   const gatewayNodeSize = { width: 32, height: 32 };
-  children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize, args: { iconUri: 'std:Tasks' } });
-  children.push({ id: 'gatewayAlternative', type: GatewayTypes.ALTERNATIVE, position: { x: 500, y: 200 }, size: gatewayNodeSize, args: { iconUri: 'std:Alternative' } });
+  children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize });
+  children.push({ id: 'gatewayAlternative', type: GatewayTypes.ALTERNATIVE, position: { x: 500, y: 200 }, size: gatewayNodeSize });
+  children.push({ id: 'gatewayJoin', type: GatewayTypes.JOIN, position: { x: 500, y: 250 }, size: gatewayNodeSize });
+  children.push({ id: 'gatewaySplit', type: GatewayTypes.SPLIT, position: { x: 500, y: 300 }, size: gatewayNodeSize });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -41,23 +43,19 @@ describe('GatewayNodeView', () => {
   });
 
   it('render task', () => {
-    const view = viewRegistry.get(GatewayTypes.TASK);
-    const vnode = view.render(graph.index.getById('gatewayTask') as SNode, context);
-    const expectation =
-      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" style="stroke: " />' +
-      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path d="M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7" style="stroke: " /></svg><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertGateway(GatewayTypes.TASK, 'gatewayTask');
   });
 
   it('render alternative', () => {
-    const view = viewRegistry.get(GatewayTypes.ALTERNATIVE);
-    const vnode = view.render(graph.index.getById('gatewayAlternative') as SNode, context);
-    const expectation =
-      '<g><polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" style="stroke: " />' +
-      '<svg class="sprotty-node-decorator" height="14" width="14" x="9" y="9" viewBox="0 0 10 10">' +
-      '<path d="M2,2 L8,8 M2,8 L8,2" style="stroke: " /></svg><g></g></g>';
-    expect(toHTML(vnode)).to.be.equal(expectation);
+    assertGateway(GatewayTypes.ALTERNATIVE, 'gatewayAlternative');
+  });
+
+  it('render join', () => {
+    assertGateway(GatewayTypes.JOIN, 'gatewayJoin');
+  });
+
+  it('render split', () => {
+    assertGateway(GatewayTypes.SPLIT, 'gatewaySplit');
   });
 
   it('render with execution badge', () => {
@@ -72,10 +70,19 @@ describe('GatewayNodeView', () => {
   it('render with color', () => {
     const view = viewRegistry.get(GatewayTypes.TASK);
     const task = graph.index.getById('gatewayTask') as GatewayNode;
-    task.args.color = 'red';
+    task.args = { color: 'red' };
     const vnode = view.render(task, context);
     const colorPolygon = /<polygon.*style="stroke: red".*\/>/;
-    const colorPath = /<path.*style="stroke: red".*\/>/;
-    expect(toHTML(vnode)).to.matches(colorPolygon).and.matches(colorPath);
+    expect(toHTML(vnode)).to.matches(colorPolygon);
   });
+
+  function assertGateway(type: string, nodeId: string): void {
+    const view = viewRegistry.get(type);
+    const vnode = view.render(graph.index.getById(nodeId) as SNode, context);
+    const node = toHTML(vnode);
+    expect(node).to.contains('<polygon class="sprotty-node" points="16,0 32,16 16,32 0,16" style="stroke: " />');
+    expect(node).to.contains(
+      '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="8" y="9" />'
+    );
+  }
 });

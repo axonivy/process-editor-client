@@ -183,7 +183,7 @@ g[class^='end'] .sprotty-node {
 }
 .sprotty-icon i {
   display: flex;
-  font-size: 11px;
+  font-size: 14px;
 }
 .sprotty-icon img {
   height: 12px;
@@ -191,7 +191,7 @@ g[class^='end'] .sprotty-node {
   object-fit: contain;
 }
 .sprotty-icon.icon-small i {
-  font-size: 12px;
+  font-size: 15px;
 }
 .sprotty-icon.icon-small img {
   height: 14px;

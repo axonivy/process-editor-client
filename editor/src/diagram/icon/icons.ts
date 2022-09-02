@@ -1,8 +1,9 @@
+import { StreamlineIcons } from '../../StreamlineIcons';
+import { ActivityTypes, EventBoundaryTypes, EventEndTypes, EventIntermediateTypes, EventStartTypes, GatewayTypes } from '../view-types';
+
 export enum IconStyle {
-  FA,
-  SVG,
+  SI,
   IMG,
-  UNKNOWN,
   NO
 }
 
@@ -12,79 +13,81 @@ export interface NodeIcon {
 }
 export const NoIcon = { res: '', style: IconStyle.NO };
 
-const StandardIcons: { [icon: string]: NodeIcon } = {
-  // No icon
-  'std:NoDecorator': NoIcon,
-  'std:End': NoIcon,
-  // Standard icons
-  'std:Step': { res: 'fa-solid fa-cog', style: IconStyle.FA },
-  'std:UserDialog': { res: 'fa-solid fa-display', style: IconStyle.FA },
-  'std:User': { res: 'fa-solid fa-user', style: IconStyle.FA },
-  'std:WebService': { res: 'fa-solid fa-globe', style: IconStyle.FA },
-  'std:RestClient': { res: 'fa-solid fa-rss', style: IconStyle.FA },
-  'std:Database': { res: 'fa-solid fa-database', style: IconStyle.FA },
-  'std:Mail': { res: 'fa-regular fa-envelope', style: IconStyle.FA },
-  'std:Page': { res: 'fa-solid fa-tv', style: IconStyle.FA },
-  'std:Trigger': { res: 'fa-regular fa-share-square', style: IconStyle.FA },
-  'std:Program': { res: 'fa-solid fa-scroll', style: IconStyle.FA },
-  'std:Manual': { res: 'fa-solid fa-hand-point-right', style: IconStyle.FA },
-  'std:Receive': { res: 'fa-solid fa-caret-square-down', style: IconStyle.FA },
-  'std:Rule': { res: 'fa-solid fa-table', style: IconStyle.FA },
-  'std:Send': { res: 'fa-solid fa-caret-square-up', style: IconStyle.FA },
-  'std:Service': { res: 'fa-solid fa-cog', style: IconStyle.FA },
-  'std:Script': { res: 'fa-solid fa-scroll', style: IconStyle.FA },
-  'std:CallAndWait': { res: 'fa-solid fa-scroll', style: IconStyle.FA },
-  'std:SubEnd': { res: 'fa-solid fa-reply', style: IconStyle.FA },
-  'std:SubStart': { res: 'fa-solid fa-share', style: IconStyle.FA },
-  'std:Init': { res: 'fa-solid fa-arrow-right', style: IconStyle.FA },
-  'std:Method': { res: 'fa-solid fa-arrow-circle-right', style: IconStyle.FA },
-  'std:Event': { res: 'fa-solid fa-caret-square-right', style: IconStyle.FA },
-  'std:Exit': { res: 'fa-solid fa-window-close', style: IconStyle.FA },
-  'std:Signal': { res: 'M5,0 L10,10 l-10,0 Z', style: IconStyle.SVG },
-  'std:Error': { res: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z', style: IconStyle.SVG },
-  'std:Alternative': { res: 'M2,2 L8,8 M2,8 L8,2', style: IconStyle.SVG },
-  'std:Join': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
-  'std:Split': { res: 'M2,5 L8,5 M5,2 L5,8', style: IconStyle.SVG },
-  'std:Tasks': { res: 'M5,5 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0 M3,5 L7,5 M5,3 L5,7', style: IconStyle.SVG },
-  // Error/Signal icons
-  'std:Message': { res: 'fa-regular fa-envelope', style: IconStyle.FA },
-  'std:Timer': { res: 'fa-regular fa-clock', style: IconStyle.FA },
-  'std:Conditional': { res: 'fa-solid fa-align-justify', style: IconStyle.FA },
-  'std:Escalation': { res: 'fa-solid fa-angles-up', style: IconStyle.FA },
-  'std:Compensation': { res: 'fa-solid fa-angles-left', style: IconStyle.FA },
-  'std:Cancel': { res: 'fa-solid fa-xmark', style: IconStyle.FA }
-};
+export const ElementIcons = new Map<string, string>([
+  // Start Events
+  [EventStartTypes.START_SIGNAL, StreamlineIcons.SignalElement],
+  [EventStartTypes.START_PROGRAM, StreamlineIcons.StartProgramElement],
+  [EventStartTypes.START_ERROR, StreamlineIcons.ErrorEventElement],
+  [EventStartTypes.START_SUB, StreamlineIcons.SubStartElement],
+  [EventStartTypes.START_WS, StreamlineIcons.WsEventElement],
+  [EventStartTypes.START_HD, StreamlineIcons.InitStartElement],
+  [EventStartTypes.START_HD_METHOD, StreamlineIcons.MethodStartElement],
+  [EventStartTypes.START_HD_EVENT, StreamlineIcons.EventStartElement],
+  // Intermediate Events
+  [EventIntermediateTypes.INTERMEDIATE_TASK, StreamlineIcons.TaskElement],
+  [EventIntermediateTypes.INTERMEDIATE_WAIT, StreamlineIcons.WaitElement],
+  // Boundary Events
+  [EventBoundaryTypes.BOUNDARY_ERROR, StreamlineIcons.ErrorEventElement],
+  [EventBoundaryTypes.BOUNDARY_SIGNAL, StreamlineIcons.SignalElement],
+  // End Events
+  [EventEndTypes.END_PAGE, StreamlineIcons.EndPageElement],
+  [EventEndTypes.END_ERROR, StreamlineIcons.ErrorEventElement],
+  [EventEndTypes.END_SUB, StreamlineIcons.SubEndElement],
+  [EventEndTypes.END_WS, StreamlineIcons.WsEventElement],
+  [EventEndTypes.END_HD_EXIT, StreamlineIcons.ExitEndElement],
+  // Gateways
+  [GatewayTypes.ALTERNATIVE, StreamlineIcons.AlternativeElement],
+  [GatewayTypes.SPLIT, StreamlineIcons.SplitElement],
+  [GatewayTypes.JOIN, StreamlineIcons.JoinElement],
+  [GatewayTypes.TASK, StreamlineIcons.TasksElement],
+  // Workflow Activities
+  [ActivityTypes.USER, StreamlineIcons.UserTaskElement],
+  [ActivityTypes.HD, StreamlineIcons.UserDialogElement],
+  [ActivityTypes.SCRIPT, StreamlineIcons.ScriptElement],
+  [ActivityTypes.EMBEDDED_PROCESS, StreamlineIcons.SubElement],
+  [ActivityTypes.SUB_PROCESS, StreamlineIcons.CallElement],
+  [ActivityTypes.TRIGGER, StreamlineIcons.TriggerElement],
+  // Interface Activities
+  [ActivityTypes.DB, StreamlineIcons.DatabaseElement],
+  [ActivityTypes.SOAP, StreamlineIcons.WebServiceElement],
+  [ActivityTypes.REST, StreamlineIcons.RestClientElement],
+  [ActivityTypes.EMAIL, StreamlineIcons.EMailElement],
+  [ActivityTypes.THIRD_PARTY_RULE, StreamlineIcons.RuleElement],
+  [ActivityTypes.PROGRAM, StreamlineIcons.ProgramElement],
+  // BPMN Activities
+  [ActivityTypes.BPMN_GENERIC, StreamlineIcons.GenericElement],
+  [ActivityTypes.BPMN_USER, StreamlineIcons.UserElement],
+  [ActivityTypes.BPMN_MANUAL, StreamlineIcons.ManualElement],
+  [ActivityTypes.BPMN_SCRIPT, StreamlineIcons.ScriptElement],
+  [ActivityTypes.BPMN_SERVICE, StreamlineIcons.ServiceElement],
+  [ActivityTypes.BPMN_RULE, StreamlineIcons.RuleElement],
+  [ActivityTypes.BPMN_SEND, StreamlineIcons.SendElement],
+  [ActivityTypes.BPMN_RECEIVE, StreamlineIcons.ReceiveElement]
+]);
 
-const PaletteIcons: { [icon: string]: NodeIcon } = {
-  'std:Pool': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
-  'std:Lane': { res: 'fa-solid fa-columns fa-rotate-270', style: IconStyle.FA },
-  'std:Start': { res: 'fa-regular fa-circle', style: IconStyle.FA },
-  'std:TaskEnd': { res: 'fa-regular fa-circle', style: IconStyle.FA },
-  'std:ErrorStart': StandardIcons['std:Error'],
-  'std:ErrorEnd': StandardIcons['std:Error'],
-  'std:EmbeddedProcess': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
-  'std:SubProcessCall': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
-  'std:Annotation': { res: 'fa-regular fa-message', style: IconStyle.FA },
-  'std:BpmnGeneric': { res: 'fa-solid fa-diagram-next', style: IconStyle.FA },
-  'std:BpmnUser': StandardIcons['std:User'],
-  'std:BpmnManual': StandardIcons['std:Manual'],
-  'std:BpmnScript': StandardIcons['std:Script'],
-  'std:BpmnReceive': StandardIcons['std:Receive'],
-  'std:BpmnRule': StandardIcons['std:Rule'],
-  'std:BpmnSend': StandardIcons['std:Send'],
-  'std:BpmnService': StandardIcons['std:Service']
-};
+export const CustomBoundaryIcons = new Map<string, string>([
+  ['std:Compensation', StreamlineIcons.AngleDown],
+  ['std:Cancel', StreamlineIcons.AlternativeElement],
+  ['std:Escalation', StreamlineIcons.TriggerElement],
+  ['std:Timer', StreamlineIcons.WaitElement],
+  ['std:Message', StreamlineIcons.EMailElement],
+  ['std:Conditional', StreamlineIcons.NoteElement]
+]);
 
 export const resolveIcon = (iconUri: string): NodeIcon => {
-  if (!iconUri) {
-    return NoIcon;
-  }
   if (iconUri.includes('/faces/javax.faces.resource')) {
     return { res: iconUri, style: IconStyle.IMG };
-  } else if (iconUri.startsWith('ext:')) {
-    return { res: 'fa-puzzle-piece', style: IconStyle.FA };
   }
-  return StandardIcons[iconUri] ?? { res: iconUri, style: IconStyle.UNKNOWN };
+  if (iconUri.startsWith('ext:')) {
+    return { res: StreamlineIcons.Dialogs, style: IconStyle.SI };
+  }
+  const elementIcon = ElementIcons.get(iconUri);
+  if (elementIcon) {
+    return { res: elementIcon, style: IconStyle.SI };
+  }
+  const customBoundaryIcon = CustomBoundaryIcons.get(iconUri);
+  if (customBoundaryIcon) {
+    return { res: customBoundaryIcon, style: IconStyle.SI };
+  }
+  return NoIcon;
 };
-
-export const resolvePaletteIcon = (iconUri: string): NodeIcon => PaletteIcons[iconUri] ?? resolveIcon(iconUri);

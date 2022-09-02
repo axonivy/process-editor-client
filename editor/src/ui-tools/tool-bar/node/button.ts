@@ -3,6 +3,7 @@ import { ToolBarButton, ToolBarButtonLocation, ToolBarButtonProvider } from '../
 import { ShowToolBarMenuAction } from '../tool-bar-menu';
 import { injectable, inject } from 'inversify';
 import { ElementsPaletteHandler } from './action-handler';
+import { StreamlineIcons } from '../../../StreamlineIcons';
 
 @injectable()
 export abstract class CreateElementsButtonProvider implements ToolBarButtonProvider {
@@ -35,7 +36,7 @@ export class AllElementsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-solid fa-bars',
+    public readonly icon = StreamlineIcons.AllElements,
     public readonly title = 'All Elements',
     public readonly sorting = 'A',
     public readonly action = () => ShowToolBarMenuAction.create({ paletteItems: paletteItems, actions: actions, showSearch: true }),
@@ -61,7 +62,7 @@ export class EventsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-circle',
+    public readonly icon = StreamlineIcons.EventsGroup,
     public readonly title = 'Events',
     public readonly sorting = 'B',
     public readonly action = () =>
@@ -91,7 +92,7 @@ export class GatewaysToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-square fa-rotate-45',
+    public readonly icon = StreamlineIcons.GatewaysGroup,
     public readonly title = 'Gateways',
     public readonly sorting = 'C',
     public readonly action = () =>
@@ -124,7 +125,7 @@ export class ActivitiesToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-regular fa-square',
+    public readonly icon = StreamlineIcons.ActivitiesGroup,
     public readonly title = 'Activities',
     public readonly sorting = 'D',
     public readonly action = () =>
@@ -154,7 +155,7 @@ export class ArtifactsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = 'fa-solid fa-columns fa-rotate-270',
+    public readonly icon = StreamlineIcons.PoolSwimlanes,
     public readonly title = 'Artifacts',
     public readonly sorting = 'E',
     public readonly action = () =>

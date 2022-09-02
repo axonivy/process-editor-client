@@ -14,9 +14,9 @@ function createModel(graphFactory: SModelFactory): SGraph {
   const children: any[] = [];
   const eventNodeSize = { width: 30, height: 30 };
   children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: eventNodeSize });
-  children.push({ id: 'startError', type: EventStartTypes.START_ERROR, position: { x: 100, y: 150 }, size: eventNodeSize, args: { iconUri: 'std:Error' } });
-  children.push({ id: 'startSignal', type: EventStartTypes.START_SIGNAL, position: { x: 100, y: 200 }, size: eventNodeSize, args: { iconUri: 'std:Signal' } });
-  children.push({ id: 'startProgram', type: EventStartTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize, args: { iconUri: 'std:Program' } });
+  children.push({ id: 'startError', type: EventStartTypes.START_ERROR, position: { x: 100, y: 150 }, size: eventNodeSize });
+  children.push({ id: 'startSignal', type: EventStartTypes.START_SIGNAL, position: { x: 100, y: 200 }, size: eventNodeSize });
+  children.push({ id: 'startProgram', type: EventStartTypes.START_PROGRAM, position: { x: 100, y: 250 }, size: eventNodeSize });
   children.push({ id: 'startSub', type: EventStartTypes.START_SUB, position: { x: 100, y: 30 }, size: eventNodeSize });
   children.push({ id: 'startWs', type: EventStartTypes.START_WS, position: { x: 100, y: 350 }, size: eventNodeSize });
   children.push({ id: 'startHd', type: EventStartTypes.START_HD, position: { x: 100, y: 400 }, size: eventNodeSize });
@@ -64,11 +64,11 @@ describe('EventNodeView', () => {
   });
 
   it('render start error event node', () => {
-    assertEvent(EventStartTypes.START_ERROR, 'startError', { svg: 'M0,8 L4,5 L6,7 L10,2 L6,5 L4,3 Z' });
+    assertEvent(EventStartTypes.START_ERROR, 'startError', { icon: true });
   });
 
   it('render start signal event node', () => {
-    assertEvent(EventStartTypes.START_SIGNAL, 'startSignal', { svg: 'M5,0 L10,10 l-10,0 Z' });
+    assertEvent(EventStartTypes.START_SIGNAL, 'startSignal', { icon: true });
   });
 
   it('render start program event node', () => {
@@ -158,7 +158,7 @@ describe('EventNodeView', () => {
     expect(newLocal).to.matches(colorCircle);
   });
 
-  function assertEvent(type: string, nodeId: string, options: { intermediate?: boolean; icon?: boolean; svg?: string }): void {
+  function assertEvent(type: string, nodeId: string, options: { intermediate?: boolean; icon?: boolean }): void {
     const view = viewRegistry.get(type);
     const vnode = view.render(graph.index.getById(nodeId) as SNode, context);
     const node = toHTML(vnode);
@@ -170,10 +170,6 @@ describe('EventNodeView', () => {
       expect(node).to.contains(
         '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" />'
       );
-    }
-    if (options.svg) {
-      expect(node).to.contains('<svg class="sprotty-node-decorator" height="14" width="14" x="8" y="8" viewBox="0 0 10 10">');
-      expect(node).to.contains(`<path d="${options.svg}" style="stroke: " />`);
     }
   }
 });
