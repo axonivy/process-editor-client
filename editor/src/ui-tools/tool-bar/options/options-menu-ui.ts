@@ -53,7 +53,7 @@ export class ToolBarOptionsMenu implements Menu {
     const header = createElement('div', ['tool-bar-options-header']);
     header.appendChild(createIcon(['si', `si-${StreamlineIcons.Settings}`]));
     const label = document.createElement('label');
-    label.textContent = 'Settings';
+    label.textContent = 'Options';
     header.appendChild(label);
     return header;
   }
