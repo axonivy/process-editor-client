@@ -106,7 +106,7 @@ pipeline {
       }
       steps {
         script {
-          docker.image('maven:3.6.3-jdk-11').inside {
+          docker.image('maven:3.8.6-eclipse-temurin-17').inside {
             maven cmd: '-ntp -f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
             maven cmd: '-ntp -f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
