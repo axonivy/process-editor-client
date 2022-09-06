@@ -37,7 +37,7 @@ test.describe('key listener - quick action shortcuts', () => {
     await expect(connectorFeedback).toBeHidden();
 
     await connector.click();
-    await pressQuickActionShortcut(page, 'C');
+    await pressQuickActionShortcut(page, 'R');
     await expect(connector).toBeVisible();
     await expect(connectorFeedback).toBeVisible();
   });
