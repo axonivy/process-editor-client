@@ -34,7 +34,7 @@ describe('QuickActionUi', () => {
     assertQuickAction(3, 'Bend (B)', `si si-${StreamlineIcons.Bend}`);
     assertQuickAction(4, 'Edit Label (L)', `si si-${StreamlineIcons.Label}`);
     assertQuickAction(5, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(6, 'Reconnect (C)', `si si-${StreamlineIcons.Reconnect}`);
+    assertQuickAction(6, 'Reconnect (R)', `si si-${StreamlineIcons.Reconnect}`);
   });
 
   it('ui is rendered for activity element', () => {

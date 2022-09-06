@@ -98,13 +98,13 @@ class ReconnectEdgeQuickAction implements QuickAction {
   constructor(
     public readonly edge: SEdge,
     public readonly icon = StreamlineIcons.Reconnect,
-    public readonly title = 'Reconnect (C)',
+    public readonly title = 'Reconnect (R)',
     public readonly location = QuickActionLocation.Right,
     public readonly sorting = 'A',
     public readonly action = QuickActionTriggerEdgeCreationAction.create(edge.type, edge.sourceId, {
       edgeId: edge.id,
       reconnect: true
     }),
-    public readonly shortcut: KeyCode = 'KeyC'
+    public readonly shortcut: KeyCode = 'KeyR'
   ) {}
 }
