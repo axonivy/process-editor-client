@@ -7,7 +7,7 @@
 
   <properties>
     <engine.page.url>https://jenkins.ivyteam.io/job/core_product/job/master/lastSuccessfulBuild/</engine.page.url>
-    <project.build.plugin.version>9.4.0-SNAPSHOT</project.build.plugin.version>
+    <project.build.plugin.version>9.4.1-SNAPSHOT</project.build.plugin.version>
     <workflow.demos.version>9.4.0-SNAPSHOT</workflow.demos.version>
     <engine.test.app>workflow-demos</engine.test.app>
   </properties>
