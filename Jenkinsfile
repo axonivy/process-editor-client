@@ -88,7 +88,7 @@ pipeline {
         script {
           docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
             dir ('integration/standalone') {
-              maven cmd: "-ntp -f pom.webtest.xml verify -Dengine.page.url=${params.engineSource}"
+              maven cmd: "-ntp -f pom.webtest.xml verify -Dengine.page.url=${params.engineSource} -Divy.engine.version='[10.0.0,]'"
             }
           }
           archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
