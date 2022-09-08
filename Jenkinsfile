@@ -14,7 +14,7 @@ pipeline {
   }
 
   parameters {
-    string(name: 'engineSource', defaultValue: 'https://jenkins.ivyteam.io/job/core_product/job/master/lastSuccessfulBuild/', description: 'Engine page url')
+    string(name: 'engineSource', defaultValue: 'https://jenkins.ivyteam.io/job/core_product/job/release%252F9.4/lastSuccessfulBuild/', description: 'Engine page url')
     booleanParam(name: 'publish', defaultValue: false, description: 'Publish to NPM-Registry')
     string(name: 'nextVersion', defaultValue: '0.9.3-s1', description: 'Next version of product (0.9.3-s40[sprint number])')
     string(name: 'gitUserName', defaultValue: 'nobody', description: 'Git commit user name e.g. Alexander Suter')
