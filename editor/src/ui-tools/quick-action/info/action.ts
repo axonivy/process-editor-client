@@ -26,7 +26,13 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     if (element instanceof LaneNode || (this.options.hideSensitiveInfo && element instanceof SEdge)) {
       return undefined;
     }
-    return new InfoQuickAction(element.id, this.markers(element), this.name(element), GArgument.getString(element, 'desc'));
+    return new InfoQuickAction(
+      element.id,
+      this.markers(element),
+      this.name(element),
+      GArgument.getString(element, 'desc'),
+      GArgument.getString(element, 'outerElement')
+    );
   }
 
   name(element: SModelElement): string | undefined {
@@ -63,6 +69,7 @@ class InfoQuickAction implements QuickAction {
     public readonly markers: GIssueMarker[],
     public readonly textTitle?: string,
     public readonly text?: string,
+    public readonly outerElemet?: string,
     public readonly icon = StreamlineIcons.Information,
     public readonly title = 'Information (I)',
     public readonly location = QuickActionLocation.Left,
@@ -71,7 +78,8 @@ class InfoQuickAction implements QuickAction {
       elementId: elementId,
       markers: markers,
       title: textTitle,
-      text: text
+      text: text,
+      outerElement: outerElemet
     }),
     public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true,

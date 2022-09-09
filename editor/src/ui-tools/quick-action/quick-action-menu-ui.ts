@@ -111,6 +111,7 @@ export interface ShowInfoQuickActionMenuAction extends Action {
   markers: GIssueMarker[];
   title?: string;
   text?: string;
+  outerElement?: string;
 }
 
 export namespace ShowInfoQuickActionMenuAction {
@@ -121,6 +122,7 @@ export namespace ShowInfoQuickActionMenuAction {
     markers: GIssueMarker[];
     title?: string;
     text?: string;
+    outerElement?: string;
   }): ShowInfoQuickActionMenuAction {
     return {
       kind: KIND,
@@ -148,6 +150,12 @@ export class InfoQuickActionMenu extends SimpleMenu {
       const title = createElement('p', ['simple-menu-header']);
       title.textContent = this.action.title;
       menu.appendChild(title);
+    }
+
+    if (this.action.outerElement) {
+      const outerElement = createElement('p', ['simple-menu-text']);
+      outerElement.textContent = '[' + this.action.outerElement + ']';
+      menu.appendChild(outerElement);
     }
 
     if (this.action.text) {
