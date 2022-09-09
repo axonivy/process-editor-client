@@ -41,6 +41,22 @@ test.describe('quick actions - nodes', () => {
     await assertInformation(page, '.sprotty-graph > g > .sprotty-edge');
   });
 
+  test('info outerElement', async ({ page }) => {
+    const start = page.locator(startSelector);
+    const embeddedProcessElement = page.locator('.sprotty-graph .embeddedProcessElement');
+    const embeddedStart = page.locator('.sprotty-graph .start\\:embeddedStart');
+    await start.click();
+    await page.keyboard.press('A');
+    await page.keyboard.type('sub');
+    await page.keyboard.press('Enter');
+    await expect(embeddedProcessElement).toBeVisible();
+    await page.keyboard.press('J');
+    await expect(embeddedStart).toBeVisible();
+    await embeddedStart.click();
+    await page.keyboard.press('I');
+    await expect(page.locator('.bar-menu-text')).toContainText('[start.ivp]');
+  });
+
   test('connect', async ({ page }) => {
     const start = page.locator(startSelector);
     const end = page.locator(endSelector);
