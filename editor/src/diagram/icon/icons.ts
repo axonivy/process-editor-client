@@ -16,7 +16,7 @@ export const NoIcon = { res: '', style: IconStyle.NO };
 export const ElementIcons = new Map<string, string>([
   // Start Events
   [EventStartTypes.START_SIGNAL, StreamlineIcons.SignalElement],
-  [EventStartTypes.START_PROGRAM, StreamlineIcons.StartProgramElement],
+  [EventStartTypes.START_PROGRAM, StreamlineIcons.ProgramElement],
   [EventStartTypes.START_ERROR, StreamlineIcons.ErrorEventElement],
   [EventStartTypes.START_SUB, StreamlineIcons.SubStartElement],
   [EventStartTypes.START_WS, StreamlineIcons.WsEventElement],
@@ -44,8 +44,6 @@ export const ElementIcons = new Map<string, string>([
   [ActivityTypes.USER, StreamlineIcons.UserTaskElement],
   [ActivityTypes.HD, StreamlineIcons.UserDialogElement],
   [ActivityTypes.SCRIPT, StreamlineIcons.ScriptElement],
-  [ActivityTypes.EMBEDDED_PROCESS, StreamlineIcons.SubElement],
-  [ActivityTypes.SUB_PROCESS, StreamlineIcons.CallElement],
   [ActivityTypes.TRIGGER, StreamlineIcons.TriggerElement],
   // Interface Activities
   [ActivityTypes.DB, StreamlineIcons.DatabaseElement],
@@ -55,7 +53,6 @@ export const ElementIcons = new Map<string, string>([
   [ActivityTypes.THIRD_PARTY_RULE, StreamlineIcons.RuleElement],
   [ActivityTypes.PROGRAM, StreamlineIcons.ProgramElement],
   // BPMN Activities
-  [ActivityTypes.BPMN_GENERIC, StreamlineIcons.GenericElement],
   [ActivityTypes.BPMN_USER, StreamlineIcons.UserElement],
   [ActivityTypes.BPMN_MANUAL, StreamlineIcons.ManualElement],
   [ActivityTypes.BPMN_SCRIPT, StreamlineIcons.ScriptElement],

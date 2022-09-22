@@ -184,7 +184,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   createIssue(sIssue: SIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
-    issueTitle.appendChild(createElement('i', ['codicon', `codicon-${sIssue.severity}`]));
+    issueTitle.appendChild(createElement('i', ['si', `si-${sIssue.severity}`]));
     const issueTitleSpan = createElement('span');
     issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
     issueTitle.appendChild(issueTitleSpan);

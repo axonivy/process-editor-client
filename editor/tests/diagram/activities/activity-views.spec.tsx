@@ -92,11 +92,11 @@ describe('ActivityNodeView', () => {
   });
 
   it('render sub process node', () => {
-    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true, icon: true });
+    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true, icon: false });
   });
 
   it('render embedded process node', () => {
-    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true, icon: true });
+    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true, icon: false });
   });
 
   it('render web page node', () => {
