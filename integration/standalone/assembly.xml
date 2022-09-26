@@ -13,7 +13,7 @@
       <directory>app</directory>
       <outputDirectory>./META-INF/resources/process-editor</outputDirectory>
       <excludes>
-        <exclude>bundle.js.map</exclude>
+        <exclude>bundle*.js.map</exclude>
       </excludes>
     </fileSet>
   </fileSets>

@@ -4,11 +4,12 @@ const path = require('path');
 const buildRoot = path.resolve(__dirname, 'lib');
 const appRoot = path.resolve(__dirname, 'app');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: [path.resolve(buildRoot, 'index')],
   output: {
-    filename: 'bundle.js',
+    filename: 'bundle.[contentHash].js',
     path: appRoot
   },
   mode: 'development',
@@ -49,7 +50,8 @@ module.exports = {
     new CircularDependencyPlugin({
       exclude: /(node_modules|examples)\/./,
       failOnError: false
-    })
+    }),
+    new HtmlWebpackPlugin({ template: 'diagram_template.html', filename: 'diagram.html' })
   ],
   stats: {
     warningsFilter: [/Failed to parse source map/]
