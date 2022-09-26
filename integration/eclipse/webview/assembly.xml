@@ -13,7 +13,7 @@
       <directory>app</directory>
       <outputDirectory>./</outputDirectory>
       <excludes>
-        <exclude>bundle.js.map</exclude>
+        <exclude>bundle*.js.map</exclude>
       </excludes>
     </fileSet>
   </fileSets>
