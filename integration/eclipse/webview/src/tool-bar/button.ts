@@ -2,7 +2,7 @@ import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation, Streamline
 import { OpenInscriptionAction } from '../open-inscription/open-inscription-handler';
 import { OpenDataClassAction } from '../open-data-class/open-data-class';
 import { injectable } from 'inversify';
-import { OpenInsertConnectorAction } from '../open-insert-connector/open-insert-connector';
+import { OpenInsertExtensionAction } from '../open-insert-extension/open-insert-extension';
 
 class InscribeProcessButton implements ToolBarButton {
   constructor(
@@ -40,13 +40,13 @@ export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
   }
 }
 
-export class OpenInsertConnectorButton implements ToolBarButton {
+export class OpenInsertExtensionButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.Market,
-    public readonly title = 'Connectors',
+    public readonly icon = StreamlineIcons.Extensions,
+    public readonly title = 'Extensions',
     public readonly sorting = 'F',
-    public readonly action = () => OpenInsertConnectorAction.create(),
-    public readonly id = 'insertconnectorbutton',
+    public readonly action = () => OpenInsertExtensionAction.create(),
+    public readonly id = 'insertextensionbutton',
     public readonly location = ToolBarButtonLocation.Middle,
     public readonly switchFocus = true,
     public readonly showTitle = true,
@@ -55,8 +55,8 @@ export class OpenInsertConnectorButton implements ToolBarButton {
 }
 
 @injectable()
-export class OpenInsertConnectorButtonProvider implements ToolBarButtonProvider {
+export class OpenInsertExtensionButtonProvider implements ToolBarButtonProvider {
   button(): ToolBarButton {
-    return new OpenInsertConnectorButton();
+    return new OpenInsertExtensionButton();
   }
 }
