@@ -105,6 +105,8 @@
   align-items: center;
   padding-right: 0.8rem;
   cursor: pointer;
+  word-break: break-word;
+  overflow: hidden;
 }
 .bar-menu-items .menu-item.focus {
   background: var(--glsp-bar-menu-item-hover);
