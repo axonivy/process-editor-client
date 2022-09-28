@@ -65,6 +65,26 @@ test.describe('url parameters', () => {
     await expect(viewport).toHaveText('123%');
   });
 
+  test('theme light', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto(procurementRequestParallelUrl());
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('data-theme', 'dark');
+
+    await page.goto(procurementRequestParallelUrl() + '&theme=light');
+    await expect(html).toHaveAttribute('data-theme', 'light');
+  });
+
+  test('theme dark', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' });
+    await page.goto(procurementRequestParallelUrl());
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('data-theme', 'light');
+
+    await page.goto(procurementRequestParallelUrl() + '&theme=dark');
+    await expect(html).toHaveAttribute('data-theme', 'dark');
+  });
+
   function procurementRequestParallelUrl(): string {
     return workflowDemosUrl('/processes/Humantask/ProcurementRequestParallel.p.json');
   }
