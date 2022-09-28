@@ -107,7 +107,7 @@ export class OptionsToolButton implements ToolBarButton {
     public readonly grid: () => boolean,
     public readonly theme?: () => string,
     public readonly icon = StreamlineIcons.Settings,
-    public readonly title = 'Options',
+    public readonly title = 'Settings',
     public readonly sorting = 'Z',
     public readonly action = () => ShowToolBarOptionsMenuAction.create({ customIconState: customIconState, grid: grid, theme: theme }),
     public readonly id = 'btn_options_menu',

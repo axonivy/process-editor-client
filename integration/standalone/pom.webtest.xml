@@ -103,9 +103,8 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>xvfb-run</executable>
+              <executable>yarn</executable>
               <arguments>
-                <argument>yarn</argument>
                 <argument>webtest:ci</argument>
               </arguments>
               <environmentVariables>

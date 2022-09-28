@@ -54,7 +54,7 @@ export const MenuIcons = new Map<string, string>([
   [ActivityTypes.THIRD_PARTY_RULE, StreamlineIcons.Rule],
   [ActivityTypes.PROGRAM, StreamlineIcons.Program],
   // BPMN Activities
-  [ActivityTypes.BPMN_GENERIC, StreamlineIcons.Generic],
+  [ActivityTypes.BPMN_GENERIC, StreamlineIcons.Sub],
   [ActivityTypes.BPMN_USER, StreamlineIcons.User],
   [ActivityTypes.BPMN_MANUAL, StreamlineIcons.Manual],
   [ActivityTypes.BPMN_SCRIPT, StreamlineIcons.Script],

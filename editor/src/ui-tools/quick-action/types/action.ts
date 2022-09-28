@@ -47,7 +47,7 @@ class ChangeActivityTypeQuickAction implements QuickAction {
     public readonly elementIds: string[],
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = StreamlineIcons.UserTask,
+    public readonly icon = StreamlineIcons.ChangeType,
     public readonly title = 'Select Activity Type',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'Z',
