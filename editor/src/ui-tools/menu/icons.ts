@@ -44,7 +44,7 @@ export const MenuIcons = new Map<string, string>([
   [ActivityTypes.HD, StreamlineIcons.UserDialog],
   [ActivityTypes.SCRIPT, StreamlineIcons.Script],
   [ActivityTypes.EMBEDDED_PROCESS, StreamlineIcons.Sub],
-  [ActivityTypes.SUB_PROCESS, StreamlineIcons.Call],
+  [ActivityTypes.SUB_PROCESS, StreamlineIcons.Sub],
   [ActivityTypes.TRIGGER, StreamlineIcons.Trigger],
   // Interface Activities
   [ActivityTypes.DB, StreamlineIcons.Database],
