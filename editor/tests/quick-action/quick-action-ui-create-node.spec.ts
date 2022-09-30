@@ -41,28 +41,29 @@ describe('QuickActionUi - Create Nodes', () => {
 
   it('create nodes quick actions are rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    assertQuickActionUi(7, { x: 200, y: 150 });
+    assertQuickActionUi(8, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
     assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(3, 'Events (A)', `si si-${StreamlineIcons.EventsGroup}`);
-    assertQuickAction(4, 'Gateways (A)', `si si-${StreamlineIcons.GatewaysGroup}`);
-    assertQuickAction(5, 'Activities (A)', `si si-${StreamlineIcons.ActivitiesGroup}`);
-    assertQuickAction(6, 'Connect', `si si-${StreamlineIcons.Connector}`);
+    assertQuickAction(2, 'Wrap to embedded process (S)', `si si-${StreamlineIcons.WrapToSubprocess}`);
+    assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
+    assertQuickAction(4, 'Events (A)', `si si-${StreamlineIcons.EventsGroup}`);
+    assertQuickAction(5, 'Gateways (A)', `si si-${StreamlineIcons.GatewaysGroup}`);
+    assertQuickAction(6, 'Activities (A)', `si si-${StreamlineIcons.ActivitiesGroup}`);
+    assertQuickAction(7, 'Connect', `si si-${StreamlineIcons.Connector}`);
   });
 
   it('create nodes quick actions are not rendered for comment element', () => {
     quickActionUi.show(root, 'comment');
-    assertQuickActionUi(4);
+    assertQuickActionUi(5);
     assertQuickAction(0, 'Delete');
-    assertQuickAction(2, 'Select color');
-    assertQuickAction(3, 'Connect');
+    assertQuickAction(3, 'Select color');
+    assertQuickAction(4, 'Connect');
   });
 
   it('create nodes quick actions are not rendered for end element', () => {
     quickActionUi.show(root, 'end');
-    assertQuickActionUi(3);
+    assertQuickActionUi(4);
     assertQuickAction(0, 'Delete');
-    assertQuickAction(2, 'Select color');
+    assertQuickAction(3, 'Select color');
   });
 });

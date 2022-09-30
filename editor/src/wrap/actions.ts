@@ -3,13 +3,8 @@ import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../StreamlineIcons';
 
-import {
-  MultipleQuickActionProvider,
-  QuickAction,
-  QuickActionLocation,
-  SingleQuickActionProvider
-} from '../ui-tools/quick-action/quick-action';
-import { isUnwrapable } from './model';
+import { QuickActionProvider, QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { isUnwrapable, isWrapable } from './model';
 
 export interface WrapToSubOperation extends Operation {
   kind: typeof WrapToSubOperation.KIND;
@@ -68,7 +63,14 @@ class UnwrapQuickAction implements QuickAction {
 }
 
 @injectable()
-export class WrapQuickActionProvider extends MultipleQuickActionProvider {
+export class WrapQuickActionProvider implements QuickActionProvider {
+  singleQuickAction(element: SModelElement): QuickAction | undefined {
+    if (isWrapable(element)) {
+      return new WrapQuickAction([element.id]);
+    }
+    return undefined;
+  }
+
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
     if (elementIds.length > 0) {

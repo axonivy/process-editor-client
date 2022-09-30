@@ -39,48 +39,48 @@ describe('QuickActionUi', () => {
 
   it('ui is rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
-    assertQuickActionUi(7, { x: 200, y: 150 });
+    assertQuickActionUi(8, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
     assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(6, 'Connect', `si si-${StreamlineIcons.Connector}`);
-  });
-
-  it('ui is rendered for activity embedded element', () => {
-    quickActionUi.show(root, 'sub');
-    assertQuickActionUi(8, { x: 400, y: 150 });
-    assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
-    assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-
-    assertQuickAction(2, 'Jump (J)', `si si-${StreamlineIcons.Jump}`);
     assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
     assertQuickAction(7, 'Connect', `si si-${StreamlineIcons.Connector}`);
   });
 
-  it('ui is rendered for event element', () => {
-    quickActionUi.show(root, 'start');
-    assertQuickActionUi(7, { x: 215, y: 230 });
+  it('ui is rendered for activity embedded element', () => {
+    quickActionUi.show(root, 'sub');
+    assertQuickActionUi(9, { x: 400, y: 150 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
     assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(6, 'Connect', `si si-${StreamlineIcons.Connector}`);
+
+    assertQuickAction(2, 'Jump (J)', `si si-${StreamlineIcons.Jump}`);
+    assertQuickAction(4, 'Select color', `si si-${StreamlineIcons.Color}`);
+    assertQuickAction(8, 'Connect', `si si-${StreamlineIcons.Connector}`);
+  });
+
+  it('ui is rendered for event element', () => {
+    quickActionUi.show(root, 'start');
+    assertQuickActionUi(8, { x: 215, y: 230 });
+    assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
+    assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
+    assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
+    assertQuickAction(7, 'Connect', `si si-${StreamlineIcons.Connector}`);
 
     // no connection quick action if outgoing edge exists
     quickActionUi.show(root, 'startWithConnection');
-    assertQuickActionUi(6);
+    assertQuickActionUi(7);
   });
 
   it('ui is rendered for gateway element', () => {
     quickActionUi.show(root, 'alternative');
-    assertQuickActionUi(7, { x: 116, y: 232 });
+    assertQuickActionUi(8, { x: 116, y: 232 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
     assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(6, 'Connect', `si si-${StreamlineIcons.Connector}`);
+    assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
+    assertQuickAction(7, 'Connect', `si si-${StreamlineIcons.Connector}`);
 
     // connection quick action even if outoging edge exists
     quickActionUi.show(root, 'alternativeWithConnection');
-    assertQuickActionUi(7);
+    assertQuickActionUi(8);
   });
 
   it('ui is rendered for pool', () => {
