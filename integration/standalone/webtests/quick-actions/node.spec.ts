@@ -14,13 +14,13 @@ test.describe('quick actions - nodes', () => {
 
     await assertQuickActionsCount(page, 0);
     await start.click();
-    await assertQuickActionsCount(page, 7);
+    await assertQuickActionsCount(page, 8);
     await end.click();
-    await assertQuickActionsCount(page, 4);
+    await assertQuickActionsCount(page, 5);
 
     await removeElement(page, endSelector);
     await start.click();
-    await assertQuickActionsCount(page, 8);
+    await assertQuickActionsCount(page, 9);
   });
 
   test('label edit', async ({ page }) => {
