@@ -11,6 +11,7 @@ import {
 } from '@eclipse-glsp/client';
 import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { inject, injectable, optional } from 'inversify';
+import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyNodeCreationTool extends NodeCreationTool {
@@ -27,11 +28,13 @@ export class IvyNodeCreationTool extends NodeCreationTool {
     this.ivyCreationToolMouseListener = new IvyNodeCreationToolMouseListener(this.triggerAction, this);
     this.mouseTool.register(this.ivyCreationToolMouseListener);
     this.dispatchFeedback([cursorFeedbackAction(CursorCSS.NODE_CREATION)]);
+    addNegativeArea(this.editorContext.modelRoot);
   }
 
   disable(): void {
     this.mouseTool.deregister(this.ivyCreationToolMouseListener);
     this.deregisterFeedback([cursorFeedbackAction()]);
+    removeNegativeArea(this.editorContext.modelRoot);
   }
 }
 

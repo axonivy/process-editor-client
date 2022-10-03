@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
 import { assertPosition, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
-import { addActivity, addLane } from '../toolbar-util';
+import { addActivity, addLane, openElementPalette } from '../toolbar-util';
 
 test.describe('quick actions - color', () => {
   test.beforeEach(async ({ page }) => {
@@ -12,6 +12,15 @@ test.describe('quick actions - color', () => {
     const toolPalette = page.locator('#sprotty_ivy-tool-bar');
     await expect(toolPalette).toBeVisible();
     await expect(page.locator(startSelector)).toBeVisible();
+  });
+
+  test('negative area', async ({ page }) => {
+    await assertNegativeArea(page, false);
+    const toolBarMenu = await openElementPalette(page, 'activities');
+    await toolBarMenu.locator('.menu-item:has-text("User Dialog")').click();
+    await assertNegativeArea(page, true);
+    await page.locator('.sprotty-graph').click({ position: { x: 100, y: 100 } });
+    await assertNegativeArea(page, false);
   });
 
   test('element move', async ({ page }) => {
