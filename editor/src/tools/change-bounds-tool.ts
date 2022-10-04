@@ -11,6 +11,7 @@ import {
 import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
+import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyChangeBoundsTool extends ChangeBoundsTool {
@@ -38,6 +39,15 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
         })
       );
     }
+    if (this.isMouseDrag && this.activeResizeHandle) {
+      addNegativeArea(target);
+    }
+    return actions;
+  }
+
+  draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
+    const actions = super.draggingMouseUp(target, event);
+    removeNegativeArea(target);
     return actions;
   }
 }
@@ -52,6 +62,7 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
           visible: false
         })
       );
+      addNegativeArea(target);
     }
     return actions;
   }

@@ -228,6 +228,9 @@ g[class^='end'] .sprotty-node {
 .edge-modification-not-allowed-mode .node-child-label {
   cursor: not-allowed;
 }
+.negative-area {
+  opacity: 0.3;
+}
 
 /* Projection Bars */
 .projection-graph {

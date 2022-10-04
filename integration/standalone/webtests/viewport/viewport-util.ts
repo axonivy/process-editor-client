@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test';
 
-export const ORIGIN_VIEWPORT = 'scale(1) translate(0,50)';
+export const ORIGIN_VIEWPORT = 'scale(1) translate(0,48)';
 export const GRAPH_SELECTOR = '.sprotty-graph > g';
 export const GRID_SELECTOR = '.sprotty-graph';
 
@@ -44,5 +44,5 @@ export async function assertGridNotOriginSize(page: Page): Promise<void> {
 }
 
 function gridPosition(gridMove: { x: number; y: number }): RegExp {
-  return new RegExp(`background-position: ${8 + gridMove.x}px ${58 + gridMove.y}px;`);
+  return new RegExp(`background-position: ${8 + gridMove.x}px ${56 + gridMove.y}px;`);
 }
