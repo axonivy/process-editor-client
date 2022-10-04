@@ -4,7 +4,7 @@ import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../StreamlineIcons';
 
 import { QuickActionProvider, QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
-import { isUnwrapable, isWrapable } from './model';
+import { isSingleWrapable, isUnwrapable, isWrapable } from './model';
 
 export interface WrapToSubOperation extends Operation {
   kind: typeof WrapToSubOperation.KIND;
@@ -65,7 +65,7 @@ class UnwrapQuickAction implements QuickAction {
 @injectable()
 export class WrapQuickActionProvider implements QuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (isWrapable(element)) {
+    if (isSingleWrapable(element)) {
       return new WrapQuickAction([element.id]);
     }
     return undefined;
@@ -73,7 +73,7 @@ export class WrapQuickActionProvider implements QuickActionProvider {
 
   multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
-    if (elementIds.length > 0) {
+    if (elementIds.length > 0 && !elements.find(element => !isWrapable(element))) {
       return new WrapQuickAction(elementIds);
     }
     return undefined;
