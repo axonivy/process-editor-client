@@ -36,7 +36,7 @@ import {
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
-import { wrapFeature } from '../wrap/model';
+import { singleWrapFeature, wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
@@ -119,7 +119,8 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
     breakpointFeature,
     errorBoundaryFeature,
     executionFeature,
-    wrapFeature
+    wrapFeature,
+    singleWrapFeature
   ];
 
   name = '';

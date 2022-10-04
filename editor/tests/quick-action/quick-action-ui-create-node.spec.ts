@@ -62,8 +62,8 @@ describe('QuickActionUi - Create Nodes', () => {
 
   it('create nodes quick actions are not rendered for end element', () => {
     quickActionUi.show(root, 'end');
-    assertQuickActionUi(4);
+    assertQuickActionUi(3);
     assertQuickAction(0, 'Delete');
-    assertQuickAction(3, 'Select color');
+    assertQuickAction(2, 'Select color');
   });
 });

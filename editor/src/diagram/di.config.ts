@@ -21,7 +21,7 @@ import { ContainerModule, interfaces } from 'inversify';
 import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { goToSourceFeature, jumpFeature } from '../jump/model';
-import { unwrapFeature } from '../wrap/model';
+import { singleWrapFeature, unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { GatewayNodeView } from './gateways/gateway-views';
@@ -106,7 +106,9 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureGateway(GatewayTypes.ALTERNATIVE);
 
   configureIvyModelElement(ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
-  configureIvyModelElement(ActivityTypes.COMMENT, CommentNode, ActivityNodeView, { disable: [breakpointFeature, errorBoundaryFeature] });
+  configureIvyModelElement(ActivityTypes.COMMENT, CommentNode, ActivityNodeView, {
+    disable: [breakpointFeature, errorBoundaryFeature, singleWrapFeature]
+  });
   configureActivity(ActivityTypes.SCRIPT);
   configureActivity(ActivityTypes.SOAP);
   configureActivity(ActivityTypes.REST);
@@ -121,7 +123,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureActivity(ActivityTypes.USER, {
     enable: [signalBoundaryFeature, jumpFeature, goToSourceFeature]
   });
-  configureEmbedded(ActivityTypes.SUB_PROCESS, { enable: [jumpFeature] });
+  configureEmbedded(ActivityTypes.SUB_PROCESS, { enable: [jumpFeature], disable: [singleWrapFeature] });
   configureEmbedded(ActivityTypes.EMBEDDED_PROCESS);
   configureEmbedded(ActivityTypes.BPMN_GENERIC);
   configureEmbedded(ActivityTypes.BPMN_MANUAL);
@@ -172,7 +174,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
       type,
       ActivityNode,
       SubActivityNodeView,
-      features ? features : { enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature] }
+      features ? features : { enable: [jumpFeature, unwrapFeature, multipleOutgoingEdgesFeature], disable: [singleWrapFeature] }
     );
   }
 });
