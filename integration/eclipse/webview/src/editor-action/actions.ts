@@ -28,6 +28,7 @@ class StartProcessQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'A',
     public readonly action = StartProcessAction.create(elementId),
+    public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyX'
   ) {}
@@ -78,6 +79,7 @@ class SearchProcessCallersQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'B',
     public readonly action = SearchProcessCallersAction.create(elementId),
+    public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true,
     public readonly shortcut: KeyCode = 'KeyO'
   ) {}
