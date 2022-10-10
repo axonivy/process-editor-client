@@ -6,7 +6,10 @@ import {
   Operation,
   Action,
   SetUIExtensionVisibilityAction,
-  FeedbackMoveMouseListener
+  FeedbackMoveMouseListener,
+  MoveAction,
+  Point,
+  ElementMove
 } from '@eclipse-glsp/client';
 import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { injectable } from 'inversify';
@@ -31,15 +34,13 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
 
   mouseMove(target: SModelElement, event: MouseEvent): Action[] {
     const actions = super.mouseMove(target, event);
-    if (this.isMouseDrag) {
+    if (this.isMouseDrag && this.activeResizeHandle) {
       actions.push(
         SetUIExtensionVisibilityAction.create({
           extensionId: QuickActionUI.ID,
           visible: false
         })
       );
-    }
-    if (this.isMouseDrag && this.activeResizeHandle) {
       addNegativeArea(target);
     }
     return actions;
@@ -55,7 +56,7 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
 export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
   mouseMove(target: SModelElement, event: MouseEvent): Action[] {
     const actions = super.mouseMove(target, event);
-    if (this.hasDragged) {
+    if (this.hasDragged && this.hasRealMoved(actions)) {
       actions.push(
         SetUIExtensionVisibilityAction.create({
           extensionId: QuickActionUI.ID,
@@ -65,5 +66,12 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
       addNegativeArea(target);
     }
     return actions;
+  }
+
+  hasRealMoved(actions: Action[]): ElementMove | undefined {
+    return actions
+      .filter(action => action.kind === MoveAction.KIND)
+      .flatMap(action => (<MoveAction>action).moves)
+      .find(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
   }
 }
