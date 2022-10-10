@@ -28,5 +28,4 @@ export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
 
 /* Helpers */
-export * from './icon-font-url-helper';
 export { StreamlineIcons } from './StreamlineIcons';

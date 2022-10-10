@@ -11,7 +11,6 @@ import {
   TYPES
 } from '@eclipse-glsp/client';
 import {
-  appendIconFontToDom,
   MoveIntoViewportAction,
   IvySetViewportZoomAction,
   EnableViewportAction,
@@ -44,8 +43,6 @@ const givenFile = parameters['file'] ?? '';
 const highlight = parameters['highlight'];
 const selectElementIds = parameters['selectElementIds'];
 const zoom = parameters['zoom'];
-
-appendIconFontToDom(`${isSecureConnection() ? 'https' : 'http'}://${server}`);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
