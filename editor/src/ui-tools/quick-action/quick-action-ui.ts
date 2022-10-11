@@ -16,6 +16,7 @@ import {
   SChildElement,
   SConnectableElement,
   SEdge,
+  SelectAllAction,
   SetUIExtensionVisibilityAction,
   SModelElement,
   SModelRoot,
@@ -253,6 +254,9 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     const actions = [quickAction.action];
     if (!quickAction.letQuickActionsOpen) {
       actions.push(SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }));
+    }
+    if (quickAction.removeSelection) {
+      actions.push(SelectAllAction.create(false));
     }
     button.onclick = () => this.triggerQuickActionBtn(button, actions);
     return button;
