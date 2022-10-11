@@ -1,5 +1,5 @@
-import { EclipseGLSPDiagramServer, keepAliveModule } from '@eclipse-glsp/ide';
-import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
+import { keepAliveModule } from '@eclipse-glsp/ide';
+import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule, IvyGLSPDiagramServer } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
 
@@ -15,7 +15,7 @@ import ivyEclipseDeleteModule from './invoke-delete/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
-  container.bind(TYPES.ModelSource).to(EclipseGLSPDiagramServer).inSingletonScope();
+  container.bind(TYPES.ModelSource).to(IvyGLSPDiagramServer).inSingletonScope();
   container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 

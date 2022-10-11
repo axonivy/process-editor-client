@@ -19,13 +19,15 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "^1.0.0",
-    "showdown": "^2.1.0"
+    "showdown": "^2.1.0",
+    "toastify-js": "1.12.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",
     "@types/jsdom": "^16.2.13",
     "@types/mocha": "^9.0.0",
     "@types/showdown": "^2.0.0",
+    "@types/toastify-js": "^1.11.1",
     "chai": "^4.3.4",
     "cpx": "^1.5.0",
     "mocha": "^9.1.3",

@@ -19,9 +19,10 @@ import {
   IVY_TYPES,
   SwitchThemeAction,
   SwitchThemeActionHandler,
-  overrideIvyViewerOptions
+  overrideIvyViewerOptions,
+  IvyBaseJsonrpcGLSPClient
 } from '@ivyteam/process-editor';
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
@@ -49,7 +50,7 @@ diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
 
 websocket.onopen = () => {
   const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new BaseJsonrpcGLSPClient({ id, connectionProvider });
+  const glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
   initialize(glspClient);
 };
 

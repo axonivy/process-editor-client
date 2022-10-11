@@ -1,0 +1,20 @@
+.toastify {
+  color: #202020;
+  border-radius: 4px;
+  transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.toastify .toast-close {
+  color: #202020;
+}
+
+.toastify.severity-INFO {
+  background: var(--glsp-info-foreground);
+}
+
+.toastify.severity-WARNING {
+  background: var(--glsp-warning-foreground);
+}
+
+.toastify.severity-ERROR {
+  background: var(--glsp-error-foreground);
+}

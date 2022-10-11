@@ -1,5 +1,7 @@
 import '../css/colors.css';
 import '../icons/dist/StreamlineIcons.css';
+import 'toastify-js/src/toastify.css';
+import '../css/toastify.css';
 
 import {
   DEFAULT_MODULES,
