@@ -16,6 +16,7 @@ import {
   Viewport
 } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
+import { ToolBar } from '../tool-bar/tool-bar';
 
 export interface OriginViewportAction extends Action {
   kind: typeof OriginViewportAction.KIND;
@@ -55,6 +56,37 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
 
   constructor(@inject(TYPES.Action) protected readonly action: FitToScreenAction) {
     super(action);
+  }
+
+  getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
+    if (!Dimension.isValid(model.canvasBounds)) {
+      return undefined;
+    }
+    const c = Bounds.center(bounds);
+    const delta = this.action.padding === undefined ? 0 : 2 * this.action.padding;
+    const toolBarHeight = this.toolBarHeight();
+    let zoom = Math.min(
+      model.canvasBounds.width / (bounds.width + delta),
+      (model.canvasBounds.height - toolBarHeight) / (bounds.height + delta)
+    );
+    if (this.action.maxZoom !== undefined) {
+      zoom = Math.min(zoom, this.action.maxZoom);
+    }
+    if (zoom === Infinity) {
+      zoom = 1;
+    }
+    return {
+      scroll: {
+        x: c.x - (0.5 * model.canvasBounds.width) / zoom,
+        y: c.y - (0.5 * (model.canvasBounds.height + toolBarHeight)) / zoom
+      },
+      zoom: zoom
+    };
+  }
+
+  private toolBarHeight(): number {
+    const toolBar = document.getElementById('sprotty_' + ToolBar.ID);
+    return toolBar ? toolBar.getBoundingClientRect().height : 0;
   }
 
   protected initialize(model: SModelRoot): void {
