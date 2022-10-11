@@ -28,9 +28,9 @@ class StartProcessQuickAction implements QuickAction {
     public readonly location = QuickActionLocation.Left,
     public readonly sorting = 'A',
     public readonly action = StartProcessAction.create(elementId),
-    public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyX'
+    public readonly shortcut: KeyCode = 'KeyX',
+    public readonly removeSelection = true
   ) {}
 }
 

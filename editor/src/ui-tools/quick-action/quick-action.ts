@@ -71,6 +71,7 @@ export interface QuickAction {
   letQuickActionsOpen?: boolean;
   readonlySupport?: boolean;
   shortcut?: KeyCode;
+  removeSelection?: boolean;
 }
 
 class DeleteQuickAction implements QuickAction {
