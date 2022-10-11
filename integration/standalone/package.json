@@ -37,7 +37,7 @@
   },
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
-    "clean": "rimraf lib app/bundle.js app/bundle.js.map app/css",
+    "clean": "rimraf lib app/bundle*.js app/bundle*.js.map app/css",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "build": "yarn install --ignore-scripts && tsc && webpack",
     "watch": "webpack --mode development --watch",
