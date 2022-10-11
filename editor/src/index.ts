@@ -27,5 +27,8 @@ export * from './ui-tools/tool-bar/tool-bar';
 export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
 
+export * from './ivy-glsp-jsonrpc-client';
+export * from './ivy-glsp-diagram-server';
+
 /* Helpers */
 export { StreamlineIcons } from './StreamlineIcons';
