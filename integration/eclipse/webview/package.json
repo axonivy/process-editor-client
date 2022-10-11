@@ -33,7 +33,7 @@
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build",
-    "clean": "rimraf lib app/bundle.js app/bundle.js.map",
+    "clean": "rimraf lib app/bundle*.js app/bundle*.js.map",
     "build": "tsc && webpack && yarn run lint",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "webpack --mode development --watch"
