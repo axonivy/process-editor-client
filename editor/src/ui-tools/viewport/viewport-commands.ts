@@ -85,7 +85,7 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
   }
 
   private toolBarHeight(): number {
-    const toolBar = document.getElementById('sprotty_' + ToolBar.ID);
+    const toolBar = document.querySelector('[id$="_' + ToolBar.ID + '"]');
     return toolBar ? toolBar.getBoundingClientRect().height : 0;
   }
 
