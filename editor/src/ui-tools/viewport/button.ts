@@ -33,6 +33,6 @@ export class FitToScreenButton implements ViewportBarButton {
     public readonly icon = StreamlineIcons.FitToScreen,
     public readonly id = 'fitToScreenBtn',
     public readonly title = 'Fit to screen',
-    public readonly action = () => FitToScreenAction.create([])
+    public readonly action = () => FitToScreenAction.create([], { padding: 10 })
   ) {}
 }
