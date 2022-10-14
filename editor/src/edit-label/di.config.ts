@@ -2,7 +2,6 @@ import '../../css/inline-label.css';
 
 import {
   BalloonLabelValidationDecorator,
-  ServerEditLabelValidator,
   TYPES,
   ApplyLabelEditCommand,
   configureCommand,
@@ -16,7 +15,6 @@ import { EditLabelActionProvider } from './quick-action';
 import { IvyEditLabelActionHandler, IvyEditLabelUI } from './edit-label-ui';
 
 export const ivyEditLabelModule = new ContainerModule((bind, _unbind, isBound, _rebind) => {
-  bind(TYPES.IEditLabelValidator).to(ServerEditLabelValidator);
   bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
   bind(TYPES.IDefaultTool).to(IvyDirectLabelEditTool);
   configureCommand({ bind, isBound }, ApplyLabelEditCommand);
