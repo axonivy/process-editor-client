@@ -97,12 +97,9 @@ pipeline {
       }
     }
 
-    stage('Deploy (master only)') {
+    stage('Deploy (Maven)') {
       when {
-        allOf {
-          branch 'master'
-          expression { return currentBuild.currentResult == 'SUCCESS' }
-        }
+        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
       }
       steps {
         script {
@@ -116,12 +113,9 @@ pipeline {
       }
     }
 
-    stage('Publish (master only)') {
+    stage('Publish (NPM)') {
       when {
-        allOf {
-          branch 'master'
-          expression { return currentBuild.currentResult == 'SUCCESS' && params.publish }
-        }
+        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' && params.publish }
       }
       steps {
         script {
@@ -181,4 +175,8 @@ pipeline {
       }
     }
   }
+}
+
+def isReleaseOrMasterBranch() {
+  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }
