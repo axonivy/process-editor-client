@@ -35,7 +35,7 @@ export async function gotoRandomTestProcessUrl(page: Page, urlQueryParam = ''): 
 }
 
 function randomTestProcessUrl(): string {
-  return processEditorUrl('workflow-demos', `/processes/test/${uuid()}.p.json`);
+  return processEditorUrl('glsp-test-project', `/processes/test/${uuid()}.p.json`);
 }
 
 export function processEditorUrl(pmv: string, file: string): string {
