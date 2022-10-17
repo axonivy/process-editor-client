@@ -14,7 +14,7 @@ pipeline {
   }
 
   parameters {
-    string(name: 'engineSource', defaultValue: 'https://jenkins.ivyteam.io/job/core_product/job/master/lastSuccessfulBuild/', description: 'Engine page url')
+    string(name: 'engineSource', defaultValue: 'https://product.ivyteam.io/', description: 'Engine page url')
     booleanParam(name: 'publish', defaultValue: false, description: 'Publish to NPM-Registry')
     string(name: 'nextVersion', defaultValue: '0.9.3-s1', description: 'Next version of product (0.9.3-s40[sprint number])')
     string(name: 'gitUserName', defaultValue: 'nobody', description: 'Git commit user name e.g. Alexander Suter')
@@ -87,12 +87,12 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
-            dir ('integration/standalone') {
-              maven cmd: "-ntp -f pom.webtest.xml verify -Dengine.page.url=${params.engineSource} -Divy.engine.version='[10.0.0,]'"
+            dir ('integration/standalone/glsp-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
           }
           archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integration/standalone/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integration/standalone/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
         }
       }
     }
