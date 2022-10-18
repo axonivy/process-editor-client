@@ -20,6 +20,7 @@
         <version>${project.build.plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
+          <ivyVersion>[10.0.0,]</ivyVersion>
           <engineListPageUrl>${engine.page.url}</engineListPageUrl>
           <deployToEngineApplication>${engine.test.app}</deployToEngineApplication>
           <additionalVmOptions>
