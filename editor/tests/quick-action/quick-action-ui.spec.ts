@@ -102,7 +102,7 @@ describe('QuickActionUi', () => {
     quickActionUi.show(root, 'start', 'end');
     assertMultiQuickActionUi(4, { height: 40, width: 140 }, { x: 265, y: 230 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
-    assertQuickAction(1, 'Wrap to embedded process (S)', `si si-${StreamlineIcons.WrapToSubprocess}`);
+    assertQuickAction(1, 'Wrap to embedded process (W)', `si si-${StreamlineIcons.WrapToSubprocess}`);
     assertQuickAction(2, 'Auto Align (A)', `si si-${StreamlineIcons.AutoAlign}`);
     assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
 

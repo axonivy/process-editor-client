@@ -84,10 +84,10 @@ class WrapQuickAction implements QuickAction {
   constructor(
     public readonly elementIds: string[],
     public readonly icon = StreamlineIcons.WrapToSubprocess,
-    public readonly title = 'Wrap to embedded process (S)',
+    public readonly title = 'Wrap to embedded process (W)',
     public readonly location = QuickActionLocation.Middle,
     public readonly sorting = 'B',
     public readonly action = WrapToSubOperation.create({ elementIds: elementIds }),
-    public readonly shortcut: KeyCode = 'KeyS'
+    public readonly shortcut: KeyCode = 'KeyW'
   ) {}
 }
