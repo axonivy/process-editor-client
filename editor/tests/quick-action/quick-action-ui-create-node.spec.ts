@@ -44,7 +44,7 @@ describe('QuickActionUi - Create Nodes', () => {
     assertQuickActionUi(8, { x: 200, y: 150 });
     assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
     assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Wrap to embedded process (S)', `si si-${StreamlineIcons.WrapToSubprocess}`);
+    assertQuickAction(2, 'Wrap to embedded process (W)', `si si-${StreamlineIcons.WrapToSubprocess}`);
     assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
     assertQuickAction(4, 'Events (A)', `si si-${StreamlineIcons.EventsGroup}`);
     assertQuickAction(5, 'Gateways (A)', `si si-${StreamlineIcons.GatewaysGroup}`);

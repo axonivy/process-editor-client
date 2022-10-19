@@ -79,7 +79,7 @@ test.describe('key listener - quick action shortcuts', () => {
     const embedded = page.locator(embeddedSelector);
 
     await multiSelect(page, [start, end], browserName);
-    await pressQuickActionShortcut(page, 'S');
+    await pressQuickActionShortcut(page, 'W');
     await expect(start).toBeHidden();
     await expect(end).toBeHidden();
     await expect(embedded).toBeVisible();
