@@ -7,9 +7,9 @@ import {
   RequestModelAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { EnableViewportAction, SwitchThemeAction } from '@ivyteam/process-editor';
+import { EnableViewportAction, SwitchThemeAction, IvyBaseJsonrpcGLSPClient } from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, BaseJsonrpcGLSPClient, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
 import { ShowGridAction } from '@ivyteam/process-editor/lib/diagram/grid/action-handler';
@@ -35,7 +35,7 @@ diagramServer.clientId = clientId;
 
 websocket.onopen = () => {
   const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new BaseJsonrpcGLSPClient({ id, connectionProvider });
+  const glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
   initialize(glspClient);
 };
 
