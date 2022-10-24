@@ -1,5 +1,5 @@
 import { keepAliveModule } from '@eclipse-glsp/ide';
-import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule, IvyGLSPDiagramServer } from '@ivyteam/process-editor';
+import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
 
@@ -12,10 +12,11 @@ import ivyOpenDataClassModule from './open-data-class/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
 import ivyEclipseCopyPasteModule from './copy-paste/di.config';
 import ivyEclipseDeleteModule from './invoke-delete/di.config';
+import { IvyEclipseGLSPDiagramServer } from './ivy-eclipse-glsp-diagram-server';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
-  container.bind(TYPES.ModelSource).to(IvyGLSPDiagramServer).inSingletonScope();
+  container.bind(TYPES.ModelSource).to(IvyEclipseGLSPDiagramServer).inSingletonScope();
   container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
