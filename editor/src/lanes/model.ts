@@ -4,6 +4,7 @@ import {
   hoverFeedbackFeature,
   isBoundsAware,
   isSelectable,
+  isSelected,
   SChildElement,
   Selectable,
   SModelElement,
@@ -16,6 +17,10 @@ export interface LaneResizable extends BoundsAware, Selectable {}
 
 export function isLaneResizable(element: SModelElement): element is SParentElement & LaneResizable {
   return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(laneResizeFeature);
+}
+
+export function isSelectedLane(element: SModelElement): element is SParentElement & LaneResizable {
+  return isLaneResizable(element) && isSelected(element);
 }
 
 export enum LaneResizeHandleLocation {

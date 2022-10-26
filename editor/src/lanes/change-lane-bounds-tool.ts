@@ -6,31 +6,26 @@ import {
   BoundsAware,
   Dimension,
   ChangeBoundsOperation,
-  ChangeRoutingPointsOperation,
   CompoundOperation,
   CursorCSS,
   cursorFeedbackAction,
   deleteCssClasses,
   DragAwareMouseListener,
-  EdgeRouterRegistry,
   ElementAndBounds,
-  ElementAndRoutingPoints,
   findParentByFeature,
   forEachElement,
   ISnapper,
-  isNonRoutableSelectedMovableBoundsAware,
   isSelected,
   isViewport,
   MouseListener,
   Operation,
   Point,
   toElementAndBounds,
-  toElementAndRoutingPoints,
-  SConnectableElement,
   SModelElement,
   SModelRoot,
   SParentElement,
-  TYPES
+  TYPES,
+  SetUIExtensionVisibilityAction
 } from '@eclipse-glsp/client';
 import { SetBoundsAction, Writable } from '@eclipse-glsp/protocol';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
@@ -38,15 +33,15 @@ import { isValidSize } from '@eclipse-glsp/client/lib/utils/layout-utils';
 import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
-import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
+import { isLaneResizable, isSelectedLane, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 import { addNegativeArea, removeNegativeArea } from '../tools/negative-area/model';
+import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 
 @injectable()
 export class ChangeLaneBoundsTool extends BaseGLSPTool {
   static ID = 'ivy.change-lane-bounds-tool';
 
   @inject(TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(EdgeRouterRegistry) @optional() readonly edgeRouterRegistry?: EdgeRouterRegistry;
   @inject(TYPES.ISnapper) @optional() readonly snapper?: ISnapper;
   protected feedbackMoveMouseListener: MouseListener;
   protected changeBoundsListener: MouseListener & SelectionListener;
@@ -125,6 +120,12 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
         actions.push(...resizeActions);
       }
       addNegativeArea(target);
+      actions.push(
+        SetUIExtensionVisibilityAction.create({
+          extensionId: QuickActionUI.ID,
+          visible: false
+        })
+      );
       return actions;
     }
     return [];
@@ -150,10 +151,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   }
 
   protected handleMoveOnServer(target: SModelElement): Action[] {
-    const operations: Operation[] = [];
-
-    operations.push(...this.handleMoveElementsOnServer(target));
-    operations.push(...this.handleMoveRoutingPointsOnServer(target));
+    const operations = this.handleMoveElementsOnServer(target);
     if (operations.length > 0) {
       return [CompoundOperation.create(operations)];
     }
@@ -163,27 +161,11 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   protected handleMoveElementsOnServer(target: SModelElement): Operation[] {
     const result: Operation[] = [];
     const newBounds: ElementAndBounds[] = [];
-    forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
+    forEachElement(target.index, isSelectedLane, element => {
       this.createElementAndBounds(element).forEach(bounds => newBounds.push(bounds));
     });
     if (newBounds.length > 0) {
       result.push(ChangeBoundsOperation.create(newBounds));
-    }
-    return result;
-  }
-
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
-    const result: Operation[] = [];
-    const newRoutingPoints: ElementAndRoutingPoints[] = [];
-    forEachElement(target.index, isNonRoutableSelectedMovableBoundsAware, element => {
-      //  If client routing is enabled -> delegate routingpoints of connected edges to server
-      if (this.tool.edgeRouterRegistry && element instanceof SConnectableElement) {
-        element.incomingEdges.map(toElementAndRoutingPoints).forEach(ear => newRoutingPoints.push(ear));
-        element.outgoingEdges.map(toElementAndRoutingPoints).forEach(ear => newRoutingPoints.push(ear));
-      }
-    });
-    if (newRoutingPoints.length > 0) {
-      result.push(ChangeRoutingPointsOperation.create(newRoutingPoints));
     }
     return result;
   }
