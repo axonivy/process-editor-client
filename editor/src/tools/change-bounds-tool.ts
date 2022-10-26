@@ -9,7 +9,9 @@ import {
   FeedbackMoveMouseListener,
   MoveAction,
   Point,
-  ElementMove
+  ElementMove,
+  createMovementRestrictionFeedback,
+  removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
 import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { injectable } from 'inversify';
@@ -55,6 +57,10 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
 
 export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
   mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+    if (event.buttons === 0) {
+      removeNegativeArea(target);
+      return this.mouseUp(target, event);
+    }
     const actions = super.mouseMove(target, event);
     if (this.hasDragged && this.hasRealMoved(actions)) {
       actions.push(
@@ -73,5 +79,24 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
       .filter(action => action.kind === MoveAction.KIND)
       .flatMap(action => (<MoveAction>action).moves)
       .find(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
+  }
+
+  protected validateMove(startPostion: Point, toPosition: Point, element: SModelElement, isFinished: boolean): Point {
+    let newPosition = toPosition;
+    if (this.tool.movementRestrictor) {
+      const action: Action[] = [];
+      if (this.tool.movementRestrictor.validate(element, toPosition)) {
+        action.push(removeMovementRestrictionFeedback(element, this.tool.movementRestrictor));
+      } else {
+        if (isFinished) {
+          newPosition = startPostion;
+          action.push(removeMovementRestrictionFeedback(element, this.tool.movementRestrictor));
+        } else {
+          action.push(createMovementRestrictionFeedback(element, this.tool.movementRestrictor));
+        }
+      }
+      this.tool.dispatchFeedback(action, this);
+    }
+    return newPosition;
   }
 }
