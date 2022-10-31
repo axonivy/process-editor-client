@@ -2,7 +2,9 @@ import {
   GArgument,
   GIssueMarker,
   GLSPActionDispatcher,
+  hasArguments,
   isWithEditableLabel,
+  JsonAny,
   SChildElement,
   SEdge,
   SModelElement,
@@ -31,31 +33,39 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
       this.markers(element),
       this.name(element),
       GArgument.getString(element, 'desc'),
-      GArgument.getString(element, 'outerElement')
+      this.info(element)
     );
   }
 
-  name(element: SModelElement): string | undefined {
-    const varName = this.edgeVarName(element);
-    let elementName = '';
-    if (varName) {
-      elementName = varName;
-    }
-    if (isWithEditableLabel(element) && element.editableLabel) {
-      elementName += element.editableLabel?.text;
-    }
-    return elementName.length > 0 ? elementName : undefined;
+  private info(element: SModelElement): JsonAny | undefined {
+    return hasArguments(element) ? element.args['info'] : undefined;
   }
 
-  edgeVarName(element: SModelElement): string | undefined {
+  private name(element: SModelElement): string | undefined {
+    let elementName = '';
+    if (isWithEditableLabel(element) && element.editableLabel) {
+      elementName = element.editableLabel?.text;
+    }
+    const varName = this.nameAddition(element);
+    if (varName) {
+      elementName += varName;
+    }
+    return elementName.length > 0 ? elementName.trim() : undefined;
+  }
+
+  private nameAddition(element: SModelElement): string | undefined {
     const varName = GArgument.getString(element, 'varName');
     if (varName) {
-      return `[${varName}] `;
+      return ` [${varName}]`;
+    }
+    const outerElement = GArgument.getString(element, 'outerElement');
+    if (outerElement) {
+      return ` [${outerElement}]`;
     }
     return undefined;
   }
 
-  markers(element: SModelElement): GIssueMarker[] {
+  private markers(element: SModelElement): GIssueMarker[] {
     if (element instanceof SChildElement) {
       return element.children.filter(child => child instanceof GIssueMarker).map(child => child as GIssueMarker);
     }
@@ -69,7 +79,7 @@ class InfoQuickAction implements QuickAction {
     public readonly markers: GIssueMarker[],
     public readonly textTitle?: string,
     public readonly text?: string,
-    public readonly outerElemet?: string,
+    public readonly info?: JsonAny,
     public readonly icon = StreamlineIcons.Information,
     public readonly title = 'Information (I)',
     public readonly location = QuickActionLocation.Left,
@@ -79,7 +89,7 @@ class InfoQuickAction implements QuickAction {
       markers: markers,
       title: textTitle,
       text: text,
-      outerElement: outerElemet
+      info: info
     }),
     public readonly letQuickActionsOpen = true,
     public readonly readonlySupport = true,

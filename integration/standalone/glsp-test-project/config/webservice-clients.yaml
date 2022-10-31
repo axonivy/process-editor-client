@@ -1,1 +1,5 @@
 WebServiceClients:
+  webservice:
+    Id: 1842DB7CC45C39D7
+    WsCallLibrary: CXF
+    Endpoints: {}
