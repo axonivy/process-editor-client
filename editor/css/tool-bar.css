@@ -2,7 +2,7 @@
   position: absolute;
   inset: 0;
   width: 100%;
-  height: 3rem;
+  height: 3.25rem;
   background: var(--glsp-tool-bar-bg);
   z-index: 10;
 }
@@ -20,9 +20,10 @@
 }
 .tool-bar-header .middle-buttons {
   justify-content: center;
+  z-index: 10;
 }
 .tool-bar-header .middle-buttons .tool-bar-title-button {
-  min-width: 45px;
+  min-width: 56px;
 }
 .tool-bar-header .right-buttons {
   justify-content: end;
@@ -34,12 +35,12 @@
   border-left: 1px solid var(--glsp-tool-border);
 }
 .tool-bar-header .tool-bar-button {
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
   cursor: pointer;
 }
 .tool-bar-header .tool-bar-title-button {
-  height: 2rem;
+  height: 2.25rem;
   width: 3.5rem;
   min-width: 3rem;
   display: flex;
@@ -47,7 +48,8 @@
   align-items: center;
 }
 .tool-bar-header .tool-bar-title-button > label {
-  font-size: 8px;
+  font-size: 10px;
+  margin-bottom: 0.125rem;
   color: var(--glsp-tool-border);
 }
 .tool-bar-header .tool-bar-title-button .tool-bar-button {
@@ -58,11 +60,11 @@
 }
 .tool-bar-header .tool-bar-button i {
   margin-right: 0.2em;
-  width: 2rem;
-  line-height: 2rem;
+  width: 2.25rem;
+  line-height: 2.25rem;
   color: var(--glsp-tool-button);
-  font-size: 18px;
   text-align: center;
+  font-size: 18px;
 }
 .tool-bar-header .tool-bar-title-button .tool-bar-button i {
   width: 1rem;
@@ -74,7 +76,7 @@
   border-radius: 2px;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   .tool-bar-header .middle-buttons .tool-bar-title-button:not(:first-child) {
     display: none;
   }

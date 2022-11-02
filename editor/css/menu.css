@@ -208,6 +208,10 @@
   height: 0;
   border-style: solid;
   border-width: 0 6px 10px 6px;
+  border-color: transparent transparent var(--glsp-bar-menu-triangle) transparent;
+}
+.bar-menu.tool-bar-menu:has(> .bar-menu-search)::before,
+.tool-bar-options-menu::before {
   border-color: transparent transparent var(--glsp-bar-menu-header-bg) transparent;
 }
 .tool-bar-options-menu .tool-bar-options-header {
