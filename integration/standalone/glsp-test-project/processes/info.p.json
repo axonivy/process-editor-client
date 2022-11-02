@@ -36,10 +36,10 @@
       "name" : "start.ivp",
       "config" : {
         "callSignature" : "start",
-        "responsible" : "Employee",
+        "responsible" : "TestRole1",
         "task" : {
           "responsible" : {
-            "role" : "Teamleader"
+            "role" : "TestRole2"
           }
         },
         "outLink" : "start.ivp",
@@ -120,12 +120,12 @@
         "tasks" : {
           "TaskA" : {
             "responsible" : {
-              "role" : "Employee"
+              "role" : "TestRole1"
             }
           },
           "TaskB" : {
             "responsible" : {
-              "role" : "Teamleader"
+              "role" : "TestRole2"
             }
           }
         }

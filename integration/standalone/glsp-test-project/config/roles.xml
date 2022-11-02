@@ -2,9 +2,9 @@
 <role>
     <identifier>Everybody</identifier>
     <role>
-        <identifier>Employee</identifier>
+        <identifier>TestRole1</identifier>
     </role>
     <role>
-        <identifier>Teamleader</identifier>
+        <identifier>TestRole2</identifier>
     </role>
 </role>

@@ -1,11 +1,11 @@
 .jump-out-container {
-  inset: calc(48px + 1rem) 0 0 1rem;
-  width: 2rem;
-  height: 2rem;
+  inset: calc(3.25rem + 1rem) 0 0 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 .jump-out-container .jump-out-btn {
-  width: 32px;
-  height: 32px;
+  width: 100%;
+  height: 100%;
   border-radius: 4px;
   background: var(--glsp-tool-bar-bg);
   box-shadow: var(--glsp-box-shadow);
