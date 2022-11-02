@@ -1,4 +1,4 @@
-import { Action, GIssueMarker, IActionDispatcher, PaletteItem, SIssue } from '@eclipse-glsp/client';
+import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
@@ -111,7 +111,7 @@ export interface ShowInfoQuickActionMenuAction extends Action {
   markers: GIssueMarker[];
   title?: string;
   text?: string;
-  outerElement?: string;
+  info?: JsonAny;
 }
 
 export namespace ShowInfoQuickActionMenuAction {
@@ -122,7 +122,7 @@ export namespace ShowInfoQuickActionMenuAction {
     markers: GIssueMarker[];
     title?: string;
     text?: string;
-    outerElement?: string;
+    info?: JsonAny;
   }): ShowInfoQuickActionMenuAction {
     return {
       kind: KIND,
@@ -143,45 +143,61 @@ export class InfoQuickActionMenu extends SimpleMenu {
   createMenuBody(bodyDiv: HTMLElement): void {
     const menu = createElement('div', ['bar-menu-text']);
     bodyDiv.appendChild(menu);
-
-    this.action.markers.forEach(marker => menu.appendChild(this.createMarker(marker)));
-
     if (this.action.title) {
-      const title = createElement('p', ['simple-menu-header']);
-      title.textContent = this.action.title;
-      menu.appendChild(title);
+      menu.appendChild(this.createTitle(this.action.title));
     }
-
-    if (this.action.outerElement) {
-      const outerElement = createElement('p', ['simple-menu-text']);
-      outerElement.textContent = '[' + this.action.outerElement + ']';
-      menu.appendChild(outerElement);
-    }
-
+    this.action.markers.forEach(marker => menu.appendChild(this.createMarker(marker)));
     if (this.action.text) {
-      const converter = new Converter({ simpleLineBreaks: true });
-      const htmlText = converter.makeHtml(this.action.text);
-      const template = document.createElement('template');
-      template.innerHTML = htmlText;
-      const text = createElement('div', ['simple-menu-text']);
-      for (const child of template.content.childNodes) {
-        text.appendChild(child);
-      }
-      menu.appendChild(text);
+      menu.appendChild(this.createDescription(this.action.text));
     }
-
-    const elementId = createElement('p', ['simple-menu-text', 'simple-menu-small']);
-    elementId.textContent = `PID: ${this.action.elementId}`;
-    menu.appendChild(elementId);
+    if (this.action.info) {
+      for (const [label, value] of Object.entries(this.action.info)) {
+        menu.appendChild(this.createInfo(label, value));
+      }
+    }
+    menu.appendChild(this.createInfo('PID', this.action.elementId));
   }
 
-  createMarker(gMarker: GIssueMarker): HTMLElement {
+  private createTitle(name: string): HTMLElement {
+    const title = createElement('p', ['simple-menu-header']);
+    title.textContent = name;
+    return title;
+  }
+
+  private createInfo(infoLabel: string, infoValue: string): HTMLElement {
+    const info = createElement('p', ['simple-menu-text', 'simple-menu-small']);
+    const label = createElement('strong');
+    label.textContent = `${infoLabel}: `;
+    if (infoValue.includes('\n')) {
+      const value = createElement('pre');
+      value.textContent = infoValue;
+      info.appendChild(value);
+    } else {
+      info.textContent = infoValue;
+    }
+    info.prepend(label);
+    return info;
+  }
+
+  private createDescription(description: string): HTMLElement {
+    const converter = new Converter({ simpleLineBreaks: true });
+    const htmlText = converter.makeHtml(description);
+    const template = document.createElement('template');
+    template.innerHTML = htmlText;
+    const text = createElement('div', ['simple-menu-text']);
+    for (const child of template.content.childNodes) {
+      text.appendChild(child);
+    }
+    return text;
+  }
+
+  private createMarker(gMarker: GIssueMarker): HTMLElement {
     const marker = createElement('div', ['menu-marker']);
     gMarker.issues.forEach(issue => marker.appendChild(this.createIssue(issue)));
     return marker;
   }
 
-  createIssue(sIssue: SIssue): HTMLElement {
+  private createIssue(sIssue: SIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
     issueTitle.appendChild(createElement('i', ['si', `si-${sIssue.severity}`]));
