@@ -135,6 +135,8 @@ export namespace ShowInfoQuickActionMenuAction {
   }
 }
 
+type InfoFormat = 'CODE' | 'STRING';
+
 export class InfoQuickActionMenu extends SimpleMenu {
   constructor(readonly action: ShowInfoQuickActionMenuAction) {
     super();
@@ -151,11 +153,20 @@ export class InfoQuickActionMenu extends SimpleMenu {
       menu.appendChild(this.createDescription(this.action.text));
     }
     if (this.action.info) {
-      for (const [label, value] of Object.entries(this.action.info)) {
-        menu.appendChild(this.createInfo(label, value));
+      for (const [label, info] of Object.entries(this.action.info)) {
+        menu.appendChild(this.addInfo(label, info));
       }
     }
     menu.appendChild(this.createInfo('PID', this.action.elementId));
+  }
+
+  private addInfo(label: string, info: { type: InfoFormat; value: string }): HTMLElement {
+    switch (info.type) {
+      case 'STRING':
+        return this.createInfo(label, info.value);
+      case 'CODE':
+        return this.createCodeInfo(label, info.value);
+    }
   }
 
   private createTitle(name: string): HTMLElement {
@@ -164,17 +175,22 @@ export class InfoQuickActionMenu extends SimpleMenu {
     return title;
   }
 
-  private createInfo(infoLabel: string, infoValue: string): HTMLElement {
+  private createCodeInfo(infoLabel: string, infoValue: string): HTMLElement {
     const info = createElement('p', ['simple-menu-text', 'simple-menu-small']);
     const label = createElement('strong');
     label.textContent = `${infoLabel}: `;
-    if (infoValue.includes('\n')) {
-      const value = createElement('pre');
-      value.textContent = infoValue;
-      info.appendChild(value);
-    } else {
-      info.textContent = infoValue;
-    }
+    info.prepend(label);
+    const value = createElement('pre');
+    value.textContent = infoValue;
+    info.appendChild(value);
+    return info;
+  }
+
+  private createInfo(infoLabel: string, infoValue: string): HTMLElement {
+    const info = createElement('p', ['simple-menu-text', 'simple-menu-small']);
+    const label = createElement('strong');
+    info.textContent = infoValue;
+    label.textContent = `${infoLabel}: `;
     info.prepend(label);
     return info;
   }
