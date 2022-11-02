@@ -14,6 +14,11 @@ test.describe('quick actions - info', () => {
     await assertAdditionalInfo(page, 'Task Responsible', 'Teamleader');
   });
 
+  test('code info', async ({ page }) => {
+    await openInfoMenu(page, page.locator('#sprotty_1842D6FBB6A107AB-f31'));
+    await assertAdditionalCodeInfo(page, 'variable.source());\n...');
+  });
+
   test('description', async ({ page }) => {
     await openInfoMenu(page, page.locator('#sprotty_1842D6FBB6A107AB-f3'));
     const description = page.locator('.simple-menu-text', { hasText: 'title' });
@@ -55,6 +60,11 @@ test.describe('quick actions - info', () => {
   async function assertAdditionalInfo(page: Page, infoLabel: string, infoValue: string): Promise<void> {
     const text = page.locator('.simple-menu-text', { hasText: infoLabel });
     await expect(text).toContainText(infoValue);
+  }
+
+  async function assertAdditionalCodeInfo(page: Page, code: string): Promise<void> {
+    const text = page.locator('.simple-menu-text', { hasText: 'Code' });
+    await expect(text.locator('pre')).toContainText(code);
   }
 
   async function openInfoMenu(page: Page, locator: Locator): Promise<void> {
