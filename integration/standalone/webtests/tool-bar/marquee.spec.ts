@@ -30,7 +30,7 @@ test.describe('marquee tool', () => {
 
   async function markAndAssert(page: Page): Promise<void> {
     await expect(page.locator(MARQUEE_MODE)).toBeVisible();
-    await page.mouse.move(10, 50);
+    await page.mouse.move(10, 60);
     await page.mouse.down();
     await page.mouse.move(400, 200);
     await expect(page.locator('g.selected')).toHaveCount(3);

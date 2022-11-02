@@ -33,7 +33,7 @@ test.describe('quick actions - color', () => {
     await page.mouse.move(200, 200);
     await assertNegativeArea(page, true);
     await page.mouse.up();
-    await assertPosition(start, { x: 185, y: 129 });
+    await assertPosition(start, { x: 185, y: 121 });
     await assertNegativeArea(page, false);
   });
 

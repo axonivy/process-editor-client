@@ -19,17 +19,17 @@
   align-items: center;
 }
 .ivy-viewport-bar .viewport-bar-tools span {
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
   cursor: pointer;
 }
 .ivy-viewport-bar .viewport-bar-tools span i {
   margin-right: 0.2em;
-  width: 2rem;
-  font-size: 18px;
-  line-height: 2rem;
+  width: 2.25rem;
+  line-height: 2.25rem;
   color: var(--glsp-tool-button);
   text-align: center;
+  font-size: 18px;
 }
 .ivy-viewport-bar .viewport-bar-tools span i:hover {
   background: var(--glsp-tool-button-active-bg);
@@ -40,4 +40,5 @@
   padding: 0 0.5rem;
   border-left: 1px solid var(--glsp-tool-border);
   margin-left: 0.2rem;
+  margin-bottom: 0.125rem;
 }
