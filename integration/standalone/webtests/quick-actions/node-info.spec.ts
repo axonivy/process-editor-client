@@ -10,8 +10,8 @@ test.describe('quick actions - info', () => {
   test('additional info', async ({ page }) => {
     await openInfoMenu(page, page.locator('#sprotty_1842D6FBB6A107AB-f0'));
     await assertTitle(page, 'start.ivp');
-    await assertAdditionalInfo(page, 'Request Role', 'Employee');
-    await assertAdditionalInfo(page, 'Task Responsible', 'Teamleader');
+    await assertAdditionalInfo(page, 'Request Role', 'TestRole1');
+    await assertAdditionalInfo(page, 'Task Responsible', 'TestRole2');
   });
 
   test('code info', async ({ page }) => {

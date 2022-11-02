@@ -22,8 +22,8 @@
   display: inline-flex;
 }
 .quick-actions-group span {
-  height: 2rem;
-  width: 2rem;
+  height: 2.25rem;
+  width: 2.25rem;
   cursor: pointer;
 }
 .quick-actions-group span:hover,
@@ -32,8 +32,8 @@
   border-radius: 2px;
 }
 .quick-actions-group span i {
-  width: 2rem;
-  line-height: 2rem;
+  width: 2.25rem;
+  line-height: 2.25rem;
   color: var(--glsp-tool-button);
   text-align: center;
   font-size: 18px;
