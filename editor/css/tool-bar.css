@@ -16,14 +16,13 @@
 .tool-bar-header .right-buttons {
   display: inline-flex;
   flex-grow: 1;
-  width: 33%;
 }
 .tool-bar-header .middle-buttons {
   justify-content: center;
   z-index: 10;
 }
 .tool-bar-header .middle-buttons .tool-bar-title-button {
-  min-width: 56px;
+  min-width: 60px;
 }
 .tool-bar-header .right-buttons {
   justify-content: end;
