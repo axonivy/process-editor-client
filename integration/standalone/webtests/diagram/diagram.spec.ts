@@ -3,7 +3,7 @@ import { assertPosition, resetSelection, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { addActivity, addLane, openElementPalette } from '../toolbar-util';
 
-test.describe('quick actions - color', () => {
+test.describe('diagram', () => {
   test.beforeEach(async ({ page }) => {
     await gotoRandomTestProcessUrl(page);
   });

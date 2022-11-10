@@ -24,8 +24,8 @@ const JSX = { createElement: svg };
 export class ForeignLabelView implements IView {
   render(model: MulitlineEditLabel, context: RenderingContext): VNode {
     const replacement = escapeHtmlWithLineBreaks(model.text);
-    const foreignObjectContents = virtualize(`<div>${replacement}</div>`);
     const labelBounds = model.labelBounds;
+    const foreignObjectContents = virtualize(`<div style="height: ${labelBounds.height}px;">${replacement}</div>`);
     return (
       <g>
         <foreignObject
