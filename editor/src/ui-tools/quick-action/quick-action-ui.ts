@@ -13,8 +13,6 @@ import {
   isNotUndefined,
   MouseListener,
   MouseTool,
-  SChildElement,
-  SConnectableElement,
   SEdge,
   SelectAllAction,
   SetUIExtensionVisibilityAction,
@@ -34,6 +32,7 @@ import { IVY_TYPES } from '../../types';
 import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuAction, InfoQuickActionMenu } from './quick-action-menu-ui';
 import { Menu } from '../menu/menu';
 import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
+import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements IActionHandler, SelectionListener {
@@ -193,7 +192,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
       if (this.activeQuickActions.length === 0) {
         return;
       }
-      const absoluteBounds = getAbsoluteEdgeBounds(edge, edge.source, edge.target);
+      const absoluteBounds = getAbsoluteEdgeBounds(edge);
       this.quickActionBar = this.createQuickActionsBar(containerElement, absoluteBounds);
       this.createQuickActions(this.quickActionBar, this.activeQuickActions);
       this.shiftBar(this.quickActionBar);
@@ -312,20 +311,4 @@ function getElements(contextElementIds: string[], root: Readonly<SModelRoot>): S
 
 function getFirstQuickActionElement(elements: SModelElement[], root: Readonly<SModelRoot>): SModelElement & BoundsAware {
   return elements.filter(isQuickActionAware)[0];
-}
-
-function getAbsoluteEdgeBounds(edge: SEdge, source: SConnectableElement, target: SConnectableElement): Bounds {
-  const edgePoints: Bounds[] = [];
-  const EMPTY_EDGE_BOUNDS = { x: 0, y: 0, width: 0, height: 0 };
-  edgePoints.push(Bounds.translate(EMPTY_EDGE_BOUNDS, Bounds.center(source.bounds)));
-  edgePoints.push(...edge.routingPoints.map(point => Bounds.translate(EMPTY_EDGE_BOUNDS, { x: point.x, y: point.y })));
-  edgePoints.push(Bounds.translate(EMPTY_EDGE_BOUNDS, Bounds.center(target.bounds)));
-  let bounds = edgePoints.reduce((b1, b2) => Bounds.combine(b1, b2)) as Bounds;
-  let current: SModelElement = edge;
-  while (current instanceof SChildElement) {
-    const parent = current.parent;
-    bounds = parent.localToParent(bounds);
-    current = parent;
-  }
-  return bounds;
 }

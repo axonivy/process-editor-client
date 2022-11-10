@@ -18,17 +18,17 @@ test.describe('quick actions - change BPMN type', () => {
 
   test('switch type', async ({ page, browserName }) => {
     const types = page.locator(PALETTE_BODY + ' .menu-item');
-    const userIcon = page.locator('.sprotty-graph .userBpmnElement .si-user-element');
     const embedded = page.locator(embeddedSelector);
     const user = page.locator('.sprotty-graph .userBpmnElement');
+    const icon = page.locator('.sprotty-graph .sprotty-icon-svg');
 
     await expect(embedded).toBeVisible();
     await expect(user).toBeHidden();
-    await expect(userIcon).toBeHidden();
+    await expect(icon).toBeHidden();
 
     await openTypePalette(page);
     await types.locator('text=User').click();
-    await expect(userIcon).toBeVisible();
+    await expect(icon).toBeVisible();
     await expect(user).toBeVisible();
     await expect(embedded).toBeHidden();
 
@@ -36,7 +36,7 @@ test.describe('quick actions - change BPMN type', () => {
     await types.locator('text=Sub').click();
     await expect(embedded).toBeVisible();
     await expect(user).toBeHidden();
-    await expect(userIcon).toBeHidden();
+    await expect(icon).toBeHidden();
   });
 
   async function wrapToEmbedded(elements: Locator[], page: Page, browserName: string): Promise<void> {

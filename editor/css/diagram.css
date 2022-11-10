@@ -186,8 +186,8 @@ g[class^='end'] .sprotty-node {
   font-size: 14px;
 }
 .sprotty-icon img {
-  height: 12px;
-  width: 12px;
+  height: 14px;
+  width: 14px;
   object-fit: contain;
 }
 .sprotty-icon.icon-small i {
@@ -197,6 +197,9 @@ g[class^='end'] .sprotty-node {
   height: 14px;
   width: 16px;
   object-fit: contain;
+}
+.sprotty-icon-svg path {
+  fill: var(--glsp-foreground);
 }
 
 /* Tooltip */

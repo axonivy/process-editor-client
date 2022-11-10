@@ -1,26 +1,25 @@
 import { expect } from 'chai';
 
-import { IconStyle, NoIcon, resolveIcon } from '../../../src/diagram/icon/icons';
+import { IconStyle, NoIcon, resolveIcon, SvgIcons } from '../../../src/diagram/icon/icons';
 import { ActivityTypes, EventStartTypes } from '../../../src/diagram/view-types';
-import { StreamlineIcons } from '../../../src/StreamlineIcons';
 
 describe('ElementIcons', () => {
   it('element icons are correctly mapped', () => {
-    expect(resolveIcon(ActivityTypes.SCRIPT)).to.be.deep.equals({ res: StreamlineIcons.ScriptElement, style: IconStyle.SI });
+    expect(resolveIcon(ActivityTypes.SCRIPT)).to.be.deep.equals({ res: SvgIcons.SCRIPT, style: IconStyle.SI });
     expect(resolveIcon(EventStartTypes.START)).to.be.deep.equals(NoIcon);
   });
 
   it('show error/signal start icons', () => {
-    expect(resolveIcon('std:Message')).to.be.deep.equals({ res: StreamlineIcons.EMailElement, style: IconStyle.SI });
-    expect(resolveIcon('std:Timer')).to.be.deep.equals({ res: StreamlineIcons.WaitElement, style: IconStyle.SI });
-    expect(resolveIcon('std:Conditional')).to.be.deep.equals({ res: StreamlineIcons.NoteElement, style: IconStyle.SI });
-    expect(resolveIcon('std:Escalation')).to.be.deep.equals({ res: StreamlineIcons.TriggerElement, style: IconStyle.SI });
-    expect(resolveIcon('std:Compensation')).to.be.deep.equals({ res: StreamlineIcons.AngleDown, style: IconStyle.SI });
-    expect(resolveIcon('std:Cancel')).to.be.deep.equals({ res: StreamlineIcons.AlternativeElement, style: IconStyle.SI });
+    expect(resolveIcon('std:Message')).to.be.deep.equals({ res: SvgIcons.EMAIL, style: IconStyle.SI });
+    expect(resolveIcon('std:Timer')).to.be.deep.equals({ res: SvgIcons.WAIT, style: IconStyle.SI });
+    expect(resolveIcon('std:Conditional')).to.be.deep.equals({ res: SvgIcons.NOTE, style: IconStyle.SI });
+    expect(resolveIcon('std:Escalation')).to.be.deep.equals({ res: SvgIcons.TRIGGER, style: IconStyle.SI });
+    expect(resolveIcon('std:Compensation')).to.be.deep.equals({ res: SvgIcons.ANGLE_DOWN, style: IconStyle.SI });
+    expect(resolveIcon('std:Cancel')).to.be.deep.equals({ res: SvgIcons.ALTERNATIVE, style: IconStyle.SI });
   });
 
   it('external icons are replaced by generic icon', () => {
-    expect(resolveIcon('ext:1131930634')).to.be.deep.equals({ res: StreamlineIcons.Dialogs, style: IconStyle.SI });
+    expect(resolveIcon('ext:1131930634')).to.be.deep.equals({ res: SvgIcons.DIALOG, style: IconStyle.SI });
   });
 
   it('resource icons are the same as delivered from the server', () => {
