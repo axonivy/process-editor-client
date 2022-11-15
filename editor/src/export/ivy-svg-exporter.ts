@@ -3,7 +3,7 @@ import { RequestAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { getAbsoluteEdgeBounds, getAbsoluteLabelBounds } from '../utils/diagram-utils';
 import { v4 as uuid } from 'uuid';
-import { MulitlineEditLabel } from '../diagram/model';
+import { MulitlineEditLabel, RotateLabel } from '../diagram/model';
 
 @injectable()
 export class IvySvgExporter extends SvgExporter {
@@ -73,6 +73,7 @@ export class IvySvgExporter extends SvgExporter {
     root.index
       .all()
       .filter(element => element.root !== element)
+      .filter(element => !(element instanceof RotateLabel))
       .forEach(element => {
         if (element instanceof SNode) {
           allBounds.push(getAbsoluteBounds(element));
