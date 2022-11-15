@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@ivyteam/theia-integration",
-  "version": "9.4.0-s44",
+  "version": "11.1.0-s1",
   "description": "Theia extension for the Axon Ivy (GLSP-based) process editor",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -19,8 +19,8 @@
     "bpmn"
   ],
   "dependencies": {
-    "@eclipse-glsp/theia-integration": "^1.0.0",
-    "@ivyteam/process-editor": "^9.4.0-s44"
+    "@eclipse-glsp/theia-integration": "rc",
+    "@ivyteam/process-editor": "^11.1.0-s1"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",

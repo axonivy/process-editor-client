@@ -33,6 +33,9 @@
   "eslintConfig": {
     "root": true
   },
+  "resolutions": {
+    "sprotty": "0.13.0-next.1c4343c.328+1c4343c"
+  },
   "workspaces": {
     "packages": [
       "webview",

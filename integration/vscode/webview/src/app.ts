@@ -20,6 +20,7 @@ class IvyGLSPStarter extends GLSPStarter {
 
   protected override addVscodeBindings(container: Container, diagramIdentifier: GLSPDiagramIdentifier): void {
     container.bind(VsCodeApi).toConstantValue(this.vscodeApi);
+    // own IvyGLSPVscodeDiagramWidget
     container.bind(IvyGLSPVscodeDiagramWidget).toSelf().inSingletonScope();
     container.bind(VscodeDiagramWidget).toService(IvyGLSPVscodeDiagramWidget);
     container
