@@ -147,9 +147,9 @@ describe('ActivityNodeView', () => {
       expect(node).to.not.contain('class="sprotty-label node-child-label"');
     }
     if (options.icon) {
-      expect(node).to.contain('class="sprotty-icon"');
+      expect(node).to.contain('class="sprotty-icon-svg"');
     } else {
-      expect(node).to.not.contain('class="sprotty-icon"');
+      expect(node).to.not.contain('class="sprotty-icon-svg"');
     }
     if (options.decorator) {
       const decorator =
