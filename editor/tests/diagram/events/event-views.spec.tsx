@@ -167,9 +167,7 @@ describe('EventNodeView', () => {
       expect(node).to.contains('<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" />');
     }
     if (options.icon) {
-      expect(node).to.contains(
-        '<foreignObject class="sprotty-icon icon-small" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility" height="14" width="18" x="7" y="8" />'
-      );
+      expect(node).to.contains('<svg class="sprotty-icon-svg" viewBox="0 0 20 20" height="14" width="18" x="6" y="8">');
     }
   }
 });
