@@ -51,6 +51,7 @@ export const MenuIcons = new Map<string, string>([
   [ActivityTypes.SOAP, StreamlineIcons.WebService],
   [ActivityTypes.REST, StreamlineIcons.RestClient],
   [ActivityTypes.EMAIL, StreamlineIcons.EMail],
+  [ActivityTypes.THIRD_PARTY, StreamlineIcons.Dialogs],
   [ActivityTypes.THIRD_PARTY_RULE, StreamlineIcons.Rule],
   [ActivityTypes.PROGRAM, StreamlineIcons.Program],
   // BPMN Activities

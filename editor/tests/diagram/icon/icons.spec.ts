@@ -19,7 +19,7 @@ describe('ElementIcons', () => {
   });
 
   it('external icons are replaced by generic icon', () => {
-    expect(resolveIcon('ext:1131930634')).to.be.deep.equals({ res: SvgIcons.DIALOG, style: IconStyle.SI });
+    expect(resolveIcon('ext:1131930634')).to.be.deep.equals({ res: SvgIcons.PUZZLE, style: IconStyle.SI });
   });
 
   it('resource icons are the same as delivered from the server', () => {
