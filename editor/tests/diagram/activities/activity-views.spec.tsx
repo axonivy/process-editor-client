@@ -7,6 +7,7 @@ import { VNode } from 'snabbdom';
 import { ActivityTypes, LabelType } from '../../../src/diagram/view-types';
 import { setupGlobal, setupViewTestContainer } from '../../test-helper';
 import { ActivityNode } from '../../../src/diagram/model';
+import { SvgIcons } from '../../../src/diagram/icon/icons';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const toHTML = require('snabbdom-to-html');
@@ -34,6 +35,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize });
   children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize });
   children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
+  children.push({ id: 'thirdPartyRule', type: ActivityTypes.THIRD_PARTY_RULE, position: { x: 600, y: 800 }, size: taskNodeSize });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -64,39 +66,39 @@ describe('ActivityNodeView', () => {
   });
 
   it('render script node', () => {
-    assertNode(ActivityTypes.SCRIPT, 'script', { icon: true });
+    assertNode(ActivityTypes.SCRIPT, 'script', { icon: SvgIcons.SCRIPT });
   });
 
   it('render hd node', () => {
-    assertNode(ActivityTypes.HD, 'hd', { icon: true });
+    assertNode(ActivityTypes.HD, 'hd', { icon: SvgIcons.USER_DIALOG });
   });
 
   it('render user node', () => {
-    assertNode(ActivityTypes.USER, 'user', { icon: true });
+    assertNode(ActivityTypes.USER, 'user', { icon: SvgIcons.USER_TASK });
   });
 
   it('render soap node', () => {
-    assertNode(ActivityTypes.SOAP, 'soap', { icon: true });
+    assertNode(ActivityTypes.SOAP, 'soap', { icon: SvgIcons.WEB_SERVICE });
   });
 
   it('render rest node', () => {
-    assertNode(ActivityTypes.REST, 'rest', { icon: true });
+    assertNode(ActivityTypes.REST, 'rest', { icon: SvgIcons.REST_CLIENT });
   });
 
   it('render db node', () => {
-    assertNode(ActivityTypes.DB, 'db', { icon: true });
+    assertNode(ActivityTypes.DB, 'db', { icon: SvgIcons.DATABASE });
   });
 
   it('render email node', () => {
-    assertNode(ActivityTypes.EMAIL, 'email', { icon: true });
+    assertNode(ActivityTypes.EMAIL, 'email', { icon: SvgIcons.EMAIL });
   });
 
   it('render sub process node', () => {
-    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true, icon: false });
+    assertNode(ActivityTypes.SUB_PROCESS, 'subProcess', { decorator: true });
   });
 
   it('render embedded process node', () => {
-    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true, icon: false });
+    assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true });
   });
 
   it('render web page node', () => {
@@ -104,15 +106,19 @@ describe('ActivityNodeView', () => {
   });
 
   it('render trigger node', () => {
-    assertNode(ActivityTypes.TRIGGER, 'trigger', { icon: true });
+    assertNode(ActivityTypes.TRIGGER, 'trigger', { icon: SvgIcons.TRIGGER });
   });
 
   it('render program node', () => {
-    assertNode(ActivityTypes.PROGRAM, 'program', { icon: true });
+    assertNode(ActivityTypes.PROGRAM, 'program', { icon: SvgIcons.PROGRAM });
   });
 
   it('render third party node', () => {
-    assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', {});
+    assertNode(ActivityTypes.THIRD_PARTY, 'thirdParty', { icon: SvgIcons.PUZZLE });
+  });
+
+  it('render third party rule node', () => {
+    assertNode(ActivityTypes.THIRD_PARTY_RULE, 'thirdPartyRule', { icon: SvgIcons.RULE });
   });
 
   it('render with execution badge', () => {
@@ -138,7 +144,7 @@ describe('ActivityNodeView', () => {
     return view.render(graph.index.getById(nodeId) as SNode, context);
   }
 
-  function assertNode(type: string, nodeId: string, options: { label?: boolean; icon?: boolean; decorator?: boolean }): void {
+  function assertNode(type: string, nodeId: string, options: { label?: boolean; icon?: string; decorator?: boolean }): void {
     const node = toHTML(renderNode(type, nodeId));
     expect(node).to.contain('class="sprotty-node');
     if (options.label) {
@@ -148,6 +154,7 @@ describe('ActivityNodeView', () => {
     }
     if (options.icon) {
       expect(node).to.contain('class="sprotty-icon-svg"');
+      expect(node).to.contain(options.icon);
     } else {
       expect(node).to.not.contain('class="sprotty-icon-svg"');
     }

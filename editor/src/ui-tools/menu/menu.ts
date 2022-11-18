@@ -1,5 +1,6 @@
 import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
+import { ActivityTypes } from '../../diagram/view-types';
 import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
@@ -215,6 +216,9 @@ export abstract class ItemMenu implements Menu {
     const icon = MenuIcons.get(item.icon!);
     if (icon) {
       return createIcon(['si', `si-${icon ?? ''}`]);
+    }
+    if (item.icon!.startsWith(ActivityTypes.THIRD_PARTY)) {
+      return createIcon(['si', `si-${MenuIcons.get(ActivityTypes.THIRD_PARTY)}`]);
     }
     return createIcon([]);
   }
