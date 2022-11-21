@@ -1,9 +1,9 @@
 import { Bounds, ExportSvgAction, getAbsoluteBounds, SEdge, SModelRoot, SNode, SvgExporter } from '@eclipse-glsp/client';
 import { RequestAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
-import { getAbsoluteEdgeBounds, getAbsoluteLabelBounds } from '../utils/diagram-utils';
+import { getAbsoluteEdgeBounds, getAbsoluteLabelBounds } from '../../utils/diagram-utils';
 import { v4 as uuid } from 'uuid';
-import { MulitlineEditLabel, RotateLabel } from '../diagram/model';
+import { MulitlineEditLabel, RotateLabel } from '../../diagram/model';
 
 @injectable()
 export class IvySvgExporter extends SvgExporter {

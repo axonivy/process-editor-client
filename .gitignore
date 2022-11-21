@@ -48,4 +48,4 @@ eslint.xml
 
 ## Icons ##
 editor/icons/dist
-editor/src/StreamlineIcons.ts
+editor/**/StreamlineIcons.*

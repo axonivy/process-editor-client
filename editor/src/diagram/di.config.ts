@@ -7,6 +7,7 @@ import {
   ConsoleLogger,
   CustomFeatures,
   DeleteElementContextMenuItemProvider,
+  GLSPProjectionView,
   IView,
   LogLevel,
   moveFeature,
@@ -57,7 +58,6 @@ import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 import { ShowGridAction, ShowGridActionHandler } from './grid/action-handler';
 import { GridFeedbackCommand } from './grid/feedback-action';
-import { IvyGLSPProjectionView } from './ivy-projection-view';
 
 const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -72,7 +72,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   const context = { bind, unbind, isBound, rebind };
 
-  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, IvyGLSPProjectionView);
+  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, GLSPProjectionView);
 
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);

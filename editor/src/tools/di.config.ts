@@ -12,12 +12,13 @@ import { configureMarqueeTool } from '@eclipse-glsp/client/lib/features/tools/di
 import { TriggerEdgeCreationAction, TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { ContainerModule } from 'inversify';
 import { IvyChangeBoundsTool } from './change-bounds-tool';
+import { IvySvgExporter } from './export/ivy-svg-exporter';
 import { IvyMovementRestrictor } from './movement-restrictor';
 import { NegativeMarker } from './negative-area/model';
 import { SNegativeMarkerView } from './negative-area/view';
 import { IvyNodeCreationTool } from './node-creation-tool';
 
-const ivyToolsModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyToolsModule = new ContainerModule((bind, _unbind, isBound, rebind) => {
   // Register default tools
   bind(TYPES.IDefaultTool).to(IvyChangeBoundsTool);
   bind(TYPES.IDefaultTool).to(EdgeEditTool);
@@ -30,6 +31,9 @@ const ivyToolsModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(TYPES.ITool).toService(EdgeCreationTool);
   bind(TYPES.ITool).toService(IvyNodeCreationTool);
   bind(TYPES.IMovementRestrictor).to(IvyMovementRestrictor);
+
+  bind(IvySvgExporter).toSelf().inSingletonScope();
+  rebind(TYPES.SvgExporter).toService(IvySvgExporter);
 
   configureMarqueeTool({ bind, isBound });
   configureActionHandler({ bind, isBound }, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
