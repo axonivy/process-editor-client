@@ -12,7 +12,7 @@ body {
   border: none;
   height: 100%;
 }
-.projection-graph.grid .sprotty-graph,
+.grid .sprotty-graph,
 .sprotty-graph.grid {
   background-image: radial-gradient(var(--glsp-grid) 1px, transparent 0);
   background-size: 16px 16px;
