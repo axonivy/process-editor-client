@@ -15,18 +15,10 @@ yarn link --cwd node_modules/@eclipse-glsp/client
 yarn unlink --cwd node_modules/@eclipse-glsp/protocol
 yarn link --cwd node_modules/@eclipse-glsp/protocol
 
-yarn link @ivyteam/process-editor --cwd integration/vscode
 yarn link @ivyteam/process-editor --cwd integration/eclipse
-yarn link @ivyteam/process-editor --cwd integration/theia
 
-yarn link sprotty --cwd integration/vscode
 yarn link sprotty --cwd integration/eclipse
-yarn link sprotty --cwd integration/theia
 
-yarn link @eclipse-glsp/client --cwd integration/vscode
 yarn link @eclipse-glsp/client --cwd integration/eclipse
-yarn link @eclipse-glsp/client --cwd integration/theia
 
-yarn link @eclipse-glsp/protocol --cwd integration/vscode
 yarn link @eclipse-glsp/protocol --cwd integration/eclipse
-yarn link @eclipse-glsp/protocol --cwd integration/theia
