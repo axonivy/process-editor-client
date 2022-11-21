@@ -1,5 +1,5 @@
 import '../css/colors.css';
-import '../icons/dist/StreamlineIcons.css';
+import '../css/StreamlineIcons.css';
 import 'toastify-js/src/toastify.css';
 import '../css/toastify.css';
 
@@ -15,8 +15,7 @@ import {
   toolsModule,
   navigationModule,
   glspEditLabelModule,
-  labelEditUiModule,
-  exportModule
+  labelEditUiModule
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -39,7 +38,6 @@ import ivyKeyListenerModule from './key-listener/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import { IVY_TYPES } from './types';
 import { ivyEditLabelModule, ivyEditLabelUiModule } from './edit-label/di.config';
-import ivyExportSvgModule from './export/di.config';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -61,8 +59,7 @@ export default function createContainer(widgetId: string): Container {
     ivyToolsModule,
     ivyEditLabelModule,
     ivyEditLabelUiModule,
-    ivyKeyListenerModule,
-    ivyExportSvgModule
+    ivyKeyListenerModule
   );
   container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
@@ -86,7 +83,6 @@ function isNotOverridenModule(module: ContainerModule): boolean {
     module !== toolsModule &&
     module !== navigationModule &&
     module !== glspEditLabelModule &&
-    module !== labelEditUiModule &&
-    module !== exportModule
+    module !== labelEditUiModule
   );
 }

@@ -35,26 +35,26 @@
   resolved "https://npm-registry.ivyteam.io/repository/npm/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp/client@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/client/-/client-1.0.0.tgz#db0fe68279f04b5d157f62896d70c9566d606e5b"
-  integrity sha512-SXbnhE/L9LvnTWPREmiBf3l483JTJ5isNE8TLCJk3+D9ZJ9KyrQcBuYylmGx+eRs9dwI6nUTps509SIgDtBvRg==
+"@eclipse-glsp/client@1.1.0-RC02", "@eclipse-glsp/client@rc":
+  version "1.1.0-RC02"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/client/-/client-1.1.0-RC02.tgz#24b51af9eff3f2e76dd1e05885702ec2b7c59b8e"
+  integrity sha512-sd94ivuP/q2ByWNY4htdRMjxj46hwFSyr1Qa+5nLmhgl2IILjekBYwaSjnVWVVBS9JbUmFbDcsM/nCVhv3sI4w==
   dependencies:
-    "@eclipse-glsp/protocol" "^1.0.0"
+    "@eclipse-glsp/protocol" "1.1.0-RC02"
     autocompleter "5.1.0"
-    sprotty "0.12.0"
+    sprotty "0.13.0-next.1c4343c.328"
 
-"@eclipse-glsp/ide@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/ide/-/ide-1.0.0.tgz#b46f8e6e2775b62361a9ea999a44912cf0f6f33b"
-  integrity sha512-63ccFLKC15TQH6TpcLPAo+BNW1mWS9Bc7/DF6oz1MgOwE9z3fSySCBE9wbvzXTUOP+Aa13EkLHtI2xfZNWzaPA==
+"@eclipse-glsp/ide@rc":
+  version "1.1.0-RC02"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/ide/-/ide-1.1.0-RC02.tgz#efc1a61ef01323f8c5a83afab6ce1fd76571292e"
+  integrity sha512-dRF737IgIlZTzxe6GNZTjeUGx//E/2Oq1QGG6HEWlaAznodiGvKP2pvfcPT5an4o994xaT7EO0OzpVu1KBSOQg==
   dependencies:
-    "@eclipse-glsp/client" "^1.0.0"
+    "@eclipse-glsp/client" "1.1.0-RC02"
 
-"@eclipse-glsp/protocol@^1.0.0":
-  version "1.0.0"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/protocol/-/protocol-1.0.0.tgz#42dddc83250eecc7e537dea61ef8bcd5c843810d"
-  integrity sha512-ie6ZNMPrAyCG65HL93RKDcKTb5IL0QHw0WWfkGzc+0sqWswnCkPPfFLp51rCsQE8ixYVkaJEf0slirxvjxzdSA==
+"@eclipse-glsp/protocol@1.1.0-RC02", "@eclipse-glsp/protocol@rc":
+  version "1.1.0-RC02"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@eclipse-glsp/protocol/-/protocol-1.1.0-RC02.tgz#428390bcc93dc6008c3903be8f5d71a2b614e382"
+  integrity sha512-d9CJ23OqANa45B4+h1ZkSfdjznpijVkhppR4bPOXdqYp9+s0RXu23DvRo1sh4Zv+ususOF8ZCdRrEwKNH590wA==
   dependencies:
     sprotty-protocol "0.12.0"
     uuid "7.0.3"
@@ -99,12 +99,14 @@
   resolved "https://npm-registry.ivyteam.io/repository/npm/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
-"@ivyteam/process-editor@^9.4.0-s44":
-  version "9.4.0-s44"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-9.4.0-s44.tgz#2609e8dcd7cb79e60044bfe009c1686005142b46"
-  integrity sha512-W3SdIlzl5hAXrVJlxfKCJf0r5lILjNzRpeDXBUdYNHQcrsoviz7a3h6bx6SWMyBgOCZ8TA6CBZXEtSgZ5LGmsg==
+"@ivyteam/process-editor@^10.0.1":
+  version "10.0.1"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-10.0.1.tgz#4a36e34600ab14f82a4f41a615a1e0a533213350"
+  integrity sha512-dQEvhNzjDwcehXvFL8xYm/A2CM3mmSmbiz7DdTfygOQAXC64OpiQ+f7KkutHtxDH72UhQlaI2jEJAiP5noICcw==
   dependencies:
-    "@eclipse-glsp/client" "^1.0.0"
+    "@eclipse-glsp/client" rc
+    showdown "^2.1.0"
+    toastify-js "1.12.0"
 
 "@jridgewell/resolve-uri@^3.0.3":
   version "3.0.8"
@@ -2208,6 +2210,11 @@ commander@^7.0.0:
   version "7.2.0"
   resolved "https://npm-registry.ivyteam.io/repository/npm/commander/-/commander-7.2.0.tgz#a36cb57d0b501ce108e4d20559a150a391d97ab7"
   integrity sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==
+
+commander@^9.0.0:
+  version "9.4.1"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/commander/-/commander-9.4.1.tgz#d1dd8f2ce6faf93147295c0df13c7c21141cfbdd"
+  integrity sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -6440,6 +6447,13 @@ shebang-regex@^3.0.0:
   resolved "https://npm-registry.ivyteam.io/repository/npm/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
+showdown@^2.1.0:
+  version "2.1.0"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/showdown/-/showdown-2.1.0.tgz#1251f5ed8f773f0c0c7bfc8e6fd23581f9e545c5"
+  integrity sha512-/6NVYu4U819R2pUIk79n67SYgJHWCce0a5xTP979WbNp0FL9MN1I1QK662IDU1b6JzKTvmhgI7T7JYIxBi3kMQ==
+  dependencies:
+    commander "^9.0.0"
+
 side-channel@^1.0.4:
   version "1.0.4"
   resolved "https://npm-registry.ivyteam.io/repository/npm/side-channel/-/side-channel-1.0.4.tgz#efce5c8fdc104ee751b25c58d4290011fa5ea2cf"
@@ -6652,22 +6666,27 @@ split@^1.0.0:
   dependencies:
     through "2"
 
-sprotty-protocol@0.12.0, sprotty-protocol@~0.12.0:
+sprotty-protocol@0.12.0:
   version "0.12.0"
   resolved "https://npm-registry.ivyteam.io/repository/npm/sprotty-protocol/-/sprotty-protocol-0.12.0.tgz#542eb6396a645f85f8cfc2e7ef1d9b90c7b1980b"
   integrity sha512-vbov+XfbmSeMYb46vm6dJvK3q7YKUvg0q7JnM6H7Ca5qY8TaZCEZ5Vc8zHKFZGWchcwnQYKqLTzwDItsMikD0A==
 
-sprotty@0.12.0:
-  version "0.12.0"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/sprotty/-/sprotty-0.12.0.tgz#693432346d9321bb19f368c6806641539962db99"
-  integrity sha512-0RjRn3iR9McDt+LZ+cyySfdBdWyzR4kPbg4xESumvoSPziHphs6TdM7CvJ9ywTMmG131nKUF6GgbzhQZ+L6cGg==
+sprotty-protocol@0.13.0-next.1c4343c.328+1c4343c:
+  version "0.13.0-next.1c4343c.328"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/sprotty-protocol/-/sprotty-protocol-0.13.0-next.1c4343c.328.tgz#3354fbf5eb405b289f0784f70c508cc99d6ef131"
+  integrity sha512-sprFlSDmNBHlgAgAq2vM7hllfvb8GTVAM6u0Ws7tPAnicTAA/ulmiYbeYfvJZH5uuAasSW2B7ieWzg1+kgF/xg==
+
+sprotty@0.13.0-next.1c4343c.328:
+  version "0.13.0-next.1c4343c.328"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/sprotty/-/sprotty-0.13.0-next.1c4343c.328.tgz#ab943696ebae2be75dedc33e751b2792ec6914c8"
+  integrity sha512-6+//jO+c3ix5Sj2JG6lkHlp81PSY1/7ZGIw5DLipLwmZ/VSgFyU4JbOlXdk2FCMqUCgA77QZnU8mMmMwrDDm9A==
   dependencies:
     "@vscode/codicons" "^0.0.25"
     autocompleter "^5.1.0"
     file-saver "^2.0.2"
     inversify "^5.1.1"
     snabbdom "^3.0.3"
-    sprotty-protocol "~0.12.0"
+    sprotty-protocol "0.13.0-next.1c4343c.328+1c4343c"
     tinyqueue "^2.0.3"
 
 sshpk@^1.7.0:
@@ -7035,6 +7054,11 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+toastify-js@1.12.0:
+  version "1.12.0"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/toastify-js/-/toastify-js-1.12.0.tgz#cc1c4f5c7e7380e854e20bedceb51980ea29f64d"
+  integrity sha512-HeMHCO9yLPvP9k0apGSdPUWrUbLnxUKNFzgUoZp1PHCLploIX/4DSQ7V8H25ef+h4iO9n0he7ImfcndnN6nDrQ==
 
 tough-cookie@~2.5.0:
   version "2.5.0"
