@@ -1,6 +1,7 @@
 import { configureServerActions } from '@eclipse-glsp/client';
 import { GLSPDiagramLanguage, GLSPDiagramManager } from '@eclipse-glsp/theia-integration';
-import { injectable } from '@theia/core/shared/inversify';
+import { injectable, inject } from '@theia/core/shared/inversify';
+import { ThemeService } from '@theia/core/lib/browser/theming';
 import { DiagramWidget, DiagramWidgetOptions } from 'sprotty-theia';
 import { IvyGLSPDiagramWidget } from './ivy-diagram-widget';
 
@@ -9,6 +10,8 @@ export class IvyGLSPDiagramManager extends GLSPDiagramManager {
   private _diagramType: string;
   private _label: string;
   private _fileExtensions: string[] = [];
+
+  @inject(ThemeService) theiaThemeService: ThemeService;
 
   public doConfigure(diagramLanguage: GLSPDiagramLanguage): void {
     this._fileExtensions = diagramLanguage.fileExtensions;
@@ -50,7 +53,8 @@ export class IvyGLSPDiagramManager extends GLSPDiagramManager {
         this.editorPreferences,
         this.storage,
         this.theiaSelectionService,
-        this.diagramConnector
+        this.diagramConnector,
+        this.theiaThemeService
       );
       widget.listenToFocusState(this.shell);
       return widget;
