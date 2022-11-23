@@ -1,27 +1,3 @@
-@import url('https://use.fontawesome.com/releases/v6.1.0/css/all.css');
-
 body {
-  --glsp-editor-background: var(--theia-editor-background);
-  --glsp-editor-foreground: var(--theia-editor-foreground);
-  --glsp-editor-mouseover: var(--theia-editorWidget-foreground);
-  --glsp-editor-selected: var(--theia-menu-selectionBackground);
-  --glsp-foreground: var(--theia-foreground);
-
-  --glsp-tool-bar-background: var(--theia-activityBar-background);
-  --glsp-tool-bar-forground: var(--glsp-foreground);
-  --glsp-tool-bar-selection: var(--theia-editor-selectionBackground);
-  --glsp-tool-bar-hover: var(--theia-editor-selectionHighlightBackground);
-  --glsp-tool-bar-border: var(--theia-dropdown-border);
-  --glsp-tool-bar-group-background: var(--theia-badge-background);
-
-  --glsp-multiselect-box-border: var(--glsp-editor-selected);
-  --glsp-quick-action-background: var(--glsp-tool-bar-background);
-  --glsp-quick-action-hover: var(--glsp-tool-bar-selection);
-
-  --glsp-issue-background: var(--theia-editor-background);
-  --glsp-error-foreground: var(--theia-editorError-foreground);
-  --glsp-warning-foreground: var(--theia-editorWarning-foreground);
-  --glsp-info-foreground: var(--theia-editorInfo-foreground);
-
-  --glsp-inline-label-background: var(--theia-textSeparator-foreground);
+  /*Fixme: use theia colors?*/
 }

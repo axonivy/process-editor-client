@@ -2,7 +2,7 @@ import '../../../css/colors.css';
 import 'sprotty-theia/css/theia-sprotty.css';
 
 import { configureDiagramServer, GLSPDiagramConfiguration } from '@eclipse-glsp/theia-integration';
-import { SetBreakpointAction, ivyBreakpointModule, createIvyDiagramContainer } from '@ivyteam/process-editor';
+import { SetBreakpointAction, ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
 import { Container, injectable } from '@theia/core/shared/inversify';
 import { configureActionHandler } from 'sprotty';
 
@@ -19,6 +19,7 @@ export class IvyDiagramConfiguration extends GLSPDiagramConfiguration {
     configureDiagramServer(container, IvyDiagramServer);
     configureActionHandler(container, SetBreakpointAction.KIND, SetBreakpointActionHandler);
     container.load(ivyBreakpointModule);
+    container.load(ivyThemeModule);
     return container;
   }
 }
