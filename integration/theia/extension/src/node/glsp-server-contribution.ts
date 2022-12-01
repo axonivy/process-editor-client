@@ -14,7 +14,6 @@ export class IvyGLSPServerContribution extends GLSPSocketServerContribution {
   readonly id = IvyProcessLanguage.contributionId;
 
   createContributionOptions(): Partial<GLSPSocketServerContributionOptions> {
-    console.log('my host: ' + getHost(HOST_ARG_KEY));
     return {
       executable: '',
       additionalArgs: ['--consoleLog', 'false', '--fileLog', 'true', '--logDir', SERVER_DIR],
