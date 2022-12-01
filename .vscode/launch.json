@@ -62,7 +62,7 @@
       "args": [
         "--port=3000",
         "--no-cluster",
-        "--IVY_PROCESS_GLSP=5007",
+        "--IVY_PROCESS_GLSP_PORT=5007",
         "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
       ],
       "env": {
@@ -93,7 +93,7 @@
         "--loglevel=debug",
         "--port=3000",
         "--no-cluster",
-        "--IVY_PROCESS_GLSP=5007",
+        "--IVY_PROCESS_GLSP_PORT=5007",
         "--DEBUG",
         "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
       ],

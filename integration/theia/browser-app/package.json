@@ -23,8 +23,8 @@
   "scripts": {
     "prepare": "yarn build",
     "build": "theia build --mode development",
-    "start": "theia start --IVY_PROCESS_GLSP=5007",
-    "start:debug": "theia start --IVY_PROCESS_GLSP=5007 --loglevel=debug --debug",
+    "start": "theia start --IVY_PROCESS_GLSP_PORT=5007",
+    "start:debug": "theia start --IVY_PROCESS_GLSP_PORT=5007 --loglevel=debug --debug",
     "watch": "theia build --watch --mode development"
   },
   "theia": {
