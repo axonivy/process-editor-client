@@ -1006,8 +1006,8 @@
 
 "@ivyteam/process-editor@^11.1.0-s1":
   version "11.1.0-s1"
-  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-11.1.0-s1.tgz#4f5943f9a5ef9eb61b5edf7267e896b0d2f57d12"
-  integrity sha512-zTc+IiD0iA3yqC86Vt1iyE4rA5FXCvZjcjxQVsJ7AxZP/V9OimCLEUcvQQk3Wx9Ta6JSfm0LXfcwz3JEWK3ECQ==
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-11.1.0-s1.tgz#7ca296348c08227afd9cb8ee582dc0596fa54401"
+  integrity sha1-fKKWNIwIInr9nLjuWC3AWW+lRAE=
   dependencies:
     "@eclipse-glsp/client" rc
     showdown "^2.1.0"
