@@ -23,19 +23,19 @@
     "start:browser:debug": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start:debug --hostname 0.0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^16.11.36",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
+    "@types/node": "^16.18.4",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.29.0",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-null": "^1.0.2",
     "ignore-styles": "^5.0.1",
-    "lerna": "^4.0.0",
-    "prettier": "^2.4.1",
+    "lerna": "^6.1.0",
+    "prettier": "^2.8.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.5.2"
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
   },
   "workspaces": {
     "packages": [
