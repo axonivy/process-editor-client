@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 const buildRoot = path.resolve(__dirname, 'lib');
@@ -12,8 +11,7 @@ module.exports = {
     filename: 'bundle.[contentHash].js',
     path: appRoot
   },
-  mode: 'development',
-  devtool: 'source-map',
+  mode: 'production',
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: ['.ts', '.tsx', '.js']

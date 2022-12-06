@@ -30,6 +30,6 @@
     "clean": "rimraf lib app/bundle*.js app/bundle*.js.map",
     "build": "tsc && webpack && yarn run lint",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --config webpack.dev.js --watch"
   }
 }
