@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 const buildRoot = path.resolve(__dirname, 'lib');
@@ -6,14 +5,13 @@ const appRoot = path.resolve(__dirname, 'app');
 var CircularDependencyPlugin = require('circular-dependency-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+const config = {
   entry: [path.resolve(buildRoot, 'index')],
   output: {
     filename: 'bundle.[contentHash].js',
     path: appRoot
   },
-  mode: 'development',
-  devtool: 'source-map',
+  mode: 'production',
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
@@ -55,3 +53,5 @@ module.exports = {
     new HtmlWebpackPlugin({ template: 'index_template.html' })
   ]
 };
+
+module.exports = config;
