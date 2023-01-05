@@ -1,5 +1,5 @@
 {
-  "format" : "10.0.0",
+  "format" : "11.1.2",
   "id" : "1842D6FBB6A107AB",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -231,8 +231,7 @@
       "type" : "DialogCall",
       "name" : "hd",
       "config" : {
-        "dialogId" : "glsp.test.project.hd",
-        "startMethod" : "start()"
+        "dialog" : "glsp.test.project.hd:start()"
       },
       "visual" : {
         "at" : { "x" : 560, "y" : 144 }
