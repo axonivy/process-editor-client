@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.10",
+  "format" : "11.1.11",
   "id" : "1842D6FBB6A107AB",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -16,7 +16,9 @@
             "at" : { "x" : 64, "y" : 160 }
           },
           "parentConnector" : "f19",
-          "connect" : { "id" : "S10-f0", "to" : "S10-g1" }
+          "connect" : [
+            { "id" : "S10-f0", "to" : "S10-g1" }
+          ]
         }, {
           "id" : "S10-g1",
           "type" : "EmbeddedEnd",
@@ -29,7 +31,9 @@
       "visual" : {
         "at" : { "x" : 536, "y" : 64 }
       },
-      "connect" : { "id" : "f20", "to" : "f16" }
+      "connect" : [
+        { "id" : "f20", "to" : "f16" }
+      ]
     }, {
       "id" : "f0",
       "type" : "RequestStart",
@@ -104,7 +108,9 @@
       "visual" : {
         "at" : { "x" : 416, "y" : 64 }
       },
-      "connect" : { "id" : "f19", "to" : "S10" }
+      "connect" : [
+        { "id" : "f19", "to" : "S10" }
+      ]
     }, {
       "id" : "f16",
       "type" : "TaskEnd",
@@ -148,7 +154,9 @@
       "visual" : {
         "at" : { "x" : 272, "y" : 248 }
       },
-      "connect" : { "id" : "f28", "to" : "f22", "var" : "in1" }
+      "connect" : [
+        { "id" : "f28", "to" : "f22", "var" : "in1" }
+      ]
     }, {
       "id" : "f29",
       "type" : "RequestStart",
@@ -160,10 +168,12 @@
       "visual" : {
         "at" : { "x" : 280, "y" : 328 }
       },
-      "connect" : { "id" : "f30", "to" : "f22", "label" : {
-          "name" : "blu",
-          "offset" : { "x" : 16, "y" : 11 }
-        }, "var" : "in2" }
+      "connect" : [
+        { "id" : "f30", "to" : "f22", "label" : {
+            "name" : "blu",
+            "offset" : { "x" : 16, "y" : 11 }
+          }, "var" : "in2" }
+      ]
     }, {
       "id" : "f31",
       "type" : "Script",
