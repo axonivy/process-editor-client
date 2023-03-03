@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.6",
+  "format" : "11.1.10",
   "id" : "1842D6FBB6A107AB",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -39,7 +39,6 @@
         "responsible" : "TestRole1",
         "task" : {
           "responsible" : {
-            "type" : "ROLE",
             "activator" : "TestRole2"
           }
         },
@@ -121,13 +120,11 @@
         "tasks" : {
           "TaskA" : {
             "responsible" : {
-              "type" : "ROLE",
               "activator" : "TestRole1"
             }
           },
           "TaskB" : {
             "responsible" : {
-              "type" : "ROLE",
               "activator" : "TestRole2"
             }
           }
@@ -243,7 +240,9 @@
       "id" : "f17",
       "type" : "Database",
       "config" : {
-        "dbUrl" : "IvySystemDatabase"
+        "query" : {
+          "dbName" : "IvySystemDatabase"
+        }
       },
       "visual" : {
         "at" : { "x" : 544, "y" : 224 }
@@ -253,14 +252,16 @@
       "type" : "EMail",
       "config" : {
         "headers" : {
-          "emailSubject" : "subject",
-          "emailFrom" : "from",
-          "emailTo" : "to",
-          "emailReplyTo" : "reply to",
-          "emailCC" : "cc",
-          "emailBCC" : "bcc"
+          "subject" : "subject",
+          "from" : "from",
+          "to" : "to",
+          "replyTo" : "reply to",
+          "cc" : "cc",
+          "bcc" : "bcc"
         },
-        "message" : "content"
+        "message" : {
+          "body" : "content"
+        }
       },
       "visual" : {
         "at" : { "x" : 560, "y" : 296 }
