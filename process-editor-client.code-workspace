@@ -1,0 +1,72 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": ".",
+    },
+    {
+      "name": "editor",
+      "path": "./editor"
+    },
+    {
+      "name": "integration/standalone",
+      "path": "./integration/standalone"
+    },
+    {
+      "name": "integration/eclipse",
+      "path": "./integration/eclipse"
+    },
+    {
+      "name": "integration/theia",
+      "path": "./integration/theia"
+    },
+    {
+      "name": "integration/vscode",
+      "path": "./integration/vscode"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "eslint.validate": ["javascript", "typescript"],
+    "prettier.prettierPath": "node_modules/prettier",
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/lib": true
+    },
+    "task.autoDetect": "off",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "editor.insertSpaces": true,
+    "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "mochaExplorer.configFile": "configs/.mocharc.json",
+    "mochaExplorer.files": "editor/tests/**/*.spec.?(ts|tsx)",
+    "mochaExplorer.env": {
+      "TS_NODE_PROJECT": "editor/tsconfig.mocha.json"
+    }
+  }
+}
