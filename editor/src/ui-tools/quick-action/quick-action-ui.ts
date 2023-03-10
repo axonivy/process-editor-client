@@ -115,8 +115,10 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
       if (menu.offsetWidth > this.quickActionBar.offsetWidth) {
         menu.classList.add('border-radius');
         this.quickActionBar.classList.add('no-bottom-border-radius');
+        this.shiftBar(menu, 8);
+      } else {
+        this.shiftBar(menu, 24);
       }
-      this.shiftBar(menu, 8);
     }
   }
 
