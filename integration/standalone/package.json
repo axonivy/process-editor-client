@@ -14,7 +14,7 @@
     "@ivyteam/process-editor": "^11.1.0-s1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.28.1",
+    "@playwright/test": "1.30.0",
     "@types/uuid": "^9.0.0",
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^2.1.0",
