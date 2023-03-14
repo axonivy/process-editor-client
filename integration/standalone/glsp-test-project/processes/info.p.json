@@ -1,5 +1,5 @@
 {
-  "format" : "11.1.11",
+  "format" : "11.1.14",
   "id" : "1842D6FBB6A107AB",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -43,6 +43,7 @@
         "responsible" : "TestRole1",
         "task" : {
           "responsible" : {
+            "type" : "ROLE",
             "activator" : "TestRole2"
           }
         },
@@ -121,20 +122,18 @@
       "id" : "f22",
       "type" : "TaskSwitchGateway",
       "config" : {
-        "template" : "view/info.xhtml",
-        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ],
-        "tasks" : {
-          "TaskA" : {
+        "tasks" : [ {
+            "id" : "TaskA",
             "responsible" : {
               "activator" : "TestRole1"
             }
-          },
-          "TaskB" : {
+          }, {
+            "id" : "TaskB",
             "responsible" : {
               "activator" : "TestRole2"
             }
-          }
-        }
+          } ],
+        "page" : "view/info.xhtml"
       },
       "visual" : {
         "at" : { "x" : 344, "y" : 272 }
