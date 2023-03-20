@@ -27,7 +27,7 @@ export class IvyGLSPDiagramWidget extends GLSPDiagramWidget {
     super(options, widgetId, diContainer, editorPreferences, storage, theiaSelectionService, connector);
   }
 
-  protected dispatchInitialActions(): void {
+  protected async dispatchInitialActions(): Promise<void> {
     this.actionDispatcher.dispatch(RequestModelAction.create({ options: this.requestModelOptions }));
     if (this.actionDispatcher instanceof GLSPActionDispatcher) {
       this.actionDispatcher.onceModelInitialized().then(() => {
