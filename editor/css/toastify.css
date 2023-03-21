@@ -1,20 +1,31 @@
 .toastify {
-  color: #202020;
+  color: var(--glsp-tool-text);
   border-radius: 4px;
   transition: all 0.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background: var(--glsp-tool-bg);
+  box-shadow: var(--glsp-box-shadow);
 }
 .toastify .toast-close {
-  color: #202020;
+  color: var(--glsp-tool-text);
+  border-radius: 4px;
+  padding: 0 2px;
+  margin-right: 0.3rem;
+  opacity: 1;
+}
+.toastify .toast-close:where(:focus, :hover) {
+  box-shadow: 0 0 0 1px var(--glsp-tool-text);
 }
 
 .toastify.severity-INFO {
-  background: var(--glsp-info-foreground);
+  border-left: 5px solid var(--glsp-info-foreground);
 }
 
 .toastify.severity-WARNING {
-  background: var(--glsp-warning-foreground);
+  border-left: 5px solid var(--glsp-warning-foreground);
 }
 
 .toastify.severity-ERROR {
-  background: var(--glsp-error-foreground);
+  border-left: 5px solid var(--glsp-error-foreground);
 }
