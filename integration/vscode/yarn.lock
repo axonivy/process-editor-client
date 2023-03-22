@@ -135,10 +135,10 @@
   resolved "https://npm-registry.ivyteam.io/repository/npm/@isaacs/string-locale-compare/-/string-locale-compare-1.1.0.tgz#291c227e93fd407a96ecd59879a35809120e432b"
   integrity sha512-SQ7Kzhh9+D+ZW9MA0zkYv3VXhIDNx+LzM6EJ+/65I3QY+enU6Itte7E5XX7EWrqLW2FN4n06GWzBnPoC3th2aQ==
 
-"@ivyteam/process-editor@^11.1.0-s1":
-  version "11.1.0-s1"
-  resolved "https://npm-registry.ivyteam.io/repository/private/@ivyteam/process-editor/-/process-editor-11.1.0-s1.tgz#7ca296348c08227afd9cb8ee582dc0596fa54401"
-  integrity sha1-fKKWNIwIInr9nLjuWC3AWW+lRAE=
+"@ivyteam/process-editor@11.1.0-s7":
+  version "11.1.0-s7"
+  resolved "https://npm-registry.ivyteam.io/repository/npm/@ivyteam/process-editor/-/process-editor-11.1.0-s7.tgz#776d49fc1935f6425ea68fdc076c5fee35c35f16"
+  integrity sha512-z9icMYIgJeXu8yHnWnd96CsbmxTjAFOLGg6ZUdhL1TdE7f9AYR24IHrpQBybby9T6oQ572DdUZvW59Q4xYAyLQ==
   dependencies:
     "@eclipse-glsp/client" rc
     showdown "^2.1.0"
