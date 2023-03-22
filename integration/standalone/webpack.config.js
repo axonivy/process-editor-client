@@ -8,11 +8,16 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = {
   entry: [path.resolve(buildRoot, 'index')],
   output: {
-    filename: 'bundle.[contentHash].js',
+    filename: 'bundle.[contenthash].js',
     path: appRoot
   },
   mode: 'production',
   resolve: {
+    fallback: {
+      fs: false,
+      net: false,
+      path: require.resolve('path-browserify')
+    },
     extensions: ['.ts', '.tsx', '.js']
   },
   module: {
@@ -33,18 +38,11 @@ const config = {
       },
       {
         test: /\.(ttf)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
-          esModule: false
-        }
+        type: 'asset/resource'
       }
     ]
   },
-  node: { fs: 'empty', net: 'empty' },
-  stats: {
-    warningsFilter: [/Failed to parse source map/]
-  },
+  ignoreWarnings: [/Failed to parse source map/, /Can't resolve .* in '.*ws\/lib'/],
   plugins: [
     new CircularDependencyPlugin({
       exclude: /(node_modules|examples)\/./,

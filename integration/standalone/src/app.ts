@@ -3,29 +3,30 @@ import {
   CenterAction,
   configureServerActions,
   EnableToolPaletteAction,
-  GLSPDiagramServer,
-  RequestTypeHintsAction,
   GLSPActionDispatcher,
+  GLSPDiagramServer,
+  listen,
   RequestModelAction,
+  RequestTypeHintsAction,
   SelectAction,
   TYPES
 } from '@eclipse-glsp/client';
+import { ApplicationIdProvider, GLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 import {
-  MoveIntoViewportAction,
-  IvySetViewportZoomAction,
   EnableViewportAction,
-  ToolBar,
+  IvyBaseJsonrpcGLSPClient,
+  IvySetViewportZoomAction,
   ivyToolBarModule,
   IVY_TYPES,
+  MoveIntoViewportAction,
+  overrideIvyViewerOptions,
   SwitchThemeAction,
   SwitchThemeActionHandler,
-  overrideIvyViewerOptions,
-  IvyBaseJsonrpcGLSPClient
+  ToolBar
 } from '@ivyteam/process-editor';
-import { ApplicationIdProvider, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
-
+import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
-import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
+import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -47,14 +48,10 @@ const zoom = parameters['zoom'];
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
+listen(websocket, connection => initialize(connection));
 
-websocket.onopen = () => {
-  const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
-  initialize(glspClient);
-};
-
-async function initialize(client: GLSPClient): Promise<void> {
+async function initialize(connectionProvider: MessageConnection): Promise<void> {
+  const client = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
   await diagramServer.connect(client);
   const result = await client.initializeServer({
     applicationId: ApplicationIdProvider.get(),

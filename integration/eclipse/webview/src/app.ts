@@ -3,16 +3,19 @@ import {
   EnableToolPaletteAction,
   GLSPActionDispatcher,
   GLSPDiagramServer,
-  TYPES,
+  listen,
   RequestModelAction,
-  RequestTypeHintsAction
+  RequestTypeHintsAction,
+  TYPES
 } from '@eclipse-glsp/client';
-import { EnableViewportAction, SwitchThemeAction, IvyBaseJsonrpcGLSPClient } from '@ivyteam/process-editor';
-import { getParameters } from '@eclipse-glsp/ide';
-import { ApplicationIdProvider, GLSPClient, JsonrpcGLSPClient } from '@eclipse-glsp/protocol';
 
-import createContainer from './di.config';
+import { getParameters } from '@eclipse-glsp/ide';
+import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
+import { EnableViewportAction, IvyBaseJsonrpcGLSPClient, SwitchThemeAction } from '@ivyteam/process-editor';
+import { MessageConnection } from 'vscode-jsonrpc';
+
 import { ShowGridAction } from '@ivyteam/process-editor/lib/diagram/grid/action-handler';
+import createContainer from './di.config';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -32,14 +35,10 @@ const container = createContainer(widgetId);
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = clientId;
+listen(websocket, connection => initialize(connection));
 
-websocket.onopen = () => {
-  const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
-  initialize(glspClient);
-};
-
-async function initialize(client: GLSPClient): Promise<void> {
+async function initialize(connectionProvider: MessageConnection): Promise<void> {
+  const client = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
   await diagramServer.connect(client);
   const result = await client.initializeServer({
     applicationId,

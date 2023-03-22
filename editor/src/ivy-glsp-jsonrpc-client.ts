@@ -1,4 +1,4 @@
-import { Message } from 'vscode-ws-jsonrpc';
+import { Message } from 'vscode-jsonrpc';
 import { BaseJsonrpcGLSPClient, ClientState } from '@eclipse-glsp/client';
 import * as Toastify from 'toastify-js';
 

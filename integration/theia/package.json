@@ -34,20 +34,8 @@
     "root": true
   },
   "resolutions": {
-    "@eclipse-glsp/client": "1.1.0-RC02",
-    "**/@theia/core": "1.29.1",
-    "**/@theia/editor": "1.29.1",
-    "**/@theia/filesystem": "1.29.1",
-    "**/@theia/markers": "1.29.1",
-    "**/@theia/messages": "1.29.1",
-    "**/@theia/monaco": "1.29.1",
-    "**/@theia/navigator": "1.29.1",
-    "**/@theia/preferences": "1.29.1",
-    "**/@theia/process": "1.29.1",
-    "**/@theia/terminal": "1.29.1",
-    "**/@theia/workspace": "1.29.1",
-    "**/@theia/cli": "1.29.1",
-    "sprotty": "0.13.0-next.1c4343c.328"
+    "@eclipse-glsp/client": "1.1.0-RC06",
+    "**/@theia/**": "1.34.2"
   },
   "workspaces": {
     "packages": [

@@ -1,4 +1,3 @@
-import { keepAliveModule } from '@eclipse-glsp/ide';
 import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
@@ -20,7 +19,6 @@ export default function createContainer(widgetId: string): Container {
   container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
-  container.load(keepAliveModule);
   // Revert after Issue 690 is merged
   container.load(ivyEclipseCopyPasteModule);
   // Revert after Issue 690 is merged
