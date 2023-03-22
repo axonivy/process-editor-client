@@ -28,7 +28,7 @@
   },
   "scripts": {
     "prepare": "yarn run clean && yarn build",
-    "clean": "rimraf lib app/bundle*.js app/bundle*.js.map",
+    "clean": "rimraf lib app",
     "build": "tsc && webpack",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "webpack --config webpack.dev.js --watch"
