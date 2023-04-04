@@ -19,8 +19,7 @@
   },
   "include": [
     "editor/src",
-    "integration/eclipse/*/src",
-    "integration/theia/*/src"
+    "integration/eclipse/*/src"
   ],
   "exclude": [
     "node_modules",

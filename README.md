@@ -18,7 +18,6 @@ However, it's of course also possible to use another text editor.
 
 - `editor`: GLSP-based Axon Ivy process editor
 - `integration/eclipse`: Eclipse IDE integraion of the process editor
-- `integration/theia`: Theia IDE integraion of the process editor
 - `integration/vscode`: VS Code extension of the process editor
 - `integration/standalone`: Standalone integration of the process editor
 
@@ -36,11 +35,11 @@ yarn
 - **Standalone Integration**:
   If you build the process editor also the standalone integraion is build too.
 
-- **Other Integraions (Theia, Eclipse, VS Code)**:
+- **Other Integraions (Eclipse, VS Code)**:
   Run bash command or run task in vscode:
 
   ```bash
-  cd integration/theia (or eclipse, vscode)
+  cd integration/vscode (or eclipse)
   yarn
   ```
 
@@ -52,15 +51,6 @@ The simplest way to start the process editor is by download a [Axon Ivy Designer
 
 - **Standalone / VS Code Integration**:
   To start the Standalone or VS Code integration you can start the specific launch config directly inside the VS Code.
-
-- **Theia Integration**:
-  To start the Theia integration you can run it directly over a VS Code launch config or by run:
-
-  ```bash
-  yarn start:browser
-  ```
-
-  This will launch the example in the browser on [localhost:3000](http://localhost:3000).
 
 ---
 

@@ -17,10 +17,7 @@
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
-    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
-    "rebuild:browser": "theia rebuild:browser",
-    "start:browser": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start",
-    "start:browser:debug": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start:debug --hostname 0.0.0.0"
+    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
   },
   "devDependencies": {
     "@types/node": "^16.18.4",
