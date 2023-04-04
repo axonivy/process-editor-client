@@ -35,9 +35,6 @@ pipeline {
               dir ('integration/vscode') {
                 sh 'yarn build'
               }
-              dir ('integration/theia') {
-                sh 'yarn build'
-              }
               archiveArtifacts 'integration/eclipse/webview/app/*'
               archiveArtifacts 'integration/standalone/app/*'
             }
@@ -57,9 +54,6 @@ pipeline {
                   sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
                 dir ('integration/vscode') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
-                }
-                dir ('integration/theia') {
                   sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
               }
@@ -138,12 +132,6 @@ pipeline {
               sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
             }
             dir ('integration/eclipse') {
-              sh 'yarn'
-            }
-            dir ('integration/theia/extension') {
-              sh "yarn upgrade @ivyteam/process-editor@${params.nextVersion}"
-            }
-            dir ('integration/theia') {
               sh 'yarn'
             }
 

@@ -17,10 +17,6 @@
       "path": "./integration/eclipse"
     },
     {
-      "name": "integration/theia",
-      "path": "./integration/theia"
-    },
-    {
       "name": "integration/vscode",
       "path": "./integration/vscode"
     }

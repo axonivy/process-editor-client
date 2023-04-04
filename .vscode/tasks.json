@@ -80,29 +80,6 @@
       "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
-      "label": "Build Theia Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/theia ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch Theia Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/theia watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
       "label": "Link Integrations",
       "type": "shell",
       "group": "build",
