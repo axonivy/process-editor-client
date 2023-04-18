@@ -43,7 +43,7 @@
 .stopped .execution-badge {
   stroke: var(--glsp-execution-stopped);
 }
-.execution-text {
+text.execution-text {
   fill: var(--glsp-execution);
   font-size: 8pt;
 }
