@@ -21,4 +21,22 @@ export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
     this.stop();
     this.state = ClientState.ServerError;
   }
+
+  protected handleConnectionClosed(): void {
+    if (this.state === ClientState.Stopping || this.state === ClientState.Stopped) {
+      return;
+    }
+    try {
+      if (this.resolvedConnection) {
+        this.resolvedConnection.dispose();
+        this.connectionPromise = undefined;
+        this.resolvedConnection = undefined;
+      }
+    } catch (error) {
+      // Disposing a connection could fail if error cases.
+    }
+
+    this.error('Connection to server got closed.');
+    this.state = ClientState.ServerError;
+  }
 }
