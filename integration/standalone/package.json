@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@ivyteam/standalone-integration",
+  "name": "@axonivy/standalone-integration",
   "version": "11.1.0-next",
   "description": "Standalone browser-app for the Axon Ivy process editor",
   "author": "Axon Ivy AG",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@eclipse-glsp/client": "rc",
-    "@ivyteam/process-editor": "^11.1.0-next"
+    "@axonivy/process-editor": "^11.1.0-next"
   },
   "devDependencies": {
     "@playwright/test": "1.30.0",

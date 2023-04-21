@@ -23,7 +23,7 @@ import {
   SwitchThemeAction,
   SwitchThemeActionHandler,
   ToolBar
-} from '@ivyteam/process-editor';
+} from '@axonivy/process-editor';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';

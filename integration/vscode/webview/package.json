@@ -1,6 +1,6 @@
 {
   "private": "true",
-  "name": "@ivyteam/vscode-integration-webview",
+  "name": "@axonivy/vscode-integration-webview",
   "version": "11.1.0-next",
   "description": "VSCode extension webview for the Axon Ivy (GLSP-based) process editor",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/vscode-integration-webview": "rc",
-    "@ivyteam/process-editor": "^11.1.0-next"
+    "@axonivy/process-editor": "^11.1.0-next"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",

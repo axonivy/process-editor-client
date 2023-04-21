@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@ivyteam/vscode-integration",
+  "name": "@axonivy/vscode-integration",
   "version": "11.1.0-next",
   "description": "VSCode extension to model Axon Ivy Processes and debug them",
   "displayName": "Axon Ivy Process Editor",
@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/vscode-integration": "rc",
-    "@ivyteam/vscode-integration-webview": "^11.1.0-next",
+    "@axonivy/vscode-integration-webview": "^11.1.0-next",
     "await-notify": "1.0.1",
     "vscode-debugadapter": "^1.46.0"
   },

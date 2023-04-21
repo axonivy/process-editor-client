@@ -1,5 +1,5 @@
 import { isOpenable, SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider, StreamlineIcons } from '@ivyteam/process-editor';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider, StreamlineIcons } from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { OpenAction } from 'sprotty-protocol';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';

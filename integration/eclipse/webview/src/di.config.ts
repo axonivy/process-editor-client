@@ -1,4 +1,4 @@
-import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@ivyteam/process-editor';
+import { ivyBreakpointModule, createIvyDiagramContainer, ivyThemeModule } from '@axonivy/process-editor';
 import { Container } from 'inversify';
 import { ConsoleLogger, LogLevel, TYPES } from '@eclipse-glsp/client';
 
