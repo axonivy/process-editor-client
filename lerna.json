@@ -1,5 +1,5 @@
 {
-  "version": "11.1.0-s1",
+  "version": "11.1.0-next",
   "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {
@@ -7,14 +7,14 @@
       "stream": true
     },
     "version": {
-      "gitTagVersion": true,
+      "gitTagVersion": false,
       "push": false
     },
     "publish": {
       "forcePublish": true,
       "gitTagVersion": false,
       "push": false,
-      "registry": "https://npm-registry.ivyteam.io/repository/private/"
+      "registry": "https://npmjs-registry.ivyteam.io/"
     }
   }
 }

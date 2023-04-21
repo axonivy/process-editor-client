@@ -1,7 +1,6 @@
 {
   "private": true,
   "name": "parent",
-  "version": "9.4.0-s44",
   "engines": {
     "yarn": "1.0.x || >=1.2.1",
     "node": ">=16.15.0 <17"
@@ -16,7 +15,7 @@
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
-    "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
+    "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes",
     "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
   },
   "devDependencies": {
