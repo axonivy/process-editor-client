@@ -1,5 +1,5 @@
 import { ServerMessageAction } from '@eclipse-glsp/client';
-import { IvyGLSPDiagramServer } from '@ivyteam/process-editor';
+import { IvyGLSPDiagramServer } from '@axonivy/process-editor';
 
 export class IvyEclipseGLSPDiagramServer extends IvyGLSPDiagramServer {
   protected handleServerMessageAction(action: ServerMessageAction): boolean {

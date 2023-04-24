@@ -3,7 +3,7 @@ import '@eclipse-glsp/vscode-integration-webview/css/glsp-vscode.css';
 
 import { DiagramServerProxy, ICopyPasteHandler, TYPES } from '@eclipse-glsp/client';
 import { GLSPStarter, GLSPVscodeDiagramServer } from '@eclipse-glsp/vscode-integration-webview';
-import { ivyBreakpointModule, createIvyDiagramContainer } from '@ivyteam/process-editor';
+import { ivyBreakpointModule, createIvyDiagramContainer } from '@axonivy/process-editor';
 import { Container } from 'inversify';
 import { SprottyDiagramIdentifier, VscodeDiagramServer, VscodeDiagramWidget, VscodeDiagramWidgetFactory } from 'sprotty-vscode-webview';
 import { GLSPDiagramIdentifier } from '@eclipse-glsp/vscode-integration-webview/lib/diagram-identifer';

@@ -18,8 +18,8 @@ yarn link --cwd node_modules/@eclipse-glsp/protocol
 yarn unlink --cwd node_modules/vscode-jsonrpc
 yarn link --cwd node_modules/vscode-jsonrpc
 
-yarn link @ivyteam/process-editor --cwd integration/vscode
-yarn link @ivyteam/process-editor --cwd integration/eclipse
+yarn link @axonivy/process-editor --cwd integration/vscode
+yarn link @axonivy/process-editor --cwd integration/eclipse
 
 yarn link sprotty --cwd integration/vscode
 yarn link sprotty --cwd integration/eclipse

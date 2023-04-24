@@ -5,7 +5,7 @@ import {
   SingleQuickActionProvider,
   hasGoToSourceFeature,
   StreamlineIcons
-} from '@ivyteam/process-editor';
+} from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { GoToSourceAction } from './action';

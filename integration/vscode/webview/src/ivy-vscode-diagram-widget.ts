@@ -1,5 +1,5 @@
 import { DiagramServerProxy, EnableToolPaletteAction, RequestModelAction, RequestTypeHintsAction } from '@eclipse-glsp/client';
-import { EnableViewportAction } from '@ivyteam/process-editor';
+import { EnableViewportAction } from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { VscodeDiagramWidget } from 'sprotty-vscode-webview';
 
