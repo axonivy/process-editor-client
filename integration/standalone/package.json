@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@axonivy/standalone-integration",
-  "version": "11.1.0-next",
+  "version": "11.5.0-next",
   "description": "Standalone browser-app for the Axon Ivy process editor",
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com",
@@ -10,7 +10,7 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@axonivy/process-editor": "11.1.0-next",
+    "@axonivy/process-editor": "11.5.0-next",
     "@eclipse-glsp/client": "rc"
   },
   "devDependencies": {
