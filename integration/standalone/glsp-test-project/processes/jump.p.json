@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.15/schema.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
   "id" : "183E4A356E771204",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -9,8 +9,7 @@
       "type" : "RequestStart",
       "name" : "start.ivp",
       "config" : {
-        "callSignature" : "start",
-        "outLink" : "start.ivp"
+        "signature" : "start"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
@@ -68,9 +67,8 @@
       "type" : "RequestStart",
       "name" : "triggerStart.ivp",
       "config" : {
-        "callSignature" : "triggerStart",
-        "outLink" : "triggerStart.ivp",
-        "triggerEnabled" : true
+        "signature" : "triggerStart",
+        "triggerable" : true
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 224 }
