@@ -35,7 +35,7 @@
   resolved "https://npmjs-registry.ivyteam.io/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp/client@rc":
+"@eclipse-glsp/client@1.1.0-RC06":
   version "1.1.0-RC06"
   resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/client/-/client-1.1.0-RC06.tgz#188208069802ea3dee8a77a8e92e58ca5c8fc9dd"
   integrity sha512-NQGk9J6KGhN9hdNOMGYH11O4vHU0NkNnr/FvZQ0Ule5BEnMnKnH91KgcOpLmc1m1WnhwksWbEAqoVnGX4NdQgw==

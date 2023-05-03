@@ -18,7 +18,7 @@
     "bpmn"
   ],
   "dependencies": {
-    "@eclipse-glsp/client": "rc",
+    "@eclipse-glsp/client": "1.1.0-RC06",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
   },
