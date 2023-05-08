@@ -24,9 +24,6 @@ pipeline {
               dir ('integration/eclipse') {
                 sh 'yarn build'
               }
-              dir ('integration/vscode') {
-                sh 'yarn build'
-              }
               archiveArtifacts 'integration/eclipse/webview/app/*'
               archiveArtifacts 'integration/standalone/app/*'
             }
@@ -43,9 +40,6 @@ pipeline {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle'
                 dir ('integration/eclipse') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
-                }
-                dir ('integration/vscode') {
                   sh 'yarn lint -o eslint.xml -f checkstyle'
                 }
               }

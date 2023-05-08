@@ -33,29 +33,6 @@
       "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
-      "label": "Build VSCode Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/vscode ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch VSCode Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/vscode watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
       "label": "Build Eclipse Integration",
       "type": "shell",
       "group": "build",

@@ -18,7 +18,6 @@ However, it's of course also possible to use another text editor.
 
 - `editor`: GLSP-based Axon Ivy process editor
 - `integration/eclipse`: Eclipse IDE integraion of the process editor
-- `integration/vscode`: VS Code extension of the process editor
 - `integration/standalone`: Standalone integration of the process editor
 
 ---
@@ -35,11 +34,11 @@ yarn
 - **Standalone Integration**:
   If you build the process editor also the standalone integraion is build too.
 
-- **Other Integraions (Eclipse, VS Code)**:
+- **Eclipse Integration**:
   Run bash command or run task in vscode:
 
   ```bash
-  cd integration/vscode (or eclipse)
+  cd integration/eclipse
   yarn
   ```
 
@@ -49,8 +48,8 @@ yarn
 
 The simplest way to start the process editor is by download a [Axon Ivy Designer](https://developer.axonivy.com/download/nightly) and open a process. This will launch the latest prebuild **process editor within the eclipse integration**.
 
-- **Standalone / VS Code Integration**:
-  To start the Standalone or VS Code integration you can start the specific launch config directly inside the VS Code.
+- **Standalone**:
+  To start the Standalone integration you can start the Launch Standalone config directly inside the VS Code.
 
 ---
 
