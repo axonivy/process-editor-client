@@ -15,10 +15,6 @@
     {
       "name": "integration/eclipse",
       "path": "./integration/eclipse"
-    },
-    {
-      "name": "integration/vscode",
-      "path": "./integration/vscode"
     }
   ],
   "settings": {
