@@ -56,7 +56,6 @@ export namespace ActivityTypes {
   export const EMAIL = DEFAULT + ':eMail';
   export const SUB_PROCESS = DEFAULT + ':subProcessCall';
   export const EMBEDDED_PROCESS = DEFAULT + ':embeddedProcessElement';
-  export const WEB_PAGE = DEFAULT + ':webPage';
   export const TRIGGER = DEFAULT + ':triggerCall';
   export const PROGRAM = DEFAULT + ':programInterface';
   export const BPMN_GENERIC = DEFAULT + ':genericBpmnElement';

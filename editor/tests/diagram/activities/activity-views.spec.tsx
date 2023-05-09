@@ -31,11 +31,11 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'email', type: ActivityTypes.EMAIL, position: { x: 600, y: 450 }, size: taskNodeSize });
   children.push({ id: 'subProcess', type: ActivityTypes.SUB_PROCESS, position: { x: 600, y: 500 }, size: taskNodeSize });
   children.push({ id: 'embeddedProcess', type: ActivityTypes.EMBEDDED_PROCESS, position: { x: 600, y: 550 }, size: taskNodeSize });
-  children.push({ id: 'webPage', type: ActivityTypes.WEB_PAGE, position: { x: 600, y: 600 }, size: taskNodeSize });
   children.push({ id: 'trigger', type: ActivityTypes.TRIGGER, position: { x: 600, y: 650 }, size: taskNodeSize });
   children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize });
   children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
   children.push({ id: 'thirdPartyRule', type: ActivityTypes.THIRD_PARTY_RULE, position: { x: 600, y: 800 }, size: taskNodeSize });
+  children.push({ id: 'webPage', type: ActivityTypes.DEFAULT, position: { x: 600, y: 600 }, size: taskNodeSize });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -101,10 +101,6 @@ describe('ActivityNodeView', () => {
     assertNode(ActivityTypes.EMBEDDED_PROCESS, 'embeddedProcess', { decorator: true });
   });
 
-  it('render web page node', () => {
-    assertNode(ActivityTypes.WEB_PAGE, 'webPage', {});
-  });
-
   it('render trigger node', () => {
     assertNode(ActivityTypes.TRIGGER, 'trigger', { icon: SvgIcons.TRIGGER });
   });
@@ -119,6 +115,10 @@ describe('ActivityNodeView', () => {
 
   it('render third party rule node', () => {
     assertNode(ActivityTypes.THIRD_PARTY_RULE, 'thirdPartyRule', { icon: SvgIcons.RULE });
+  });
+
+  it('render unknown node', () => {
+    assertNode(ActivityTypes.DEFAULT, 'webPage', {});
   });
 
   it('render with execution badge', () => {
