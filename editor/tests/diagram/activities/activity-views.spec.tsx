@@ -35,7 +35,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'program', type: ActivityTypes.PROGRAM, position: { x: 600, y: 700 }, size: taskNodeSize });
   children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
   children.push({ id: 'thirdPartyRule', type: ActivityTypes.THIRD_PARTY_RULE, position: { x: 600, y: 800 }, size: taskNodeSize });
-  children.push({ id: 'webPage', type: ActivityTypes.DEFAULT, position: { x: 600, y: 600 }, size: taskNodeSize });
+  children.push({ id: 'webPage', type: ActivityTypes.GENERIC, position: { x: 600, y: 600 }, size: taskNodeSize });
   return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
 }
 
@@ -118,7 +118,7 @@ describe('ActivityNodeView', () => {
   });
 
   it('render unknown node', () => {
-    assertNode(ActivityTypes.DEFAULT, 'webPage', {});
+    assertNode(ActivityTypes.GENERIC, 'webPage', {});
   });
 
   it('render with execution badge', () => {

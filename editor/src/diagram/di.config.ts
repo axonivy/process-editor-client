@@ -109,7 +109,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureIvyModelElement(ActivityTypes.COMMENT, CommentNode, ActivityNodeView, {
     disable: [breakpointFeature, errorBoundaryFeature, singleWrapFeature]
   });
-  configureActivity(ActivityTypes.DEFAULT);
+  configureActivity(ActivityTypes.GENERIC);
   configureActivity(ActivityTypes.SCRIPT);
   configureActivity(ActivityTypes.SOAP);
   configureActivity(ActivityTypes.REST);

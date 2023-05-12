@@ -46,6 +46,7 @@ export namespace GatewayTypes {
 
 export namespace ActivityTypes {
   export const DEFAULT = 'activity';
+  export const GENERIC = DEFAULT + ':genericActivity';
   export const COMMENT = DEFAULT + ':processAnnotation';
   export const SCRIPT = DEFAULT + ':script';
   export const HD = DEFAULT + ':dialogCall';
