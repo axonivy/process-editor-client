@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/11.1.26/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/11.2.1/process.json",
   "id" : "1842D6FBB6A107AB",
   "config" : {
     "data" : "glsp.test.project.Data"
@@ -74,6 +74,12 @@
     }, {
       "id" : "f5",
       "type" : "Alternative",
+      "config" : {
+        "conditions" : {
+          "f7" : "false",
+          "f13" : ""
+        }
+      },
       "visual" : {
         "at" : { "x" : 96, "y" : 272 }
       },
@@ -81,7 +87,7 @@
         { "id" : "f7", "to" : "f6", "label" : {
             "name" : "false",
             "offset" : { "x" : -6, "y" : -15 }
-          }, "condition" : "false" },
+          } },
         { "id" : "f13", "to" : "f12", "label" : {
             "name" : "true"
           } }
