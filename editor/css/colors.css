@@ -79,9 +79,5 @@ html[data-theme='dark'] body {
 
   --glsp-issue-background: var(--glsp-editor-background);
 
-  --glsp-breakpoint: #f48771;
-  --glsp-breakpoint-condition: #cca700;
-  --glsp-breakpoint-hover: rgba(244, 135, 113, 0.5);
-
   --glsp-inline-label-background: #3c3b3a;
 }
