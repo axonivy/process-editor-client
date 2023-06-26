@@ -25,7 +25,7 @@ test.describe('quick actions - nodes', () => {
 
   test('label edit', async ({ page }) => {
     const start = page.locator(startSelector);
-    await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
+    await expect(start.locator('.sprotty-label div')).toHaveText('start');
     await editNodeLabel(page, start);
   });
 
@@ -36,7 +36,7 @@ test.describe('quick actions - nodes', () => {
   });
 
   test('info', async ({ page }) => {
-    await assertInformation(page, startSelector, 'start.ivp');
+    await assertInformation(page, startSelector, 'start');
     await assertInformation(page, endSelector);
     await assertInformation(page, '.sprotty-graph > g > .sprotty-edge');
   });
@@ -54,7 +54,7 @@ test.describe('quick actions - nodes', () => {
     await expect(embeddedStart).toBeVisible();
     await embeddedStart.click();
     await page.keyboard.press('I');
-    await expect(page.locator('.bar-menu-text')).toContainText('[start.ivp]');
+    await expect(page.locator('.bar-menu-text')).toContainText('[start]');
   });
 
   test('connect', async ({ page }) => {
