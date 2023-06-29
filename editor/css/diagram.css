@@ -6,10 +6,15 @@ body {
 }
 
 /* Graph */
+.sprotty > div:focus-visible {
+  outline: none;
+}
+.sprotty svg.sprotty-graph {
+  border: none;
+}
 .sprotty-graph {
   background: var(--glsp-editor-background);
   font-size: 10pt;
-  border: none;
   height: 100%;
 }
 .grid .sprotty-graph,
