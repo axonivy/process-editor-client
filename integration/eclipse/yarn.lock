@@ -44,7 +44,17 @@
   resolved "https://npmjs-registry.ivyteam.io/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz#1d572bfbbe14b7704e0ba0f39b74815b84870d70"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@eclipse-glsp/client@1.1.0-RC06", "@eclipse-glsp/client@rc":
+"@eclipse-glsp/client@1.1.0-RC10":
+  version "1.1.0-RC10"
+  resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/client/-/client-1.1.0-RC10.tgz#c32c91f5c1410f32c97bf506ecf9b97c7dafeb20"
+  integrity sha512-vMdUu5X8waKNXGRU9DEylvTkMfayiCtWRy4e+TWygfiiM7G7wD8AZPL4fGQoDT3h7ulsgpXV+Mcorysp86P6lw==
+  dependencies:
+    "@eclipse-glsp/protocol" "1.1.0-RC10"
+    autocompleter "5.1.0"
+    lodash "4.17.21"
+    sprotty "0.14.0-next.02bbac0.26"
+
+"@eclipse-glsp/client@rc":
   version "1.1.0-RC06"
   resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/client/-/client-1.1.0-RC06.tgz#188208069802ea3dee8a77a8e92e58ca5c8fc9dd"
   integrity sha512-NQGk9J6KGhN9hdNOMGYH11O4vHU0NkNnr/FvZQ0Ule5BEnMnKnH91KgcOpLmc1m1WnhwksWbEAqoVnGX4NdQgw==
@@ -53,19 +63,28 @@
     autocompleter "5.1.0"
     sprotty "0.13.0-next.f4445dd.342"
 
-"@eclipse-glsp/ide@rc":
-  version "1.1.0-RC06"
-  resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/ide/-/ide-1.1.0-RC06.tgz#996560d4335ae033968653c44ca692991d16e016"
-  integrity sha512-XEE3UQmkxrooAbOQEiv3xCeKOoxJGT2WWsh8TgUWatqBPbXNXXXCvVPHEdWrE63iaN+tqV/bBtl3fsj/+t5sTw==
+"@eclipse-glsp/ide@1.1.0-RC10":
+  version "1.1.0-RC10"
+  resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/ide/-/ide-1.1.0-RC10.tgz#70e58c958c0b8487daa6489c368c53a7bb3a56d9"
+  integrity sha512-JBOqoto+IGK7v9JxL9MDJag0ir1VibmzC5ZfaE3YwkAucaN0frXm0Rrz5SJWTYsezJNu6eF7WdixYWc3C9ydAw==
   dependencies:
-    "@eclipse-glsp/client" "1.1.0-RC06"
+    "@eclipse-glsp/client" "1.1.0-RC10"
 
-"@eclipse-glsp/protocol@1.1.0-RC06", "@eclipse-glsp/protocol@rc":
+"@eclipse-glsp/protocol@1.1.0-RC06":
   version "1.1.0-RC06"
   resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/protocol/-/protocol-1.1.0-RC06.tgz#18b2124359e40d3009a59f49a807fe1bafc8b601"
   integrity sha512-/z6Daj17F0DL5F3C62Z9dsSVf3YiNlbBeSKQqf0mMn4y40XPKfMtKpP/76SuiGVC5yMNui/XfynWIG9YIjMUzA==
   dependencies:
     sprotty-protocol "0.13.0-next.f4445dd.342"
+    uuid "7.0.3"
+    vscode-jsonrpc "^8.0.2"
+
+"@eclipse-glsp/protocol@1.1.0-RC10":
+  version "1.1.0-RC10"
+  resolved "https://npmjs-registry.ivyteam.io/@eclipse-glsp/protocol/-/protocol-1.1.0-RC10.tgz#123fc350277431ce36a719b582c0cc12746df6a9"
+  integrity sha512-00sT68AbyiiMF63kXdQcQz0vPpf4Nuf1pWoxsJq82npyCIL1PP2rqqE3v+RfQQFic0cmYQObXhJCueK/BjvDaw==
+  dependencies:
+    sprotty-protocol "0.14.0-next.02bbac0.26"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
 
@@ -1180,6 +1199,11 @@ autocompleter@^5.1.0:
   version "5.2.0"
   resolved "https://npmjs-registry.ivyteam.io/autocompleter/-/autocompleter-5.2.0.tgz#9ed3df262614fd557bf4d5bf67ab13cdee008203"
   integrity sha512-CMYgI+r7RGZFaT0SvXcyBn1hb/Ne6XbjXimWQPc16LcwZgUGFBHg/Pv8honrwkTZE4DbfrD/MzqlG+Bn2u+1ng==
+
+autocompleter@^7.0.1:
+  version "7.1.0"
+  resolved "https://npmjs-registry.ivyteam.io/autocompleter/-/autocompleter-7.1.0.tgz#f8ff1428ec976eddc3eb8df7a2842c287d9b2bf5"
+  integrity sha512-uCToOnq7eAD/GJAteDbYuQ7ksDtrYWOy5CIAq43wh0dT+5frMpPlyD9tp+y5fz8KIcsP+zR2MjzoTAdW5aJESw==
 
 available-typed-arrays@^1.0.5:
   version "1.0.5"
@@ -2382,7 +2406,7 @@ file-loader@^6.2.0:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-file-saver@^2.0.2:
+file-saver@^2.0.2, file-saver@^2.0.5:
   version "2.0.5"
   resolved "https://npmjs-registry.ivyteam.io/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
@@ -3041,6 +3065,11 @@ inversify@^5.1.1:
   resolved "https://npmjs-registry.ivyteam.io/inversify/-/inversify-5.1.1.tgz#6fbd668c591337404e005a1946bfe0d802c08730"
   integrity sha512-j8grHGDzv1v+8T1sAQ+3boTCntFPfvxLCkNcxB1J8qA0lUN+fAlSyYd+RXKvaPRL4AGyPxViutBEJHNXOyUdFQ==
 
+inversify@^6.0.1:
+  version "6.0.1"
+  resolved "https://npmjs-registry.ivyteam.io/inversify/-/inversify-6.0.1.tgz#b20d35425d5d8c5cd156120237aad0008d969f02"
+  integrity sha512-B3ex30927698TJENHR++8FfEaJGqoWOgI6ZY5Ht/nLUsFCwHn6akbwtnUAPCgUepAnTpe2qHxhDNjoKLyz6rgQ==
+
 ip@^2.0.0:
   version "2.0.0"
   resolved "https://npmjs-registry.ivyteam.io/ip/-/ip-2.0.0.tgz#4cf4ab182fee2314c75ede1276f8c80b479936da"
@@ -3582,7 +3611,7 @@ lodash.merge@^4.6.2:
   resolved "https://npmjs-registry.ivyteam.io/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
-lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://npmjs-registry.ivyteam.io/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -5047,7 +5076,7 @@ smart-buffer@^4.2.0:
   resolved "https://npmjs-registry.ivyteam.io/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-snabbdom@^3.0.3:
+snabbdom@^3.0.3, snabbdom@^3.5.1:
   version "3.5.1"
   resolved "https://npmjs-registry.ivyteam.io/snabbdom/-/snabbdom-3.5.1.tgz#25f80ef15b194baea703d9d5441892e369de18e1"
   integrity sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==
@@ -5153,6 +5182,11 @@ sprotty-protocol@0.13.0-next.f4445dd.342, sprotty-protocol@0.13.0-next.f4445dd.3
   resolved "https://npmjs-registry.ivyteam.io/sprotty-protocol/-/sprotty-protocol-0.13.0-next.f4445dd.342.tgz#79e39a3427202d59173f61f3f03429dfdec7ab9c"
   integrity sha512-6cNoZrvay1Gk3uk6NqlmraBy68dskvhuDKDiUlpxbzFQ/ZVO4MKY2D41S5AXzjDyOtYQO6tZjlPrNCjmj5Kvrg==
 
+sprotty-protocol@0.14.0-next.02bbac0.26, sprotty-protocol@0.14.0-next.02bbac0.26+02bbac0:
+  version "0.14.0-next.02bbac0.26"
+  resolved "https://npmjs-registry.ivyteam.io/sprotty-protocol/-/sprotty-protocol-0.14.0-next.02bbac0.26.tgz#e9bf147aa8e5c8e05f4392339573ee03fa0b3d7f"
+  integrity sha512-a8gbAKjRAIhCV+kM5+E96na7WgWwlqWU/jxhv23w4aLbkurs1gNR6uAF4sm0ahyhXnFxSl7KMUyYJG5km7Iyug==
+
 sprotty@0.13.0-next.f4445dd.342:
   version "0.13.0-next.f4445dd.342"
   resolved "https://npmjs-registry.ivyteam.io/sprotty/-/sprotty-0.13.0-next.f4445dd.342.tgz#053fc2863109bc56f32ab6582a9c8ce46dc10cbd"
@@ -5163,6 +5197,17 @@ sprotty@0.13.0-next.f4445dd.342:
     inversify "^5.1.1"
     snabbdom "^3.0.3"
     sprotty-protocol "0.13.0-next.f4445dd.342+f4445dd"
+    tinyqueue "^2.0.3"
+
+sprotty@0.14.0-next.02bbac0.26:
+  version "0.14.0-next.02bbac0.26"
+  resolved "https://npmjs-registry.ivyteam.io/sprotty/-/sprotty-0.14.0-next.02bbac0.26.tgz#0177e9c31e129fba5a61a358145c7f1861cee28a"
+  integrity sha512-xNheZO66EOrqh6Hh6wt2HB8KvDv5s34hNR6hhQmrE2A+ZziRmDdW116Q/67ZK4mJ0UEsScaLmfNbzjZnwo+mWg==
+  dependencies:
+    autocompleter "^7.0.1"
+    file-saver "^2.0.5"
+    snabbdom "^3.5.1"
+    sprotty-protocol "0.14.0-next.02bbac0.26+02bbac0"
     tinyqueue "^2.0.3"
 
 ssri@9.0.1, ssri@^9.0.0:

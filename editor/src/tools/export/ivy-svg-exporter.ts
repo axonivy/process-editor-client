@@ -22,7 +22,7 @@ export class IvySvgExporter extends SvgExporter {
             `style="width: ${bounds.width}px !important;height: ${bounds.height}px !important;border: none !important; cursor: default !important;`
           );
           // do not give request/response id here as otherwise the action is treated as an unrequested response
-          this.actionDispatcher.dispatch(ExportSvgAction.create(svg));
+          this.actionDispatcher.dispatch(ExportSvgAction.create(svg,''));
         } finally {
           svgElement.id = originalId;
         }

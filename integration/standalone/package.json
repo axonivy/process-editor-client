@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@axonivy/process-editor": "11.2.0-next",
-    "@eclipse-glsp/client": "1.1.0-RC06"
+    "@eclipse-glsp/client": "1.1.0-RC10"
   },
   "devDependencies": {
     "@playwright/test": "1.30.0",
