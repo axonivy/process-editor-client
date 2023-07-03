@@ -15,7 +15,8 @@ import {
   toolsModule,
   navigationModule,
   glspEditLabelModule,
-  labelEditUiModule
+  labelEditUiModule,
+  bindOrRebind
 } from '@eclipse-glsp/client';
 import toolPaletteModule from '@eclipse-glsp/client/lib/features/tool-palette/di.config';
 import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
@@ -38,6 +39,7 @@ import ivyKeyListenerModule from './key-listener/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import { IVY_TYPES } from './types';
 import { ivyEditLabelModule, ivyEditLabelUiModule } from './edit-label/di.config';
+import { IvyGLSPCommandStack } from './ivy-command-stack';
 
 export default function createContainer(widgetId: string): Container {
   const container = new Container();
@@ -63,6 +65,7 @@ export default function createContainer(widgetId: string): Container {
   );
   container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
+  bindOrRebind(container,TYPES.ICommandStack).to(IvyGLSPCommandStack);
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,
