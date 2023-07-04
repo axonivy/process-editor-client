@@ -21,6 +21,17 @@
       }
     },
     {
+      "label": "Build Eclipse Integration",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn --cwd integration/eclipse build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": ["$tsc", "$eslint-stylish"]
+    },
+    {
       "label": "Watch Editor",
       "type": "shell",
       "group": "build",

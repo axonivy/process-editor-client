@@ -31,15 +31,15 @@ The build is automatically triggered if you open the folder in VS Code or you ca
 yarn
 ```
 
-- **Standalone and Eclipse Integrations**:
-  If you build the process editor also standalone and eclipse integrations are built.
+- **Standalone Integration**:
+  If you build the process editor also the standalone integrations is built.
 
 - **Eclipse Integration**:
   Run bash command or run task in vscode:
 
   ```bash
   cd integration/eclipse
-  yarn
+  yarn build
   ```
 
 ## Running the process editor
