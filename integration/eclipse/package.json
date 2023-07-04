@@ -27,7 +27,7 @@
     "webpack-cli": "^5.0.1"
   },
   "scripts": {
-    "build:clean": "yarn run clean && yarn build",
+    "build:clean": "yarn run clean && yarn build && yarn lint",
     "clean": "rimraf lib app",
     "build": "tsc && webpack",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
