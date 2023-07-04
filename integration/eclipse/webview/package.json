@@ -9,8 +9,7 @@
     "@eclipse-glsp/client": "rc",
     "@eclipse-glsp/ide": "rc",
     "@eclipse-glsp/protocol": "rc",
-    "@axonivy/process-editor": "^11.1.0-next",
-    "inversify": "^5.1.1"
+    "@axonivy/process-editor": "^11.1.0-next"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
