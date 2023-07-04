@@ -33,37 +33,6 @@
       "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
-      "label": "Build Eclipse Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/eclipse ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch Eclipse Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/eclipse watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "dependsOn": "Watch Editor",
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
-      "label": "Link Integrations",
-      "type": "shell",
-      "group": "build",
-      "command": "configs/link-integrations.sh",
-      "problemMatcher": []
-    },
-    {
       "label": "Terminate All Tasks",
       "command": "echo ${input:terminate}",
       "type": "shell",

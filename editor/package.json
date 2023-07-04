@@ -20,8 +20,7 @@
   "dependencies": {
     "@eclipse-glsp/client": "1.1.0-RC10",
     "showdown": "^2.1.0",
-    "toastify-js": "1.12.0",
-    "inversify": "^6.0.1"
+    "toastify-js": "1.12.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
@@ -32,6 +31,7 @@
     "chai": "^4.3.7",
     "cpx": "^1.5.0",
     "fantasticon": "^2.0.0",
+    "inversify": "^6.0.1",
     "jsdom": "^20.0.3",
     "mocha": "^10.1.0",
     "mocha-jenkins-reporter": "^0.4.8",

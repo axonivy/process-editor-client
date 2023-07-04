@@ -22,14 +22,14 @@
       "name": "Launch Eclipse Integration (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/integration/eclipse/webview/app/diagram.html",
+      "file": "${workspaceFolder}/integration/eclipse/app/diagram.html",
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "presentation": {
         "group": "4. Standalone",
         "order": 1
       },
-      "preLaunchTask": "Watch Eclipse Integration",
+      "preLaunchTask": "Watch Editor",
       "postDebugTask": "Terminate All Tasks"
     },
     {

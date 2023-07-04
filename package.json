@@ -15,8 +15,7 @@
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
-    "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes",
-    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
+    "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
     "@types/node": "^16.18.4",
@@ -37,7 +36,8 @@
   "workspaces": {
     "packages": [
       "editor",
-      "integration/standalone"
+      "integration/standalone",
+      "integration/eclipse"
     ]
   }
 }

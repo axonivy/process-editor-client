@@ -17,7 +17,7 @@ However, it's of course also possible to use another text editor.
 ## Structure
 
 - `editor`: GLSP-based Axon Ivy process editor
-- `integration/eclipse`: Eclipse IDE integraion of the process editor
+- `integration/eclipse`: Eclipse IDE integrations of the process editor
 - `integration/standalone`: Standalone integration of the process editor
 
 ---
@@ -31,8 +31,8 @@ The build is automatically triggered if you open the folder in VS Code or you ca
 yarn
 ```
 
-- **Standalone Integration**:
-  If you build the process editor also the standalone integraion is build too.
+- **Standalone and Eclipse Integrations**:
+  If you build the process editor also standalone and eclipse integrations are built.
 
 - **Eclipse Integration**:
   Run bash command or run task in vscode:
@@ -41,8 +41,6 @@ yarn
   cd integration/eclipse
   yarn
   ```
-
-  > If the build fails or you want to work with the latest editor source you can link the current source into the integration by run the **Link Integrations** task inside VS Code or by run `configs/link-integrations.sh`
 
 ## Running the process editor
 
