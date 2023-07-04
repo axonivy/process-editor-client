@@ -21,7 +21,7 @@
     "@eclipse-glsp/client": "1.1.0-RC10",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0",
-    "inversify": "^5.1.1"
+    "inversify": "^6.0.1"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
