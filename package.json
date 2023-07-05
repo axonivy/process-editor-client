@@ -15,14 +15,12 @@
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
-    "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes",
-    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next "
+    "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
     "@types/node": "^16.18.4",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "@vscode/codicons": "^0.0.25",
     "eslint": "^8.29.0",
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.26.0",
@@ -37,7 +35,8 @@
   "workspaces": {
     "packages": [
       "editor",
-      "integration/standalone"
+      "integration/standalone",
+      "integration/eclipse"
     ]
   }
 }

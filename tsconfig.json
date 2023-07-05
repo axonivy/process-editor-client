@@ -17,10 +17,6 @@
       ]
     }
   },
-  "include": [
-    "editor/src",
-    "integration/eclipse/*/src"
-  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

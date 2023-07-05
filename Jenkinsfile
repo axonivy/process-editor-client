@@ -20,11 +20,7 @@ pipeline {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
               sh 'yarn build'
-              sh 'configs/link-integrations.sh'
-              dir ('integration/eclipse') {
-                sh 'yarn build'
-              }
-              archiveArtifacts 'integration/eclipse/webview/app/*'
+              archiveArtifacts 'integration/eclipse/app/*'
               archiveArtifacts 'integration/standalone/app/*'
             }
           }
@@ -39,9 +35,6 @@ pipeline {
             docker.build('node').inside {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle'
-                dir ('integration/eclipse') {
-                  sh 'yarn lint -o eslint.xml -f checkstyle'
-                }
               }
             }
           }
@@ -84,10 +77,10 @@ pipeline {
       steps {
         script {
           docker.image('maven:3.8.6-eclipse-temurin-17').inside {
-            maven cmd: '-ntp -f integration/eclipse/webview clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
+            maven cmd: '-ntp -f integration/eclipse clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
             maven cmd: '-ntp -f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
-          archiveArtifacts 'integration/eclipse/webview/target/editor-client-eclipse-*.zip'
+          archiveArtifacts 'integration/eclipse/target/editor-client-eclipse-*.zip'
           archiveArtifacts 'integration/standalone/target/editor-client-standalone*.jar'
         }
       }
