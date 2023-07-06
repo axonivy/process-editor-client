@@ -1,9 +1,1 @@
-node_modules
-lib
-
-**/app/bundle*.js*
-**/app/codicon.ttf
-**/app/StreamlineIcons.*
-**/app/diagram.html
-
-*.log
+app/*

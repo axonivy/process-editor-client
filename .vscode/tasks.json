@@ -33,81 +33,15 @@
       "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
     },
     {
-      "label": "Build VSCode Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/vscode ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch VSCode Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/vscode watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
       "label": "Build Eclipse Integration",
       "type": "shell",
       "group": "build",
-      "command": "yarn --cwd integration/eclipse ",
+      "command": "yarn --cwd integration/eclipse build",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
       },
       "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch Eclipse Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/eclipse watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "dependsOn": "Watch Editor",
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
-      "label": "Build Theia Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/theia ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch Theia Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/theia watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
-      "label": "Link Integrations",
-      "type": "shell",
-      "group": "build",
-      "command": "configs/link-integrations.sh",
-      "problemMatcher": []
     },
     {
       "label": "Terminate All Tasks",

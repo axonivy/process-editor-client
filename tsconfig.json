@@ -17,11 +17,6 @@
       ]
     }
   },
-  "include": [
-    "editor/src",
-    "integration/eclipse/*/src",
-    "integration/theia/*/src"
-  ],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

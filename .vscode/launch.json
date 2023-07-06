@@ -5,28 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Start VSCode Extension",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}/integration/vscode/extension"],
-      "outFiles": [
-        "${workspaceFolder}/integration/vscode/extension/lib/*.js",
-        "${workspaceFolder}/packages/vscode-integration/lib/**/*.js"
-      ],
-      "sourceMaps": true,
-      "env": {
-        "GLSP_SERVER_DEBUG": "true",
-        "GLSP_SERVER_PORT": "5007"
-      },
-      "presentation": {
-        "group": "3. VSCode Extension",
-        "order": 1
-      },
-      "preLaunchTask": "Watch VSCode Integration",
-      "postDebugTask": "Terminate All Tasks"
-    },
-    {
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
@@ -44,112 +22,14 @@
       "name": "Launch Eclipse Integration (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/integration/eclipse/webview/app/diagram.html",
+      "file": "${workspaceFolder}/integration/eclipse/app/diagram.html",
       "webRoot": "${workspaceFolder}",
       "sourceMaps": true,
       "presentation": {
         "group": "4. Standalone",
         "order": 1
       },
-      "preLaunchTask": "Watch Eclipse Integration",
-      "postDebugTask": "Terminate All Tasks"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Start Theia Backend",
-      "program": "${workspaceRoot}/integration/theia/browser-app/src-gen/backend/main.js",
-      "args": [
-        "--port=3000",
-        "--no-cluster",
-        "--IVY_PROCESS_GLSP=5007",
-        "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "sourceMaps": true,
-      "outFiles": [
-        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/browser-app/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/extension/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/browser-app/src-gen/**/*.js"
-      ],
-      "smartStep": true,
-      "internalConsoleOptions": "openOnSessionStart",
-      "outputCapture": "std",
-      "presentation": {
-        "group": "2. Theia",
-        "order": 3
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Debug Theia Backend",
-      "program": "${workspaceRoot}/integration/theia/browser-app/src-gen/backend/main.js",
-      "args": [
-        "--hostname=0.0.0.0",
-        "--loglevel=debug",
-        "--port=3000",
-        "--no-cluster",
-        "--IVY_PROCESS_GLSP=5007",
-        "--DEBUG",
-        "--app-project-path=${workspaceRoot}/integration/theia/browser-app"
-      ],
-      "env": {
-        "NODE_ENV": "development"
-      },
-      "sourceMaps": true,
-      "outFiles": [
-        "${workspaceRoot}/node_modules/@theia/*/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/browser-app/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/extension/lib/**/*.js",
-        "${workspaceRoot}/integration/theia/browser-app/src-gen/**/*.js"
-      ],
-      "smartStep": true,
-      "internalConsoleOptions": "openOnSessionStart",
-      "outputCapture": "std",
-      "presentation": {
-        "group": "2. Theia",
-        "order": 4
-      }
-    },
-    {
-      "name": "Launch Theia (Firefox) Frontend",
-      "type": "firefox",
-      "request": "launch",
-      "url": "http://localhost:3000/",
-      "webRoot": "${workspaceFolder}",
-      "pathMappings": [
-        {
-          "url": "webpack://ivyteam/extension",
-          "path": "${workspaceFolder}/integration/theia/extension"
-        },
-        {
-          "url": "webpack://ivyteam/editor",
-          "path": "${workspaceFolder}/editor"
-        }
-      ],
-      "presentation": {
-        "group": "2. Theia",
-        "order": 6
-      },
       "preLaunchTask": "Watch Editor",
-      "postDebugTask": "Terminate All Tasks"
-    },
-    {
-      "name": "Launch Theia (Chrome) Frontend",
-      "type": "chrome",
-      "request": "launch",
-      "url": "http://localhost:3000/",
-      "webRoot": "${workspaceFolder}/integration/theia/browser-app",
-      "sourceMaps": true,
-      "presentation": {
-        "group": "2. Theia",
-        "order": 5
-      },
-      "preLaunchTask": "Watch Theia Integration",
       "postDebugTask": "Terminate All Tasks"
     },
     {
@@ -232,24 +112,6 @@
       "presentation": {
         "group": "1. Tests",
         "order": 4
-      }
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Theia Backend + Chrome Frontend",
-      "configurations": ["Start Theia Backend", "Launch Theia (Chrome) Frontend"],
-      "presentation": {
-        "group": "2. Theia",
-        "order": 1
-      }
-    },
-    {
-      "name": "Theia Backend + Firefox Frontend",
-      "configurations": ["Start Theia Backend", "Launch Theia (Firefox) Frontend"],
-      "presentation": {
-        "group": "2. Theia",
-        "order": 2
       }
     }
   ],

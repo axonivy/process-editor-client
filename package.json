@@ -16,11 +16,7 @@
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
-    "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes",
-    "update:next": "yarn upgrade -p \"sprotty|@eclipse-glsp/.*|@eclipse-glsp-examples\" --next ",
-    "rebuild:browser": "theia rebuild:browser",
-    "start:browser": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start",
-    "start:browser:debug": "yarn rebuild:browser && cd integration/theia/browser-app && yarn start:debug --hostname 0.0.0.0"
+    "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes"
   },
   "devDependencies": {
     "@types/node": "^16.11.36",
@@ -40,7 +36,8 @@
   "workspaces": {
     "packages": [
       "editor",
-      "integration/standalone"
+      "integration/standalone",
+      "integration/eclipse"
     ]
   }
 }

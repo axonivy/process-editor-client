@@ -1,19 +1,11 @@
 {
   "extends": "../../configs/base.tsconfig",
   "compilerOptions": {
-    "skipLibCheck": false,
-    "baseUrl": ".",
-    "plugins": [
-      {
-        "name": "tslint-language-service"
-      }
-    ]
+    "rootDir": "src",
+    "outDir": "lib",
+    "baseUrl": "."
   },
   "include": [
-    "webview/src"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "src"
   ]
 }

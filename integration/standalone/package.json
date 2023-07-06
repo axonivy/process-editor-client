@@ -10,7 +10,7 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "rc",
+    "@eclipse-glsp/client": "1.1.0-RC02",
     "@ivyteam/process-editor": "^10.0.1"
   },
   "devDependencies": {

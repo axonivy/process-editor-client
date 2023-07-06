@@ -18,7 +18,7 @@
     "bpmn"
   ],
   "dependencies": {
-    "@eclipse-glsp/client": "rc",
+    "@eclipse-glsp/client": "1.1.0-RC02",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
   },
@@ -45,7 +45,7 @@
     "clean": "rimraf lib",
     "build": "yarn build:icons && yarn tsc",
     "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && yarn cp:icons",
-    "cp:icons": "yarn cpx icons/dist/*.ts src/ && yarn cpx icons/dist/*.{css,ttf} css/",
+    "cp:icons": "yarn cpx icons/dist/*.ts src/ && yarn cpx \"icons/dist/*.{css,ttf}\" css/",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
     "test:mocha": "mocha --config ../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
