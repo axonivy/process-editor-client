@@ -12,13 +12,13 @@ test.describe('Jump to external target', () => {
   test('trigger process', async ({ page }) => {
     await page.goto(jumpProcess());
     const trigger = page.locator('#sprotty_183E4A356E771204-f3');
-    await jumpToExternalTargetAndAssert(page, trigger, '183E4A356E771204', '183E4A356E771204-f9');
+    await jumpToExternalTargetAndAssert(page, trigger, '1842D6FBB6A107AB', '1842D6FBB6A107AB-f0');
   });
 
   test('sub process', async ({ page }) => {
     await page.goto(jumpProcess());
-    const trigger = page.locator('#sprotty_183E4A356E771204-f6');
-    await jumpToExternalTargetAndAssert(page, trigger, '183E4A4179C3C69B', '183E4A4179C3C69B-f0');
+    const callSub = page.locator('#sprotty_183E4A356E771204-f6');
+    await jumpToExternalTargetAndAssert(page, callSub, '183E4A4179C3C69B', '183E4A4179C3C69B-f0');
   });
 
   async function jumpToExternalTargetAndAssert(page: Page, element: Locator, expectedProcessPid: string, expectedElementPid: string): Promise<void> {
