@@ -1,5 +1,5 @@
 import { expect, Page, test } from '@playwright/test';
-import { assertPosition, assertPositionIsNot, getCtrl, getPosition, startSelector } from '../diagram-util';
+import { assertPosition, assertPositionIsNot, getCtrl, getPosition, isMac, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 
 test.describe('key listener - undo redo', () => {
@@ -43,7 +43,7 @@ async function undo(page: Page, browserName: string): Promise<void> {
 
 async function redo(page: Page, browserName: string): Promise<void> {
   let redoKey = 'Y';
-  if (browserName === 'webkit') {
+  if (browserName === 'webkit' || isMac()) {
     redoKey = 'Shift+Z';
   }
   await page.keyboard.press(`${getCtrl(browserName)}+${redoKey}`);
