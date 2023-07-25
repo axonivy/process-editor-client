@@ -28,12 +28,16 @@ export async function resetSelection(page: Page): Promise<void> {
   await expect(page.locator('g.selected')).toHaveCount(0);
 }
 
-export function getCtrl(browserName: string): string {
-  if (browserName === 'webkit') {
+export function getCtrl(browserName?: string): string {
+  if (browserName === 'webkit' || isMac()) {
     return 'Meta';
   } else {
     return 'Control';
   }
+}
+
+export function isMac(): boolean {
+  return process.platform === 'darwin';
 }
 
 export async function cleanDiagram(page: Page): Promise<void> {

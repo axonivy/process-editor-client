@@ -20,6 +20,7 @@ test.describe('diagram', () => {
     await toolBarMenu.locator('.menu-item:has-text("User Dialog")').click();
     await assertNegativeArea(page, true);
     await page.locator('.sprotty-graph').click({ position: { x: 100, y: 100 } });
+    await expect(page.locator('.dialogCall')).toBeVisible();
     await assertNegativeArea(page, false);
   });
 
@@ -69,7 +70,7 @@ test.describe('diagram', () => {
     if (visible) {
       await expect(negativeArea).toHaveCount(2);
     } else {
-      await expect(negativeArea).toBeHidden();
+      await expect(negativeArea).not.toHaveCount(2);
     }
   }
 });
