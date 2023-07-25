@@ -22,6 +22,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'startHd', type: EventStartTypes.START_HD, position: { x: 100, y: 400 }, size: eventNodeSize });
   children.push({ id: 'startHdMethod', type: EventStartTypes.START_HD_METHOD, position: { x: 100, y: 450 }, size: eventNodeSize });
   children.push({ id: 'startHdEvent', type: EventStartTypes.START_HD_EVENT, position: { x: 100, y: 500 }, size: eventNodeSize });
+  children.push({ id: 'startThirdparty', type: EventStartTypes.START_THIRD_PARTY, position: { x: 100, y: 550 }, size: eventNodeSize });
   children.push({ id: 'end', type: EventEndTypes.END, position: { x: 200, y: 100 }, size: eventNodeSize });
   children.push({ id: 'endError', type: EventEndTypes.END_ERROR, position: { x: 200, y: 150 }, size: eventNodeSize });
   children.push({ id: 'endPage', type: EventEndTypes.END_PAGE, position: { x: 200, y: 200 }, size: eventNodeSize });
@@ -31,6 +32,7 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'endHdExit', type: EventEndTypes.END_HD_EXIT, position: { x: 200, y: 400 }, size: eventNodeSize });
   children.push({ id: 'intermediateTask', type: EventIntermediateTypes.INTERMEDIATE_TASK, position: { x: 300, y: 150 }, size: eventNodeSize });
   children.push({ id: 'intermediateWait', type: EventIntermediateTypes.INTERMEDIATE_WAIT, position: { x: 300, y: 200 }, size: eventNodeSize });
+  children.push({ id: 'intermediateThirdparty', type: EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, position: { x: 300, y: 250 }, size: eventNodeSize });
   children.push({ id: 'boundaryError', type: EventBoundaryTypes.BOUNDARY_ERROR, position: { x: 400, y: 100 }, size: eventNodeSize });
   children.push({ id: 'boundarySignal', type: EventBoundaryTypes.BOUNDARY_SIGNAL, position: { x: 400, y: 150 }, size: eventNodeSize });
   const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
@@ -93,6 +95,10 @@ describe('EventNodeView', () => {
 
   it('render start hd event event node', () => {
     assertEvent(EventStartTypes.START_HD_EVENT, 'startHdEvent', {});
+  });
+
+  it('render start hd event event node', () => {
+    assertEvent(EventStartTypes.START_THIRD_PARTY, 'startThirdparty', {});
   });
 
   it('render end event node', () => {
