@@ -112,7 +112,7 @@ pipeline {
       qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
 
       withChecks('Tests') {
-        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+        junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
       }
     }
   }

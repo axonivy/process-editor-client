@@ -14,7 +14,7 @@
     "@eclipse-glsp/client": "1.1.0-RC10"
   },
   "devDependencies": {
-    "@playwright/test": "1.30.0",
+    "@playwright/test": "1.36.1",
     "@types/uuid": "^9.0.0",
     "@vscode/codicons": "^0.0.25",
     "circular-dependency-plugin": "^5.2.2",
@@ -36,7 +36,6 @@
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "build": "yarn install --ignore-scripts && tsc && webpack",
     "watch": "webpack --config webpack.dev.js --watch",
-    "webtest": "playwright test",
-    "webtest:ci": "PLAYWRIGHT_JUNIT_OUTPUT_NAME=report.xml playwright test"
+    "webtest": "playwright test"
   }
 }
