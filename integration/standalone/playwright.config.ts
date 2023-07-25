@@ -15,7 +15,7 @@ if (process.env.CI) {
       trace: 'on-first-retry'
     },
     retries: 1,
-    reporter: 'junit',
+    reporter: [['./webtests/custom-reporter.ts'], ['junit', { outputFile: 'report.xml' }]],
     projects: [
       {
         name: 'chromium',
