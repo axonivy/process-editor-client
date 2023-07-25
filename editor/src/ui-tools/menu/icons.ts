@@ -20,9 +20,11 @@ export const MenuIcons = new Map<string, string>([
   [EventStartTypes.START_HD, StreamlineIcons.InitStart],
   [EventStartTypes.START_HD_METHOD, StreamlineIcons.MethodStart],
   [EventStartTypes.START_HD_EVENT, StreamlineIcons.EventStart],
+  [EventStartTypes.START_THIRD_PARTY, StreamlineIcons.StartProgram],
   // Intermediate Events
   [EventIntermediateTypes.INTERMEDIATE_TASK, StreamlineIcons.Task],
   [EventIntermediateTypes.INTERMEDIATE_WAIT, StreamlineIcons.Wait],
+  [EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, StreamlineIcons.Wait],
   // Boundary Events
   [EventBoundaryTypes.BOUNDARY_ERROR, StreamlineIcons.ErrorEvent],
   [EventBoundaryTypes.BOUNDARY_SIGNAL, StreamlineIcons.Signal],

@@ -84,6 +84,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureStartEvent(EventStartTypes.START_HD_METHOD);
   configureStartEvent(EventStartTypes.START_HD_EVENT);
   configureStartEvent(EventStartTypes.START_EMBEDDED);
+  configureStartEvent(EventStartTypes.START_THIRD_PARTY);
 
   configureEndEvent(EventEndTypes.END);
   configureEndEvent(EventEndTypes.END_ERROR);
@@ -96,6 +97,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
   configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [goToSourceFeature] });
+  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, EventNode, IntermediateEventNodeView);
 
   configureIvyModelElement(EventBoundaryTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
   configureIvyModelElement(EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);

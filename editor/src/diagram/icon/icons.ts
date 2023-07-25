@@ -59,6 +59,7 @@ export const ElementIcons = new Map<string, string>([
   // Start Events
   [EventStartTypes.START_SIGNAL, SvgIcons.SIGNAL_EVENT],
   [EventStartTypes.START_PROGRAM, SvgIcons.PROGRAM],
+  [EventStartTypes.START_THIRD_PARTY, SvgIcons.PUZZLE],
   [EventStartTypes.START_ERROR, SvgIcons.ERROR_EVENT],
   [EventStartTypes.START_SUB, SvgIcons.SUB_START],
   [EventStartTypes.START_WS, SvgIcons.WS_EVENT],
@@ -68,6 +69,7 @@ export const ElementIcons = new Map<string, string>([
   // Intermediate Events
   [EventIntermediateTypes.INTERMEDIATE_TASK, SvgIcons.TASK],
   [EventIntermediateTypes.INTERMEDIATE_WAIT, SvgIcons.WAIT],
+  [EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, SvgIcons.PUZZLE],
   // Boundary Events
   [EventBoundaryTypes.BOUNDARY_ERROR, SvgIcons.ERROR_EVENT],
   [EventBoundaryTypes.BOUNDARY_SIGNAL, SvgIcons.SIGNAL_EVENT],
