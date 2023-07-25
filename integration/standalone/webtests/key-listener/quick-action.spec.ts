@@ -1,5 +1,5 @@
 import { expect, Locator, Page, test } from '@playwright/test';
-import { resetSelection, multiSelect, startSelector, endSelector, embeddedSelector } from '../diagram-util';
+import { resetSelection, multiSelect, startSelector, endSelector, embeddedSelector, getCtrl } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { QUICK_ACTION_BTN } from '../quick-actions/quick-actions-util';
 
@@ -42,7 +42,7 @@ test.describe('key listener - quick action shortcuts', () => {
     await expect(connectorFeedback).toBeVisible();
   });
 
-  test('label edit', async ({ page, browserName }) => {
+  test('label edit', async ({ page }) => {
     const label = page.locator('.label-edit textarea');
     const start = page.locator(startSelector);
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
@@ -51,7 +51,7 @@ test.describe('key listener - quick action shortcuts', () => {
     await start.click();
     await pressQuickActionShortcut(page, 'L');
     await expect(label).toBeVisible();
-    await page.keyboard.press('Control+A');
+    await page.keyboard.press(`${getCtrl()}+A`);
     await page.keyboard.type('test label');
     await page.keyboard.press('Enter');
     await expect(start.locator('.sprotty-label div')).toHaveText('test label');
