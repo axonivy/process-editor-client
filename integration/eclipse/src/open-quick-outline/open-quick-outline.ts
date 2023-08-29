@@ -1,18 +1,5 @@
+import { OpenQuickOutlineAction } from '@axonivy/process-editor-protocol';
 import { Action, KeyListener, SModelElement } from '@eclipse-glsp/client';
-
-export interface OpenQuickOutlineAction extends Action {
-  kind: typeof OpenQuickOutlineAction.KIND;
-}
-
-export namespace OpenQuickOutlineAction {
-  export const KIND = 'openQuickOutline';
-
-  export function create(): OpenQuickOutlineAction {
-    return {
-      kind: KIND
-    };
-  }
-}
 
 export class OpenQuickOutlineKeyListener extends KeyListener {
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {

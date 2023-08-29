@@ -1,8 +1,6 @@
 import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation, StreamlineIcons } from '@axonivy/process-editor';
-import { OpenInscriptionAction } from '../open-inscription/open-inscription-handler';
-import { OpenDataClassAction } from '../open-data-class/open-data-class';
+import { OpenDataClassAction, OpenInscriptionAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
 import { injectable } from 'inversify';
-import { OpenInsertExtensionAction } from '../open-insert-extension/open-insert-extension';
 
 class InscribeProcessButton implements ToolBarButton {
   constructor(
