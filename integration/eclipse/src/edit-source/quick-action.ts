@@ -8,7 +8,7 @@ import {
 } from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import { GoToSourceAction } from './action';
+import { GoToSourceAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {

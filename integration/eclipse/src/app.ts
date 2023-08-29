@@ -11,11 +11,11 @@ import {
 
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
-import { EnableViewportAction, IvyBaseJsonrpcGLSPClient, SwitchThemeAction } from '@axonivy/process-editor';
+import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { MessageConnection } from 'vscode-jsonrpc';
 
-import { ShowGridAction } from '@axonivy/process-editor/lib/diagram/grid/action-handler';
 import createContainer from './di.config';
+import { EnableViewportAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;

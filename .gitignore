@@ -47,5 +47,5 @@ eslint.xml
 **/test-results/*
 
 ## Icons ##
-editor/icons/dist
-editor/**/StreamlineIcons.*
+**/editor/icons/dist
+**/editor/**/StreamlineIcons.*

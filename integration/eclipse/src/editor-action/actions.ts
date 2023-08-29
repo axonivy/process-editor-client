@@ -9,6 +9,7 @@ import {
   StartEventNode,
   StreamlineIcons
 } from '@axonivy/process-editor';
+import { StartProcessAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
@@ -32,22 +33,6 @@ class StartProcessQuickAction implements QuickAction {
     public readonly shortcut: KeyCode = 'KeyX',
     public readonly removeSelection = true
   ) {}
-}
-
-export interface StartProcessAction extends Action {
-  kind: typeof StartProcessAction.KIND;
-  elementId: string;
-}
-
-export namespace StartProcessAction {
-  export const KIND = 'startProcess';
-
-  export function create(elementId: string): StartProcessAction {
-    return {
-      kind: KIND,
-      elementId
-    };
-  }
 }
 
 @injectable()

@@ -12,6 +12,7 @@ import {
 import { OpenAction } from 'sprotty-protocol';
 import { toArray } from 'sprotty/lib/utils/iterable';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
+import { OpenInscriptionAction } from '@axonivy/process-editor-protocol';
 
 export function isInvokeOpenAction(action: Action): action is OpenAction {
   return action.kind === OpenAction.KIND;
@@ -28,22 +29,6 @@ export class OpenInscriptionActionHandler implements IActionHandler {
 
   handleOpen(elementId: string): void {
     this.actionDispatcher.dispatch(OpenInscriptionAction.create(elementId));
-  }
-}
-
-export interface OpenInscriptionAction extends Action {
-  kind: typeof OpenInscriptionAction.KIND;
-  elementId: string;
-}
-
-export namespace OpenInscriptionAction {
-  export const KIND = 'openInscription';
-
-  export function create(elementId: string): OpenInscriptionAction {
-    return {
-      kind: KIND,
-      elementId
-    };
   }
 }
 

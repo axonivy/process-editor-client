@@ -34,9 +34,8 @@
   },
   "workspaces": {
     "packages": [
-      "editor",
-      "integration/standalone",
-      "integration/eclipse"
+      "packages/*",
+      "integration/*"
     ]
   }
 }

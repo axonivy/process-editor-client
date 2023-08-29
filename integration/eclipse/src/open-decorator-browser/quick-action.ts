@@ -8,7 +8,7 @@ import {
   StreamlineIcons
 } from '@axonivy/process-editor';
 import { injectable } from 'inversify';
-import { OpenDecoratorBrowserAction } from './action';
+import { OpenDecoratorBrowserAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class CustomIconQuickActionProvider extends SingleQuickActionProvider {

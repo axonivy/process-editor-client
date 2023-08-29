@@ -13,20 +13,17 @@ import {
 } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 import {
-  EnableViewportAction,
   IvyBaseJsonrpcGLSPClient,
-  IvySetViewportZoomAction,
   ivyToolBarModule,
   IVY_TYPES,
-  MoveIntoViewportAction,
   overrideIvyViewerOptions,
-  SwitchThemeAction,
   SwitchThemeActionHandler,
   ToolBar
 } from '@axonivy/process-editor';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
+import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -85,7 +82,7 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
 async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
   const actions: Action[] = [];
   if (isNumeric(zoom)) {
-    actions.push(IvySetViewportZoomAction.create({ zoom: +zoom / 100 }));
+    actions.push(SetViewportZoomAction.create({ zoom: +zoom / 100 }));
     actions.push(...showElement((ids: string[]) => CenterAction.create(ids, { animate: false, retainZoom: true })));
   } else {
     actions.push(...showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true })));
