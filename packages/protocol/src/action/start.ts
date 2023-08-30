@@ -15,3 +15,19 @@ export namespace StartProcessAction {
     };
   }
 }
+
+export interface SearchProcessCallersAction extends Action {
+  kind: typeof SearchProcessCallersAction.KIND;
+  elementId: string;
+}
+
+export namespace SearchProcessCallersAction {
+  export const KIND = 'searchProcessCallers';
+
+  export function create(elementId: string): SearchProcessCallersAction {
+    return {
+      kind: KIND,
+      elementId
+    };
+  }
+}

@@ -232,20 +232,22 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   }
 
   private createQuickActions(bar: HTMLElement, quickActions: QuickAction[]): void {
-    Object.values(QuickActionLocation)
-      .filter(location => location !== QuickActionLocation.Hidden)
-      .forEach(location => {
-        const group = createElement('div', ['quick-actions-group']);
-        quickActions
-          .filter(quickAction => quickAction.location === location)
-          .sort((a, b) => a.sorting.localeCompare(b.sorting))
-          .forEach(quickAction => {
-            group.appendChild(this.createQuickActionBtn(quickAction));
-          });
-        if (group.children.length > 0) {
-          bar.appendChild(group);
-        }
+    this.createQuickActionGroup(bar, quickActions, 'Left');
+    this.createQuickActionGroup(bar, quickActions, 'Middle');
+    this.createQuickActionGroup(bar, quickActions, 'Right');
+  }
+
+  private createQuickActionGroup(bar: HTMLElement, quickActions: QuickAction[], location: QuickActionLocation): void {
+    const group = createElement('div', ['quick-actions-group']);
+    quickActions
+      .filter(quickAction => quickAction.location === location)
+      .sort((a, b) => a.sorting.localeCompare(b.sorting))
+      .forEach(quickAction => {
+        group.appendChild(this.createQuickActionBtn(quickAction));
       });
+    if (group.children.length > 0) {
+      bar.appendChild(group);
+    }
   }
 
   private createQuickActionBtn(quickAction: QuickAction): HTMLElement {

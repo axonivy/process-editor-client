@@ -1,8 +1,7 @@
 import { SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { GoToSourceAction } from '@axonivy/process-editor-protocol';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { hasGoToSourceFeature } from '../jump/model';
 import { StreamlineIcons } from '../StreamlineIcons';
 
@@ -10,21 +9,16 @@ import { StreamlineIcons } from '../StreamlineIcons';
 export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (hasGoToSourceFeature(element)) {
-      return new GoToSourceQuickAction(element.id);
+      return {
+        icon: StreamlineIcons.GoToSource,
+        title: 'Go To Source (S)',
+        location: 'Middle',
+        sorting: 'B',
+        action: GoToSourceAction.create(element.id),
+        readonlySupport: true,
+        shortcut: 'KeyS'
+      };
     }
     return undefined;
   }
-}
-
-class GoToSourceQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly icon = StreamlineIcons.GoToSource,
-    public readonly title = 'Go To Source (S)',
-    public readonly location = QuickActionLocation.Middle,
-    public readonly sorting = 'B',
-    public readonly action = GoToSourceAction.create(elementId),
-    public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyS'
-  ) {}
 }

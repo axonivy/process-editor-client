@@ -8,42 +8,19 @@ import {
   SConnectableElement,
   PaletteItem,
   isNotUndefined,
-  Operation,
-  hasStringProp,
-  SetUIExtensionVisibilityAction
+  SetUIExtensionVisibilityAction,
+  Operation
 } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
 import { ActivityTypes, EventBoundaryTypes } from '../../../diagram/view-types';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';
 import { QuickActionUI } from '../quick-action-ui';
 import { StreamlineIcons } from '../../../StreamlineIcons';
-
-export interface AttachBoundaryOperation extends Operation {
-  kind: typeof AttachBoundaryOperation.KIND;
-  elementId: string;
-  eventKind: string;
-}
-
-export namespace AttachBoundaryOperation {
-  export const KIND = 'attachBoundary';
-
-  export function is(object: any): object is AttachBoundaryOperation {
-    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId') && hasStringProp(object, 'eventKind');
-  }
-
-  export function create(options: { elementId: string; eventKind: string }): AttachBoundaryOperation {
-    return {
-      kind: KIND,
-      isOperation: true,
-      ...options
-    };
-  }
-}
+import { AttachBoundaryOperation } from '@axonivy/process-editor-protocol';
 
 export abstract class CreateElementQuickActionProvider extends SingleQuickActionProvider {
   @inject(ElementsPaletteHandler) protected paletteHandler: ElementsPaletteHandler;
@@ -54,7 +31,7 @@ export abstract class CreateElementQuickActionProvider extends SingleQuickAction
     if (!isConnectable(element) || !element.canConnect(new SEdge(), 'source') || element.type === ActivityTypes.COMMENT) {
       return;
     }
-    return this.createQuickAction();
+    return this.quickAction();
   }
 
   protected hasOutgoingEdges(): boolean {
@@ -82,7 +59,22 @@ export abstract class CreateElementQuickActionProvider extends SingleQuickAction
     return { id: '', actions: [], label: '', sortString: '' };
   }
 
-  abstract createQuickAction(): QuickAction | undefined;
+  quickAction(): QuickAction {
+    const item = this.quickActionItem();
+    return {
+      icon: item.icon!,
+      title: `${item.label} (A)`,
+      location: 'Right',
+      sorting: item.sortString,
+      action: ShowQuickActionMenuAction.create({
+        elementIds: [this.element.id],
+        paletteItems: this.paletteItems(),
+        actions: this.actions
+      }),
+      readonlySupport: false,
+      letQuickActionsOpen: true
+    };
+  }
 }
 
 @injectable()
@@ -109,10 +101,6 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   quickActionItem(): PaletteItem {
     return { label: 'Events', icon: StreamlineIcons.EventsGroup, sortString: 'A', id: '', actions: [] };
   }
-
-  createQuickAction(): QuickAction | undefined {
-    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
-  }
 }
 
 @injectable()
@@ -123,10 +111,6 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
 
   quickActionItem(): PaletteItem {
     return { label: 'Gateways', icon: StreamlineIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
-  }
-
-  createQuickAction(): QuickAction | undefined {
-    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
   }
 }
 
@@ -142,58 +126,27 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
   quickActionItem(): PaletteItem {
     return { label: 'Activities', icon: StreamlineIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
   }
-
-  createQuickAction(): QuickAction | undefined {
-    return new CreateElementQuickAction(this.element.id, this.quickActionItem(), this.paletteItems(), this.actions);
-  }
 }
 
 @injectable()
 export class CreateAllElementsQuickActionProvider extends CreateElementQuickActionProvider {
-  createQuickAction(): QuickAction | undefined {
-    return new CreateAllElementsQuickAction(this.element.id, this.paletteItems(), this.actions);
+  quickAction(): QuickAction {
+    return {
+      icon: StreamlineIcons.AllElements,
+      title: 'Create Node',
+      location: 'Hidden',
+      sorting: 'Z',
+      action: ShowQuickActionMenuAction.create({
+        elementIds: [this.element.id],
+        paletteItems: this.paletteItems(),
+        actions: this.actions,
+        showSearch: true
+      }),
+      letQuickActionsOpen: true,
+      readonlySupport: false,
+      shortcut: 'KeyA'
+    };
   }
-}
-
-class CreateElementQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly item: PaletteItem,
-    public readonly paletteItems: () => PaletteItem[],
-    public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = item.icon!,
-    public readonly title = `${item.label} (A)`,
-    public readonly location = QuickActionLocation.Right,
-    public readonly sorting = item.sortString,
-    public readonly action = ShowQuickActionMenuAction.create({
-      elementIds: [elementId],
-      paletteItems: paletteItems,
-      actions: actions
-    }),
-    public readonly readonlySupport = false,
-    public readonly letQuickActionsOpen = true
-  ) {}
-}
-
-class CreateAllElementsQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly paletteItems: () => PaletteItem[],
-    public readonly actions: (item: PaletteItem, elementIds: string[]) => Action[],
-    public readonly icon = StreamlineIcons.AllElements,
-    public readonly title = 'Create Node',
-    public readonly location = QuickActionLocation.Hidden,
-    public readonly sorting = 'Z',
-    public readonly action = ShowQuickActionMenuAction.create({
-      elementIds: [elementId],
-      paletteItems: paletteItems,
-      actions: actions,
-      showSearch: true
-    }),
-    public readonly letQuickActionsOpen = true,
-    public readonly readonlySupport = false,
-    public readonly shortcut: KeyCode = 'KeyA'
-  ) {}
 }
 
 export function convertToCreateNodeOperation(action: Action, previousElementId: string): Operation | undefined {

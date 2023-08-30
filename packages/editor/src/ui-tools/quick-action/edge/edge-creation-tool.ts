@@ -26,7 +26,7 @@ import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-
 import { inject, injectable } from 'inversify';
 import { StreamlineIcons } from '../../../StreamlineIcons';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
 
 /**
@@ -211,19 +211,14 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
       element.canConnect(edge, 'source') &&
       (Array.from(element.outgoingEdges).length === 0 || isMultipleOutgoingEdgesFeature(element))
     ) {
-      return new ConnectQuickAction(element.id);
+      return {
+        icon: StreamlineIcons.Connector,
+        title: 'Connect',
+        location: 'Right',
+        sorting: 'Z',
+        action: QuickActionTriggerEdgeCreationAction.create('edge', element.id)
+      };
     }
     return undefined;
   }
-}
-
-class ConnectQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly icon = StreamlineIcons.Connector,
-    public readonly title = 'Connect',
-    public readonly location = QuickActionLocation.Right,
-    public readonly sorting = 'Z',
-    public readonly action = QuickActionTriggerEdgeCreationAction.create('edge', elementId)
-  ) {}
 }

@@ -1,8 +1,7 @@
-import { Action, SModelElement } from '@eclipse-glsp/client';
+import { SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import { StartProcessAction } from '@axonivy/process-editor-protocol';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { StartProcessAction, SearchProcessCallersAction } from '@axonivy/process-editor-protocol';
+import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { StartEventNode } from '../diagram/model';
 import { EventStartTypes } from '../diagram/view-types';
 import { StreamlineIcons } from '../StreamlineIcons';
@@ -11,24 +10,19 @@ import { StreamlineIcons } from '../StreamlineIcons';
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && element.type === EventStartTypes.START) {
-      return new StartProcessQuickAction(element.id);
+      return {
+        icon: StreamlineIcons.Play,
+        title: 'Start Process (X)',
+        location: 'Left',
+        sorting: 'A',
+        action: StartProcessAction.create(element.id),
+        readonlySupport: true,
+        shortcut: 'KeyX',
+        removeSelection: true
+      };
     }
     return undefined;
   }
-}
-
-class StartProcessQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly icon = StreamlineIcons.Play,
-    public readonly title = 'Start Process (X)',
-    public readonly location = QuickActionLocation.Left,
-    public readonly sorting = 'A',
-    public readonly action = StartProcessAction.create(elementId),
-    public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyX',
-    public readonly removeSelection = true
-  ) {}
 }
 
 @injectable()
@@ -42,42 +36,21 @@ export class SearchProcessCallersActionProvider extends SingleQuickActionProvide
   ];
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && this.isSearchViewAvailable(element.type)) {
-      return new SearchProcessCallersQuickAction(element.id);
+      return {
+        icon: StreamlineIcons.Search,
+        title: 'Search callers of this process (O)',
+        location: 'Left',
+        sorting: 'B',
+        action: SearchProcessCallersAction.create(element.id),
+        letQuickActionsOpen: true,
+        readonlySupport: true,
+        shortcut: 'KeyO'
+      };
     }
     return undefined;
   }
 
   private isSearchViewAvailable(type: string): boolean {
     return this.supportedEventTypes.includes(type);
-  }
-}
-
-class SearchProcessCallersQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly icon = StreamlineIcons.Search,
-    public readonly title = 'Search callers of this process (O)',
-    public readonly location = QuickActionLocation.Left,
-    public readonly sorting = 'B',
-    public readonly action = SearchProcessCallersAction.create(elementId),
-    public readonly letQuickActionsOpen = true,
-    public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyO'
-  ) {}
-}
-
-export interface SearchProcessCallersAction extends Action {
-  kind: typeof SearchProcessCallersAction.KIND;
-  elementId: string;
-}
-
-export namespace SearchProcessCallersAction {
-  export const KIND = 'searchProcessCallers';
-
-  export function create(elementId: string): SearchProcessCallersAction {
-    return {
-      kind: KIND,
-      elementId
-    };
   }
 }
