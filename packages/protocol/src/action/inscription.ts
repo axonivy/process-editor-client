@@ -1,4 +1,4 @@
-import { Action } from '@eclipse-glsp/protocol';
+import { Action, hasStringProp } from '@eclipse-glsp/protocol';
 
 export interface OpenInscriptionAction extends Action {
   kind: typeof OpenInscriptionAction.KIND;
@@ -7,6 +7,10 @@ export interface OpenInscriptionAction extends Action {
 
 export namespace OpenInscriptionAction {
   export const KIND = 'openInscription';
+
+  export function is(object: any): object is OpenInscriptionAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId');
+  }
 
   export function create(elementId: string): OpenInscriptionAction {
     return {
