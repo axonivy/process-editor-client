@@ -10,10 +10,9 @@ import {
   SModelElement,
   TYPES
 } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IVY_TYPES } from '../../../types';
 import { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
@@ -28,13 +27,22 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     if (element instanceof LaneNode || (this.options.hideSensitiveInfo && element instanceof SEdge)) {
       return undefined;
     }
-    return new InfoQuickAction(
-      element.id,
-      this.markers(element),
-      this.name(element),
-      GArgument.getString(element, 'desc'),
-      this.info(element)
-    );
+    return {
+      icon: StreamlineIcons.Information,
+      title: 'Information (I)',
+      location: 'Left',
+      sorting: 'B',
+      action: ShowInfoQuickActionMenuAction.create({
+        elementId: element.id,
+        markers: this.markers(element),
+        title: this.name(element),
+        text: GArgument.getString(element, 'desc'),
+        info: this.info(element)
+      }),
+      letQuickActionsOpen: true,
+      readonlySupport: true,
+      shortcut: 'KeyI'
+    };
   }
 
   private info(element: SModelElement): JsonAny | undefined {
@@ -71,28 +79,4 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     }
     return [];
   }
-}
-
-class InfoQuickAction implements QuickAction {
-  constructor(
-    public readonly elementId: string,
-    public readonly markers: GIssueMarker[],
-    public readonly textTitle?: string,
-    public readonly text?: string,
-    public readonly info?: JsonAny,
-    public readonly icon = StreamlineIcons.Information,
-    public readonly title = 'Information (I)',
-    public readonly location = QuickActionLocation.Left,
-    public readonly sorting = 'B',
-    public readonly action = ShowInfoQuickActionMenuAction.create({
-      elementId: elementId,
-      markers: markers,
-      title: textTitle,
-      text: text,
-      info: info
-    }),
-    public readonly letQuickActionsOpen = true,
-    public readonly readonlySupport = true,
-    public readonly shortcut: KeyCode = 'KeyI'
-  ) {}
 }

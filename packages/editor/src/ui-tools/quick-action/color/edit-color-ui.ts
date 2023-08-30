@@ -1,6 +1,6 @@
 import { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { createElement } from '../../../utils/ui-utils';
-import { ChangeColorOperation } from './action';
+import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
 
 export class EditColorUi {
   private editUi: HTMLElement;
