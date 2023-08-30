@@ -1,14 +1,10 @@
 import { SModelElement } from '@eclipse-glsp/client';
-import {
-  QuickAction,
-  QuickActionLocation,
-  SingleQuickActionProvider,
-  isWithCustomIcon,
-  ActivityTypes,
-  StreamlineIcons
-} from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { OpenDecoratorBrowserAction } from '@axonivy/process-editor-protocol';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { isWithCustomIcon } from '../diagram/icon/model';
+import { ActivityTypes } from '../diagram/view-types';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 @injectable()
 export class CustomIconQuickActionProvider extends SingleQuickActionProvider {

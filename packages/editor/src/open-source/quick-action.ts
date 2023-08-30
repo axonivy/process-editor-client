@@ -1,14 +1,10 @@
 import { SModelElement } from '@eclipse-glsp/client';
-import {
-  QuickAction,
-  QuickActionLocation,
-  SingleQuickActionProvider,
-  hasGoToSourceFeature,
-  StreamlineIcons
-} from '@axonivy/process-editor';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { GoToSourceAction } from '@axonivy/process-editor-protocol';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { hasGoToSourceFeature } from '../jump/model';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 @injectable()
 export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
