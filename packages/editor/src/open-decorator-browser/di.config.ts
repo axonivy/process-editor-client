@@ -1,6 +1,6 @@
-import { IVY_TYPES } from '@axonivy/process-editor';
 import { ContainerModule } from 'inversify';
 import { CustomIconQuickActionProvider } from './quick-action';
+import { IVY_TYPES } from '../types';
 
 const ivyOpenDecoratorBrowserModule = new ContainerModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(CustomIconQuickActionProvider);

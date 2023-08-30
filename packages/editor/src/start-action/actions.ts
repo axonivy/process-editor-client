@@ -1,15 +1,11 @@
 import { Action, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import {
-  EventStartTypes,
-  QuickAction,
-  QuickActionLocation,
-  SingleQuickActionProvider,
-  StartEventNode,
-  StreamlineIcons
-} from '@axonivy/process-editor';
 import { StartProcessAction } from '@axonivy/process-editor-protocol';
+import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { StartEventNode } from '../diagram/model';
+import { EventStartTypes } from '../diagram/view-types';
+import { StreamlineIcons } from '../StreamlineIcons';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {

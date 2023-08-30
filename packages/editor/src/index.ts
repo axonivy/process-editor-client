@@ -1,9 +1,12 @@
-import ivyBreakpointModule from './breakpoint/di.config';
-import createIvyDiagramContainer from './di.config';
-import ivyToolBarModule from './ui-tools/tool-bar/di.config';
-import ivyThemeModule from './theme/di.config';
-
-export { createIvyDiagramContainer, ivyBreakpointModule, ivyToolBarModule, ivyThemeModule };
+export { default as createIvyDiagramContainer } from './di.config';
+export { default as ivyBreakpointModule } from './breakpoint/di.config';
+export { default as ivyToolBarModule } from './ui-tools/tool-bar/di.config';
+export { default as ivyThemeModule } from './theme/di.config';
+export { default as ivyOpenInscriptionModule } from './open-inscription/di.config';
+export { default as ivyOpenDataClassModule } from './open-dataclass/di.config';
+export { default as ivyOpenDecoratorBrowserModule } from './open-decorator-browser/di.config';
+export { default as ivyGoToSourceModule } from './open-source/di.config';
+export { default as ivyStartActionModule } from './start-action/di.config';
 
 /* Features */
 export * from './jump/action';
