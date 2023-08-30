@@ -9,9 +9,8 @@ import ivyGoToSourceModule from './edit-source/di.config';
 import ivyEditorActionModule from './editor-action/di.config';
 import ivyOpenDataClassModule from './open-data-class/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
-import ivyEclipseCopyPasteModule from './copy-paste/di.config';
-import ivyEclipseDeleteModule from './invoke-delete/di.config';
 import { IvyEclipseGLSPDiagramServer } from './ivy-eclipse-glsp-diagram-server';
+import { eclipseCopyPasteModule, eclipseDeleteModule } from '@eclipse-glsp/ide';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -19,10 +18,8 @@ export default function createContainer(widgetId: string): Container {
   container.rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   container.rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
 
-  // Revert after Issue 690 is merged
-  container.load(ivyEclipseCopyPasteModule);
-  // Revert after Issue 690 is merged
-  container.load(ivyEclipseDeleteModule);
+  container.load(eclipseCopyPasteModule);
+  container.load(eclipseDeleteModule);
   container.load(ivyOpenInscriptionModule);
   container.load(ivyOpenDecoratorBrowserModule);
   container.load(ivyOpenQuickOutlineModule);
