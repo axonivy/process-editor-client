@@ -4,7 +4,7 @@ export function getServerDomain(): string {
     const href = window.location.href;
     return href.substring(protocol.length + 2, href.indexOf('/process-editor'));
   }
-  return 'localhost:8081/designer';
+  return 'localhost:8081';
 }
 
 export function isSecureConnection(): boolean {
@@ -12,34 +12,17 @@ export function isSecureConnection(): boolean {
 }
 
 export function isReadonly(): boolean {
-  return getParameters()['readonly'] === 'true' || isInViewerMode() || isInPreviewMode();
+  return getParameters().get('readonly') === 'true' || isInViewerMode() || isInPreviewMode();
 }
 
 export function isInViewerMode(): boolean {
-  return getParameters()['mode'] === 'viewer';
+  return getParameters().get('mode') === 'viewer';
 }
 
 export function isInPreviewMode(): boolean {
-  return getParameters()['mode'] === 'preview';
+  return getParameters().get('mode') === 'preview';
 }
 
-export function getParameters(): { [key: string]: string } {
-  let search = window.location.search.substring(1);
-  const result = {};
-  while (search.length > 0) {
-    const nextParamIndex = search.indexOf('&');
-    let param: string;
-    if (nextParamIndex < 0) {
-      param = search;
-      search = '';
-    } else {
-      param = search.substring(0, nextParamIndex);
-      search = search.substring(nextParamIndex + 1);
-    }
-    const valueIndex = param.indexOf('=');
-    if (valueIndex > 0 && valueIndex < param.length - 1) {
-      result[param.substring(0, valueIndex)] = decodeURIComponent(param.substring(valueIndex + 1));
-    }
-  }
-  return result;
+export function getParameters() {
+  return new URLSearchParams(window.location.search);
 }

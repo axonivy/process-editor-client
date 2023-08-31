@@ -69,7 +69,7 @@ test.describe('key listener - quick action shortcuts', () => {
     await expect(start).toHaveAttribute('transform', startTransform!);
     await expect(end).not.toHaveAttribute('transform', endTransform!);
     // end element should only be moved vertically
-    await expect(end).toHaveAttribute('transform', /translate\(625, \d+\)/);
+    await expect(end).toHaveAttribute('transform', new RegExp(endTransform!.split(',')[0].replace('(', '\\(')));
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {

@@ -15,7 +15,18 @@ import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { MessageConnection } from 'vscode-jsonrpc';
 
 import createContainer from './di.config';
-import { EnableViewportAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import {
+  EnableInscriptionAction,
+  EnableViewportAction,
+  ShowGridAction,
+  SwitchThemeAction,
+  ThemeMode
+} from '@axonivy/process-editor-protocol';
+import { MonacoUtil } from '@axonivy/inscription-core';
+import { MonacoEditorUtil } from '@axonivy/inscription-editor';
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
+import './index.css';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -27,6 +38,8 @@ const applicationId = urlParameters.application;
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
 const websocket = new WebSocket(`ws://localhost:${port}/${id}`);
+
+const theme = (urlParameters.theme as ThemeMode) ?? 'light';
 
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
@@ -64,8 +77,11 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
         actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
         actionDispatcher.dispatch(EnableToolPaletteAction.create());
         actionDispatcher.dispatch(EnableViewportAction.create());
-        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme ?? 'light' }));
+        actionDispatcher.dispatch(SwitchThemeAction.create({ theme }));
         actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
+        MonacoUtil.initStandalone(editorWorker);
+        MonacoEditorUtil.initMonaco(reactMonaco, theme);
+        actionDispatcher.dispatch(EnableInscriptionAction.create());
       })
     );
 }

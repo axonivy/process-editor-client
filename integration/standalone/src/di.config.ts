@@ -5,6 +5,7 @@ import ivyStandaloneBreakpointModule from './breakpoint/di.config';
 import ivyDirtyStateModule from './dirty-state/di.config';
 import ivyStandaloneKeyListenerModule from './key-listener/di.config';
 import ivyNavigationModule from './navigate/di.config';
+import { ivyInscriptionModule } from '@axonivy/process-editor-inscription';
 
 export default function createContainer(): Container {
   const container = createIvyDiagramContainer('sprotty');
@@ -17,5 +18,6 @@ export default function createContainer(): Container {
   container.load(ivyDirtyStateModule);
   container.load(ivyStandaloneBreakpointModule);
   container.load(ivyThemeModule);
+  container.load(ivyInscriptionModule);
   return container;
 }

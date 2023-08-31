@@ -8,28 +8,27 @@
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "file:///${workspaceFolder}/integration/standalone/app/index.html?server=localhost:8081/designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
+      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
       "presentation": {
         "group": "4. Standalone",
         "order": 1
       },
-      "preLaunchTask": "Watch Editor",
+      "preLaunchTask": "Start Standalone",
       "postDebugTask": "Terminate All Tasks"
     },
     {
-      "name": "Launch Eclipse Integration (Chrome)",
+      "name": "Launch Eclipse (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/integration/eclipse/app/diagram.html",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
+      "url": "http://localhost:3000",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      },
       "presentation": {
         "group": "4. Standalone",
         "order": 1
       },
-      "preLaunchTask": "Watch Editor",
+      "preLaunchTask": "Start Eclipse",
       "postDebugTask": "Terminate All Tasks"
     },
     {

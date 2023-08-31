@@ -91,7 +91,7 @@ test.describe('quick actions - nodes', () => {
     await expect(start).toHaveAttribute('transform', startPos!);
     await expect(end).not.toHaveAttribute('transform', draggedEndPos!);
     // end element should only be moved vertically
-    await expect(end).toHaveAttribute('transform', /translate\(625, \d+\)/);
+    await expect(end).toHaveAttribute('transform', new RegExp(draggedEndPos!.split(',')[0].replace('(', '\\(')));
   });
 
   test('wrap, jump and unwrap', async ({ page, browserName }) => {

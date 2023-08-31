@@ -15,6 +15,7 @@ import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
 import ivyToolBarModule from './tool-bar/di.config';
 import { IvyEclipseGLSPDiagramServer } from './ivy-eclipse-glsp-diagram-server';
 import { eclipseCopyPasteModule, eclipseDeleteModule } from '@eclipse-glsp/ide';
+import { ivyInscriptionModule } from '@axonivy/process-editor-inscription';
 
 export default function createContainer(widgetId: string): Container {
   const container = createIvyDiagramContainer(widgetId);
@@ -33,6 +34,7 @@ export default function createContainer(widgetId: string): Container {
   container.load(ivyOpenDataClassModule);
   container.load(ivyToolBarModule);
   container.load(ivyThemeModule);
+  container.load(ivyInscriptionModule);
 
   return container;
 }

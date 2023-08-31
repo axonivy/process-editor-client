@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/process-editor",
-  "version": "11.2.0-next",
+  "version": "11.2.1-next",
   "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -19,8 +19,8 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "1.1.0-RC10",
-    "@axonivy/editor-icons": "11.2.0-next.616",
-    "@axonivy/process-editor-protocol": "11.2.0-next",
+    "@axonivy/editor-icons": "11.2.1-next.701",
+    "@axonivy/process-editor-protocol": "11.2.1-next",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
   },
@@ -43,11 +43,10 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
     "build": "yarn tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
-    "watch": "tsc -w",
+    "type": "tsc --noEmit",
     "test:mocha": "mocha --config ../../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
     "test": "export TS_NODE_PROJECT=./tsconfig.mocha.json && yarn test:mocha",
     "test:win": "SET TS_NODE_PROJECT=./tsconfig.mocha.json&& yarn test:mocha",
@@ -58,7 +57,6 @@
     "src",
     "css"
   ],
-  "main": "lib/index",
   "types": "lib/index",
-  "gitHead": "75006c06519e76811c903cf4f12b793ef0ba9178"
+  "module": "lib/index"
 }

@@ -9,6 +9,10 @@
       "path": "./packages/editor"
     },
     {
+      "name": "packages/inscription",
+      "path": "./packages/inscription"
+    },
+    {
       "name": "packages/protocol",
       "path": "./packages/protocol"
     },

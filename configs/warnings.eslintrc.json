@@ -38,12 +38,6 @@
       }
     ],
     "use-isnan": "warn",
-    "@typescript-eslint/explicit-function-return-type": [
-      "warn",
-      {
-        "allowExpressions": true
-      }
-    ],
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/type-annotation-spacing": "warn"
   }

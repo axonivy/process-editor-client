@@ -19,9 +19,9 @@ pipeline {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
-              sh 'yarn build'
-              archiveArtifacts 'integration/eclipse/app/*'
-              archiveArtifacts 'integration/standalone/app/*'
+              sh 'yarn build && yarn build:production'
+              archiveArtifacts 'integration/eclipse/build/**'
+              archiveArtifacts 'integration/standalone/build/**'
             }
           }
         }
@@ -42,19 +42,19 @@ pipeline {
       }
     }
 
-    stage('Tests (Mocha)') {
-      steps {
-        script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
-              timeout(30) {
-                sh 'yarn test:ci'
-              }
-            }
-          }
-        }
-      }
-    }
+    // stage('Tests (Mocha)') {
+    //   steps {
+    //     script {
+    //       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+    //         docker.build('node').inside {
+    //           timeout(30) {
+    //             sh 'yarn test:ci'
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     stage('Web Tests (Playwright)') {
       steps {

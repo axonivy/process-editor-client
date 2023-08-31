@@ -5,6 +5,7 @@
   height: 3.25rem;
   background: var(--glsp-tool-bar-bg);
   z-index: 10;
+  container: toolbar / inline-size;
 }
 .tool-bar-header {
   margin: 0.5rem;
@@ -75,12 +76,13 @@
   border-radius: 2px;
 }
 
-@media screen and (max-width: 650px) {
+@container toolbar (max-width: 650px) {
   .tool-bar-header .middle-buttons .tool-bar-title-button:not(:first-child) {
     display: none;
   }
 }
-@media screen and (max-width: 400px) {
+
+@container toolbar (max-width: 450px) {
   .tool-bar-header .edit-buttons {
     display: none;
   }

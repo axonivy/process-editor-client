@@ -1,8 +1,10 @@
 import { Action, hasStringProp } from '@eclipse-glsp/protocol';
 
+export type ThemeMode = 'dark' | 'light';
+
 export interface SwitchThemeAction extends Action {
   kind: typeof SwitchThemeAction.KIND;
-  theme: string;
+  theme: ThemeMode;
 }
 
 export namespace SwitchThemeAction {
@@ -12,7 +14,7 @@ export namespace SwitchThemeAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'theme');
   }
 
-  export function create(options: { theme: string }): SwitchThemeAction {
+  export function create(options: { theme: ThemeMode }): SwitchThemeAction {
     return {
       kind: KIND,
       ...options

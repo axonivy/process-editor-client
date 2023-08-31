@@ -6,10 +6,12 @@
     "node": ">=18.16.1"
   },
   "scripts": {
-    "prepare": "lerna run prepare",
-    "watch": "lerna run --parallel watch",
-    "build": "yarn install --ignore-scripts && lerna run build",
+    "build": "yarn && lerna run build",
+    "build:production": "lerna run build:production",
     "lint": "lerna run lint --",
+    "type": "lerna run type",
+    "start": "yarn --cwd integration/standalone start",
+    "start:eclipse": "yarn --cwd integration/eclipse start",
     "test": "lerna run test",
     "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
@@ -37,5 +39,8 @@
       "packages/*",
       "integration/*"
     ]
+  },
+  "resolutions": {
+    "vscode-jsonrpc": "8.2.0"
   }
 }
