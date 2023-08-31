@@ -24,6 +24,7 @@ import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
 import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import './sprotty.css';
 
 const parameters = getParameters();
 let server = parameters['server'];

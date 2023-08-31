@@ -31,7 +31,7 @@
     "@types/toastify-js": "^1.11.1",
     "chai": "^4.3.7",
     "cpx": "^1.5.0",
-    "fantasticon": "^2.0.0",
+    "fantasticon": "^1.2.3",
     "inversify": "^6.0.1",
     "jsdom": "^20.0.3",
     "mocha": "^10.1.0",
@@ -40,16 +40,15 @@
     "rimraf": "^3.0.2",
     "snabbdom-to-html": "^7.1.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^5.2.2"
   },
   "scripts": {
-    "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
     "build": "yarn build:icons && yarn tsc",
     "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && yarn cp:icons",
     "cp:icons": "yarn cpx icons/dist/*.ts src/ && yarn cpx \"icons/dist/*.{css,ttf}\" css/",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
-    "watch": "tsc -w",
+    "type": "tsc --noEmit",
     "test:mocha": "mocha --config ../../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",
     "test": "export TS_NODE_PROJECT=./tsconfig.mocha.json && yarn test:mocha",
     "test:win": "SET TS_NODE_PROJECT=./tsconfig.mocha.json&& yarn test:mocha",
@@ -61,6 +60,7 @@
     "css"
   ],
   "main": "lib/index",
-  "types": "lib/index",
+  "types": "src/index",
+  "module": "src/index",
   "gitHead": "75006c06519e76811c903cf4f12b793ef0ba9178"
 }

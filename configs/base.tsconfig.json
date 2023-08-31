@@ -16,9 +16,8 @@
     "moduleResolution": "node",
     "target": "es2017",
     "jsx": "react",
+    "jsxFactory": "JSX.createElement",
     "lib": ["es6", "dom", "dom.iterable", "es2019"],
-    "sourceMap": true,
-    "types": ["node", "reflect-metadata"],
-    "typeRoots": ["node_modules/@types"]
+    "sourceMap": true
   }
 }

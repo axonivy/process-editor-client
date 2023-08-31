@@ -1,11 +1,6 @@
 import { expect, Page } from '@playwright/test';
-import { resolve } from 'path';
 import { v4 as uuid } from 'uuid';
 import { startSelector } from './diagram-util';
-
-function baseUrl(): string {
-  return resolve('app', 'index.html');
-}
 
 function serverUrl(): string {
   const app = process.env.TEST_APP ?? '';
@@ -30,5 +25,5 @@ function randomTestProcessUrl(): string {
 }
 
 export function processEditorUrl(pmv: string, file: string): string {
-  return `file://${baseUrl()}?server=${serverUrl()}&pmv=${pmv}&file=${file}`;
+  return `?server=${serverUrl()}&pmv=${pmv}&file=${file}`;
 }

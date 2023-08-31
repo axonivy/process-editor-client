@@ -16,6 +16,7 @@ import { MessageConnection } from 'vscode-jsonrpc';
 
 import createContainer from './di.config';
 import { EnableViewportAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import './sprotty.css';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;

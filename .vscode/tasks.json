@@ -4,44 +4,52 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Editor",
-      "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "command": "yarn ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "label": "Build Eclipse Integration",
+      "label": "Start Standalone",
       "type": "shell",
       "group": "build",
-      "command": "yarn --cwd integration/eclipse build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
-      "label": "Watch Editor",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn watch",
+      "command": "yarn start",
       "presentation": {
         "reveal": "always",
         "panel": "dedicated"
       },
       "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Start Eclipse",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn start:eclipse",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
     },
     {
       "label": "Terminate All Tasks",

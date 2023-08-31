@@ -20,8 +20,8 @@ pipeline {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node').inside {
               sh 'yarn build'
-              archiveArtifacts 'integration/eclipse/app/*'
-              archiveArtifacts 'integration/standalone/app/*'
+              archiveArtifacts 'integration/eclipse/build/*'
+              archiveArtifacts 'integration/standalone/build/*'
             }
           }
         }
