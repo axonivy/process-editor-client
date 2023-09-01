@@ -1,6 +1,6 @@
 import { Message } from 'vscode-jsonrpc';
 import { BaseJsonrpcGLSPClient, ClientState } from '@eclipse-glsp/client';
-import * as Toastify from 'toastify-js';
+import Toastify from 'toastify-js';
 
 export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
   error(message: string, ...optionalParams: any[]): void {

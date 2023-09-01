@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "downlevelIteration": true,
+    "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2017",

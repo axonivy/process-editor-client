@@ -1,5 +1,5 @@
 import { GLSPDiagramServer, ServerMessageAction } from '@eclipse-glsp/client';
-import * as Toastify from 'toastify-js';
+import Toastify from 'toastify-js';
 
 export class IvyGLSPDiagramServer extends GLSPDiagramServer {
   private toast: any | undefined;
