@@ -37,6 +37,6 @@
   ],
   "main": "lib/index",
   "types": "src/index",
-  "module": "src/index",
+  "browser": "src/index",
   "gitHead": "75006c06519e76811c903cf4f12b793ef0ba9178"
 }
