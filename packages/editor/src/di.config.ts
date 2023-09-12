@@ -1,5 +1,5 @@
 import '../css/colors.css';
-import '../css/StreamlineIcons.css';
+import '@axonivy/editor-icons/lib/ivy-icons.css';
 import 'toastify-js/src/toastify.css';
 import '../css/toastify.css';
 
@@ -65,7 +65,7 @@ export default function createContainer(widgetId: string): Container {
   );
   container.bind(TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
-  bindOrRebind(container,TYPES.ICommandStack).to(IvyGLSPCommandStack);
+  bindOrRebind(container, TYPES.ICommandStack).to(IvyGLSPCommandStack);
 
   overrideViewerOptions(container, {
     baseDiv: widgetId,

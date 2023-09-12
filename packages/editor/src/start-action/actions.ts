@@ -4,14 +4,14 @@ import { StartProcessAction, SearchProcessCallersAction } from '@axonivy/process
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { StartEventNode } from '../diagram/model';
 import { EventStartTypes } from '../diagram/view-types';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && element.type === EventStartTypes.START) {
       return {
-        icon: StreamlineIcons.Play,
+        icon: IvyIcons.Play,
         title: 'Start Process (X)',
         location: 'Left',
         sorting: 'A',
@@ -37,7 +37,7 @@ export class SearchProcessCallersActionProvider extends SingleQuickActionProvide
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && this.isSearchViewAvailable(element.type)) {
       return {
-        icon: StreamlineIcons.Search,
+        icon: IvyIcons.Search,
         title: 'Search callers of this process (O)',
         location: 'Left',
         sorting: 'B',

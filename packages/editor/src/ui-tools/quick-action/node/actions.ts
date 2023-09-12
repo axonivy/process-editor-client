@@ -19,7 +19,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';
 import { QuickActionUI } from '../quick-action-ui';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { AttachBoundaryOperation } from '@axonivy/process-editor-protocol';
 
 export abstract class CreateElementQuickActionProvider extends SingleQuickActionProvider {
@@ -62,7 +62,7 @@ export abstract class CreateElementQuickActionProvider extends SingleQuickAction
   quickAction(): QuickAction {
     const item = this.quickActionItem();
     return {
-      icon: item.icon!,
+      icon: item.icon as IvyIcons,
       title: `${item.label} (A)`,
       location: 'Right',
       sorting: item.sortString,
@@ -99,7 +99,7 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Events', icon: StreamlineIcons.EventsGroup, sortString: 'A', id: '', actions: [] };
+    return { label: 'Events', icon: IvyIcons.EventsGroup, sortString: 'A', id: '', actions: [] };
   }
 }
 
@@ -110,7 +110,7 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Gateways', icon: StreamlineIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
+    return { label: 'Gateways', icon: IvyIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
   }
 }
 
@@ -124,7 +124,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Activities', icon: StreamlineIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
+    return { label: 'Activities', icon: IvyIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
   }
 }
 
@@ -132,7 +132,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
 export class CreateAllElementsQuickActionProvider extends CreateElementQuickActionProvider {
   quickAction(): QuickAction {
     return {
-      icon: StreamlineIcons.AllElements,
+      icon: IvyIcons.AllElements,
       title: 'Create Node',
       location: 'Hidden',
       sorting: 'Z',

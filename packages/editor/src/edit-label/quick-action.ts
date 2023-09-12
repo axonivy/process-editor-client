@@ -1,14 +1,14 @@
 import { EditLabelAction, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { injectable } from 'inversify';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 @injectable()
 export class EditLabelActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isWithEditableLabel(element) && element.editableLabel) {
       return {
-        icon: StreamlineIcons.Label,
+        icon: IvyIcons.Label,
         title: 'Edit Label (L)',
         location: 'Middle',
         sorting: 'B',

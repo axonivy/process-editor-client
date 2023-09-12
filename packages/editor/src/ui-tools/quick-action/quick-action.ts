@@ -1,13 +1,13 @@
 import { Action, DeleteElementOperation, isDeletable, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
-import { StreamlineIcons } from '../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { AutoAlignOperation } from '@axonivy/process-editor-protocol';
 
 export type QuickActionLocation = 'Left' | 'Middle' | 'Right' | 'Hidden';
 
 export interface QuickAction {
-  icon: string;
+  icon: IvyIcons;
   title: string;
   location: QuickActionLocation;
   sorting: string;
@@ -58,7 +58,7 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 
   quickAction(elementIds: string[]): QuickAction {
     return {
-      icon: StreamlineIcons.Delete,
+      icon: IvyIcons.Delete,
       title: 'Delete',
       location: 'Left',
       sorting: 'A',
@@ -73,7 +73,7 @@ export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
     const elementIds = elements.map(e => e.id);
     if (elementIds.length > 0) {
       return {
-        icon: StreamlineIcons.AutoAlign,
+        icon: IvyIcons.AutoAlign,
         title: 'Auto Align (A)',
         location: 'Middle',
         sorting: 'Z',

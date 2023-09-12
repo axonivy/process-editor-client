@@ -16,7 +16,7 @@ import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 @injectable()
 export class InfoQuickActionProvider extends SingleQuickActionProvider {
@@ -28,7 +28,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
       return undefined;
     }
     return {
-      icon: StreamlineIcons.Information,
+      icon: IvyIcons.Information,
       title: 'Information (I)',
       location: 'Left',
       sorting: 'B',

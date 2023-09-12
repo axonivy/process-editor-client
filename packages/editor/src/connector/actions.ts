@@ -1,6 +1,6 @@
 import { SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/edge/edge-creation-tool';
 
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
@@ -11,7 +11,7 @@ export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof SEdge) {
       return {
-        icon: StreamlineIcons.Straighten,
+        icon: IvyIcons.Straighten,
         title: 'Straighten (S)',
         location: 'Middle',
         sorting: 'A',
@@ -28,7 +28,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof SEdge) {
       return {
-        icon: StreamlineIcons.Bend,
+        icon: IvyIcons.Bend,
         title: 'Bend (B)',
         location: 'Middle',
         sorting: 'B',
@@ -45,7 +45,7 @@ export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider 
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (element instanceof SEdge) {
       return {
-        icon: StreamlineIcons.Reconnect,
+        icon: IvyIcons.Reconnect,
         title: 'Reconnect (R)',
         location: 'Right',
         sorting: 'A',

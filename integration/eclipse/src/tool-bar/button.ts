@@ -1,10 +1,11 @@
-import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation, StreamlineIcons } from '@axonivy/process-editor';
+import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
 import { OpenDataClassAction, OpenInscriptionAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { injectable } from 'inversify';
 
 class InscribeProcessButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.PenEdit,
+    public readonly icon = IvyIcons.PenEdit,
     public readonly title = 'Inscribe Process',
     public readonly sorting = 'D',
     public readonly action = () => OpenInscriptionAction.create(''),
@@ -22,7 +23,7 @@ export class InscribeProcessButtonProvider implements ToolBarButtonProvider {
 
 class OpenDataClassButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.DataModels,
+    public readonly icon = IvyIcons.DataModels,
     public readonly title = 'Open Data Class (C)',
     public readonly sorting = 'E',
     public readonly action = () => OpenDataClassAction.create(),
@@ -40,7 +41,7 @@ export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
 
 export class OpenInsertExtensionButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.Extensions,
+    public readonly icon = IvyIcons.Extensions,
     public readonly title = 'Extensions',
     public readonly sorting = 'F',
     public readonly action = () => OpenInsertExtensionAction.create(),

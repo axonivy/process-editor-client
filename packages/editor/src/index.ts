@@ -31,6 +31,3 @@ export * from './ui-tools/viewport/viewport-bar';
 
 export * from './ivy-glsp-jsonrpc-client';
 export * from './ivy-glsp-diagram-server';
-
-/* Helpers */
-export { StreamlineIcons } from './StreamlineIcons';

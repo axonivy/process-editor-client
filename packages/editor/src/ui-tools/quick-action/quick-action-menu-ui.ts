@@ -1,6 +1,6 @@
 import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
-import { StreamlineIcons } from '../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
@@ -63,7 +63,7 @@ export class QuickActionMenu extends ItemMenu {
   protected appendItemToGroup(group: HTMLElement): void {
     if (this.action.isEditable) {
       const button = createElement('div', [ItemMenu.ITEM_BUTTON, 'new-color-btn']);
-      button.appendChild(createElement('span', ['new-color-icon', 'si', `si-${StreamlineIcons.Add}`]));
+      button.appendChild(createElement('span', ['new-color-icon', 'ivy', `ivy-${IvyIcons.Add}`]));
       button.insertAdjacentText('beforeend', 'New Color');
       button.onclick = () => this.editUi?.showEditUi();
       button.onmouseenter = _ev => this.focusButton(button);
@@ -82,7 +82,7 @@ export class QuickActionMenu extends ItemMenu {
   }
 
   private createEditButton(item: PaletteItem): HTMLElement {
-    const editButton = createIcon(['si', `si-${StreamlineIcons.Edit}`, 'color-edit-button']);
+    const editButton = createIcon(IvyIcons.Edit, ['color-edit-button']);
     editButton.title = 'Edit Color';
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
@@ -216,7 +216,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   private createIssue(sIssue: SIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
-    issueTitle.appendChild(createElement('i', ['si', `si-${sIssue.severity}`]));
+    issueTitle.appendChild(createIcon(sIssue.severity));
     const issueTitleSpan = createElement('span');
     issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
     issueTitle.appendChild(issueTitleSpan);

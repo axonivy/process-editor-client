@@ -1,6 +1,12 @@
-export function createIcon(cssClasses: string[]): HTMLElement {
-  const classes = cssClasses.map(cssClass => cssClass.split(' ')).flat();
-  return createElement('i', classes);
+import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { SIssueSeverity } from '@eclipse-glsp/client';
+
+export function createIcon(icon?: IvyIcons | SIssueSeverity, additionalClasses?: string[]): HTMLElement {
+  const cssClasses = icon ? ['ivy', `ivy-${icon}`] : [];
+  if (additionalClasses) {
+    cssClasses.push(...additionalClasses);
+  }
+  return createElement('i', cssClasses);
 }
 
 export function createElement(tagName: string, cssClasses?: string[]): HTMLElement {

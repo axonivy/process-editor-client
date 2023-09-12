@@ -1,6 +1,6 @@
 import { SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 import { QuickActionProvider, QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isSingleWrapable, isUnwrapable, isWrapable } from './model';
@@ -11,7 +11,7 @@ export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isUnwrapable(element)) {
       return {
-        icon: StreamlineIcons.Unwrap,
+        icon: IvyIcons.Unwrap,
         title: 'Unwrap embedded subprocess (U)',
         location: 'Middle',
         sorting: 'B',
@@ -42,7 +42,7 @@ export class WrapQuickActionProvider implements QuickActionProvider {
 
   quickAction(elementIds: string[]): QuickAction {
     return {
-      icon: StreamlineIcons.WrapToSubprocess,
+      icon: IvyIcons.WrapToSubprocess,
       title: 'Wrap to embedded process (W)',
       location: 'Middle',
       sorting: 'B',

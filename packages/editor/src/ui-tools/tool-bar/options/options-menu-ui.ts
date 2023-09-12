@@ -2,18 +2,18 @@ import { Action, IActionDispatcher } from '@eclipse-glsp/client';
 import { Menu } from '../../menu/menu';
 import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
 import { ShowToolBarOptionsMenuAction } from './action';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { CustomIconToggleAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 
 interface Option {
-  icon: string;
+  icon: IvyIcons;
   label: string;
   action: (state: boolean) => Action;
 }
 
 class ThemeOption implements Option {
   constructor(
-    public readonly icon = StreamlineIcons.Darkmode,
+    public readonly icon = IvyIcons.Darkmode,
     public readonly label = 'Darkmode',
     public readonly action = (state: boolean) => SwitchThemeAction.create({ theme: state ? 'dark' : 'light' })
   ) {}
@@ -21,7 +21,7 @@ class ThemeOption implements Option {
 
 class GridOption implements Option {
   constructor(
-    public readonly icon = StreamlineIcons.Grid,
+    public readonly icon = IvyIcons.Grid,
     public readonly label = 'Grid',
     public readonly action = (state: boolean) => ShowGridAction.create({ show: state })
   ) {}
@@ -29,7 +29,7 @@ class GridOption implements Option {
 
 class CustomIconOption implements Option {
   constructor(
-    public readonly icon = StreamlineIcons.CustomIcon,
+    public readonly icon = IvyIcons.CustomIcon,
     public readonly label = 'Custom Icon',
     public readonly action = (state: boolean) => CustomIconToggleAction.create({ showCustomIcons: state })
   ) {}
@@ -50,7 +50,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createHeader(): HTMLElement {
     const header = createElement('div', ['tool-bar-options-header']);
-    header.appendChild(createIcon(['si', `si-${StreamlineIcons.Settings}`]));
+    header.appendChild(createIcon(IvyIcons.Settings));
     const label = document.createElement('label');
     label.textContent = 'Options';
     header.appendChild(label);
@@ -69,7 +69,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createOption(setting: Option, state: boolean): HTMLElement {
     const option = createElement('div', ['tool-bar-option']);
-    option.appendChild(createIcon(['si', `si-${setting.icon}`]));
+    option.appendChild(createIcon(setting.icon));
     const label = document.createElement('label');
     label.textContent = setting.label;
     option.appendChild(label);
