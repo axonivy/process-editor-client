@@ -3,7 +3,7 @@
   "name": "parent",
   "engines": {
     "yarn": "1.0.x || >=1.2.1",
-    "node": ">=16.15.0 <17"
+    "node": ">=18.16.1"
   },
   "scripts": {
     "prepare": "lerna run prepare",
@@ -18,7 +18,7 @@
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
-    "@types/node": "^16.18.4",
+    "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",
