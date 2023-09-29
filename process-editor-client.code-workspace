@@ -57,11 +57,6 @@
     },
     "[yaml]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "mochaExplorer.configFile": "configs/.mocharc.json",
-    "mochaExplorer.files": "packages/editor/tests/**/*.spec.?(ts|tsx)",
-    "mochaExplorer.env": {
-      "TS_NODE_PROJECT": "packages/editor/tsconfig.mocha.json"
     }
   }
 }
