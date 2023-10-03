@@ -5,7 +5,7 @@ import { QuickActionUI } from '../../src/ui-tools/quick-action/quick-action-ui';
 import ivyToolBarModule from '../../src/ui-tools/tool-bar/di.config';
 import { assertQuickAction, assertQuickActionUi, createContainer, createRoot, setupSprottyDiv } from './quick-action-ui-util';
 import { ElementsPaletteHandler } from '../../src/ui-tools/tool-bar/node/action-handler';
-import { StreamlineIcons } from '../../src/StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 class ElementsPaletteHandlerMock extends ElementsPaletteHandler {
   public getElementPaletteItems(): PaletteItem[] | undefined {
@@ -42,14 +42,14 @@ describe('QuickActionUi - Create Nodes', () => {
   it('create nodes quick actions are rendered for activity element', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(8, { x: 200, y: 150 });
-    assertQuickAction(0, 'Delete', `si si-${StreamlineIcons.Delete}`);
-    assertQuickAction(1, 'Information (I)', `si si-${StreamlineIcons.Information}`);
-    assertQuickAction(2, 'Wrap to embedded process (W)', `si si-${StreamlineIcons.WrapToSubprocess}`);
-    assertQuickAction(3, 'Select color', `si si-${StreamlineIcons.Color}`);
-    assertQuickAction(4, 'Events (A)', `si si-${StreamlineIcons.EventsGroup}`);
-    assertQuickAction(5, 'Gateways (A)', `si si-${StreamlineIcons.GatewaysGroup}`);
-    assertQuickAction(6, 'Activities (A)', `si si-${StreamlineIcons.ActivitiesGroup}`);
-    assertQuickAction(7, 'Connect', `si si-${StreamlineIcons.Connector}`);
+    assertQuickAction(0, 'Delete', IvyIcons.Delete);
+    assertQuickAction(1, 'Information (I)', IvyIcons.Information);
+    assertQuickAction(2, 'Wrap to embedded process (W)', IvyIcons.WrapToSubprocess);
+    assertQuickAction(3, 'Select color', IvyIcons.Color);
+    assertQuickAction(4, 'Events (A)', IvyIcons.EventsGroup);
+    assertQuickAction(5, 'Gateways (A)', IvyIcons.GatewaysGroup);
+    assertQuickAction(6, 'Activities (A)', IvyIcons.ActivitiesGroup);
+    assertQuickAction(7, 'Connect', IvyIcons.Connector);
   });
 
   it('create nodes quick actions are not rendered for comment element', () => {

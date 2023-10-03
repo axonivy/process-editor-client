@@ -5,7 +5,7 @@ import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
 import { SwitchThemeActionHandler } from '../../theme/action-handler';
 import { ShowGridActionHandler } from '../../diagram/grid/action-handler';
-import { StreamlineIcons } from '../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 export interface ToolBarButtonProvider {
   button(): ToolBarButton;
@@ -18,7 +18,7 @@ export enum ToolBarButtonLocation {
 }
 
 export interface ToolBarButton {
-  icon: string;
+  icon: IvyIcons;
   title: string;
   sorting: string;
   action: () => Action;
@@ -40,7 +40,7 @@ export function compareButtons(a: ToolBarButton, b: ToolBarButton): number {
 
 export class DefaultSelectButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.Cursor,
+    public readonly icon = IvyIcons.Cursor,
     public readonly title = 'Selection Tool',
     public readonly sorting = 'A',
     public readonly action = () => EnableDefaultToolsAction.create(),
@@ -53,7 +53,7 @@ export class DefaultSelectButton implements ToolBarButton {
 
 export class MarqueeToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.CursorSelect,
+    public readonly icon = IvyIcons.CursorSelect,
     public readonly title = 'Marquee Tool (Shift)',
     public readonly sorting = 'B',
     public readonly action = () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),
@@ -66,7 +66,7 @@ export class MarqueeToolButton implements ToolBarButton {
 
 export class UndoToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.Undo,
+    public readonly icon = IvyIcons.Undo,
     public readonly title = 'Undo',
     public readonly sorting = 'C',
     public readonly action = () => UndoAction.create(),
@@ -77,7 +77,7 @@ export class UndoToolButton implements ToolBarButton {
 
 export class RedoToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = StreamlineIcons.Redo,
+    public readonly icon = IvyIcons.Redo,
     public readonly title = 'Redo',
     public readonly sorting = 'D',
     public readonly action = () => RedoAction.create(),
@@ -106,7 +106,7 @@ export class OptionsToolButton implements ToolBarButton {
     public readonly customIconState: () => boolean,
     public readonly grid: () => boolean,
     public readonly theme?: () => string,
-    public readonly icon = StreamlineIcons.Settings,
+    public readonly icon = IvyIcons.Settings,
     public readonly title = 'Settings',
     public readonly sorting = 'Z',
     public readonly action = () => ShowToolBarOptionsMenuAction.create({ customIconState: customIconState, grid: grid, theme: theme }),

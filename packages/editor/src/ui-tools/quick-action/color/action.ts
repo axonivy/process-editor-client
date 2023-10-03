@@ -4,7 +4,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { ColorPaletteHandler } from './action-handler';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
 
 @injectable()
@@ -25,7 +25,7 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
 
   quickAction(elementIds: string[], paletteItems: () => PaletteItem[]): QuickAction {
     return {
-      icon: StreamlineIcons.Color,
+      icon: IvyIcons.Color,
       title: 'Select color',
       location: 'Middle',
       sorting: 'Z',

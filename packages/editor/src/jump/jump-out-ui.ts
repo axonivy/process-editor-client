@@ -13,7 +13,7 @@ import {
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct } from 'inversify';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from '@axonivy/process-editor-protocol';
 
@@ -47,7 +47,7 @@ export class JumpOutUi extends AbstractUIExtension {
     containerElement.innerHTML = '';
     const button = createElement('div', ['jump-out-btn']);
     button.title = 'Jump out (J)';
-    button.appendChild(createIcon(['si', `si-${StreamlineIcons.JumpOut}`]));
+    button.appendChild(createIcon(IvyIcons.JumpOut));
     button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
     containerElement.appendChild(button);
   }

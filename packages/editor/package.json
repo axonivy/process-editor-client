@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "1.1.0-RC10",
+    "@axonivy/editor-icons": "11.2.0-next.616",
     "@axonivy/process-editor-protocol": "11.2.0-next",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
@@ -31,10 +32,9 @@
     "@types/toastify-js": "^1.11.1",
     "chai": "^4.3.7",
     "cpx": "^1.5.0",
-    "fantasticon": "^2.0.0",
     "inversify": "^6.0.1",
     "jsdom": "^20.0.3",
-    "mocha": "^10.1.0",
+    "mocha": "^10.2.0",
     "mocha-jenkins-reporter": "^0.4.8",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -45,9 +45,7 @@
   "scripts": {
     "prepare": "yarn clean && yarn build && yarn lint",
     "clean": "rimraf lib",
-    "build": "yarn build:icons && yarn tsc",
-    "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && yarn cp:icons",
-    "cp:icons": "yarn cpx icons/dist/*.ts src/ && yarn cpx \"icons/dist/*.{css,ttf}\" css/",
+    "build": "yarn tsc",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "watch": "tsc -w",
     "test:mocha": "mocha --config ../../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",

@@ -24,7 +24,7 @@ import {
 } from '@eclipse-glsp/client';
 import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
 import { inject, injectable } from 'inversify';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
@@ -212,7 +212,7 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
       (Array.from(element.outgoingEdges).length === 0 || isMultipleOutgoingEdgesFeature(element))
     ) {
       return {
-        icon: StreamlineIcons.Connector,
+        icon: IvyIcons.Connector,
         title: 'Connect',
         location: 'Right',
         sorting: 'Z',

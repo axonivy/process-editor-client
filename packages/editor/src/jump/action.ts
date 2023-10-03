@@ -1,7 +1,7 @@
 import { Action, IActionHandler, SModelElement } from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
@@ -21,7 +21,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isJumpable(element)) {
       return {
-        icon: StreamlineIcons.Jump,
+        icon: IvyIcons.Jump,
         title: 'Jump (J)',
         location: 'Middle',
         sorting: 'A',

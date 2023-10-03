@@ -1,7 +1,7 @@
 import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { ActivityTypes } from '../../diagram/view-types';
-import { StreamlineIcons } from '../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
 
@@ -74,7 +74,7 @@ export abstract class ItemMenu implements Menu {
 
   private createPaletteItemSearchField(): HTMLElement {
     const searchDiv = createElement('div', ['bar-menu-search']);
-    searchDiv.appendChild(createElement('i', ['si', `si-${StreamlineIcons.Search}`]));
+    searchDiv.appendChild(createIcon(IvyIcons.Search));
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';
@@ -215,11 +215,11 @@ export abstract class ItemMenu implements Menu {
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     const icon = MenuIcons.get(item.icon!);
     if (icon) {
-      return createIcon(['si', `si-${icon ?? ''}`]);
+      return createIcon(icon);
     }
     if (item.icon!.startsWith(ActivityTypes.THIRD_PARTY)) {
-      return createIcon(['si', `si-${MenuIcons.get(ActivityTypes.THIRD_PARTY)}`]);
+      return createIcon(MenuIcons.get(ActivityTypes.THIRD_PARTY));
     }
-    return createIcon([]);
+    return createIcon();
   }
 }

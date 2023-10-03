@@ -45,7 +45,3 @@ pack
 report.xml
 eslint.xml
 **/test-results/*
-
-## Icons ##
-**/editor/icons/dist
-**/editor/**/StreamlineIcons.*

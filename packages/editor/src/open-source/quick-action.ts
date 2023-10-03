@@ -3,14 +3,14 @@ import { injectable } from 'inversify';
 import { GoToSourceAction } from '@axonivy/process-editor-protocol';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { hasGoToSourceFeature } from '../jump/model';
-import { StreamlineIcons } from '../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 @injectable()
 export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (hasGoToSourceFeature(element)) {
       return {
-        icon: StreamlineIcons.GoToSource,
+        icon: IvyIcons.GoToSource,
         title: 'Go To Source (S)',
         location: 'Middle',
         sorting: 'B',

@@ -5,7 +5,7 @@ import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { TypesPaletteHandler } from './action-handler';
 import { isUnwrapable } from '../../../wrap/model';
-import { StreamlineIcons } from '../../../StreamlineIcons';
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { ChangeActivityTypeOperation } from '@axonivy/process-editor-protocol';
 
 @injectable()
@@ -16,7 +16,7 @@ export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProv
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isUnwrapable(element)) {
       return {
-        icon: StreamlineIcons.ChangeType,
+        icon: IvyIcons.ChangeType,
         title: 'Select Activity Type',
         location: 'Middle',
         sorting: 'Z',

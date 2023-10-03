@@ -64,7 +64,7 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
 
   protected createViewportButton(toolButton: ViewportBarButton): HTMLElement {
     const button = createElement('span');
-    button.appendChild(createIcon(['si', `si-${toolButton.icon}`]));
+    button.appendChild(createIcon(toolButton.icon));
     button.id = toolButton.id;
     button.title = toolButton.title;
     button.onclick = () =>
