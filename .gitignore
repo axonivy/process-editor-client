@@ -45,3 +45,4 @@ pack
 report.xml
 eslint.xml
 **/test-results/*
+playwright-report

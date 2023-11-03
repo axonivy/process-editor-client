@@ -1,4 +1,4 @@
-import { FullConfig, Reporter, Suite, TestCase, TestResult } from '@playwright/test/reporter';
+import { FullConfig, Reporter, Suite, TestCase } from '@playwright/test/reporter';
 
 class CustomReporter implements Reporter {
   onBegin(config: FullConfig, suite: Suite): void {
@@ -7,10 +7,6 @@ class CustomReporter implements Reporter {
 
   onTestBegin(test: TestCase): void {
     test.title += ` [${test.titlePath()[1]}]`;
-  }
-
-  onTestEnd(test: TestCase, result: TestResult): void {
-    console.log(`${result.status}: ${test.titlePath().slice(2).join(' > ')}`);
   }
 
   protected generateStartingMessage(config: FullConfig, suite: Suite): string {

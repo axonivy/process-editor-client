@@ -23,25 +23,39 @@ import {
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
-import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import {
+  EnableInscriptionAction,
+  EnableViewportAction,
+  MoveIntoViewportAction,
+  SetViewportZoomAction,
+  SwitchThemeAction,
+  ThemeMode
+} from '@axonivy/process-editor-protocol';
+import { MonacoUtil } from '@axonivy/inscription-core';
+import { MonacoEditorUtil } from '@axonivy/inscription-editor';
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
+import './index.css';
 
 const parameters = getParameters();
-let server = parameters['server'];
+let server = parameters.get('server');
 if (server === undefined) {
   server = getServerDomain();
 }
+const app = parameters.get('app') ?? 'designer';
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
-const websocket = new WebSocket(`${isSecureConnection() ? 'wss' : 'ws'}://${server}/${id}`);
+const webSocketBase = `${isSecureConnection() ? 'wss' : 'ws'}://${server}/`;
+const websocket = new WebSocket(`${webSocketBase}${app}/${id}`);
 const container = createContainer();
 
-const app = server.slice(server.lastIndexOf('/') + 1);
-const pmv = parameters['pmv'];
-const pid = parameters['pid'] ?? '';
-const givenFile = parameters['file'] ?? '';
-const highlight = parameters['highlight'];
-const selectElementIds = parameters['selectElementIds'];
-const zoom = parameters['zoom'];
+const pmv = parameters.get('pmv') ?? '';
+const pid = parameters.get('pid') ?? '';
+const givenFile = parameters.get('file') ?? '';
+const highlight = parameters.get('highlight') ?? '';
+const selectElementIds = parameters.get('selectElementIds');
+const zoom = parameters.get('zoom') ?? '';
+const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
@@ -72,6 +86,9 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
         setViewerMode();
       } else {
         actionDispatcher.dispatch(EnableToolPaletteAction.create());
+        MonacoUtil.initStandalone(editorWorker);
+        MonacoEditorUtil.initMonaco(reactMonaco, theme);
+        actionDispatcher.dispatch(EnableInscriptionAction.create({ server: webSocketBase, app, pmv }));
       }
       if (!isInPreviewMode()) {
         actionDispatcher.dispatch(EnableViewportAction.create());
@@ -87,7 +104,7 @@ async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): 
   } else {
     actions.push(...showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true })));
   }
-  actions.push(SwitchThemeAction.create({ theme: parameters.theme ?? SwitchThemeActionHandler.prefsColorScheme() }));
+  actions.push(SwitchThemeAction.create({ theme }));
   return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 

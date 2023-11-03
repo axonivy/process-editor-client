@@ -19,3 +19,38 @@ export namespace OpenInscriptionAction {
     };
   }
 }
+
+export interface EnableInscriptionAction extends Action {
+  kind: typeof EnableInscriptionAction.KIND;
+  server?: string;
+  app?: string;
+  pmv?: string;
+}
+
+export namespace EnableInscriptionAction {
+  export const KIND = 'enableInscription';
+
+  export function is(object: any): object is EnableInscriptionAction {
+    return Action.hasKind(object, KIND);
+  }
+
+  export function create(options?: { server?: string; app?: string; pmv?: string }): EnableInscriptionAction {
+    return { kind: KIND, ...options };
+  }
+}
+
+export interface ToggleInscriptionAction extends Action {
+  kind: typeof ToggleInscriptionAction.KIND;
+}
+
+export namespace ToggleInscriptionAction {
+  export const KIND = 'showInscription';
+
+  export function is(object: any): object is ToggleInscriptionAction {
+    return Action.hasKind(object, KIND);
+  }
+
+  export function create(): ToggleInscriptionAction {
+    return { kind: KIND };
+  }
+}

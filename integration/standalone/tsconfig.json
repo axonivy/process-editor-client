@@ -4,7 +4,8 @@
     "rootDir": "src",
     "outDir": "lib",
     "baseUrl": ".",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "types": ["vite/client"]
   },
-  "include": ["src", "lib", "css", "app"]
+  "include": ["src"]
 }
