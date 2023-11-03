@@ -8,6 +8,3 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 USER node
-
-RUN npm install -g vsce
-RUN npm install -g lock-treatment-tool
