@@ -6,6 +6,9 @@ body {
 }
 
 /* Graph */
+.sprotty {
+  user-select: none;
+}
 .sprotty-graph {
   background: var(--glsp-editor-background);
   font-size: 10pt;
