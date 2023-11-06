@@ -20,7 +20,6 @@ body:has(#inscription > .hidden) {
 }
 #inscription {
   grid-area: inscription;
-  overflow-y: scroll;
   background-color: var(--glsp-editor-background);
   height: 100vh;
 }
