@@ -18,6 +18,7 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/integration/Dockerfile .').inside {
+            sh 'yarn update:axonivy:next'
             sh 'yarn install'
             dir ('integration/standalone/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"

@@ -19,6 +19,7 @@ pipeline {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
             docker.build('node', '-f build/Dockerfile .').inside {
+              sh 'yarn update:axonivy:next'
               sh 'yarn build && yarn build:production'
               archiveArtifacts 'integration/eclipse/build/**'
               archiveArtifacts 'integration/standalone/build/**'
