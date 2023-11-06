@@ -8,7 +8,7 @@ export function getServerDomain(): string {
 }
 
 export function isSecureConnection(): boolean {
-  return window.location.protocol === 'https:' || getParameters()['secure'] === 'true';
+  return window.location.protocol === 'https:' || getParameters().get('secure') === 'true';
 }
 
 export function isReadonly(): boolean {

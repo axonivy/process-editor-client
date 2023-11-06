@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@eclipse-glsp/client": "1.1.0-RC10",
-    "@axonivy/editor-icons": "11.2.1-next.701",
+    "@axonivy/editor-icons": "11.2.1-next.711",
     "@axonivy/process-editor-protocol": "11.2.1-next",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
