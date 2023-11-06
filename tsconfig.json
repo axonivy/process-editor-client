@@ -1,5 +1,5 @@
 {
-  "extends": "./configs/base.tsconfig",
+  "extends": "./configs/tsconfig.base",
   "compilerOptions": {
     "skipLibCheck": false,
     "baseUrl": ".",
