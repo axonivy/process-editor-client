@@ -17,6 +17,7 @@
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",
+    "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
