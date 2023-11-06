@@ -18,7 +18,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               sh 'yarn build'
               archiveArtifacts 'integration/eclipse/app/*'
               archiveArtifacts 'integration/standalone/app/*'
@@ -32,7 +32,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle'
               }
@@ -46,7 +46,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               timeout(30) {
                 sh 'yarn test:ci'
               }

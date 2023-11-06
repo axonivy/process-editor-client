@@ -59,6 +59,7 @@
   margin: 0;
   font-weight: 600;
   font-size: 14px;
+  user-select: text;
 }
 .bar-menu-items .menu-group-header {
   display: flex;
