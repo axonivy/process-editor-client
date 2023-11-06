@@ -2,6 +2,10 @@
   position: relative;
   right: 0;
   z-index: 1000;
+  height: 100%;
+}
+.inscription-ui-container > div {
+  height: 100%;
 }
 .inscription-ui-container .inscription-resizer {
   border-left: 1px solid var(--glsp-tool-border);
