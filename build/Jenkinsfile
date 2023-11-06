@@ -18,7 +18,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               sh 'yarn build && yarn build:production'
               archiveArtifacts 'integration/eclipse/build/**'
               archiveArtifacts 'integration/standalone/build/**'
@@ -32,9 +32,12 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node').inside {
+            docker.build('node', '-f build/Dockerfile .').inside {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle'
+                withChecks('ESLint') {
+                  recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
+                }
               }
             }
           }
@@ -46,29 +49,18 @@ pipeline {
     //   steps {
     //     script {
     //       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-    //         docker.build('node').inside {
+    //         docker.build('node', '-f build/Dockerfile .').inside {
     //           timeout(30) {
     //             sh 'yarn test:ci'
+    //             withChecks('Tests') {
+    //               junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+    //             }
     //           }
     //         }
     //       }
     //     }
     //   }
     // }
-
-    stage('Web Tests (Playwright)') {
-      steps {
-        script {
-          docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
-            dir ('integration/standalone/glsp-test-project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
-            }
-          }
-          archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integration/standalone/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
-        }
-      }
-    }
 
     stage('Deploy (Maven)') {
       when {
@@ -92,7 +84,7 @@ pipeline {
       }
       steps {
         script {
-          docker.build('node').inside {
+          docker.build('node', '-f build/Dockerfile .').inside {
             sh 'yarn build'
             withNPM(npmrcConfig:'npmjs-registry.ivyteam.io') {
               sh 'yarn publish:next'
@@ -106,14 +98,6 @@ pipeline {
   post {
     always {
       discoverGitReferenceBuild defaultBranch: 'master'
-      // Record & publish ESLint issues
-      recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true,
-      tools: [esLint(pattern: 'node_modules/**/*/eslint.xml')],
-      qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-
-      withChecks('Tests') {
-        junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
-      }
     }
   }
 }

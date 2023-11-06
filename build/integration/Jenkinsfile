@@ -1,0 +1,35 @@
+pipeline {
+  agent any
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '5'))
+  }
+
+  triggers {
+    cron '@midnight'
+  }
+
+  parameters {
+    string(name: 'engineSource', defaultValue: 'https://product.ivyteam.io/', description: 'Engine page url')
+  }
+
+  stages {
+    stage('Integration Test') {
+      steps {
+        script {
+          docker.build('node-webtest', '-f build/integration/Dockerfile .').inside {
+            sh 'yarn install'
+            dir ('integration/standalone/glsp-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
+            }
+          }
+          archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'integration/standalone/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
+          withChecks('Integration WebTest') {
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+          }
+        }
+      }
+    }
+  }
+}
