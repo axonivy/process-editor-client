@@ -46,3 +46,6 @@ report.xml
 eslint.xml
 **/test-results/*
 playwright-report
+
+
+tsconfig.tsbuildinfo

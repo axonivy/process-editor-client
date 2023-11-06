@@ -43,8 +43,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "clean": "rimraf lib",
-    "build": "yarn tsc",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "build": "tsc --build",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "test:mocha": "mocha --config ../../configs/.mocharc.json \"./tests/**/*.spec.?(ts|tsx)\"",

@@ -21,8 +21,8 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "scripts": {
-    "clean": "rimraf lib build/*",
-    "build": "type",
+    "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
+    "build": "tsc --build",
     "build:production": "yarn type && vite build",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "type": "tsc --noEmit",

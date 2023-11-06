@@ -7,6 +7,7 @@
   },
   "scripts": {
     "build": "yarn && lerna run build",
+    "clean": "lerna run clean",
     "build:production": "lerna run build:production",
     "lint": "lerna run lint --",
     "type": "lerna run type",
