@@ -38,11 +38,11 @@ import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
 import './index.css';
 
 const parameters = getParameters();
-let server = parameters.get('server');
-if (server === undefined) {
-  server = getServerDomain();
-}
 const app = parameters.get('app') ?? 'designer';
+let server = parameters.get('server');
+if (!server) {
+  server = getServerDomain().replace(app, '');
+}
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
 const webSocketBase = `${isSecureConnection() ? 'wss' : 'ws'}://${server}/`;
@@ -86,8 +86,7 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
         setViewerMode();
       } else {
         actionDispatcher.dispatch(EnableToolPaletteAction.create());
-        MonacoUtil.initStandalone(editorWorker);
-        MonacoEditorUtil.initMonaco(reactMonaco, theme);
+        MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, theme));
         actionDispatcher.dispatch(EnableInscriptionAction.create({ server: webSocketBase, app, pmv }));
       }
       if (!isInPreviewMode()) {

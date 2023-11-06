@@ -19,7 +19,7 @@ import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQuer
 import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { InscriptionClient } from '@axonivy/inscription-protocol';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
+import { InscriptionClientJsonRpc, IvyScriptLanguage, MonacoUtil } from '@axonivy/inscription-core';
 import { SwitchThemeActionHandler } from '@axonivy/process-editor';
 import { EnableInscriptionAction, SwitchThemeAction, ToggleInscriptionAction } from '@axonivy/process-editor-protocol';
 
@@ -119,7 +119,9 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     }
     if (SwitchThemeAction.is(action)) {
       this.updateInscriptionUi();
-      reactMonaco.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(action.theme));
+      MonacoUtil.monacoInitialized().then(() => {
+        reactMonaco.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(action.theme));
+      });
     }
     return;
   }
