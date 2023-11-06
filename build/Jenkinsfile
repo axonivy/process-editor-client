@@ -88,6 +88,7 @@ pipeline {
           docker.build('node', '-f build/Dockerfile .').inside {
             sh 'yarn build'
             withNPM(npmrcConfig:'npmjs-registry.ivyteam.io') {
+              sh 'git checkout .'
               sh 'yarn publish:next'
             }
           }
