@@ -6,5 +6,9 @@
     "baseUrl": ".",
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "../protocol" },
+    { "path": "../editor" },
+  ]
 }

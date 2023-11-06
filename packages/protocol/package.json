@@ -25,8 +25,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "clean": "rimraf lib",
-    "build": "tsc",
+    "clean": "rimraf lib tsconfig.tsbuildinfo",
+    "build": "tsc --build",
     "type": "tsc --noEmit",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src"
   },
