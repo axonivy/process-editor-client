@@ -12,8 +12,8 @@ export default defineConfig(() => {
       rollupOptions: {
         output: {
           manualChunks: id => {
-            if (id.includes('@axonivy/inscription')) {
-              return 'inscription';
+            if (id.includes('monaco-languageclient')) {
+              return 'monaco';
             }
           }
         }
