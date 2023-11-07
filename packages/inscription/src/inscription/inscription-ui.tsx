@@ -134,11 +134,15 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   private changeUiVisiblitiy(force?: boolean) {
-    const currentState = this.containerElement.classList.contains('hidden');
+    const baseDiv = document.getElementById('inscription');
+    if (!baseDiv) {
+      return;
+    }
+    const currentState = baseDiv.classList.contains('hidden');
     if (force || currentState) {
-      this.containerElement.classList.remove('hidden');
+      baseDiv.classList.remove('hidden');
     } else {
-      this.containerElement.classList.add('hidden');
+      baseDiv.classList.add('hidden');
     }
     window.dispatchEvent(new CustomEvent('resize'));
   }
