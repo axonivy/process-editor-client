@@ -17,6 +17,18 @@
       "postDebugTask": "Terminate All Tasks"
     },
     {
+      "name": "Launch Viewer (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
+      "presentation": {
+        "group": "4. Standalone",
+        "order": 1
+      },
+      "preLaunchTask": "Start Viewer",
+      "postDebugTask": "Terminate All Tasks"
+    },
+    {
       "name": "Launch Eclipse (Chrome)",
       "type": "chrome",
       "request": "launch",

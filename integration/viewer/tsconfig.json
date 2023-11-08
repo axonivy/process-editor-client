@@ -1,0 +1,16 @@
+{
+  "extends": "../../configs/tsconfig.base",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "types": ["vite/client"],
+    "noEmit": true
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../../packages/inscription" },
+    { "path": "../../packages/editor" },
+  ]
+}
