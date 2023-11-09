@@ -12,6 +12,7 @@
     "lint": "lerna run lint --",
     "type": "lerna run type",
     "start": "yarn --cwd integration/standalone start",
+    "start:viewer": "yarn --cwd integration/viewer start",
     "start:eclipse": "yarn --cwd integration/eclipse start",
     "test": "lerna run test",
     "test:win": "lerna run test:win",

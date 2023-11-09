@@ -28,6 +28,30 @@
       ]
     },
     {
+      "label": "Start Viewer",
+      "type": "shell",
+      "group": "build",
+      "command": "yarn start:viewer",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
+    },
+    {
       "label": "Start Eclipse",
       "type": "shell",
       "group": "build",

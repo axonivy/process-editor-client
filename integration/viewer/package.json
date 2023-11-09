@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "name": "@axonivy/viewer-integration",
+  "version": "11.2.1-next",
+  "description": "Viewer browser-app for the Axon Ivy process editor",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/glsp-editor-client"
+  },
+  "dependencies": {
+    "@axonivy/process-editor": "11.2.1-next",
+    "@eclipse-glsp/client": "1.1.0-RC10"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "@vscode/codicons": "^0.0.25",
+    "path-browserify": "^1.0.1",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "scripts": {
+    "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
+    "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
+    "type": "tsc --noEmit",
+    "build": "tsc --build",
+    "build:production": "yarn type && vite build",
+    "start": "vite"
+  }
+}

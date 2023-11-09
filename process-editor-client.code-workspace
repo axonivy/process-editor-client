@@ -21,6 +21,10 @@
       "path": "./integration/standalone"
     },
     {
+      "name": "integration/viewer",
+      "path": "./integration/viewer"
+    },
+    {
       "name": "integration/eclipse",
       "path": "./integration/eclipse"
     }
