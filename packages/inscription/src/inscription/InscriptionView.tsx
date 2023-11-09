@@ -1,6 +1,7 @@
 import { App } from '@axonivy/inscription-editor';
 import React, { useEffect, useState } from 'react';
 import { useMove } from 'react-aria';
+import { inscriptionWidthStorage } from './inscription-width-storage';
 
 const JSX = { createElement: React.createElement };
 
@@ -16,19 +17,17 @@ const InscriptionView = ({ app, pmv, pid }: InscriptionViewProps) => {
     setElement(pid);
   }, [pid]);
 
-  const [width, setWidth] = useState(window.innerWidth / 3);
+  const [width, setWidth] = useState(inscriptionWidthStorage().getWidth());
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
     onMoveStart() {
       setResizeActive(true);
     },
     onMove(e) {
-      setWidth(x => {
-        const newWidth = x - e.deltaX;
-        if (newWidth < window.innerWidth / 2 && newWidth > 200) {
-          return newWidth;
-        }
-        return x;
+      setWidth(oldWidth => {
+        const newWidth = inscriptionWidthStorage().fixWidth(oldWidth - e.deltaX);
+        inscriptionWidthStorage().setWidth(newWidth);
+        return newWidth;
       });
     },
     onMoveEnd() {
