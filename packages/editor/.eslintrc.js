@@ -1,9 +1,9 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: ['../../configs/base.eslintrc.json', '../../configs/warnings.eslintrc.json', '../../configs/errors.eslintrc.json'],
-  ignorePatterns: ['**/{css,node_modules,lib,server}'],
+  ignorePatterns: ['**/{css,node_modules,lib,server}', 'vitest.config.ts'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'tsconfig.eslint.json'
+    project: 'tsconfig.json'
   }
 };

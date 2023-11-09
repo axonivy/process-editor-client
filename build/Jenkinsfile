@@ -47,22 +47,22 @@ pipeline {
       }
     }
 
-    // stage('Tests (Mocha)') {
-    //   steps {
-    //     script {
-    //       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-    //         docker.build('node', '-f build/Dockerfile .').inside {
-    //           timeout(30) {
-    //             sh 'yarn test:ci'
-    //             withChecks('Tests') {
-    //               junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
-    //             }
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+    stage('Tests') {
+      steps {
+        script {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+            docker.build('node', '-f build/Dockerfile .').inside {
+              timeout(30) {
+                sh 'yarn test:ci'
+                withChecks('Tests') {
+                  junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+                }
+              }
+            }
+          }
+        }
+      }
+    }
 
     stage('Deploy (Maven)') {
       when {

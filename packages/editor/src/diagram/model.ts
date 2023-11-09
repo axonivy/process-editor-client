@@ -317,11 +317,13 @@ export class MulitlineEditLabel extends SLabel implements EditableLabel {
 
   textWidth(text: string, font: string): number {
     const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    if (context) {
-      context.font = font;
-      const metrics = context.measureText(text);
-      return metrics.width;
+    if ('getContext' in canvas) {
+      const context = canvas.getContext('2d');
+      if (context) {
+        context.font = font;
+        const metrics = context.measureText(text);
+        return metrics.width;
+      }
     }
     return this.bounds.width;
   }

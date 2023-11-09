@@ -34,6 +34,7 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
+    "vitest.commandLine": "yarn --cwd packages/editor test",
     "eslint.validate": ["javascript", "typescript"],
     "search.exclude": {
       "**/node_modules": true,

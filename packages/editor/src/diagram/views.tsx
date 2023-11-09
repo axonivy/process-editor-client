@@ -2,10 +2,12 @@ import {
   angleOfPoint,
   EdgePadding,
   GEdgeView,
+  hasArguments,
   IView,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
+  SEdge,
   svg,
   toDegrees
 } from '@eclipse-glsp/client';
@@ -115,5 +117,14 @@ export class AssociationEdgeView extends GEdgeView {
       line.data.style = { stroke: edge.color };
     }
     return line;
+  }
+
+  protected override renderAdditionals(edge: SEdge, segments: Point[], _context: RenderingContext): VNode[] {
+    // for additional padding we draw another transparent path with larger stroke width
+    if (hasArguments(edge) && edge.args) {
+      const edgePadding = EdgePadding.from(edge);
+      return edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
+    }
+    return [];
   }
 }
