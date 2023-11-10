@@ -1,4 +1,4 @@
-import '../../css/decoration.css';
+import './decoration.css';
 
 import { ContainerModule } from 'inversify';
 import { configureModelElement, DefaultTypes, SIssueMarker, TYPES } from '@eclipse-glsp/client';

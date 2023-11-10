@@ -1,4 +1,4 @@
-import '../../css/breakpoint.css';
+import './breakpoint.css';
 
 import { ContainerModule } from 'inversify';
 import { configureActionHandler, configureCommand, configureView, TYPES } from '@eclipse-glsp/client';

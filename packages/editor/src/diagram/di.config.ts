@@ -1,4 +1,4 @@
-import '../../css/diagram.css';
+import './diagram.css';
 
 import {
   configureActionHandler,

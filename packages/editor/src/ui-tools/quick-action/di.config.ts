@@ -1,4 +1,4 @@
-import '../../../css/quick-action.css';
+import './quick-action.css';
 
 import { configureActionHandler, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, interfaces } from 'inversify';

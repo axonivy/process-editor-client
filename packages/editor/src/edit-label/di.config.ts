@@ -1,4 +1,4 @@
-import '../../css/inline-label.css';
+import './edit-label.css';
 
 import {
   BalloonLabelValidationDecorator,
