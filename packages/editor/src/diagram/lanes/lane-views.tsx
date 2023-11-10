@@ -1,4 +1,4 @@
-import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView, svg } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView, hasArguments, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
@@ -72,12 +72,20 @@ export class LaneNodeView extends RectangularNodeView {
 @injectable()
 export class PoolNodeView extends LaneNodeView {
   protected getDecoratorLine(node: LaneNode): VNode {
-    const poolLaneSpace = (GArgument.getNumber(node, 'poolLabelSpace') ?? 24) - 1;
+    const poolLaneSpace = this.getPoolLaneSpace(node);
     const nodeHeight = node.size.height - 1;
     const path = `M${poolLaneSpace},0 v${nodeHeight} h-${poolLaneSpace - 4} q-4,0 -4,-4 v-${nodeHeight - 8} q0,-4 4,-4 z`;
     return (
       <path class-sprotty-node={true} class-pool-label-rect d={path} {...(node.color ? { style: { stroke: node.color } } : {})}></path>
     );
+  }
+
+  private getPoolLaneSpace(node: LaneNode) {
+    let poolLaneSpace = 24;
+    if (hasArguments(node) && node.args) {
+      poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
+    }
+    return poolLaneSpace - 1;
   }
 }
 

@@ -15,7 +15,6 @@
     "start:viewer": "yarn --cwd integration/viewer start",
     "start:eclipse": "yarn --cwd integration/eclipse start",
     "test": "lerna run test",
-    "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
     "playwright:install": "yarn playwright install",

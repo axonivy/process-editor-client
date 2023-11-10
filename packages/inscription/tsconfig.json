@@ -7,8 +7,5 @@
     "skipLibCheck": true
   },
   "include": ["src"],
-  "references": [
-    { "path": "../protocol" },
-    { "path": "../editor" },
-  ]
+  "references": [{ "path": "../protocol" }, { "path": "../editor/tsconfig.build.json" }]
 }

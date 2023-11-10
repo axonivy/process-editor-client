@@ -48,5 +48,5 @@ eslint.xml
 playwright-report
 
 
-tsconfig.tsbuildinfo
+tsconfig.*tsbuildinfo
 build/

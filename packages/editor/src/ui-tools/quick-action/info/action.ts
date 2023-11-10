@@ -36,7 +36,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
         elementId: element.id,
         markers: this.markers(element),
         title: this.name(element),
-        text: GArgument.getString(element, 'desc'),
+        text: hasArguments(element) && element.args ? GArgument.getString(element, 'desc') : '',
         info: this.info(element)
       }),
       letQuickActionsOpen: true,
@@ -46,7 +46,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
   }
 
   private info(element: SModelElement): JsonAny | undefined {
-    return hasArguments(element) ? element.args['info'] : undefined;
+    return hasArguments(element) && element.args ? element.args['info'] : undefined;
   }
 
   private name(element: SModelElement): string | undefined {
@@ -62,13 +62,15 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
   }
 
   private nameAddition(element: SModelElement): string | undefined {
-    const varName = GArgument.getString(element, 'varName');
-    if (varName) {
-      return ` [${varName}]`;
-    }
-    const outerElement = GArgument.getString(element, 'outerElement');
-    if (outerElement) {
-      return ` [${outerElement}]`;
+    if (hasArguments(element) && element.args) {
+      const varName = GArgument.getString(element, 'varName');
+      if (varName) {
+        return ` [${varName}]`;
+      }
+      const outerElement = GArgument.getString(element, 'outerElement');
+      if (outerElement) {
+        return ` [${outerElement}]`;
+      }
     }
     return undefined;
   }

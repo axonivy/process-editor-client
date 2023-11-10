@@ -9,8 +9,5 @@
     "noEmit": true
   },
   "include": ["src"],
-  "references": [
-    { "path": "../../packages/inscription" },
-    { "path": "../../packages/editor" },
-  ]
+  "references": [{ "path": "../../packages/inscription" }, { "path": "../../packages/editor" }]
 }
