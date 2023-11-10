@@ -1,4 +1,4 @@
-import '../../../css/viewport-bar.css';
+import './viewport-bar.css';
 
 import { ContainerModule } from 'inversify';
 import {

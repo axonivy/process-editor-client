@@ -1,7 +1,7 @@
-import '../css/colors.css';
+import './colors.css';
 import '@axonivy/editor-icons/lib/ivy-icons.css';
 import 'toastify-js/src/toastify.css';
-import '../css/toastify.css';
+import './toastify.css';
 
 import {
   DEFAULT_MODULES,

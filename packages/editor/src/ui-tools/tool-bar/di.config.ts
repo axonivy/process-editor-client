@@ -1,6 +1,6 @@
-import '../../../css/tool-bar.css';
-import '../../../css/toggle-switch.css';
-import '../../../css/menu.css';
+import './tool-bar.css';
+import './toggle-switch.css';
+import './menu.css';
 
 import { configureActionHandler, EnableDefaultToolsAction, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, interfaces } from 'inversify';

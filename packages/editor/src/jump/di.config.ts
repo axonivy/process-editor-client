@@ -1,4 +1,4 @@
-import '../../css/jump-out.css';
+import './jump-out.css';
 
 import { configureActionHandler, configureCommand, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';

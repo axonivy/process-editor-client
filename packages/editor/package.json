@@ -39,7 +39,8 @@
   },
   "scripts": {
     "clean": "rimraf lib tsconfig.*tsbuildinfo",
-    "build": "tsc --build tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json && yarn build:copyfiles",
+    "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "test": "yarn vitest",
@@ -47,8 +48,7 @@
   },
   "files": [
     "lib",
-    "src",
-    "css"
+    "src"
   ],
   "types": "lib/index",
   "module": "lib/index"

@@ -1,4 +1,4 @@
-import '../../css/inscription-ui.css';
+import './inscription-ui.css';
 
 import { ContainerModule } from 'inversify';
 import { InscriptionUi } from './inscription-ui';

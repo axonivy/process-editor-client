@@ -1,4 +1,4 @@
-import '../../css/execution.css';
+import './execution.css';
 
 import { configureActionHandler, configureCommand } from '@eclipse-glsp/client';
 import { ContainerModule } from 'inversify';
