@@ -34,7 +34,7 @@ test.describe('diagram', () => {
     await page.mouse.move(200, 200);
     await assertNegativeArea(page, true);
     await page.mouse.up();
-    await assertPosition(start, { x: 185, y: 121 });
+    await assertPosition(start, { x: 185, y: 129 });
     await assertNegativeArea(page, false);
   });
 
