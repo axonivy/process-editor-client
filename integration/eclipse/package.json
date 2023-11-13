@@ -15,7 +15,7 @@
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
     "vite-tsconfig-paths": "^4.2.1"
