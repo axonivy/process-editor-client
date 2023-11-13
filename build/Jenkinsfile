@@ -33,15 +33,15 @@ pipeline {
     stage('Codechecks (ESLint)') {
       steps {
         script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.build('node', '-f build/Dockerfile .').inside {
               timeout(30) {
                 sh 'yarn lint -o eslint.xml -f checkstyle'
-                withChecks('ESLint') {
-                  recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: '**/node_modules/**/eslint.xml')], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-                }
               }
             }
+          }
+          withChecks('ESLint') {
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: 'packages/**/eslint.xml,integration/**/eslint.xml', skipSymbolicLinks: true)], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
           }
         }
       }
@@ -50,15 +50,15 @@ pipeline {
     stage('Tests') {
       steps {
         script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
+          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.build('node', '-f build/Dockerfile .').inside {
               timeout(30) {
                 sh 'yarn test:ci'
-                withChecks('Tests') {
-                  junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
-                }
               }
             }
+          }
+          withChecks('Tests') {
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'packages/**/report.xml'
           }
         }
       }
