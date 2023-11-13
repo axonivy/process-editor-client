@@ -49,4 +49,4 @@ playwright-report
 
 
 tsconfig.*tsbuildinfo
-build/
+integration/**/build/
