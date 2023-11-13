@@ -24,7 +24,8 @@
     "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
     "build": "tsc --build",
     "build:production": "yarn type && vite build",
-    "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "start": "vite"
   }
