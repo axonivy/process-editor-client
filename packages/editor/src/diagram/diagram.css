@@ -24,7 +24,7 @@ body {
 .sprotty-graph.grid {
   background-image: radial-gradient(var(--glsp-grid) 1px, transparent 0);
   background-size: 16px 16px;
-  background-position: 8px 12px;
+  background-position: 8px 8px;
 }
 
 /* Pool / Lane */
