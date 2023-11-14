@@ -1,12 +1,13 @@
 {
-  "extends": "../../configs/tsconfig.base",
+  "extends": "../../configs/tsconfig.integration.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
-    "types": ["vite/client"],
-    "noEmit": true
+    "baseUrl": "."
   },
   "include": ["src"],
-  "references": [{ "path": "../../packages/inscription" }, { "path": "../../packages/editor" }]
+  "references": [
+    { "path": "../../packages/inscription/tsconfig.json" },
+    { "path": "../../packages/editor/tsconfig.json" }
+  ]
 }
