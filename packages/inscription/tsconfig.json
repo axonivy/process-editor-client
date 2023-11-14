@@ -1,11 +1,10 @@
 {
-  "extends": "../../configs/tsconfig.base",
+  "extends": "../../configs/tsconfig.package.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
-    "skipLibCheck": true
+    "baseUrl": "."
   },
   "include": ["src"],
-  "references": [{ "path": "../protocol" }, { "path": "../editor/tsconfig.build.json" }]
+  "references": [{ "path": "../protocol/tsconfig.json" }, { "path": "../editor/tsconfig.json" }]
 }

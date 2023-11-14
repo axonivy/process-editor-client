@@ -4,6 +4,6 @@ module.exports = {
   ignorePatterns: ['**/{css,node_modules,lib}', 'vite.*.js', 'playwright.config.ts'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'tsconfig.eslint.json'
+    project: 'tsconfig.json'
   }
 };

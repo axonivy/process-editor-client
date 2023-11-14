@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "composite": true,
     "incremental": true,
     "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
     "noImplicitAny": true,
     "noEmitOnError": false,
     "noImplicitThis": true,
@@ -12,7 +9,6 @@
     "noImplicitReturns": true,
     "strictNullChecks": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
@@ -20,8 +16,7 @@
     "target": "ESNext",
     "jsx": "react",
     "jsxFactory": "JSX.createElement",
-    "lib": ["dom", "dom.iterable", "ESNext"],
-    "sourceMap": true,
-    "types": ["node", "reflect-metadata"]
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "sourceMap": true
   }
 }
