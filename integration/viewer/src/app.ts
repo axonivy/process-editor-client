@@ -36,7 +36,7 @@ const parameters = getParameters();
 const app = parameters.get('app') ?? 'designer';
 let server = parameters.get('server');
 if (!server) {
-  server = getServerDomain().replace(app, '');
+  server = getServerDomain().replace(`/${app}`, '');
 }
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
