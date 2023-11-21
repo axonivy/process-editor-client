@@ -10,7 +10,7 @@
 
   <properties>
     <engine.page.url>https://product.ivyteam.io/</engine.page.url>
-    <project.build.plugin.version>11.2.0-SNAPSHOT</project.build.plugin.version>
+    <project.build.plugin.version>11.2.1-SNAPSHOT</project.build.plugin.version>
     <engine.test.app>glsp-test-project</engine.test.app>
   </properties>
 
