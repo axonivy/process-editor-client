@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/process-editor-inscription",
-  "version": "11.2.1-next",
+  "version": "11.3.0-next",
   "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -10,11 +10,11 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@eclipse-glsp/client": "1.1.0-RC10",
-    "@axonivy/process-editor": "11.2.1-next",
     "@axonivy/inscription-core": "~11.2.1-next.795",
     "@axonivy/inscription-editor": "~11.2.1-next.795",
     "@axonivy/inscription-protocol": "~11.2.1-next.795",
+    "@axonivy/process-editor": "11.3.0-next",
+    "@eclipse-glsp/client": "1.1.0-RC10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
