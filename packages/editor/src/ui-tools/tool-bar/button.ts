@@ -108,7 +108,7 @@ export class OptionsToolButton implements ToolBarButton {
     public readonly theme?: () => string,
     public readonly icon = IvyIcons.Settings,
     public readonly title = 'Settings',
-    public readonly sorting = 'Z',
+    public readonly sorting = 'Y',
     public readonly action = () => ShowToolBarOptionsMenuAction.create({ customIconState: customIconState, grid: grid, theme: theme }),
     public readonly id = 'btn_options_menu',
     public readonly location = ToolBarButtonLocation.Right,
