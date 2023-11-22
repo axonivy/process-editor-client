@@ -7,17 +7,17 @@
   resolved "https://npmjs-registry.ivyteam.io/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@axonivy/editor-icons@11.2.1-next.795", "@axonivy/editor-icons@11.2.1-next.795+258144b":
-  version "11.2.1-next.795"
-  resolved "https://npmjs-registry.ivyteam.io/@axonivy/editor-icons/-/editor-icons-11.2.1-next.795.tgz#a62618541eb6e7c775a7bfdea3daed9cacc9ffc7"
-  integrity sha512-lmqgTQ2u9yD//QQuYpGebjwjXy/XR65Y26G3YMbcxdfHbTxjWGA6BR5+mCglDmOsYh2BTzPt+GQ59chEe7/Esg==
+"@axonivy/editor-icons@11.2.1-next.831", "@axonivy/editor-icons@11.2.1-next.831+9cf5be1":
+  version "11.2.1-next.831"
+  resolved "https://npmjs-registry.ivyteam.io/@axonivy/editor-icons/-/editor-icons-11.2.1-next.831.tgz#65518d0fa2ad0242583341e85701b7fd20340d8c"
+  integrity sha512-BQTlXFUOv7qszVqA/wVwfX28VwW0vLzbg8Ov1xmN6HU89R09N/NIYRhbzncBSN/ASqpAc2Zrc6W7DQnoYJdUXw==
 
-"@axonivy/inscription-core@~11.2.1-next.795":
-  version "11.2.1-next.795"
-  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-core/-/inscription-core-11.2.1-next.795.tgz#0ee69867a7bc691e5ca75468552bc1a9a9bb2efc"
-  integrity sha512-53FD0+d12H29DKBotbAbsyDoWEgE0oUzh65/5B+Shm0YQ91qyaJ4lDxIdvYHwWFzkkbVf1ccBGateOUWExxUkg==
+"@axonivy/inscription-core@~11.2.1-next.831":
+  version "11.2.1-next.831"
+  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-core/-/inscription-core-11.2.1-next.831.tgz#164b8798782430084320cb73b888e2f2e84815f9"
+  integrity sha512-aUCKb8oPud3gDY6rglv6tLTmQLCvj5KrA4xpExL2udX7OgocaIDRKojsYxKTDQa+REsnb59yiUZ1DVYUDwLksw==
   dependencies:
-    "@axonivy/inscription-protocol" "11.2.1-next.795+258144b"
+    "@axonivy/inscription-protocol" "11.2.1-next.831+9cf5be1"
     monaco-editor "^0.44.0"
     monaco-editor-workers "^0.44.0"
     monaco-languageclient "^6.6.1"
@@ -25,13 +25,13 @@
     vscode-languageserver-protocol "^3.17.5"
     vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/inscription-editor@~11.2.1-next.795":
-  version "11.2.1-next.795"
-  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-editor/-/inscription-editor-11.2.1-next.795.tgz#f4ff00e0774abc53029f13d4159bd1cc4ee9d744"
-  integrity sha512-+AZyb2RoT6u2QoDe6A8h8PdTxN6hJjIeTxxjfScFdNrpZmmDNEyOKyWrUIm2XJPfrYjyACeReLDcNFiTFIq0Qg==
+"@axonivy/inscription-editor@~11.2.1-next.831":
+  version "11.2.1-next.831"
+  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-editor/-/inscription-editor-11.2.1-next.831.tgz#a8782e07a83b8469ee1d74d0f3082c201dbada2a"
+  integrity sha512-vY8GJSTJtxD1TalLyCEPrH5d8ZHTa+CE5RGQ376zDLdEpTntxdjaRnWOuNiZrsUTphKOi/1IKb0y1saQxDMx0g==
   dependencies:
-    "@axonivy/editor-icons" "11.2.1-next.795+258144b"
-    "@axonivy/inscription-protocol" "11.2.1-next.795+258144b"
+    "@axonivy/editor-icons" "11.2.1-next.831+9cf5be1"
+    "@axonivy/inscription-protocol" "11.2.1-next.831+9cf5be1"
     "@monaco-editor/react" "^4.6.0"
     "@radix-ui/react-accordion" "^1.1.2"
     "@radix-ui/react-checkbox" "^1.0.4"
@@ -51,10 +51,10 @@
     react-aria "^3.25.0"
     react-error-boundary "^4.0.11"
 
-"@axonivy/inscription-protocol@11.2.1-next.795+258144b", "@axonivy/inscription-protocol@~11.2.1-next.795":
-  version "11.2.1-next.795"
-  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-protocol/-/inscription-protocol-11.2.1-next.795.tgz#ba660b6ae50c79dd4c06d747f30c9cefae366003"
-  integrity sha512-4s2rLjfa+o6wz1WIZMuicfUlAkHMNj/ozCbsw6I8SkS7D1J3ssq7EHO6l3dqOCCDtLpVju6PVrGqVmx+ze1JfQ==
+"@axonivy/inscription-protocol@11.2.1-next.831+9cf5be1", "@axonivy/inscription-protocol@~11.2.1-next.831":
+  version "11.2.1-next.831"
+  resolved "https://npmjs-registry.ivyteam.io/@axonivy/inscription-protocol/-/inscription-protocol-11.2.1-next.831.tgz#bdd08688395ae439b2b14c160fdfe45450629a46"
+  integrity sha512-55K0gWLDMY5X8gcE797DX5twzaf4h/UqJb5B8btXFQoQJzVBq8k25+k2uQ/wDD4hCJ9edrDMjeSvp33+VW9b5Q==
 
 "@babel/code-frame@^7.0.0":
   version "7.18.6"

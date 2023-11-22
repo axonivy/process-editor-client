@@ -11,7 +11,7 @@ export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isWithCustomIcon(element) && element.type !== ActivityTypes.COMMENT) {
       return {
-        icon: IvyIcons.CustomIcon,
+        icon: IvyIcons.CustomImage,
         title: 'Custom Icon',
         location: 'Middle',
         sorting: 'C',
