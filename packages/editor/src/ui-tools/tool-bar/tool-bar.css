@@ -70,6 +70,9 @@
   width: 1rem;
   line-height: 1.5rem;
 }
+.tool-bar-header .tool-bar-title-button .tool-bar-button i.ivy-chevron {
+  transform: rotate(90deg);
+}
 .tool-bar-header .tool-bar-button.clicked,
 .tool-bar-header .tool-bar-button:hover {
   background: var(--glsp-tool-bar-button-active-bg);

@@ -99,7 +99,7 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Events', icon: IvyIcons.EventsGroup, sortString: 'A', id: '', actions: [] };
+    return { label: 'Events', icon: IvyIcons.Start, sortString: 'A', id: '', actions: [] };
   }
 }
 
@@ -132,7 +132,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
 export class CreateAllElementsQuickActionProvider extends CreateElementQuickActionProvider {
   quickAction(): QuickAction {
     return {
-      icon: IvyIcons.AllElements,
+      icon: IvyIcons.Task,
       title: 'Create Node',
       location: 'Hidden',
       sorting: 'Z',

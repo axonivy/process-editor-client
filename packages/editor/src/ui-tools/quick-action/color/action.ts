@@ -25,7 +25,7 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
 
   quickAction(elementIds: string[], paletteItems: () => PaletteItem[]): QuickAction {
     return {
-      icon: IvyIcons.Color,
+      icon: IvyIcons.ColorDrop,
       title: 'Select color',
       location: 'Middle',
       sorting: 'Z',

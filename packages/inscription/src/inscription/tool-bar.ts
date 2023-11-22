@@ -12,7 +12,7 @@ export class InscriptionButtonProvider implements ToolBarButtonProvider {
 
 export class InscriptionToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = IvyIcons.PenEdit,
+    public readonly icon = IvyIcons.LayoutSidebarRightCollapse,
     public readonly title = 'Inscription',
     public readonly sorting = 'Z',
     public readonly action = () => ToggleInscriptionAction.create(),

@@ -148,7 +148,7 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
       const title = document.createElement('label');
       title.textContent = toolBarButton.title;
       if (!toolBarButton.isNotMenu) {
-        button.appendChild(createIcon(IvyIcons.AngleDown));
+        button.appendChild(createIcon(IvyIcons.Chevron));
       }
       titleButton.appendChild(title);
       titleButton.appendChild(button);
