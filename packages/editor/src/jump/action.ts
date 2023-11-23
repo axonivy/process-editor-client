@@ -21,7 +21,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: SModelElement): QuickAction | undefined {
     if (isJumpable(element)) {
       return {
-        icon: IvyIcons.Jump,
+        icon: IvyIcons.SubStart,
         title: 'Jump (J)',
         location: 'Middle',
         sorting: 'A',

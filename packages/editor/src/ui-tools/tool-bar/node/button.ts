@@ -36,7 +36,7 @@ export class AllElementsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = IvyIcons.AllElements,
+    public readonly icon = IvyIcons.Task,
     public readonly title = 'All Elements',
     public readonly sorting = 'A',
     public readonly action = () => ShowToolBarMenuAction.create({ paletteItems: paletteItems, actions: actions, showSearch: true }),
@@ -62,7 +62,7 @@ export class EventsToolButton implements ToolBarButton {
   constructor(
     public readonly paletteItems: () => PaletteItem[],
     public readonly actions: (item: PaletteItem) => Action[],
-    public readonly icon = IvyIcons.EventsGroup,
+    public readonly icon = IvyIcons.Start,
     public readonly title = 'Events',
     public readonly sorting = 'B',
     public readonly action = () =>

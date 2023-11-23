@@ -58,7 +58,7 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 
   quickAction(elementIds: string[]): QuickAction {
     return {
-      icon: IvyIcons.Delete,
+      icon: IvyIcons.Trash,
       title: 'Delete',
       location: 'Left',
       sorting: 'A',

@@ -21,7 +21,7 @@ export class CenterButton implements ViewportBarButton {
 
 export class OriginScreenButton implements ViewportBarButton {
   constructor(
-    public readonly icon = IvyIcons.OriginScreen,
+    public readonly icon = IvyIcons.WindowMinimize,
     public readonly id = 'originBtn',
     public readonly title = 'Origin screen',
     public readonly action = () => OriginViewportAction.create()
