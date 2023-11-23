@@ -1,61 +1,49 @@
-import { ToolBarButton, ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
+import { ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
 import { OpenDataClassAction, OpenInscriptionAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { injectable } from 'inversify';
 
-class InscribeProcessButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.PenEdit,
-    public readonly title = 'Inscribe Process',
-    public readonly sorting = 'D',
-    public readonly action = () => OpenInscriptionAction.create(''),
-    public readonly location = ToolBarButtonLocation.Right,
-    public readonly readonly = true
-  ) {}
-}
-
 @injectable()
 export class InscribeProcessButtonProvider implements ToolBarButtonProvider {
-  button(): ToolBarButton {
-    return new InscribeProcessButton();
+  button() {
+    return {
+      icon: IvyIcons.PenEdit,
+      title: 'Inscribe Process',
+      sorting: 'D',
+      action: () => OpenInscriptionAction.create(''),
+      location: ToolBarButtonLocation.Right,
+      readonly: true
+    };
   }
-}
-
-class OpenDataClassButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.DatabaseLink,
-    public readonly title = 'Open Data Class (C)',
-    public readonly sorting = 'E',
-    public readonly action = () => OpenDataClassAction.create(),
-    public readonly location = ToolBarButtonLocation.Right,
-    public readonly readonly = true
-  ) {}
 }
 
 @injectable()
 export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
-  button(): ToolBarButton {
-    return new OpenDataClassButton();
+  button() {
+    return {
+      icon: IvyIcons.DatabaseLink,
+      title: 'Open Data Class (C)',
+      sorting: 'E',
+      action: () => OpenDataClassAction.create(),
+      location: ToolBarButtonLocation.Right,
+      readonly: true
+    };
   }
-}
-
-export class OpenInsertExtensionButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.Extension,
-    public readonly title = 'Extensions',
-    public readonly sorting = 'F',
-    public readonly action = () => OpenInsertExtensionAction.create(),
-    public readonly id = 'insertextensionbutton',
-    public readonly location = ToolBarButtonLocation.Middle,
-    public readonly switchFocus = true,
-    public readonly showTitle = true,
-    public readonly isNotMenu = true
-  ) {}
 }
 
 @injectable()
 export class OpenInsertExtensionButtonProvider implements ToolBarButtonProvider {
-  button(): ToolBarButton {
-    return new OpenInsertExtensionButton();
+  button() {
+    return {
+      icon: IvyIcons.Extension,
+      title: 'Extensions',
+      sorting: 'F',
+      action: () => OpenInsertExtensionAction.create(),
+      id: 'insertextensionbutton',
+      location: ToolBarButtonLocation.Middle,
+      switchFocus: true,
+      showTitle: true,
+      isNotMenu: true
+    };
   }
 }
