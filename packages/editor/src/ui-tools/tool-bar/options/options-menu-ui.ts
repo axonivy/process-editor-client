@@ -45,6 +45,12 @@ export class ToolBarOptionsMenu implements Menu {
     containerElement.appendChild(this.bodyDiv);
     this.bodyDiv.appendChild(this.createHeader());
     this.bodyDiv.appendChild(this.createOptions());
+    const optionsBtn = document.querySelector<HTMLDivElement>('#btn_options_menu');
+    if (optionsBtn) {
+      const containerWidth = containerElement.offsetWidth;
+      const buttonCenter = optionsBtn.offsetLeft + optionsBtn.offsetWidth / 2;
+      this.bodyDiv.style.setProperty('--menu-arrow-pos', `${containerWidth - buttonCenter - 15}px`);
+    }
     return this.bodyDiv;
   }
 

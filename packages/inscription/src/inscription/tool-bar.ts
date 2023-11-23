@@ -14,7 +14,7 @@ export class InscriptionToolButton implements ToolBarButton {
   constructor(
     public readonly icon = IvyIcons.PenEdit,
     public readonly title = 'Inscription',
-    public readonly sorting = 'D',
+    public readonly sorting = 'Z',
     public readonly action = () => ToggleInscriptionAction.create(),
     public readonly id = 'btn_inscription_toggle',
     public readonly location = ToolBarButtonLocation.Right
