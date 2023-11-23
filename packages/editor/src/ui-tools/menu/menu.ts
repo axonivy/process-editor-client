@@ -1,6 +1,6 @@
 import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { ActivityTypes } from '../../diagram/view-types';
+import { ActivityTypes, EventIntermediateTypes, EventStartTypes } from '../../diagram/view-types';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
@@ -213,13 +213,25 @@ export abstract class ItemMenu implements Menu {
   }
 
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
-    const icon = MenuIcons.get(item.icon!);
-    if (icon) {
-      return createIcon(icon);
+    if (!item.icon) {
+      return createIcon();
     }
-    if (item.icon!.startsWith(ActivityTypes.THIRD_PARTY)) {
-      return createIcon(MenuIcons.get(ActivityTypes.THIRD_PARTY));
+    return createIcon(this.resolveIcon(item.icon));
+  }
+
+  private resolveIcon(type: string) {
+    const icon = MenuIcons.get(type);
+    if (!icon) {
+      if (type.startsWith(ActivityTypes.THIRD_PARTY)) {
+        return MenuIcons.get(ActivityTypes.THIRD_PARTY);
+      }
+      if (type.startsWith(EventStartTypes.START_THIRD_PARTY)) {
+        return MenuIcons.get(EventStartTypes.START_THIRD_PARTY);
+      }
+      if (type.startsWith(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY)) {
+        return MenuIcons.get(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY);
+      }
     }
-    return createIcon();
+    return icon;
   }
 }
