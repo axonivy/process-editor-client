@@ -38,53 +38,45 @@ export function compareButtons(a: ToolBarButton, b: ToolBarButton): number {
   return a.title.localeCompare(b.title);
 }
 
-export class DefaultSelectButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.SelectionTool,
-    public readonly title = 'Selection Tool',
-    public readonly sorting = 'A',
-    public readonly action = () => EnableDefaultToolsAction.create(),
-    public readonly id = 'btn_default_tools',
-    public readonly location = ToolBarButtonLocation.Left,
-    public readonly readonly = true,
-    public readonly switchFocus = true
-  ) {}
-}
+export const DefaultSelectButton: ToolBarButton = {
+  icon: IvyIcons.SelectionTool,
+  title: 'Selection Tool',
+  sorting: 'A',
+  action: () => EnableDefaultToolsAction.create(),
+  id: 'btn_default_tools',
+  location: ToolBarButtonLocation.Left,
+  readonly: true,
+  switchFocus: true
+};
 
-export class MarqueeToolButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.MultiSelection,
-    public readonly title = 'Marquee Tool (Shift)',
-    public readonly sorting = 'B',
-    public readonly action = () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),
-    public readonly id = 'btn_marquee_tools',
-    public readonly location = ToolBarButtonLocation.Left,
-    public readonly readonly = true,
-    public readonly switchFocus = true
-  ) {}
-}
+export const MarqueeToolButton: ToolBarButton = {
+  icon: IvyIcons.MultiSelection,
+  title: 'Marquee Tool (Shift)',
+  sorting: 'B',
+  action: () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),
+  id: 'btn_marquee_tools',
+  location: ToolBarButtonLocation.Left,
+  readonly: true,
+  switchFocus: true
+};
 
-export class UndoToolButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.Undo,
-    public readonly title = 'Undo',
-    public readonly sorting = 'C',
-    public readonly action = () => UndoAction.create(),
-    public readonly id = 'btn_undo_tools',
-    public readonly location = ToolBarButtonLocation.Left
-  ) {}
-}
+export const UndoToolButton: ToolBarButton = {
+  icon: IvyIcons.Undo,
+  title: 'Undo',
+  sorting: 'C',
+  action: () => UndoAction.create(),
+  id: 'btn_undo_tools',
+  location: ToolBarButtonLocation.Left
+};
 
-export class RedoToolButton implements ToolBarButton {
-  constructor(
-    public readonly icon = IvyIcons.Redo,
-    public readonly title = 'Redo',
-    public readonly sorting = 'D',
-    public readonly action = () => RedoAction.create(),
-    public readonly id = 'btn_redo_tools',
-    public readonly location = ToolBarButtonLocation.Left
-  ) {}
-}
+export const RedoToolButton: ToolBarButton = {
+  icon: IvyIcons.Redo,
+  title: 'Redo',
+  sorting: 'D',
+  action: () => RedoAction.create(),
+  id: 'btn_redo_tools',
+  location: ToolBarButtonLocation.Left
+};
 
 @injectable()
 export class OptionsButtonProvider implements ToolBarButtonProvider {
@@ -92,27 +84,19 @@ export class OptionsButtonProvider implements ToolBarButtonProvider {
   @inject(ShowGridActionHandler) protected gridHandler: ShowGridActionHandler;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
-  button(): ToolBarButton {
-    return new OptionsToolButton(
-      () => this.customIconHandler.isShowCustomIcons,
-      () => this.gridHandler.isVisible(),
-      this.switchThemeHandler ? () => this.switchThemeHandler!.theme() : undefined
-    );
+  button() {
+    const customIconState = () => this.customIconHandler.isShowCustomIcons;
+    const grid = () => this.gridHandler.isVisible();
+    const theme = this.switchThemeHandler ? () => this.switchThemeHandler!.theme() : undefined;
+    return {
+      icon: IvyIcons.Settings,
+      title: 'Settings',
+      sorting: 'Y',
+      action: () => ShowToolBarOptionsMenuAction.create({ customIconState, grid, theme }),
+      id: 'btn_options_menu',
+      location: ToolBarButtonLocation.Right,
+      readonly: true,
+      switchFocus: true
+    };
   }
-}
-
-export class OptionsToolButton implements ToolBarButton {
-  constructor(
-    public readonly customIconState: () => boolean,
-    public readonly grid: () => boolean,
-    public readonly theme?: () => string,
-    public readonly icon = IvyIcons.Settings,
-    public readonly title = 'Settings',
-    public readonly sorting = 'Y',
-    public readonly action = () => ShowToolBarOptionsMenuAction.create({ customIconState: customIconState, grid: grid, theme: theme }),
-    public readonly id = 'btn_options_menu',
-    public readonly location = ToolBarButtonLocation.Right,
-    public readonly readonly = true,
-    public readonly switchFocus = true
-  ) {}
 }
