@@ -40,7 +40,7 @@ export function compareButtons(a: ToolBarButton, b: ToolBarButton): number {
 
 export class DefaultSelectButton implements ToolBarButton {
   constructor(
-    public readonly icon = IvyIcons.Cursor,
+    public readonly icon = IvyIcons.SelectionTool,
     public readonly title = 'Selection Tool',
     public readonly sorting = 'A',
     public readonly action = () => EnableDefaultToolsAction.create(),
@@ -53,7 +53,7 @@ export class DefaultSelectButton implements ToolBarButton {
 
 export class MarqueeToolButton implements ToolBarButton {
   constructor(
-    public readonly icon = IvyIcons.CursorSelect,
+    public readonly icon = IvyIcons.MultiSelection,
     public readonly title = 'Marquee Tool (Shift)',
     public readonly sorting = 'B',
     public readonly action = () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),

@@ -12,9 +12,9 @@
   "dependencies": {
     "@eclipse-glsp/client": "1.1.0-RC10",
     "@axonivy/process-editor": "11.2.1-next",
-    "@axonivy/inscription-core": "~11.2.1-next.795",
-    "@axonivy/inscription-editor": "~11.2.1-next.795",
-    "@axonivy/inscription-protocol": "~11.2.1-next.795",
+    "@axonivy/inscription-core": "~11.2.1-next.831",
+    "@axonivy/inscription-editor": "~11.2.1-next.831",
+    "@axonivy/inscription-protocol": "~11.2.1-next.831",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

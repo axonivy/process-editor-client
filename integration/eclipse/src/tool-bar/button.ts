@@ -23,7 +23,7 @@ export class InscribeProcessButtonProvider implements ToolBarButtonProvider {
 
 class OpenDataClassButton implements ToolBarButton {
   constructor(
-    public readonly icon = IvyIcons.DataModels,
+    public readonly icon = IvyIcons.DatabaseLink,
     public readonly title = 'Open Data Class (C)',
     public readonly sorting = 'E',
     public readonly action = () => OpenDataClassAction.create(),
@@ -41,7 +41,7 @@ export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
 
 export class OpenInsertExtensionButton implements ToolBarButton {
   constructor(
-    public readonly icon = IvyIcons.Extensions,
+    public readonly icon = IvyIcons.Extension,
     public readonly title = 'Extensions',
     public readonly sorting = 'F',
     public readonly action = () => OpenInsertExtensionAction.create(),

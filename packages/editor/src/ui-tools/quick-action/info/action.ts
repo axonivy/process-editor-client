@@ -28,7 +28,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
       return undefined;
     }
     return {
-      icon: IvyIcons.Information,
+      icon: IvyIcons.InfoCircle,
       title: 'Information (I)',
       location: 'Left',
       sorting: 'B',

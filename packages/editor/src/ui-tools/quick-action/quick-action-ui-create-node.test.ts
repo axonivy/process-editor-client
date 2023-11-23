@@ -41,11 +41,11 @@ describe('QuickActionUi - Create Nodes', () => {
   test('activity', () => {
     quickActionUi.show(root, 'foo');
     assertQuickActionUi(8, { x: 200, y: 150 });
-    assertQuickAction(0, 'Delete', IvyIcons.Delete);
-    assertQuickAction(1, 'Information (I)', IvyIcons.Information);
+    assertQuickAction(0, 'Delete', IvyIcons.Trash);
+    assertQuickAction(1, 'Information (I)', IvyIcons.InfoCircle);
     assertQuickAction(2, 'Wrap to embedded process (W)', IvyIcons.WrapToSubprocess);
-    assertQuickAction(3, 'Select color', IvyIcons.Color);
-    assertQuickAction(4, 'Events (A)', IvyIcons.EventsGroup);
+    assertQuickAction(3, 'Select color', IvyIcons.ColorDrop);
+    assertQuickAction(4, 'Events (A)', IvyIcons.Start);
     assertQuickAction(5, 'Gateways (A)', IvyIcons.GatewaysGroup);
     assertQuickAction(6, 'Activities (A)', IvyIcons.ActivitiesGroup);
     assertQuickAction(7, 'Connect', IvyIcons.Connector);
