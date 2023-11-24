@@ -13,10 +13,10 @@
     "allowSyntheticDefaultImports": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "target": "ESNext",
+    "target": "ES2022",
     "jsx": "react",
     "jsxFactory": "JSX.createElement",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "sourceMap": true
   }
 }
