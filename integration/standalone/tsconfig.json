@@ -4,7 +4,6 @@
     "rootDir": ".",
     "rootDirs": ["src", "webtests"],
     "outDir": "lib",
-    "baseUrl": ".",
     "noImplicitAny": false
   },
   "include": ["src", "webtests"],
