@@ -3,7 +3,6 @@ import {
   MouseListener,
   ChangeBoundsListener,
   SModelElement,
-  Operation,
   Action,
   SetUIExtensionVisibilityAction,
   FeedbackMoveMouseListener,
@@ -30,11 +29,11 @@ export class IvyChangeBoundsTool extends ChangeBoundsTool {
 }
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
+  protected handleMoveRoutingPointsOnServer(target: SModelElement) {
     return [];
   }
 
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+  mouseMove(target: SModelElement, event: MouseEvent) {
     const actions = super.mouseMove(target, event);
     if (this.isMouseDrag && this.activeResizeHandle) {
       actions.push(
@@ -48,7 +47,11 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
     return actions;
   }
 
-  draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
+  mouseLeave(target: SModelElement, event: MouseEvent) {
+    return this.draggingMouseUp(this.activeResizeElement ?? target, event);
+  }
+
+  draggingMouseUp(target: SModelElement, event: MouseEvent) {
     const actions = super.draggingMouseUp(target, event);
     removeNegativeArea(target);
     return actions;

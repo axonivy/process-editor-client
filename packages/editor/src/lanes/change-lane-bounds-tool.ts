@@ -6,19 +6,16 @@ import {
   BoundsAware,
   Dimension,
   ChangeBoundsOperation,
-  CompoundOperation,
   CursorCSS,
   cursorFeedbackAction,
   deleteCssClasses,
   DragAwareMouseListener,
   ElementAndBounds,
   findParentByFeature,
-  forEachElement,
   ISnapper,
   isSelected,
   isViewport,
   MouseListener,
-  Operation,
   Point,
   toElementAndBounds,
   SModelElement,
@@ -33,7 +30,7 @@ import { isValidSize } from '@eclipse-glsp/client/lib/utils/layout-utils';
 import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
-import { isLaneResizable, isSelectedLane, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
+import { isLaneResizable, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 import { addNegativeArea, removeNegativeArea } from '../tools/negative-area/model';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 
@@ -131,6 +128,10 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return [];
   }
 
+  mouseLeave(target: SModelElement, event: MouseEvent) {
+    return this.draggingMouseUp(this.activeResizeElement ?? target, event);
+  }
+
   draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
     if (this.lastDragPosition === undefined) {
       this.resetPosition();
@@ -141,33 +142,10 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     if (this.activeResizeHandle) {
       // Resize
       actions.push(...this.handleResize(this.activeResizeHandle));
-    } else {
-      // Move
-      actions.push(...this.handleMoveOnServer(target));
     }
     this.resetPosition();
     removeNegativeArea(target);
     return actions;
-  }
-
-  protected handleMoveOnServer(target: SModelElement): Action[] {
-    const operations = this.handleMoveElementsOnServer(target);
-    if (operations.length > 0) {
-      return [CompoundOperation.create(operations)];
-    }
-    return operations;
-  }
-
-  protected handleMoveElementsOnServer(target: SModelElement): Operation[] {
-    const result: Operation[] = [];
-    const newBounds: ElementAndBounds[] = [];
-    forEachElement(target.index, isSelectedLane, element => {
-      this.createElementAndBounds(element).forEach(bounds => newBounds.push(bounds));
-    });
-    if (newBounds.length > 0) {
-      result.push(ChangeBoundsOperation.create(newBounds));
-    }
-    return result;
   }
 
   protected handleResize(activeResizeHandle: SLaneResizeHandle): Action[] {
