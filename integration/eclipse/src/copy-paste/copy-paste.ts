@@ -69,10 +69,12 @@ export class IvyEclipseCopyPasteActionHandler implements IActionHandler {
   }
 
   handlePaste() {
-    // In the Eclipse Integration case, the server manages its own clipboard.
-    // Just pass an empty clipboard data to remain compliant with the API.
-    const clipboardData = {};
-    this.actionDispatcher.dispatch(PasteOperation.create({ clipboardData: clipboardData, editorContext: this.editorContext.get() }));
+    if (this.isDiagramActive()) {
+      // In the Eclipse Integration case, the server manages its own clipboard.
+      // Just pass an empty clipboard data to remain compliant with the API.
+      const clipboardData = {};
+      this.actionDispatcher.dispatch(PasteOperation.create({ clipboardData: clipboardData, editorContext: this.editorContext.get() }));
+    }
   }
 
   protected shouldCopy(): boolean {

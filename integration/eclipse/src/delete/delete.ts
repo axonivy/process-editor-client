@@ -46,6 +46,12 @@ export class IvyInvokeDeleteActionHandler implements IActionHandler {
   }
 
   handleDelete(): void {
-    this.actionDispatcher.dispatch(DeleteElementOperation.create(this.editorContext.get().selectedElementIds));
+    if (this.isDiagramActive()) {
+      this.actionDispatcher.dispatch(DeleteElementOperation.create(this.editorContext.get().selectedElementIds));
+    }
+  }
+
+  protected isDiagramActive(): boolean {
+    return document.activeElement?.parentElement?.id === this.viewerOptions.baseDiv;
   }
 }
