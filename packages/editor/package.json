@@ -39,8 +39,7 @@
   },
   "scripts": {
     "clean": "rimraf lib tsconfig.*tsbuildinfo",
-    "build": "tsc --build tsconfig.build.json && yarn build:copyfiles",
-    "build:copyfiles": "copyfiles -u 1 \"src/**/*.css\" lib",
+    "build": "tsc --build tsconfig.build.json && tscp",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
