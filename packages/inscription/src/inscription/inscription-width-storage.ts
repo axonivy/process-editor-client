@@ -20,12 +20,13 @@ export const inscriptionWidthStorage = () => {
 
   const getWidth = () => {
     let width = window.innerWidth / 3;
-    if (width) {
-      try {
-        width = Number(localStorage.getItem(inscriptionWidthKey));
-      } catch (e) {
-        console.warn("couldn't load width from localStorage", e);
-      }
+    if (width > 600) {
+      width = 600;
+    }
+    try {
+      width = Number(localStorage.getItem(inscriptionWidthKey) ?? width);
+    } catch (e) {
+      console.warn("couldn't load width from localStorage", e);
     }
     return fixWidth(width);
   };
