@@ -1,7 +1,6 @@
 import { IvyIcons } from '@axonivy/editor-icons/lib';
-import { SIssueSeverity } from '@eclipse-glsp/client';
 
-export function createIcon(icon?: IvyIcons | SIssueSeverity, additionalClasses?: string[]): HTMLElement {
+export function createIcon(icon?: IvyIcons, additionalClasses?: string[]): HTMLElement {
   const cssClasses = icon ? ['ivy', `ivy-${icon}`] : [];
   if (additionalClasses) {
     cssClasses.push(...additionalClasses);

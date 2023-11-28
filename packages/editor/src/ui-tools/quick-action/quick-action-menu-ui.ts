@@ -1,4 +1,4 @@
-import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue } from '@eclipse-glsp/client';
+import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue, SIssueSeverity } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../../utils/ui-utils';
@@ -216,7 +216,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   private createIssue(sIssue: SIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
-    issueTitle.appendChild(createIcon(sIssue.severity));
+    issueTitle.appendChild(createIcon(this.ivyIconForSeverity(sIssue.severity)));
     const issueTitleSpan = createElement('span');
     issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
     issueTitle.appendChild(issueTitleSpan);
@@ -226,5 +226,16 @@ export class InfoQuickActionMenu extends SimpleMenu {
     issueMessage.textContent = sIssue.message;
     issue.appendChild(issueMessage);
     return issue;
+  }
+
+  private ivyIconForSeverity(severity: SIssueSeverity) {
+    switch (severity) {
+      case 'info':
+        return IvyIcons.InfoCircle;
+      case 'warning':
+        return IvyIcons.Caution;
+      case 'error':
+        return IvyIcons.ErrorXMark;
+    }
   }
 }
