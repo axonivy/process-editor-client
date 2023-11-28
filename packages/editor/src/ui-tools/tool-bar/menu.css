@@ -84,10 +84,10 @@
 .bar-menu-text .menu-issue-title i {
   font-size: 14px;
 }
-.bar-menu-text .menu-issue-title .ivy-error {
+.bar-menu-text .menu-issue-title .ivy-error-x-mark {
   color: var(--glsp-error-foreground);
 }
-.bar-menu-text .menu-issue-title .ivy-warning {
+.bar-menu-text .menu-issue-title .ivy-caution {
   color: var(--glsp-warning-foreground);
 }
 .bar-menu-text .menu-issue-message {
