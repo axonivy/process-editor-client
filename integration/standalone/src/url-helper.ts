@@ -12,15 +12,7 @@ export function isSecureConnection(): boolean {
 }
 
 export function isReadonly(): boolean {
-  return getParameters().get('readonly') === 'true' || isInViewerMode() || isInPreviewMode();
-}
-
-export function isInViewerMode(): boolean {
-  return getParameters().get('mode') === 'viewer';
-}
-
-export function isInPreviewMode(): boolean {
-  return getParameters().get('mode') === 'preview';
+  return getParameters().get('readonly') === 'true';
 }
 
 export function getParameters() {

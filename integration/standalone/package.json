@@ -15,7 +15,6 @@
     "@eclipse-glsp/client": "1.1.0-RC10"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.1",
     "@types/uuid": "^9.0.7",
     "@vscode/codicons": "^0.0.25",
     "path-browserify": "^1.0.1",
@@ -28,12 +27,11 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
-    "lint": "eslint --ext .ts,.tsx ./src ./webtests",
+    "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "build:production": "yarn type && vite build",
-    "webtest": "playwright test",
     "start": "vite"
   }
 }
