@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/process-editor",
-  "version": "11.2.1-next",
+  "version": "11.2.1",
   "description": "GLSP sprotty diagrams for the Axon Ivy Processes",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -18,9 +18,9 @@
     "bpmn"
   ],
   "dependencies": {
-    "@eclipse-glsp/client": "1.1.0-RC10",
     "@axonivy/editor-icons": "11.2.1-next.831",
-    "@axonivy/process-editor-protocol": "11.2.1-next",
+    "@axonivy/process-editor-protocol": "11.2.1",
+    "@eclipse-glsp/client": "1.1.0-RC10",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
   },
@@ -28,13 +28,13 @@
     "@types/showdown": "^2.0.4",
     "@types/toastify-js": "^1.12.3",
     "cpx": "^1.5.0",
+    "happy-dom": "^12.10.3",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.5",
     "snabbdom-to-html": "^7.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
-    "happy-dom": "^12.10.3",
     "vitest": "^0.34.6"
   },
   "scripts": {
