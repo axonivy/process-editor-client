@@ -5,9 +5,11 @@ import {
   GArgument,
   IActionDispatcher,
   IActionHandler,
+  SModelElement,
   SModelRoot,
   SetUIExtensionVisibilityAction,
-  TYPES
+  TYPES,
+  isOpenable
 } from '@eclipse-glsp/client';
 import { OpenAction } from 'sprotty-protocol';
 import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
@@ -81,9 +83,10 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   private updateInscriptionUi() {
-    let element = this.selectionService.getSelectedElementIDs()[0];
+    let element: SModelElement = this.selectionService.getSelectedElements().filter(isOpenable)[0];
     if (!element) {
-      element = this.editorContext.modelRoot.id;
+      element = this.editorContext.modelRoot;
+      this.changeUiVisiblitiy(false);
     }
     this.inscriptionClient?.then(client => {
       this.root.render(
@@ -91,7 +94,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
           <ThemeContextProvider theme={this.switchThemeHandler?.theme() ?? 'light'}>
             <ClientContextProvider client={client}>
               <QueryClientProvider client={this.queryClient}>
-                <InscriptionView app={this.app} pmv={this.pmv} pid={element} />
+                <InscriptionView app={this.app} pmv={this.pmv} pid={element.id} />
               </QueryClientProvider>
             </ClientContextProvider>
           </ThemeContextProvider>
@@ -112,7 +115,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
       return SetUIExtensionVisibilityAction.create({ extensionId: InscriptionUi.ID, visible: true });
     }
     if (ToggleInscriptionAction.is(action)) {
-      this.changeUiVisiblitiy();
+      this.changeUiVisiblitiy(action.force);
     }
     if (Action.is(action) && action.kind === OpenAction.KIND) {
       this.changeUiVisiblitiy(true);
@@ -138,11 +141,14 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     if (!baseDiv) {
       return;
     }
-    const currentState = baseDiv.classList.contains('hidden');
-    if (force || currentState) {
-      baseDiv.classList.remove('hidden');
+    if (force !== undefined) {
+      if (force) {
+        baseDiv.classList.remove('hidden');
+      } else {
+        baseDiv.classList.add('hidden');
+      }
     } else {
-      baseDiv.classList.add('hidden');
+      baseDiv.classList.toggle('hidden');
     }
     window.dispatchEvent(new CustomEvent('resize'));
   }

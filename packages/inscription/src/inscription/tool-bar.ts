@@ -10,7 +10,7 @@ export class InscriptionButtonProvider implements ToolBarButtonProvider {
       icon: IvyIcons.LayoutSidebarRightCollapse,
       title: 'Inscription',
       sorting: 'Z',
-      action: () => ToggleInscriptionAction.create(),
+      action: () => ToggleInscriptionAction.create({}),
       id: 'btn_inscription_toggle',
       location: ToolBarButtonLocation.Right,
       readonly: true

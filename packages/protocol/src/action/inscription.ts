@@ -34,13 +34,14 @@ export namespace EnableInscriptionAction {
     return Action.hasKind(object, KIND);
   }
 
-  export function create(options?: { server?: string; app?: string; pmv?: string }): EnableInscriptionAction {
+  export function create(options: { server?: string; app?: string; pmv?: string }): EnableInscriptionAction {
     return { kind: KIND, ...options };
   }
 }
 
 export interface ToggleInscriptionAction extends Action {
   kind: typeof ToggleInscriptionAction.KIND;
+  force?: boolean;
 }
 
 export namespace ToggleInscriptionAction {
@@ -50,7 +51,7 @@ export namespace ToggleInscriptionAction {
     return Action.hasKind(object, KIND);
   }
 
-  export function create(): ToggleInscriptionAction {
-    return { kind: KIND };
+  export function create(options: { force?: boolean }): ToggleInscriptionAction {
+    return { kind: KIND, ...options };
   }
 }
