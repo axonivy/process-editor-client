@@ -80,7 +80,7 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
         actionDispatcher.dispatch(SwitchThemeAction.create({ theme }));
         actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
         MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, theme));
-        actionDispatcher.dispatch(EnableInscriptionAction.create());
+        actionDispatcher.dispatch(EnableInscriptionAction.create({}));
       })
     );
 }
