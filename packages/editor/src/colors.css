@@ -49,6 +49,7 @@
 
 html body {
   color-scheme: light;
+  background-color: var(--glsp-editor-background);
 }
 
 html[data-theme='dark'] body {
