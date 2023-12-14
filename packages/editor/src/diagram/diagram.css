@@ -12,7 +12,7 @@ body {
 .sprotty > div:focus-visible {
   outline: none;
 }
-.sprotty svg.sprotty-graph {
+.sprotty svg:where(.sprotty-graph, .sprotty-empty) {
   border: none;
 }
 .sprotty-graph {
