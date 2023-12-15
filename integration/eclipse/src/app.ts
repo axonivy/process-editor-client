@@ -74,15 +74,15 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
     )
     .then(() =>
       actionDispatcher.onceModelInitialized().finally(() => {
-        actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
-        actionDispatcher.dispatch(EnableToolPaletteAction.create());
-        actionDispatcher.dispatch(EnableViewportAction.create());
-        actionDispatcher.dispatch(SwitchThemeAction.create({ theme }));
-        actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
         MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, theme));
         actionDispatcher.dispatch(EnableInscriptionAction.create({}));
       })
     );
+  actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
+  actionDispatcher.dispatch(EnableToolPaletteAction.create());
+  actionDispatcher.dispatch(EnableViewportAction.create());
+  actionDispatcher.dispatch(SwitchThemeAction.create({ theme }));
+  actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
 }
 
 function setWidgetId(mainWidgetId: string): void {
