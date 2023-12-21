@@ -70,6 +70,20 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     this.mouseTool.register(mouseListener);
   }
 
+  protected initialize() {
+    const baseDiv = document.getElementById('process');
+    if (!baseDiv) {
+      this.logger.warn(this, `Could not obtain inscription base container for initializing UI extension ${this.id}`, this);
+      return false;
+    }
+    this.containerElement = this.getOrCreateContainer(baseDiv.id);
+    this.initializeContents(this.containerElement);
+    if (baseDiv) {
+      baseDiv.insertBefore(this.containerElement, baseDiv.firstChild);
+    }
+    return true;
+  }
+
   protected initializeContents(containerElement: HTMLElement): void {
     this.createHeader();
     this.lastActivebutton = this.defaultToolsButton;

@@ -7,12 +7,14 @@ body {
 
 body {
   display: grid;
-  grid-template-areas: 'sprotty inscription';
+  grid-template-areas: 'process inscription';
   grid-auto-columns: minmax(250px, 100%) min-content;
 }
-#sprotty {
-  grid-area: sprotty;
+#process {
+  grid-area: process;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 #inscription {
   grid-area: inscription;
@@ -24,6 +26,7 @@ body {
 }
 
 .main-widget {
+  height: 100%;
   position: relative;
 }
 

@@ -5,9 +5,6 @@ import {
   CommandReturn,
   BoundsAwareViewportCommand,
   Dimension,
-  FitToScreenAction,
-  FitToScreenCommand,
-  isBoundsAware,
   isViewport,
   Point,
   SModelRoot,
@@ -15,7 +12,6 @@ import {
   Viewport
 } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
-import { ToolBar } from '../tool-bar/tool-bar';
 import { MoveIntoViewportAction, OriginViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
 
 export class OriginViewportCommand extends BoundsAwareViewportCommand {
@@ -30,69 +26,7 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
   }
 
   getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
-    return { zoom: 1, scroll: { x: 0, y: -48 } };
-  }
-}
-
-export class IvyFitToScreenCommand extends FitToScreenCommand {
-  static readonly KIND = FitToScreenAction.KIND;
-
-  constructor(@inject(TYPES.Action) protected readonly action: FitToScreenAction) {
-    super(action);
-  }
-
-  getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
-    if (!Dimension.isValid(model.canvasBounds)) {
-      return undefined;
-    }
-    const c = Bounds.center(bounds);
-    const delta = this.action.padding === undefined ? 0 : 2 * this.action.padding;
-    const toolBarHeight = this.toolBarHeight();
-    let zoom = Math.min(
-      model.canvasBounds.width / (bounds.width + delta),
-      (model.canvasBounds.height - toolBarHeight) / (bounds.height + delta)
-    );
-    if (this.action.maxZoom !== undefined) {
-      zoom = Math.min(zoom, this.action.maxZoom);
-    }
-    if (zoom === Infinity) {
-      zoom = 1;
-    }
-    return {
-      scroll: {
-        x: c.x - (0.5 * model.canvasBounds.width) / zoom,
-        y: c.y - (0.5 * (model.canvasBounds.height + toolBarHeight)) / zoom
-      },
-      zoom: zoom
-    };
-  }
-
-  private toolBarHeight(): number {
-    const toolBar = document.querySelector('[id$="_' + ToolBar.ID + '"]');
-    return toolBar ? toolBar.getBoundingClientRect().height : 0;
-  }
-
-  protected initialize(model: SModelRoot): void {
-    if (isViewport(model)) {
-      this.oldViewport = {
-        scroll: model.scroll,
-        zoom: model.zoom
-      };
-      const allBounds: Bounds[] = [];
-      if (allBounds.length === 0) {
-        model.index.all().forEach(element => {
-          if (isBoundsAware(element)) {
-            allBounds.push(this.boundsInViewport(element, element.bounds, model));
-          }
-        });
-      }
-      if (allBounds.length !== 0) {
-        const bounds = allBounds.reduce((b0, b1) => Bounds.combine(b0, b1));
-        if (Dimension.isValid(bounds)) {
-          this.newViewport = this.getNewViewport(bounds, model);
-        }
-      }
-    }
+    return { zoom: 1, scroll: { x: 0, y: 0 } };
   }
 }
 

@@ -8,13 +8,14 @@ import {
   configureCommand,
   EnableDefaultToolsAction,
   EnableToolsAction,
+  FitToScreenCommand,
   GetViewportCommand,
   SetViewportAction,
   SetViewportCommand,
   TYPES
 } from '@eclipse-glsp/client';
 
-import { IvyFitToScreenCommand, IvySetViewportZoomCommand, MoveIntoViewportCommand, OriginViewportCommand } from './viewport-commands';
+import { IvySetViewportZoomCommand, MoveIntoViewportCommand, OriginViewportCommand } from './viewport-commands';
 import { IvyScrollMouseListener } from './scroll';
 import { ViewportBar } from './viewport-bar';
 import { IvyZoomMouseListener } from './zoom';
@@ -28,7 +29,7 @@ const ivyViewportModule = new ContainerModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, SetViewportZoomAction.KIND, ViewportBar);
 
   configureCommand({ bind, isBound }, CenterCommand);
-  configureCommand({ bind, isBound }, IvyFitToScreenCommand);
+  configureCommand({ bind, isBound }, FitToScreenCommand);
   configureCommand({ bind, isBound }, OriginViewportCommand);
   configureCommand({ bind, isBound }, MoveIntoViewportCommand);
   configureCommand({ bind, isBound }, GetViewportCommand);

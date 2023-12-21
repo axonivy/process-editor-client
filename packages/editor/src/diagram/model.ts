@@ -48,7 +48,7 @@ import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
 export class IvyGLSPGraph extends GLSPGraph {
-  scroll = { x: 0, y: -48 };
+  scroll = { x: 0, y: 0 };
 }
 
 export class LaneNode extends RectangularNode implements WithEditableLabel, SArgumentable {
