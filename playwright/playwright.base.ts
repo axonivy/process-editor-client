@@ -1,4 +1,4 @@
-import { devices, PlaywrightTestConfig } from '@playwright/test';
+import { devices, defineConfig } from '@playwright/test';
 
 const browsers = () => {
   const chrome = { name: 'chromium', use: { ...devices['Desktop Chrome'] } };
@@ -16,7 +16,7 @@ const browsers = () => {
   }
 };
 
-let config: PlaywrightTestConfig = {
+export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -29,6 +29,4 @@ let config: PlaywrightTestConfig = {
     headless: process.env.CI ? true : false
   },
   projects: browsers()
-};
-
-export default config;
+});
