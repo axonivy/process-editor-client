@@ -10,10 +10,10 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "devDependencies": {
-    "@playwright/test": "1.38.1",
+    "@playwright/test": "1.40.1",
     "@types/uuid": "^9.0.7",
     "rimraf": "^5.0.5",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   },
   "type": "module",
   "scripts": {
