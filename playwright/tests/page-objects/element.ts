@@ -2,6 +2,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import { Point } from './types';
 import { QuickActionBar } from './quick-action-bar';
 import { LabelEdit } from './label-edit';
+import { Inscription } from './inscription';
 
 export class BaseElement {
   protected readonly page: Page;
@@ -85,6 +86,14 @@ export class Element extends BaseElement {
     await this.page.mouse.down();
     await this.page.mouse.move(position.x, position.y);
     await this.page.mouse.up();
+  }
+
+  async inscribe() {
+    await this.select();
+    await this.element.dblclick();
+    const view = new Inscription(this.page);
+    await view.expectOpen();
+    return view;
   }
 
   async expectPosition(point: Point) {
