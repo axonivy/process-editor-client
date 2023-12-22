@@ -21,12 +21,12 @@ pipeline {
           docker.build('node-webtest', '-f build/integration/Dockerfile .').inside {
             sh 'yarn update:axonivy:next'
             sh 'yarn install'
-            dir ('integration/standalone/glsp-test-project') {
+            dir ('playwright/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
           }
-          archiveArtifacts artifacts: 'integration/standalone/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'integration/standalone/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
           withChecks('Integration WebTest') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
           }

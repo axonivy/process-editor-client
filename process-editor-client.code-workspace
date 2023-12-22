@@ -27,6 +27,10 @@
     {
       "name": "integration/eclipse",
       "path": "./integration/eclipse"
+    },
+    {
+      "name": "playwright",
+      "path": "./playwright"
     }
   ],
   "settings": {
@@ -35,6 +39,8 @@
       "source.fixAll.eslint": "explicit"
     },
     "vitest.commandLine": "yarn --cwd packages/editor test",
+    "vitest.disabledWorkspaceFolders": ["root", "packages/protocol", "integration/standalone", "integration/viewer", "integration/eclipse", "playwright"],
+    "vitest.include": ["packages/editor/src/**/*.test.{ts,tsx}"],
     "eslint.validate": ["javascript", "typescript"],
     "search.exclude": {
       "**/node_modules": true,

@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "name": "@axonivy/process-editor-playwright",
+  "version": "11.3.0-next",
+  "description": "Playwright tests for the Axon Ivy process editor",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/glsp-editor-client"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.38.1",
+    "@types/uuid": "^9.0.7",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2"
+  },
+  "type": "module",
+  "scripts": {
+    "type": "tsc --noEmit",
+    "build": "tsc --build",
+    "lint": "eslint --ext .ts,.tsx ./tests",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./tests",
+    "start:standalone": "yarn --cwd .. start ",
+    "start:viewer": "yarn --cwd .. start:viewer ",
+    "webtest": "yarn webtest:standalone && yarn webtest:viewer",
+    "webtest:standalone": "playwright test -c ./tests/standalone",
+    "webtest:viewer": "playwright test -c ./tests/viewer"
+  }
+}

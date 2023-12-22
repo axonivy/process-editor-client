@@ -40,7 +40,8 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "integration/*"
+      "integration/*",
+      "playwright"
     ]
   },
   "resolutions": {
