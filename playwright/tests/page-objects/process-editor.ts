@@ -28,7 +28,7 @@ export class ProcessEditor {
     return processEditor;
   }
 
-  static async openProcess(page: Page, options?: { urlQueryParam?: string; file?: string }) {
+  static async openProcess(page: Page, options?: { urlQueryParam?: string; file?: string; waitFor?: string }) {
     await page.goto(
       ProcessEditor.processEditorUrl('glsp-test-project', options?.file ?? `/processes/test/${uuid()}.p.json`) +
         (options?.urlQueryParam ?? '')
@@ -36,12 +36,12 @@ export class ProcessEditor {
     await page.addStyleTag({ content: '.palette-body {transition: none !important;}' });
     await page.emulateMedia({ reducedMotion: 'reduce' });
 
-    const start = page.locator(startSelector).first();
+    const waitForElement = page.locator(options?.waitFor ?? startSelector).first();
     // wait for start element, give a reload if was not visible the first time
-    await start.waitFor({ state: 'visible', timeout: 10000 });
-    if (!(await start.isVisible())) {
+    await waitForElement.waitFor({ state: 'visible', timeout: 10000 });
+    if (!(await waitForElement.isVisible())) {
       await page.reload();
-      await expect(start).toBeVisible();
+      await expect(waitForElement).toBeVisible();
     }
     return new ProcessEditor(page);
   }
