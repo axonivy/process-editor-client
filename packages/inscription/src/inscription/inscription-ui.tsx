@@ -5,10 +5,10 @@ import {
   GArgument,
   IActionDispatcher,
   IActionHandler,
-  SModelElement,
   SModelRoot,
   SetUIExtensionVisibilityAction,
   TYPES,
+  isNotUndefined,
   isOpenable
 } from '@eclipse-glsp/client';
 import { OpenAction } from 'sprotty-protocol';
@@ -36,6 +36,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
+  private inscriptionElement?: string;
   private action?: EnableInscriptionAction;
   private app: string;
   private pmv: string;
@@ -73,28 +74,25 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
 
   protected initializeContents(containerElement: HTMLElement) {
     this.initConnection();
-    this.changeUiVisiblitiy();
+    this.changeUiVisiblitiy(false);
     IvyScriptLanguage.startWebSocketClient(this.webSocketAddress + 'ivy-script-lsp');
     this.queryClient = initQueryClient();
     this.inscriptionClient = this.startInscriptionClient();
-
     this.root = createRoot(containerElement);
-    this.updateInscriptionUi();
   }
 
   private updateInscriptionUi() {
-    let element: SModelElement = this.selectionService.getSelectedElements().filter(isOpenable)[0];
-    if (!element) {
-      element = this.editorContext.modelRoot;
-      this.changeUiVisiblitiy(false);
+    if (!this.inscriptionElement) {
+      return;
     }
+    const element = this.inscriptionElement;
     this.inscriptionClient?.then(client => {
       this.root.render(
         <React.StrictMode>
           <ThemeContextProvider theme={this.switchThemeHandler?.theme() ?? 'light'}>
             <ClientContextProvider client={client}>
               <QueryClientProvider client={this.queryClient}>
-                <InscriptionView app={this.app} pmv={this.pmv} pid={element.id} />
+                <InscriptionView app={this.app} pmv={this.pmv} pid={element} />
               </QueryClientProvider>
             </ClientContextProvider>
           </ThemeContextProvider>
@@ -115,6 +113,10 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
       return SetUIExtensionVisibilityAction.create({ extensionId: InscriptionUi.ID, visible: true });
     }
     if (ToggleInscriptionAction.is(action)) {
+      if (!this.inscriptionElement) {
+        this.inscriptionElement = this.editorContext.modelRoot.id;
+        this.updateInscriptionUi();
+      }
       this.changeUiVisiblitiy(action.force);
     }
     if (Action.is(action) && action.kind === OpenAction.KIND) {
@@ -154,6 +156,16 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+    const selected = selectedElements
+      .map(id => root.index.getById(id))
+      .filter(isNotUndefined)
+      .filter(isOpenable)[0];
+    if (selected) {
+      this.inscriptionElement = selected.id;
+    } else {
+      this.inscriptionElement = this.inscriptionElement ? root.id : undefined;
+      this.changeUiVisiblitiy(false);
+    }
     this.updateInscriptionUi();
   }
 }
