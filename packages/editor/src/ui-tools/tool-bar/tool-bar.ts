@@ -233,9 +233,8 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
-    if (_oldValue) {
-      this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ToolBar.ID, visible: true }));
-    }
+    this.containerElement.innerHTML = '';
+    this.createHeader();
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
