@@ -25,6 +25,7 @@
     "start:viewer": "yarn --cwd .. start:viewer ",
     "webtest": "yarn webtest:standalone && yarn webtest:viewer",
     "webtest:standalone": "playwright test -c ./tests/standalone",
-    "webtest:viewer": "playwright test -c ./tests/viewer"
+    "webtest:viewer": "playwright test -c ./tests/viewer",
+    "webtest:screenshots": "playwright test -c ./tests/screenshots"
   }
 }

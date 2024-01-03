@@ -12,6 +12,7 @@
     <engine.page.url>https://product.ivyteam.io/</engine.page.url>
     <project.build.plugin.version>11.3.0-SNAPSHOT</project.build.plugin.version>
     <engine.test.app>glsp-test-project</engine.test.app>
+    <webtest.cmd>webtest</webtest.cmd>
   </properties>
 
   <build>
@@ -46,11 +47,12 @@
               <arguments>
                 <argument>--cwd</argument>
                 <argument>../</argument>
-                <argument>webtest</argument>
+                <argument>${webtest.cmd}</argument>
               </arguments>
               <environmentVariables>
                 <BASE_URL>${test.engine.url}</BASE_URL>
                 <TEST_APP>${engine.test.app}</TEST_APP>
+                <SCREENSHOT_DIR>${project.build.directory}</SCREENSHOT_DIR>
               </environmentVariables>
               <successCodes>
                 <successCode>0</successCode>
