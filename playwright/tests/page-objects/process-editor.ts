@@ -9,6 +9,7 @@ import { Connector } from './connector';
 import { QuickActionBar } from './quick-action-bar';
 import { JumpOutBar } from './jump-out';
 import { ViewportBar } from './viewport';
+import { Inscription } from './inscription';
 
 const startSelector = '.sprotty-graph .start\\:requestStart';
 
@@ -134,6 +135,11 @@ export class ProcessEditor {
     const bounds = await graph.boundingBox();
     await graph.click({ position: { x: bounds!.width - 1, y: bounds!.height - 80 } });
     await expect(this.page.locator('g.selected')).toHaveCount(0);
+  }
+
+  async toggleInscription() {
+    await this.page.locator('#btn_inscription_toggle').click();
+    return new Inscription(this.page);
   }
 
   async expectDarkMode() {
