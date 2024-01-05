@@ -233,8 +233,10 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   }
 
   editModeChanged(_oldValue: string, _newValue: string): void {
-    this.containerElement.innerHTML = '';
-    this.createHeader();
+    if (this.containerElement) {
+      this.containerElement.innerHTML = '';
+      this.createHeader();
+    }
   }
 
   selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {

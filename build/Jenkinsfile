@@ -24,6 +24,9 @@ pipeline {
               sh 'yarn build && yarn build:production'
               archiveArtifacts 'integration/eclipse/build/**'
               archiveArtifacts 'integration/standalone/build/**'
+              archiveArtifacts 'integration/viewer/build/**'
+              currentBuild.description = "<a href=${BUILD_URL}artifact/integration/standalone/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Standalone</a><br>" + 
+                "<a href=${BUILD_URL}artifact/integration/viewer/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Viewer</a>"
             }
           }
         }
