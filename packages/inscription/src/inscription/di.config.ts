@@ -3,11 +3,12 @@ import './inscription-ui.css';
 import { ContainerModule } from 'inversify';
 import { InscriptionUi } from './inscription-ui';
 import { TYPES, configureActionHandler } from '@eclipse-glsp/client';
-import { EnableInscriptionAction, SwitchThemeAction, ToggleInscriptionAction } from '@axonivy/process-editor-protocol';
+import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import { OpenAction } from 'sprotty-protocol';
 import { OpenInscriptionKeyListener, OpenInscriptionMouseListener } from './open-inscription-listener';
 import { InscriptionButtonProvider } from './tool-bar';
 import { IVY_TYPES } from '@axonivy/process-editor';
+import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 
 const ivyInscriptionModule = new ContainerModule((bind, _unbind, isBound) => {
   bind(InscriptionUi).toSelf().inSingletonScope();

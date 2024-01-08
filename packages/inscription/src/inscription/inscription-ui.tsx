@@ -19,11 +19,12 @@ import React from 'react';
 import InscriptionView from './InscriptionView';
 import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
 import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { InscriptionClient } from '@axonivy/inscription-protocol';
+import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { InscriptionClientJsonRpc, IvyScriptLanguage, MonacoUtil } from '@axonivy/inscription-core';
 import { SwitchThemeActionHandler } from '@axonivy/process-editor';
-import { EnableInscriptionAction, SwitchThemeAction, ToggleInscriptionAction } from '@axonivy/process-editor-protocol';
+import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 
 const JSX = { createElement: React.createElement };
 
@@ -38,9 +39,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
 
   private inscriptionElement?: string;
   private action?: EnableInscriptionAction;
-  private app: string;
-  private pmv: string;
-  private webSocketAddress: string;
+  private inscriptionContext: InscriptionContext;
   private root: Root;
   private inscriptionClient?: Promise<InscriptionClient>;
   private queryClient: QueryClient;
@@ -73,9 +72,8 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   protected initializeContents(containerElement: HTMLElement) {
-    this.initConnection();
     this.changeUiVisiblitiy(false);
-    IvyScriptLanguage.startWebSocketClient(this.webSocketAddress + 'ivy-script-lsp');
+    this.inscriptionContext = this.initInscriptionContext();
     this.queryClient = initQueryClient();
     this.inscriptionClient = this.startInscriptionClient();
     this.root = createRoot(containerElement);
@@ -92,7 +90,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
           <ThemeContextProvider theme={this.switchThemeHandler?.theme() ?? 'light'}>
             <ClientContextProvider client={client}>
               <QueryClientProvider client={this.queryClient}>
-                <InscriptionView app={this.app} pmv={this.pmv} pid={element} />
+                <InscriptionView app={this.inscriptionContext.app} pmv={this.inscriptionContext.pmv} pid={element} />
               </QueryClientProvider>
             </ClientContextProvider>
           </ThemeContextProvider>
@@ -102,7 +100,10 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   async startInscriptionClient() {
-    const client = await InscriptionClientJsonRpc.startWebSocketClient(this.webSocketAddress + 'ivy-inscription-lsp');
+    const model = this.editorContext.modelRoot;
+    const webSocketAddress = this.action?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
+    await IvyScriptLanguage.startWebSocketClient(webSocketAddress);
+    const client = await InscriptionClientJsonRpc.startWebSocketClient(webSocketAddress);
     await client.initialize();
     return client;
   }
@@ -131,11 +132,15 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     return;
   }
 
-  private initConnection() {
+  private initInscriptionContext() {
     const model = this.editorContext.modelRoot;
-    this.app = this.action?.app ?? GArgument.getString(model, 'app') ?? 'designer';
-    this.pmv = this.action?.pmv ?? GArgument.getString(model, 'pmv') ?? '';
-    this.webSocketAddress = this.action?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
+    if (this.action?.inscriptionContext) {
+      return this.action.inscriptionContext;
+    }
+    return {
+      app: GArgument.getString(model, 'app') ?? 'designer',
+      pmv: GArgument.getString(model, 'pmv') ?? ''
+    };
   }
 
   private changeUiVisiblitiy(force?: boolean) {

@@ -1,21 +1,7 @@
 import { ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
-import { OpenDataClassAction, OpenInscriptionAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
+import { OpenDataClassAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { injectable } from 'inversify';
-
-@injectable()
-export class InscribeProcessButtonProvider implements ToolBarButtonProvider {
-  button() {
-    return {
-      icon: IvyIcons.PenEdit,
-      title: 'Inscribe Process',
-      sorting: 'D',
-      action: () => OpenInscriptionAction.create(''),
-      location: ToolBarButtonLocation.Right,
-      readonly: true
-    };
-  }
-}
 
 @injectable()
 export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
