@@ -15,18 +15,13 @@ import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { MessageConnection } from 'vscode-jsonrpc';
 
 import createContainer from './di.config';
-import {
-  EnableInscriptionAction,
-  EnableViewportAction,
-  ShowGridAction,
-  SwitchThemeAction,
-  ThemeMode
-} from '@axonivy/process-editor-protocol';
+import { EnableViewportAction, ShowGridAction, SwitchThemeAction, ThemeMode } from '@axonivy/process-editor-protocol';
 import { MonacoUtil } from '@axonivy/inscription-core';
 import { MonacoEditorUtil } from '@axonivy/inscription-editor';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
 import './index.css';
+import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;

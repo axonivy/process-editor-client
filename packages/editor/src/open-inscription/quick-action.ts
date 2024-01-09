@@ -2,7 +2,7 @@ import { isOpenable, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
-import { OpenInscriptionAction } from '@axonivy/process-editor-protocol';
+import { OpenSwtInscriptionAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class InscribeQuickActionProvider extends SingleQuickActionProvider {
@@ -13,7 +13,7 @@ export class InscribeQuickActionProvider extends SingleQuickActionProvider {
         title: 'Edit (E)',
         location: 'Left',
         sorting: 'B',
-        action: OpenInscriptionAction.create(element.id),
+        action: OpenSwtInscriptionAction.create(element.id),
         readonlySupport: true,
         shortcut: 'KeyE'
       };

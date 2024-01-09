@@ -1,7 +1,7 @@
 import { ToolBarButtonLocation, ToolBarButtonProvider } from '@axonivy/process-editor';
-import { ToggleInscriptionAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { injectable } from 'inversify';
+import { ToggleInscriptionAction } from './action';
 
 @injectable()
 export class InscriptionButtonProvider implements ToolBarButtonProvider {

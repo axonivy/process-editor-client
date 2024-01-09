@@ -15,12 +15,13 @@ import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/pro
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
-import { EnableInscriptionAction, EnableViewportAction, SwitchThemeAction, ThemeMode } from '@axonivy/process-editor-protocol';
+import { EnableViewportAction, SwitchThemeAction, ThemeMode } from '@axonivy/process-editor-protocol';
 import { MonacoUtil } from '@axonivy/inscription-core';
 import { MonacoEditorUtil } from '@axonivy/inscription-editor';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
 import './index.css';
+import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 
 const parameters = getParameters();
 const app = parameters.get('app') ?? 'designer';
@@ -65,7 +66,7 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
     .then(() => {
       actionDispatcher.onceModelInitialized().finally(() => {
         MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, theme));
-        actionDispatcher.dispatch(EnableInscriptionAction.create({ server: webSocketBase, app, pmv }));
+        actionDispatcher.dispatch(EnableInscriptionAction.create({ server: webSocketBase, inscriptionContext: { app, pmv } }));
         if (selectElementIds) {
           const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
           actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs: elementIds }));
