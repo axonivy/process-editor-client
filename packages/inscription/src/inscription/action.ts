@@ -1,9 +1,10 @@
 import { Action } from '@eclipse-glsp/client';
 import { InscriptionContext } from '@axonivy/inscription-protocol';
+import { MessageConnection } from '@axonivy/inscription-core';
 
 export interface EnableInscriptionAction extends Action {
   kind: typeof EnableInscriptionAction.KIND;
-  server?: string;
+  connection?: { server?: string; inscription?: MessageConnection; ivyScript?: MessageConnection };
   inscriptionContext?: InscriptionContext;
 }
 
@@ -14,7 +15,7 @@ export namespace EnableInscriptionAction {
     return Action.hasKind(object, KIND);
   }
 
-  export function create(options: { server?: string; inscriptionContext?: InscriptionContext }): EnableInscriptionAction {
+  export function create(options: Omit<EnableInscriptionAction, 'kind'>): EnableInscriptionAction {
     return { kind: KIND, ...options };
   }
 }
