@@ -101,9 +101,18 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
 
   async startInscriptionClient() {
     const model = this.editorContext.modelRoot;
-    const webSocketAddress = this.action?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
-    await IvyScriptLanguage.startWebSocketClient(webSocketAddress);
-    const client = await InscriptionClientJsonRpc.startWebSocketClient(webSocketAddress);
+    const webSocketAddress = this.action?.connection?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
+    if (this.action?.connection?.ivyScript) {
+      await IvyScriptLanguage.startClient(this.action?.connection?.ivyScript);
+    } else {
+      await IvyScriptLanguage.startWebSocketClient(webSocketAddress);
+    }
+    let client: InscriptionClient;
+    if (this.action?.connection?.inscription) {
+      client = await InscriptionClientJsonRpc.startClient(this.action.connection.inscription);
+    } else {
+      client = await InscriptionClientJsonRpc.startWebSocketClient(webSocketAddress);
+    }
     await client.initialize();
     return client;
   }

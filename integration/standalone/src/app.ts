@@ -66,7 +66,9 @@ async function initialize(connectionProvider: MessageConnection): Promise<void> 
     .then(() => {
       actionDispatcher.onceModelInitialized().finally(() => {
         MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, theme));
-        actionDispatcher.dispatch(EnableInscriptionAction.create({ server: webSocketBase, inscriptionContext: { app, pmv } }));
+        actionDispatcher.dispatch(
+          EnableInscriptionAction.create({ connection: { server: webSocketBase }, inscriptionContext: { app, pmv } })
+        );
         if (selectElementIds) {
           const elementIds = selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
           actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs: elementIds }));
