@@ -18,7 +18,7 @@
     "bpmn"
   ],
   "dependencies": {
-    "@axonivy/editor-icons": "~11.3.0-next.925",
+    "@axonivy/editor-icons": "~11.3.0-next.936",
     "@axonivy/process-editor-protocol": "11.3.0-next",
     "@eclipse-glsp/client": "1.1.0-RC10",
     "showdown": "^2.1.0",
