@@ -91,8 +91,9 @@ pipeline {
         script {
           docker.build('node', '-f build/Dockerfile .').inside {
             sh 'yarn build'
-            withNPM(npmrcConfig:'npmjs-registry.ivyteam.io') {
-              sh 'git checkout .'
+            sh 'git checkout .'
+            withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
+              sh 'npm set "//npmjs-registry.ivyteam.ch/:_authToken = $NPM_AUTH_TOKEN"'
               sh 'yarn publish:next'
             }
           }
