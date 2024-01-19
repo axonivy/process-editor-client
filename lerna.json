@@ -14,7 +14,7 @@
       "forcePublish": true,
       "gitTagVersion": false,
       "push": false,
-      "registry": "https://npmjs-registry.ivyteam.io/"
+      "registry": "https://npmjs-registry.ivyteam.ch/"
     }
   }
 }
