@@ -1,6 +1,7 @@
 import '@axonivy/editor-icons/lib/ivy-icons.css';
 import 'toastify-js/src/toastify.css';
 import './colors.css';
+import './hidden.css';
 import './toastify.css';
 
 import {
