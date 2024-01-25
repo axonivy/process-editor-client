@@ -2,14 +2,14 @@ import {
   angleOfPoint,
   EdgePadding,
   GEdgeView,
-  hasArguments,
   IView,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
-  SEdge,
+  GEdge,
   svg,
-  toDegrees
+  toDegrees,
+  hasArgs
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
@@ -119,9 +119,9 @@ export class AssociationEdgeView extends GEdgeView {
     return line;
   }
 
-  protected override renderAdditionals(edge: SEdge, segments: Point[], _context: RenderingContext): VNode[] {
+  protected override renderAdditionals(edge: GEdge, segments: Point[], _context: RenderingContext): VNode[] {
     // for additional padding we draw another transparent path with larger stroke width
-    if (hasArguments(edge) && edge.args) {
+    if (hasArgs(edge) && edge.args) {
       const edgePadding = EdgePadding.from(edge);
       return edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
     }

@@ -1,11 +1,11 @@
-import { ModelRenderer, SEdge, SGraph, SModelFactory, ViewRegistry } from '@eclipse-glsp/client';
+import { ModelRenderer, GEdge, GGraph, GModelFactory, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { ActivityTypes, EdgeTypes, EventStartTypes, EventEndTypes } from './view-types';
 import { Edge } from './model';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../test-utils/view-container.test-util';
 
-function createModel(graphFactory: SModelFactory): SGraph {
+function createModel(graphFactory: GModelFactory): GGraph {
   const children: any[] = [];
   children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: { width: 30, height: 30 } });
   children.push({ id: 'end', type: EventEndTypes.END, position: { x: 200, y: 100 }, size: { width: 30, height: 30 } });
@@ -16,13 +16,13 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'edgeWithRoutes', type: EdgeTypes.DEFAULT, sourceId: 'start', targetId: 'end', routingPoints: [{ x: 150, y: 500 }] });
   children.push({ id: 'edgeWithPadding', type: EdgeTypes.DEFAULT, sourceId: 'start', targetId: 'end', args: { edgePadding: 5 } });
   children.push({ id: 'assoziation', type: EdgeTypes.ASSOCIATION, sourceId: 'script', targetId: 'comment' });
-  return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
+  return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as GGraph;
 }
 
 describe('EdgeView', () => {
   let context: ModelRenderer;
-  let graphFactory: SModelFactory;
-  let graph: SGraph;
+  let graphFactory: GModelFactory;
+  let graph: GGraph;
   let viewRegistry: ViewRegistry;
 
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe('EdgeView', () => {
 
   test('render edge', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
-    const vnode = view.render(graph.index.getById('edge') as SEdge, context);
+    const vnode = view.render(graph.index.getById('edge') as GEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
       '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
@@ -48,7 +48,7 @@ describe('EdgeView', () => {
 
   test('render edge with routing points', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
-    const vnode = view.render(graph.index.getById('edgeWithRoutes') as SEdge, context);
+    const vnode = view.render(graph.index.getById('edgeWithRoutes') as GEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 116.35803619063778,129.93839809701555 L 150,500 L 212.5028714424112,129.79068453341068" />' +
       '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
@@ -58,7 +58,7 @@ describe('EdgeView', () => {
 
   test('render edge with padding', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
-    const vnode = view.render(graph.index.getById('edgeWithPadding') as SEdge, context);
+    const vnode = view.render(graph.index.getById('edgeWithPadding') as GEdge, context);
     const mouseHandle =
       '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />';
     expect(toHTML(vnode)).to.contains(mouseHandle);
@@ -66,7 +66,7 @@ describe('EdgeView', () => {
 
   test('render edge assoziation', () => {
     const view = viewRegistry.get(EdgeTypes.ASSOCIATION);
-    const vnode = view.render(graph.index.getById('assoziation') as SEdge, context);
+    const vnode = view.render(graph.index.getById('assoziation') as GEdge, context);
     const expectation = '<g class="sprotty-edge"><path d="M 675,150 L 675,150" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });

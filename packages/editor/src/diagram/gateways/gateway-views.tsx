@@ -1,4 +1,4 @@
-import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
+import { Diamond, DiamondNodeView, Point, RenderingContext, GShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
@@ -36,7 +36,7 @@ export class GatewayNodeView extends DiamondNodeView {
     );
   }
 
-  protected getRadius(node: SShapeElement): number {
+  protected getRadius(node: GShapeElement): number {
     const d = Math.min(node.size.width, node.size.height);
     return d > 0 ? d / 2 : 0;
   }

@@ -1,42 +1,55 @@
-import './tool-bar.css';
-import './toggle-switch.css';
 import './menu.css';
+import './toggle-switch.css';
+import './tool-bar.css';
 
-import { configureActionHandler, EnableDefaultToolsAction, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule, interfaces } from 'inversify';
+import {
+  bindAsService,
+  configureActionHandler,
+  EnableDefaultToolsAction,
+  EnableToolPaletteAction,
+  FeatureModule,
+  toolPaletteModule,
+  TYPES
+} from '@eclipse-glsp/client';
+import { interfaces } from 'inversify';
 import { IVY_TYPES } from '../../types';
 
-import { ToolBar } from './tool-bar';
-import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
+import { CustomIconToggleAction } from '@axonivy/process-editor-protocol';
 import { OptionsButtonProvider } from './button';
-import { CustomIconToggleActionHandler } from './options/action-handler';
-import { ShowToolBarOptionsMenuAction } from './options/action';
+import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { ElementsPaletteHandler } from './node/action-handler';
 import {
   ActivitiesButtonProvider,
   AllElementsButtonProvider,
+  ArtifactsButtonProvider,
   EventsButtonProvider,
-  GatewaysButtonProvider,
-  ArtifactsButtonProvider
+  GatewaysButtonProvider
 } from './node/button';
+import { ShowToolBarOptionsMenuAction } from './options/action';
+import { CustomIconToggleActionHandler } from './options/action-handler';
+import { ToolBar, ToolBarFocusMouseListener } from './tool-bar';
 import { ShowToolBarMenuAction } from './tool-bar-menu';
-import { CustomIconToggleAction } from '@axonivy/process-editor-protocol';
 
-const ivyToolBarModule = new ContainerModule((bind, _unbind, isBound) => {
-  bind(ToolBar).toSelf().inSingletonScope();
-  bind(TYPES.IUIExtension).toService(ToolBar);
-  bind(IVY_TYPES.ToolBar).toService(ToolBar);
-  configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolBar);
-  configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
-  configureActionHandler({ bind, isBound }, ShowToolBarMenuAction.KIND, ToolBar);
-  bind(TYPES.ITool).to(IvyMarqueeMouseTool);
+const ivyToolBarModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    bindAsService(bind, IVY_TYPES.ToolBar, ToolBar);
+    bind(TYPES.IUIExtension).toService(ToolBar);
+    configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolBar);
+    configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
+    configureActionHandler({ bind, isBound }, ShowToolBarMenuAction.KIND, ToolBar);
+    bind(ToolBarFocusMouseListener).toSelf().inSingletonScope();
+    bind(TYPES.MouseListener).toService(ToolBarFocusMouseListener);
 
-  configureToolBarButtons({ bind, isBound });
+    bind(TYPES.ITool).to(IvyMarqueeMouseTool);
 
-  bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
-  configureActionHandler({ bind, isBound }, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
-  configureActionHandler({ bind, isBound }, ShowToolBarOptionsMenuAction.KIND, ToolBar);
-});
+    configureToolBarButtons({ bind, isBound });
+
+    bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
+    configureActionHandler({ bind, isBound }, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
+    configureActionHandler({ bind, isBound }, ShowToolBarOptionsMenuAction.KIND, ToolBar);
+  },
+  { featureId: toolPaletteModule.featureId }
+);
 
 function configureToolBarButtons(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
   context.bind(ElementsPaletteHandler).toSelf().inSingletonScope();

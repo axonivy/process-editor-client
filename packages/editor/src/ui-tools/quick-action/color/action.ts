@@ -1,4 +1,4 @@
-import { Action, GLSPActionDispatcher, PaletteItem, SModelElement, TYPES } from '@eclipse-glsp/client';
+import { Action, GLSPActionDispatcher, PaletteItem, GModelElement, TYPES } from '@eclipse-glsp/client';
 import { QuickAction, QuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
@@ -12,11 +12,11 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
   @inject(IVY_TYPES.ColorPalette) protected readonly colors: ColorPaletteHandler;
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
 
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     return this.quickAction([element.id], () => this.colors.getPaletteItems());
   }
 
-  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+  multiQuickAction(elements: GModelElement[]): QuickAction | undefined {
     return this.quickAction(
       elements.map(element => element.id),
       () => this.colors.getPaletteItems()

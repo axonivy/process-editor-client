@@ -1,10 +1,9 @@
-import { ContainerModule } from 'inversify';
-import { TYPES } from '@eclipse-glsp/client';
+import { FeatureModule, TYPES } from '@eclipse-glsp/client';
 import { MoveElementKeyListener } from './change-bounds';
-import { QuickActionKeyListener } from './quick-actions';
 import { JumpOutKeyListener } from './jump-out';
+import { QuickActionKeyListener } from './quick-actions';
 
-const ivyKeyListenerModule = new ContainerModule(bind => {
+const ivyKeyListenerModule = new FeatureModule(bind => {
   bind(TYPES.KeyListener).to(MoveElementKeyListener);
   bind(TYPES.KeyListener).to(QuickActionKeyListener);
   bind(TYPES.KeyListener).to(JumpOutKeyListener);

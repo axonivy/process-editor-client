@@ -1,31 +1,39 @@
 import './diagram.css';
 
 import {
-  configureActionHandler,
-  configureCommand,
-  configureModelElement,
   ConsoleLogger,
   CustomFeatures,
   DeleteElementContextMenuItemProvider,
+  FeatureModule,
   GLSPProjectionView,
+  GModelElement,
   IView,
   LogLevel,
-  moveFeature,
-  selectFeature,
   SetViewportAction,
-  SModelElement,
-  TYPES
+  TYPES,
+  configureActionHandler,
+  configureCommand,
+  configureModelElement,
+  moveFeature,
+  selectFeature
 } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
-import { ContainerModule, interfaces } from 'inversify';
+import { interfaces } from 'inversify';
 
-import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
+import { ShowGridAction } from '@axonivy/process-editor-protocol';
 import { breakpointFeature } from '../breakpoint/model';
 import { goToSourceFeature, jumpFeature } from '../jump/model';
+import { IvyMovementRestrictor } from '../tools/movement-restrictor';
+import { NegativeMarker } from '../tools/negative-area/model';
+import { SNegativeMarkerView } from '../tools/negative-area/view';
+import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 import { singleWrapFeature, unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
+import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { GatewayNodeView } from './gateways/gateway-views';
+import { ShowGridActionHandler } from './grid/action-handler';
+import { GridFeedbackCommand } from './grid/feedback-action';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   ActivityLabel,
@@ -36,7 +44,7 @@ import {
   EndEventNode,
   EventNode,
   GatewayNode,
-  IvyGLSPGraph,
+  IvyGGraph,
   LaneNode,
   MulitlineEditLabel,
   RotateLabel,
@@ -55,16 +63,13 @@ import {
   LaneTypes
 } from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
-import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
-import { ShowGridActionHandler } from './grid/action-handler';
-import { GridFeedbackCommand } from './grid/feedback-action';
-import { ShowGridAction } from '@axonivy/process-editor-protocol';
 
-const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => {
+const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
   bind(TYPES.ISnapper).to(IvyGridSnapper);
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
+  bind(TYPES.IMovementRestrictor).to(IvyMovementRestrictor);
 
   bind(ShowGridActionHandler).toSelf().inSingletonScope();
   configureActionHandler({ bind, isBound }, ShowGridAction.KIND, ShowGridActionHandler);
@@ -73,7 +78,7 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
 
   const context = { bind, unbind, isBound, rebind };
 
-  configureIvyModelElement(DefaultTypes.GRAPH, IvyGLSPGraph, GLSPProjectionView);
+  configureIvyModelElement(DefaultTypes.GRAPH, IvyGGraph, GLSPProjectionView);
 
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);
@@ -146,10 +151,11 @@ const ivyDiagramModule = new ContainerModule((bind, unbind, isBound, rebind) => 
   configureIvyModelElement(EdgeTypes.LABEL, EdgeLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 
   configureIvyModelElement(LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  configureIvyModelElement(NegativeMarker.TYPE, NegativeMarker, SNegativeMarkerView);
 
   function configureIvyModelElement(
     type: string,
-    modelConstr: new () => SModelElement,
+    modelConstr: new () => GModelElement,
     viewConstr: interfaces.ServiceIdentifier<IView>,
     features?: CustomFeatures
   ): void {

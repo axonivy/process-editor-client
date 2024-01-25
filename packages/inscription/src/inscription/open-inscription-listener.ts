@@ -6,12 +6,12 @@ import {
   KeyListener,
   matchesKeystroke,
   MouseListener,
-  SModelElement,
+  GModelElement,
   toArray
 } from '@eclipse-glsp/client';
 
 export class OpenInscriptionMouseListener extends MouseListener {
-  doubleClick(target: SModelElement, event: MouseEvent) {
+  doubleClick(target: GModelElement, event: MouseEvent) {
     const element = findParentByFeature(target, isOpenable);
     if (element) {
       return [OpenAction.create(element.id)];
@@ -21,7 +21,7 @@ export class OpenInscriptionMouseListener extends MouseListener {
 }
 
 export class OpenInscriptionKeyListener extends KeyListener {
-  keyDown(element: SModelElement, event: KeyboardEvent) {
+  keyDown(element: GModelElement, event: KeyboardEvent) {
     if (matchesKeystroke(event, 'Enter')) {
       const openableElements = this.getOpenableElements(element);
       if (openableElements.length === 1) {
@@ -31,7 +31,7 @@ export class OpenInscriptionKeyListener extends KeyListener {
     return [];
   }
 
-  private getOpenableElements(element: SModelElement) {
+  private getOpenableElements(element: GModelElement) {
     return toArray(
       element.index
         .all()

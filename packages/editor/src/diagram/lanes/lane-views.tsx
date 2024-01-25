@@ -1,4 +1,4 @@
-import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView, hasArguments, svg } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
@@ -82,7 +82,7 @@ export class PoolNodeView extends LaneNodeView {
 
   private getPoolLaneSpace(node: LaneNode) {
     let poolLaneSpace = 24;
-    if (hasArguments(node) && node.args) {
+    if (hasArgs(node) && node.args) {
       poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
     }
     return poolLaneSpace - 1;
@@ -90,8 +90,8 @@ export class PoolNodeView extends LaneNodeView {
 }
 
 @injectable()
-export class RotateLabelView extends SLabelView {
-  render(label: Readonly<SLabel>, context: RenderingContext): VNode | undefined {
+export class RotateLabelView extends GLabelView {
+  render(label: Readonly<GLabel>, context: RenderingContext): VNode | undefined {
     const rotate = `rotate(270) translate(-${label.bounds.height / 2} ${label.bounds.width / 2})`;
     return (
       <text class-sprotty-label={true} transform={rotate}>

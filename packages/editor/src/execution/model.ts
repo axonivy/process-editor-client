@@ -1,11 +1,11 @@
-import { SModelElement, SModelExtension } from '@eclipse-glsp/client';
+import { GModelElement } from '@eclipse-glsp/client';
 
 export const executionFeature = Symbol('executionFeature');
 
-export interface Executable extends SModelExtension {
+export interface Executable {
   executionCount?: number;
 }
 
-export function isExecutable(element: SModelElement): element is SModelElement {
+export function isExecutable(element: GModelElement): element is GModelElement {
   return element.hasFeature(executionFeature);
 }

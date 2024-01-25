@@ -2,13 +2,13 @@ import {
   GArgument,
   GIssueMarker,
   GLSPActionDispatcher,
-  hasArguments,
   isWithEditableLabel,
   JsonAny,
-  SChildElement,
-  SEdge,
-  SModelElement,
-  TYPES
+  GChildElement,
+  GEdge,
+  GModelElement,
+  TYPES,
+  hasArgs
 } from '@eclipse-glsp/client';
 import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
@@ -23,8 +23,8 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(IVY_TYPES.IvyViewerOptions) protected readonly options: IvyViewerOptions;
 
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
-    if (element instanceof LaneNode || (this.options.hideSensitiveInfo && element instanceof SEdge)) {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
+    if (element instanceof LaneNode || (this.options.hideSensitiveInfo && element instanceof GEdge)) {
       return undefined;
     }
     return {
@@ -36,7 +36,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
         elementId: element.id,
         markers: this.markers(element),
         title: this.name(element),
-        text: hasArguments(element) && element.args ? GArgument.getString(element, 'desc') : '',
+        text: hasArgs(element) && element.args ? GArgument.getString(element, 'desc') : '',
         info: this.info(element)
       }),
       letQuickActionsOpen: true,
@@ -45,11 +45,11 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     };
   }
 
-  private info(element: SModelElement): JsonAny | undefined {
-    return hasArguments(element) && element.args ? element.args['info'] : undefined;
+  private info(element: GModelElement): JsonAny | undefined {
+    return hasArgs(element) && element.args ? element.args['info'] : undefined;
   }
 
-  private name(element: SModelElement): string | undefined {
+  private name(element: GModelElement): string | undefined {
     let elementName = '';
     if (isWithEditableLabel(element) && element.editableLabel) {
       elementName = element.editableLabel?.text;
@@ -61,8 +61,8 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     return elementName.length > 0 ? elementName.trim() : undefined;
   }
 
-  private nameAddition(element: SModelElement): string | undefined {
-    if (hasArguments(element) && element.args) {
+  private nameAddition(element: GModelElement): string | undefined {
+    if (hasArgs(element) && element.args) {
       const varName = GArgument.getString(element, 'varName');
       if (varName) {
         return ` [${varName}]`;
@@ -75,8 +75,8 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     return undefined;
   }
 
-  private markers(element: SModelElement): GIssueMarker[] {
-    if (element instanceof SChildElement) {
+  private markers(element: GModelElement): GIssueMarker[] {
+    if (element instanceof GChildElement) {
       return element.children.filter(child => child instanceof GIssueMarker).map(child => child as GIssueMarker);
     }
     return [];

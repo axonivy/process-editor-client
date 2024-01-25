@@ -1,4 +1,4 @@
-import { CreateNodeOperation, SModelElement } from '@eclipse-glsp/client';
+import { CreateNodeOperation, GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 
@@ -8,7 +8,7 @@ import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action
 
 @injectable()
 export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (element instanceof LaneNode && element.type === LaneTypes.POOL) {
       return {
         icon: IvyIcons.LaneSwimlanes,

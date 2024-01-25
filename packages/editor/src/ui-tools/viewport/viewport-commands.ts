@@ -10,7 +10,7 @@ import {
   isBoundsAware,
   isViewport,
   Point,
-  SModelRoot,
+  GModelRoot,
   TYPES,
   Viewport
 } from '@eclipse-glsp/client';
@@ -29,7 +29,7 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
     return [];
   }
 
-  getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
+  getNewViewport(bounds: Bounds, model: GModelRoot): Viewport | undefined {
     return { zoom: 1, scroll: { x: 0, y: -48 } };
   }
 }
@@ -41,7 +41,7 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
     super(action);
   }
 
-  getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
+  getNewViewport(bounds: Bounds, model: GModelRoot): Viewport | undefined {
     if (!Dimension.isValid(model.canvasBounds)) {
       return undefined;
     }
@@ -72,7 +72,7 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
     return toolBar ? toolBar.getBoundingClientRect().height : 0;
   }
 
-  protected initialize(model: SModelRoot): void {
+  protected initialize(model: GModelRoot): void {
     if (isViewport(model)) {
       this.oldViewport = {
         scroll: model.scroll,
@@ -107,7 +107,7 @@ export class MoveIntoViewportCommand extends BoundsAwareViewportCommand {
     return this.action.elementIds;
   }
 
-  getNewViewport(bounds: Bounds, model: SModelRoot): Viewport | undefined {
+  getNewViewport(bounds: Bounds, model: GModelRoot): Viewport | undefined {
     if (!Dimension.isValid(model.canvasBounds)) {
       return undefined;
     }

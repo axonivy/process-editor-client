@@ -1,52 +1,52 @@
 import {
   AbstractUIExtension,
   Action,
-  EditModeListener,
+  DisposableCollection,
   EditorContextService,
-  IActionHandler,
-  ICommand,
-  TYPES,
-  GLSPActionDispatcher,
   EnableDefaultToolsAction,
   EnableToolPaletteAction,
-  SetUIExtensionVisibilityAction,
-  SModelRoot,
-  SelectAllAction,
-  MouseTool,
+  GLSPActionDispatcher,
+  GModelElement,
+  GModelRoot,
+  IActionHandler,
+  ICommand,
+  IEditModeListener,
+  ISelectionListener,
   MouseListener,
-  SModelElement
+  SelectAllAction,
+  SelectionService,
+  SetUIExtensionVisibilityAction,
+  TYPES
 } from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { inject, injectable, postConstruct, multiInject } from 'inversify';
+import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { IVY_TYPES } from '../../types';
+import { createElement, createIcon } from '../../utils/ui-utils';
+import { Menu } from '../menu/menu';
 import {
-  compareButtons,
   DefaultSelectButton,
   MarqueeToolButton,
   RedoToolButton,
   ToolBarButton,
   ToolBarButtonLocation,
   ToolBarButtonProvider,
-  UndoToolButton
+  UndoToolButton,
+  compareButtons
 } from './button';
-import { createElement, createIcon } from '../../utils/ui-utils';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
-import { Menu } from '../menu/menu';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
 @injectable()
-export class ToolBar extends AbstractUIExtension implements IActionHandler, EditModeListener, SelectionListener {
+export class ToolBar extends AbstractUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
   static readonly ID = 'ivy-tool-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(SelectionService) protected readonly selectionService: SelectionService;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(TYPES.MouseTool) protected mouseTool: MouseTool;
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];
 
   protected lastActivebutton?: HTMLElement;
@@ -56,18 +56,20 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
   protected lastMenuAction?: Action;
   protected toolBarMenu?: Menu;
 
+  protected toDisposeOnDisable = new DisposableCollection();
+  protected toDisposeOnHide = new DisposableCollection();
+
   id(): string {
-    return ToolBar.ID;
-  }
-  containerClass(): string {
     return ToolBar.ID;
   }
 
   @postConstruct()
-  postConstruct(): void {
-    this.editorContext.register(this);
-    const mouseListener = new ToolBarFocusMouseListener(this);
-    this.mouseTool.register(mouseListener);
+  protected init(): void {
+    this.toDisposeOnDisable.push(this.editorContext.onEditModeChanged(event => this.editModeChanged(event.oldValue, event.newValue)));
+  }
+
+  containerClass(): string {
+    return ToolBar.ID;
   }
 
   protected initializeContents(containerElement: HTMLElement): void {
@@ -76,8 +78,13 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
-  protected onBeforeShow(_containerElement: HTMLElement, _root: Readonly<SModelRoot>): void {
-    this.selectionService.register(this);
+  protected onBeforeShow(_containerElement: HTMLElement, _root: Readonly<GModelRoot>): void {
+    this.toDisposeOnHide.push(this.selectionService.onSelectionChanged(event => this.selectionChanged(event.root, event.selectedElements)));
+  }
+
+  hide(): void {
+    super.hide();
+    this.toDisposeOnHide.dispose();
   }
 
   protected createHeader(): void {
@@ -239,23 +246,22 @@ export class ToolBar extends AbstractUIExtension implements IActionHandler, Edit
     }
   }
 
-  selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
-    if (this.editorContext.isReadonly) {
-      return;
-    }
+  selectionChanged(root: Readonly<GModelRoot>, selectedElements: string[]): void {
+    // placeholder
   }
 
   disable(): void {
-    this.editorContext.deregister(this);
+    this.toDisposeOnDisable.dispose();
   }
 }
 
-class ToolBarFocusMouseListener extends MouseListener {
-  constructor(private readonly toolBar: ToolBar) {
+@injectable()
+export class ToolBarFocusMouseListener extends MouseListener {
+  constructor(@inject(ToolBar) private readonly toolBar: ToolBar) {
     super();
   }
 
-  mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+  mouseDown(target: GModelElement, event: MouseEvent): Action[] {
     this.toolBar.changeActiveButton();
     this.toolBar.setLastMenuAction();
     return [];

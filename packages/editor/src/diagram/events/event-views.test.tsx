@@ -1,11 +1,11 @@
-import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
+import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { EventStartTypes, EventEndTypes, EventIntermediateTypes, EventBoundaryTypes } from '../view-types';
 import { EventNode } from '../model';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
 
-function createModel(graphFactory: SModelFactory): SGraph {
+function createModel(graphFactory: GModelFactory): GGraph {
   const children: any[] = [];
   const eventNodeSize = { width: 30, height: 30 };
   children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: eventNodeSize });
@@ -45,14 +45,14 @@ function createModel(graphFactory: SModelFactory): SGraph {
   });
   children.push({ id: 'boundaryError', type: EventBoundaryTypes.BOUNDARY_ERROR, position: { x: 400, y: 100 }, size: eventNodeSize });
   children.push({ id: 'boundarySignal', type: EventBoundaryTypes.BOUNDARY_SIGNAL, position: { x: 400, y: 150 }, size: eventNodeSize });
-  const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
+  const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as GGraph;
   return graph;
 }
 
 describe('EventNodeView', () => {
   let context: ModelRenderer;
-  let graphFactory: SModelFactory;
-  let graph: SGraph;
+  let graphFactory: GModelFactory;
+  let graph: GGraph;
   let viewRegistry: ViewRegistry;
 
   beforeEach(() => {
@@ -173,7 +173,7 @@ describe('EventNodeView', () => {
 
   function assertEvent(type: string, nodeId: string, options: { intermediate?: boolean; icon?: boolean }): void {
     const view = viewRegistry.get(type);
-    const vnode = view.render(graph.index.getById(nodeId) as SNode, context);
+    const vnode = view.render(graph.index.getById(nodeId) as GNode, context);
     const node = toHTML(vnode);
     expect(node).to.contains('<circle class="sprotty-node" r="15" cx="15" cy="15" style="stroke: " />');
     if (options.intermediate) {

@@ -1,4 +1,4 @@
-import { Action, IActionHandler, SModelElement } from '@eclipse-glsp/client';
+import { Action, IActionHandler, GModelElement } from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
@@ -18,7 +18,7 @@ export class JumpActionHandler implements IActionHandler {
 
 @injectable()
 export class JumpQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (isJumpable(element)) {
       return {
         icon: IvyIcons.SubStart,

@@ -12,7 +12,7 @@ import {
   editFeature,
   editLabelFeature,
   fadeFeature,
-  GLSPGraph,
+  GGraph,
   hoverFeedbackFeature,
   isBoundsAware,
   isEditableLabel,
@@ -26,13 +26,13 @@ import {
   reconnectFeature,
   RectangularNode,
   resizeFeature,
-  SArgumentable,
-  SChildElement,
-  SEdge,
+  ArgsAware,
+  GChildElement,
+  GEdge,
   selectFeature,
-  SLabel,
-  SParentElement,
-  SRoutableElement,
+  GLabel,
+  GParentElement,
+  GRoutableElement,
   WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
@@ -47,11 +47,11 @@ import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
-export class IvyGLSPGraph extends GLSPGraph {
+export class IvyGGraph extends GGraph {
   scroll = { x: 0, y: -48 };
 }
 
-export class LaneNode extends RectangularNode implements WithEditableLabel, SArgumentable {
+export class LaneNode extends RectangularNode implements WithEditableLabel, ArgsAware {
   static readonly DEFAULT_FEATURES = [
     boundsFeature,
     layoutContainerFeature,
@@ -66,7 +66,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, SArg
 
   args: Args;
 
-  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+  get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);
   }
 
@@ -94,12 +94,12 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, SArg
     return this.children.filter(child => child instanceof LaneNode).map(child => <LaneNode>child);
   }
 
-  canConnect(routable: SRoutableElement, role: string): boolean {
+  canConnect(routable: GRoutableElement, role: string): boolean {
     return false;
   }
 }
 
-export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, WithCustomIcon, SArgumentable, Executable {
+export class ActivityNode extends RectangularNode implements Nameable, WithEditableLabel, WithCustomIcon, ArgsAware, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -130,7 +130,7 @@ export class ActivityNode extends RectangularNode implements Nameable, WithEdita
   executionCount?: number;
   args: Args;
 
-  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+  get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, ActivityTypes.LABEL);
   }
 
@@ -153,7 +153,7 @@ export class CommentNode extends ActivityNode {
   }
 }
 
-export class EventNode extends CircularNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
+export class EventNode extends CircularNode implements WithCustomIcon, ArgsAware, WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -184,19 +184,19 @@ export class EventNode extends CircularNode implements WithCustomIcon, SArgument
     return (this.args?.color as string) ?? '';
   }
 
-  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+  get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LabelType.DEFAULT);
   }
 }
 
 export class EndEventNode extends EventNode {
-  canConnect(routable: SRoutableElement, role: string): boolean {
+  canConnect(routable: GRoutableElement, role: string): boolean {
     return super.canConnect(routable, role) && role === 'target';
   }
 }
 
 export class StartEventNode extends EventNode {
-  canConnect(routable: SRoutableElement, role: string): boolean {
+  canConnect(routable: GRoutableElement, role: string): boolean {
     return super.canConnect(routable, role) && (role === 'source' || this.typeOf(routable.sourceId) === ActivityTypes.COMMENT);
   }
 
@@ -208,7 +208,7 @@ export class StartEventNode extends EventNode {
   }
 }
 
-export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumentable, WithEditableLabel, Executable {
+export class GatewayNode extends DiamondNode implements WithCustomIcon, ArgsAware, WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     connectableFeature,
     deletableFeature,
@@ -244,12 +244,12 @@ export class GatewayNode extends DiamondNode implements WithCustomIcon, SArgumen
     return (this.args?.color as string) ?? '';
   }
 
-  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+  get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LabelType.DEFAULT);
   }
 }
 
-export class Edge extends SEdge implements WithEditableLabel, Executable, SArgumentable {
+export class Edge extends GEdge implements WithEditableLabel, Executable {
   static readonly DEFAULT_FEATURES = [
     editFeature,
     reconnectFeature,
@@ -263,7 +263,6 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
     quickActionFeature
   ];
 
-  args: Args;
   executionCount?: number;
 
   get color(): string {
@@ -290,12 +289,12 @@ export class Edge extends SEdge implements WithEditableLabel, Executable, SArgum
     return Bounds.translate(Bounds.EMPTY, centerOfLine(sourcePoint, targetPoint));
   }
 
-  get editableLabel(): (SChildElement & EditableLabel) | undefined {
+  get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, EdgeTypes.LABEL);
   }
 }
 
-export class MulitlineEditLabel extends SLabel implements EditableLabel {
+export class MulitlineEditLabel extends GLabel implements EditableLabel {
   static readonly DEFAULT_FEATURES = [fadeFeature, editLabelFeature];
   readonly isMultiLine = true;
 
@@ -374,7 +373,7 @@ export class ActivityLabel extends MulitlineEditLabel {
   }
 }
 
-function findEditableLabel(element: SParentElement, type: string): (SChildElement & EditableLabel) | undefined {
+function findEditableLabel(element: GParentElement, type: string): (GChildElement & EditableLabel) | undefined {
   const label = element.children.find(e => e.type === type);
   if (label && isEditableLabel(label)) {
     return label;

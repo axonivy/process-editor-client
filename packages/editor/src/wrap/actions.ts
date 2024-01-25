@@ -1,4 +1,4 @@
-import { SModelElement } from '@eclipse-glsp/client';
+import { GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 
@@ -8,7 +8,7 @@ import { UnwrapSubOperation, WrapToSubOperation } from '@axonivy/process-editor-
 
 @injectable()
 export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (isUnwrapable(element)) {
       return {
         icon: IvyIcons.Unwrap,
@@ -25,14 +25,14 @@ export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
 
 @injectable()
 export class WrapQuickActionProvider implements QuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (isSingleWrapable(element)) {
       return this.quickAction([element.id]);
     }
     return undefined;
   }
 
-  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+  multiQuickAction(elements: GModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
     if (elementIds.length > 0 && !elements.find(element => !isWrapable(element))) {
       return this.quickAction(elementIds);

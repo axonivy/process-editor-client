@@ -1,30 +1,36 @@
 import './quick-action.css';
 
-import { configureActionHandler, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule, interfaces } from 'inversify';
+import {
+  EnableToolPaletteAction,
+  FeatureModule,
+  RemoveMarqueeAction,
+  TYPES,
+  bindAsService,
+  configureActionHandler
+} from '@eclipse-glsp/client';
+import { interfaces } from 'inversify';
 
-import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
-import { AutoAlignQuickActionProvider, DeleteQuickActionProvider } from './quick-action';
+import { UpdateColorPaletteAction } from '@axonivy/process-editor-protocol';
 import { IVY_TYPES } from '../../types';
-import { QuickActionUI } from './quick-action-ui';
+import { SelectColorQuickActionProvider } from './color/action';
+import { ColorPaletteHandler } from './color/action-handler';
+import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
+import { InfoQuickActionProvider } from './info/action';
 import {
   CreateActivityQuickActionProvider,
   CreateAllElementsQuickActionProvider,
   CreateEventQuickActionProvider,
   CreateGatewayQuickActionProvider
 } from './node/actions';
-import { SelectColorQuickActionProvider } from './color/action';
-import { ColorPaletteHandler } from './color/action-handler';
-import { TypesPaletteHandler } from './types/action-handler';
-import { SelectActivityTypeQuickActionProvider } from './types/action';
-import { InfoQuickActionProvider } from './info/action';
+import { AutoAlignQuickActionProvider, DeleteQuickActionProvider } from './quick-action';
 import { ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
-import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
-import { UpdateColorPaletteAction } from '@axonivy/process-editor-protocol';
+import { QuickActionUI } from './quick-action-ui';
+import { SelectActivityTypeQuickActionProvider } from './types/action';
+import { TypesPaletteHandler } from './types/action-handler';
 
-const ivyQuickActionModule = new ContainerModule((bind, _unbind, isBound) => {
-  bind(QuickActionUI).toSelf().inSingletonScope();
-  bind(TYPES.IUIExtension).toService(QuickActionUI);
+const ivyQuickActionModule = new FeatureModule((bind, _unbind, isBound) => {
+  bindAsService(bind, TYPES.IUIExtension, QuickActionUI);
+
   configureActionHandler({ bind, isBound }, ShowQuickActionMenuAction.KIND, QuickActionUI);
   configureActionHandler({ bind, isBound }, ShowInfoQuickActionMenuAction.KIND, QuickActionUI);
   configureActionHandler({ bind, isBound }, RemoveMarqueeAction.KIND, QuickActionUI);

@@ -1,7 +1,7 @@
-import { Action, isCtrlOrCmd, SModelElement, ZoomMouseListener } from '@eclipse-glsp/client';
+import { Action, isCtrlOrCmd, GModelElement, ZoomMouseListener } from '@eclipse-glsp/client';
 
 export class IvyZoomMouseListener extends ZoomMouseListener {
-  wheel(target: SModelElement, event: WheelEvent): Action[] {
+  wheel(target: GModelElement, event: WheelEvent): Action[] {
     if (!isCtrlOrCmd(event)) {
       return [];
     }

@@ -7,8 +7,8 @@ import {
   defaultModule,
   FeedbackActionDispatcher,
   InitializeCanvasBoundsAction,
-  SChildElement,
-  SModelRoot,
+  GChildElement,
+  GModelRoot,
   TYPES
 } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
@@ -18,12 +18,12 @@ import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction,
 import { executionFeature } from './model';
 import { ElementExecution } from '@axonivy/process-editor-protocol';
 
-let executedRoot: SModelRoot;
-let stoppedRoot: SModelRoot;
+let executedRoot: GModelRoot;
+let stoppedRoot: GModelRoot;
 
 @injectable()
 class ExecutedFeedbackCommandMock extends ExecutedFeedbackCommand {
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     context.root = executedRoot;
     return super.execute(context);
   }
@@ -31,13 +31,13 @@ class ExecutedFeedbackCommandMock extends ExecutedFeedbackCommand {
 
 @injectable()
 class StoppedFeedbackCommandMock extends StoppedFeedbackCommand {
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     context.root = stoppedRoot;
     return super.execute(context);
   }
 }
 
-class Node extends SChildElement {
+class Node extends GChildElement {
   features = createFeatureSet([executionFeature]);
 }
 
@@ -52,7 +52,7 @@ function createContainer(): Container {
 
 describe('ExecutedFeedbackAction', () => {
   let actionDispatcher: ActionDispatcher;
-  executedRoot = new SModelRoot();
+  executedRoot = new GModelRoot();
   const node = new Node();
   node.id = 'foo';
   executedRoot.add(node);
@@ -94,7 +94,7 @@ describe('ExecutedFeedbackAction', () => {
 
 describe('StoppedFeedbackAction', () => {
   let actionDispatcher: ActionDispatcher;
-  stoppedRoot = new SModelRoot();
+  stoppedRoot = new GModelRoot();
   const node = new Node();
   node.id = 'foo';
   stoppedRoot.add(node);

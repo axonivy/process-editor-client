@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-expressions */
-import { SNode } from '@eclipse-glsp/client';
+import { GNode } from '@eclipse-glsp/client';
 import { describe, test, expect, afterEach } from 'vitest';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from './element-css-classes';
 
 describe('ElementCssClassesUtil', () => {
-  const node = new SNode();
-  const node2 = new SNode();
+  const node = new GNode();
+  const node2 = new GNode();
 
   afterEach(() => {
     node.cssClasses = undefined;

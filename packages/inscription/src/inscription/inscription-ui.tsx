@@ -1,40 +1,36 @@
+import { InscriptionClientJsonRpc, IvyScriptLanguage, MonacoUtil } from '@axonivy/inscription-core';
+import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
+import { SwitchThemeActionHandler } from '@axonivy/process-editor';
+import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   AbstractUIExtension,
   Action,
-  EditorContextService,
   GArgument,
-  IActionDispatcher,
+  GModelRoot,
   IActionHandler,
-  SModelRoot,
+  ISelectionListener,
+  SelectionService,
   SetUIExtensionVisibilityAction,
-  TYPES,
   isNotUndefined,
   isOpenable
 } from '@eclipse-glsp/client';
-import { OpenAction } from 'sprotty-protocol';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { inject, injectable, optional, postConstruct } from 'inversify';
-import { Root, createRoot } from 'react-dom/client';
-import React from 'react';
-import InscriptionView from './InscriptionView';
-import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
-import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
-import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { InscriptionClientJsonRpc, IvyScriptLanguage, MonacoUtil } from '@axonivy/inscription-core';
-import { SwitchThemeActionHandler } from '@axonivy/process-editor';
-import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { inject, injectable, optional, postConstruct } from 'inversify';
+import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
+import React from 'react';
+import { Root, createRoot } from 'react-dom/client';
+import { OpenAction } from 'sprotty-protocol';
+import InscriptionView from './InscriptionView';
 import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 
 const JSX = { createElement: React.createElement };
 
 @injectable()
-export class InscriptionUi extends AbstractUIExtension implements IActionHandler, SelectionListener {
+export class InscriptionUi extends AbstractUIExtension implements IActionHandler, ISelectionListener {
   static readonly ID = 'inscriptionUi';
 
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(EditorContextService) protected readonly editorContext: EditorContextService;
+  @inject(SelectionService) protected readonly selectionService: SelectionService;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
   private inscriptionElement?: string;
@@ -48,13 +44,13 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     return InscriptionUi.ID;
   }
 
-  public containerClass(): string {
-    return 'inscription-ui-container';
+  @postConstruct()
+  protected init(): void {
+    this.selectionService.onSelectionChanged(event => this.selectionChanged(event.root, event.selectedElements));
   }
 
-  @postConstruct()
-  postConstruct(): void {
-    this.selectionService.register(this);
+  public containerClass(): string {
+    return 'inscription-ui-container';
   }
 
   protected initialize() {
@@ -100,7 +96,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   async startInscriptionClient() {
-    const model = this.editorContext.modelRoot;
+    const model = this.selectionService.getModelRoot();
     const webSocketAddress = this.action?.connection?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
     if (this.action?.connection?.ivyScript) {
       await IvyScriptLanguage.startClient(this.action?.connection?.ivyScript);
@@ -124,7 +120,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     }
     if (ToggleInscriptionAction.is(action)) {
       if (!this.inscriptionElement) {
-        this.inscriptionElement = this.editorContext.modelRoot.id;
+        this.inscriptionElement = this.selectionService.getModelRoot().id;
         this.updateInscriptionUi();
       }
       this.changeUiVisiblitiy(action.force);
@@ -142,7 +138,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   private initInscriptionContext() {
-    const model = this.editorContext.modelRoot;
+    const model = this.selectionService.getModelRoot();
     if (this.action?.inscriptionContext) {
       return this.action.inscriptionContext;
     }
@@ -169,7 +165,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     window.dispatchEvent(new CustomEvent('resize'));
   }
 
-  selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+  selectionChanged(root: Readonly<GModelRoot>, selectedElements: string[]): void {
     const selected = selectedElements
       .map(id => root.index.getById(id))
       .filter(isNotUndefined)

@@ -1,15 +1,14 @@
 /* eslint-disable max-len */
-import { GIssueMarkerView } from '@eclipse-glsp/client';
+import { GIssueMarkerView, GIssueSeverity, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
-import { SIssueSeverity, svg } from 'sprotty';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
 @injectable()
 export class IvyIssueMarkerView extends GIssueMarkerView {
-  protected getGlspIssueMarkerBackground(severity: SIssueSeverity): VNode {
+  protected getGlspIssueMarkerBackground(severity: GIssueSeverity): VNode {
     switch (severity) {
       case 'warning':
         return <polygon class-sprotty-issue-background={true} points='8 0, 12 12, 0 12' />;
@@ -23,7 +22,7 @@ export class IvyIssueMarkerView extends GIssueMarkerView {
     return 6;
   }
 
-  protected getGlspIssueMarkerPath(severity: SIssueSeverity): string {
+  protected getGlspIssueMarkerPath(severity: GIssueSeverity): string {
     switch (severity) {
       // paths used here are svg versions of codicons, resized to 12px
       case 'error': // 'codicon-error'

@@ -18,11 +18,6 @@ export class IvyDirectLabelEditTool extends DirectLabelEditTool {
   }
 
   enable(): void {
-    this.editLabelKeyListener = this.createEditLabelKeyListener();
-    this.keyTool.register(this.editLabelKeyListener);
-  }
-
-  disable(): void {
-    this.keyTool.deregister(this.editLabelKeyListener);
+    this.toDisposeOnDisable.push(this.keyTool.registerListener(this.createEditLabelKeyListener()));
   }
 }

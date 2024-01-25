@@ -1,4 +1,4 @@
-import { Action, DeleteElementOperation, isDeletable, SModelElement } from '@eclipse-glsp/client';
+import { Action, DeleteElementOperation, isDeletable, GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
@@ -19,36 +19,36 @@ export interface QuickAction {
 }
 
 export interface QuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined;
-  multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
+  singleQuickAction(element: GModelElement): QuickAction | undefined;
+  multiQuickAction(elements: GModelElement[]): QuickAction | undefined;
 }
 
 @injectable()
 export abstract class SingleQuickActionProvider implements QuickActionProvider {
-  abstract singleQuickAction(element: SModelElement): QuickAction | undefined;
-  multiQuickAction(elements: SModelElement[]): undefined {
+  abstract singleQuickAction(element: GModelElement): QuickAction | undefined;
+  multiQuickAction(elements: GModelElement[]): undefined {
     return undefined;
   }
 }
 
 @injectable()
 export abstract class MultipleQuickActionProvider implements QuickActionProvider {
-  abstract multiQuickAction(elements: SModelElement[]): QuickAction | undefined;
-  singleQuickAction(element: SModelElement): undefined {
+  abstract multiQuickAction(elements: GModelElement[]): QuickAction | undefined;
+  singleQuickAction(element: GModelElement): undefined {
     return undefined;
   }
 }
 
 @injectable()
 export class DeleteQuickActionProvider implements QuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (isDeletable(element)) {
       return this.quickAction([element.id]);
     }
     return undefined;
   }
 
-  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+  multiQuickAction(elements: GModelElement[]): QuickAction | undefined {
     const elementIds = elements.filter(e => isDeletable(e)).map(e => e.id);
     if (elementIds.length > 0) {
       return this.quickAction(elementIds);
@@ -69,7 +69,7 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
 
 @injectable()
 export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
-  multiQuickAction(elements: SModelElement[]): QuickAction | undefined {
+  multiQuickAction(elements: GModelElement[]): QuickAction | undefined {
     const elementIds = elements.map(e => e.id);
     if (elementIds.length > 0) {
       return {

@@ -7,8 +7,8 @@ import {
   defaultModule,
   FeedbackActionDispatcher,
   InitializeCanvasBoundsAction,
-  SChildElement,
-  SModelRoot,
+  GChildElement,
+  GModelRoot,
   TYPES
 } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
@@ -17,17 +17,17 @@ import { Container, injectable } from 'inversify';
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
 import { animateFeature } from './model';
 
-let root: SModelRoot;
+let root: GModelRoot;
 
 @injectable()
 class AnimateFeedbackCommandMock extends AnimateFeedbackCommand {
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     context.root = root;
     return super.execute(context);
   }
 }
 
-class AnimationNode extends SChildElement {
+class AnimationNode extends GChildElement {
   features = createFeatureSet([animateFeature]);
 }
 
@@ -46,7 +46,7 @@ describe('AnimateFeedbackAction', () => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
-    root = new SModelRoot();
+    root = new GModelRoot();
   });
 
   test('Animate css class is set on element', async () => {

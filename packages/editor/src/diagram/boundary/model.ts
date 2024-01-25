@@ -1,13 +1,13 @@
-import { SModelElement } from '@eclipse-glsp/client';
+import { GModelElement } from '@eclipse-glsp/client';
 
 export const errorBoundaryFeature = Symbol('errorBoundaryFeature');
 
-export function canAddErrorBoundary(element: SModelElement): element is SModelElement {
+export function canAddErrorBoundary(element: GModelElement): element is GModelElement {
   return element.hasFeature(errorBoundaryFeature);
 }
 
 export const signalBoundaryFeature = Symbol('signalBoundaryFeature');
 
-export function canAddSignalBoundary(element: SModelElement): element is SModelElement {
+export function canAddSignalBoundary(element: GModelElement): element is GModelElement {
   return element.hasFeature(signalBoundaryFeature);
 }

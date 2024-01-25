@@ -1,40 +1,39 @@
 import {
-  ChangeBoundsTool,
-  MouseListener,
-  ChangeBoundsListener,
-  SModelElement,
-  Operation,
   Action,
-  SetUIExtensionVisibilityAction,
+  ChangeBoundsListener,
+  ChangeBoundsTool,
   FeedbackMoveMouseListener,
+  GModelElement,
+  ISelectionListener,
+  MouseListener,
   MoveAction,
+  Operation,
   Point,
-  ElementMove,
+  SetUIExtensionVisibilityAction,
   createMovementRestrictionFeedback,
   removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
-import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyChangeBoundsTool extends ChangeBoundsTool {
-  protected createChangeBoundsListener(): MouseListener & SelectionListener {
+  protected override createChangeBoundsListener(): MouseListener & ISelectionListener {
     return new IvyChangeBoundsListener(this);
   }
 
-  protected createMoveMouseListener(): MouseListener {
+  protected override createMoveMouseListener(): MouseListener {
     return new IvyFeedbackMoveMouseListener(this);
   }
 }
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
+  protected handleMoveRoutingPointsOnServer(target: GModelElement): Operation[] {
     return [];
   }
 
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.mouseMove(target, event);
     if (this.isMouseDrag && this.activeResizeHandle) {
       actions.push(
@@ -48,7 +47,7 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
     return actions;
   }
 
-  draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
+  draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.draggingMouseUp(target, event);
     removeNegativeArea(target);
     return actions;
@@ -56,13 +55,16 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
 }
 
 export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+  protected lastMove: MoveAction | undefined;
+
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     if (event.buttons === 0) {
       removeNegativeArea(target);
       return this.mouseUp(target, event);
     }
+    this.lastMove = undefined;
     const actions = super.mouseMove(target, event);
-    if (this.hasDragged && this.hasRealMoved(actions)) {
+    if (this._isMouseDrag && this.hasRealMoved()) {
       actions.push(
         SetUIExtensionVisibilityAction.create({
           extensionId: QuickActionUI.ID,
@@ -74,14 +76,16 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
     return actions;
   }
 
-  hasRealMoved(actions: Action[]): ElementMove | undefined {
-    return actions
-      .filter(action => action.kind === MoveAction.KIND)
-      .flatMap(action => (<MoveAction>action).moves)
-      .find(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
+  protected getElementMoves(target: GModelElement, event: MouseEvent, finished: boolean): MoveAction | undefined {
+    this.lastMove = super.getElementMoves(target, event, finished);
+    return this.lastMove;
   }
 
-  protected validateMove(startPostion: Point, toPosition: Point, element: SModelElement, isFinished: boolean): Point {
+  hasRealMoved(): boolean {
+    return !!this.lastMove?.moves.some(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
+  }
+
+  protected validateMove(startPostion: Point, toPosition: Point, element: GModelElement, isFinished: boolean): Point {
     let newPosition = toPosition;
     if (this.tool.movementRestrictor) {
       const action: Action[] = [];
@@ -95,7 +99,7 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
           action.push(createMovementRestrictionFeedback(element, this.tool.movementRestrictor));
         }
       }
-      this.tool.dispatchFeedback(action, this);
+      this.tool.registerFeedback(action, this);
     }
     return newPosition;
   }

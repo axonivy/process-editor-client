@@ -5,52 +5,57 @@ import {
   BoundsAware,
   CursorCSS,
   EditorContextService,
-  getAbsoluteBounds,
-  IActionDispatcher,
+  GEdge,
+  GLSPMouseTool,
+  GModelElement,
+  GModelRoot,
+  GRoutableElement,
   IActionDispatcherProvider,
   IActionHandler,
   ICommand,
-  isNotUndefined,
+  ISelectionListener,
   MouseListener,
-  MouseTool,
-  SEdge,
+  RemoveMarqueeAction,
   SelectAllAction,
+  SelectionService,
   SetUIExtensionVisibilityAction,
-  SModelElement,
-  SModelRoot,
-  SRoutableElement,
-  TYPES
+  TYPES,
+  getAbsoluteBounds,
+  isNotUndefined
 } from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 import { createElement, createIcon } from '../../utils/ui-utils';
 
 import { Edge } from '../../diagram/model';
+import { IVY_TYPES } from '../../types';
+import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
+import { Menu } from '../menu/menu';
 import { isQuickActionAware } from './model';
 import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
-import { IVY_TYPES } from '../../types';
-import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuAction, InfoQuickActionMenu } from './quick-action-menu-ui';
-import { Menu } from '../menu/menu';
-import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
-import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
+import { InfoQuickActionMenu, QuickActionMenu, ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
 
 @injectable()
-export class QuickActionUI extends AbstractUIExtension implements IActionHandler, SelectionListener {
+export class QuickActionUI extends AbstractUIExtension implements IActionHandler, ISelectionListener {
   static readonly ID = 'quickActionsUi';
   private activeQuickActions: QuickAction[] = [];
   private activeQuickActionBtn?: HTMLElement;
   private quickActionBar?: HTMLElement;
   private quickActionMenu?: Menu;
 
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
-  @inject(TYPES.MouseTool) protected mouseTool: MouseTool;
+  @inject(SelectionService) protected selectionService: SelectionService;
+  @inject(GLSPMouseTool) protected mouseTool: GLSPMouseTool;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @multiInject(IVY_TYPES.QuickActionProvider) protected quickActionProviders: QuickActionProvider[];
 
   public id(): string {
     return QuickActionUI.ID;
+  }
+
+  @postConstruct()
+  protected init(): void {
+    this.selectionService.onSelectionChanged(event => this.selectionChanged(event.root, event.selectedElements));
+    this.mouseTool.register(new QuickActionUiMouseListener(this));
   }
 
   public containerClass(): string {
@@ -61,19 +66,12 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     return this.activeQuickActions;
   }
 
-  @postConstruct()
-  postConstruct(): void {
-    this.selectionService.register(this);
-    const mouseListener = new QuickActionUiMouseListener(this);
-    this.mouseTool.register(mouseListener);
-  }
-
   protected initializeContents(containerElement: HTMLElement): void {
     containerElement.style.position = 'absolute';
     containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
-  selectionChanged(root: Readonly<SModelRoot>, selectedElements: string[]): void {
+  selectionChanged(root: Readonly<GModelRoot>, selectedElements: string[]): void {
     if (this.editorContext.modelRoot.cssClasses?.includes(CursorCSS.MARQUEE) || selectedElements.length < 1) {
       this.hideUi();
     } else {
@@ -99,10 +97,10 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     this.createMenu(this.quickActionMenu);
   }
 
-  private showItemMenu(action: ShowQuickActionMenuAction): void {
+  private async showItemMenu(action: ShowQuickActionMenuAction): Promise<void> {
     this.removeMenu();
     if (action.elementIds.length > 0) {
-      this.quickActionMenu = new QuickActionMenu(this.actionDispatcher, action);
+      this.quickActionMenu = new QuickActionMenu(await this.actionDispatcherProvider(), action);
       this.createMenu(this.quickActionMenu);
     } else {
       this.setActiveQuickActionBtn();
@@ -151,13 +149,13 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     super.hide();
   }
 
-  protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
+  protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
     const elements = getElements(contextElementIds, root);
-    const elementsWithoutEdges = elements.filter(e => !(e instanceof SRoutableElement) || !(e instanceof Edge));
+    const elementsWithoutEdges = elements.filter(e => !(e instanceof GRoutableElement) || !(e instanceof Edge));
     if (elementsWithoutEdges.length > 1) {
       this.showMultiQuickActionUi(containerElement, elementsWithoutEdges);
-    } else if (elements.length === 1 && elements[0] instanceof SEdge && isQuickActionAware(elements[0])) {
+    } else if (elements.length === 1 && elements[0] instanceof GEdge && isQuickActionAware(elements[0])) {
       this.showEdgeQuickActionUi(containerElement, elements[0]);
     } else {
       const element = getFirstQuickActionElement(elementsWithoutEdges, root);
@@ -165,7 +163,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     }
   }
 
-  private showMultiQuickActionUi(containerElement: HTMLElement, elements: SModelElement[]): void {
+  private showMultiQuickActionUi(containerElement: HTMLElement, elements: GModelElement[]): void {
     this.activeQuickActions = this.loadMultiQuickActions(elements);
     if (this.activeQuickActions.length === 0) {
       return;
@@ -176,7 +174,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     this.shiftBar(this.quickActionBar);
   }
 
-  private showSingleQuickActionUi(containerElement: HTMLElement, element: SModelElement & BoundsAware): void {
+  private showSingleQuickActionUi(containerElement: HTMLElement, element: GModelElement & BoundsAware): void {
     if (isNotUndefined(element)) {
       this.activeQuickActions = this.loadSingleQuickActions(element);
       if (this.activeQuickActions.length === 0) {
@@ -188,7 +186,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     }
   }
 
-  private showEdgeQuickActionUi(containerElement: HTMLElement, edge: SEdge): void {
+  private showEdgeQuickActionUi(containerElement: HTMLElement, edge: GEdge): void {
     if (isNotUndefined(edge) && !edge.id.endsWith('_feedback_edge') && edge.source && edge.target) {
       this.activeQuickActions = this.loadSingleQuickActions(edge);
       if (this.activeQuickActions.length === 0) {
@@ -281,11 +279,11 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     this.activeQuickActionBtn?.classList.add('active');
   }
 
-  private loadSingleQuickActions(element: SModelElement): QuickAction[] {
+  private loadSingleQuickActions(element: GModelElement): QuickAction[] {
     return this.filterQuickActions(this.quickActionProviders.map(provider => provider.singleQuickAction(element)));
   }
 
-  private loadMultiQuickActions(elements: SModelElement[]): QuickAction[] {
+  private loadMultiQuickActions(elements: GModelElement[]): QuickAction[] {
     return this.filterQuickActions(this.quickActionProviders.map(provider => provider.multiQuickAction(elements)));
   }
 
@@ -298,21 +296,21 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   }
 }
 
-class QuickActionUiMouseListener extends MouseListener {
+export class QuickActionUiMouseListener extends MouseListener {
   constructor(private quickActionUi: QuickActionUI) {
     super();
   }
 
-  wheel(target: SModelElement, event: WheelEvent): Action[] {
+  wheel(target: GModelElement, event: WheelEvent): Action[] {
     this.quickActionUi.showUi();
     return [];
   }
 }
 
-function getElements(contextElementIds: string[], root: Readonly<SModelRoot>): SModelElement[] {
+function getElements(contextElementIds: string[], root: Readonly<GModelRoot>): GModelElement[] {
   return contextElementIds.map(id => root.index.getById(id)).filter(isNotUndefined);
 }
 
-function getFirstQuickActionElement(elements: SModelElement[], root: Readonly<SModelRoot>): SModelElement & BoundsAware {
+function getFirstQuickActionElement(elements: GModelElement[], root: Readonly<GModelRoot>): GModelElement & BoundsAware {
   return elements.filter(isQuickActionAware)[0];
 }

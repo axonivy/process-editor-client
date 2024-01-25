@@ -1,4 +1,4 @@
-import { SChildElement, Command, CommandExecutionContext, SModelElement, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { GChildElement, Command, CommandExecutionContext, GModelElement, GModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 
@@ -32,20 +32,20 @@ export class ExecutedFeedbackCommand extends Command {
   static readonly LAST_EXECUTED_CSS_CLASS = 'last';
   static readonly FAILED_CSS_CLASS = 'failed';
 
-  protected executed: SChildElement[] = [];
-  protected failed: SChildElement[] = [];
-  protected lastExecutedElement?: SModelElement;
+  protected executed: GChildElement[] = [];
+  protected failed: GChildElement[] = [];
+  protected lastExecutedElement?: GModelElement;
 
   constructor(@inject(TYPES.Action) protected readonly action: ExecutedFeedbackAction) {
     super();
   }
 
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     const model = context.root;
     this.lastExecutedElement = model.index.getById(this.action.lastExecutedElementId);
     this.action.oldElementExecutions?.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
-      if (element instanceof SChildElement && isExecutable(element)) {
+      if (element instanceof GChildElement && isExecutable(element)) {
         setExecutionCount(element as Executable, 0);
         const cssClass = elementExecution.failed ? ExecutedFeedbackCommand.FAILED_CSS_CLASS : ExecutedFeedbackCommand.EXECUTED_CSS_CLASS;
         removeCssClass(element, cssClass);
@@ -53,7 +53,7 @@ export class ExecutedFeedbackCommand extends Command {
     });
     this.action.elementExecutions.forEach(elementExecution => {
       const element = model.index.getById(elementExecution.elementId);
-      if (element instanceof SChildElement && isExecutable(element)) {
+      if (element instanceof GChildElement && isExecutable(element)) {
         setExecutionCount(element as Executable, elementExecution.count);
         if (elementExecution.failed) {
           this.failed.push(element);
@@ -65,13 +65,13 @@ export class ExecutedFeedbackCommand extends Command {
     return this.redo(context);
   }
 
-  undo(context: CommandExecutionContext): SModelRoot {
+  undo(context: CommandExecutionContext): GModelRoot {
     removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
     removeCssClassOfElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
     return context.root;
   }
 
-  redo(context: CommandExecutionContext): SModelRoot {
+  redo(context: CommandExecutionContext): GModelRoot {
     addCssClassToElements(this.executed, ExecutedFeedbackCommand.EXECUTED_CSS_CLASS);
     addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
     removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
@@ -102,31 +102,31 @@ export class StoppedFeedbackCommand extends Command {
   static readonly KIND = 'stoppedFeedbackCommand';
   static readonly STOPPED_CSS_CLASS = 'stopped';
 
-  protected stoppedElement: SChildElement;
+  protected stoppedElement: GChildElement;
 
   constructor(@inject(TYPES.Action) protected readonly action: StoppedFeedbackAction) {
     super();
   }
 
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     const model = context.root;
     const oldElement = model.index.getById(this.action.oldStoppedElement);
-    if (oldElement instanceof SChildElement && isExecutable(oldElement)) {
+    if (oldElement instanceof GChildElement && isExecutable(oldElement)) {
       removeCssClass(oldElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     }
     const element = model.index.getById(this.action.stoppedElement ?? '');
-    if (element instanceof SChildElement && isExecutable(element)) {
+    if (element instanceof GChildElement && isExecutable(element)) {
       this.stoppedElement = element;
     }
     return this.redo(context);
   }
 
-  undo(context: CommandExecutionContext): SModelRoot {
+  undo(context: CommandExecutionContext): GModelRoot {
     removeCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }
 
-  redo(context: CommandExecutionContext): SModelRoot {
+  redo(context: CommandExecutionContext): GModelRoot {
     addCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }

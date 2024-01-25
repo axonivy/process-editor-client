@@ -1,9 +1,8 @@
-import { ContainerModule } from 'inversify';
-import { NavigateToExternalTargetActionHandler } from './action-handler';
+import { FeatureModule, configureActionHandler } from '@eclipse-glsp/client';
 import { NavigateToExternalTargetAction } from '@eclipse-glsp/protocol';
-import { configureActionHandler } from '@eclipse-glsp/client';
+import { NavigateToExternalTargetActionHandler } from './action-handler';
 
-const ivyNavigationModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyNavigationModule = new FeatureModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, NavigateToExternalTargetAction.KIND, NavigateToExternalTargetActionHandler);
 });
 

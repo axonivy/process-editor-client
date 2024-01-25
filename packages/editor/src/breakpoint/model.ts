@@ -3,25 +3,25 @@ import {
   BoundsAware,
   Hoverable,
   hoverFeedbackFeature,
-  SChildElement,
+  GChildElement,
   selectFeature,
-  SModelElement,
-  SParentElement
+  GModelElement,
+  GParentElement
 } from '@eclipse-glsp/client';
 
 export const breakpointFeature = Symbol('breakpointFeature');
 
 export type Breakable = BoundsAware;
 
-export function isBreakable(element: SModelElement): element is SModelElement & Breakable {
+export function isBreakable(element: GModelElement): element is GModelElement & Breakable {
   return element.hasFeature(breakpointFeature);
 }
 
-export function isBreaked(element: SModelElement | undefined): element is SModelElement & Breakable {
+export function isBreaked(element: GModelElement | undefined): element is GModelElement & Breakable {
   return element !== undefined && isBreakable(element);
 }
 
-export class SBreakpointHandle extends SChildElement implements Hoverable {
+export class SBreakpointHandle extends GChildElement implements Hoverable {
   static readonly TYPE = 'breakpoint-handle';
 
   constructor(
@@ -38,16 +38,16 @@ export class SBreakpointHandle extends SChildElement implements Hoverable {
     return feature === hoverFeedbackFeature || feature === selectFeature;
   }
 
-  mouseUp(target: SModelElement): Action[] {
+  mouseUp(target: GModelElement): Action[] {
     return [];
   }
 }
 
-export function addBreakpointHandles(element: SParentElement, condition: string, disabled: boolean, globalDisabled: boolean): void {
+export function addBreakpointHandles(element: GParentElement, condition: string, disabled: boolean, globalDisabled: boolean): void {
   removeBreakpointHandles(element);
   element.add(new SBreakpointHandle(condition, disabled, globalDisabled));
 }
 
-export function removeBreakpointHandles(element: SParentElement): void {
+export function removeBreakpointHandles(element: GParentElement): void {
   element.removeAll(child => child instanceof SBreakpointHandle);
 }

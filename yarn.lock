@@ -109,31 +109,42 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
-"@eclipse-glsp/client@1.1.0-RC10":
-  version "1.1.0-RC10"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-1.1.0-RC10.tgz#c32c91f5c1410f32c97bf506ecf9b97c7dafeb20"
-  integrity sha512-vMdUu5X8waKNXGRU9DEylvTkMfayiCtWRy4e+TWygfiiM7G7wD8AZPL4fGQoDT3h7ulsgpXV+Mcorysp86P6lw==
+"@eclipse-glsp/client@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.0.tgz#324c48e243cb24d454c9c4a38dcd7effea92b729"
+  integrity sha512-OxQhgcz1VJnmj4IYMSz7Xp4bk50yX/nvrcdVyBvnWJ0S2FF9rJZcdMykooMg19N0nfnG+cjzVa4lbd5Mf975XQ==
   dependencies:
-    "@eclipse-glsp/protocol" "1.1.0-RC10"
-    autocompleter "5.1.0"
+    "@eclipse-glsp/sprotty" "2.1.0"
+    autocompleter "^9.1.0"
+    file-saver "^2.0.5"
     lodash "4.17.21"
-    sprotty "0.14.0-next.02bbac0.26"
 
-"@eclipse-glsp/ide@1.1.0-RC10":
-  version "1.1.0-RC10"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/ide/-/ide-1.1.0-RC10.tgz#70e58c958c0b8487daa6489c368c53a7bb3a56d9"
-  integrity sha512-JBOqoto+IGK7v9JxL9MDJag0ir1VibmzC5ZfaE3YwkAucaN0frXm0Rrz5SJWTYsezJNu6eF7WdixYWc3C9ydAw==
+"@eclipse-glsp/ide@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/ide/-/ide-2.1.0.tgz#f1bc0fb76ab70f95aaad45bd39d5bef61c6d3a8e"
+  integrity sha512-2feg3u2jIbtKI6cO//vwAXRpsH5FeZFHKnL+7f6cKJw2yhEig9UCvwghR7ugwdmW9YWcMsVfw57rARHmmpjT7g==
   dependencies:
-    "@eclipse-glsp/client" "1.1.0-RC10"
+    "@eclipse-glsp/client" "2.1.0"
 
-"@eclipse-glsp/protocol@1.1.0-RC10":
-  version "1.1.0-RC10"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-1.1.0-RC10.tgz#123fc350277431ce36a719b582c0cc12746df6a9"
-  integrity sha512-00sT68AbyiiMF63kXdQcQz0vPpf4Nuf1pWoxsJq82npyCIL1PP2rqqE3v+RfQQFic0cmYQObXhJCueK/BjvDaw==
+"@eclipse-glsp/protocol@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.0.tgz#e76a65a4815c969bfb86a1ab202ad24384a317cc"
+  integrity sha512-CUcVbsjiddDWEuhWKDLgfqslmau2QT6QTF9LyA4/y6Eomv5s8nTexeBMI6hCWL4sHgMfQ4t2zI9zV2a5gIow4A==
   dependencies:
-    sprotty-protocol "0.14.0-next.02bbac0.26"
+    sprotty-protocol "0.15.0-next.044bba2.13"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
+
+"@eclipse-glsp/sprotty@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.1.0.tgz#4adf93dd501dc65426f7beac145ac007fcb37aa9"
+  integrity sha512-STBH3Af9sTD102mfgr0kplMSkvkkWIOMGLjr7Hl+b5yx8niMrFmy6HGIBVpyw9mb5DW+6eKN+3QjyslTetL8TA==
+  dependencies:
+    "@eclipse-glsp/protocol" "2.1.0"
+    autocompleter "^9.1.0"
+    snabbdom "^3.5.1"
+    sprotty "1.0.0"
+    sprotty-protocol "1.0.0"
 
 "@esbuild/android-arm64@0.19.5":
   version "0.19.5"
@@ -2872,15 +2883,10 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
 
-autocompleter@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-5.1.0.tgz#da80488ddf1f1d89b0a8f5d36cab24439de18ab8"
-  integrity sha512-xFZla6guwywqFJutoi5xrhAmaKw4/TU8CcLuNep/3OtiUfpNXtgzuBkkXJ6ysJIfG6MEEXFtUBg3PREN6HUVyw==
-
-autocompleter@^7.0.1:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-7.1.0.tgz#f8ff1428ec976eddc3eb8df7a2842c287d9b2bf5"
-  integrity sha512-uCToOnq7eAD/GJAteDbYuQ7ksDtrYWOy5CIAq43wh0dT+5frMpPlyD9tp+y5fz8KIcsP+zR2MjzoTAdW5aJESw==
+autocompleter@^9.1.0:
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-9.1.2.tgz#1f30c2db277de029a05a3fbbfac642e73ca107c1"
+  integrity sha512-L4DJ2UIsIy/YrTchKHHfyQRng2p8m9xpari1uHYZ/5DynQombeshF73uVQbrtdLxLSlK0R7ObhpnbPBkI8j8xA==
 
 available-typed-arrays@^1.0.5:
   version "1.0.5"
@@ -7186,20 +7192,30 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-sprotty-protocol@0.14.0-next.02bbac0.26, sprotty-protocol@0.14.0-next.02bbac0.26+02bbac0:
-  version "0.14.0-next.02bbac0.26"
-  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-0.14.0-next.02bbac0.26.tgz#e9bf147aa8e5c8e05f4392339573ee03fa0b3d7f"
-  integrity sha512-a8gbAKjRAIhCV+kM5+E96na7WgWwlqWU/jxhv23w4aLbkurs1gNR6uAF4sm0ahyhXnFxSl7KMUyYJG5km7Iyug==
+sprotty-protocol@0.15.0-next.044bba2.13:
+  version "0.15.0-next.044bba2.13"
+  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-0.15.0-next.044bba2.13.tgz#10d5c36b00a8a24f62007336743c7e98d56e205b"
+  integrity sha512-DmWdIXFeZ5Gwa9uicbTNUkJMfUZa62w76Gb1w9lpYDs2S21HFZU4bvPuMD+yN31V/ChX5TGPCCTHmHLJ3Oe85w==
 
-sprotty@0.14.0-next.02bbac0.26:
-  version "0.14.0-next.02bbac0.26"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-0.14.0-next.02bbac0.26.tgz#0177e9c31e129fba5a61a358145c7f1861cee28a"
-  integrity sha512-xNheZO66EOrqh6Hh6wt2HB8KvDv5s34hNR6hhQmrE2A+ZziRmDdW116Q/67ZK4mJ0UEsScaLmfNbzjZnwo+mWg==
+sprotty-protocol@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-1.0.0.tgz#b22e2da7e10b168debdc17feb61c4b832f01f614"
+  integrity sha512-p1H+ihcOmj0LEk2atcwOnYQPm0WByaOB1yX7fd869ONfQ5R+7x0X20YPdVLeCWmnhsszC/Rf91ojwaQiNIiHNA==
+
+sprotty-protocol@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-1.1.0.tgz#02f30331d234c71a58646083c59b3a7b13c7861d"
+  integrity sha512-WrnCY6GpnBJa0pXdQsN1xb6b+dW9v3zHSpf063UD+E9LQfuQ2qnPzOYCz+ChmbK1wSgXzl7GYDRNfvGydD5BhA==
+
+sprotty@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-1.0.0.tgz#f575a97064ec90f08c468aa3f98a8b0df6887230"
+  integrity sha512-PaGVT1Qc19Mjl1X29UtMm1TNqz9k4AT1QgaXc04njSBKDsSfskS0OupV+oV5m/igbf+juOcHwcbcZdhAxF7RjQ==
   dependencies:
-    autocompleter "^7.0.1"
+    autocompleter "^9.1.0"
     file-saver "^2.0.5"
     snabbdom "^3.5.1"
-    sprotty-protocol "0.14.0-next.02bbac0.26+02bbac0"
+    sprotty-protocol "^1.0.0"
     tinyqueue "^2.0.3"
 
 ssri@^10.0.0, ssri@^10.0.1:

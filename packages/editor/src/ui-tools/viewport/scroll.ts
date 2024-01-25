@@ -6,7 +6,7 @@ import {
   ICommand,
   isCtrlOrCmd,
   isViewport,
-  SModelElement
+  GModelElement
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
@@ -24,7 +24,7 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
     super.handle(action);
   }
 
-  mouseDown(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
+  mouseDown(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
     const lane = findParentByFeature(target, isLaneResizeHandle);
     if (lane) {
       return [];
@@ -32,7 +32,7 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
     return super.mouseDown(target, event);
   }
 
-  wheel(target: SModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
+  wheel(target: GModelElement, event: WheelEvent): (Action | Promise<Action>)[] {
     if (isCtrlOrCmd(event)) {
       return [];
     }

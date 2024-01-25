@@ -1,15 +1,24 @@
 import './decoration.css';
 
-import { ContainerModule } from 'inversify';
-import { configureModelElement, DefaultTypes, SIssueMarker, TYPES } from '@eclipse-glsp/client';
+import {
+  bindAsService,
+  configureModelElement,
+  decorationModule,
+  DefaultTypes,
+  FeatureModule,
+  GIssueMarker,
+  TYPES
+} from '@eclipse-glsp/client';
 
 import { IvyDecorationPlacer } from './decoration-placer';
 import { IvyIssueMarkerView } from './issue-marker-view';
 
-const ivyDecorationModule = new ContainerModule((bind, _unbind, isBound) => {
-  bind(IvyDecorationPlacer).toSelf().inSingletonScope();
-  bind(TYPES.IVNodePostprocessor).toService(IvyDecorationPlacer);
-  configureModelElement({ bind: bind, isBound: isBound }, DefaultTypes.ISSUE_MARKER, SIssueMarker, IvyIssueMarkerView);
-});
+const ivyDecorationModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    bindAsService(bind, TYPES.IVNodePostprocessor, IvyDecorationPlacer);
+    configureModelElement({ bind: bind, isBound: isBound }, DefaultTypes.ISSUE_MARKER, GIssueMarker, IvyIssueMarkerView);
+  },
+  { featureId: decorationModule.featureId }
+);
 
 export default ivyDecorationModule;

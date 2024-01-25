@@ -1,6 +1,5 @@
-import { IFeedbackActionDispatcher } from '@eclipse-glsp/client/lib/features/tool-feedback/feedback-action-dispatcher';
+import { IFeedbackActionDispatcher, Action, IActionHandler, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { Action, IActionHandler, TYPES } from '@eclipse-glsp/client';
 
 import { BreakpointFeedbackAction } from './feedback-action';
 import { ElementBreakpoint, ShowBreakpointAction } from '@axonivy/process-editor-protocol';

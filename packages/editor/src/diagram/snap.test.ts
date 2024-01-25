@@ -1,4 +1,4 @@
-import { createFeatureSet, SModelElement } from '@eclipse-glsp/client';
+import { createFeatureSet, GModelElement } from '@eclipse-glsp/client';
 import { describe, test, expect } from 'vitest';
 
 import { ActivityNode } from './model';
@@ -8,7 +8,7 @@ describe('IvyGridSnapper', () => {
   const snapper = new IvyGridSnapper();
 
   test('element with no size should snap to grid', () => {
-    const element = new SModelElement();
+    const element = new GModelElement();
     expect(snapper.snap({ x: 0, y: 0 }, element)).to.deep.equals({ x: 0, y: 0 });
     expect(snapper.snap({ x: 8, y: 11 }, element)).to.deep.equals({ x: 8, y: 8 });
     expect(snapper.snap({ x: 15, y: 12 }, element)).to.deep.equals({ x: 16, y: 16 });

@@ -1,4 +1,4 @@
-import { Bounds, ExportSvgAction, getAbsoluteBounds, SEdge, SModelRoot, SNode, SvgExporter } from '@eclipse-glsp/client';
+import { Bounds, ExportSvgAction, getAbsoluteBounds, GEdge, GModelRoot, GNode, SvgExporter } from '@eclipse-glsp/client';
 import { RequestAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { getAbsoluteEdgeBounds, getAbsoluteLabelBounds } from '../../utils/diagram-utils';
@@ -7,7 +7,7 @@ import { MulitlineEditLabel, RotateLabel } from '../../diagram/model';
 
 @injectable()
 export class IvySvgExporter extends SvgExporter {
-  override export(root: SModelRoot, _request?: RequestAction<ExportSvgAction>): void {
+  override export(root: GModelRoot, _request?: RequestAction<ExportSvgAction>): void {
     if (typeof document !== 'undefined') {
       const svgElement = this.findSvgElement();
       if (svgElement) {
@@ -22,7 +22,7 @@ export class IvySvgExporter extends SvgExporter {
             `style="width: ${bounds.width}px !important;height: ${bounds.height}px !important;border: none !important; cursor: default !important;`
           );
           // do not give request/response id here as otherwise the action is treated as an unrequested response
-          this.actionDispatcher.dispatch(ExportSvgAction.create(svg,''));
+          this.actionDispatcher.dispatch(ExportSvgAction.create(svg));
         } finally {
           svgElement.id = originalId;
         }
@@ -68,20 +68,20 @@ export class IvySvgExporter extends SvgExporter {
 
   isCSSInlineStyle = (element: any): element is ElementCSSInlineStyle => 'style' in element;
 
-  protected getBounds(root: SModelRoot): Bounds {
+  protected getBounds(root: GModelRoot): Bounds {
     const allBounds: Bounds[] = [];
     root.index
       .all()
       .filter(element => element.root !== element)
       .filter(element => !(element instanceof RotateLabel))
       .forEach(element => {
-        if (element instanceof SNode) {
+        if (element instanceof GNode) {
           allBounds.push(getAbsoluteBounds(element));
         }
         if (element instanceof MulitlineEditLabel && element.text.length > 0) {
           allBounds.push(getAbsoluteLabelBounds(element));
         }
-        if (element instanceof SEdge) {
+        if (element instanceof GEdge) {
           allBounds.push(getAbsoluteEdgeBounds(element));
         }
       });

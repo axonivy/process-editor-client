@@ -1,4 +1,4 @@
-import { KeyListener, Action, SModelElement, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
+import { KeyListener, Action, GModelElement, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
@@ -6,7 +6,7 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 export class QuickActionKeyListener extends KeyListener {
   @inject(QuickActionUI) protected quickActionUi: QuickActionUI;
 
-  keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
+  keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
     const quickActions = this.quickActionUi
       .getActiveQuickActions()
       .filter(quickAction => quickAction.shortcut && matchesKeystroke(event, quickAction.shortcut));

@@ -1,8 +1,8 @@
-import { ContainerModule } from 'inversify';
-import { CustomIconQuickActionProvider } from './quick-action';
+import { FeatureModule } from '@eclipse-glsp/client';
 import { IVY_TYPES } from '../types';
+import { CustomIconQuickActionProvider } from './quick-action';
 
-const ivyOpenDecoratorBrowserModule = new ContainerModule(bind => {
+const ivyOpenDecoratorBrowserModule = new FeatureModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(CustomIconQuickActionProvider);
 });
 

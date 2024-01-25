@@ -1,15 +1,15 @@
-import { SEdge, SModelRoot, SNode } from '@eclipse-glsp/client';
+import { GEdge, GModelRoot, GNode } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { getAbsoluteEdgeBounds } from './diagram-utils';
 
 describe('DiagramUtils - absoluteEdgeBounds', () => {
-  const edge = new SEdge();
+  const edge = new GEdge();
 
   beforeEach(() => {
-    const root = new SModelRoot();
-    const source = new SNode();
+    const root = new GModelRoot();
+    const source = new GNode();
     source.bounds = { x: 10, y: 10, width: 20, height: 10 };
-    const target = new SNode();
+    const target = new GNode();
     target.bounds = { x: 50, y: 10, width: 20, height: 10 };
     root.add(edge);
     root.add(source);
