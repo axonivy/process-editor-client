@@ -7,19 +7,21 @@ import {
   ModelRendererFactory,
   TYPES,
   ViewRegistry,
+  baseViewModule,
   configureView,
-  initializeDiagramContainer
+  routingModule
 } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { Container } from 'inversify';
 import { VNode } from 'snabbdom';
 import toHTML from 'snabbdom-to-html';
 import { beforeEach, describe, expect, test } from 'vitest';
+import { createTestContainer } from '../utils/test-utils';
 import { SBreakpointHandle } from './model';
 import { SBreakpointHandleView } from './view';
 
 function createContainer(): Container {
-  const container = initializeDiagramContainer(new Container());
+  const container = createTestContainer(baseViewModule, routingModule);
   configureView(container, SBreakpointHandle.TYPE, SBreakpointHandleView);
   return container;
 }

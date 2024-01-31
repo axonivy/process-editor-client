@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { LaneTypes } from '../view-types';
@@ -49,7 +50,9 @@ describe('LaneNodeView', () => {
     expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
-    expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
+    expect(toHTML(unknownVNode)).to.be.equal(
+      '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">?unknown?</text>'
+    );
   });
 
   test('render pool node', () => {
@@ -58,7 +61,8 @@ describe('LaneNodeView', () => {
     const expectation =
       '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
       '<path class="sprotty-node pool-label-rect" d="M23,0 v499 h-19 q-4,0 -4,-4 v-491 q0,-4 4,-4 z" /><g></g>' +
-      '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
+      '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_pool">' +
+      '<tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -68,7 +72,8 @@ describe('LaneNodeView', () => {
     const expectation =
       '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
       '<path class="sprotty-node pool-label-rect" d="M37,0 v499 h-33 q-4,0 -4,-4 v-491 q0,-4 4,-4 z" /><g></g>' +
-      '<text id="sprotty_poolLabel2" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /><tspan dy="1.2em" x="0" /></text></g>';
+      '<text id="sprotty_poolLabel2" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_pool2">' +
+      '<tspan dy="0" x="0" /><tspan dy="1.2em" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -77,7 +82,8 @@ describe('LaneNodeView', () => {
     const vnode = view.render(graph.index.getById('lane') as GNode, context);
     const expectation =
       '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="499" /><g></g><g></g>' +
-      '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)"><tspan dy="0" x="0" /></text></g>';
+      '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_lane">' +
+      '<tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 

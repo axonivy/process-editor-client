@@ -1,17 +1,8 @@
-import {
-  GModelFactory,
-  IVNodePostprocessor,
-  ModelRenderer,
-  ModelRendererFactory,
-  TYPES,
-  ViewRegistry,
-  initializeDiagramContainer
-} from '@eclipse-glsp/client';
-import { Container } from 'inversify';
-import ivyDiagramModule from '../diagram/di.config';
+import { GModelFactory, IVNodePostprocessor, ModelRenderer, ModelRendererFactory, TYPES, ViewRegistry } from '@eclipse-glsp/client';
+import { createTestDiagramContainer } from '../utils/test-utils';
 
 export const setupViewTestContainer = (modelFactory: any): [ModelRenderer, GModelFactory, any, ViewRegistry] => {
-  const container = initializeDiagramContainer(new Container(), ivyDiagramModule);
+  const container = createTestDiagramContainer();
   const postprocessors = container.getAll<IVNodePostprocessor>(TYPES.IVNodePostprocessor);
   const context = container.get<ModelRendererFactory>(TYPES.ModelRendererFactory)('hidden', postprocessors);
   const graphFactory = container.get<GModelFactory>(TYPES.IModelFactory);

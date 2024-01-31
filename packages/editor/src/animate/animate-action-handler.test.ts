@@ -17,11 +17,10 @@ import { AnimateActionHandler } from './animate-action-handler';
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
 import { AnimateAction } from '@axonivy/process-editor-protocol';
 import { MoveIntoViewportCommand } from '../ui-tools/viewport/viewport-commands';
+import { createTestContainer } from '../utils/test-utils';
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   container.bind(AnimateActionHandler).toSelf().inSingletonScope();
   configureActionHandler(container, AnimateAction.KIND, AnimateActionHandler);
   configureCommand(container, AnimateFeedbackCommand);

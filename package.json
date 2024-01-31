@@ -47,6 +47,7 @@
     ]
   },
   "resolutions": {
-    "vscode-jsonrpc": "8.2.0"
+    "vscode-jsonrpc": "8.2.0",
+    "sprotty-protocol": "1.0.0"
   }
 }

@@ -10,13 +10,16 @@ import {
   InitializeCanvasBoundsAction,
   GChildElement,
   GModelRoot,
-  TYPES
+  TYPES,
+  initializeContainer,
+  initializeDiagramContainer
 } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
 
 import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
 import { breakpointFeature, SBreakpointHandle } from './model';
+import { createTestContainer } from '../utils/test-utils';
 
 let root: GModelRoot;
 
@@ -29,9 +32,7 @@ class BreakpointFeedbackCommandMock extends BreakpointFeedbackCommand {
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   configureCommand(container, BreakpointFeedbackCommandMock);
   return container;
 }

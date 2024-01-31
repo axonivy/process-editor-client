@@ -14,12 +14,12 @@ describe('IvyGridSnapper', () => {
     expect(snapper.snap({ x: 15, y: 12 }, element)).to.deep.equals({ x: 16, y: 16 });
   });
 
-  test('center of element should snap to grid', () => {
+  test('element with size should snap to grid', () => {
     const element = new ActivityNode();
     element.features = createFeatureSet(ActivityNode.DEFAULT_FEATURES);
     element.size = { width: 10, height: 10 };
-    expect(snapper.snap({ x: 0, y: 0 }, element)).to.deep.equals({ x: 3, y: 3 });
-    expect(snapper.snap({ x: 10, y: 10 }, element)).to.deep.equals({ x: 11, y: 11 });
-    expect(snapper.snap({ x: 55, y: 40 }, element)).to.deep.equals({ x: 59, y: 43 });
+    expect(snapper.snap({ x: 0, y: 0 }, element)).to.deep.equals({ x: 0, y: 0 });
+    expect(snapper.snap({ x: 10, y: 10 }, element)).to.deep.equals({ x: 8, y: 8 });
+    expect(snapper.snap({ x: 55, y: 40 }, element)).to.deep.equals({ x: 56, y: 40 });
   });
 });

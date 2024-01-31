@@ -15,11 +15,10 @@ import { Container } from 'inversify';
 import { ShowBreakpointActionHandler } from './action-handler';
 import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
 import { ShowBreakpointAction } from '@axonivy/process-editor-protocol';
+import { createTestContainer } from '../utils/test-utils';
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   container.bind(ShowBreakpointActionHandler).toSelf().inSingletonScope();
   configureActionHandler(container, ShowBreakpointAction.KIND, ShowBreakpointActionHandler);
   configureCommand(container, BreakpointFeedbackCommand);

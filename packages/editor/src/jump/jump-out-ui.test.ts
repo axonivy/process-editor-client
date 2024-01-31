@@ -11,11 +11,12 @@ import {
   InitializeCanvasBoundsAction,
   TYPES,
   configureCommand,
-  initializeDiagramContainer
+  selectModule
 } from '@eclipse-glsp/client';
 import { Container, injectable } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
+import { createTestContainer } from '../utils/test-utils';
 import { JumpOutFeedbackAction, JumpOutFeedbackCommand } from './jump-out-ui';
 
 let root: GModelRoot & ArgsAware;
@@ -30,8 +31,9 @@ class JumpOutFeedbackCommandMock extends JumpOutFeedbackCommand {
 }
 
 function createContainer(): Container {
-  const container = initializeDiagramContainer(new Container());
+  const container = createTestContainer(selectModule);
   configureCommand(container, JumpOutFeedbackCommandMock);
+
   return container;
 }
 

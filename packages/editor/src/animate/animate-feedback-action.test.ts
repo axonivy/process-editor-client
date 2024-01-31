@@ -16,6 +16,7 @@ import { Container, injectable } from 'inversify';
 
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
 import { animateFeature } from './model';
+import { createTestContainer } from '../utils/test-utils';
 
 let root: GModelRoot;
 
@@ -32,9 +33,7 @@ class AnimationNode extends GChildElement {
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   configureCommand(container, AnimateFeedbackCommandMock);
   return container;
 }

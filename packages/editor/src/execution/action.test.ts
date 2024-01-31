@@ -13,11 +13,10 @@ import { Container } from 'inversify';
 import ivyExecutionModule from './di.config';
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
 import { ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
+import { createTestContainer } from '../utils/test-utils';
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule, ivyExecutionModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer(ivyExecutionModule);
   return container;
 }
 

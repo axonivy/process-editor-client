@@ -28,11 +28,11 @@ import ivyQuickActionModule from '../ui-tools/quick-action/di.config';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
 import ivyToolBarModule from '../ui-tools/tool-bar/di.config';
 import ivyWrapModule from '../wrap/di.config';
+import { createTestDiagramContainer } from '../utils/test-utils';
 
 export function createContainer(options?: Partial<IvyViewerOptions>): Container {
   setupSprottyDiv();
-  const container = initializeDiagramContainer(
-    new Container(),
+  const container = createTestDiagramContainer(
     ivyQuickActionModule,
     ivyJumpModule,
     ivyLaneModule,

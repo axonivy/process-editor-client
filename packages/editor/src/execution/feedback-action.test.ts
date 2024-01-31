@@ -17,6 +17,7 @@ import { Container, injectable } from 'inversify';
 import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction, StoppedFeedbackCommand } from './feedback-action';
 import { executionFeature } from './model';
 import { ElementExecution } from '@axonivy/process-editor-protocol';
+import { createTestContainer } from '../utils/test-utils';
 
 let executedRoot: GModelRoot;
 let stoppedRoot: GModelRoot;
@@ -42,9 +43,7 @@ class Node extends GChildElement {
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   configureCommand(container, ExecutedFeedbackCommandMock);
   configureCommand(container, StoppedFeedbackCommandMock);
   return container;
