@@ -27,8 +27,7 @@ export class ViewerDiagramStartup implements IDiagramStartup {
   protected options: IvyDiagramOptions;
 
   async postRequestModel(): Promise<void> {
-    // TODO: Why do we send a custom request type hints actual with a very specific request id?
-    return this.actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: this.options.diagramType }));
+    return this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
   }
 
   async postModelInitialization(): Promise<void> {

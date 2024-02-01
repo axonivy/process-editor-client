@@ -23,8 +23,7 @@ export class EclipseDiagramStartup implements IDiagramStartup {
   protected options: IvyDiagramOptions;
 
   async postRequestModel(): Promise<void> {
-    // TODO: Why do we send a custom request type hints actual with a very specific request id?
-    this.actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: this.options.diagramType }));
+    this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
     this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
     this.actionDispatcher.dispatch(EnableViewportAction.create());
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));

@@ -51,7 +51,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
 
   const diagramLoader = container.get(DiagramLoader);
   await diagramLoader.load({
-    // TODO: Does the custom server need the 'readonly' argument here? We already set the edit mode through the diagram options
+    // Our custom server needs the 'readonly' argument here as well and not only set through the edit mode in the diagram options
     requestModelOptions: { isReconnecting, app, pmv, pid, readonly: isReadonly() },
     initializeParameters: {
       applicationId: ApplicationIdProvider.get(),
