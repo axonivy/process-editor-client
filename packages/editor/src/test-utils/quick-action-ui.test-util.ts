@@ -11,8 +11,7 @@ import {
   Point,
   TYPES,
   configureModelElement,
-  createFeatureSet,
-  initializeDiagramContainer
+  createFeatureSet
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container } from 'inversify';
@@ -27,8 +26,8 @@ import { IvyViewerOptions, configureIvyViewerOptions } from '../options';
 import ivyQuickActionModule from '../ui-tools/quick-action/di.config';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
 import ivyToolBarModule from '../ui-tools/tool-bar/di.config';
-import ivyWrapModule from '../wrap/di.config';
 import { createTestDiagramContainer } from '../utils/test-utils';
+import ivyWrapModule from '../wrap/di.config';
 
 export function createContainer(options?: Partial<IvyViewerOptions>): Container {
   setupSprottyDiv();

@@ -2,21 +2,19 @@ import {
   ActionDispatcher,
   Bounds,
   CommandExecutionContext,
-  configureCommand,
-  createFeatureSet,
-  defaultModule,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
   GChildElement,
   GModelRoot,
-  TYPES
+  InitializeCanvasBoundsAction,
+  TYPES,
+  configureCommand,
+  createFeatureSet
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { createTestContainer } from '../utils/test-utils';
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
 import { animateFeature } from './model';
-import { createTestContainer } from '../utils/test-utils';
 
 let root: GModelRoot;
 

@@ -1,19 +1,12 @@
 /* eslint-disable no-unused-expressions */
-import {
-  ActionDispatcher,
-  Bounds,
-  defaultModule,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
-  TYPES
-} from '@eclipse-glsp/client';
-import { describe, test, beforeEach, expect } from 'vitest';
+import { ActionDispatcher, Bounds, FeedbackActionDispatcher, InitializeCanvasBoundsAction, TYPES } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
-import ivyExecutionModule from './di.config';
-import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
 import { ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
 import { createTestContainer } from '../utils/test-utils';
+import ivyExecutionModule from './di.config';
+import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
 
 function createContainer(): Container {
   const container = createTestContainer(ivyExecutionModule);

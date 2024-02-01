@@ -1,20 +1,30 @@
 import {
   Action,
   EnableToolsAction,
-  findParentByFeature,
+  GLSPMouseTool,
   GLSPScrollMouseListener,
+  GModelElement,
   ICommand,
+  findParentByFeature,
   isCtrlOrCmd,
-  isViewport,
-  GModelElement
+  isViewport
 } from '@eclipse-glsp/client';
-import { injectable } from 'inversify';
+import { inject, injectable, postConstruct } from 'inversify';
 import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
 
 import { isLaneResizeHandle } from '../../lanes/model';
+import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 @injectable()
 export class IvyScrollMouseListener extends GLSPScrollMouseListener {
+  @inject(QuickActionUI) quickActionUi: QuickActionUI;
+  @inject(GLSPMouseTool) mouseTool: GLSPMouseTool;
+
+  @postConstruct()
+  protected init(): void {
+    this.mouseTool.registerListener(this);
+  }
+
   handle(action: Action): void | Action | ICommand {
     if (EnableToolsAction.is(action)) {
       if (action.toolIds.includes(IvyMarqueeMouseTool.ID)) {
@@ -29,7 +39,17 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
     if (lane) {
       return [];
     }
-    return super.mouseDown(target, event);
+    const actions = super.mouseDown(target, event);
+    if (this.lastScrollPosition) {
+      this.quickActionUi.hideUi();
+    }
+    return actions;
+  }
+
+  mouseUp(target: GModelElement, event: MouseEvent): Action[] {
+    const actions = super.mouseUp(target, event);
+    this.quickActionUi.showUi();
+    return actions;
   }
 
   wheel(target: GModelElement, event: WheelEvent): (Action | Promise<Action>)[] {

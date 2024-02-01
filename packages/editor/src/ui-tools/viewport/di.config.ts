@@ -39,7 +39,6 @@ const ivyViewportModule = new FeatureModule(
     bind(TYPES.KeyListener).to(CenterKeyboardListener);
     bind(TYPES.MouseListener).to(IvyZoomMouseListener);
     bind(IvyScrollMouseListener).toSelf().inSingletonScope();
-    bind(TYPES.MouseListener).toService(IvyScrollMouseListener);
 
     configureActionHandler({ bind, isBound }, EnableToolsAction.KIND, IvyScrollMouseListener);
     configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, IvyScrollMouseListener);

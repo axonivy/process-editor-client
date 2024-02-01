@@ -7,6 +7,8 @@ import './toastify.css';
 import {
   ConsoleLogger,
   ContainerConfiguration,
+  DEFAULT_ALIGNABLE_ELEMENT_FILTER,
+  IHelperLineOptions,
   LogLevel,
   TYPES,
   baseViewModule,
@@ -14,6 +16,8 @@ import {
   changeBoundsToolModule,
   decorationModule,
   exportModule,
+  feedbackEdgeEndId,
+  feedbackEdgeId,
   helperLineModule,
   hoverModule,
   initializeDiagramContainer,
@@ -32,13 +36,16 @@ import ivyAnimateModule from './animate/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
+import { LaneNode } from './diagram/model';
 import { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config';
 import ivyExecutionModule from './execution/di.config';
 import { IvyGLSPCommandStack } from './ivy-command-stack';
 import ivyJumpModule from './jump/di.config';
 import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
+import { ivyNotificationModule } from './notification/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
+import ivyThemeModule from './theme/di.config';
 import { ivyChangeBoundsToolModule, ivyExportModule, ivyNodeCreationToolModule } from './tools/di.config';
 import { IVY_TYPES } from './types';
 import ivyQuickActionModule from './ui-tools/quick-action/di.config';
@@ -46,8 +53,7 @@ import ivyToolBarModule from './ui-tools/tool-bar/di.config';
 import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
-import { ivyNotificationModule } from './notification/di.config';
-import ivyThemeModule from './theme/di.config';
+import { IvyGridSnapper } from './diagram/snap';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -87,6 +93,14 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ...containerConfiguration
   );
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
+  container.bind<IHelperLineOptions>(TYPES.IHelperLineOptions).toConstantValue({
+    minimumMoveDelta: { x: IvyGridSnapper.GRID_X * 2, y: IvyGridSnapper.GRID_Y * 2 },
+    alignmentElementFilter: element =>
+      !(element instanceof LaneNode) &&
+      !(element.id === feedbackEdgeId(element.root)) &&
+      !(element.id === feedbackEdgeEndId(element.root)) &&
+      DEFAULT_ALIGNABLE_ELEMENT_FILTER(element)
+  });
 
   bindOrRebind(container, TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   bindOrRebind(container, TYPES.ICommandStack).to(IvyGLSPCommandStack).inSingletonScope();

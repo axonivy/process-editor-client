@@ -29,7 +29,6 @@ import {
 } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import { Event, MessageConnection, NotificationHandler, ProgressType } from 'vscode-jsonrpc';
-import { IvyBaseJsonrpcGLSPClient } from '../ivy-glsp-jsonrpc-client';
 import ivyDiagramModule from '../diagram/di.config';
 
 export class StubMessageConnection implements MessageConnection {

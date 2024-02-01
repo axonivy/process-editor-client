@@ -9,16 +9,17 @@ import {
   MoveAction,
   Operation,
   Point,
-  SetUIExtensionVisibilityAction,
   createMovementRestrictionFeedback,
   removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyChangeBoundsTool extends ChangeBoundsTool {
+  @inject(QuickActionUI) quickActionUi: QuickActionUI;
+
   protected override createChangeBoundsListener(): MouseListener & ISelectionListener {
     return new IvyChangeBoundsListener(this);
   }
@@ -29,19 +30,18 @@ export class IvyChangeBoundsTool extends ChangeBoundsTool {
 }
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
+  constructor(protected override tool: IvyChangeBoundsTool) {
+    super(tool);
+  }
+
   protected handleMoveRoutingPointsOnServer(target: GModelElement): Operation[] {
     return [];
   }
 
   mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.mouseMove(target, event);
-    if (this.isMouseDrag && this.activeResizeHandle) {
-      actions.push(
-        SetUIExtensionVisibilityAction.create({
-          extensionId: QuickActionUI.ID,
-          visible: false
-        })
-      );
+    if (event.buttons !== 0 && this.isMouseDrag && this.activeResizeHandle) {
+      this.tool.quickActionUi.hideUi();
       addNegativeArea(target);
     }
     return actions;
@@ -50,6 +50,7 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
   draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.draggingMouseUp(target, event);
     removeNegativeArea(target);
+    this.tool.quickActionUi.showUi();
     return actions;
   }
 }
@@ -57,22 +58,23 @@ export class IvyChangeBoundsListener extends ChangeBoundsListener {
 export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
   protected lastMove: MoveAction | undefined;
 
+  constructor(protected override tool: IvyChangeBoundsTool) {
+    super(tool);
+  }
+
   mouseMove(target: GModelElement, event: MouseEvent): Action[] {
-    if (event.buttons === 0) {
-      removeNegativeArea(target);
-      return this.mouseUp(target, event);
-    }
     this.lastMove = undefined;
     const actions = super.mouseMove(target, event);
-    if (this._isMouseDrag && this.hasRealMoved()) {
-      actions.push(
-        SetUIExtensionVisibilityAction.create({
-          extensionId: QuickActionUI.ID,
-          visible: false
-        })
-      );
+    if (event.buttons !== 0 && this._isMouseDrag && this.hasRealMoved()) {
+      this.tool.quickActionUi.hideUi();
       addNegativeArea(target);
     }
+    return actions;
+  }
+
+  draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
+    const actions = super.draggingMouseUp(target, event);
+    this.tool.quickActionUi.showUi();
     return actions;
   }
 

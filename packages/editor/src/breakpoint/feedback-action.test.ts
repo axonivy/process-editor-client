@@ -3,23 +3,19 @@ import {
   ActionDispatcher,
   Bounds,
   CommandExecutionContext,
-  configureCommand,
-  createFeatureSet,
-  defaultModule,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
   GChildElement,
   GModelRoot,
+  InitializeCanvasBoundsAction,
   TYPES,
-  initializeContainer,
-  initializeDiagramContainer
+  configureCommand,
+  createFeatureSet
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
-import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
-import { breakpointFeature, SBreakpointHandle } from './model';
 import { createTestContainer } from '../utils/test-utils';
+import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
+import { SBreakpointHandle, breakpointFeature } from './model';
 
 let root: GModelRoot;
 

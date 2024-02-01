@@ -2,22 +2,20 @@ import {
   ActionDispatcher,
   Bounds,
   CommandExecutionContext,
-  configureCommand,
-  createFeatureSet,
-  defaultModule,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
   GChildElement,
   GModelRoot,
-  TYPES
+  InitializeCanvasBoundsAction,
+  TYPES,
+  configureCommand,
+  createFeatureSet
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
-import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction, StoppedFeedbackCommand } from './feedback-action';
-import { executionFeature } from './model';
 import { ElementExecution } from '@axonivy/process-editor-protocol';
 import { createTestContainer } from '../utils/test-utils';
+import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction, StoppedFeedbackCommand } from './feedback-action';
+import { executionFeature } from './model';
 
 let executedRoot: GModelRoot;
 let stoppedRoot: GModelRoot;
