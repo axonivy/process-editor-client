@@ -34,6 +34,7 @@ export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProv
   }
 
   actions = (item: PaletteItem, elementIds: string[]): Action[] => [
-    ChangeActivityTypeOperation.create({ elementId: elementIds[0], typeId: item.id })
+    ChangeActivityTypeOperation.create({ elementId: elementIds[0], typeId: item.id }),
+    ShowQuickActionMenuAction.empty()
   ];
 }

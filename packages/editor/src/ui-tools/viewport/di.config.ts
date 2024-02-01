@@ -1,7 +1,6 @@
 import './viewport-bar.css';
 
 import {
-  CenterCommand,
   CenterKeyboardListener,
   configureActionHandler,
   configureCommand,
@@ -18,7 +17,13 @@ import {
 import { EnableViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
 import { IvyScrollMouseListener } from './scroll';
 import { ViewportBar } from './viewport-bar';
-import { IvyFitToScreenCommand, IvySetViewportZoomCommand, MoveIntoViewportCommand, OriginViewportCommand } from './viewport-commands';
+import {
+  IvyCenterCommand,
+  IvyFitToScreenCommand,
+  IvySetViewportZoomCommand,
+  MoveIntoViewportCommand,
+  OriginViewportCommand
+} from './viewport-commands';
 import { IvyZoomMouseListener } from './zoom';
 
 const ivyViewportModule = new FeatureModule(
@@ -29,7 +34,7 @@ const ivyViewportModule = new FeatureModule(
     configureActionHandler({ bind, isBound }, SetViewportAction.KIND, ViewportBar);
     configureActionHandler({ bind, isBound }, SetViewportZoomAction.KIND, ViewportBar);
 
-    configureCommand({ bind, isBound }, CenterCommand);
+    configureCommand({ bind, isBound }, IvyCenterCommand);
     configureCommand({ bind, isBound }, IvyFitToScreenCommand);
     configureCommand({ bind, isBound }, OriginViewportCommand);
     configureCommand({ bind, isBound }, MoveIntoViewportCommand);
