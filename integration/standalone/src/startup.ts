@@ -5,7 +5,6 @@ import {
   GLSPActionDispatcher,
   IDiagramStartup,
   NavigationTarget,
-  RequestTypeHintsAction,
   SelectAction,
   TYPES
 } from '@eclipse-glsp/client';
@@ -27,7 +26,6 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
   protected options: IvyDiagramOptions;
 
   async postRequestModel(): Promise<void> {
-    this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
     this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
     this.actionDispatcher.dispatch(EnableViewportAction.create());
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));

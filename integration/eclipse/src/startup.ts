@@ -1,7 +1,7 @@
 import { IVY_TYPES, ToolBar } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
-import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, RequestTypeHintsAction, TYPES } from '@eclipse-glsp/client';
+import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 
@@ -23,7 +23,6 @@ export class EclipseDiagramStartup implements IDiagramStartup {
   protected options: IvyDiagramOptions;
 
   async postRequestModel(): Promise<void> {
-    this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
     this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
     this.actionDispatcher.dispatch(EnableViewportAction.create());
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));

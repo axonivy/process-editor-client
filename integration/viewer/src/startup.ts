@@ -1,4 +1,4 @@
-import { IVY_TYPES, ToolBar } from '@axonivy/process-editor';
+import { IVY_TYPES, ToolBar, ivyToolBarModule, overrideIvyViewerOptions } from '@axonivy/process-editor';
 import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
@@ -7,39 +7,39 @@ import {
   GLSPActionDispatcher,
   IDiagramStartup,
   NavigationTarget,
-  RequestTypeHintsAction,
   SelectAction,
   TYPES
 } from '@eclipse-glsp/client';
-import { ContainerModule, inject, injectable } from 'inversify';
+import { ContainerModule, inject, injectable, Container, interfaces } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 import { isInPreviewMode, isInViewerMode } from './url-helper';
+
+const ContainerSymbol = Symbol('ContainerSymbol');
 
 @injectable()
 export class ViewerDiagramStartup implements IDiagramStartup {
   @inject(GLSPActionDispatcher)
   protected actionDispatcher: GLSPActionDispatcher;
 
-  @inject(IVY_TYPES.ToolBar)
-  protected toolBar: ToolBar;
-
   @inject(TYPES.IDiagramOptions)
   protected options: IvyDiagramOptions;
 
-  async postRequestModel(): Promise<void> {
-    return this.actionDispatcher.dispatch(RequestTypeHintsAction.create());
-  }
+  @inject(ContainerSymbol)
+  protected container: interfaces.Container;
 
   async postModelInitialization(): Promise<void> {
-    if (!isInViewerMode() && !isInPreviewMode()) {
-      return this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
+    await this.dispatchAfterModelInitialized();
+    if (isInViewerMode() || isInPreviewMode()) {
+      this.setViewerMode();
+    } else {
+      this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
     }
     if (!isInPreviewMode()) {
-      return this.actionDispatcher.dispatch(EnableViewportAction.create());
+      this.actionDispatcher.dispatch(EnableViewportAction.create());
     }
   }
 
-  protected async dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
+  protected async dispatchAfterModelInitialized(): Promise<void> {
     const actions: Action[] = [];
     if (this.isNumeric(this.options.zoom)) {
       actions.push(SetViewportZoomAction.create({ zoom: +this.options.zoom / 100 }));
@@ -50,7 +50,7 @@ export class ViewerDiagramStartup implements IDiagramStartup {
       );
     }
     actions.push(SwitchThemeAction.create({ theme: this.options.theme }));
-    return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
+    return this.actionDispatcher.dispatchAll(actions);
   }
 
   protected showElement(action: (elementIds: string[]) => Action): Action[] {
@@ -67,8 +67,21 @@ export class ViewerDiagramStartup implements IDiagramStartup {
   protected isNumeric(num: any): boolean {
     return !isNaN(parseFloat(num)) && isFinite(num);
   }
+
+  protected setViewerMode(): void {
+    this.container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
+    this.container.unload(ivyToolBarModule);
+    overrideIvyViewerOptions(this.container, { hideSensitiveInfo: true });
+  }
 }
 
 export const ivyStartupDiagramModule = new ContainerModule(bind => {
-  bind(TYPES.IDiagramStartup).to(ViewerDiagramStartup).inSingletonScope();
+  bind(TYPES.IDiagramStartup)
+    .toDynamicValue(ctx => {
+      const child = ctx.container.createChild();
+      child.bind(ViewerDiagramStartup).toSelf().inSingletonScope();
+      child.bind(ContainerSymbol).toConstantValue(ctx.container);
+      return child.get(ViewerDiagramStartup);
+    })
+    .inSingletonScope();
 });

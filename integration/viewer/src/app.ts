@@ -1,4 +1,11 @@
-import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/process-editor';
+import {
+  IVY_TYPES,
+  IvyBaseJsonrpcGLSPClient,
+  SwitchThemeActionHandler,
+  ToolBar,
+  ivyToolBarModule,
+  overrideIvyViewerOptions
+} from '@axonivy/process-editor';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
 import { DiagramLoader, EditMode, GLSPActionDispatcher, GLSPWebSocketProvider, MessageAction, StatusAction } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
@@ -6,7 +13,7 @@ import { Container } from 'inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import './index.css';
-import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
+import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
 
 const parameters = getParameters();
 const app = parameters.get('app') ?? 'designer';
@@ -52,7 +59,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
   const diagramLoader = container.get(DiagramLoader);
   await diagramLoader.load({
     // Our custom server needs the 'readonly' argument here as well and not only set through the edit mode in the diagram options
-    requestModelOptions: { isReconnecting, app, pmv, pid, readonly: isReadonly() },
+    requestModelOptions: { isReconnecting, app, pmv, pid, highlight, readonly: isReadonly(), diagramType },
     initializeParameters: {
       applicationId: ApplicationIdProvider.get(),
       protocolVersion: GLSPClient.protocolVersion
