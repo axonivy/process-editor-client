@@ -1,11 +1,4 @@
-import {
-  IVY_TYPES,
-  IvyBaseJsonrpcGLSPClient,
-  SwitchThemeActionHandler,
-  ToolBar,
-  ivyToolBarModule,
-  overrideIvyViewerOptions
-} from '@axonivy/process-editor';
+import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/process-editor';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
 import { DiagramLoader, EditMode, GLSPActionDispatcher, GLSPWebSocketProvider, MessageAction, StatusAction } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
@@ -13,7 +6,7 @@ import { Container } from 'inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import './index.css';
-import { getParameters, getServerDomain, isInPreviewMode, isInViewerMode, isReadonly, isSecureConnection } from './url-helper';
+import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
 
 const parameters = getParameters();
 const app = parameters.get('app') ?? 'designer';

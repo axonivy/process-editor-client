@@ -1,4 +1,4 @@
-import { Container, interfaces } from 'inversify';
+import { interfaces } from 'inversify';
 import { safeAssign } from 'sprotty-protocol/lib/utils/object';
 import { IVY_TYPES } from './types';
 

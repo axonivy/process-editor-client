@@ -10,7 +10,7 @@ import {
   SelectAction,
   TYPES
 } from '@eclipse-glsp/client';
-import { ContainerModule, inject, injectable, Container, interfaces } from 'inversify';
+import { ContainerModule, inject, injectable, interfaces } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 import { isInPreviewMode, isInViewerMode } from './url-helper';
 
