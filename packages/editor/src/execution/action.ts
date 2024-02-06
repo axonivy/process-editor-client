@@ -16,7 +16,8 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
   @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
   @inject(ModelInitializationConstraint) protected modelInitializationConstraint: ModelInitializationConstraint;
-  oldExecutions: ElementExecution[];
+
+  protected oldExecutions: ElementExecution[];
 
   handle(action: Action): Action | void {
     if (SetExecutedElementsAction.is(action)) {
@@ -43,7 +44,8 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
 export class StoppedActionHandler implements IActionHandler {
   @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
-  oldStoppedElement: string;
+
+  protected oldStoppedElement: string;
 
   handle(action: Action): Action | void {
     if (StoppedAction.is(action)) {

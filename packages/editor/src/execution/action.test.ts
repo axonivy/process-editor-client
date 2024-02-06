@@ -1,5 +1,14 @@
 /* eslint-disable no-unused-expressions */
-import { ActionDispatcher, Bounds, FeedbackActionDispatcher, InitializeCanvasBoundsAction, TYPES } from '@eclipse-glsp/client';
+import {
+  Action,
+  ActionDispatcher,
+  Bounds,
+  DefaultModelInitializationConstraint,
+  FeedbackActionDispatcher,
+  InitializeCanvasBoundsAction,
+  ModelInitializationConstraint,
+  TYPES
+} from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
@@ -8,8 +17,17 @@ import { createTestContainer } from '../utils/test-utils';
 import ivyExecutionModule from './di.config';
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
 
+class ModelInitializedConstraint extends ModelInitializationConstraint {
+  protected _isCompleted = true;
+
+  isInitializedAfter(_action: Action): boolean {
+    return true;
+  }
+}
+
 function createContainer(): Container {
   const container = createTestContainer(ivyExecutionModule);
+  container.rebind(ModelInitializationConstraint).to(ModelInitializedConstraint).inSingletonScope();
   return container;
 }
 
