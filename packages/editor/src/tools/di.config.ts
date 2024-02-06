@@ -12,6 +12,7 @@ import {
   configureActionHandler,
   configureCommand,
   configureView,
+  elementTemplateModule,
   exportModule,
   nodeCreationToolModule
 } from '@eclipse-glsp/client';
@@ -38,7 +39,7 @@ export const ivyNodeCreationToolModule = new FeatureModule(
     bindAsService(context, TYPES.ITool, IvyNodeCreationTool);
     configureActionHandler(context, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
   },
-  { featureId: nodeCreationToolModule.featureId }
+  { featureId: nodeCreationToolModule.featureId, requires: elementTemplateModule }
 );
 
 export const ivyExportModule = new FeatureModule(

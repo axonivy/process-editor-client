@@ -1,15 +1,20 @@
 import {
   Action,
+  AddTemplateElementsAction,
+  CSS_GHOST_ELEMENT,
+  CSS_HIDDEN,
   CursorCSS,
-  cursorFeedbackAction,
-  getAbsolutePosition,
+  GModelElement,
+  MouseTrackingElementPositionListener,
   NodeCreationTool,
   NodeCreationToolMouseListener,
-  GModelElement
+  cursorFeedbackAction,
+  getAbsolutePosition,
+  getTemplateElementId
 } from '@eclipse-glsp/client';
 import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
-import { addNegativeArea, removeNegativeArea } from './negative-area/model';
+import { addNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyNodeCreationTool extends NodeCreationTool {
@@ -17,29 +22,30 @@ export class IvyNodeCreationTool extends NodeCreationTool {
 
   protected ivyCreationToolMouseListener: NodeCreationToolMouseListener;
 
-  enable(): void {
-    if (this.triggerAction === undefined) {
-      throw new TypeError(`Could not enable tool ${this.id}.The triggerAction cannot be undefined.`);
+  override doEnable(): void {
+    let trackingListener: MouseTrackingElementPositionListener | undefined;
+    const ghostElement = this.triggerAction.ghostElement;
+    if (ghostElement) {
+      trackingListener = new MouseTrackingElementPositionListener(getTemplateElementId(ghostElement.template), this, 'middle');
+      this.toDisposeOnDisable.push(
+        this.registerFeedback(
+          [AddTemplateElementsAction.create({ templates: [ghostElement.template], addClasses: [CSS_HIDDEN, CSS_GHOST_ELEMENT] })],
+          ghostElement
+        ),
+        this.mouseTool.registerListener(trackingListener)
+      );
     }
-    this.ivyCreationToolMouseListener = new IvyNodeCreationToolMouseListener(this.triggerAction, this);
-    this.mouseTool.register(this.ivyCreationToolMouseListener);
-    this.registerFeedback([cursorFeedbackAction(CursorCSS.NODE_CREATION)]);
-    addNegativeArea(this.editorContext.modelRoot);
-  }
-
-  disable(): void {
-    this.mouseTool.deregister(this.ivyCreationToolMouseListener);
-    this.deregisterFeedback([cursorFeedbackAction()]);
-    removeNegativeArea(this.editorContext.modelRoot);
+    this.ivyCreationToolMouseListener = new IvyNodeCreationToolMouseListener(this.triggerAction, this, trackingListener);
+    this.toDisposeOnDisable.push(
+      this.mouseTool.registerListener(this.ivyCreationToolMouseListener),
+      this.registerFeedback([cursorFeedbackAction(CursorCSS.NODE_CREATION)], this, [cursorFeedbackAction()]),
+      addNegativeArea(this.editorContext.modelRoot)
+    );
   }
 }
 
 @injectable()
 export class IvyNodeCreationToolMouseListener extends NodeCreationToolMouseListener {
-  constructor(protected triggerAction: TriggerNodeCreationAction, protected tool: NodeCreationTool) {
-    super(triggerAction, tool);
-  }
-
   override mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     const absolutePos = getAbsolutePosition(target, event);
     if (absolutePos.x < 0 || absolutePos.y < 0) {
