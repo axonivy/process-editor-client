@@ -8,6 +8,7 @@ import {
   MouseTrackingElementPositionListener,
   NodeCreationTool,
   NodeCreationToolMouseListener,
+  Point,
   cursorFeedbackAction,
   getAbsolutePosition,
   getTemplateElementId
@@ -53,5 +54,12 @@ export class IvyNodeCreationToolMouseListener extends NodeCreationToolMouseListe
       this.tool.registerFeedback([cursorFeedbackAction(CursorCSS.NODE_CREATION)]);
     }
     return super.mouseMove(target, event);
+  }
+
+  protected getInsertPosition(target: GModelElement, event: MouseEvent): Point {
+    if (this.trackingListener) {
+      return getAbsolutePosition(target, event);
+    }
+    return super.getInsertPosition(target, event);
   }
 }
