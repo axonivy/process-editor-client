@@ -10,8 +10,9 @@ import { QuickActionBar } from './quick-action-bar';
 import { JumpOutBar } from './jump-out';
 import { ViewportBar } from './viewport';
 import { Inscription } from './inscription';
+import { GRAPH_SELECTOR, graphLocator } from './graph';
 
-const startSelector = '.sprotty-graph .start\\:requestStart';
+const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 
 export class ProcessEditor {
   protected readonly page: Page;
@@ -19,7 +20,7 @@ export class ProcessEditor {
 
   constructor(page: Page) {
     this.page = page;
-    this.graph = this.page.locator('.sprotty-graph');
+    this.graph = graphLocator(this.page);
   }
 
   static async openEmptyProcess(page: Page) {
