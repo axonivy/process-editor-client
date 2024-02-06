@@ -12,7 +12,6 @@ import {
   getAbsolutePosition,
   getTemplateElementId
 } from '@eclipse-glsp/client';
-import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { addNegativeArea } from './negative-area/model';
 

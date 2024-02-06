@@ -16,7 +16,6 @@ import { IVY_TYPES } from '../../types';
 
 import { CustomIconToggleAction } from '@axonivy/process-editor-protocol';
 import { OptionsButtonProvider } from './button';
-import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { ElementsPaletteHandler } from './node/action-handler';
 import {
   ActivitiesButtonProvider,
@@ -32,21 +31,23 @@ import { ShowToolBarMenuAction } from './tool-bar-menu';
 
 const ivyToolBarModule = new FeatureModule(
   (bind, _unbind, isBound) => {
-    bindAsService(bind, IVY_TYPES.ToolBar, ToolBar);
+    const context = { bind, isBound };
+    // Ivy extensions
+    bindAsService(context, IVY_TYPES.ToolBar, ToolBar);
     bind(TYPES.IUIExtension).toService(ToolBar);
-    configureActionHandler({ bind, isBound }, EnableToolPaletteAction.KIND, ToolBar);
-    configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, ToolBar);
-    configureActionHandler({ bind, isBound }, ShowToolBarMenuAction.KIND, ToolBar);
-    bind(ToolBarFocusMouseListener).toSelf().inSingletonScope();
-    bind(TYPES.MouseListener).toService(ToolBarFocusMouseListener);
 
-    bind(TYPES.ITool).to(IvyMarqueeMouseTool);
+    configureActionHandler(context, EnableToolPaletteAction.KIND, ToolBar);
+    configureActionHandler(context, ShowToolBarMenuAction.KIND, ToolBar);
+    configureActionHandler(context, ShowToolBarOptionsMenuAction.KIND, ToolBar);
+    configureToolBarButtons(context);
 
-    configureToolBarButtons({ bind, isBound });
+    bindAsService(context, TYPES.MouseListener, ToolBarFocusMouseListener);
 
     bind(CustomIconToggleActionHandler).toSelf().inSingletonScope();
-    configureActionHandler({ bind, isBound }, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
-    configureActionHandler({ bind, isBound }, ShowToolBarOptionsMenuAction.KIND, ToolBar);
+    configureActionHandler(context, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
+
+    // GLSP replacements
+    configureActionHandler(context, EnableDefaultToolsAction.KIND, ToolBar);
   },
   { featureId: toolPaletteModule.featureId }
 );

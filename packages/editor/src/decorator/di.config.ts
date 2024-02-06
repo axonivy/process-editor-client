@@ -15,8 +15,10 @@ import { IvyIssueMarkerView } from './issue-marker-view';
 
 const ivyDecorationModule = new FeatureModule(
   (bind, _unbind, isBound) => {
-    bindAsService(bind, TYPES.IVNodePostprocessor, IvyDecorationPlacer);
-    configureModelElement({ bind: bind, isBound: isBound }, DefaultTypes.ISSUE_MARKER, GIssueMarker, IvyIssueMarkerView);
+    const context = { bind, isBound };
+    // GLSP replacements
+    bindAsService(context, TYPES.IVNodePostprocessor, IvyDecorationPlacer);
+    configureModelElement(context, DefaultTypes.ISSUE_MARKER, GIssueMarker, IvyIssueMarkerView);
   },
   { featureId: decorationModule.featureId }
 );

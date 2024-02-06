@@ -18,6 +18,7 @@ import {
 } from '@eclipse-glsp/client';
 
 import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
+import { IvyMarqueeMouseTool } from '../ui-tools/tool-bar/marquee-mouse-tool';
 import { IvyChangeBoundsTool } from './change-bounds-tool';
 import { IvySvgExporter } from './export/ivy-svg-exporter';
 import { IvyNodeCreationTool } from './node-creation-tool';
@@ -25,10 +26,13 @@ import { IvyNodeCreationTool } from './node-creation-tool';
 export const ivyChangeBoundsToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
-    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
+    // GSLP defaults
     configureCommand(context, ShowChangeBoundsToolResizeFeedbackCommand);
     configureCommand(context, HideChangeBoundsToolResizeFeedbackCommand);
     configureView(context, SResizeHandle.TYPE, SResizeHandleView);
+
+    // GLSP replacements
+    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
   },
   { featureId: changeBoundsToolModule.featureId }
 );
@@ -36,6 +40,7 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
 export const ivyNodeCreationToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
     const context = { bind, unbind, isBound, rebind };
+    // GLSP replacements
     bindAsService(context, TYPES.ITool, IvyNodeCreationTool);
     configureActionHandler(context, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
   },
@@ -45,9 +50,17 @@ export const ivyNodeCreationToolModule = new FeatureModule(
 export const ivyExportModule = new FeatureModule(
   (bind, _unbind, isBound) => {
     const context = { bind, isBound };
+    // GLSP defaults
     bindAsService(context, TYPES.HiddenVNodePostprocessor, ExportSvgPostprocessor);
-    bindAsService(context, TYPES.SvgExporter, IvySvgExporter);
     configureCommand(context, ExportSvgCommand);
+
+    // GLSP replacements
+    bindAsService(context, TYPES.SvgExporter, IvySvgExporter);
   },
   { featureId: exportModule.featureId }
 );
+
+export const ivyMarqueeSelectionToolModule = new FeatureModule(bind => {
+  // Ivy extensions
+  bindAsService(bind, TYPES.ITool, IvyMarqueeMouseTool);
+});

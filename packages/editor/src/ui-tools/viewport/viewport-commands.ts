@@ -196,6 +196,7 @@ export class IvyCenterCommand extends CenterCommand {
   }
 }
 
+@injectable()
 export class MoveIntoViewportCommand extends BoundsAwareViewportCommand {
   static readonly KIND = MoveIntoViewportAction.KIND;
 
@@ -235,6 +236,7 @@ function calculateScroll(viewPort: number, currentScrollPos: number, elementPos:
   return effectivePos > viewPort || effectivePos < 0 ? elementPos - (0.5 * viewPort) / zoom : currentScrollPos;
 }
 
+@injectable()
 export class IvySetViewportZoomCommand extends Command {
   static readonly KIND = SetViewportZoomAction.KIND;
 

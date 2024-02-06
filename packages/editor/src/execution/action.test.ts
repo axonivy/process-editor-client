@@ -3,7 +3,6 @@ import {
   Action,
   ActionDispatcher,
   Bounds,
-  DefaultModelInitializationConstraint,
   FeedbackActionDispatcher,
   InitializeCanvasBoundsAction,
   ModelInitializationConstraint,

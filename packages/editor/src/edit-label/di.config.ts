@@ -5,7 +5,9 @@ import {
   BalloonLabelValidationDecorator,
   EditLabelAction,
   FeatureModule,
+  ServerEditLabelValidator,
   TYPES,
+  bindAsService,
   configureActionHandler,
   configureCommand,
   labelEditModule,
@@ -18,9 +20,15 @@ import { EditLabelActionProvider } from './quick-action';
 
 export const ivyLabelEditModule = new FeatureModule(
   (bind, _unbind, isBound) => {
-    bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
-    bind(TYPES.IDefaultTool).to(IvyDirectLabelEditTool);
+    // GLSP defaults
     configureCommand({ bind, isBound }, ApplyLabelEditCommand);
+    bind(TYPES.IEditLabelValidator).to(ServerEditLabelValidator);
+    bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
+
+    // GLSP replacements
+    bindAsService(bind, TYPES.IDefaultTool, IvyDirectLabelEditTool);
+
+    // Ivy extensions
     bind(IVY_TYPES.QuickActionProvider).to(EditLabelActionProvider);
   },
   { featureId: labelEditModule.featureId }
@@ -29,9 +37,10 @@ export const ivyLabelEditModule = new FeatureModule(
 export const ivyLabelEditUiModule = new FeatureModule(
   (bind, _unbind, isBound) => {
     const context = { bind, isBound };
+
+    // GLSP replacements
     configureActionHandler(context, EditLabelAction.KIND, IvyEditLabelActionHandler);
-    bind(IvyEditLabelUI).toSelf().inSingletonScope();
-    bind(TYPES.IUIExtension).toService(IvyEditLabelUI);
+    bindAsService(context, TYPES.IUIExtension, IvyEditLabelUI);
   },
   { featureId: labelEditUiModule.featureId }
 );

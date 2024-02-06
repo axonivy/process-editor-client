@@ -1,13 +1,17 @@
 import './viewport-bar.css';
 
 import {
+  bindAsService,
   CenterKeyboardListener,
   configureActionHandler,
   configureCommand,
   EnableDefaultToolsAction,
   EnableToolsAction,
   FeatureModule,
+  FocusDomAction,
   GetViewportCommand,
+  RepositionCommand,
+  RestoreViewportHandler,
   SetViewportAction,
   SetViewportCommand,
   TYPES,
@@ -27,26 +31,37 @@ import {
 import { IvyZoomMouseListener } from './zoom';
 
 const ivyViewportModule = new FeatureModule(
-  (bind, _unbind, isBound) => {
-    bind(ViewportBar).toSelf().inSingletonScope();
-    bind(TYPES.IUIExtension).toService(ViewportBar);
-    configureActionHandler({ bind, isBound }, EnableViewportAction.KIND, ViewportBar);
-    configureActionHandler({ bind, isBound }, SetViewportAction.KIND, ViewportBar);
-    configureActionHandler({ bind, isBound }, SetViewportZoomAction.KIND, ViewportBar);
+  (bind, _unbind, isBound, rebind) => {
+    const context = { bind, isBound, rebind };
 
-    configureCommand({ bind, isBound }, IvyCenterCommand);
-    configureCommand({ bind, isBound }, IvyFitToScreenCommand);
-    configureCommand({ bind, isBound }, OriginViewportCommand);
-    configureCommand({ bind, isBound }, MoveIntoViewportCommand);
-    configureCommand({ bind, isBound }, GetViewportCommand);
-    configureCommand({ bind, isBound }, SetViewportCommand);
-    configureCommand({ bind, isBound }, IvySetViewportZoomCommand);
-    bind(TYPES.KeyListener).to(CenterKeyboardListener);
-    bind(TYPES.MouseListener).to(IvyZoomMouseListener);
+    // GLSP defaults
+    configureCommand(context, GetViewportCommand);
+    configureCommand(context, SetViewportCommand);
+    configureCommand(context, RepositionCommand);
+
+    bindAsService(context, TYPES.IDiagramStartup, RestoreViewportHandler);
+    configureActionHandler(context, EnableDefaultToolsAction.KIND, RestoreViewportHandler);
+    configureActionHandler(context, FocusDomAction.KIND, RestoreViewportHandler);
+
+    // GLSP replacements
+    configureCommand(context, IvyCenterCommand);
+    configureCommand(context, IvyFitToScreenCommand);
+    bindAsService(context, TYPES.MouseListener, IvyZoomMouseListener);
+
     bind(IvyScrollMouseListener).toSelf().inSingletonScope();
+    configureActionHandler(context, EnableToolsAction.KIND, IvyScrollMouseListener);
+    configureActionHandler(context, EnableDefaultToolsAction.KIND, IvyScrollMouseListener);
 
-    configureActionHandler({ bind, isBound }, EnableToolsAction.KIND, IvyScrollMouseListener);
-    configureActionHandler({ bind, isBound }, EnableDefaultToolsAction.KIND, IvyScrollMouseListener);
+    // Ivy extensions
+    bindAsService(context, TYPES.IUIExtension, ViewportBar);
+    configureActionHandler(context, EnableViewportAction.KIND, ViewportBar);
+    configureActionHandler(context, SetViewportAction.KIND, ViewportBar);
+    configureActionHandler(context, SetViewportZoomAction.KIND, ViewportBar);
+
+    configureCommand(context, OriginViewportCommand);
+    configureCommand(context, MoveIntoViewportCommand);
+    configureCommand(context, IvySetViewportZoomCommand);
+    bindAsService(context, TYPES.KeyListener, CenterKeyboardListener);
   },
   { featureId: viewportModule.featureId }
 );

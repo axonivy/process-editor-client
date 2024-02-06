@@ -4,6 +4,7 @@ import { IvyBringToFrontCommand } from './zorder';
 
 const ivyZorderModule = new FeatureModule(
   (bind, _unbind, isBound) => {
+    // GLSP replacements
     configureCommand({ bind, isBound }, IvyBringToFrontCommand);
   },
   { featureId: zorderModule.featureId }

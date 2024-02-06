@@ -1,5 +1,7 @@
 import { Action, isCtrlOrCmd, GModelElement, ZoomMouseListener } from '@eclipse-glsp/client';
+import { injectable } from 'inversify';
 
+@injectable()
 export class IvyZoomMouseListener extends ZoomMouseListener {
   wheel(target: GModelElement, event: WheelEvent): Action[] {
     if (!isCtrlOrCmd(event)) {

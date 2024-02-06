@@ -37,6 +37,7 @@ import ivyConnectorModule from './connector/di.config';
 import ivyDecorationModule from './decorator/di.config';
 import ivyDiagramModule from './diagram/di.config';
 import { LaneNode } from './diagram/model';
+import { IvyGridSnapper } from './diagram/snap';
 import { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config';
 import ivyExecutionModule from './execution/di.config';
 import { IvyGLSPCommandStack } from './ivy-command-stack';
@@ -46,14 +47,13 @@ import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import ivyThemeModule from './theme/di.config';
-import { ivyChangeBoundsToolModule, ivyExportModule, ivyNodeCreationToolModule } from './tools/di.config';
+import { ivyChangeBoundsToolModule, ivyExportModule, ivyMarqueeSelectionToolModule, ivyNodeCreationToolModule } from './tools/di.config';
 import { IVY_TYPES } from './types';
 import ivyQuickActionModule from './ui-tools/quick-action/di.config';
 import ivyToolBarModule from './ui-tools/tool-bar/di.config';
 import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
-import { IvyGridSnapper } from './diagram/snap';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -74,10 +74,12 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     { remove: nodeCreationToolModule, add: ivyNodeCreationToolModule },
     { remove: exportModule, add: ivyExportModule },
 
-    // additions to the default modules
+    // GLSP additions
     baseViewModule,
-    ivyDiagramModule,
     helperLineModule,
+
+    // Ivy additions
+    ivyDiagramModule,
     ivyQuickActionModule,
     ivyWrapModule,
     ivyJumpModule,
@@ -87,11 +89,14 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyConnectorModule,
     ivyKeyListenerModule,
     ivyNotificationModule,
+    ivyMarqueeSelectionToolModule,
     ivyThemeModule,
 
     // additional configurations
     ...containerConfiguration
   );
+
+  // configurations
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
   container.bind<IHelperLineOptions>(TYPES.IHelperLineOptions).toConstantValue({
     minimumMoveDelta: { x: IvyGridSnapper.GRID_X * 2, y: IvyGridSnapper.GRID_Y * 2 },

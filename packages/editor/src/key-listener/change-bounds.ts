@@ -1,4 +1,5 @@
-import { SelectionService ,
+import {
+  SelectionService,
   Action,
   BoundsAware,
   boundsFeature,
@@ -13,11 +14,12 @@ import { SelectionService ,
   TYPES
 } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { inject, optional } from 'inversify';
+import { inject, injectable, optional } from 'inversify';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { IvyGridSnapper } from '../diagram/snap';
 
+@injectable()
 export class MoveElementKeyListener extends KeyListener {
   @inject(SelectionService) protected selectionService: SelectionService;
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
