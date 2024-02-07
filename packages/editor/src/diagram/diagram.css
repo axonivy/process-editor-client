@@ -75,7 +75,7 @@ body {
 }
 .sprotty-resize-handle.selected {
   fill: var(--glsp-editor-selected);
-  r: 3;
+  r: 4px;
   stroke: var(--glsp-editor-foreground);
   stroke-width: 1;
 }
