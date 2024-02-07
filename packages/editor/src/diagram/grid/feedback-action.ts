@@ -1,4 +1,4 @@
-import { Command, CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { Command, CommandExecutionContext, GModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, removeCssClass } from '../../utils/element-css-classes';
 
@@ -27,22 +27,22 @@ export class GridFeedbackCommand extends Command {
     super();
   }
 
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     this.show = this.action.show;
     return this.redo(context);
   }
 
-  undo(context: CommandExecutionContext): SModelRoot {
+  undo(context: CommandExecutionContext): GModelRoot {
     this.toggleGrid(context.root, !this.show);
     return context.root;
   }
 
-  redo(context: CommandExecutionContext): SModelRoot {
+  redo(context: CommandExecutionContext): GModelRoot {
     this.toggleGrid(context.root, this.show);
     return context.root;
   }
 
-  private toggleGrid(root: SModelRoot, show: boolean): void {
+  private toggleGrid(root: GModelRoot, show: boolean): void {
     if (show) {
       addCssClass(root, GridFeedbackCommand.CSS_CLASS);
     } else {

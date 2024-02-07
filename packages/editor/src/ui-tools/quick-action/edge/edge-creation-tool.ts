@@ -1,30 +1,28 @@
+import { IvyIcons } from '@axonivy/editor-icons/lib';
 import {
   Action,
   AnchorComputerRegistry,
   Args,
+  BaseCreationTool,
   CreateEdgeOperation,
   CursorCSS,
-  cursorFeedbackAction,
   DragAwareMouseListener,
   DrawFeedbackEdgeAction,
   EnableDefaultToolsAction,
-  EnableToolsAction,
   FeedbackEdgeEndMovingMouseListener,
-  findParentByFeature,
-  hasStringProp,
-  IActionHandler,
-  isConnectable,
-  isCtrlOrCmd,
+  GEdge,
+  GModelElement,
+  GNode,
   Operation,
   ReconnectEdgeOperation,
   RemoveFeedbackEdgeAction,
-  SEdge,
-  SModelElement,
-  SNode
+  cursorFeedbackAction,
+  findParentByFeature,
+  hasStringProp,
+  isConnectable,
+  isCtrlOrCmd
 } from '@eclipse-glsp/client';
-import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-tool';
 import { inject, injectable } from 'inversify';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
@@ -33,12 +31,13 @@ import { isMultipleOutgoingEdgesFeature } from './model';
  * Tool to create connections in a Diagram, by selecting a source and target node.
  */
 @injectable()
-export class QuickActionEdgeCreationTool extends BaseGLSPTool implements IActionHandler {
+export class QuickActionEdgeCreationTool extends BaseCreationTool<QuickActionTriggerEdgeCreationAction> {
   static ID = 'quick-action-edge-creation-tool';
 
   @inject(AnchorComputerRegistry) protected anchorRegistry: AnchorComputerRegistry;
 
-  protected triggerAction: QuickActionTriggerEdgeCreationAction;
+  protected isTriggerAction = QuickActionTriggerEdgeCreationAction.is;
+
   protected creationToolMouseListener: QuickActionEdgeCreationToolMouseListener;
   protected feedbackEndMovingMouseListener: FeedbackEdgeEndMovingMouseListener;
 
@@ -46,45 +45,34 @@ export class QuickActionEdgeCreationTool extends BaseGLSPTool implements IAction
     return QuickActionEdgeCreationTool.ID;
   }
 
-  enable(): void {
-    if (this.triggerAction === undefined) {
-      throw new TypeError(`Could not enable tool ${this.id}.The triggerAction cannot be undefined.`);
-    }
+  doEnable(): void {
     this.creationToolMouseListener = new QuickActionEdgeCreationToolMouseListener(this.triggerAction, this);
-    this.mouseTool.register(this.creationToolMouseListener);
-    this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener(this.anchorRegistry);
-    this.mouseTool.register(this.feedbackEndMovingMouseListener);
-    this.dispatchFeedback([cursorFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)]);
-  }
-
-  disable(): void {
-    this.mouseTool.deregister(this.creationToolMouseListener);
-    this.mouseTool.deregister(this.feedbackEndMovingMouseListener);
-    this.deregisterFeedback([RemoveFeedbackEdgeAction.create(), cursorFeedbackAction()]);
-  }
-
-  handle(action: Action): Action | void {
-    if (QuickActionTriggerEdgeCreationAction.is(action)) {
-      this.triggerAction = action;
-      return EnableToolsAction.create([this.id]);
-    }
+    this.feedbackEndMovingMouseListener = new FeedbackEdgeEndMovingMouseListener(this.anchorRegistry, this.feedbackDispatcher);
+    this.toDisposeOnDisable.push(this.mouseTool.registerListener(this.creationToolMouseListener));
+    this.toDisposeOnDisable.push(this.mouseTool.registerListener(this.feedbackEndMovingMouseListener));
+    this.toDisposeOnDisable.push(
+      this.registerFeedback([cursorFeedbackAction(CursorCSS.OPERATION_NOT_ALLOWED)], this, [
+        RemoveFeedbackEdgeAction.create(),
+        cursorFeedbackAction()
+      ])
+    );
   }
 }
 
 export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseListener {
   protected source?: string;
   protected target?: string;
-  protected currentTarget?: SModelElement;
+  protected currentTarget?: GModelElement;
   protected allowedTarget = false;
-  protected proxyEdge: SEdge;
+  protected proxyEdge: GEdge;
 
   constructor(protected triggerAction: QuickActionTriggerEdgeCreationAction, protected tool: QuickActionEdgeCreationTool) {
     super();
-    this.proxyEdge = new SEdge();
+    this.proxyEdge = new GEdge();
     this.proxyEdge.type = triggerAction.elementTypeId;
     this.proxyEdge.sourceId = triggerAction.sourceId;
     this.source = this.triggerAction.sourceId;
-    this.tool.dispatchFeedback([DrawFeedbackEdgeAction.create({ elementTypeId: this.triggerAction.elementTypeId, sourceId: this.source })]);
+    this.tool.registerFeedback([DrawFeedbackEdgeAction.create({ elementTypeId: this.triggerAction.elementTypeId, sourceId: this.source })]);
   }
 
   protected reinitialize(): void {
@@ -92,10 +80,10 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     this.target = undefined;
     this.currentTarget = undefined;
     this.allowedTarget = false;
-    this.tool.dispatchFeedback([RemoveFeedbackEdgeAction.create()]);
+    this.tool.registerFeedback([RemoveFeedbackEdgeAction.create()]);
   }
 
-  nonDraggingMouseUp(_element: SModelElement, event: MouseEvent): Action[] {
+  nonDraggingMouseUp(_element: GModelElement, event: MouseEvent): Action[] {
     const result: Action[] = [];
     if (event.button === 0) {
       if (this.currentTarget /* && this.allowedTarget*/) {
@@ -140,7 +128,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     return this.target !== undefined;
   }
 
-  mouseOver(target: SModelElement, event: MouseEvent): Action[] {
+  mouseOver(target: GModelElement, event: MouseEvent): Action[] {
     const newCurrentTarget = findParentByFeature(target, isConnectable);
     if (newCurrentTarget !== this.currentTarget) {
       this.currentTarget = newCurrentTarget;
@@ -162,11 +150,11 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     return [];
   }
 
-  protected isAllowedSource(element: SModelElement | undefined): boolean {
+  protected isAllowedSource(element: GModelElement | undefined): boolean {
     return element !== undefined && isConnectable(element) && element.canConnect(this.proxyEdge, 'source');
   }
 
-  protected isAllowedTarget(element: SModelElement | undefined): boolean {
+  protected isAllowedTarget(element: GModelElement | undefined): boolean {
     return element !== undefined && isConnectable(element) && element.canConnect(this.proxyEdge, 'target');
   }
 }
@@ -203,11 +191,11 @@ export namespace QuickActionTriggerEdgeCreationAction {
 
 @injectable()
 export class ConnectQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
-    const edge = new SEdge();
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
+    const edge = new GEdge();
     edge.type = 'edge';
     if (
-      element instanceof SNode &&
+      element instanceof GNode &&
       element.canConnect(edge, 'source') &&
       (Array.from(element.outgoingEdges).length === 0 || isMultipleOutgoingEdgesFeature(element))
     ) {

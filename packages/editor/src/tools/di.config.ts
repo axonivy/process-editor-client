@@ -1,45 +1,66 @@
 import {
-  DelKeyDeleteTool,
-  EdgeCreationTool,
-  EdgeEditTool,
+  ExportSvgCommand,
+  ExportSvgPostprocessor,
+  FeatureModule,
+  HideChangeBoundsToolResizeFeedbackCommand,
+  SResizeHandle,
+  SResizeHandleView,
+  ShowChangeBoundsToolResizeFeedbackCommand,
   TYPES,
-  MouseDeleteTool,
+  bindAsService,
+  changeBoundsToolModule,
   configureActionHandler,
-  configureView
+  configureCommand,
+  configureView,
+  elementTemplateModule,
+  exportModule,
+  nodeCreationToolModule
 } from '@eclipse-glsp/client';
-import { configureMarqueeTool } from '@eclipse-glsp/client/lib/features/tools/di.config';
 
-import { TriggerEdgeCreationAction, TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
-import { ContainerModule } from 'inversify';
+import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
+import { IvyMarqueeMouseTool } from '../ui-tools/tool-bar/marquee-mouse-tool';
 import { IvyChangeBoundsTool } from './change-bounds-tool';
 import { IvySvgExporter } from './export/ivy-svg-exporter';
-import { IvyMovementRestrictor } from './movement-restrictor';
-import { NegativeMarker } from './negative-area/model';
-import { SNegativeMarkerView } from './negative-area/view';
 import { IvyNodeCreationTool } from './node-creation-tool';
 
-const ivyToolsModule = new ContainerModule((bind, _unbind, isBound, rebind) => {
-  // Register default tools
-  bind(TYPES.IDefaultTool).to(IvyChangeBoundsTool);
-  bind(TYPES.IDefaultTool).to(EdgeEditTool);
-  bind(TYPES.IDefaultTool).to(DelKeyDeleteTool);
+export const ivyChangeBoundsToolModule = new FeatureModule(
+  (bind, unbind, isBound, rebind) => {
+    const context = { bind, unbind, isBound, rebind };
+    // GSLP defaults
+    configureCommand(context, ShowChangeBoundsToolResizeFeedbackCommand);
+    configureCommand(context, HideChangeBoundsToolResizeFeedbackCommand);
+    configureView(context, SResizeHandle.TYPE, SResizeHandleView);
 
-  // Register  tools
-  bind(TYPES.ITool).to(MouseDeleteTool);
-  bind(IvyNodeCreationTool).toSelf().inSingletonScope();
-  bind(EdgeCreationTool).toSelf().inSingletonScope();
-  bind(TYPES.ITool).toService(EdgeCreationTool);
-  bind(TYPES.ITool).toService(IvyNodeCreationTool);
-  bind(TYPES.IMovementRestrictor).to(IvyMovementRestrictor);
+    // GLSP replacements
+    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
+  },
+  { featureId: changeBoundsToolModule.featureId }
+);
 
-  bind(IvySvgExporter).toSelf().inSingletonScope();
-  rebind(TYPES.SvgExporter).toService(IvySvgExporter);
+export const ivyNodeCreationToolModule = new FeatureModule(
+  (bind, unbind, isBound, rebind) => {
+    const context = { bind, unbind, isBound, rebind };
+    // GLSP replacements
+    bindAsService(context, TYPES.ITool, IvyNodeCreationTool);
+    configureActionHandler(context, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
+  },
+  { featureId: nodeCreationToolModule.featureId, requires: elementTemplateModule }
+);
 
-  configureMarqueeTool({ bind, isBound });
-  configureActionHandler({ bind, isBound }, TriggerNodeCreationAction.KIND, IvyNodeCreationTool);
-  configureActionHandler({ bind, isBound }, TriggerEdgeCreationAction.KIND, EdgeCreationTool);
+export const ivyExportModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    const context = { bind, isBound };
+    // GLSP defaults
+    bindAsService(context, TYPES.HiddenVNodePostprocessor, ExportSvgPostprocessor);
+    configureCommand(context, ExportSvgCommand);
 
-  configureView({ bind, isBound }, NegativeMarker.TYPE, SNegativeMarkerView);
+    // GLSP replacements
+    bindAsService(context, TYPES.SvgExporter, IvySvgExporter);
+  },
+  { featureId: exportModule.featureId }
+);
+
+export const ivyMarqueeSelectionToolModule = new FeatureModule(bind => {
+  // Ivy extensions
+  bindAsService(bind, TYPES.ITool, IvyMarqueeMouseTool);
 });
-
-export default ivyToolsModule;

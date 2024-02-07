@@ -1,9 +1,8 @@
-import { ContainerModule } from 'inversify';
-
+import { FeatureModule } from '@eclipse-glsp/client';
 import { IVY_TYPES } from '../types';
 import { AutoBendEdgeQuickActionProvider, ReconnectEdgeQuickActionProvider, StraightenEdgeQuickActionProvider } from './actions';
 
-const ivyConnectorModule = new ContainerModule(bind => {
+const ivyConnectorModule = new FeatureModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(StraightenEdgeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(AutoBendEdgeQuickActionProvider);
   bind(IVY_TYPES.QuickActionProvider).to(ReconnectEdgeQuickActionProvider);

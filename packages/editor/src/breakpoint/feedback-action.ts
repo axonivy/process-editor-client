@@ -3,9 +3,9 @@ import {
   Action,
   Command,
   CommandExecutionContext,
-  SChildElement,
-  SModelElement,
-  SModelRoot,
+  GChildElement,
+  GModelElement,
+  GModelRoot,
   TYPES
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
@@ -37,22 +37,22 @@ export namespace BreakpointFeedbackAction {
 export class BreakpointFeedbackCommand extends Command {
   static readonly KIND = 'elementBreakpointFeedback';
 
-  protected showBreakpoints: { element: SChildElement & Breakable; condition: string; disabled: boolean; globalDisabled: boolean }[] = [];
+  protected showBreakpoints: { element: GChildElement & Breakable; condition: string; disabled: boolean; globalDisabled: boolean }[] = [];
 
   constructor(@inject(TYPES.Action) protected readonly action: BreakpointFeedbackAction) {
     super();
   }
 
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     this.action.oldBreakpoints?.forEach(breakpoint => {
       const element = context.root.index.getById(breakpoint.elementId);
-      if (element instanceof SChildElement && isBreakable(element)) {
+      if (element instanceof GChildElement && isBreakable(element)) {
         removeBreakpointHandles(element);
       }
     });
     this.action.breakpoints.forEach(breakpoint => {
       const element = context.root.index.getById(breakpoint.elementId);
-      if (element instanceof SChildElement && isBreakable(element)) {
+      if (element instanceof GChildElement && isBreakable(element)) {
         this.showBreakpoints.push({
           element: element,
           condition: breakpoint.condition,
@@ -64,14 +64,14 @@ export class BreakpointFeedbackCommand extends Command {
     return this.redo(context);
   }
 
-  undo(context: CommandExecutionContext): SModelRoot {
+  undo(context: CommandExecutionContext): GModelRoot {
     for (const breakpoint of this.showBreakpoints) {
       removeBreakpointHandles(breakpoint.element);
     }
     return context.root;
   }
 
-  redo(context: CommandExecutionContext): SModelRoot {
+  redo(context: CommandExecutionContext): GModelRoot {
     for (const element of this.showBreakpoints) {
       addBreakpointHandles(element.element, element.condition, element.disabled, element.globalDisabled);
     }
@@ -81,7 +81,7 @@ export class BreakpointFeedbackCommand extends Command {
 
 @injectable()
 export class BreakpointMouseListener extends MouseListener {
-  mouseUp(target: SModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
+  mouseUp(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
     if (target instanceof SBreakpointHandle) {
       return [ToggleBreakpointAction.create({ elementId: target.parent.id, disable: !target.disabled })];
     }

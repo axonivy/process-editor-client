@@ -1,4 +1,4 @@
-import { SChildElement, TYPES, BringToFrontAction, BringToFrontCommand } from '@eclipse-glsp/client';
+import { GChildElement, TYPES, BringToFrontAction, BringToFrontCommand } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { LaneNode } from '../diagram/model';
@@ -9,7 +9,7 @@ export class IvyBringToFrontCommand extends BringToFrontCommand {
     super(action);
   }
 
-  protected addToSelection(element: SChildElement): void {
+  protected addToSelection(element: GChildElement): void {
     if (element instanceof LaneNode) {
       return;
     }

@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-expressions */
-import { SEdge, SModelRoot } from '@eclipse-glsp/client';
+import { GEdge, GModelRoot } from '@eclipse-glsp/client';
 import { describe, test, expect } from 'vitest';
 
 import { ActivityNode, Edge, EndEventNode, EventNode, StartEventNode } from './model';
 
 describe('EventNodes', () => {
-  const routable = new SEdge();
+  const routable = new GEdge();
 
   test('end can only connect as target', () => {
     const endNode = new EndEventNode();
@@ -30,7 +30,7 @@ describe('EventNodes', () => {
 });
 
 function createEdgeModel(): Edge {
-  const root = new SModelRoot();
+  const root = new GModelRoot();
   const source = new ActivityNode();
   source.bounds = { x: 10, y: 10, width: 20, height: 10 };
   const target = new ActivityNode();
@@ -46,7 +46,7 @@ function createEdgeModel(): Edge {
 
 describe('Edges', () => {
   test('Bounds of empty edge are equals empty bounds', () => {
-    const root = new SModelRoot();
+    const root = new GModelRoot();
     const emptyEdge = new Edge();
     root.add(emptyEdge);
     expect(emptyEdge.bounds).to.be.deep.equals({ x: 0, y: 0, height: -1, width: -1 });

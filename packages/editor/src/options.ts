@@ -1,4 +1,4 @@
-import { Container, interfaces } from 'inversify';
+import { interfaces } from 'inversify';
 import { safeAssign } from 'sprotty-protocol/lib/utils/object';
 import { IVY_TYPES } from './types';
 
@@ -33,7 +33,7 @@ export function configureIvyViewerOptions(
 /**
  * Utility function to partially override the currently configured viewer options in a DI container.
  */
-export function overrideIvyViewerOptions(container: Container, options: Partial<IvyViewerOptions>): IvyViewerOptions {
+export function overrideIvyViewerOptions(container: interfaces.Container, options: Partial<IvyViewerOptions>): IvyViewerOptions {
   const opt = container.get<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions);
   safeAssign(opt, options);
   return opt;

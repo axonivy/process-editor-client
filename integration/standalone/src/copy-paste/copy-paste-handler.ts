@@ -7,9 +7,9 @@ import {
   CutOperation,
   PasteOperation,
   IAsyncClipboardService,
-  ViewerOptions
+  ViewerOptions,
+  InvokeCopyPasteAction
 } from '@eclipse-glsp/client';
-import { InvokeCopyPasteAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-context-menu';
 import { injectable, inject } from 'inversify';
 
 @injectable()

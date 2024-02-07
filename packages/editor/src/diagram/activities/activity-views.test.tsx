@@ -1,4 +1,4 @@
-import { ModelRenderer, SGraph, SModelFactory, SNode, ViewRegistry } from '@eclipse-glsp/client';
+import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { ActivityTypes, LabelType } from '../view-types';
 import { ActivityNode } from '../model';
@@ -7,7 +7,7 @@ import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
 import { VNode } from 'snabbdom-to-html-common';
 
-function createModel(graphFactory: SModelFactory): SGraph {
+function createModel(graphFactory: GModelFactory): GGraph {
   const children: any[] = [];
   const taskNodeSize = { width: 150, height: 50 };
   children.push({
@@ -31,13 +31,13 @@ function createModel(graphFactory: SModelFactory): SGraph {
   children.push({ id: 'thirdParty', type: ActivityTypes.THIRD_PARTY, position: { x: 600, y: 750 }, size: taskNodeSize });
   children.push({ id: 'thirdPartyRule', type: ActivityTypes.THIRD_PARTY_RULE, position: { x: 600, y: 800 }, size: taskNodeSize });
   children.push({ id: 'webPage', type: ActivityTypes.GENERIC, position: { x: 600, y: 600 }, size: taskNodeSize });
-  return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as SGraph;
+  return graphFactory.createRoot({ id: 'graph', type: 'graph', children: children }) as GGraph;
 }
 
 describe('ActivityNodeView', () => {
   let context: ModelRenderer;
-  let graphFactory: SModelFactory;
-  let graph: SGraph;
+  let graphFactory: GModelFactory;
+  let graph: GGraph;
   let viewRegistry: ViewRegistry;
 
   beforeEach(() => {
@@ -49,7 +49,9 @@ describe('ActivityNodeView', () => {
     expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
-    expect(toHTML(unknownVNode)).to.be.equal('<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0">?unknown?</text>');
+    expect(toHTML(unknownVNode)).to.be.equal(
+      '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">?unknown?</text>'
+    );
   });
 
   test('render comment node', () => {
@@ -133,7 +135,7 @@ describe('ActivityNodeView', () => {
 
   function renderNode(type: string, nodeId: string): VNode | undefined {
     const view = viewRegistry.get(type);
-    return view.render(graph.index.getById(nodeId) as SNode, context);
+    return view.render(graph.index.getById(nodeId) as GNode, context);
   }
 
   function assertNode(type: string, nodeId: string, options: { label?: boolean; icon?: string; decorator?: boolean }): void {

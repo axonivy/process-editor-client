@@ -1,5 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { Point } from './types';
+import { graphLocator } from './graph';
 
 export const ORIGIN_VIEWPORT = 'scale(1) translate(0,48)' as const;
 
@@ -12,8 +13,8 @@ export class ViewportBar {
   constructor(page: Page) {
     this.page = page;
     this.viewportBar = this.page.locator('#sprotty_ivy-viewport-bar');
-    this.grid = this.page.locator('.sprotty-graph');
-    this.graph = this.page.locator('.sprotty-graph > g');
+    this.grid = graphLocator(this.page);
+    this.graph = this.grid.locator('> g');
   }
 
   locator() {

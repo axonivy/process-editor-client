@@ -1,36 +1,32 @@
 import {
-  configureView,
-  defaultModule,
-  graphModule,
+  GGraph,
+  GModelFactory,
+  GNode,
   IVNodePostprocessor,
   ModelRenderer,
   ModelRendererFactory,
-  moveModule,
-  routingModule,
-  selectModule,
-  SGraph,
-  SModelFactory,
-  SNode,
   TYPES,
-  ViewRegistry
+  ViewRegistry,
+  baseViewModule,
+  configureView,
+  routingModule
 } from '@eclipse-glsp/client';
-import baseViewModule from '@eclipse-glsp/client/lib/views/base-view-module';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container } from 'inversify';
 import { VNode } from 'snabbdom';
+import toHTML from 'snabbdom-to-html';
+import { beforeEach, describe, expect, test } from 'vitest';
+import { createTestContainer } from '../utils/test-utils';
 import { SBreakpointHandle } from './model';
 import { SBreakpointHandleView } from './view';
-import toHTML from 'snabbdom-to-html';
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule, baseViewModule, selectModule, moveModule, graphModule, routingModule);
+  const container = createTestContainer(baseViewModule, routingModule);
   configureView(container, SBreakpointHandle.TYPE, SBreakpointHandleView);
   return container;
 }
 
-function createModel(graphFactory: SModelFactory): SGraph {
+function createModel(graphFactory: GModelFactory): GGraph {
   const node = {
     id: 'node',
     type: DefaultTypes.NODE,
@@ -53,21 +49,21 @@ function createModel(graphFactory: SModelFactory): SGraph {
       }
     ]
   };
-  const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: [node] }) as SGraph;
+  const graph = graphFactory.createRoot({ id: 'graph', type: 'graph', children: [node] }) as GGraph;
   return graph;
 }
 
 describe('BreakpointView', () => {
   let context: ModelRenderer;
-  let graphFactory: SModelFactory;
+  let graphFactory: GModelFactory;
   let viewRegistry: ViewRegistry;
-  let graph: SGraph;
+  let graph: GGraph;
 
   beforeEach(() => {
     const container = createContainer();
     const postprocessors = container.getAll<IVNodePostprocessor>(TYPES.IVNodePostprocessor);
     context = container.get<ModelRendererFactory>(TYPES.ModelRendererFactory)('hidden', postprocessors);
-    graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
+    graphFactory = container.get<GModelFactory>(TYPES.IModelFactory);
     viewRegistry = container.get<ViewRegistry>(TYPES.ViewRegistry);
     graph = createModel(graphFactory);
   });
@@ -125,7 +121,7 @@ describe('BreakpointView', () => {
 
   function renderBreakpoint(breakpointId: string): VNode | undefined {
     const view = viewRegistry.get(SBreakpointHandle.TYPE);
-    return view.render(graph.index.getById(breakpointId) as SNode, context);
+    return view.render(graph.index.getById(breakpointId) as GNode, context);
   }
 
   function assertBreakpoint(breakpointId: string, expectedCssClass: string): void {

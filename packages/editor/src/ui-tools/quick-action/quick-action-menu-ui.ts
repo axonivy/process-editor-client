@@ -1,4 +1,4 @@
-import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue, SIssueSeverity } from '@eclipse-glsp/client';
+import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../../utils/ui-utils';
@@ -213,7 +213,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
     return marker;
   }
 
-  private createIssue(sIssue: SIssue): HTMLElement {
+  private createIssue(sIssue: GIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
     issueTitle.appendChild(createIcon(this.ivyIconForSeverity(sIssue.severity)));
@@ -228,7 +228,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
     return issue;
   }
 
-  private ivyIconForSeverity(severity: SIssueSeverity) {
+  private ivyIconForSeverity(severity: GIssueSeverity) {
     switch (severity) {
       case 'info':
         return IvyIcons.InfoCircle;

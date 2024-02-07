@@ -1,7 +1,7 @@
-import { Bounds, SChildElement, SEdge, SModelElement } from '@eclipse-glsp/client';
+import { Bounds, GChildElement, GEdge, GModelElement } from '@eclipse-glsp/client';
 import { MulitlineEditLabel } from '../diagram/model';
 
-export function getAbsoluteEdgeBounds(edge: SEdge): Bounds {
+export function getAbsoluteEdgeBounds(edge: GEdge): Bounds {
   if (!edge.source || !edge.target) {
     return edge.bounds;
   }
@@ -13,8 +13,8 @@ export function getAbsoluteEdgeBounds(edge: SEdge): Bounds {
   edgePoints.push(...edge.routingPoints.map(point => Bounds.translate(EMPTY_EDGE_BOUNDS, { x: point.x, y: point.y })));
   edgePoints.push(Bounds.translate(EMPTY_EDGE_BOUNDS, Bounds.center(target.bounds)));
   let bounds = edgePoints.reduce((b1, b2) => Bounds.combine(b1, b2)) as Bounds;
-  let current: SModelElement = edge;
-  while (current instanceof SChildElement) {
+  let current: GModelElement = edge;
+  while (current instanceof GChildElement) {
     const parent = current.parent;
     bounds = parent.localToParent(bounds);
     current = parent;
@@ -24,8 +24,8 @@ export function getAbsoluteEdgeBounds(edge: SEdge): Bounds {
 
 export function getAbsoluteLabelBounds(element: MulitlineEditLabel): Bounds {
   let bounds = Bounds.translate(element.labelBounds, element.position);
-  let current: SModelElement = element;
-  while (current instanceof SChildElement) {
+  let current: GModelElement = element;
+  while (current instanceof GChildElement) {
     const parent = current.parent;
     bounds = parent.localToParent(bounds);
     current = parent;

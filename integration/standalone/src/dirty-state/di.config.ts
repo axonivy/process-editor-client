@@ -1,8 +1,7 @@
-import { ContainerModule } from 'inversify';
-import { configureActionHandler } from '@eclipse-glsp/client';
+import { FeatureModule, configureActionHandler } from '@eclipse-glsp/client';
 import { SetDirtyStateAction, SetDirtyStateActionHandler } from './action-handler';
 
-const ivyDirtyStateModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyDirtyStateModule = new FeatureModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, SetDirtyStateAction.KIND, SetDirtyStateActionHandler);
 });
 

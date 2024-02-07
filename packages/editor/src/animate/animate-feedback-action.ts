@@ -1,4 +1,4 @@
-import { SChildElement, Command, CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { GChildElement, Command, CommandExecutionContext, GModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, removeCssClass } from '../utils/element-css-classes';
 
@@ -24,31 +24,31 @@ export class AnimateFeedbackCommand extends Command {
   static readonly KIND = 'elementAnimateFeedback';
   static readonly CSS_CLASS = 'animate';
 
-  protected animated: SChildElement[] = [];
-  protected deanimated: SChildElement[] = [];
+  protected animated: GChildElement[] = [];
+  protected deanimated: GChildElement[] = [];
 
   constructor(@inject(TYPES.Action) protected readonly action: AnimateFeedbackAction) {
     super();
   }
 
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     const model = context.root;
     this.action.animatedIDs.forEach(id => {
       const element = model.index.getById(id);
-      if (element instanceof SChildElement && isAnimateable(element)) {
+      if (element instanceof GChildElement && isAnimateable(element)) {
         this.animated.push(element);
       }
     });
     this.action.deAnimatedIDs?.forEach(id => {
       const element = model.index.getById(id);
-      if (element instanceof SChildElement && isAnimateable(element)) {
+      if (element instanceof GChildElement && isAnimateable(element)) {
         this.deanimated.push(element);
       }
     });
     return this.redo(context);
   }
 
-  undo(context: CommandExecutionContext): SModelRoot {
+  undo(context: CommandExecutionContext): GModelRoot {
     for (const element of this.animated) {
       removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }
@@ -58,7 +58,7 @@ export class AnimateFeedbackCommand extends Command {
     return context.root;
   }
 
-  redo(context: CommandExecutionContext): SModelRoot {
+  redo(context: CommandExecutionContext): GModelRoot {
     for (const element of this.deanimated) {
       removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
     }

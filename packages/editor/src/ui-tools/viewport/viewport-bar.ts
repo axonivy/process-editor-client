@@ -10,8 +10,7 @@ import {
   SetUIExtensionVisibilityAction,
   SetViewportAction,
   TYPES
-} from '@eclipse-glsp/client';
-import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+  , SelectionService } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
 
@@ -26,7 +25,7 @@ export class ViewportBar extends AbstractUIExtension implements IActionHandler {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
   @inject(TYPES.IToolManager) protected readonly toolManager: IToolManager;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(SelectionService) protected selectionService: SelectionService;
 
   protected zoomLevel = '100%';
   protected zoomLevelElement?: HTMLElement;

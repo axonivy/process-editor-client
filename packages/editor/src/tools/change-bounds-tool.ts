@@ -1,87 +1,125 @@
 import {
-  ChangeBoundsTool,
-  MouseListener,
-  ChangeBoundsListener,
-  SModelElement,
-  Operation,
   Action,
-  SetUIExtensionVisibilityAction,
+  ChangeBoundsListener,
+  ChangeBoundsTool,
+  CursorCSS,
   FeedbackMoveMouseListener,
+  GModelElement,
+  ISelectionListener,
+  MouseListener,
   MoveAction,
+  Operation,
   Point,
-  ElementMove,
   createMovementRestrictionFeedback,
+  cursorFeedbackAction,
   removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
-import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyChangeBoundsTool extends ChangeBoundsTool {
-  protected createChangeBoundsListener(): MouseListener & SelectionListener {
+  @inject(QuickActionUI) quickActionUi: QuickActionUI;
+
+  protected override createChangeBoundsListener(): MouseListener & ISelectionListener {
     return new IvyChangeBoundsListener(this);
   }
 
-  protected createMoveMouseListener(): MouseListener {
+  protected override createMoveMouseListener(): MouseListener {
     return new IvyFeedbackMoveMouseListener(this);
   }
 }
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
-  protected handleMoveRoutingPointsOnServer(target: SModelElement): Operation[] {
+  constructor(protected override tool: IvyChangeBoundsTool) {
+    super(tool);
+  }
+
+  protected handleMoveRoutingPointsOnServer(target: GModelElement): Operation[] {
     return [];
   }
 
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.mouseMove(target, event);
-    if (this.isMouseDrag && this.activeResizeHandle) {
-      actions.push(
-        SetUIExtensionVisibilityAction.create({
-          extensionId: QuickActionUI.ID,
-          visible: false
-        })
-      );
+    if (event.buttons !== 0 && this.isMouseDrag && this.activeResizeHandle) {
+      this.tool.quickActionUi.hideUi();
       addNegativeArea(target);
     }
     return actions;
   }
 
-  draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
+  draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
     const actions = super.draggingMouseUp(target, event);
     removeNegativeArea(target);
+    this.tool.quickActionUi.showUi();
     return actions;
   }
 }
 
 export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
-    if (event.buttons === 0) {
-      removeNegativeArea(target);
-      return this.mouseUp(target, event);
-    }
+  protected lastMove: MoveAction | undefined;
+
+  constructor(protected override tool: IvyChangeBoundsTool) {
+    super(tool);
+  }
+
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
+    this.lastMove = undefined;
     const actions = super.mouseMove(target, event);
-    if (this.hasDragged && this.hasRealMoved(actions)) {
-      actions.push(
-        SetUIExtensionVisibilityAction.create({
-          extensionId: QuickActionUI.ID,
-          visible: false
-        })
-      );
+    if (event.buttons !== 0 && this._isMouseDrag && this.hasRealMoved()) {
+      this.tool.quickActionUi.hideUi();
       addNegativeArea(target);
     }
     return actions;
   }
 
-  hasRealMoved(actions: Action[]): ElementMove | undefined {
-    return actions
-      .filter(action => action.kind === MoveAction.KIND)
-      .flatMap(action => (<MoveAction>action).moves)
-      .find(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
+  draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
+    // overridden so we can properly reset the feedback if we have an invalid move
+    const result: Action[] = [];
+    if (this.positionUpdater.isLastDragPositionUndefined()) {
+      this.reset(true);
+      return result;
+    } else {
+      const moveAction = this.getElementMoves(target, event, true);
+      if (moveAction) {
+        result.push(moveAction);
+      }
+      const resetFeedback: Action[] = [];
+      if (this.tool.movementRestrictor) {
+        resetFeedback.push(removeMovementRestrictionFeedback(target, this.tool.movementRestrictor));
+      }
+      resetFeedback.push(cursorFeedbackAction(CursorCSS.DEFAULT));
+      this.tool.deregisterFeedback(this, resetFeedback);
+    }
+    // check if we have an invalid move and if so properly reset the move feedback
+    if (this.tool.movementRestrictor?.cssClasses) {
+      for (const [elementId] of this.elementId2startPos) {
+        const element = target.root.index.getById(elementId);
+        if (this.isMovementRestricted(element, this.tool.movementRestrictor.cssClasses)) {
+          this.reset(true);
+          return result;
+        }
+      }
+    }
+    this.reset();
+    return result;
   }
 
-  protected validateMove(startPostion: Point, toPosition: Point, element: SModelElement, isFinished: boolean): Point {
+  protected isMovementRestricted(target: GModelElement | undefined, restrictionClasses: string[]): boolean {
+    return target?.cssClasses ? restrictionClasses.some(cssClass => target.cssClasses?.includes(cssClass)) : false;
+  }
+
+  protected getElementMoves(target: GModelElement, event: MouseEvent, finished: boolean): MoveAction | undefined {
+    this.lastMove = super.getElementMoves(target, event, finished);
+    return this.lastMove;
+  }
+
+  hasRealMoved(): boolean {
+    return !!this.lastMove?.moves.some(move => move.fromPosition && !Point.equals(move.fromPosition, move.toPosition));
+  }
+
+  protected validateMove(startPosition: Point, toPosition: Point, element: GModelElement, isFinished: boolean): Point {
     let newPosition = toPosition;
     if (this.tool.movementRestrictor) {
       const action: Action[] = [];
@@ -89,13 +127,13 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
         action.push(removeMovementRestrictionFeedback(element, this.tool.movementRestrictor));
       } else {
         if (isFinished) {
-          newPosition = startPostion;
+          newPosition = startPosition;
           action.push(removeMovementRestrictionFeedback(element, this.tool.movementRestrictor));
         } else {
           action.push(createMovementRestrictionFeedback(element, this.tool.movementRestrictor));
         }
       }
-      this.tool.dispatchFeedback(action, this);
+      this.tool.registerFeedback(action, this);
     }
     return newPosition;
   }

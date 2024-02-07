@@ -1,18 +1,16 @@
 import './inscription-ui.css';
 
-import { ContainerModule } from 'inversify';
-import { InscriptionUi } from './inscription-ui';
-import { TYPES, configureActionHandler } from '@eclipse-glsp/client';
+import { IVY_TYPES } from '@axonivy/process-editor';
 import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { FeatureModule, TYPES, bindAsService, configureActionHandler } from '@eclipse-glsp/client';
 import { OpenAction } from 'sprotty-protocol';
+import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
+import { InscriptionUi } from './inscription-ui';
 import { OpenInscriptionKeyListener, OpenInscriptionMouseListener } from './open-inscription-listener';
 import { InscriptionButtonProvider } from './tool-bar';
-import { IVY_TYPES } from '@axonivy/process-editor';
-import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 
-const ivyInscriptionModule = new ContainerModule((bind, _unbind, isBound) => {
-  bind(InscriptionUi).toSelf().inSingletonScope();
-  bind(TYPES.IUIExtension).toService(InscriptionUi);
+const ivyInscriptionModule = new FeatureModule((bind, _unbind, isBound) => {
+  bindAsService(bind, TYPES.IUIExtension, InscriptionUi);
   configureActionHandler({ bind, isBound }, EnableInscriptionAction.KIND, InscriptionUi);
   configureActionHandler({ bind, isBound }, ToggleInscriptionAction.KIND, InscriptionUi);
   configureActionHandler({ bind, isBound }, OpenAction.KIND, InscriptionUi);

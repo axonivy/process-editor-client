@@ -1,4 +1,4 @@
-import { SModelRoot, TYPES } from '@eclipse-glsp/client';
+import { GModelRoot, TYPES } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import { assertQuickAction, assertQuickActionUi, createContainer, createRoot } from '../../test-utils/quick-action-ui.test-util';
 import { QuickActionUI } from './quick-action-ui';
@@ -23,7 +23,7 @@ function createContainerReadonly(options?: Partial<IvyViewerOptions>): Container
 
 describe('QuickActionUi - Readonly', () => {
   let quickActionUi: QuickActionUI;
-  let root: SModelRoot;
+  let root: GModelRoot;
 
   beforeAll(() => {
     const container = createContainerReadonly();
@@ -53,7 +53,7 @@ describe('QuickActionUi - Readonly', () => {
 
 describe('QuickActionUi - Readonly (hide sensitive infos)', () => {
   let quickActionUi: QuickActionUI;
-  let root: SModelRoot;
+  let root: GModelRoot;
 
   beforeAll(() => {
     const container = createContainerReadonly({ hideSensitiveInfo: true });

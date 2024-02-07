@@ -3,35 +3,32 @@ import {
   ActionDispatcher,
   Bounds,
   CommandExecutionContext,
-  configureCommand,
-  createFeatureSet,
-  defaultModule,
-  FeedbackActionDispatcher,
+  GChildElement,
+  GModelRoot,
   InitializeCanvasBoundsAction,
-  SChildElement,
-  SModelRoot,
-  TYPES
+  TYPES,
+  configureCommand,
+  createFeatureSet
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { createTestContainer } from '../utils/test-utils';
 import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
-import { breakpointFeature, SBreakpointHandle } from './model';
+import { SBreakpointHandle, breakpointFeature } from './model';
 
-let root: SModelRoot;
+let root: GModelRoot;
 
 @injectable()
 class BreakpointFeedbackCommandMock extends BreakpointFeedbackCommand {
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     context.root = root;
     return super.execute(context);
   }
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   configureCommand(container, BreakpointFeedbackCommandMock);
   return container;
 }
@@ -43,11 +40,11 @@ describe('BreakpointFeedbackAction', () => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
-    root = new SModelRoot();
+    root = new GModelRoot();
   });
 
   test('SBreakpointHandle will not be added to a unbreakable element', async () => {
-    const node = new SChildElement();
+    const node = new GChildElement();
     node.id = 'notbreakable';
     root.add(node);
 
@@ -57,7 +54,7 @@ describe('BreakpointFeedbackAction', () => {
   });
 
   test('SBreakpointHandle will be added/removed to/from a breakable element', async () => {
-    const node = new SChildElement();
+    const node = new GChildElement();
     node.id = 'foo';
     node.features = createFeatureSet([breakpointFeature]);
     root.add(node);
@@ -73,7 +70,7 @@ describe('BreakpointFeedbackAction', () => {
   });
 
   test('SBreakpointHandle will get correct infos', async () => {
-    const node = new SChildElement();
+    const node = new GChildElement();
     node.id = 'foo';
     node.features = createFeatureSet([breakpointFeature]);
     root.add(node);
@@ -87,7 +84,7 @@ describe('BreakpointFeedbackAction', () => {
     expect(node.children[0]).to.be.an.instanceOf(SBreakpointHandle);
   });
 
-  function assertBreakpoint(element: SChildElement, expectedCondition: string, isDisabled: boolean, isGlobalDisabled: boolean): void {
+  function assertBreakpoint(element: GChildElement, expectedCondition: string, isDisabled: boolean, isGlobalDisabled: boolean): void {
     expect(element).to.be.an.instanceOf(SBreakpointHandle);
     const breakpoint = element as SBreakpointHandle;
     expect(breakpoint.condition).to.be.equals(expectedCondition);

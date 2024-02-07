@@ -13,12 +13,11 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import { configureActionHandler } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { FeatureModule, configureActionHandler } from '@eclipse-glsp/client';
 
 import { IvyInvokeDeleteActionHandler } from './delete';
 
-const ivyEclipseDeleteModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyEclipseDeleteModule = new FeatureModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, 'invoke-delete', IvyInvokeDeleteActionHandler);
 });
 

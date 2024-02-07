@@ -1,11 +1,11 @@
 import {
-  SModelElement,
+  GModelElement,
   isConnectable,
-  SEdge,
+  GEdge,
   Action,
   CreateNodeOperation,
   TriggerNodeCreationAction,
-  SConnectableElement,
+  GConnectableElement,
   PaletteItem,
   isNotUndefined,
   SetUIExtensionVisibilityAction,
@@ -24,18 +24,18 @@ import { AttachBoundaryOperation } from '@axonivy/process-editor-protocol';
 
 export abstract class CreateElementQuickActionProvider extends SingleQuickActionProvider {
   @inject(ElementsPaletteHandler) protected paletteHandler: ElementsPaletteHandler;
-  protected element: SModelElement;
+  protected element: GModelElement;
 
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     this.element = element;
-    if (!isConnectable(element) || !element.canConnect(new SEdge(), 'source') || element.type === ActivityTypes.COMMENT) {
+    if (!isConnectable(element) || !element.canConnect(new GEdge(), 'source') || element.type === ActivityTypes.COMMENT) {
       return;
     }
     return this.quickAction();
   }
 
   protected hasOutgoingEdges(): boolean {
-    return this.element instanceof SConnectableElement && Array.from(this.element.outgoingEdges).length > 0;
+    return this.element instanceof GConnectableElement && Array.from(this.element.outgoingEdges).length > 0;
   }
 
   protected paletteItems(): () => PaletteItem[] {
@@ -159,7 +159,7 @@ export function convertToCreateNodeOperation(action: Action, previousElementId: 
   return undefined;
 }
 
-function boundaryEventGroup(element: SModelElement): PaletteItem | undefined {
+function boundaryEventGroup(element: GModelElement): PaletteItem | undefined {
   const children: PaletteItem[] = [];
   if (canAddErrorBoundary(element)) {
     children.push({

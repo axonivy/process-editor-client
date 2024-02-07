@@ -1,9 +1,8 @@
-import { ContainerModule } from 'inversify';
-
-import { GoToSourceQuickActionProvider } from './quick-action';
+import { FeatureModule } from '@eclipse-glsp/client';
 import { IVY_TYPES } from '../types';
+import { GoToSourceQuickActionProvider } from './quick-action';
 
-const ivyGoToSourceModule = new ContainerModule(bind => {
+const ivyGoToSourceModule = new FeatureModule(bind => {
   bind(IVY_TYPES.QuickActionProvider).to(GoToSourceQuickActionProvider);
 });
 

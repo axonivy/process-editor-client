@@ -8,10 +8,10 @@ import {
   IActionDispatcher,
   IFeedbackActionDispatcher,
   SetUIExtensionVisibilityAction,
-  SModelRoot,
-  TYPES
+  GModelRoot,
+  TYPES,
+  SelectionService
 } from '@eclipse-glsp/client';
-import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct } from 'inversify';
 import { IvyIcons } from '@axonivy/editor-icons/lib';
 import { createElement, createIcon } from '../utils/ui-utils';
@@ -23,7 +23,7 @@ export class JumpOutUi extends AbstractUIExtension {
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(TYPES.IFeedbackActionDispatcher) protected readonly feedbackDispatcher: IFeedbackActionDispatcher;
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(SelectionService) protected selectionService: SelectionService;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
 
   public id(): string {
@@ -43,7 +43,7 @@ export class JumpOutUi extends AbstractUIExtension {
     containerElement.style.position = 'absolute';
   }
 
-  protected onBeforeShow(containerElement: HTMLElement, root: Readonly<SModelRoot>, ...contextElementIds: string[]): void {
+  protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
     const button = createElement('div', ['jump-out-btn']);
     button.title = 'Jump out (J)';
@@ -80,7 +80,7 @@ export class JumpOutFeedbackCommand extends FeedbackCommand {
     return context.root;
   }
 
-  showJumpOutBtn(root: SModelRoot): boolean {
+  showJumpOutBtn(root: GModelRoot): boolean {
     return root.id.includes('-');
   }
 }

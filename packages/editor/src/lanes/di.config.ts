@@ -1,5 +1,4 @@
-import { configureCommand, configureView, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { configureCommand, configureView, FeatureModule, TYPES } from '@eclipse-glsp/client';
 
 import { IVY_TYPES } from '../types';
 import { CreateLaneQuickActionProvider } from './action';
@@ -8,7 +7,7 @@ import { HideChangeLaneBoundsToolFeedbackCommand, ShowChangeLaneBoundsToolFeedba
 import { SLaneResizeHandle } from './model';
 import { SLaneResizeHandleView } from './view';
 
-const ivyLaneModule = new ContainerModule((bind, _unbind, isBound, _rebind) => {
+const ivyLaneModule = new FeatureModule((bind, _unbind, isBound) => {
   bind(IVY_TYPES.QuickActionProvider).to(CreateLaneQuickActionProvider);
 
   bind(TYPES.IDefaultTool).to(ChangeLaneBoundsTool);

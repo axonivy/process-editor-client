@@ -4,22 +4,20 @@ import {
   Bounds,
   configureActionHandler,
   configureCommand,
-  defaultModule,
   FeedbackActionDispatcher,
   InitializeCanvasBoundsAction,
   TYPES
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { ShowBreakpointAction } from '@axonivy/process-editor-protocol';
+import { createTestContainer } from '../utils/test-utils';
 import { ShowBreakpointActionHandler } from './action-handler';
 import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
-import { ShowBreakpointAction } from '@axonivy/process-editor-protocol';
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   container.bind(ShowBreakpointActionHandler).toSelf().inSingletonScope();
   configureActionHandler(container, ShowBreakpointAction.KIND, ShowBreakpointActionHandler);
   configureCommand(container, BreakpointFeedbackCommand);

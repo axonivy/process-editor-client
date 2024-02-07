@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { SModelRoot } from '@eclipse-glsp/client';
+import { GModelRoot } from '@eclipse-glsp/client';
 import { describe, test, beforeAll, expect } from 'vitest';
 import {
   assertMultiQuickActionUi,
@@ -14,7 +14,7 @@ import { QuickActionUI } from './quick-action-ui';
 
 describe('QuickActionUi', () => {
   let quickActionUi: QuickActionUI;
-  let root: SModelRoot;
+  let root: GModelRoot;
 
   beforeAll(() => {
     const container = createContainer();

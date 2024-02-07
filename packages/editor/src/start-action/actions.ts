@@ -1,4 +1,4 @@
-import { SModelElement } from '@eclipse-glsp/client';
+import { GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { StartProcessAction, SearchProcessCallersAction } from '@axonivy/process-editor-protocol';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
@@ -8,7 +8,7 @@ import { IvyIcons } from '@axonivy/editor-icons/lib';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && element.type === EventStartTypes.START) {
       return {
         icon: IvyIcons.Play,
@@ -34,7 +34,7 @@ export class SearchProcessCallersActionProvider extends SingleQuickActionProvide
     EventStartTypes.START_HD,
     EventStartTypes.START_HD_METHOD
   ];
-  singleQuickAction(element: SModelElement): QuickAction | undefined {
+  singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && this.isSearchViewAvailable(element.type)) {
       return {
         icon: IvyIcons.Search,

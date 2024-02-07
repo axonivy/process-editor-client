@@ -1,29 +1,46 @@
 import './edit-label.css';
 
 import {
-  BalloonLabelValidationDecorator,
-  TYPES,
   ApplyLabelEditCommand,
-  configureCommand,
+  BalloonLabelValidationDecorator,
   EditLabelAction,
-  configureActionHandler
+  FeatureModule,
+  ServerEditLabelValidator,
+  TYPES,
+  bindAsService,
+  configureActionHandler,
+  configureCommand,
+  labelEditModule,
+  labelEditUiModule
 } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
-import { IvyDirectLabelEditTool } from './edit-label-tool';
 import { IVY_TYPES } from '../types';
-import { EditLabelActionProvider } from './quick-action';
+import { IvyDirectLabelEditTool } from './edit-label-tool';
 import { IvyEditLabelActionHandler, IvyEditLabelUI } from './edit-label-ui';
+import { EditLabelActionProvider } from './quick-action';
 
-export const ivyEditLabelModule = new ContainerModule((bind, _unbind, isBound, _rebind) => {
-  bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
-  bind(TYPES.IDefaultTool).to(IvyDirectLabelEditTool);
-  configureCommand({ bind, isBound }, ApplyLabelEditCommand);
-  bind(IVY_TYPES.QuickActionProvider).to(EditLabelActionProvider);
-});
+export const ivyLabelEditModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    // GLSP defaults
+    configureCommand({ bind, isBound }, ApplyLabelEditCommand);
+    bind(TYPES.IEditLabelValidator).to(ServerEditLabelValidator);
+    bind(TYPES.IEditLabelValidationDecorator).to(BalloonLabelValidationDecorator);
 
-export const ivyEditLabelUiModule = new ContainerModule((bind, _unbind, isBound) => {
-  const context = { bind, isBound };
-  configureActionHandler(context, EditLabelAction.KIND, IvyEditLabelActionHandler);
-  bind(IvyEditLabelUI).toSelf().inSingletonScope();
-  bind(TYPES.IUIExtension).toService(IvyEditLabelUI);
-});
+    // GLSP replacements
+    bindAsService(bind, TYPES.IDefaultTool, IvyDirectLabelEditTool);
+
+    // Ivy extensions
+    bind(IVY_TYPES.QuickActionProvider).to(EditLabelActionProvider);
+  },
+  { featureId: labelEditModule.featureId }
+);
+
+export const ivyLabelEditUiModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    const context = { bind, isBound };
+
+    // GLSP replacements
+    configureActionHandler(context, EditLabelAction.KIND, IvyEditLabelActionHandler);
+    bindAsService(context, TYPES.IUIExtension, IvyEditLabelUI);
+  },
+  { featureId: labelEditUiModule.featureId }
+);

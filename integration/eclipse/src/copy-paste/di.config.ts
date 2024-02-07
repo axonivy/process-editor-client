@@ -1,9 +1,8 @@
-import { configureActionHandler } from '@eclipse-glsp/client';
-import { ContainerModule } from 'inversify';
+import { FeatureModule, configureActionHandler } from '@eclipse-glsp/client';
 
 import { IvyEclipseCopyPasteActionHandler } from './copy-paste';
 
-const ivyEclipseCopyPasteModule = new ContainerModule((bind, _unbind, isBound) => {
+const ivyEclipseCopyPasteModule = new FeatureModule((bind, _unbind, isBound) => {
   configureActionHandler({ bind, isBound }, 'invoke-copy', IvyEclipseCopyPasteActionHandler);
   configureActionHandler({ bind, isBound }, 'invoke-cut', IvyEclipseCopyPasteActionHandler);
   configureActionHandler({ bind, isBound }, 'invoke-paste', IvyEclipseCopyPasteActionHandler);

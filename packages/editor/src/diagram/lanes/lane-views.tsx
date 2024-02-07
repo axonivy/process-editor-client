@@ -1,4 +1,4 @@
-import { GArgument, RectangularNodeView, RenderingContext, SLabel, SLabelView, hasArguments, svg } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
@@ -13,10 +13,14 @@ export class LaneNodeView extends RectangularNodeView {
     if (this.isEmbeddedLane(node)) {
       const topRightRadius = node.isFirstChild() ? 4 : 0;
       const bottomRightRadius = node.isLastChild() ? 4 : 0;
+      // We adapt the height by 1px so it properly fits into the lane pool without overflowing by 1px. However, we cannot change the
+      // height during hidden rendering as any action that fires a lot of local bounds requests (e.g. resizing) will make the lane
+      // shrink by 1px on each request
+      const heightAdapt = context.targetKind === 'hidden' ? 0 : 1;
       const path = `M0,0
       h${Math.max(node.size.width - topRightRadius, 0)}
       q${topRightRadius},0 ${topRightRadius},${topRightRadius}
-      v${Math.max(node.size.height - 1 - topRightRadius - bottomRightRadius, 0)}
+      v${Math.max(node.size.height - heightAdapt - topRightRadius - bottomRightRadius, 0)}
       q0,${bottomRightRadius} -${bottomRightRadius},${bottomRightRadius}
       h-${Math.max(node.size.width - bottomRightRadius, 0)}
       z`;
@@ -82,7 +86,7 @@ export class PoolNodeView extends LaneNodeView {
 
   private getPoolLaneSpace(node: LaneNode) {
     let poolLaneSpace = 24;
-    if (hasArguments(node) && node.args) {
+    if (hasArgs(node) && node.args) {
       poolLaneSpace = GArgument.getNumber(node, 'poolLabelSpace') ?? 24;
     }
     return poolLaneSpace - 1;
@@ -90,8 +94,8 @@ export class PoolNodeView extends LaneNodeView {
 }
 
 @injectable()
-export class RotateLabelView extends SLabelView {
-  render(label: Readonly<SLabel>, context: RenderingContext): VNode | undefined {
+export class RotateLabelView extends GLabelView {
+  render(label: Readonly<GLabel>, context: RenderingContext): VNode | undefined {
     const rotate = `rotate(270) translate(-${label.bounds.height / 2} ${label.bounds.width / 2})`;
     return (
       <text class-sprotty-label={true} transform={rotate}>

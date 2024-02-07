@@ -1,4 +1,4 @@
-import { RectangularNodeView, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
+import { RectangularNodeView, RenderingContext, GShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
@@ -44,7 +44,7 @@ export class ActivityNodeView extends RectangularNodeView {
     return <g></g>;
   }
 
-  protected getRoundedCornerRadius(node: SShapeElement): number {
+  protected getRoundedCornerRadius(node: GShapeElement): number {
     return 5;
   }
 }

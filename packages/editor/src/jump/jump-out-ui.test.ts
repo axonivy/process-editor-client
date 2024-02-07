@@ -1,30 +1,25 @@
 /* eslint-disable no-unused-expressions */
 import {
   ActionDispatcher,
+  ArgsAware,
+  Bounds,
   CommandExecutionContext,
   CommandReturn,
-  configureCommand,
-  defaultGLSPModule,
-  defaultModule,
-  FeedbackActionDispatcher,
-  glspSelectModule,
+  GGraph,
+  GModelFactory,
+  GModelRoot,
   InitializeCanvasBoundsAction,
-  LocalModelSource,
-  modelSourceModule,
-  SArgumentable,
-  SGraph,
-  SModelFactory,
-  SModelRoot,
   TYPES,
-  glspMouseToolModule,
-  Bounds
+  configureCommand,
+  selectModule
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { createTestContainer } from '../utils/test-utils';
 import { JumpOutFeedbackAction, JumpOutFeedbackCommand } from './jump-out-ui';
 
-let root: SModelRoot & SArgumentable;
+let root: GModelRoot & ArgsAware;
 let jumpOutBtn = false;
 
 @injectable()
@@ -36,11 +31,9 @@ class JumpOutFeedbackCommandMock extends JumpOutFeedbackCommand {
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule, defaultGLSPModule, glspSelectModule, modelSourceModule, glspMouseToolModule);
-  container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer(selectModule);
   configureCommand(container, JumpOutFeedbackCommandMock);
+
   return container;
 }
 
@@ -49,8 +42,8 @@ describe('ToolPaletteFeedback', () => {
 
   beforeEach(() => {
     const container = createContainer();
-    const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
-    root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph & SArgumentable;
+    const graphFactory = container.get<GModelFactory>(TYPES.IModelFactory);
+    root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as GGraph & ArgsAware;
     root.args = {};
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));

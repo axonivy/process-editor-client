@@ -2,39 +2,36 @@ import {
   ActionDispatcher,
   Bounds,
   CommandExecutionContext,
-  configureCommand,
-  createFeatureSet,
-  defaultModule,
-  FeedbackActionDispatcher,
+  GChildElement,
+  GModelRoot,
   InitializeCanvasBoundsAction,
-  SChildElement,
-  SModelRoot,
-  TYPES
+  TYPES,
+  configureCommand,
+  createFeatureSet
 } from '@eclipse-glsp/client';
-import { describe, test, expect, beforeEach } from 'vitest';
 import { Container, injectable } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { createTestContainer } from '../utils/test-utils';
 import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
 import { animateFeature } from './model';
 
-let root: SModelRoot;
+let root: GModelRoot;
 
 @injectable()
 class AnimateFeedbackCommandMock extends AnimateFeedbackCommand {
-  execute(context: CommandExecutionContext): SModelRoot {
+  execute(context: CommandExecutionContext): GModelRoot {
     context.root = root;
     return super.execute(context);
   }
 }
 
-class AnimationNode extends SChildElement {
+class AnimationNode extends GChildElement {
   features = createFeatureSet([animateFeature]);
 }
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer();
   configureCommand(container, AnimateFeedbackCommandMock);
   return container;
 }
@@ -46,7 +43,7 @@ describe('AnimateFeedbackAction', () => {
     const container = createContainer();
     actionDispatcher = container.get<ActionDispatcher>(TYPES.IActionDispatcher);
     actionDispatcher.dispatch(InitializeCanvasBoundsAction.create(Bounds.EMPTY));
-    root = new SModelRoot();
+    root = new GModelRoot();
   });
 
   test('Animate css class is set on element', async () => {

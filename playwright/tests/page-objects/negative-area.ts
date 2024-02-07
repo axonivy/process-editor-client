@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { graphLocator } from './graph';
 
 export class NegativeArea {
   readonly page: Page;
@@ -6,7 +7,7 @@ export class NegativeArea {
 
   constructor(page: Page) {
     this.page = page;
-    this.area = this.page.locator('.negative-area');
+    this.area = graphLocator(page).locator('.negative-area');
   }
 
   async expectVisible() {

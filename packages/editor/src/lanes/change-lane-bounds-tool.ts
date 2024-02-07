@@ -1,7 +1,8 @@
 import {
   Action,
   applyCssClasses,
-  BaseGLSPTool,
+  Disposable,
+  DisposableCollection,
   Bounds,
   BoundsAware,
   Dimension,
@@ -21,15 +22,17 @@ import {
   Operation,
   Point,
   toElementAndBounds,
-  SModelElement,
-  SModelRoot,
-  SParentElement,
+  GModelElement,
+  GModelRoot,
+  GParentElement,
   TYPES,
-  SetUIExtensionVisibilityAction
+  SetUIExtensionVisibilityAction,
+  SelectionService,
+  isValidSize,
+  BaseEditTool,
+  ISelectionListener
 } from '@eclipse-glsp/client';
 import { SetBoundsAction, Writable } from '@eclipse-glsp/protocol';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
-import { isValidSize } from '@eclipse-glsp/client/lib/utils/layout-utils';
 import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
@@ -38,13 +41,12 @@ import { addNegativeArea, removeNegativeArea } from '../tools/negative-area/mode
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 
 @injectable()
-export class ChangeLaneBoundsTool extends BaseGLSPTool {
+export class ChangeLaneBoundsTool extends BaseEditTool {
   static ID = 'ivy.change-lane-bounds-tool';
 
-  @inject(TYPES.SelectionService) protected selectionService: SelectionService;
+  @inject(SelectionService) protected selectionService: SelectionService;
   @inject(TYPES.ISnapper) @optional() readonly snapper?: ISnapper;
-  protected feedbackMoveMouseListener: MouseListener;
-  protected changeBoundsListener: MouseListener & SelectionListener;
+  protected changeBoundsListener: MouseListener & ISelectionListener & Disposable;
 
   get id(): string {
     return ChangeLaneBoundsTool.ID;
@@ -53,24 +55,21 @@ export class ChangeLaneBoundsTool extends BaseGLSPTool {
   enable(): void {
     // install change bounds listener for client-side resize updates and server-side updates
     this.changeBoundsListener = this.createChangeBoundsListener();
-    this.mouseTool.register(this.changeBoundsListener);
-    this.selectionService.register(this.changeBoundsListener);
+    this.toDisposeOnDisable.push(this.changeBoundsListener);
+    this.toDisposeOnDisable.push(this.mouseTool.registerListener(this.changeBoundsListener));
+    this.toDisposeOnDisable.push(
+      this.selectionService.onSelectionChanged(selection =>
+        this.changeBoundsListener.selectionChanged(selection.root, selection.selectedElements, selection.deselectedElements)
+      )
+    );
   }
 
-  protected createChangeBoundsListener(): MouseListener & SelectionListener {
+  protected createChangeBoundsListener(): MouseListener & ISelectionListener & Disposable {
     return new ChangeLaneBoundsListener(this);
-  }
-
-  disable(): void {
-    this.mouseTool.deregister(this.changeBoundsListener);
-    this.selectionService.deregister(this.changeBoundsListener);
-    this.mouseTool.deregister(this.feedbackMoveMouseListener);
-    this.deregisterFeedback([], this.feedbackMoveMouseListener);
-    this.deregisterFeedback([HideChangeLaneBoundsToolFeedbackAction.create()], this.changeBoundsListener);
   }
 }
 
-export class ChangeLaneBoundsListener extends DragAwareMouseListener implements SelectionListener {
+export class ChangeLaneBoundsListener extends DragAwareMouseListener implements ISelectionListener, Disposable {
   static readonly CSS_CLASS_ACTIVE = 'active';
 
   // members for calculating the correct position change
@@ -79,14 +78,16 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
   protected positionDelta: Writable<Point> = { x: 0, y: 0 };
 
   // members for resize mode
-  protected activeResizeElement?: SModelElement;
+  protected activeResizeElement?: GModelElement;
   protected activeResizeHandle?: SLaneResizeHandle;
+
+  protected feedback = new DisposableCollection();
 
   constructor(protected tool: ChangeLaneBoundsTool) {
     super();
   }
 
-  mouseDown(target: SModelElement, event: MouseEvent): Action[] {
+  mouseDown(target: GModelElement, event: MouseEvent): Action[] {
     super.mouseDown(target, event);
     if (event.button !== 0) {
       return [];
@@ -105,7 +106,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return [];
   }
 
-  mouseMove(target: SModelElement, event: MouseEvent): Action[] {
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     super.mouseMove(target, event);
     if (this.isMouseDrag && this.activeResizeHandle) {
       // rely on the FeedbackMoveMouseListener to update the element bounds of selected elements
@@ -131,7 +132,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return [];
   }
 
-  draggingMouseUp(target: SModelElement, event: MouseEvent): Action[] {
+  draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {
     if (this.lastDragPosition === undefined) {
       this.resetPosition();
       return [];
@@ -150,7 +151,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return actions;
   }
 
-  protected handleMoveOnServer(target: SModelElement): Action[] {
+  protected handleMoveOnServer(target: GModelElement): Action[] {
     const operations = this.handleMoveElementsOnServer(target);
     if (operations.length > 0) {
       return [CompoundOperation.create(operations)];
@@ -158,7 +159,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return operations;
   }
 
-  protected handleMoveElementsOnServer(target: SModelElement): Operation[] {
+  protected handleMoveElementsOnServer(target: GModelElement): Operation[] {
     const result: Operation[] = [];
     const newBounds: ElementAndBounds[] = [];
     forEachElement(target.index, isSelectedLane, element => {
@@ -181,7 +182,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return actions;
   }
 
-  selectionChanged(root: SModelRoot, selectedElements: string[]): void {
+  selectionChanged(root: GModelRoot, selectedElements: string[]): void {
     if (this.activeResizeElement) {
       if (selectedElements.includes(this.activeResizeElement.id)) {
         // our active element is still selected, nothing to do
@@ -199,21 +200,25 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     }
   }
 
-  protected setActiveResizeElement(target: SModelElement): boolean {
+  protected setActiveResizeElement(target: GModelElement): boolean {
     // check if we have a selected, moveable element (multi-selection allowed)
     const moveableElement = findParentByFeature(target, isLaneResizable);
     if (isSelected(moveableElement)) {
       // only allow one element to have the element resize handles
       this.activeResizeElement = moveableElement;
       if (isLaneResizable(this.activeResizeElement)) {
-        this.tool.dispatchFeedback([ShowChangeLaneBoundsToolFeedbackAction.create(this.activeResizeElement.id)], this);
+        this.feedback.push(
+          this.tool.registerFeedback([ShowChangeLaneBoundsToolFeedbackAction.create(this.activeResizeElement.id)], this, [
+            HideChangeLaneBoundsToolFeedbackAction.create()
+          ])
+        );
       }
       return true;
     }
     return false;
   }
 
-  protected isActiveResizeElement(element?: SModelElement): element is SParentElement & BoundsAware {
+  protected isActiveResizeElement(element?: GModelElement): element is GParentElement & BoundsAware {
     return element !== undefined && this.activeResizeElement !== undefined && element.id === this.activeResizeElement.id;
   }
 
@@ -230,7 +235,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     }
   }
 
-  protected updatePosition(target: SModelElement, event: MouseEvent): Point | undefined {
+  protected updatePosition(target: GModelElement, event: MouseEvent): Point | undefined {
     if (this.lastDragPosition) {
       const newDragPosition = { x: event.pageX, y: event.pageY };
 
@@ -262,7 +267,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
 
   protected reset(): void {
     if (this.activeResizeElement && isLaneResizable(this.activeResizeElement)) {
-      this.tool.dispatchFeedback([HideChangeLaneBoundsToolFeedbackAction.create()], this);
+      this.feedback.dispose();
     }
     this.tool.dispatchActions([cursorFeedbackAction(CursorCSS.DEFAULT)]);
     this.resetPosition();
@@ -272,6 +277,10 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     this.activeResizeHandle = undefined;
     this.lastDragPosition = undefined;
     this.positionDelta = { x: 0, y: 0 };
+  }
+
+  dispose(): void {
+    this.feedback.dispose();
   }
 
   protected handleResizeOnClient(positionUpdate: Point): Action[] {
@@ -291,7 +300,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return [];
   }
 
-  protected handleLaneOffset(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
+  protected handleLaneOffset(resizeElement: GParentElement & LaneResizable, positionUpdate: Point): Action[] {
     return this.createSetBoundsAction(
       resizeElement,
       resizeElement.bounds.x,
@@ -301,7 +310,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     );
   }
 
-  protected handleLaneWidth(resizeElement: SParentElement & LaneResizable, positionUpdate: Point): Action[] {
+  protected handleLaneWidth(resizeElement: GParentElement & LaneResizable, positionUpdate: Point): Action[] {
     return this.createSetBoundsAction(
       resizeElement,
       resizeElement.bounds.x,
@@ -311,7 +320,7 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     );
   }
 
-  protected createChangeBoundsAction(element: SModelElement & BoundsAware): Action[] {
+  protected createChangeBoundsAction(element: GModelElement & BoundsAware): Action[] {
     if (this.isValidSize(element, element.bounds)) {
       return [ChangeBoundsOperation.create([toElementAndBounds(element)])];
     } else if (this.initialBounds) {
@@ -320,14 +329,14 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return [];
   }
 
-  protected createElementAndBounds(element: SModelElement & BoundsAware): ElementAndBounds[] {
+  protected createElementAndBounds(element: GModelElement & BoundsAware): ElementAndBounds[] {
     if (this.isValidSize(element, element.bounds)) {
       return [toElementAndBounds(element)];
     }
     return [];
   }
 
-  protected createSetBoundsAction(element: SModelElement & BoundsAware, x: number, y: number, width: number, height: number): Action[] {
+  protected createSetBoundsAction(element: GModelElement & BoundsAware, x: number, y: number, width: number, height: number): Action[] {
     const newPosition = { x, y };
     const newSize = { width, height };
     const result: Action[] = [];
@@ -339,11 +348,11 @@ export class ChangeLaneBoundsListener extends DragAwareMouseListener implements 
     return result;
   }
 
-  protected snap(position: Point, element: SModelElement, isSnap: boolean): Point {
+  protected snap(position: Point, element: GModelElement, isSnap: boolean): Point {
     return isSnap && this.tool.snapper ? this.tool.snapper.snap(position, element) : { x: position.x, y: position.y };
   }
 
-  protected isValidSize(element: SModelElement & BoundsAware, size: Dimension): boolean {
+  protected isValidSize(element: GModelElement & BoundsAware, size: Dimension): boolean {
     return isValidSize(element, size);
   }
 }

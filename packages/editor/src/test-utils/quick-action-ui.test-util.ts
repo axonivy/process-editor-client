@@ -1,69 +1,53 @@
 import {
   Bounds,
-  createFeatureSet,
   CustomFeatures,
-  defaultGLSPModule,
-  defaultModule,
-  Dimension,
-  FeedbackActionDispatcher,
-  glspMouseToolModule,
-  glspSelectModule,
-  LocalModelSource,
-  modelSourceModule,
-  Point,
-  routingModule,
-  SGraph,
-  SModelFactory,
-  SNode,
-  TYPES,
-  SLabel,
-  configureModelElement,
   DefaultTypes,
-  SGraphView
+  Dimension,
+  GGraph,
+  GGraphView,
+  GLabel,
+  GModelFactory,
+  GNode,
+  Point,
+  TYPES,
+  configureModelElement,
+  createFeatureSet
 } from '@eclipse-glsp/client';
 import { expect } from 'chai';
 import { Container } from 'inversify';
-import ivyQuickActionModule from '../ui-tools/quick-action/di.config';
-import ivyJumpModule from '../jump/di.config';
-import ivyLaneModule from '../lanes/di.config';
 import ivyConnectorModule from '../connector/di.config';
-import ivyToolBarModule from '../ui-tools/tool-bar/di.config';
-import { ivyEditLabelModule } from '../edit-label/di.config';
-import ivyWrapModule from '../wrap/di.config';
-import { IvyViewerOptions, configureIvyViewerOptions } from '../options';
-import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
-import { jumpFeature } from '../jump/model';
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../diagram/model';
+import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
+import { ivyLabelEditModule } from '../edit-label/di.config';
+import ivyJumpModule from '../jump/di.config';
+import { jumpFeature } from '../jump/model';
+import ivyLaneModule from '../lanes/di.config';
+import { IvyViewerOptions, configureIvyViewerOptions } from '../options';
+import ivyQuickActionModule from '../ui-tools/quick-action/di.config';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
+import ivyToolBarModule from '../ui-tools/tool-bar/di.config';
+import { createTestDiagramContainer } from '../utils/test-utils';
+import ivyWrapModule from '../wrap/di.config';
 
 export function createContainer(options?: Partial<IvyViewerOptions>): Container {
   setupSprottyDiv();
-  const container = new Container();
-  container.load(
-    defaultModule,
-    defaultGLSPModule,
-    modelSourceModule,
-    glspSelectModule,
-    glspMouseToolModule,
-    routingModule,
+  const container = createTestDiagramContainer(
     ivyQuickActionModule,
     ivyJumpModule,
     ivyLaneModule,
     ivyConnectorModule,
     ivyToolBarModule,
-    ivyEditLabelModule,
+    ivyLabelEditModule,
     ivyWrapModule
   );
-  configureModelElement(container, DefaultTypes.GRAPH, SGraph, SGraphView);
-  container.bind(TYPES.ModelSource).to(LocalModelSource);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  configureModelElement(container, DefaultTypes.GRAPH, GGraph, GGraphView);
   configureIvyViewerOptions(container, options ?? {});
   return container;
 }
 
-export function createRoot(container: Container): SGraph {
-  const graphFactory = container.get<SModelFactory>(TYPES.IModelFactory);
-  const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as SGraph;
+export function createRoot(container: Container): GGraph {
+  const graphFactory = container.get<GModelFactory>(TYPES.IModelFactory);
+  const root = graphFactory.createRoot({ id: 'graph', type: 'graph' }) as GGraph;
   root.add(createDefaultNode('foo', ActivityTypes.HD, { x: 100, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES));
   root.add(
     createDefaultNode('sub', ActivityTypes.EMBEDDED_PROCESS, { x: 300, y: 100, width: 200, height: 50 }, ActivityNode.DEFAULT_FEATURES, {
@@ -102,19 +86,19 @@ export function createRoot(container: Container): SGraph {
   return root;
 }
 
-function createDefaultNode(id: string, type: string, bounds: Bounds, defaultFeatures: symbol[], customFeatues?: CustomFeatures): SNode {
-  const node = new SNode();
+function createDefaultNode(id: string, type: string, bounds: Bounds, defaultFeatures: symbol[], customFeatues?: CustomFeatures): GNode {
+  const node = new GNode();
   return createNode(node, id, type, bounds, defaultFeatures, customFeatues);
 }
 
 function createNode(
-  node: SNode,
+  node: GNode,
   id: string,
   type: string,
   bounds: Bounds,
   defaultFeatures: symbol[],
   customFeatues?: CustomFeatures
-): SNode {
+): GNode {
   node.id = id;
   node.type = type;
   node.bounds = bounds;
@@ -139,7 +123,7 @@ function createEdge(
   return edge;
 }
 
-function createEdgeLabel(id: string): SLabel {
+function createEdgeLabel(id: string): GLabel {
   const label = new MulitlineEditLabel();
   label.text = '';
   label.type = EdgeTypes.LABEL;

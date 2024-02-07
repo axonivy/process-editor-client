@@ -1,23 +1,32 @@
 /* eslint-disable no-unused-expressions */
 import {
+  Action,
   ActionDispatcher,
   Bounds,
-  defaultModule,
   FeedbackActionDispatcher,
   InitializeCanvasBoundsAction,
+  ModelInitializationConstraint,
   TYPES
 } from '@eclipse-glsp/client';
-import { describe, test, beforeEach, expect } from 'vitest';
 import { Container } from 'inversify';
+import { beforeEach, describe, expect, test } from 'vitest';
 
+import { ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
+import { createTestContainer } from '../utils/test-utils';
 import ivyExecutionModule from './di.config';
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
-import { ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
+
+class ModelInitializedConstraint extends ModelInitializationConstraint {
+  protected _isCompleted = true;
+
+  isInitializedAfter(_action: Action): boolean {
+    return true;
+  }
+}
 
 function createContainer(): Container {
-  const container = new Container();
-  container.load(defaultModule, ivyExecutionModule);
-  container.bind(TYPES.IFeedbackActionDispatcher).to(FeedbackActionDispatcher).inSingletonScope();
+  const container = createTestContainer(ivyExecutionModule);
+  container.rebind(ModelInitializationConstraint).to(ModelInitializedConstraint).inSingletonScope();
   return container;
 }
 

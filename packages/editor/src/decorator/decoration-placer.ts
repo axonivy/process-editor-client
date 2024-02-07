@@ -1,13 +1,13 @@
 import { injectable } from 'inversify';
-import { Decoration, DecorationPlacer, isSizeable, Point, SChildElement, SModelElement } from '@eclipse-glsp/client';
+import { Decoration, DecorationPlacer, isSizeable, Point, GChildElement, GModelElement } from '@eclipse-glsp/client';
 import { ActivityNode } from '../diagram/model';
 
 @injectable()
 export class IvyDecorationPlacer extends DecorationPlacer {
   protected static readonly DECORATOR_RADIUS: number = 6;
 
-  getPosition(element: SModelElement & Decoration): Point {
-    if (element instanceof SChildElement && isSizeable(element.parent)) {
+  getPosition(element: GModelElement & Decoration): Point {
+    if (element instanceof GChildElement && isSizeable(element.parent)) {
       const xPos = -IvyDecorationPlacer.DECORATOR_RADIUS * 2;
       const yPos = element.parent.bounds.height - IvyDecorationPlacer.DECORATOR_RADIUS * 2;
       if (element.parent instanceof ActivityNode) {

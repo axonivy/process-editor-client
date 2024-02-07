@@ -1,9 +1,9 @@
-import { openFeature, SModelElement, SModelExtension } from '@eclipse-glsp/client';
+import { GModelElement, openFeature } from '@eclipse-glsp/client';
 
-export interface WithCustomIcon extends SModelExtension {
+export interface WithCustomIcon {
   get customIcon(): string;
 }
 
-export function isWithCustomIcon(element: SModelElement): element is SModelElement & WithCustomIcon {
+export function isWithCustomIcon(element: GModelElement): element is GModelElement & WithCustomIcon {
   return element.hasFeature(openFeature);
 }

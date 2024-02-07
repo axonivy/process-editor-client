@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { MarqueeMouseTool } from '@eclipse-glsp/client/lib/features/tools/marquee-mouse-tool';
+import { MarqueeMouseTool } from '@eclipse-glsp/client';
 
 @injectable()
 export class IvyMarqueeMouseTool extends MarqueeMouseTool {

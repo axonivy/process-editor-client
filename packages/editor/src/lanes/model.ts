@@ -5,21 +5,21 @@ import {
   isBoundsAware,
   isSelectable,
   isSelected,
-  SChildElement,
+  GChildElement,
   Selectable,
-  SModelElement,
-  SParentElement
+  GModelElement,
+  GParentElement
 } from '@eclipse-glsp/client';
 
 export const laneResizeFeature = Symbol('laneResizeFeature');
 
 export interface LaneResizable extends BoundsAware, Selectable {}
 
-export function isLaneResizable(element: SModelElement): element is SParentElement & LaneResizable {
-  return isBoundsAware(element) && isSelectable(element) && element instanceof SParentElement && element.hasFeature(laneResizeFeature);
+export function isLaneResizable(element: GModelElement): element is GParentElement & LaneResizable {
+  return isBoundsAware(element) && isSelectable(element) && element instanceof GParentElement && element.hasFeature(laneResizeFeature);
 }
 
-export function isSelectedLane(element: SModelElement): element is SParentElement & LaneResizable {
+export function isSelectedLane(element: GModelElement): element is GParentElement & LaneResizable {
   return isLaneResizable(element) && isSelected(element);
 }
 
@@ -28,7 +28,7 @@ export enum LaneResizeHandleLocation {
   Bottom = 'bottom'
 }
 
-export class SLaneResizeHandle extends SChildElement implements Hoverable {
+export class SLaneResizeHandle extends GChildElement implements Hoverable {
   static readonly TYPE = 'lane-resize-handle';
 
   constructor(
@@ -44,16 +44,16 @@ export class SLaneResizeHandle extends SChildElement implements Hoverable {
   }
 }
 
-export function isLaneResizeHandle(element: SModelElement): element is SParentElement {
+export function isLaneResizeHandle(element: GModelElement): element is GParentElement {
   return element instanceof SLaneResizeHandle;
 }
 
-export function addLaneResizeHandles(element: SParentElement): void {
+export function addLaneResizeHandles(element: GParentElement): void {
   removeLaneResizeHandles(element);
   element.add(new SLaneResizeHandle(LaneResizeHandleLocation.Top));
   element.add(new SLaneResizeHandle(LaneResizeHandleLocation.Bottom));
 }
 
-export function removeLaneResizeHandles(element: SParentElement): void {
+export function removeLaneResizeHandles(element: GParentElement): void {
   element.removeAll(child => child instanceof SLaneResizeHandle);
 }
