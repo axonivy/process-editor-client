@@ -1,9 +1,3 @@
-import '@axonivy/editor-icons/lib/ivy-icons.css';
-import 'toastify-js/src/toastify.css';
-import './colors.css';
-import './hidden.css';
-import './toastify.css';
-
 import {
   ConsoleLogger,
   ContainerConfiguration,
@@ -31,7 +25,6 @@ import {
   zorderModule
 } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
-
 import ivyAnimateModule from './animate/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyDecorationModule from './decorator/di.config';
@@ -54,12 +47,21 @@ import ivyToolBarModule from './ui-tools/tool-bar/di.config';
 import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
+import '@axonivy/editor-icons/lib/ivy-icons.css';
+import 'toastify-js/src/toastify.css';
+import './colors.css';
+import './hidden.css';
+import './toastify.css';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
     new Container(),
     // removals: not needed defaults
     { remove: [hoverModule, navigationModule] },
+
+    // GLSP additions
+    baseViewModule,
+    helperLineModule,
 
     // replacements:
     // ensure that replacements have the same featureId as the original modules to properly handle
@@ -73,10 +75,6 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     { remove: changeBoundsToolModule, add: ivyChangeBoundsToolModule },
     { remove: nodeCreationToolModule, add: ivyNodeCreationToolModule },
     { remove: exportModule, add: ivyExportModule },
-
-    // GLSP additions
-    baseViewModule,
-    helperLineModule,
 
     // Ivy additions
     ivyDiagramModule,
