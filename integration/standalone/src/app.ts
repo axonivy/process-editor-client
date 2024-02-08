@@ -21,7 +21,7 @@ const sourceUri = parameters.get('file') ?? '';
 const selectElementIds = parameters.get('selectElementIds');
 const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
 
-const id = 'ivy-glsp-process';
+const id = 'ivy-glsp-process-editor';
 const diagramType = 'ivy-glsp-process';
 const clientId = ApplicationIdProvider.get() + '_' + sourceUri + pid;
 

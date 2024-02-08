@@ -86,7 +86,7 @@ export class TestJsonRpcClient extends BaseJsonrpcGLSPClient {
 
 export function createTestDiagramOptions(options?: IDiagramOptions): IDiagramOptions {
   const connection = new StubMessageConnection();
-  const client = new TestJsonRpcClient({ id: 'ivy-glsp-process', connectionProvider: connection });
+  const client = new TestJsonRpcClient({ id: 'ivy-glsp-process-editor', connectionProvider: connection });
   return {
     clientId: 'sprotty',
     diagramType: 'ivy-glsp-process',
