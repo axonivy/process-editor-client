@@ -16,6 +16,7 @@ export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider
         location: 'Middle',
         sorting: 'A',
         action: StraightenEdgeOperation.create({ elementId: element.id }),
+        letQuickActionsOpen: true,
         shortcut: 'KeyS'
       };
     }
@@ -33,6 +34,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
         location: 'Middle',
         sorting: 'B',
         action: AutoBendEdgeOperation.create({ elementId: element.id }),
+        letQuickActionsOpen: true,
         shortcut: 'KeyB'
       };
     }
@@ -50,6 +52,7 @@ export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider 
         location: 'Right',
         sorting: 'A',
         action: QuickActionTriggerEdgeCreationAction.create(element.type, element.sourceId, { edgeId: element.id, reconnect: true }),
+        letQuickActionsOpen: true,
         shortcut: 'KeyR'
       };
     }
