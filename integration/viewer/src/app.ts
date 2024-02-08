@@ -23,7 +23,7 @@ const selectElementIds = parameters.get('selectElementIds');
 const zoom = parameters.get('zoom') ?? '';
 const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
 
-const id = 'ivy-glsp-process';
+const id = 'ivy-glsp-process-viewer';
 const diagramType = 'ivy-glsp-process';
 const clientId = ApplicationIdProvider.get() + '_' + sourceUri + pid;
 
