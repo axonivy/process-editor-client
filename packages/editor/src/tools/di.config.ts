@@ -1,19 +1,24 @@
 import {
+  DrawHelperLinesFeedbackCommand,
   ExportSvgCommand,
   ExportSvgPostprocessor,
   FeatureModule,
+  GLSPHiddenBoundsUpdater,
+  HelperLineManager,
   HideChangeBoundsToolResizeFeedbackCommand,
   SResizeHandle,
   SResizeHandleView,
   ShowChangeBoundsToolResizeFeedbackCommand,
   TYPES,
   bindAsService,
+  boundsModule,
   changeBoundsToolModule,
   configureActionHandler,
   configureCommand,
   configureView,
   elementTemplateModule,
   exportModule,
+  helperLineModule,
   nodeCreationToolModule
 } from '@eclipse-glsp/client';
 
@@ -21,6 +26,9 @@ import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
 import { IvyMarqueeMouseTool } from '../ui-tools/tool-bar/marquee-mouse-tool';
 import { IvyChangeBoundsTool } from './change-bounds-tool';
 import { IvySvgExporter } from './export/ivy-svg-exporter';
+import { IvyDrawHelpersLineFeedbackCommand } from './helper-line-feedback';
+import { IvyHelperLineManager } from './ivy-helper-line-manager';
+import { IvyHiddenBoundsUpdater } from './ivy-hidden-bounds-updater';
 import { IvyNodeCreationTool } from './node-creation-tool';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
@@ -64,3 +72,20 @@ export const ivyMarqueeSelectionToolModule = new FeatureModule(bind => {
   // Ivy extensions
   bindAsService(bind, TYPES.ITool, IvyMarqueeMouseTool);
 });
+
+export const ivyHelperLineExtensionModule = new FeatureModule(
+  (bind, _unbind, _isBound, rebind) => {
+    rebind(DrawHelperLinesFeedbackCommand).to(IvyDrawHelpersLineFeedbackCommand);
+    bind(IvyHelperLineManager).toSelf().inSingletonScope();
+    rebind(HelperLineManager).toService(IvyHelperLineManager);
+  },
+  { featureId: helperLineModule.featureId }
+);
+
+export const ivyBoundsExtensionModule = new FeatureModule(
+  (bind, _unbind, _isBound, rebind) => {
+    bind(IvyHiddenBoundsUpdater).toSelf().inSingletonScope();
+    rebind(GLSPHiddenBoundsUpdater).toService(IvyHiddenBoundsUpdater);
+  },
+  { featureId: boundsModule.featureId }
+);

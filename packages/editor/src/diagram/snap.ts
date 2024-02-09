@@ -1,4 +1,4 @@
-import { GridSnapper } from '@eclipse-glsp/client';
+import { GModelElement, GridSnapper, Point } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -9,4 +9,15 @@ export class IvyGridSnapper extends GridSnapper {
   constructor() {
     super({ x: IvyGridSnapper.GRID_X, y: IvyGridSnapper.GRID_Y });
   }
+
+  snap(delta: Point, _element: GModelElement): Point {
+    return onGrid(delta, this.grid);
+  }
+}
+
+export function onGrid(point: Point, grid: Point): Point {
+  return {
+    x: Math.trunc(point.x / grid.x) * grid.x,
+    y: Math.trunc(point.y / grid.y) * grid.y
+  };
 }

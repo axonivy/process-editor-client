@@ -40,7 +40,14 @@ import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import ivyThemeModule from './theme/di.config';
-import { ivyChangeBoundsToolModule, ivyExportModule, ivyMarqueeSelectionToolModule, ivyNodeCreationToolModule } from './tools/di.config';
+import {
+  ivyBoundsExtensionModule,
+  ivyChangeBoundsToolModule,
+  ivyExportModule,
+  ivyHelperLineExtensionModule,
+  ivyMarqueeSelectionToolModule,
+  ivyNodeCreationToolModule
+} from './tools/di.config';
 import { IVY_TYPES } from './types';
 import ivyQuickActionModule from './ui-tools/quick-action/di.config';
 import ivyToolBarModule from './ui-tools/tool-bar/di.config';
@@ -90,6 +97,10 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyMarqueeSelectionToolModule,
     ivyThemeModule,
 
+    // Ivy extensions:
+    ivyHelperLineExtensionModule,
+    ivyBoundsExtensionModule,
+
     // additional configurations
     ...containerConfiguration
   );
@@ -97,6 +108,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
   // configurations
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
   container.bind<IHelperLineOptions>(TYPES.IHelperLineOptions).toConstantValue({
+    alignmentEpsilon: 0, // positions must match perfectly, we already restrict movement to the grid and only use integer positions (no decimals)
     minimumMoveDelta: { x: IvyGridSnapper.GRID_X * 2, y: IvyGridSnapper.GRID_Y * 2 },
     alignmentElementFilter: element =>
       !(element instanceof LaneNode) &&

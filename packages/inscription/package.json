@@ -14,7 +14,7 @@
     "@axonivy/inscription-editor": "~11.3.0-next.936",
     "@axonivy/inscription-protocol": "~11.3.0-next.936",
     "@axonivy/process-editor": "11.9.0-next",
-    "@eclipse-glsp/client": "2.1.0",
+    "@eclipse-glsp/client": "~2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

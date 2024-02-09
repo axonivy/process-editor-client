@@ -1,4 +1,6 @@
-/* Hide label elements from the hidden rendering process to ensure during resizing we get the correct size of the elements. */
-.sprotty-hidden g[id^='sprotty_label'] {
-  display: none;
+.ghost-element.hidden {
+  display: unset;
+  width: 0;
+  height: 0;
+  visibility: hidden;
 }
