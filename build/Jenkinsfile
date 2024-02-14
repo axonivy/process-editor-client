@@ -69,7 +69,7 @@ pipeline {
 
     stage('Deploy (Maven)') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleaseOrMasterBranch() }
       }
       steps {
         script {
