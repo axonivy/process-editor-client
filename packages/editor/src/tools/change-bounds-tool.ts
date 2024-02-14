@@ -96,14 +96,22 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
     if (this.tool.movementRestrictor?.cssClasses) {
       for (const [elementId] of this.elementId2startPos) {
         const element = target.root.index.getById(elementId);
-        if (this.isMovementRestricted(element, this.tool.movementRestrictor.cssClasses)) {
+        if (element && this.isMovementRestricted(element, this.tool.movementRestrictor.cssClasses)) {
           this.reset(true);
+          this.tool.deregisterFeedback(this, [removeMovementRestrictionFeedback(element, this.tool.movementRestrictor)]);
           return result;
         }
       }
     }
     this.reset();
     return result;
+  }
+
+  nonDraggingMouseUp(element: GModelElement, event: MouseEvent): Action[] {
+    if (this.moveInitialized) {
+      super.nonDraggingMouseUp(element, event);
+    }
+    return [];
   }
 
   protected isMovementRestricted(target: GModelElement | undefined, restrictionClasses: string[]): boolean {
