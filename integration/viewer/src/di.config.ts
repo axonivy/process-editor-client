@@ -7,7 +7,7 @@ import { ivyStartupDiagramModule } from './startup';
 
 export interface IvyDiagramOptions extends IDiagramOptions {
   highlight: string;
-  selectElementIds: string | null;
+  select: string | null;
   zoom: string;
   theme: ThemeMode;
 }

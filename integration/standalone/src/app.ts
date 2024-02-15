@@ -18,7 +18,7 @@ if (!server) {
 const pmv = parameters.get('pmv') ?? '';
 const pid = parameters.get('pid') ?? '';
 const sourceUri = parameters.get('file') ?? '';
-const selectElementIds = parameters.get('selectElementIds');
+const select = parameters.get('select');
 const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
 
 const id = 'ivy-glsp-process';
@@ -41,7 +41,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     glspClientProvider: async () => glspClient,
     sourceUri,
     editMode: isReadonly() ? EditMode.READONLY : EditMode.EDITABLE,
-    selectElementIds,
+    select,
     theme,
     inscriptionContext: {
       app,

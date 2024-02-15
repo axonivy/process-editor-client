@@ -18,18 +18,44 @@ test.describe('url parameters', () => {
     const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/urlparam.p.json', urlQueryParam: '&zoom=321&highlight=183E49FD86C52941-f0' });
     const start = processEditor.element('start:requestStart');
     const viewport = processEditor.viewport();
-    await start.expectExecuted();
+    await start.expectHighlighted();
     await expect(viewport.locator()).toBeVisible();
     await viewport.expectZoomLevel('321%');
   });
 
-  test('zoom and selectElementIds', async ({ page }) => {
-    const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/urlparam.p.json', urlQueryParam: '&zoom=123&selectElementIds=183E49FD86C52941-f0' });
+  test('multiple highlight', async ({ page }) => {
+    const processEditor = await ProcessEditor.openProcess(page, {
+      file: '/processes/urlparam.p.json',
+      urlQueryParam: '&zoom=321&highlight=183E49FD86C52941-f0%26183E49FD86C52941-f1'
+    });
+    const start = processEditor.element('start:requestStart');
+    const end = processEditor.element('end:taskEnd');
+    const viewport = processEditor.viewport();
+    await start.expectHighlighted();
+    await end.expectHighlighted();
+    await expect(viewport.locator()).toBeVisible();
+  });
+
+  test('zoom and select', async ({ page }) => {
+    const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/urlparam.p.json', urlQueryParam: '&zoom=123&select=183E49FD86C52941-f0' });
     const start = processEditor.element('start:requestStart');
     const viewport = processEditor.viewport();
     await start.expectSelected();
     await expect(viewport.locator()).toBeVisible();
     await viewport.expectZoomLevel('123%');
+  });
+
+  test('multiple select', async ({ page }) => {
+    const processEditor = await ProcessEditor.openProcess(page, {
+      file: '/processes/urlparam.p.json',
+      urlQueryParam: '&zoom=123&select=183E49FD86C52941-f0%26183E49FD86C52941-f1'
+    });
+    const start = processEditor.element('start:requestStart');
+    const end = processEditor.element('end:taskEnd');
+    const viewport = processEditor.viewport();
+    await start.expectSelected();
+    await end.expectSelected();
+    await expect(viewport.locator()).toBeVisible();
   });
 
   test('theme light', async ({ page }) => {

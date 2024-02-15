@@ -39,8 +39,8 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
         inscriptionContext: this.options.inscriptionContext
       })
     );
-    if (this.options.selectElementIds) {
-      const elementIds = this.options.selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+    if (this.options.select) {
+      const elementIds = this.options.select.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
       this.actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs: elementIds }));
     }
   }

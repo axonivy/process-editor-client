@@ -51,7 +51,7 @@ export class BaseElement {
     await expect(this.element).toHaveClass(/selected/);
   }
 
-  async expectExecuted() {
+  async expectHighlighted() {
     await expect(this.element).toHaveClass(/executed/);
   }
 
