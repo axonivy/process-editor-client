@@ -15,6 +15,7 @@ export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
         title: 'Create Lane',
         location: 'Right',
         sorting: 'A',
+        letQuickActionsOpen: true,
         action: CreateNodeOperation.create(LaneTypes.LANE, { containerId: element.id })
       };
     }
