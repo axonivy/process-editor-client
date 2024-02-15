@@ -109,7 +109,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
   container.bind<IvyViewerOptions>(IVY_TYPES.IvyViewerOptions).toConstantValue(defaultIvyViewerOptions());
   container.bind<IHelperLineOptions>(TYPES.IHelperLineOptions).toConstantValue({
     alignmentEpsilon: 0, // positions must match perfectly, we already restrict movement to the grid and only use integer positions (no decimals)
-    minimumMoveDelta: { x: IvyGridSnapper.GRID_X * 2, y: IvyGridSnapper.GRID_Y * 2 },
+    minimumMoveDelta: { x: IvyGridSnapper.GRID.x * 2, y: IvyGridSnapper.GRID.y * 2 },
     alignmentElementFilter: element =>
       !(element instanceof LaneNode) &&
       !(element.id === feedbackEdgeId(element.root)) &&

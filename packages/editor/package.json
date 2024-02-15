@@ -27,6 +27,7 @@
   "devDependencies": {
     "@types/showdown": "^2.0.6",
     "@types/toastify-js": "^1.12.3",
+    "@types/lodash": "4.14.202",
     "happy-dom": "^12.10.3",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
