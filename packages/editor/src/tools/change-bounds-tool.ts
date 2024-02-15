@@ -13,6 +13,7 @@ import {
   MoveInitializedEventAction,
   Operation,
   Point,
+  SResizeHandle,
   createMovementRestrictionFeedback,
   cursorFeedbackAction,
   removeMovementRestrictionFeedback
@@ -88,6 +89,9 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
 
   mouseDown(target: GModelElement, event: MouseEvent): Action[] {
     this._isMouseDown = true;
+    if (target instanceof SResizeHandle) {
+      this.positionUpdater.resetPosition();
+    }
     return super.mouseDown(target, event);
   }
 
