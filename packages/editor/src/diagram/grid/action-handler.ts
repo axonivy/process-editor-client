@@ -37,10 +37,10 @@ export class ShowGridActionHandler implements IActionHandler {
   moveGrid(action: SetViewportAction): void {
     const baseDiv = document.querySelector(`#${this.options.baseDiv} .sprotty-graph`) as HTMLElement;
     if (baseDiv) {
-      const newPosX = (-action.newViewport.scroll.x + IvyGridSnapper.GRID_X) * action.newViewport.zoom;
-      const newPosY = (-action.newViewport.scroll.y + IvyGridSnapper.GRID_Y) * action.newViewport.zoom;
+      const newPosX = (-action.newViewport.scroll.x + IvyGridSnapper.GRID.x) * action.newViewport.zoom;
+      const newPosY = (-action.newViewport.scroll.y + IvyGridSnapper.GRID.y) * action.newViewport.zoom;
       baseDiv.style.backgroundPosition = `${newPosX}px ${newPosY}px`;
-      const newSize = IvyGridSnapper.GRID_X * 2 * action.newViewport.zoom;
+      const newSize = IvyGridSnapper.GRID.x * 2 * action.newViewport.zoom;
       baseDiv.style.backgroundSize = `${newSize}px ${newSize}px`;
     }
   }

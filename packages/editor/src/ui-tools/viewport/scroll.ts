@@ -47,9 +47,10 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
   }
 
   mouseUp(target: GModelElement, event: MouseEvent): Action[] {
-    const actions = super.mouseUp(target, event);
-    this.quickActionUi.showUi();
-    return actions;
+    if (this.lastScrollPosition) {
+      this.quickActionUi.showUi();
+    }
+    return super.mouseUp(target, event);
   }
 
   wheel(target: GModelElement, event: WheelEvent): (Action | Promise<Action>)[] {

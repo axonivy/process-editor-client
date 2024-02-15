@@ -3,18 +3,23 @@ import {
   ChangeBoundsListener,
   ChangeBoundsTool,
   CursorCSS,
+  Disposable,
   FeedbackMoveMouseListener,
   GModelElement,
+  IFeedbackEmitter,
   ISelectionListener,
   MouseListener,
   MoveAction,
+  MoveInitializedEventAction,
   Operation,
   Point,
+  SResizeHandle,
   createMovementRestrictionFeedback,
   cursorFeedbackAction,
   removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
+import { debounce } from 'lodash';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
@@ -28,6 +33,24 @@ export class IvyChangeBoundsTool extends ChangeBoundsTool {
 
   protected override createMoveMouseListener(): MouseListener {
     return new IvyFeedbackMoveMouseListener(this);
+  }
+
+  registerFeedback(
+    feedbackActions: Action[],
+    feedbackEmitter?: IFeedbackEmitter | undefined,
+    cleanupActions?: Action[] | undefined
+  ): Disposable {
+    // elements should not be used as feedback emitters as a model update may re-create the element
+    return super.registerFeedback(
+      feedbackActions,
+      feedbackEmitter instanceof GModelElement ? feedbackEmitter.id : feedbackEmitter,
+      cleanupActions
+    );
+  }
+
+  deregisterFeedback(feedbackEmitter?: IFeedbackEmitter | undefined, cleanupActions?: Action[] | undefined): void {
+    // elements should not be used as feedback emitters as a model update may re-create the element
+    return super.deregisterFeedback(feedbackEmitter instanceof GModelElement ? feedbackEmitter.id : feedbackEmitter, cleanupActions);
   }
 }
 
@@ -62,6 +85,28 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
 
   constructor(protected override tool: IvyChangeBoundsTool) {
     super(tool);
+  }
+
+  mouseDown(target: GModelElement, event: MouseEvent): Action[] {
+    this._isMouseDown = true;
+    if (target instanceof SResizeHandle) {
+      this.positionUpdater.resetPosition();
+    }
+    return super.mouseDown(target, event);
+  }
+
+  protected scheduleMoveInitialized(): void {
+    this.moveInitialized = false;
+    this.pendingMoveInitialized?.cancel();
+    this.pendingMoveInitialized = debounce(() => {
+      // nicer UX to only count a move as initialized if we actually keep the mouse pressed
+      if (this.isMouseDown) {
+        this.tool.registerFeedback([MoveInitializedEventAction.create()], this);
+        this.moveInitialized = true;
+      }
+      this.pendingMoveInitialized = undefined;
+    }, 750);
+    this.pendingMoveInitialized();
   }
 
   mouseMove(target: GModelElement, event: MouseEvent): Action[] {

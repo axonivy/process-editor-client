@@ -27,16 +27,16 @@ export class MoveElementKeyListener extends KeyListener {
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
     if (this.selectionService.hasSelectedElements()) {
       if (matchesKeystroke(event, 'ArrowUp')) {
-        return this.moveElements({ x: 0, y: -IvyGridSnapper.GRID_Y });
+        return this.moveElements({ x: 0, y: -IvyGridSnapper.GRID.y });
       }
       if (matchesKeystroke(event, 'ArrowDown')) {
-        return this.moveElements({ x: 0, y: IvyGridSnapper.GRID_Y });
+        return this.moveElements({ x: 0, y: IvyGridSnapper.GRID.y });
       }
       if (matchesKeystroke(event, 'ArrowLeft')) {
-        return this.moveElements({ x: -IvyGridSnapper.GRID_X, y: 0 });
+        return this.moveElements({ x: -IvyGridSnapper.GRID.x, y: 0 });
       }
       if (matchesKeystroke(event, 'ArrowRight')) {
-        return this.moveElements({ x: IvyGridSnapper.GRID_X, y: 0 });
+        return this.moveElements({ x: IvyGridSnapper.GRID.x, y: 0 });
       }
     }
     return [];
