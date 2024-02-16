@@ -109,17 +109,7 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
-"@eclipse-glsp/client@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.0.tgz#324c48e243cb24d454c9c4a38dcd7effea92b729"
-  integrity sha512-OxQhgcz1VJnmj4IYMSz7Xp4bk50yX/nvrcdVyBvnWJ0S2FF9rJZcdMykooMg19N0nfnG+cjzVa4lbd5Mf975XQ==
-  dependencies:
-    "@eclipse-glsp/sprotty" "2.1.0"
-    autocompleter "^9.1.0"
-    file-saver "^2.0.5"
-    lodash "4.17.21"
-
-"@eclipse-glsp/client@~2.1.0":
+"@eclipse-glsp/client@2.1.0", "@eclipse-glsp/client@2.1.1", "@eclipse-glsp/client@~2.1.0":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.1.tgz#fddbf5e129abeb2d5981efa34886364696191214"
   integrity sha512-rSGMzfaBl/GCxhKW5j40FTO6vyqf6NtzMSMu9uNTuS7c20bwnjTNywAT0l3vqBIfKSQ+uEc/SMSNm80PB7+Prg==
@@ -136,15 +126,6 @@
   dependencies:
     "@eclipse-glsp/client" "2.1.0"
 
-"@eclipse-glsp/protocol@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.0.tgz#e76a65a4815c969bfb86a1ab202ad24384a317cc"
-  integrity sha512-CUcVbsjiddDWEuhWKDLgfqslmau2QT6QTF9LyA4/y6Eomv5s8nTexeBMI6hCWL4sHgMfQ4t2zI9zV2a5gIow4A==
-  dependencies:
-    sprotty-protocol "0.15.0-next.044bba2.13"
-    uuid "7.0.3"
-    vscode-jsonrpc "^8.0.2"
-
 "@eclipse-glsp/protocol@2.1.1", "@eclipse-glsp/protocol@~2.1.0":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.1.1.tgz#127e05473020954b8d2d6e3e30a16541f048f5b2"
@@ -153,17 +134,6 @@
     sprotty-protocol "1.0.0"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
-
-"@eclipse-glsp/sprotty@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.1.0.tgz#4adf93dd501dc65426f7beac145ac007fcb37aa9"
-  integrity sha512-STBH3Af9sTD102mfgr0kplMSkvkkWIOMGLjr7Hl+b5yx8niMrFmy6HGIBVpyw9mb5DW+6eKN+3QjyslTetL8TA==
-  dependencies:
-    "@eclipse-glsp/protocol" "2.1.0"
-    autocompleter "^9.1.0"
-    snabbdom "^3.5.1"
-    sprotty "1.0.0"
-    sprotty-protocol "1.0.0"
 
 "@eclipse-glsp/sprotty@2.1.1":
   version "2.1.1"
@@ -7227,7 +7197,7 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-sprotty-protocol@0.15.0-next.044bba2.13, sprotty-protocol@1.0.0, sprotty-protocol@^1.0.0:
+sprotty-protocol@1.0.0, sprotty-protocol@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-1.0.0.tgz#b22e2da7e10b168debdc17feb61c4b832f01f614"
   integrity sha512-p1H+ihcOmj0LEk2atcwOnYQPm0WByaOB1yX7fd869ONfQ5R+7x0X20YPdVLeCWmnhsszC/Rf91ojwaQiNIiHNA==
