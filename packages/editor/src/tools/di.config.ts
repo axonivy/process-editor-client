@@ -30,6 +30,7 @@ import { IvyDrawHelpersLineFeedbackCommand } from './helper-line-feedback';
 import { IvyHelperLineManager } from './ivy-helper-line-manager';
 import { IvyHiddenBoundsUpdater } from './ivy-hidden-bounds-updater';
 import { IvyNodeCreationTool } from './node-creation-tool';
+import './helper-line.css';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
