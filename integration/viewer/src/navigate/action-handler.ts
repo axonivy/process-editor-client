@@ -23,9 +23,9 @@ export class NavigateToExternalTargetActionHandler implements IActionHandler {
       url.searchParams.delete('pid');
     }
 
-    const selectElementIds = this.getArg(target, NavigationTarget.ELEMENT_IDS);
-    if (selectElementIds) {
-      url.searchParams.set('selectElementIds', selectElementIds);
+    const select = this.getArg(target, NavigationTarget.ELEMENT_IDS);
+    if (select) {
+      url.searchParams.set('select', select);
     }
     url.searchParams.delete('highlight');
 

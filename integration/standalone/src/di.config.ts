@@ -11,7 +11,7 @@ import { InscriptionContext } from '@axonivy/inscription-protocol';
 import { ivyStartupDiagramModule } from './startup';
 
 export interface IvyDiagramOptions extends IDiagramOptions {
-  selectElementIds: string | null;
+  select: string | null;
   theme: ThemeMode;
   inscriptionContext: InscriptionContext & { server: string };
 }

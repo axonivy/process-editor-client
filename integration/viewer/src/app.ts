@@ -19,7 +19,7 @@ const pmv = parameters.get('pmv') ?? '';
 const pid = parameters.get('pid') ?? '';
 const sourceUri = parameters.get('file') ?? '';
 const highlight = parameters.get('highlight') ?? '';
-const selectElementIds = parameters.get('selectElementIds');
+const select = parameters.get('select');
 const zoom = parameters.get('zoom') ?? '';
 const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
 
@@ -44,7 +44,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     sourceUri,
     editMode: isReadonly() ? EditMode.READONLY : EditMode.EDITABLE,
     highlight,
-    selectElementIds,
+    select,
     zoom,
     theme
   });

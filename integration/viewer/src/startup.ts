@@ -57,8 +57,8 @@ export class ViewerDiagramStartup implements IDiagramStartup {
     if (this.options.highlight) {
       return [action([this.options.highlight])];
     }
-    if (this.options.selectElementIds) {
-      const elementIds = this.options.selectElementIds.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
+    if (this.options.select) {
+      const elementIds = this.options.select.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
       return [SelectAction.create({ selectedElementsIDs: elementIds }), action(elementIds)];
     }
     return [];

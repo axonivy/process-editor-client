@@ -22,7 +22,7 @@ test.describe('Jump to external target', () => {
     await page.waitForLoadState();
     expect(page.url()).toContain('pmv=glsp-test-project');
     expect(page.url()).toContain(`pid=${expectedProcessPid}`);
-    expect(page.url()).toContain(`selectElementIds=${expectedElementPid}`);
+    expect(page.url()).toContain(`select=${expectedElementPid}`);
     await processEditor.elementByPid(expectedElementPid).expectSelected();
   }
 });
