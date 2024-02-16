@@ -27,7 +27,6 @@ export class NavigateToExternalTargetActionHandler implements IActionHandler {
     if (select) {
       url.searchParams.set('select', select);
     }
-    url.searchParams.delete('highlight');
 
     return url.toString();
   }
