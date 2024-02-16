@@ -104,6 +104,10 @@ export class Element extends BaseElement {
     await expect(this.element).not.toHaveAttribute('transform', `translate(${point.x}, ${point.y})`);
   }
 
+  async expectHasWarning() {
+    await expect(this.element).toHaveClass(/warning/);
+  }
+
   async getPosition() {
     const transform = await this.element.getAttribute('transform');
     const position = transform!.substring(transform!.indexOf('(') + 1, transform!.indexOf(')'));
