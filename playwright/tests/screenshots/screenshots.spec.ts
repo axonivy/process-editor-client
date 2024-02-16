@@ -11,12 +11,11 @@ test.describe('screenshots', () => {
     await screenshot(page, 'process-editor.png', { height: 350 });
   });
 
-  // Fixme XIVY-13167: process validations currently not running in the engine
-  // test('warning', async ({ page }) => {
-  //   const editor = await ProcessEditor.openProcess(page, { file: '/processes/warning.p.json' });
-  //   await editor.element('dialogCall').expectHasWarning();
-  //   await screenshot(page, 'process-editor-problem.png', { height: 250 });
-  // });
+  test('warning', async ({ page }) => {
+    const editor = await ProcessEditor.openProcess(page, { file: '/processes/warning.p.json' });
+    await editor.element('dialogCall').expectHasWarning();
+    await screenshot(page, 'process-editor-problem.png', { height: 250 });
+  });
 
   test('swimlanes', async ({ page }) => {
     await ProcessEditor.openProcess(page, { file: '/processes/swimlanes.p.json', waitFor: '.pool' });
