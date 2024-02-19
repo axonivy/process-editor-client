@@ -5,7 +5,8 @@ import {
   ICommand,
   MessageAction,
   StartProgressAction,
-  UpdateProgressAction
+  UpdateProgressAction,
+  SeverityLevel
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import Toastify from 'toastify-js';
@@ -27,7 +28,7 @@ export class ToastNotificationService implements IActionHandler {
       return this.updateToast(this.progress(action), 'INFO');
     }
     if (EndProgressAction.is(action)) {
-      return this.updateToast(this.progress(action), 'INFO');
+      return this.updateToast(this.progress(action), 'NONE');
     }
   }
 
@@ -40,7 +41,7 @@ export class ToastNotificationService implements IActionHandler {
       message += message.length > 0 ? `${message}: ${action.message}` : action.message;
     }
     const percentage = EndProgressAction.is(action) ? undefined : action.percentage;
-    if (percentage) {
+    if (percentage && percentage > 0) {
       message += message.length > 0 ? `${message} (${percentage}%)` : `${percentage}%`;
     }
     if (EndProgressAction.is(action)) {
@@ -52,20 +53,20 @@ export class ToastNotificationService implements IActionHandler {
   protected message(action: MessageAction): void {
     this.messageToast?.hideToast();
     if (action.severity !== 'NONE') {
-      this.messageToast = this.createToast(action.message, action.severity, action.severity === 'ERROR' ? undefined : this.duration);
+      this.messageToast = this.createToast(action.message, action.severity);
       this.messageToast.showToast();
     }
   }
 
-  protected updateToast(text: string, severity: string, duration?: number): void {
+  protected updateToast(text: string, severity: SeverityLevel): void {
     this.messageToast?.hideToast();
     if (severity !== 'NONE') {
-      this.messageToast = this.createToast(text, severity, duration);
+      this.messageToast = this.createToast(text, severity);
       this.messageToast.showToast();
     }
   }
 
-  protected createToast(text: string, severity: string, duration?: number): any {
+  protected createToast(text: string, severity: SeverityLevel): any {
     return Toastify({
       text,
       close: true,
