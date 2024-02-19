@@ -22,7 +22,8 @@ import {
   overrideViewerOptions,
   toolPaletteModule,
   viewportModule,
-  zorderModule
+  zorderModule,
+  statusModule
 } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import ivyAnimateModule from './animate/di.config';
@@ -64,7 +65,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
   const container = initializeDiagramContainer(
     new Container(),
     // removals: not needed defaults
-    { remove: [hoverModule, navigationModule] },
+    { remove: [hoverModule, navigationModule, statusModule] },
 
     // GLSP additions
     baseViewModule,
