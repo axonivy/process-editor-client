@@ -28,7 +28,7 @@ test.describe('quick actions - connectors', () => {
 
   test('bend and straigthen', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const end = processEditor.element('end:taskEnd');
+    const end = processEditor.endElement;
     const edge = processEditor.edge();
     await end.move({ x: 300, y: 300 });
     await edge.expectStraightPath();

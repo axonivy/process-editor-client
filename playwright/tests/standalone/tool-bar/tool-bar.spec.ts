@@ -12,7 +12,7 @@ test.describe('tool bar', () => {
 
   test('undo / redo', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await expect(start.locator()).toBeVisible();
 
     await start.delete();
@@ -43,5 +43,15 @@ test.describe('tool bar', () => {
     await page.keyboard.press('Escape');
     await expect(menu.searchInput()).toBeEmpty();
     await menu.expectMenuGroupCount(9);
+  });
+
+  test('ghost element', async ({ page }) => {
+    const processEditor = await ProcessEditor.openProcess(page);
+    const userTask = processEditor.element('userTask');
+    await expect(page.locator('.ghost-element')).toBeHidden();
+    await processEditor.toolbar().triggerCreateElement('activities', 'User Task');
+    await page.mouse.move(300, 300);
+    await expect(userTask.locator()).toBeVisible();
+    await expect(userTask.locator()).toHaveClass(/ghost-element/);
   });
 });

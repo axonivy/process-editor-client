@@ -8,7 +8,7 @@ test.describe('Dirty state', () => {
     expect(title).toContain('.p.json');
     expect(title).not.toContain('*');
 
-    await processEditor.element('start:requestStart').delete();
+    await processEditor.startElement.delete();
     expect(await page.title()).toBe('* ' + title);
   });
 });

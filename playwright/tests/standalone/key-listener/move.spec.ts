@@ -5,8 +5,8 @@ import { cmdCtrl } from '../../page-objects/test-helper';
 test.describe('move with arrow keys', () => {
   test('elements', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const startPos = await start.getPosition();
     const endPos = await end.getPosition();
 
@@ -32,7 +32,7 @@ test.describe('move with arrow keys', () => {
     const processEditor = await ProcessEditor.openProcess(page);
     const pool = await processEditor.createPool({ x: 10, y: 60 });
     const lane = await pool.createEmbeddedLane();
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await pool.select();
     await processEditor.resetSelection();
     const startPos = await start.getPosition();

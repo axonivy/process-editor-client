@@ -17,8 +17,7 @@ test.describe('Diagram - Negative Area', () => {
   test('move element', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const area = processEditor.negativeArea();
-    const start = processEditor.element('start:requestStart');
-    await start.select();
+    await processEditor.startElement.select();
     await area.expectHidden();
     await page.mouse.down();
     await page.mouse.move(200, 200);

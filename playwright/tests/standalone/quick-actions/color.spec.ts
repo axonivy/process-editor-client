@@ -5,7 +5,7 @@ import { cmdCtrl } from '../../page-objects/test-helper';
 test.describe('quick actions - color', () => {
   test('colorize node', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const element = processEditor.element('start:requestStart');
+    const element = processEditor.startElement;
     await element.expectColor();
     await element.quickActionBar().addColor();
     await element.expectColor('rgb(0, 0, 255)');
@@ -29,8 +29,8 @@ test.describe('quick actions - color', () => {
 
   test('colorize multiple elements', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     await start.expectColor();
     await end.expectColor();
 
@@ -42,7 +42,7 @@ test.describe('quick actions - color', () => {
 
   test('add new and remove color', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
 
     const quickAction = start.quickActionBar();
     const menu = quickAction.menu().locator();
@@ -67,7 +67,7 @@ test.describe('quick actions - color', () => {
 
   test('validate color dialog inputs', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
 
     const quickAction = start.quickActionBar();
     const menu = quickAction.menu().locator();

@@ -5,8 +5,8 @@ import { cmdCtrl } from '../../page-objects/test-helper';
 test.describe('quick actions - change BPMN type', () => {
   test('switch type', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const embedded = processEditor.element('embeddedProcessElement');
     const user = processEditor.element('userBpmnElement');
 

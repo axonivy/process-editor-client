@@ -5,7 +5,7 @@ import { cmdCtrl, isMac } from '../../page-objects/test-helper';
 test.describe('key listener - undo redo', () => {
   test('move node', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const startPos = await start.getPosition();
 
     await start.select();
@@ -21,7 +21,7 @@ test.describe('key listener - undo redo', () => {
 
   test('delete node', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await start.select();
 
     await page.keyboard.press('Delete');
