@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
 
 test.describe('diagram', () => {
@@ -17,5 +17,33 @@ test.describe('diagram', () => {
     await lane.expectResizeHandles(0);
     await lane.select();
     await lane.expectResizeHandles(2);
+  });
+
+  test('resize element', async ({ page }) => {
+    const processEditor = await ProcessEditor.openProcess(page);
+    const element = await processEditor.createActivity('Sub', { x: 300, y: 200 });
+    await processEditor.resetSelection();
+    await element.select();
+
+    const topLeftHandle = element.getResizeHandle('top-left');
+    const topLeftHandleBounds = await topLeftHandle.boundingBox();
+    const bottomRightHandle = element.getResizeHandle('bottom-right');
+    const bottomRightHandleBounds = await bottomRightHandle.boundingBox();
+
+    expect(await element.locator().boundingBox()).toStrictEqual({ x: 234.5, y: 165.5, height: 69, width: 121 });
+
+    await bottomRightHandle.hover();
+    await page.mouse.down();
+    await page.mouse.move((await bottomRightHandle.boundingBox())!.x + 300, (await bottomRightHandle.boundingBox())!.y + 150);
+    await page.mouse.up();
+
+    expect(await element.locator().boundingBox()).toStrictEqual({ x: 94, y: 165.5, height: 213, width: 557.5 });
+    expect(topLeftHandleBounds).toStrictEqual(await topLeftHandle.boundingBox());
+    expect(await bottomRightHandle.boundingBox()).toStrictEqual({
+      x: bottomRightHandleBounds!.x + 296,
+      y: bottomRightHandleBounds!.y + 144,
+      height: bottomRightHandleBounds?.height,
+      width: bottomRightHandleBounds?.width
+    });
   });
 });

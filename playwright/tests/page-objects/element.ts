@@ -121,6 +121,10 @@ export class Activity extends Element {
   async expectResizeHandles(handles: number) {
     await expect(this.element.locator('.sprotty-resize-handle')).toHaveCount(handles);
   }
+
+  getResizeHandle(dataKind: 'bottom-right' | 'top-left' | 'bottom-left' | 'top-right') {
+    return this.element.locator(`.sprotty-resize-handle[data-kind="${dataKind}"]`);
+  }
 }
 
 export class Lane extends Element {
