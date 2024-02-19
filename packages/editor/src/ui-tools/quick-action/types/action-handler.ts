@@ -1,6 +1,6 @@
+import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   Action,
-  EnableToolPaletteAction,
   GLSPActionDispatcher,
   IActionHandler,
   ICommand,
@@ -22,7 +22,7 @@ export class TypesPaletteHandler implements IActionHandler {
   }
 
   handle(action: Action): void | Action | ICommand {
-    if (EnableToolPaletteAction.is(action)) {
+    if (UpdatePaletteItems.is(action)) {
       this.updateActivityTypePalette();
     }
   }

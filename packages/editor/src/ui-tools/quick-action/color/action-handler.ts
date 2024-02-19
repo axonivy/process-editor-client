@@ -1,6 +1,5 @@
 import {
   Action,
-  EnableToolPaletteAction,
   GLSPActionDispatcher,
   IActionHandler,
   ICommand,
@@ -11,7 +10,7 @@ import {
 } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
-import { UpdateColorPaletteAction } from '@axonivy/process-editor-protocol';
+import { UpdateColorPaletteAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class ColorPaletteHandler implements IActionHandler {
@@ -24,7 +23,7 @@ export class ColorPaletteHandler implements IActionHandler {
   }
 
   handle(action: Action): void | Action | ICommand {
-    if (EnableToolPaletteAction.is(action)) {
+    if (UpdatePaletteItems.is(action)) {
       this.updateColorPalette();
     }
     if (UpdateColorPaletteAction.is(action)) {
