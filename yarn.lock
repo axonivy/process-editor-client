@@ -109,7 +109,7 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
-"@eclipse-glsp/client@2.1.0", "@eclipse-glsp/client@2.1.1", "@eclipse-glsp/client@~2.1.0":
+"@eclipse-glsp/client@~2.1.0", "@eclipse-glsp/client@~2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.1.1.tgz#fddbf5e129abeb2d5981efa34886364696191214"
   integrity sha512-rSGMzfaBl/GCxhKW5j40FTO6vyqf6NtzMSMu9uNTuS7c20bwnjTNywAT0l3vqBIfKSQ+uEc/SMSNm80PB7+Prg==
@@ -120,11 +120,11 @@
     lodash "4.17.21"
 
 "@eclipse-glsp/ide@~2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/ide/-/ide-2.1.0.tgz#f1bc0fb76ab70f95aaad45bd39d5bef61c6d3a8e"
-  integrity sha512-2feg3u2jIbtKI6cO//vwAXRpsH5FeZFHKnL+7f6cKJw2yhEig9UCvwghR7ugwdmW9YWcMsVfw57rARHmmpjT7g==
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/ide/-/ide-2.1.1.tgz#58e0960858b7a8e5ceac804d357b6f728e9c2c1f"
+  integrity sha512-qFTDe4PAVV4QZdiZ38o2mcg6PQ8CIO89WnXrArMyyZtayXy/uoHs5SkEEOOZNpqw4FsfvNW1NopMVQfEqgRrIA==
   dependencies:
-    "@eclipse-glsp/client" "2.1.0"
+    "@eclipse-glsp/client" "~2.1.1"
 
 "@eclipse-glsp/protocol@2.1.1", "@eclipse-glsp/protocol@~2.1.0":
   version "2.1.1"
