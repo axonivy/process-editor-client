@@ -5,13 +5,11 @@ import { Inscription } from '../../page-objects/inscription';
 test.describe('inscription view', () => {
   test('elements', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
-    const view = await start.inscribe();
+    const view = await processEditor.startElement.inscribe();
     await view.expectOpen();
     await view.expectHeader(/Start/);
 
-    await end.select();
+    await processEditor.endElement.select();
     await view.expectHeader(/End/);
 
     await processEditor.resetSelection();
@@ -20,12 +18,11 @@ test.describe('inscription view', () => {
 
   test('undo', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
     const view = await start.inscribe();
     await changeName(view, 'start', 'hello');
 
-    await end.select();
+    await processEditor.endElement.select();
     const { section, input } = await changeName(view, '', 'world');
 
     await section.undo();
@@ -39,8 +36,7 @@ test.describe('inscription view', () => {
 
   test('ivyscript lsp', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const view = await start.inscribe();
+    const view = await processEditor.startElement.inscribe();
     await view.openSection('Start');
     await view.monaco().expectContentAssist('ivy');
   });

@@ -19,8 +19,8 @@ test.describe('quick actions - create node', () => {
 
   test('not all elements are listed', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const quickAction = start.quickActionBar();
     await quickAction.trigger('Events', 'startsWith');
     await quickAction.menu().expectMenuItemCount(2);
@@ -31,8 +31,8 @@ test.describe('quick actions - create node', () => {
 
   test('add element', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const edge = processEditor.edge();
     await end.delete();
     await expect(edge.locator()).toBeHidden();
@@ -44,7 +44,7 @@ test.describe('quick actions - create node', () => {
 
   test('add element to existing connection', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const edge = processEditor.edge();
     await expect(edge.locator()).toHaveCount(1);
 
@@ -55,7 +55,7 @@ test.describe('quick actions - create node', () => {
 
   test('attach comment', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const comment = processEditor.element('processAnnotation');
     const edge = processEditor.edge();
     await expect(comment.locator()).not.toBeVisible();

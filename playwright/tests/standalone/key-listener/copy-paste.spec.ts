@@ -6,7 +6,7 @@ test.describe('key listener - copy paste', () => {
   test('copy node', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
 
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await expect(start.locator()).toHaveCount(1);
     await start.select();
     await processEditor.copyPaste(cmdCtrl(browserName));
@@ -15,8 +15,8 @@ test.describe('key listener - copy paste', () => {
 
   test('copy multiple nodes', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const edge = processEditor.edge();
     await expect(start.locator()).toHaveCount(1);
     await expect(end.locator()).toHaveCount(1);

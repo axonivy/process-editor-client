@@ -5,8 +5,8 @@ import { cmdCtrl } from '../../page-objects/test-helper';
 test.describe('quick actions - nodes', () => {
   test('event actions', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
 
     await start.quickActionBar().count(0);
     await start.select();
@@ -20,7 +20,7 @@ test.describe('quick actions - nodes', () => {
 
   test('label edit', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await start.expectLabel('start');
     const labelEdit = await start.quickActionBar().editLabel();
     await labelEdit.edit('test label', cmdCtrl());
@@ -29,15 +29,15 @@ test.describe('quick actions - nodes', () => {
 
   test('delete', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await start.quickActionBar().trigger('Delete');
     await expect(start.locator()).not.toBeVisible();
   });
 
   test('connect', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const edge = processEditor.edge();
     await edge.delete();
 
@@ -51,8 +51,8 @@ test.describe('quick actions - nodes', () => {
 
   test('auto align', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
 
     await end.move({ x: 300, y: 300 });
     const startPos = await start.getPosition();
@@ -67,8 +67,8 @@ test.describe('quick actions - nodes', () => {
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const jumpOutBtn = processEditor.jumpOut();
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const embedded = processEditor.element('embeddedProcessElement');
 
     await processEditor.multiSelect([start, end], cmdCtrl(browserName));

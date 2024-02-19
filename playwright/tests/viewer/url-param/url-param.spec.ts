@@ -16,7 +16,7 @@ test.describe('url parameters', () => {
 
   test('zoom and highlight', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/urlparam.p.json', urlQueryParam: '&zoom=321&highlight=183E49FD86C52941-f0' });
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const viewport = processEditor.viewport();
     await start.expectHighlighted();
     await expect(viewport.locator()).toBeVisible();
@@ -28,8 +28,8 @@ test.describe('url parameters', () => {
       file: '/processes/urlparam.p.json',
       urlQueryParam: '&zoom=321&highlight=183E49FD86C52941-f0%26183E49FD86C52941-f1'
     });
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const viewport = processEditor.viewport();
     await start.expectHighlighted();
     await end.expectHighlighted();
@@ -38,7 +38,7 @@ test.describe('url parameters', () => {
 
   test('zoom and select', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/urlparam.p.json', urlQueryParam: '&zoom=123&select=183E49FD86C52941-f0' });
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const viewport = processEditor.viewport();
     await start.expectSelected();
     await expect(viewport.locator()).toBeVisible();
@@ -50,8 +50,8 @@ test.describe('url parameters', () => {
       file: '/processes/urlparam.p.json',
       urlQueryParam: '&zoom=123&select=183E49FD86C52941-f0%26183E49FD86C52941-f1'
     });
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const viewport = processEditor.viewport();
     await start.expectSelected();
     await end.expectSelected();

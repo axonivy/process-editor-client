@@ -25,7 +25,7 @@ test.describe('menu', () => {
   test('menus close on focus loose', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const toolbar = processEditor.toolbar();
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     await assertNoOpenMenu(toolbar);
 
     await toolbar.triggerOptions();

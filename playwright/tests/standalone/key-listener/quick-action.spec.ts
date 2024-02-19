@@ -5,7 +5,7 @@ import { cmdCtrl } from '../../page-objects/test-helper';
 test.describe('QuickAction - Shortcuts', () => {
   test('connector bend and straigthen', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const end = processEditor.element('end:taskEnd');
+    const end = processEditor.endElement;
     const edge = processEditor.edge();
 
     await end.move({ x: 300, y: 500 });
@@ -32,7 +32,7 @@ test.describe('QuickAction - Shortcuts', () => {
 
   test('label edit', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
     const label = start.labelEdit();
     await start.expectLabel('start');
     await label.expectHidden();
@@ -45,8 +45,8 @@ test.describe('QuickAction - Shortcuts', () => {
 
   test('auto align', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     await end.move({ x: 300, y: 300 });
     const startPos = await start.getPosition();
     const endPos = await end.getPosition();
@@ -60,8 +60,8 @@ test.describe('QuickAction - Shortcuts', () => {
   test('wrap, jump and unwrap', async ({ page, browserName }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const jumpOutBtn = processEditor.jumpOut();
-    const start = processEditor.element('start:requestStart');
-    const end = processEditor.element('end:taskEnd');
+    const start = processEditor.startElement;
+    const end = processEditor.endElement;
     const embedded = processEditor.element('embeddedProcessElement');
 
     await processEditor.multiSelect([start, end], cmdCtrl(browserName));
@@ -89,7 +89,7 @@ test.describe('QuickAction - Shortcuts', () => {
 
   test('create node', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const start = processEditor.element('start:requestStart');
+    const start = processEditor.startElement;
 
     const quickActionBar = start.quickActionBar();
     await quickActionBar.pressShortCut('A');

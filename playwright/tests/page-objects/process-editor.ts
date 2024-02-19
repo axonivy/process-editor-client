@@ -17,16 +17,20 @@ const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 export class ProcessEditor {
   protected readonly page: Page;
   protected readonly graph: Locator;
+  public readonly startElement: Element;
+  public readonly endElement: Element;
 
   constructor(page: Page) {
     this.page = page;
     this.graph = graphLocator(this.page);
+    this.startElement = this.element('start:requestStart');
+    this.endElement = this.element('end:taskEnd');
   }
 
   static async openEmptyProcess(page: Page) {
     const processEditor = await this.openProcess(page);
-    await processEditor.element('start:requestStart').delete();
-    await processEditor.element('end:taskEnd').delete();
+    await processEditor.startElement.delete();
+    await processEditor.endElement.delete();
     return processEditor;
   }
 
