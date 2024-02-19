@@ -14,7 +14,7 @@ import {
 import { interfaces } from 'inversify';
 import { IVY_TYPES } from '../../types';
 
-import { CustomIconToggleAction } from '@axonivy/process-editor-protocol';
+import { CustomIconToggleAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { OptionsButtonProvider } from './button';
 import { ElementsPaletteHandler } from './node/action-handler';
 import {
@@ -54,7 +54,7 @@ const ivyToolBarModule = new FeatureModule(
 
 function configureToolBarButtons(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
   context.bind(ElementsPaletteHandler).toSelf().inSingletonScope();
-  configureActionHandler(context, EnableToolPaletteAction.KIND, ElementsPaletteHandler);
+  configureActionHandler(context, UpdatePaletteItems.KIND, ElementsPaletteHandler);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(AllElementsButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(EventsButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(GatewaysButtonProvider);

@@ -1,5 +1,5 @@
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
-import { EnableViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   EnableToolPaletteAction,
   GLSPActionDispatcher,
@@ -25,10 +25,14 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
   @inject(TYPES.IDiagramOptions)
   protected options: IvyDiagramOptions;
 
-  async postRequestModel(): Promise<void> {
+  async preRequestModel(): Promise<void> {
     this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
     this.actionDispatcher.dispatch(EnableViewportAction.create());
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));
+  }
+
+  async postRequestModel(): Promise<void> {
+    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
   }
 
   async postModelInitialization(): Promise<void> {

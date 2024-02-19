@@ -1,6 +1,5 @@
 import {
   Action,
-  EnableToolPaletteAction,
   GLSPActionDispatcher,
   IActionHandler,
   ICommand,
@@ -11,6 +10,7 @@ import {
 } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
 import { ToolBar } from '../tool-bar';
+import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class ElementsPaletteHandler implements IActionHandler {
@@ -23,7 +23,7 @@ export class ElementsPaletteHandler implements IActionHandler {
   }
 
   handle(action: Action): void | Action | ICommand {
-    if (EnableToolPaletteAction.is(action)) {
+    if (UpdatePaletteItems.is(action)) {
       this.updateElementPalette();
     }
   }

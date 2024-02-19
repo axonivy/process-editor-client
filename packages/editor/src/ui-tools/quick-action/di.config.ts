@@ -1,16 +1,9 @@
 import './quick-action.css';
 
-import {
-  EnableToolPaletteAction,
-  FeatureModule,
-  RemoveMarqueeAction,
-  TYPES,
-  bindAsService,
-  configureActionHandler
-} from '@eclipse-glsp/client';
+import { FeatureModule, RemoveMarqueeAction, TYPES, bindAsService, configureActionHandler } from '@eclipse-glsp/client';
 import { interfaces } from 'inversify';
 
-import { UpdateColorPaletteAction } from '@axonivy/process-editor-protocol';
+import { UpdateColorPaletteAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { IVY_TYPES } from '../../types';
 import { SelectColorQuickActionProvider } from './color/action';
 import { ColorPaletteHandler } from './color/action-handler';
@@ -62,7 +55,7 @@ export function configureQuickActionProviders(context: { bind: interfaces.Bind }
 export function configureColorQuickActionProviders(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
   context.bind(ColorPaletteHandler).toSelf().inSingletonScope();
   context.bind(IVY_TYPES.ColorPalette).toService(ColorPaletteHandler);
-  configureActionHandler(context, EnableToolPaletteAction.KIND, ColorPaletteHandler);
+  configureActionHandler(context, UpdatePaletteItems.KIND, ColorPaletteHandler);
   configureActionHandler(context, UpdateColorPaletteAction.KIND, ColorPaletteHandler);
   context.bind(IVY_TYPES.QuickActionProvider).to(SelectColorQuickActionProvider);
 }
@@ -70,7 +63,7 @@ export function configureColorQuickActionProviders(context: { bind: interfaces.B
 export function configureTypeQuickActionProviders(context: { bind: interfaces.Bind; isBound: interfaces.IsBound }): void {
   context.bind(TypesPaletteHandler).toSelf().inSingletonScope();
   context.bind(IVY_TYPES.ActivityTypesPalette).toService(TypesPaletteHandler);
-  configureActionHandler(context, EnableToolPaletteAction.KIND, TypesPaletteHandler);
+  configureActionHandler(context, UpdatePaletteItems.KIND, TypesPaletteHandler);
   context.bind(IVY_TYPES.QuickActionProvider).to(SelectActivityTypeQuickActionProvider);
 }
 

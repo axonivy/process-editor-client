@@ -15,6 +15,7 @@ export * from './insert-extension';
 export * from './jump';
 export * from './model';
 export * from './outline';
+export * from './palette-items';
 export * from './start';
 export * from './theme';
 export * from './types';

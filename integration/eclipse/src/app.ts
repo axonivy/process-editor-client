@@ -1,7 +1,7 @@
 import { DiagramLoader } from '@eclipse-glsp/client';
 
-import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
+import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { ApplicationIdProvider, GLSPClient, GLSPWebSocketProvider } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 
