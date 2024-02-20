@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
 import { cmdCtrl } from '../../page-objects/test-helper';
+import { ORIGIN_VIEWPORT } from '../../page-objects/viewport';
 
 test.describe('move with arrow keys', () => {
   test('elements', async ({ page, browserName }) => {
@@ -56,5 +57,25 @@ test.describe('move with arrow keys', () => {
     await start.expectPosition(startPos);
     await pool.expectPosition(poolPos);
     await lane.expectPosition({ x: lanePos.x, y: lanePos.y + 8 });
+  });
+
+  test('graph', async ({ page, browserName }) => {
+    const processEditor = await ProcessEditor.openProcess(page);
+    const viewport = processEditor.viewport();
+
+    await processEditor.resetSelection();
+    await viewport.expectGraphTransform(ORIGIN_VIEWPORT);
+
+    await page.keyboard.press('ArrowUp');
+    await viewport.expectGraphTransform('scale(1) translate(0,56)');
+
+    await page.keyboard.press('ArrowLeft');
+    await viewport.expectGraphTransform('scale(1) translate(8,56)');
+
+    await page.keyboard.press('ArrowDown');
+    await viewport.expectGraphTransform('scale(1) translate(8,48)');
+
+    await page.keyboard.press('ArrowRight');
+    await viewport.expectGraphTransform('scale(1) translate(0,48)');
   });
 });
