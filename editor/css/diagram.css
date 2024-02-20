@@ -13,6 +13,7 @@ body {
   background: var(--glsp-editor-background);
   font-size: 10pt;
   border: none;
+  outline: none;
   height: 100%;
 }
 .grid .sprotty-graph,

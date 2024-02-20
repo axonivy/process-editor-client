@@ -1,6 +1,6 @@
 import { ContainerModule } from 'inversify';
 import { TYPES } from '@eclipse-glsp/client';
-import { MoveElementKeyListener } from './change-bounds';
+import { MoveElementKeyListener } from './move';
 import { QuickActionKeyListener } from './quick-actions';
 import { JumpOutKeyListener } from './jump-out';
 
