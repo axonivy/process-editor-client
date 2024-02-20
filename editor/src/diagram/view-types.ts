@@ -10,6 +10,7 @@ export namespace EventStartTypes {
   export const START_HD_METHOD = DEFAULT + ':htmlDialogMethodStart';
   export const START_HD_EVENT = DEFAULT + ':htmlDialogEventStart';
   export const START_EMBEDDED = DEFAULT + ':embeddedStart';
+  export const START_THIRD_PARTY = DEFAULT + ':thirdPartyProgramStart';
 }
 
 export namespace EventEndTypes {
@@ -28,6 +29,7 @@ export namespace EventIntermediateTypes {
   export const DEFAULT = 'event:intermediate';
   export const INTERMEDIATE_TASK = DEFAULT + ':taskSwitchEvent';
   export const INTERMEDIATE_WAIT = DEFAULT + ':waitEvent';
+  export const INTERMEDIATE_THIRD_PARTY = DEFAULT + ':thirdPartyWaitEvent';
 }
 
 export namespace EventBoundaryTypes {
