@@ -117,9 +117,7 @@ export class Element extends BaseElement {
   }
 
   async expectSize(width: number, height: number) {
-    const bounds = await this.element.boundingBox();
-    expect(bounds?.width).toBe(width);
-    expect(bounds?.height).toBe(height);
+    await expect(this.element.locator(`rect[width="${width}"][height="${height}"]`)).toBeVisible();
   }
 }
 
