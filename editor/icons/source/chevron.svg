@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Outlines" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1b1b1b;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="chevron">
+    <path class="cls-1" d="m9,18.75c-.19,0-.38-.07-.53-.22-.29-.29-.29-.77,0-1.06l5.47-5.47-5.47-5.47c-.29-.29-.29-.77,0-1.06s.77-.29,1.06,0l6,6c.29.29.29.77,0,1.06l-6,6c-.15.15-.34.22-.53.22Z"/>
+  </g>
+</svg>
