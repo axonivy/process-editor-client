@@ -1,5 +1,5 @@
 import { FeatureModule, TYPES } from '@eclipse-glsp/client';
-import { MoveElementKeyListener } from './change-bounds';
+import { MoveElementKeyListener } from './move';
 import { JumpOutKeyListener } from './jump-out';
 import { QuickActionKeyListener } from './quick-actions';
 

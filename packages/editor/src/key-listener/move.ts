@@ -11,7 +11,11 @@ import {
   SetUIExtensionVisibilityAction,
   GModelElement,
   toElementAndBounds,
-  TYPES
+  TYPES,
+  SetViewportAction,
+  Viewport,
+  findParentByFeature,
+  isViewport
 } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, injectable, optional } from 'inversify';
@@ -25,21 +29,45 @@ export class MoveElementKeyListener extends KeyListener {
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
 
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
-    if (this.selectionService.hasSelectedElements()) {
-      if (matchesKeystroke(event, 'ArrowUp')) {
-        return this.moveElements({ x: 0, y: -IvyGridSnapper.GRID.y });
-      }
-      if (matchesKeystroke(event, 'ArrowDown')) {
-        return this.moveElements({ x: 0, y: IvyGridSnapper.GRID.y });
-      }
-      if (matchesKeystroke(event, 'ArrowLeft')) {
-        return this.moveElements({ x: -IvyGridSnapper.GRID.x, y: 0 });
-      }
-      if (matchesKeystroke(event, 'ArrowRight')) {
-        return this.moveElements({ x: IvyGridSnapper.GRID.x, y: 0 });
-      }
+    const delta = this.moveDelta(event);
+    if (delta === undefined) {
+      return [];
     }
-    return [];
+    if (this.selectionService.hasSelectedElements()) {
+      return this.moveElements(delta);
+    }
+    return this.moveGraph(element, delta);
+  }
+
+  protected moveDelta(event: KeyboardEvent) {
+    if (matchesKeystroke(event, 'ArrowUp')) {
+      return { x: 0, y: -IvyGridSnapper.GRID.y };
+    }
+    if (matchesKeystroke(event, 'ArrowDown')) {
+      return { x: 0, y: IvyGridSnapper.GRID.y };
+    }
+    if (matchesKeystroke(event, 'ArrowLeft')) {
+      return { x: -IvyGridSnapper.GRID.x, y: 0 };
+    }
+    if (matchesKeystroke(event, 'ArrowRight')) {
+      return { x: IvyGridSnapper.GRID.x, y: 0 };
+    }
+    return undefined;
+  }
+
+  protected moveGraph(element: GModelElement, delta: Point) {
+    const model = findParentByFeature(element, isViewport);
+    if (model === undefined) {
+      return [];
+    }
+    const newViewport: Viewport = {
+      scroll: {
+        x: model.scroll.x + delta.x,
+        y: model.scroll.y + delta.y
+      },
+      zoom: model.zoom
+    };
+    return [SetViewportAction.create(model.id, newViewport, { animate: false })];
   }
 
   protected moveElements(delta: Point): Action[] {
