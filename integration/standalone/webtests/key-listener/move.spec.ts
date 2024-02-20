@@ -67,15 +67,16 @@ test.describe('key listener - move elements with arrow keys', () => {
 
   test('move graph', async ({ page }) => {
     await resetSelection(page);
+    await new Promise(resolve => setTimeout(resolve, 500)); // sleep 500ms
     await assertGraphTransform(page, ORIGIN_VIEWPORT);
 
     await page.keyboard.press('ArrowUp');
     await assertGraphTransform(page, 'scale(1) translate(0,60)');
 
-    await page.keyboard.press('ArrowLeft');
-    await assertGraphTransform(page, 'scale(1) translate(8,60)');
-
     await page.keyboard.press('ArrowDown');
+    await assertGraphTransform(page, 'scale(1) translate(0,52)');
+
+    await page.keyboard.press('ArrowLeft');
     await assertGraphTransform(page, 'scale(1) translate(8,52)');
 
     await page.keyboard.press('ArrowRight');
