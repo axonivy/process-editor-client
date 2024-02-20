@@ -19,16 +19,16 @@ test.describe('diagram', () => {
     await lane.expectResizeHandles(2);
   });
 
-  test('resize element', async ({ page }) => {
+  test('increase element size using bottom-right handle', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const element = await processEditor.createActivity('Sub', { x: 300, y: 200 });
     await processEditor.resetSelection();
     await element.select();
 
-    const topLeftHandle = element.getResizeHandle('top-left');
-    const topLeftHandleBounds = await topLeftHandle.boundingBox();
     const bottomRightHandle = element.getResizeHandle('bottom-right');
     const bottomRightHandleBounds = await bottomRightHandle.boundingBox();
+    const topLeftHandle = element.getResizeHandle('top-left');
+    const topLeftHandleBounds = await topLeftHandle.boundingBox();
 
     expect(await element.locator().boundingBox()).toStrictEqual({ x: 234.5, y: 165.5, height: 69, width: 121 });
 
@@ -37,7 +37,10 @@ test.describe('diagram', () => {
     await page.mouse.move((await bottomRightHandle.boundingBox())!.x + 300, (await bottomRightHandle.boundingBox())!.y + 150);
     await page.mouse.up();
 
-    expect(await element.locator().boundingBox()).toStrictEqual({ x: 94, y: 165.5, height: 213, width: 557.5 });
+    await processEditor.resetSelection();
+    await element.select();
+
+    expect(await element.locator().boundingBox()).toStrictEqual({ x: 234.5, y: 165.5, height: 213, width: 417 });
     expect(topLeftHandleBounds).toStrictEqual(await topLeftHandle.boundingBox());
     expect(await bottomRightHandle.boundingBox()).toStrictEqual({
       x: bottomRightHandleBounds!.x + 296,
