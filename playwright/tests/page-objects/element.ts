@@ -115,6 +115,12 @@ export class Element extends BaseElement {
     const y = parseInt(position.split(',')[1].trim(), 10);
     return { x: x, y: y };
   }
+
+  async expectSize(width: number, height: number) {
+    const bounds = await this.element.boundingBox();
+    expect(bounds?.width).toBe(width);
+    expect(bounds?.height).toBe(height);
+  }
 }
 
 export class Activity extends Element {
@@ -124,6 +130,13 @@ export class Activity extends Element {
 
   getResizeHandle(dataKind: 'bottom-right' | 'top-left' | 'bottom-left' | 'top-right') {
     return this.element.locator(`.sprotty-resize-handle[data-kind="${dataKind}"]`);
+  }
+
+  async resize(handle: Locator, newHandlePoint: Point) {
+    await handle.hover();
+    await this.page.mouse.down();
+    await this.page.mouse.move(newHandlePoint.x, newHandlePoint.y);
+    await this.page.mouse.up();
   }
 }
 
