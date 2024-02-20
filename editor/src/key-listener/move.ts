@@ -5,15 +5,19 @@ import {
   Action,
   BoundsAware,
   boundsFeature,
+  findParentByFeature,
   getElements,
   IMovementRestrictor,
   isBoundsAware,
+  isViewport,
   KeyListener,
   SChildElement,
   SetUIExtensionVisibilityAction,
+  SetViewportAction,
   SModelElement,
   toElementAndBounds,
-  TYPES
+  TYPES,
+  Viewport
 } from '@eclipse-glsp/client';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
@@ -24,21 +28,45 @@ export class MoveElementKeyListener extends KeyListener {
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
 
   keyDown(element: SModelElement, event: KeyboardEvent): Action[] {
-    if (this.selectionService.hasSelectedElements()) {
-      if (matchesKeystroke(event, 'ArrowUp')) {
-        return this.moveElements({ x: 0, y: -IvyGridSnapper.GRID_Y });
-      }
-      if (matchesKeystroke(event, 'ArrowDown')) {
-        return this.moveElements({ x: 0, y: IvyGridSnapper.GRID_Y });
-      }
-      if (matchesKeystroke(event, 'ArrowLeft')) {
-        return this.moveElements({ x: -IvyGridSnapper.GRID_X, y: 0 });
-      }
-      if (matchesKeystroke(event, 'ArrowRight')) {
-        return this.moveElements({ x: IvyGridSnapper.GRID_X, y: 0 });
-      }
+    const delta = this.moveDelta(event);
+    if (delta === undefined) {
+      return [];
     }
-    return [];
+    if (this.selectionService.hasSelectedElements()) {
+      return this.moveElements(delta);
+    }
+    return this.moveGraph(element, delta);
+  }
+
+  protected moveDelta(event: KeyboardEvent): Point | undefined {
+    if (matchesKeystroke(event, 'ArrowUp')) {
+      return { x: 0, y: -IvyGridSnapper.GRID_Y };
+    }
+    if (matchesKeystroke(event, 'ArrowDown')) {
+      return { x: 0, y: IvyGridSnapper.GRID_Y };
+    }
+    if (matchesKeystroke(event, 'ArrowLeft')) {
+      return { x: -IvyGridSnapper.GRID_X, y: 0 };
+    }
+    if (matchesKeystroke(event, 'ArrowRight')) {
+      return { x: IvyGridSnapper.GRID_X, y: 0 };
+    }
+    return undefined;
+  }
+
+  protected moveGraph(element: SModelElement, delta: Point): Action[] {
+    const model = findParentByFeature(element, isViewport);
+    if (model === undefined) {
+      return [];
+    }
+    const newViewport: Viewport = {
+      scroll: {
+        x: model.scroll.x + delta.x,
+        y: model.scroll.y + delta.y
+      },
+      zoom: model.zoom
+    };
+    return [SetViewportAction.create(model.id, newViewport, { animate: false })];
   }
 
   protected moveElements(delta: Point): Action[] {

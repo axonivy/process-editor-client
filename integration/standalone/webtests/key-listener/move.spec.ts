@@ -3,6 +3,7 @@ import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { resetSelection, multiSelect, assertPosition, getPosition, startSelector, endSelector } from '../diagram-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
 import { addPool } from '../toolbar-util';
+import { ORIGIN_VIEWPORT, assertGraphTransform } from '../viewport/viewport-util';
 
 test.describe('key listener - move elements with arrow keys', () => {
   test.beforeEach(async ({ page }) => {
@@ -62,5 +63,22 @@ test.describe('key listener - move elements with arrow keys', () => {
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(pool, { x: poolPos.x, y: poolPos.y });
     await assertPosition(lane, { x: lanePos.x, y: lanePos.y + 8 });
+  });
+
+  test('move graph', async ({ page }) => {
+    await resetSelection(page);
+    await assertGraphTransform(page, ORIGIN_VIEWPORT);
+
+    await page.keyboard.press('ArrowUp');
+    await assertGraphTransform(page, 'scale(1) translate(0,60)');
+
+    await page.keyboard.press('ArrowLeft');
+    await assertGraphTransform(page, 'scale(1) translate(8,60)');
+
+    await page.keyboard.press('ArrowDown');
+    await assertGraphTransform(page, 'scale(1) translate(8,52)');
+
+    await page.keyboard.press('ArrowRight');
+    await assertGraphTransform(page, 'scale(1) translate(0,52)');
   });
 });
