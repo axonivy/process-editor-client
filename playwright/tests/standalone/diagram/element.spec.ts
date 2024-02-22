@@ -31,7 +31,7 @@ test.describe('diagram', () => {
 
   test('increase element size using bottom-right handle', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const element = await processEditor.createActivity('Sub', { x: 300, y: 200 });
+    const element = await processEditor.createActivity('Call', { x: 300, y: 200 });
     await processEditor.resetSelection();
     await element.select();
     const bottomRightHandle = element.getResizeHandle('bottom-right');
@@ -51,7 +51,7 @@ test.describe('diagram', () => {
 
   test('decrease element size using top-left handle', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
-    const element = await processEditor.createActivity('Sub', { x: 300, y: 200 });
+    const element = await processEditor.createActivity('Call', { x: 300, y: 200 });
     await processEditor.resetSelection();
     await element.select();
     const bottomRightHandle = element.getResizeHandle('bottom-right');
