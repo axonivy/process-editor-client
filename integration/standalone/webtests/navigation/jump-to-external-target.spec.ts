@@ -1,6 +1,7 @@
 import { expect, Locator, Page, test } from '@playwright/test';
 import { processEditorUrl } from '../process-editor-url-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
+import { assertGraphNotOriginViewport, assertGraphOriginViewport } from '../viewport/viewport-util';
 
 test.describe('Jump to external target', () => {
   test('hd process', async ({ page }) => {
@@ -19,6 +20,29 @@ test.describe('Jump to external target', () => {
     await page.goto(jumpProcess());
     const callSub = page.locator('#sprotty_183E4A356E771204-f6');
     await jumpToExternalTargetAndAssert(page, callSub, '183E4A4179C3C69B', '183E4A4179C3C69B-f0');
+  });
+
+  test('embedded process', async ({ page }) => {
+    await page.goto(jumpProcess());
+    const centerBtn = page.locator('#centerBtn');
+    const jumpOutBtn = page.locator('#sprotty_jumpOutUi .jump-out-btn i');
+    const embedded = page.locator('#sprotty_183E4A356E771204-S10');
+    const script = page.locator('#sprotty_183E4A356E771204-S10-f9');
+    await assertGraphOriginViewport(page);
+
+    await embedded.click();
+    await centerBtn.click();
+    await assertGraphNotOriginViewport(page);
+
+    await clickQuickActionStartsWith(page, 'Jump');
+    await expect(script).toBeVisible();
+    await assertGraphOriginViewport(page);
+    await expect(jumpOutBtn).toBeVisible();
+
+    await jumpOutBtn.click();
+    await expect(script).toBeHidden();
+    await expect(embedded).toBeVisible();
+    await assertGraphNotOriginViewport(page);
   });
 
   async function jumpToExternalTargetAndAssert(page: Page, element: Locator, expectedProcessPid: string, expectedElementPid: string): Promise<void> {

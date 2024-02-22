@@ -1,6 +1,17 @@
-import { Action, hasStringProp, IActionHandler, SModelElement } from '@eclipse-glsp/client';
+import {
+  Action,
+  EditorContextService,
+  GLSPActionDispatcher,
+  hasStringProp,
+  IActionHandler,
+  isViewport,
+  SetViewportAction,
+  SModelElement,
+  TYPES,
+  Viewport
+} from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
-import { injectable } from 'inversify';
+import { injectable, inject } from 'inversify';
 import { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../StreamlineIcons';
 
@@ -27,11 +38,48 @@ export namespace JumpAction {
   }
 }
 
+export interface JumpOutViewportAction extends Action {
+  kind: typeof JumpOutViewportAction.KIND;
+  processId: string;
+}
+
+export namespace JumpOutViewportAction {
+  export const KIND = 'jumpOutViewport';
+
+  export function is(object: any): object is JumpOutViewportAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'processId');
+  }
+}
+
 @injectable()
 export class JumpActionHandler implements IActionHandler {
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(EditorContextService) protected readonly editorContext: EditorContextService;
+  private static jumpStack: Array<Viewport> = [];
+
   handle(action: Action): Action | void {
     if (JumpAction.is(action)) {
+      this.addViewportToStack(action);
       return SelectAllAction.create(false);
+    }
+    if (JumpOutViewportAction.is(action)) {
+      this.updateViewportFromStack(action);
+    }
+  }
+
+  addViewportToStack(action: JumpAction): void {
+    if (action.elementId !== '') {
+      const root = this.editorContext.modelRoot;
+      if (isViewport(root)) {
+        JumpActionHandler.jumpStack.push(root);
+      }
+    }
+  }
+
+  updateViewportFromStack(action: JumpOutViewportAction): void {
+    const viewport = JumpActionHandler.jumpStack.pop();
+    if (viewport) {
+      this.actionDispatcher.dispatch(SetViewportAction.create(action.processId, viewport, { animate: false }));
     }
   }
 }
