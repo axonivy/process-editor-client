@@ -19,6 +19,15 @@ export default defineConfig(() => {
         }
       }
     },
+    esbuild: {
+      target: 'esnext',
+      tsconfigRaw: {
+        compilerOptions: {
+          experimentalDecorators: true,
+          emitDecoratorMetadata: true
+        }
+      }
+    },
     server: {
       port: 3000,
       open: false,
