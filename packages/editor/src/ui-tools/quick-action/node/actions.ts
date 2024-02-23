@@ -19,7 +19,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';
 import { QuickActionUI } from '../quick-action-ui';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { AttachBoundaryOperation } from '@axonivy/process-editor-protocol';
 
 export abstract class CreateElementQuickActionProvider extends SingleQuickActionProvider {

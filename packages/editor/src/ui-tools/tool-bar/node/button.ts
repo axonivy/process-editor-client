@@ -3,7 +3,7 @@ import { ToolBarButton, ToolBarButtonLocation, ToolBarButtonProvider } from '../
 import { ShowToolBarMenuAction } from '../tool-bar-menu';
 import { injectable, inject } from 'inversify';
 import { ElementsPaletteHandler } from './action-handler';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 @injectable()
 export abstract class CreateElementsButtonProvider implements ToolBarButtonProvider {

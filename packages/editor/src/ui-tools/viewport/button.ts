@@ -1,5 +1,5 @@
 import { Action, CenterAction, FitToScreenAction } from '@eclipse-glsp/client';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { OriginViewportAction } from '@axonivy/process-editor-protocol';
 
 export interface ViewportBarButton {

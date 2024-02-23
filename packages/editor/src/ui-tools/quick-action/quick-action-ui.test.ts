@@ -9,7 +9,7 @@ import {
   createRoot,
   getQuickActionDiv
 } from '../../test-utils/quick-action-ui.test-util';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { QuickActionUI } from './quick-action-ui';
 
 describe('QuickActionUi', () => {

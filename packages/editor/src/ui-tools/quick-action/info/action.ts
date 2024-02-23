@@ -16,7 +16,7 @@ import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 @injectable()
 export class InfoQuickActionProvider extends SingleQuickActionProvider {

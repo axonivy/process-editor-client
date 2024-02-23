@@ -1,6 +1,6 @@
 import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
