@@ -20,7 +20,7 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_TYPES } from '../../types';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { Menu } from '../menu/menu';

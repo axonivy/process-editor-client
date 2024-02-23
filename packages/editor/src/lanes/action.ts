@@ -1,6 +1,6 @@
 import { CreateNodeOperation, GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';

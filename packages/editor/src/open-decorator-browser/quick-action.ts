@@ -4,7 +4,7 @@ import { OpenDecoratorBrowserAction } from '@axonivy/process-editor-protocol';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isWithCustomIcon } from '../diagram/icon/model';
 import { ActivityTypes } from '../diagram/view-types';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 @injectable()
 export class CustomIconQuickActionProvider extends SingleQuickActionProvider {

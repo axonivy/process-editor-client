@@ -4,7 +4,7 @@ import { StartProcessAction, SearchProcessCallersAction } from '@axonivy/process
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { StartEventNode } from '../diagram/model';
 import { EventStartTypes } from '../diagram/view-types';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {

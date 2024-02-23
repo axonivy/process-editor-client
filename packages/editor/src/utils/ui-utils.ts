@@ -1,4 +1,4 @@
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function createIcon(icon?: IvyIcons, additionalClasses?: string[]): HTMLElement {
   const cssClasses = icon ? ['ivy', `ivy-${icon}`] : [];

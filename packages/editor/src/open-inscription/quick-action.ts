@@ -1,6 +1,6 @@
 import { isOpenable, GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { OpenSwtInscriptionAction } from '@axonivy/process-editor-protocol';
 

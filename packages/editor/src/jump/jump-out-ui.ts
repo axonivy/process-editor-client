@@ -13,7 +13,7 @@ import {
   SelectionService
 } from '@eclipse-glsp/client';
 import { inject, injectable, postConstruct } from 'inversify';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from '@axonivy/process-editor-protocol';
 

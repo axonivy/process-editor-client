@@ -1,6 +1,6 @@
 import { ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
 import { OpenDataClassAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { injectable } from 'inversify';
 
 @injectable()

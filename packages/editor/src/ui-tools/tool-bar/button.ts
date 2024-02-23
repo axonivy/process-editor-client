@@ -5,7 +5,7 @@ import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
 import { SwitchThemeActionHandler } from '../../theme/action-handler';
 import { ShowGridActionHandler } from '../../diagram/grid/action-handler';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export interface ToolBarButtonProvider {
   button(): ToolBarButton;

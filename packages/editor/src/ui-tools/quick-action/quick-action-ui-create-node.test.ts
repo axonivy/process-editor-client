@@ -1,7 +1,7 @@
 import { GModelRoot, PaletteItem, EnableToolPaletteAction, configureActionHandler } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import { assertQuickAction, assertQuickActionUi, createContainer, createRoot } from '../../test-utils/quick-action-ui.test-util';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { ElementsPaletteHandler } from '../tool-bar/node/action-handler';
 import ivyToolBarModule from '../tool-bar/di.config';
 import { QuickActionUI } from './quick-action-ui';

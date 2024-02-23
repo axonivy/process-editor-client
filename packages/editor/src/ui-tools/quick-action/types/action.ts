@@ -5,7 +5,7 @@ import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { TypesPaletteHandler } from './action-handler';
 import { isUnwrapable } from '../../../wrap/model';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { ChangeActivityTypeOperation } from '@axonivy/process-editor-protocol';
 
 @injectable()

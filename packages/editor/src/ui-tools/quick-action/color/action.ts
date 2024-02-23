@@ -4,7 +4,7 @@ import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
 import { ColorPaletteHandler } from './action-handler';
-import { IvyIcons } from '@axonivy/editor-icons/lib';
+import { IvyIcons } from '@axonivy/ui-icons';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
 
 @injectable()
