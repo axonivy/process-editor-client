@@ -9,7 +9,10 @@ import {
   GEdge,
   svg,
   toDegrees,
-  hasArgs
+  hasArgs,
+  IntersectingRoutedPoint,
+  SEdgeImpl,
+  IViewArgs
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
@@ -106,6 +109,15 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
       path += ` L ${p.x},${p.y}`;
     }
     return path;
+  }
+
+  protected intersectionPath(edge: SEdgeImpl, segments: Point[], intersectingPoint: IntersectingRoutedPoint, args?: IViewArgs): string {
+    try {
+      return super.intersectionPath(edge, segments, intersectingPoint, args);
+    } catch (ex) {
+      // ingnore exception which can occur if one point of the segmet is NaN
+      return '';
+    }
   }
 }
 
