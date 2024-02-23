@@ -5,6 +5,39 @@
     "data" : "glsp.test.project.Data"
   },
   "elements" : [ {
+      "id" : "S10",
+      "type" : "EmbeddedProcess",
+      "name" : "Sub 1",
+      "elements" : [ {
+          "id" : "S10-f9",
+          "type" : "Script",
+          "visual" : {
+            "at" : { "x" : 192, "y" : 160 }
+          },
+          "connect" : { "id" : "S10-f1", "to" : "S10-g1" }
+        }, {
+          "id" : "S10-g0",
+          "type" : "EmbeddedStart",
+          "name" : "in 1",
+          "visual" : {
+            "at" : { "x" : 64, "y" : 160 }
+          },
+          "parentConnector" : "f11",
+          "connect" : { "id" : "S10-f0", "to" : "S10-f9" }
+        }, {
+          "id" : "S10-g1",
+          "type" : "EmbeddedEnd",
+          "name" : "out 1",
+          "visual" : {
+            "at" : { "x" : 320, "y" : 160 }
+          },
+          "parentConnector" : "f12"
+        } ],
+      "visual" : {
+        "at" : { "x" : 704, "y" : 64 }
+      },
+      "connect" : { "id" : "f12", "to" : "f1" }
+    }, {
       "id" : "f0",
       "type" : "RequestStart",
       "name" : "start.ivp",
@@ -20,7 +53,7 @@
       "id" : "f1",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 672, "y" : 64 }
+        "at" : { "x" : 832, "y" : 64 }
       }
     }, {
       "id" : "f3",
@@ -32,7 +65,7 @@
       "visual" : {
         "at" : { "x" : 544, "y" : 64 }
       },
-      "connect" : { "id" : "f2", "to" : "f1" }
+      "connect" : { "id" : "f11", "to" : "S10" }
     }, {
       "id" : "f5",
       "type" : "DialogCall",
