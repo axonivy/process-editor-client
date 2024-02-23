@@ -6,6 +6,15 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig(() => {
   const config = {
     plugins: [tsconfigPaths()],
+    esbuild: {
+      target: 'esnext',
+      tsconfigRaw: {
+        compilerOptions: {
+          experimentalDecorators: true,
+          emitDecoratorMetadata: true
+        }
+      }
+    },
     build: {
       outDir: 'build',
       chunkSizeWarningLimit: 5000,
