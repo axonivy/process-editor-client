@@ -5,7 +5,8 @@ import {
   ivyOpenDataClassModule,
   ivyOpenDecoratorBrowserModule,
   ivyOpenInscriptionModule,
-  ivyStartActionModule
+  ivyStartActionModule,
+  ivyThemeModule
 } from '@axonivy/process-editor';
 import { Container } from 'inversify';
 
@@ -27,6 +28,7 @@ export default function createContainer(widgetId: string, options: IvyDiagramOpt
   const container = createIvyDiagramContainer(
     widgetId,
     createDiagramOptionsModule(options),
+    ivyThemeModule,
     ivyEclipseCopyPasteModule,
     ivyEclipseDeleteModule,
     ivyOpenInscriptionModule,
