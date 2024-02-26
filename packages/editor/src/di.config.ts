@@ -96,7 +96,6 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyKeyListenerModule,
     ivyNotificationModule,
     ivyMarqueeSelectionToolModule,
-    ivyThemeModule,
 
     // Ivy extensions:
     ivyHelperLineExtensionModule,
