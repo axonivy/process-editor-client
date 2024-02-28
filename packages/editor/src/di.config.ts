@@ -40,7 +40,6 @@ import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
-import ivyThemeModule from './theme/di.config';
 import {
   ivyBoundsExtensionModule,
   ivyChangeBoundsToolModule,
