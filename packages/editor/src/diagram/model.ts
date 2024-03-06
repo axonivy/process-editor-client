@@ -12,7 +12,6 @@ import {
   editFeature,
   editLabelFeature,
   fadeFeature,
-  GGraph,
   hoverFeedbackFeature,
   isBoundsAware,
   isEditableLabel,
@@ -46,10 +45,6 @@ import { quickActionFeature } from '../ui-tools/quick-action/model';
 import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
-
-export class IvyGGraph extends GGraph {
-  scroll = { x: 0, y: -48 };
-}
 
 export class LaneNode extends RectangularNode implements WithEditableLabel, ArgsAware {
   static readonly DEFAULT_FEATURES = [

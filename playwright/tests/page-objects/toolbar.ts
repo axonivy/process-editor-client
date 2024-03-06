@@ -16,7 +16,7 @@ export class Toolbar {
 
   constructor(page: Page) {
     this.page = page;
-    this.toolbar = this.page.locator('#sprotty_ivy-tool-bar');
+    this.toolbar = this.page.locator('#ivy-tool-bar');
     this.toolbarMenu = new Menu(page, this.toolbar.locator('.tool-bar-menu'));
     this.optionsMenu = new OptionsMenu(page, this.toolbar.locator('.tool-bar-options-menu'));
     this.defaultTool = this.toolbar.locator('#btn_default_tools');

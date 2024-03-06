@@ -111,12 +111,21 @@ export class IvyFeedbackMoveMouseListener extends FeedbackMoveMouseListener {
 
   mouseMove(target: GModelElement, event: MouseEvent): Action[] {
     this.lastMove = undefined;
-    const actions = super.mouseMove(target, event);
-    if (event.buttons !== 0 && this._isMouseDrag && this.hasRealMoved()) {
-      this.tool.quickActionUi.hideUi();
-      addNegativeArea(target);
+    if (event.buttons === 0) {
+      return this.mouseUp(target, event);
     }
-    return actions;
+    if (this._isMouseDown) {
+      this._isMouseDrag = true;
+    }
+    if (this._isMouseDrag) {
+      const actions = super.mouseMove(target, event);
+      if (this.hasRealMoved()) {
+        this.tool.quickActionUi.hideUi();
+        addNegativeArea(target);
+      }
+      return actions;
+    }
+    return [];
   }
 
   draggingMouseUp(target: GModelElement, event: MouseEvent): Action[] {

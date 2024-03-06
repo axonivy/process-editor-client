@@ -1,5 +1,4 @@
 import {
-  AbstractUIExtension,
   Action,
   Bounds,
   BoundsAware,
@@ -33,9 +32,10 @@ import { Menu } from '../menu/menu';
 import { isQuickActionAware } from './model';
 import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { InfoQuickActionMenu, QuickActionMenu, ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
+import { IvyUIExtension } from '../../utils/ivy-ui-extension';
 
 @injectable()
-export class QuickActionUI extends AbstractUIExtension implements IActionHandler, ISelectionListener {
+export class QuickActionUI extends IvyUIExtension implements IActionHandler, ISelectionListener {
   static readonly ID = 'quickActionsUi';
   private activeQuickActions: QuickAction[] = [];
   private activeQuickActionBtn?: HTMLElement;
@@ -143,10 +143,6 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     this.actionDispatcherProvider().then(actionDispatcher =>
       actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: QuickActionUI.ID, visible: false }))
     );
-  }
-
-  hide(): void {
-    super.hide();
   }
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {

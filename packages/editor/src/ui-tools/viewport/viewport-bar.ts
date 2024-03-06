@@ -1,6 +1,5 @@
 import {
   Action,
-  AbstractUIExtension,
   EditorContextService,
   GLSPActionDispatcher,
   IActionHandler,
@@ -9,17 +8,19 @@ import {
   IToolManager,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
-  TYPES
-  , SelectionService } from '@eclipse-glsp/client';
+  TYPES,
+  SelectionService
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
 
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { EnableViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
+import { IvyUIExtension } from '../../utils/ivy-ui-extension';
 
 @injectable()
-export class ViewportBar extends AbstractUIExtension implements IActionHandler {
+export class ViewportBar extends IvyUIExtension implements IActionHandler {
   static readonly ID = 'ivy-viewport-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
