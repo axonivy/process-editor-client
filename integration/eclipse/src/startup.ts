@@ -1,14 +1,12 @@
 import { IVY_TYPES, ToolBar } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
-import { EnableViewportAction, ShowGridAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
+import { EnableViewportAction, ShowGridAction, SwitchThemeAction, ThemeMode, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 
 import { MonacoUtil } from '@axonivy/inscription-core';
 import { MonacoEditorUtil } from '@axonivy/inscription-editor';
-import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import './index.css';
 
 @injectable()
@@ -34,8 +32,15 @@ export class EclipseDiagramStartup implements IDiagramStartup {
   }
 
   async postModelInitialization(): Promise<void> {
-    MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, this.options.theme));
+    await this.initMonaco(this.options.theme);
     this.actionDispatcher.dispatch(EnableInscriptionAction.create({}));
+  }
+
+  async initMonaco(theme: ThemeMode): Promise<void> {
+    const monaco = await import('monaco-editor/esm/vs/editor/editor.api');
+    const editorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
+    await MonacoUtil.initStandalone(editorWorker.default);
+    await MonacoEditorUtil.configureInstance(monaco, theme);
   }
 }
 
