@@ -1,5 +1,5 @@
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
-import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
+import { EnableViewportAction, SwitchThemeAction, ThemeMode, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   EnableToolPaletteAction,
   GLSPActionDispatcher,
@@ -13,8 +13,6 @@ import { IvyDiagramOptions } from './di.config';
 
 import { MonacoUtil } from '@axonivy/inscription-core';
 import { MonacoEditorUtil } from '@axonivy/inscription-editor';
-import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
-import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import './index.css';
 
 @injectable()
@@ -36,7 +34,7 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
   }
 
   async postModelInitialization(): Promise<void> {
-    MonacoUtil.initStandalone(editorWorker).then(() => MonacoEditorUtil.initMonaco(reactMonaco, this.options.theme));
+    await this.initMonaco(this.options.theme);
     this.actionDispatcher.dispatch(
       EnableInscriptionAction.create({
         connection: { server: this.options.inscriptionContext.server },
@@ -47,6 +45,13 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
       const elementIds = this.options.select.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
       this.actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs: elementIds }));
     }
+  }
+
+  async initMonaco(theme: ThemeMode): Promise<void> {
+    const monaco = await import('monaco-editor/esm/vs/editor/editor.api');
+    const editorWorker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
+    await MonacoUtil.initStandalone(editorWorker.default);
+    await MonacoEditorUtil.configureInstance(monaco, theme);
   }
 }
 

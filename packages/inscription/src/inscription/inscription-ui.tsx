@@ -101,7 +101,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     if (this.action?.connection?.ivyScript) {
       await IvyScriptLanguage.startClient(this.action?.connection?.ivyScript);
     } else {
-      await IvyScriptLanguage.startWebSocketClient(webSocketAddress);
+      await IvyScriptLanguage.startWebSocketClient(webSocketAddress, Promise.resolve(true));
     }
     let client: InscriptionClient;
     if (this.action?.connection?.inscription) {

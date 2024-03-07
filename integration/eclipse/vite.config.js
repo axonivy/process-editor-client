@@ -12,8 +12,8 @@ export default defineConfig(() => {
       rollupOptions: {
         output: {
           manualChunks: id => {
-            if (id.includes('monaco-languageclient')) {
-              return 'monaco';
+            if (id.includes('monaco-languageclient' || id.includes('vscode'))) {
+              return 'monaco-chunk';
             }
           }
         }
