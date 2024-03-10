@@ -1,4 +1,4 @@
-import { InscriptionClientJsonRpc, IvyScriptLanguage, MonacoUtil } from '@axonivy/inscription-core';
+import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
 import { SwitchThemeActionHandler } from '@axonivy/process-editor';
@@ -17,7 +17,6 @@ import {
 } from '@eclipse-glsp/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { inject, injectable, optional, postConstruct } from 'inversify';
-import * as reactMonaco from 'monaco-editor/esm/vs/editor/editor.api';
 import React from 'react';
 import { Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
@@ -95,13 +94,13 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     });
   }
 
-  async startInscriptionClient() {
+  async startInscriptionClient(): Promise<InscriptionClient> {
     const model = this.selectionService.getModelRoot();
     const webSocketAddress = this.action?.connection?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
     if (this.action?.connection?.ivyScript) {
-      await IvyScriptLanguage.startClient(this.action?.connection?.ivyScript);
+      IvyScriptLanguage.startClient(this.action?.connection?.ivyScript, MonacoEditorUtil.getInstance());
     } else {
-      await IvyScriptLanguage.startWebSocketClient(webSocketAddress, Promise.resolve(true));
+      IvyScriptLanguage.startWebSocketClient(webSocketAddress, MonacoEditorUtil.getInstance());
     }
     let client: InscriptionClient;
     if (this.action?.connection?.inscription) {
@@ -130,9 +129,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
     }
     if (SwitchThemeAction.is(action)) {
       this.updateInscriptionUi();
-      MonacoUtil.monacoInitialized().then(() => {
-        reactMonaco.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(action.theme));
-      });
+      MonacoEditorUtil.setTheme(action.theme);
     }
     return;
   }
