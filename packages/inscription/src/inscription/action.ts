@@ -1,10 +1,10 @@
 import { Action } from '@eclipse-glsp/client';
 import { InscriptionContext } from '@axonivy/inscription-protocol';
-import { MessageConnection } from '@axonivy/inscription-core';
+import { Connection } from '@axonivy/jsonrpc';
 
 export interface EnableInscriptionAction extends Action {
   kind: typeof EnableInscriptionAction.KIND;
-  connection?: { server?: string; inscription?: MessageConnection; ivyScript?: MessageConnection };
+  connection?: { server?: string; inscription?: Connection; ivyScript?: Connection };
   inscriptionContext?: InscriptionContext;
 }
 
