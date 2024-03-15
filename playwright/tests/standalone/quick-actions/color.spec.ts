@@ -24,7 +24,7 @@ test.describe('quick actions - color', () => {
     const lane = await processEditor.createLane({ x: 10, y: 90 });
     await lane.expectColor();
     await lane.quickActionBar().addColor();
-    await lane.expectColor('rgb(0, 0, 255)');
+    await lane.expectColor('#0000ff');
   });
 
   test('colorize multiple elements', async ({ page, browserName }) => {
