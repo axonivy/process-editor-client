@@ -37,16 +37,24 @@ body {
 .pool > .sprotty-node,
 .lane > .sprotty-node {
   cursor: default;
-  stroke: var(--glsp-border);
 }
 .pool > .sprotty-node {
+  stroke: var(--glsp-border);
   fill: transparent;
 }
-.pool > .pool-label-rect {
-  fill: var(--glsp-pool-bg);
-}
 .lane > .sprotty-node {
-  fill: var(--glsp-lane-bg);
+  stroke: var(--lane-color, var(--glsp-border));
+  fill: var(--glsp-lane-bg-fallback);
+}
+@supports (fill: color-mix(in srgb, var(--lane-color, var(--glsp-lane-bg)), transparent 75%)) {
+  .lane > .sprotty-node {
+    --lane-color: var(--glsp-lane-bg);
+    stroke: var(--glsp-border);
+    fill: color-mix(in srgb, var(--lane-color, var(--glsp-lane-bg)), transparent 75%);
+  }
+}
+.pool > .pool-label-rect {
+  fill: var(--glsp-node);
 }
 .lane-resize-handle {
   cursor: row-resize;
@@ -164,7 +172,6 @@ g[class^='end'] .sprotty-node {
 }
 .sprotty-edge .sprotty-label div {
   text-align: center;
-  background-color: var(--glsp-editor-background);
 }
 
 /* Icon / Label*/

@@ -6,8 +6,9 @@
   --glsp-grid: #c9c9c9;
   --glsp-node: #ffffff;
   --glsp-border: #8d8d8d;
-  --glsp-lane-bg: rgba(255, 255, 255, 0.3);
-  --glsp-pool-bg: #f5f5f5;
+  --glsp-lane-bg: #fafafa;
+  --glsp-lane-bg-fallback: rgba(255, 255, 255, 0.3);
+
   --glsp-box-shadow: 0px 9px 27px rgba(0, 0, 0, 0.07), 0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198),
     0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275), 0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035),
     0px 0.598509px 1.79553px rgba(0, 0, 0, 0.0282725), 0px 0.249053px 0.747159px rgba(0, 0, 0, 0.0196802);
@@ -60,8 +61,8 @@ html[data-theme='dark'] body {
   --glsp-foreground: #cccccc;
   --glsp-grid: #5a5a5a;
   --glsp-node: #202020;
-  --glsp-lane-bg: rgba(44, 44, 44, 0.5);
-  --glsp-pool-bg: #202020;
+  --glsp-lane-bg: #161616;
+  --glsp-lane-bg-fallback: rgba(44, 44, 44, 0.5);
 
   --glsp-tool-bg: #202020;
   --glsp-tool-bar-bg: #2c2c2c;

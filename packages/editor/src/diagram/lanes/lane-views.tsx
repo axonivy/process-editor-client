@@ -1,6 +1,6 @@
 import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom';
+import { VNode, VNodeStyle } from 'snabbdom';
 
 import { LaneNode } from '../model';
 
@@ -26,13 +26,7 @@ export class LaneNodeView extends RectangularNodeView {
       z`;
       return (
         <g>
-          <path
-            class-sprotty-node={true}
-            class-selected={node.selected}
-            d={path}
-            {...(node.color ? { style: { stroke: node.color } } : {})}
-          ></path>
-          {this.colorDot(node)}
+          <path class-sprotty-node={true} class-selected={node.selected} d={path} {...{ style: this.laneStyle(node) }}></path>
           {context.renderChildren(node)}
         </g>
       );
@@ -48,10 +42,9 @@ export class LaneNodeView extends RectangularNodeView {
           ry='4px'
           width={Math.max(node.size.width, 0)}
           height={Math.max(node.size.height - 1, 0)}
-          {...(node.color ? { style: { stroke: node.color } } : {})}
+          {...{ style: this.laneStyle(node) }}
         ></rect>
         {this.getDecoratorLine(node)}
-        {this.colorDot(node)}
         {context.renderChildren(node)}
       </g>
     );
@@ -65,11 +58,11 @@ export class LaneNodeView extends RectangularNodeView {
     return <g></g>;
   }
 
-  protected colorDot(node: LaneNode): VNode {
+  protected laneStyle(node: LaneNode): VNodeStyle {
     if (node.color) {
-      return <circle r={6} cx={12} cy={Math.max(node.size.height - 13, 0)} style={{ fill: node.color }}></circle>;
+      return { '--lane-color': node.color };
     }
-    return <g></g>;
+    return {};
   }
 }
 
@@ -79,9 +72,11 @@ export class PoolNodeView extends LaneNodeView {
     const poolLaneSpace = this.getPoolLaneSpace(node);
     const nodeHeight = node.size.height - 1;
     const path = `M${poolLaneSpace},0 v${nodeHeight} h-${poolLaneSpace - 4} q-4,0 -4,-4 v-${nodeHeight - 8} q0,-4 4,-4 z`;
-    return (
-      <path class-sprotty-node={true} class-pool-label-rect d={path} {...(node.color ? { style: { stroke: node.color } } : {})}></path>
-    );
+    return <path class-sprotty-node={true} class-pool-label-rect d={path}></path>;
+  }
+
+  protected laneStyle(node: LaneNode): VNodeStyle {
+    return {};
   }
 
   private getPoolLaneSpace(node: LaneNode) {
