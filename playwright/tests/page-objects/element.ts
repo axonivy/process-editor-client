@@ -153,6 +153,14 @@ export class Lane extends Element {
   async expectResizeHandles(handles: number) {
     await expect(this.element.locator('.lane-resize-handle')).toHaveCount(handles);
   }
+
+  async expectColor(color?: string) {
+    if (color) {
+      await expect(this.colorLocator).toHaveAttribute('style', `--lane-color: ${color};`);
+    } else {
+      await expect(this.colorLocator).not.toHaveAttribute('style', /--lane-color: /);
+    }
+  }
 }
 
 export class Pool extends Lane {
