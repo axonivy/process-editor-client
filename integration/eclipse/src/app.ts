@@ -1,7 +1,8 @@
 import { DiagramLoader } from '@eclipse-glsp/client';
 
-import { getParameters } from '@eclipse-glsp/ide';
+import { MonacoEditorUtil } from '@axonivy/inscription-editor';
 import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
+import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient, GLSPWebSocketProvider } from '@eclipse-glsp/protocol';
 import { MessageConnection } from 'vscode-jsonrpc';
 
@@ -26,6 +27,7 @@ const theme = (urlParameters.theme as ThemeMode) ?? 'light';
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
 const showGrid = urlParameters.grid ? urlParameters.grid === 'true' : true;
+const debug = urlParameters.debug ? urlParameters.debug === 'true' : false;
 setWidgetId(widgetId);
 
 const webSocketUrl = `ws://localhost:${port}/${id}`;
@@ -34,6 +36,7 @@ let glspClient: GLSPClient;
 let container: Container;
 const wsProvider = new GLSPWebSocketProvider(webSocketUrl);
 wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
+initMonaco();
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
   glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
@@ -65,4 +68,11 @@ function setWidgetId(mainWidgetId: string): void {
 async function reconnect(connectionProvider: MessageConnection): Promise<void> {
   glspClient.stop();
   initialize(connectionProvider, true /* isReconnecting */);
+}
+
+async function initMonaco(): Promise<void> {
+  // packaging with vite has it's own handling of workers so it can be properly accessed
+  // we therefore import the worker here and use that instead of the default mechanism
+  const worker = await import('monaco-editor/esm/vs/editor/editor.worker?worker');
+  MonacoEditorUtil.configureInstance({ theme, debug, worker: { workerConstructor: worker.default } });
 }
