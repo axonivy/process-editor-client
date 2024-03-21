@@ -6,7 +6,7 @@ export class Inscription {
 
   constructor(page: Page) {
     this.page = page;
-    this.view = this.page.locator('#inscription');
+    this.view = this.page.locator('#inscription-ui');
   }
 
   locator() {

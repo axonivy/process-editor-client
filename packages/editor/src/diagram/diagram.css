@@ -9,7 +9,8 @@ body {
 .sprotty {
   user-select: none;
 }
-.sprotty > div:focus-visible {
+.sprotty > div:focus-visible,
+.sprotty-graph:focus {
   outline: none;
 }
 .sprotty svg:where(.sprotty-graph, .sprotty-empty) {
@@ -305,4 +306,11 @@ g[class^='end'] .sprotty-node {
 }
 svg {
   border: none;
+}
+
+/* UI Extension */
+.ui-extension.hidden {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
 }

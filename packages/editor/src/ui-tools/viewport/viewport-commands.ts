@@ -53,7 +53,7 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
   }
 
   getNewViewport(_bounds: Bounds, _model: GModelRoot): Viewport | undefined {
-    return { zoom: 1, scroll: { x: 0, y: -48 } };
+    return { zoom: 1, scroll: { x: 0, y: 0 } };
   }
 }
 

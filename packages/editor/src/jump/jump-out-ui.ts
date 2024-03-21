@@ -1,5 +1,4 @@
 import {
-  AbstractUIExtension,
   Action,
   CommandExecutionContext,
   CommandReturn,
@@ -16,9 +15,10 @@ import { inject, injectable, postConstruct } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from '@axonivy/process-editor-protocol';
+import { IvyUIExtension } from '../utils/ivy-ui-extension';
 
 @injectable()
-export class JumpOutUi extends AbstractUIExtension {
+export class JumpOutUi extends IvyUIExtension {
   static readonly ID = 'jumpOutUi';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
@@ -26,16 +26,16 @@ export class JumpOutUi extends AbstractUIExtension {
   @inject(SelectionService) protected selectionService: SelectionService;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
 
-  public id(): string {
+  id(): string {
     return JumpOutUi.ID;
   }
 
-  public containerClass(): string {
+  containerClass(): string {
     return 'jump-out-container';
   }
 
   @postConstruct()
-  postConstruct(): void {
+  protected postConstruct(): void {
     this.feedbackDispatcher.registerFeedback(this, [JumpOutFeedbackAction.create()]);
   }
 

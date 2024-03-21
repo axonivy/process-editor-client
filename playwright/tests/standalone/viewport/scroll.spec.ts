@@ -14,10 +14,10 @@ test.describe('viewport bar', () => {
 
   test('scroll vertical', async ({ page }) => {
     await page.mouse.wheel(0, 100);
-    await expectScroll('scale(1) translate(0,-52)', { x: 0, y: -100 });
+    await expectScroll('scale(1) translate(0,-100)', { x: 0, y: -100 });
 
     await page.mouse.wheel(0, -200);
-    await expectScroll('scale(1) translate(0,148)', { x: 0, y: 100 });
+    await expectScroll('scale(1) translate(0,100)', { x: 0, y: 100 });
 
     await page.mouse.wheel(0, 100);
     await expectScroll(ORIGIN_VIEWPORT, { x: 0, y: 0 });
@@ -25,10 +25,10 @@ test.describe('viewport bar', () => {
 
   test('scroll horizontal', async ({ page }) => {
     await page.mouse.wheel(100, 0);
-    await expectScroll('scale(1) translate(-100,48)', { x: -100, y: 0 });
+    await expectScroll('scale(1) translate(-100,0)', { x: -100, y: 0 });
 
     await page.mouse.wheel(-200, 0);
-    await expectScroll('scale(1) translate(100,48)', { x: 100, y: 0 });
+    await expectScroll('scale(1) translate(100,0)', { x: 100, y: 0 });
 
     await page.mouse.wheel(100, 0);
     await expectScroll(ORIGIN_VIEWPORT, { x: 0, y: 0 });
@@ -37,10 +37,10 @@ test.describe('viewport bar', () => {
   test('scroll horizontal (shift)', async ({ page }) => {
     await page.keyboard.down('Shift');
     await page.mouse.wheel(0, 100);
-    await expectScroll('scale(1) translate(-100,48)', { x: -100, y: 0 });
+    await expectScroll('scale(1) translate(-100,0)', { x: -100, y: 0 });
 
     await page.mouse.wheel(0, -200);
-    await expectScroll('scale(1) translate(100,48)', { x: 100, y: 0 });
+    await expectScroll('scale(1) translate(100,0)', { x: 100, y: 0 });
 
     await page.mouse.wheel(0, 100);
     await expectScroll(ORIGIN_VIEWPORT, { x: 0, y: 0 });

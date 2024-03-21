@@ -67,15 +67,15 @@ test.describe('move with arrow keys', () => {
     await viewport.expectGraphTransform(ORIGIN_VIEWPORT);
 
     await page.keyboard.press('ArrowUp');
-    await viewport.expectGraphTransform('scale(1) translate(0,56)');
+    await viewport.expectGraphTransform('scale(1) translate(0,8)');
 
     await page.keyboard.press('ArrowLeft');
-    await viewport.expectGraphTransform('scale(1) translate(8,56)');
+    await viewport.expectGraphTransform('scale(1) translate(8,8)');
 
     await page.keyboard.press('ArrowDown');
-    await viewport.expectGraphTransform('scale(1) translate(8,48)');
+    await viewport.expectGraphTransform('scale(1) translate(8,0)');
 
     await page.keyboard.press('ArrowRight');
-    await viewport.expectGraphTransform('scale(1) translate(0,48)');
+    await viewport.expectGraphTransform('scale(1) translate(0,0)');
   });
 });

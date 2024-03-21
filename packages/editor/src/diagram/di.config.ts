@@ -3,8 +3,10 @@ import './diagram.css';
 import {
   ConsoleLogger,
   CustomFeatures,
+  DefaultTypes,
   DeleteElementContextMenuItemProvider,
   FeatureModule,
+  GGraph,
   GLSPProjectionView,
   GModelElement,
   IView,
@@ -17,7 +19,6 @@ import {
   moveFeature,
   selectFeature
 } from '@eclipse-glsp/client';
-import { DefaultTypes } from '@eclipse-glsp/protocol';
 import { interfaces } from 'inversify';
 
 import { ShowGridAction } from '@axonivy/process-editor-protocol';
@@ -44,7 +45,6 @@ import {
   EndEventNode,
   EventNode,
   GatewayNode,
-  IvyGGraph,
   LaneNode,
   MulitlineEditLabel,
   RotateLabel,
@@ -77,9 +77,7 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   configureCommand({ bind, isBound }, GridFeedbackCommand);
 
   const context = { bind, unbind, isBound, rebind };
-
-  configureIvyModelElement(DefaultTypes.GRAPH, IvyGGraph, GLSPProjectionView);
-
+  configureIvyModelElement(DefaultTypes.GRAPH, GGraph, GLSPProjectionView);
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);
   configureStartEvent(EventStartTypes.START_SIGNAL);

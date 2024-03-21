@@ -1,17 +1,15 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
-import { SwitchThemeActionHandler } from '@axonivy/process-editor';
+import { SwitchThemeActionHandler, IvyUIExtension } from '@axonivy/process-editor';
 import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
-  AbstractUIExtension,
   Action,
   GArgument,
   GModelRoot,
   IActionHandler,
   ISelectionListener,
   SelectionService,
-  SetUIExtensionVisibilityAction,
   isNotUndefined,
   isOpenable
 } from '@eclipse-glsp/client';
@@ -26,8 +24,8 @@ import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 const JSX = { createElement: React.createElement };
 
 @injectable()
-export class InscriptionUi extends AbstractUIExtension implements IActionHandler, ISelectionListener {
-  static readonly ID = 'inscriptionUi';
+export class InscriptionUi extends IvyUIExtension implements IActionHandler, ISelectionListener {
+  static readonly ID = 'inscription-ui';
 
   @inject(SelectionService) protected readonly selectionService: SelectionService;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
@@ -50,20 +48,6 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
 
   public containerClass(): string {
     return 'inscription-ui-container';
-  }
-
-  protected initialize() {
-    const baseDiv = document.getElementById('inscription');
-    if (!baseDiv) {
-      this.logger.warn(this, `Could not obtain inscription base container for initializing UI extension ${this.id}`, this);
-      return false;
-    }
-    this.containerElement = this.getOrCreateContainer(baseDiv.id);
-    this.initializeContents(this.containerElement);
-    if (baseDiv) {
-      baseDiv.insertBefore(this.containerElement, baseDiv.firstChild);
-    }
-    return true;
   }
 
   protected initializeContents(containerElement: HTMLElement) {
@@ -115,7 +99,7 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   handle(action: Action) {
     if (EnableInscriptionAction.is(action)) {
       this.action = action;
-      return SetUIExtensionVisibilityAction.create({ extensionId: InscriptionUi.ID, visible: true });
+      this.initialize();
     }
     if (ToggleInscriptionAction.is(action)) {
       if (!this.inscriptionElement) {
@@ -146,18 +130,10 @@ export class InscriptionUi extends AbstractUIExtension implements IActionHandler
   }
 
   private changeUiVisiblitiy(force?: boolean) {
-    const baseDiv = document.getElementById('inscription');
-    if (!baseDiv) {
-      return;
-    }
     if (force !== undefined) {
-      if (force) {
-        baseDiv.classList.remove('hidden');
-      } else {
-        baseDiv.classList.add('hidden');
-      }
+      this.setContainerVisible(force);
     } else {
-      baseDiv.classList.toggle('hidden');
+      this.toggleContainerVisible();
     }
     window.dispatchEvent(new CustomEvent('resize'));
   }

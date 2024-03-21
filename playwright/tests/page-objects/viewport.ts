@@ -2,7 +2,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import { Point } from './types';
 import { graphLocator } from './graph';
 
-export const ORIGIN_VIEWPORT = 'scale(1) translate(0,48)' as const;
+export const ORIGIN_VIEWPORT = 'scale(1) translate(0,0)' as const;
 
 export class ViewportBar {
   protected readonly page: Page;
@@ -73,6 +73,6 @@ export class ViewportBar {
   }
 
   private gridPosition(gridMove: Point) {
-    return new RegExp(`background-position: ${8 + gridMove.x}px ${56 + gridMove.y}px;`);
+    return new RegExp(`background-position: ${8 + gridMove.x}px ${8 + gridMove.y}px;`);
   }
 }

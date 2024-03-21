@@ -28,5 +28,6 @@ export * from './ui-tools/tool-bar/button';
 export * from './ui-tools/tool-bar/tool-bar';
 export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
+export * from './utils/ivy-ui-extension';
 
 export * from './ivy-glsp-jsonrpc-client';
