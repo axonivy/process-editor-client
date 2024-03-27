@@ -36,16 +36,16 @@ test.describe('Jump to external target', () => {
     await expect(embedded.locator()).toBeVisible();
     await viewport.expectGraphNotOriginViewport();
   });
-
-  async function jumpToExternalTargetAndAssert(page: Page, elementPid: string, expectedProcessPid: string, expectedElementPid: string): Promise<void> {
-    const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/jump.p.json' });
-    const element = processEditor.elementByPid(elementPid);
-    await element.quickActionBar().trigger('Jump', 'startsWith');
-    await expect(element.locator()).toBeHidden();
-    await page.waitForLoadState();
-    expect(page.url()).toContain('pmv=glsp-test-project');
-    expect(page.url()).toContain(`pid=${expectedProcessPid}`);
-    expect(page.url()).toContain(`select=${expectedElementPid}`);
-    await processEditor.elementByPid(expectedElementPid).expectSelected();
-  }
 });
+
+export async function jumpToExternalTargetAndAssert(page: Page, elementPid: string, expectedProcessPid: string, expectedElementPid: string): Promise<void> {
+  const processEditor = await ProcessEditor.openProcess(page, { file: '/processes/jump.p.json' });
+  const element = processEditor.elementByPid(elementPid);
+  await element.quickActionBar().trigger('Jump', 'startsWith');
+  await expect(element.locator()).toBeHidden();
+  await page.waitForLoadState();
+  expect(page.url()).toContain('pmv=glsp-test-project');
+  expect(page.url()).toContain(`pid=${expectedProcessPid}`);
+  expect(page.url()).toContain(`select=${expectedElementPid}`);
+  await processEditor.elementByPid(expectedElementPid).expectSelected();
+}
