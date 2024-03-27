@@ -21,7 +21,7 @@ const sourceUri = 'file://' + decodeURI(filePath.replace(/\+/g, '%20'));
 // and/or Eclipse Servers may be running in parallel (e.g. 1/Eclipse IDE)
 const port = parseInt(urlParameters.port, 10);
 const applicationId = urlParameters.application;
-const id = 'ivy-glsp-process';
+const id = 'ivy-glsp-eclipse-process-editor';
 const diagramType = 'ivy-glsp-process';
 const theme = (urlParameters.theme as ThemeMode) ?? 'light';
 const clientId = urlParameters.client || ApplicationIdProvider.get();
