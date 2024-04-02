@@ -1,7 +1,7 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
-import { ClientContextProvider, MonacoEditorUtil, ThemeContextProvider, initQueryClient } from '@axonivy/inscription-editor';
+import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
-import { SwitchThemeActionHandler, IvyUIExtension } from '@axonivy/process-editor';
+import { IvyUIExtension } from '@axonivy/process-editor';
 import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
@@ -14,7 +14,7 @@ import {
   isOpenable
 } from '@eclipse-glsp/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { inject, injectable, optional, postConstruct } from 'inversify';
+import { inject, injectable, postConstruct } from 'inversify';
 import React from 'react';
 import { Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
@@ -28,7 +28,6 @@ export class InscriptionUi extends IvyUIExtension implements IActionHandler, ISe
   static readonly ID = 'inscription-ui';
 
   @inject(SelectionService) protected readonly selectionService: SelectionService;
-  @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
   private inscriptionElement?: string;
   private action?: EnableInscriptionAction;
@@ -66,13 +65,11 @@ export class InscriptionUi extends IvyUIExtension implements IActionHandler, ISe
     this.inscriptionClient?.then(client => {
       this.root.render(
         <React.StrictMode>
-          <ThemeContextProvider theme={this.switchThemeHandler?.theme() ?? 'light'}>
-            <ClientContextProvider client={client}>
-              <QueryClientProvider client={this.queryClient}>
-                <InscriptionView app={this.inscriptionContext.app} pmv={this.inscriptionContext.pmv} pid={element} />
-              </QueryClientProvider>
-            </ClientContextProvider>
-          </ThemeContextProvider>
+          <ClientContextProvider client={client}>
+            <QueryClientProvider client={this.queryClient}>
+              <InscriptionView app={this.inscriptionContext.app} pmv={this.inscriptionContext.pmv} pid={element} />
+            </QueryClientProvider>
+          </ClientContextProvider>
         </React.StrictMode>
       );
     });

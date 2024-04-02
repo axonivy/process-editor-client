@@ -46,7 +46,7 @@ class Section {
 
   constructor(page: Page, parentLocator: Locator, name: string) {
     this.page = page;
-    this.section = parentLocator.locator(`.accordion-header:has-text("${name}")`);
+    this.section = parentLocator.locator(`.ui-accordion-header:has-text("${name}")`);
   }
 
   async open() {
