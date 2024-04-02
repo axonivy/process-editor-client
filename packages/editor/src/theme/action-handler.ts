@@ -10,7 +10,10 @@ export class SwitchThemeActionHandler implements IActionHandler {
 
   handle(action: Action): void | Action | ICommand {
     if (SwitchThemeAction.is(action)) {
-      document.documentElement.dataset.theme = action.theme;
+      const root = document.documentElement;
+      root.dataset.theme = action.theme;
+      root.classList.remove('light', 'dark');
+      root.classList.add(action.theme);
     }
   }
 
