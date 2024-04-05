@@ -21,9 +21,18 @@ export class Inscription {
     return new MonacoEditor(this.page, this.view);
   }
 
+  async openAccordion(name: string) {
+    const accordion = new Accordion(this.page, this.view, name);
+    await accordion.open();
+    return accordion;
+  }
+
   async openSection(name: string) {
-    const section = new Section(this.page, this.view, name);
-    await section.open();
+    const section = this.view.locator(`.ui-collapsible-trigger:has-text("${name}")`);
+    await expect(section).toBeVisible();
+    if ((await section.getAttribute('data-state')) === 'closed') {
+      await section.click();
+    }
     return section;
   }
 
@@ -40,7 +49,7 @@ export class Inscription {
   }
 }
 
-class Section {
+class Accordion {
   protected readonly page: Page;
   protected readonly section: Locator;
 
