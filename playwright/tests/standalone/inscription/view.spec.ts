@@ -23,21 +23,22 @@ test.describe('inscription view', () => {
     await changeName(view, 'start', 'hello');
 
     await processEditor.endElement.select();
-    const { section, input } = await changeName(view, '', 'world');
+    const { part, input } = await changeName(view, '', 'world');
 
-    await section.undo();
+    await part.undo();
     await input.expectValue('');
 
     await start.select();
-    await view.openSection('General');
-    await section.undo();
+    await view.openAccordion('General');
+    await part.undo();
     await input.expectValue('start');
   });
 
   test('ivyscript lsp', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const view = await processEditor.startElement.inscribe();
-    await view.openSection('Start');
+    await view.openAccordion('Start');
+    await view.openSection('Code');
     await view.monaco().expectContentAssist('ivy');
   });
 
@@ -53,9 +54,10 @@ test.describe('inscription view', () => {
 });
 
 async function changeName(view: Inscription, oldValue: string, value: string) {
-  const section = await view.openSection('General');
+  const part = await view.openAccordion('General');
+  await view.openSection('Name / Description');
   const input = view.input('Display name');
   await input.expectValue(oldValue);
   await input.fill(value);
-  return { section, input };
+  return { part, input };
 }
