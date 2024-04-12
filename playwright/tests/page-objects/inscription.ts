@@ -45,7 +45,7 @@ export class Inscription {
   }
 
   async expectHeader(name: string | RegExp) {
-    await expect(this.view.locator('.header-title')).toHaveText(name);
+    await expect(this.view.locator('.header')).toHaveText(name);
   }
 }
 
