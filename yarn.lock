@@ -7,26 +7,26 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@axonivy/inscription-core@11.3.0-next.1064+dbca3c06", "@axonivy/inscription-core@~11.3.0-next.1064":
-  version "11.3.0-next.1064"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.3.0-next.1064.tgz#24665ad1592708e9cbca4e1071cbfe56be532868"
-  integrity sha512-gD+sp1BZQG3TDomh5faxkbg1LbMC3uxEWVPl/l9hz8LAA/+Vm5Ey882l8gn1/UfpZbyQyLOd/P6hjVCf+Q8xPA==
+"@axonivy/inscription-core@11.3.0-next.1068+91c227c1", "@axonivy/inscription-core@~11.3.0-next.1068":
+  version "11.3.0-next.1068"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.3.0-next.1068.tgz#cd9cdf412b2d6ee1d26764977b7b7eaa24c9ab7e"
+  integrity sha512-IhRITiUG5Z4S9ljEy4gwZC1oAxyJ0+cDyizRYPmEZmem35Y3k5R2B2MOoAqqQcChr2creXtdSvempfABw4VwQg==
   dependencies:
-    "@axonivy/inscription-protocol" "11.3.0-next.1064+dbca3c06"
-    "@axonivy/jsonrpc" "11.3.0-next.126"
+    "@axonivy/inscription-protocol" "11.3.0-next.1068+91c227c1"
+    "@axonivy/jsonrpc" "11.3.0-next.128"
     monaco-editor "^0.44.0"
     monaco-editor-workers "^0.44.0"
     monaco-languageclient "^6.6.1"
     vscode-languageserver-protocol "^3.17.5"
 
-"@axonivy/inscription-editor@~11.3.0-next.1064":
-  version "11.3.0-next.1064"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.3.0-next.1064.tgz#e98ec996159d73ed176955a27f4d7038005c3f70"
-  integrity sha512-QSyzuSrlSm2Eh1DD5Q+U6zuwg2TpoNjEZtcf2qqw+hNqh4LVANxqyE21Ik/EYpA7WwmWeQyjBkIX1pc6SWtGqw==
+"@axonivy/inscription-editor@~11.3.0-next.1068":
+  version "11.3.0-next.1068"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.3.0-next.1068.tgz#97bd3779031edcf40129f65fe64ca1303fac2b8f"
+  integrity sha512-OkehEZpynv56azAzluXiBtbr4HiHvsm7qPEemp0WGeRRmmUl5F2J+dxITv47S7xv2V2VZAQyl6YUnHhYCB40EA==
   dependencies:
-    "@axonivy/inscription-core" "11.3.0-next.1064+dbca3c06"
-    "@axonivy/inscription-protocol" "11.3.0-next.1064+dbca3c06"
-    "@axonivy/ui-components" "11.3.0-next.126"
+    "@axonivy/inscription-core" "11.3.0-next.1068+91c227c1"
+    "@axonivy/inscription-protocol" "11.3.0-next.1068+91c227c1"
+    "@axonivy/ui-components" "11.3.0-next.128"
     "@monaco-editor/react" "^4.6.0"
     "@radix-ui/react-accordion" "^1.1.2"
     "@radix-ui/react-checkbox" "^1.0.4"
@@ -46,23 +46,23 @@
     react-aria "^3.31.0"
     react-error-boundary "^4.0.12"
 
-"@axonivy/inscription-protocol@11.3.0-next.1064+dbca3c06", "@axonivy/inscription-protocol@~11.3.0-next.1064":
-  version "11.3.0-next.1064"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.3.0-next.1064.tgz#8250bd4add8fe40ba9ad8d102a9dd09130e91291"
-  integrity sha512-cUG9E5MeNZFHl6Y87g1nj7atF6G7+k1qQszuWFghpiSmFNTn1ubzIGjjFUIkPIfUuoU2yFLO3XmWeeF9QVXVxg==
+"@axonivy/inscription-protocol@11.3.0-next.1068+91c227c1", "@axonivy/inscription-protocol@~11.3.0-next.1068":
+  version "11.3.0-next.1068"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.3.0-next.1068.tgz#76355777057e63531a56062c80b37277f3da69f4"
+  integrity sha512-FHVsHMVEpjhDC6+hiaZLcXjCfJoB/EVzfKzMz9MZQy+9tRTDqOumsrZLVRPGPiYA9JVzZEYF6t9/FAgZwjQL0g==
 
-"@axonivy/jsonrpc@11.3.0-next.126":
-  version "11.3.0-next.126"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.3.0-next.126.tgz#aa9cc3b4c517134206a77ecbdf884eea55f77400"
-  integrity sha512-2cRXf8xOqCy5G7d+sHacjdierekAAJDH88mo69Jzbb5zTpkDlm3xJJa9l4Oc359RFfl2rqHO88BWur0ncZbOew==
+"@axonivy/jsonrpc@11.3.0-next.128":
+  version "11.3.0-next.128"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/jsonrpc/-/jsonrpc-11.3.0-next.128.tgz#2d2c53a492add089e643647e41d51090548c9b54"
+  integrity sha512-JfaSpnfnDlUOv2wHKtG6ahj2z4RzfV1Jv+lp+iigGIVdv4hFxwN61Y3A820UwcO3IC5WwAP+83KIu4CAztLisw==
   dependencies:
     vscode-jsonrpc "^8.2.0"
     vscode-ws-jsonrpc "^3.0.0"
 
-"@axonivy/ui-components@11.3.0-next.126":
-  version "11.3.0-next.126"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.3.0-next.126.tgz#f8d00d4a8e9aafdfa4837ab38d7495201e99fed4"
-  integrity sha512-xX6a4NIVteZB6pPjq12m/JHSgCa9Z6ZPWVKZXRuE2XVwfm0vFC/IFwzY9QWkkFFH8oHeLC9cM88WgpYVMzLYRA==
+"@axonivy/ui-components@11.3.0-next.128":
+  version "11.3.0-next.128"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-components/-/ui-components-11.3.0-next.128.tgz#54472a59b22cffbcda502443ff16b68a7d0ebc45"
+  integrity sha512-H4kpj8WCRnrjY3wQpXehXNzWYTlCQC/aF35W0AeiOoxH07gfM0HyZTv2Q8AMTFU1pWVxBnP3SS0n+m9IJ46fXQ==
   dependencies:
     "@radix-ui/react-accordion" "^1.1.2"
     "@radix-ui/react-checkbox" "^1.0.4"
@@ -80,10 +80,10 @@
     downshift "^8.5.0"
     react-resizable-panels "^2.0.13"
 
-"@axonivy/ui-icons@~11.3.0-next.126":
-  version "11.3.0-next.126"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.0-next.126.tgz#7043496c42fdb6d0f02acb1164681eceae21f779"
-  integrity sha512-sIfrniMoFFvU6kT5JUAufww7f28AmE8hnnCmaPn8ZdE8E3LkLxO5LCX3zDsQ8elZncvmkaibHJC9gj26xtGi8Q==
+"@axonivy/ui-icons@~11.3.0-next.134":
+  version "11.3.0-next.134"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.0-next.134.tgz#f4535a954378c16765c1ba99a970dab4ba4006d7"
+  integrity sha512-6Eae5sbJCuqXLe2bkd1XxF3sPdtnjEgQ+YQHwVXc+n7maO50lhu01OMwc07pppKLHFuEszdBv4yUXjLXXJEniQ==
 
 "@babel/code-frame@^7.0.0":
   version "7.18.6"
