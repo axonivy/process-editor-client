@@ -198,13 +198,14 @@ export class QuickActionUI extends IvyUIExtension implements IActionHandler, ISe
   private shiftBar(bar: HTMLElement, distanceToWindow = 16): void {
     const bounds = bar.getBoundingClientRect();
     let shift = bounds.width / 2;
+    const minShift = bounds.x + bounds.width + distanceToWindow - shift;
+    const diagramDiv = this.getParentContainer();
+    if (minShift > diagramDiv.offsetWidth) {
+      shift += minShift - diagramDiv.offsetWidth;
+    }
     const maxShift = bounds.x - distanceToWindow;
     if (shift > maxShift) {
       shift = maxShift;
-    }
-    const minShift = bounds.x + bounds.width + distanceToWindow - shift;
-    if (minShift > window.innerWidth) {
-      shift += minShift - window.innerWidth;
     }
     bar.style.marginLeft = `${-shift}px`;
   }
