@@ -29,6 +29,7 @@ const InscriptionView = ({ app, pmv, pid }: InscriptionViewProps) => {
         inscriptionWidthStorage().setWidth(newWidth);
         return newWidth;
       });
+      window.dispatchEvent(new CustomEvent('resize'));
     },
     onMoveEnd() {
       setResizeActive(false);
