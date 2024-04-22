@@ -230,6 +230,7 @@ export class QuickActionUI extends IvyUIExtension implements IActionHandler, ISe
     this.createQuickActionGroup(bar, quickActions, 'Left');
     this.createQuickActionGroup(bar, quickActions, 'Middle');
     this.createQuickActionGroup(bar, quickActions, 'Right');
+    this.setContainerVisible(true);
   }
 
   private createQuickActionGroup(bar: HTMLElement, quickActions: QuickAction[], location: QuickActionLocation): void {

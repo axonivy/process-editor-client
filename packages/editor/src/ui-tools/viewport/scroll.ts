@@ -39,7 +39,11 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
     if (lane) {
       return [];
     }
-    const actions = super.mouseDown(target, event);
+    return super.mouseDown(target, event);
+  }
+
+  mouseMove(target: GModelElement, event: MouseEvent): Action[] {
+    const actions = super.mouseMove(target, event);
     if (this.lastScrollPosition) {
       this.quickActionUi.hideUi();
     }
