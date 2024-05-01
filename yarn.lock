@@ -7,25 +7,25 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@axonivy/inscription-core@11.3.0-next.1094+8cf1d0e3", "@axonivy/inscription-core@~11.3.0-next.1094":
-  version "11.3.0-next.1094"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.3.0-next.1094.tgz#4fe530b292fdf16b124c4d50f5ad206b564cba9f"
-  integrity sha512-kFqXcC5/Bsh3Kbol/UIqWF2Wy63mjfXvCxkSUlHYi354osObSfP3bMG8xJ7Kkta5BoHxWOJOd15aC98F6mPfEg==
+"@axonivy/inscription-core@11.3.0-next.1096+f807f7fc", "@axonivy/inscription-core@~11.3.0-next.1096":
+  version "11.3.0-next.1096"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.3.0-next.1096.tgz#9d4a9b7ff7a2747352df34628c006dd346f00c70"
+  integrity sha512-UuN6tnEgKF2fsLWa8UHhkb6N/aBNidFyRR9qI6NZ3c00k482Deg0LUX8oyJnV5K/jKd7+ymP5Cy+tq6oIRVPgg==
   dependencies:
-    "@axonivy/inscription-protocol" "11.3.0-next.1094+8cf1d0e3"
+    "@axonivy/inscription-protocol" "11.3.0-next.1096+f807f7fc"
     "@axonivy/jsonrpc" "11.3.0-next.142"
     monaco-editor "^0.44.0"
     monaco-editor-workers "^0.44.0"
     monaco-languageclient "^6.6.1"
     vscode-languageserver-protocol "^3.17.5"
 
-"@axonivy/inscription-editor@~11.3.0-next.1094":
-  version "11.3.0-next.1094"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.3.0-next.1094.tgz#9f2319982915e5d8236fc29d30916c874f1d8335"
-  integrity sha512-Dw9/aEGHsNRVN7Ac6iaiJzfuNeTDyOBykMKop+tZD//C6D7RMlK+cJn+WdFv0JhRQvuo9/s0W3B8kwD+WU/JtQ==
+"@axonivy/inscription-editor@~11.3.0-next.1096":
+  version "11.3.0-next.1096"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.3.0-next.1096.tgz#5329f9ceae06ebb742b09c27dffd1e6b88610f56"
+  integrity sha512-DutaI2Pb2MyPt3OWF3MGssMMveZ5R98GvSYu0m0xM2VppoTLe2OoHA2qQAR+gG/ZAbplu0W5SH+W3e+qHf0P0A==
   dependencies:
-    "@axonivy/inscription-core" "11.3.0-next.1094+8cf1d0e3"
-    "@axonivy/inscription-protocol" "11.3.0-next.1094+8cf1d0e3"
+    "@axonivy/inscription-core" "11.3.0-next.1096+f807f7fc"
+    "@axonivy/inscription-protocol" "11.3.0-next.1096+f807f7fc"
     "@axonivy/ui-components" "11.3.0-next.142"
     "@monaco-editor/react" "^4.6.0"
     "@radix-ui/react-accordion" "^1.1.2"
@@ -35,8 +35,8 @@
     "@radix-ui/react-label" "^2.0.2"
     "@radix-ui/react-radio-group" "^1.1.3"
     "@radix-ui/react-tabs" "^1.0.4"
-    "@tanstack/react-query" "^5.17.9"
-    "@tanstack/react-query-devtools" "^5.17.9"
+    "@tanstack/react-query" "5.32.1"
+    "@tanstack/react-query-devtools" "5.32.1"
     "@tanstack/react-table" "^8.13.2"
     "@tanstack/react-virtual" "^3.0.1"
     "@types/node" "^20.10.5"
@@ -46,10 +46,10 @@
     react-aria "^3.31.0"
     react-error-boundary "^4.0.12"
 
-"@axonivy/inscription-protocol@11.3.0-next.1094+8cf1d0e3", "@axonivy/inscription-protocol@~11.3.0-next.1094":
-  version "11.3.0-next.1094"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.3.0-next.1094.tgz#4695143bb69962a2bf2e50e0ecd096d8689c4902"
-  integrity sha512-9mcdEWyQ5hu/+8p3W9mkt4PcZJSWo4CjvqgIuH2nHfoe6b6haQVxzbh3/6EBpJQNmPspIl/Fe8jGRAr0bPBoJQ==
+"@axonivy/inscription-protocol@11.3.0-next.1096+f807f7fc", "@axonivy/inscription-protocol@~11.3.0-next.1096":
+  version "11.3.0-next.1096"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.3.0-next.1096.tgz#6f225cb9259bf1790e7ce818128fda760967d55f"
+  integrity sha512-4TDOu9BlaJxjb2CRZh9gBblM5hvM6zx/Xthj6s8OXqj2Tixfu0hqD9vj4Thna914l4d7oUtHqwkJnUhfutyxRQ==
 
 "@axonivy/jsonrpc@11.3.0-next.142":
   version "11.3.0-next.142"
@@ -2792,29 +2792,29 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tanstack/query-core@5.28.4":
-  version "5.28.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.28.4.tgz#fa416532f8b33ca8608d40bb9728b60e2e1a38dc"
-  integrity sha512-uQZqOFqLWUvXNIQZ63XdKzg22NtHzgCBUfDmjDHi3BoF+nUYeBNvMi/xFPtFrMhqRzG2Ir4mYaGsWZzmiEjXpA==
+"@tanstack/query-core@5.32.1":
+  version "5.32.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.32.1.tgz#742b0293bcefd91b2a4d6bd7543e710ab666ac94"
+  integrity sha512-mCWa1wdGb1jiny4+qYegbSeadcFj+Nq65KFSs4A1DRveoIq7SrTwUhqu7hrB6d54cQH5x59DfJvxusn3w1Cj/g==
 
-"@tanstack/query-devtools@5.28.3":
-  version "5.28.3"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.28.3.tgz#f00f92e261a2d201cc1b982c98fdd38a684c117d"
-  integrity sha512-Kxch05PVnxLUAyRiz2gXYQhXATHfXbQQwvz858YPjYYQyi7yk8SyS9Z5hyw90bRb0pd3rjelXyGFCsNMWvEghw==
+"@tanstack/query-devtools@5.32.1":
+  version "5.32.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.32.1.tgz#2c03f2fbe9162b650e697c469c8618c7a05d593f"
+  integrity sha512-7Xq57Ctopiy/4atpb0uNY5VRuCqRS/1fi/WBCKKX6jHMa6cCgDuV/AQuiwRXcKARbq2OkVAOrW2v4xK9nTbcCA==
 
-"@tanstack/react-query-devtools@^5.17.9":
-  version "5.28.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.28.4.tgz#258c429403f1b662194ce1f9c8143f066bd5b34e"
-  integrity sha512-oS+3INjCIX4Nkh0IAV6LH2mgLqJjkcd/DDxp8dwdWCGloLrz6IBj+bOuuI2wD0zb8r7l45wIAYIhl4Z6XyTupQ==
+"@tanstack/react-query-devtools@5.32.1":
+  version "5.32.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.32.1.tgz#d8a4349ef3085991ccd3048a5250f197f6db111a"
+  integrity sha512-NjNRPgCReZxgY5f56gnoTCR47NznHlQR4w2cW/W8B0QY8afkbPPnRlfzofs2SwdFW7F37Ysgjm8jtolPTzfa2Q==
   dependencies:
-    "@tanstack/query-devtools" "5.28.3"
+    "@tanstack/query-devtools" "5.32.1"
 
-"@tanstack/react-query@^5.17.9":
-  version "5.28.4"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.28.4.tgz#32e56ca4fd08513a906fe6323908f0e38ffccbba"
-  integrity sha512-BErcoB/QQG6YwLSUKnaGxF+lSc270RH2w3kMBpG0i4YzDCsFs2pdxPX1WVknQvFk9bNgukMb158hc2Zb4SdwSA==
+"@tanstack/react-query@5.32.1":
+  version "5.32.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.32.1.tgz#ddb2c5aef342694ad288fac61e12269775c46161"
+  integrity sha512-+nXLMB0JK0XwTJ+lQt49DPNLrbSppni9N5W5yMR085yW3YaRKRUFhfVTER3TvQd1UycHpoGPFnt1gHiijXERAg==
   dependencies:
-    "@tanstack/query-core" "5.28.4"
+    "@tanstack/query-core" "5.32.1"
 
 "@tanstack/react-table@^8.13.2":
   version "8.15.3"
