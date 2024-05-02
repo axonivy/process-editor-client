@@ -1,29 +1,29 @@
 /* Execution */
-.executed .sprotty-node:not(.selected) {
+.executed > .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution) !important;
 }
-.executed.last .sprotty-node {
+.executed.last > .sprotty-node {
   filter: drop-shadow(0px 0px 5px var(--glsp-execution));
 }
-.failed .sprotty-node:not(.selected) {
+.failed > .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution-failed) !important;
 }
-.failed.last .sprotty-node {
+.failed.last > .sprotty-node {
   filter: drop-shadow(0px 0px 5px var(--glsp-execution-failed));
 }
-.stopped .sprotty-node:not(.selected) {
+.stopped > .sprotty-node:not(.selected) {
   stroke: var(--glsp-execution-stopped) !important;
 }
-.stopped.last .sprotty-node {
+.stopped.last > .sprotty-node {
   filter: drop-shadow(0px 0px 5px var(--glsp-execution-stopped));
 }
-.executed.animate .sprotty-node {
+.executed.animate > .sprotty-node {
   animation: shadow-pulse 1s 1 ease-in-out;
 }
-.failed.animate .sprotty-node {
+.failed.animate > .sprotty-node {
   animation: shadow-pulse-failed 1s 1 ease-in-out;
 }
-.stopped.animate .sprotty-node {
+.stopped.animate > .sprotty-node {
   animation: shadow-pulse-stopped 1s 1 ease-in-out;
 }
 .sprotty-edge.executed {
