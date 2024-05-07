@@ -19,7 +19,7 @@ export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProv
         icon: IvyIcons.ChangeType,
         title: 'Select Activity Type',
         location: 'Middle',
-        sorting: 'Z',
+        sorting: 'Y',
         action: ShowQuickActionMenuAction.create({
           elementIds: [element.id],
           paletteItems: () => this.types.getPaletteItems(),

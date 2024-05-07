@@ -26,7 +26,7 @@ const diagramType = 'ivy-glsp-process';
 const theme = (urlParameters.theme as ThemeMode) ?? 'light';
 const clientId = urlParameters.client || ApplicationIdProvider.get();
 const widgetId = urlParameters.widget || clientId;
-const showGrid = urlParameters.grid ? urlParameters.grid === 'true' : true;
+const showGrid = urlParameters.grid ? urlParameters.grid === 'true' : false;
 const debug = urlParameters.debug ? urlParameters.debug === 'true' : false;
 setWidgetId(widgetId);
 
