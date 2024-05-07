@@ -11,7 +11,7 @@ export class EditLabelActionProvider extends SingleQuickActionProvider {
         icon: IvyIcons.Label,
         title: 'Edit Label (L)',
         location: 'Middle',
-        sorting: 'B',
+        sorting: 'C',
         action: EditLabelAction.create(element.editableLabel.id),
         shortcut: 'KeyL'
       };

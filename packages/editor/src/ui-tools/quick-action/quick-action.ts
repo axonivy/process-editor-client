@@ -76,7 +76,7 @@ export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
         icon: IvyIcons.AutoAlign,
         title: 'Auto Align (A)',
         location: 'Middle',
-        sorting: 'Z',
+        sorting: 'Y',
         action: AutoAlignOperation.create({ elementIds: elementIds }),
         shortcut: 'KeyA'
       };
