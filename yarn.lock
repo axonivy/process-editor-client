@@ -7,25 +7,25 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@axonivy/inscription-core@11.3.0-next.1096+f807f7fc", "@axonivy/inscription-core@~11.3.0-next.1096":
-  version "11.3.0-next.1096"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.3.0-next.1096.tgz#9d4a9b7ff7a2747352df34628c006dd346f00c70"
-  integrity sha512-UuN6tnEgKF2fsLWa8UHhkb6N/aBNidFyRR9qI6NZ3c00k482Deg0LUX8oyJnV5K/jKd7+ymP5Cy+tq6oIRVPgg==
+"@axonivy/inscription-core@11.4.0-next.1106+8bf90d16", "@axonivy/inscription-core@~11.4.0-next.1106":
+  version "11.4.0-next.1106"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-core/-/inscription-core-11.4.0-next.1106.tgz#8e06787ee49c2d70e9270e46f21e54758eb327c3"
+  integrity sha512-GA+VC/79HswKiW5tBmKgofS41bysqrw/QF3vCKPDfi+g9GVPI2NKO1ek1kWWbaEd/AD7Z38Zm8drOYQBR/vOQQ==
   dependencies:
-    "@axonivy/inscription-protocol" "11.3.0-next.1096+f807f7fc"
+    "@axonivy/inscription-protocol" "11.4.0-next.1106+8bf90d16"
     "@axonivy/jsonrpc" "11.3.0-next.142"
     monaco-editor "^0.44.0"
     monaco-editor-workers "^0.44.0"
     monaco-languageclient "^6.6.1"
     vscode-languageserver-protocol "^3.17.5"
 
-"@axonivy/inscription-editor@~11.3.0-next.1096":
-  version "11.3.0-next.1096"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.3.0-next.1096.tgz#5329f9ceae06ebb742b09c27dffd1e6b88610f56"
-  integrity sha512-DutaI2Pb2MyPt3OWF3MGssMMveZ5R98GvSYu0m0xM2VppoTLe2OoHA2qQAR+gG/ZAbplu0W5SH+W3e+qHf0P0A==
+"@axonivy/inscription-editor@~11.4.0-next.1106":
+  version "11.4.0-next.1106"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-editor/-/inscription-editor-11.4.0-next.1106.tgz#a84238163f92fc4089d65558c2a76db1dc8a273c"
+  integrity sha512-FcIl79q2AtgManE7hzQxKqwH4BDIPQsLvEI4RMV0HsebaMyqcItah0t+AVYIy9//B6/Smb4hSp3PNwtSPSUV0g==
   dependencies:
-    "@axonivy/inscription-core" "11.3.0-next.1096+f807f7fc"
-    "@axonivy/inscription-protocol" "11.3.0-next.1096+f807f7fc"
+    "@axonivy/inscription-core" "11.4.0-next.1106+8bf90d16"
+    "@axonivy/inscription-protocol" "11.4.0-next.1106+8bf90d16"
     "@axonivy/ui-components" "11.3.0-next.142"
     "@monaco-editor/react" "^4.6.0"
     "@radix-ui/react-accordion" "^1.1.2"
@@ -46,10 +46,10 @@
     react-aria "^3.31.0"
     react-error-boundary "^4.0.12"
 
-"@axonivy/inscription-protocol@11.3.0-next.1096+f807f7fc", "@axonivy/inscription-protocol@~11.3.0-next.1096":
-  version "11.3.0-next.1096"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.3.0-next.1096.tgz#6f225cb9259bf1790e7ce818128fda760967d55f"
-  integrity sha512-4TDOu9BlaJxjb2CRZh9gBblM5hvM6zx/Xthj6s8OXqj2Tixfu0hqD9vj4Thna914l4d7oUtHqwkJnUhfutyxRQ==
+"@axonivy/inscription-protocol@11.4.0-next.1106+8bf90d16", "@axonivy/inscription-protocol@~11.4.0-next.1106":
+  version "11.4.0-next.1106"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/inscription-protocol/-/inscription-protocol-11.4.0-next.1106.tgz#82713b98e1488e7ba94a64ef2ed93caef2805c95"
+  integrity sha512-pv6prAuhv7xXGLEkMryCa83BsnvdPBZ/mPhGVz8pPTrL6u3lp6h8XW2FtM4A6yaSjHbdQ1/rqYajcD1SIaAOww==
 
 "@axonivy/jsonrpc@11.3.0-next.142":
   version "11.3.0-next.142"
@@ -80,10 +80,10 @@
     downshift "^8.5.0"
     react-resizable-panels "^2.0.13"
 
-"@axonivy/ui-icons@~11.3.0-next.144":
-  version "11.3.0-next.144"
-  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.3.0-next.144.tgz#129b42f5c11bec532334f0c0f4ce9ebf3513a246"
-  integrity sha512-Z//x4fMX2u+TsYcSas1nG0ARAnjensr8wQce636vZzCKoWpT4PjyvmlYEKKO+8rMirLqmwZoEnr2p24lQdsiKw==
+"@axonivy/ui-icons@~11.4.0-next.154":
+  version "11.4.0-next.154"
+  resolved "https://npmjs-registry.ivyteam.ch/@axonivy/ui-icons/-/ui-icons-11.4.0-next.154.tgz#546836ba8ea424b45545643d82ae3c4eb5654b39"
+  integrity sha512-QBRDYBaBjIu4L1EZEMELv/WkGTLtViQoPjtwujg6xkgAfYs0FX+3/werfCjt2iCz32f9vL6E+e+4Aj00w5q34A==
 
 "@babel/code-frame@^7.0.0":
   version "7.18.6"
