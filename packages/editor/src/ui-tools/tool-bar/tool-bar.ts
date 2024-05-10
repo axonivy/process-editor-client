@@ -92,6 +92,7 @@ export class ToolBar extends IvyUIExtension implements IActionHandler, IEditMode
     headerCompartment.appendChild(this.createLeftButtons());
     headerCompartment.appendChild(this.createMiddleButtons());
     headerCompartment.appendChild(this.createRightButtons());
+    this.containerElement.innerHTML = '';
     this.containerElement.appendChild(headerCompartment);
     this.changeActiveButton();
   }
@@ -241,7 +242,6 @@ export class ToolBar extends IvyUIExtension implements IActionHandler, IEditMode
 
   editModeChanged(_oldValue: string, _newValue: string): void {
     if (this.containerElement) {
-      this.containerElement.innerHTML = '';
       this.createHeader();
     }
   }
