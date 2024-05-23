@@ -7,21 +7,16 @@ import {
   DeleteElementContextMenuItemProvider,
   FeatureModule,
   GGraph,
-  GLSPProjectionView,
   GModelElement,
   IView,
   LogLevel,
-  SetViewportAction,
   TYPES,
-  configureActionHandler,
-  configureCommand,
   configureModelElement,
   moveFeature,
   selectFeature
 } from '@eclipse-glsp/client';
 import { interfaces } from 'inversify';
 
-import { ShowGridAction } from '@axonivy/process-editor-protocol';
 import { breakpointFeature } from '../breakpoint/model';
 import { goToSourceFeature, jumpFeature } from '../jump/model';
 import { IvyMovementRestrictor } from '../tools/movement-restrictor';
@@ -33,8 +28,7 @@ import { ActivityNodeView, SubActivityNodeView } from './activities/activity-vie
 import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { EventNodeView, IntermediateEventNodeView } from './events/event-views';
 import { GatewayNodeView } from './gateways/gateway-views';
-import { ShowGridActionHandler } from './grid/action-handler';
-import { GridFeedbackCommand } from './grid/feedback-action';
+import { IvyGraphView } from './grid/ivy-graph-view';
 import { LaneNodeView, PoolNodeView, RotateLabelView } from './lanes/lane-views';
 import {
   ActivityLabel,
@@ -50,7 +44,6 @@ import {
   RotateLabel,
   StartEventNode
 } from './model';
-import { IvyGridSnapper } from './snap';
 import {
   ActivityTypes,
   EdgeTypes,
@@ -67,17 +60,11 @@ import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views
 const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
   rebind(TYPES.LogLevel).toConstantValue(LogLevel.warn);
-  bind(TYPES.ISnapper).to(IvyGridSnapper);
   bind(TYPES.IContextMenuItemProvider).to(DeleteElementContextMenuItemProvider);
   bind(TYPES.IMovementRestrictor).to(IvyMovementRestrictor);
 
-  bind(ShowGridActionHandler).toSelf().inSingletonScope();
-  configureActionHandler({ bind, isBound }, ShowGridAction.KIND, ShowGridActionHandler);
-  configureActionHandler({ bind, isBound }, SetViewportAction.KIND, ShowGridActionHandler);
-  configureCommand({ bind, isBound }, GridFeedbackCommand);
-
   const context = { bind, unbind, isBound, rebind };
-  configureIvyModelElement(DefaultTypes.GRAPH, GGraph, GLSPProjectionView);
+  configureIvyModelElement(DefaultTypes.GRAPH, GGraph, IvyGraphView);
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);
   configureStartEvent(EventStartTypes.START_SIGNAL);

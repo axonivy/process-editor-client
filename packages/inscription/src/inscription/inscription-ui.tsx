@@ -1,11 +1,11 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
-import { IvyUIExtension } from '@axonivy/process-editor';
 import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
   GArgument,
+  GLSPAbstractUIExtension,
   GModelRoot,
   IActionHandler,
   ISelectionListener,
@@ -24,7 +24,7 @@ import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
 const JSX = { createElement: React.createElement };
 
 @injectable()
-export class InscriptionUi extends IvyUIExtension implements IActionHandler, ISelectionListener {
+export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHandler, ISelectionListener {
   static readonly ID = 'inscription-ui';
 
   @inject(SelectionService) protected readonly selectionService: SelectionService;

@@ -9,16 +9,16 @@ import {
   SetUIExtensionVisibilityAction,
   GModelRoot,
   TYPES,
-  SelectionService
+  SelectionService,
+  GLSPAbstractUIExtension
 } from '@eclipse-glsp/client';
 import { inject, injectable, postConstruct } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../utils/ui-utils';
 import { JumpAction } from '@axonivy/process-editor-protocol';
-import { IvyUIExtension } from '../utils/ivy-ui-extension';
 
 @injectable()
-export class JumpOutUi extends IvyUIExtension {
+export class JumpOutUi extends GLSPAbstractUIExtension {
   static readonly ID = 'jumpOutUi';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;

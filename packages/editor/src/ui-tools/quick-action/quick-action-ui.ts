@@ -1,4 +1,5 @@
 import {
+  GLSPAbstractUIExtension,
   Action,
   Bounds,
   BoundsAware,
@@ -32,10 +33,9 @@ import { Menu } from '../menu/menu';
 import { isQuickActionAware } from './model';
 import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { InfoQuickActionMenu, QuickActionMenu, ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
-import { IvyUIExtension } from '../../utils/ivy-ui-extension';
 
 @injectable()
-export class QuickActionUI extends IvyUIExtension implements IActionHandler, ISelectionListener {
+export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHandler, ISelectionListener {
   static readonly ID = 'quickActionsUi';
   private activeQuickActions: QuickAction[] = [];
   private activeQuickActionBtn?: HTMLElement;
@@ -199,7 +199,7 @@ export class QuickActionUI extends IvyUIExtension implements IActionHandler, ISe
     const bounds = bar.getBoundingClientRect();
     let shift = bounds.width / 2;
     const minShift = bounds.x + bounds.width + distanceToWindow - shift;
-    const diagramDiv = this.getParentContainer();
+    const diagramDiv = this.getParentContainer()!;
     if (minShift > diagramDiv.offsetWidth) {
       shift += minShift - diagramDiv.offsetWidth;
     }

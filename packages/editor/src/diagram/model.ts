@@ -33,20 +33,21 @@ import {
   GParentElement,
   GRoutableElement,
   WithEditableLabel,
-  withEditLabelFeature
+  withEditLabelFeature,
+  ResizableModelElement,
+  ResizeHandleLocation
 } from '@eclipse-glsp/client';
 import { singleWrapFeature, wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
 import { Executable, executionFeature } from '../execution/model';
-import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
 import { WithCustomIcon } from './icon/model';
 import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
-export class LaneNode extends RectangularNode implements WithEditableLabel, ArgsAware {
+export class LaneNode extends RectangularNode implements WithEditableLabel, ArgsAware, ResizableModelElement {
   static readonly DEFAULT_FEATURES = [
     boundsFeature,
     layoutContainerFeature,
@@ -56,10 +57,14 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, Args
     selectFeature,
     quickActionFeature,
     deletableFeature,
-    laneResizeFeature
+    resizeFeature
   ];
 
   args: Args;
+  get resizeLocations(): ResizeHandleLocation[] {
+    // ideally the server already sets these
+    return [ResizeHandleLocation.Top, ResizeHandleLocation.Bottom];
+  }
 
   get editableLabel(): (GChildElement & EditableLabel) | undefined {
     return findEditableLabel(this, LaneTypes.LABEL);

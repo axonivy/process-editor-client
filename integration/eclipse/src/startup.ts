@@ -1,7 +1,7 @@
 import { IVY_TYPES, ToolBar } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
-import { EnableViewportAction, ShowGridAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
-import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, TYPES } from '@eclipse-glsp/client';
+import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
+import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, ShowGridAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 

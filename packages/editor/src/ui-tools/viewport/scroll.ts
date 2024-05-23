@@ -5,14 +5,15 @@ import {
   GLSPScrollMouseListener,
   GModelElement,
   ICommand,
+  SResizeHandle,
   findParentByFeature,
   isCtrlOrCmd,
-  isViewport
+  isViewport,
+  toTypeGuard
 } from '@eclipse-glsp/client';
 import { inject, injectable, postConstruct } from 'inversify';
 import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
 
-import { isLaneResizeHandle } from '../../lanes/model';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
 @injectable()
@@ -35,8 +36,8 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
   }
 
   mouseDown(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
-    const lane = findParentByFeature(target, isLaneResizeHandle);
-    if (lane) {
+    const handle = findParentByFeature(target, toTypeGuard(SResizeHandle));
+    if (handle) {
       return [];
     }
     return super.mouseDown(target, event);

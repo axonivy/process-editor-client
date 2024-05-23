@@ -1,4 +1,4 @@
-import { RectangularNodeView, RenderingContext, GShapeElement, svg } from '@eclipse-glsp/client';
+import { ATTR_BBOX_ELEMENT, GShapeElement, RectangularNodeView, RenderingContext, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
@@ -14,13 +14,15 @@ const JSX = { createElement: svg };
 export class ActivityNodeView extends RectangularNodeView {
   @inject(CustomIconToggleActionHandler) @optional() protected customIconHandler?: CustomIconToggleActionHandler;
 
-  render(node: ActivityNode, context: RenderingContext): VNode {
+  render(node: ActivityNode, context: RenderingContext): VNode | undefined {
+    if (!this.isVisible(node, context)) {
+      return undefined;
+    }
     const rcr = this.getRoundedCornerRadius(node);
-    const width = Math.max(0, node.bounds.width);
-    const height = Math.max(0, node.bounds.height);
     return (
       <g>
         <rect
+          attrs={{ [ATTR_BBOX_ELEMENT]: true }}
           class-sprotty-node={true}
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
@@ -28,14 +30,14 @@ export class ActivityNodeView extends RectangularNodeView {
           y={0}
           rx={rcr}
           ry={rcr}
-          width={width}
-          height={height}
+          width={node.bounds.width}
+          height={node.bounds.height}
           style={{ stroke: node.color }}
         ></rect>
         {context.renderChildren(node)}
         {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.type, node.color)}
         {this.getNodeDecorator(node)}
-        {createExecutionBadge(node, width)}
+        {createExecutionBadge(node, node.bounds.width)}
       </g>
     );
   }

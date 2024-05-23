@@ -1,9 +1,9 @@
-import { Action, IActionDispatcher } from '@eclipse-glsp/client';
+import { Action, IActionDispatcher, ShowGridAction } from '@eclipse-glsp/client';
 import { Menu } from '../../menu/menu';
 import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
 import { ShowToolBarOptionsMenuAction } from './action';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { CustomIconToggleAction, ShowGridAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { CustomIconToggleAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 
 interface Option {
   icon: IvyIcons;
