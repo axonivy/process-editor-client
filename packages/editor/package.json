@@ -18,8 +18,8 @@
     "bpmn"
   ],
   "dependencies": {
-    "@axonivy/process-editor-protocol": "11.3.1-next",
-    "@axonivy/ui-icons": "~11.3.0-next.154",
+    "@axonivy/process-editor-protocol": "~11.3.1-next",
+    "@axonivy/ui-icons": "~11.3.1-next.156",
     "@eclipse-glsp/client": "~2.1.0",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
