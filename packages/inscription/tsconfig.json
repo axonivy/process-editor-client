@@ -5,5 +5,8 @@
     "outDir": "lib"
   },
   "include": ["src"],
-  "references": [{ "path": "../protocol/tsconfig.json" }, { "path": "../editor/tsconfig.json" }]
+  "references": [
+    { "path": "../protocol/tsconfig.json" },
+    { "path": "../editor/tsconfig.build.json" }
+  ]
 }
