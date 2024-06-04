@@ -1,4 +1,4 @@
-import { CircularNodeView, RenderingContext, svg } from '@eclipse-glsp/client';
+import { CircularNodeView, RenderingContext, hiddenBoundingRect, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
@@ -18,6 +18,7 @@ export class EventNodeView extends CircularNodeView {
     const radius = this.getRadius(node);
     return (
       <g>
+        {hiddenBoundingRect(node, context)}
         <circle
           class-sprotty-node={true}
           class-mouseover={node.hoverFeedback}

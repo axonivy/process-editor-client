@@ -1,4 +1,4 @@
-import { Bounds, ExportSvgAction, getAbsoluteBounds, GEdge, GModelRoot, GNode, SvgExporter } from '@eclipse-glsp/client';
+import { Bounds, ExportSvgAction, getAbsoluteBounds, GEdge, GModelRoot, GNode, SvgExporter, Dimension, Point } from '@eclipse-glsp/client';
 import { RequestAction } from '@eclipse-glsp/protocol';
 import { injectable } from 'inversify';
 import { getAbsoluteEdgeBounds, getAbsoluteLabelBounds } from '../../utils/diagram-utils';
@@ -85,6 +85,6 @@ export class IvySvgExporter extends SvgExporter {
           allBounds.push(getAbsoluteEdgeBounds(element));
         }
       });
-    return allBounds.reduce((one, two) => Bounds.combine(one, two));
+    return allBounds.filter(bounds => Point.isValid(bounds) && Dimension.isValid(bounds)).reduce((one, two) => Bounds.combine(one, two));
   }
 }
