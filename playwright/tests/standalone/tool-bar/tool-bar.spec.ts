@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
-import { graphLocator } from '../../page-objects/graph';
 
 test.describe('tool bar', () => {
   test('switch tool', async ({ page }) => {
@@ -49,10 +48,9 @@ test.describe('tool bar', () => {
   test('ghost element', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const userTask = processEditor.element('userTask');
-    await expect(graphLocator(page).locator('.ghost-element')).toBeHidden();
+    await expect(page.locator('.ghost-element')).toBeHidden();
     await processEditor.toolbar().triggerCreateElement('activities', 'User Task');
-    await page.mouse.move(100, 100);
-    await page.mouse.move(200, 200);
+    await page.mouse.move(300, 300);
     await expect(userTask.locator()).toBeVisible();
     await expect(userTask.locator()).toHaveClass(/ghost-element/);
   });

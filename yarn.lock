@@ -137,12 +137,12 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
-"@eclipse-glsp/client@^2.2.0-next.341", "@eclipse-glsp/client@next":
-  version "2.2.0-next.341"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.2.0-next.341.tgz#899b9896c6cd464e5d1909f9e22e90ae1a320102"
-  integrity sha512-Tc5cQ3rDejQ8hvljSXvwGfaecSsdwKsnsTv1ITCA0eUfcsDDYiHmATiTKgCjaqKWRppXY7JO9cMJ/YCDF39sbA==
+"@eclipse-glsp/client@^2.2.0-next.348", "@eclipse-glsp/client@next":
+  version "2.2.0-next.348"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.2.0-next.348.tgz#89de0a95cf60065d649b611ad88742ff74ecf010"
+  integrity sha512-1uJ9U4Go64EPi3NEGrzq9eS1dshOCBknwi7yP84SUQsRxRl3LaRo1pyDfYYAIz8SwNSEy1FQDw0z6HxcF5GKsQ==
   dependencies:
-    "@eclipse-glsp/sprotty" "2.2.0-next.341+65b68e3"
+    "@eclipse-glsp/sprotty" "2.2.0-next.348+062e335"
     autocompleter "^9.1.0"
     file-saver "^2.0.5"
     lodash "4.17.21"
@@ -154,25 +154,25 @@
   dependencies:
     "@eclipse-glsp/client" next
 
-"@eclipse-glsp/protocol@2.2.0-next.341+65b68e3", "@eclipse-glsp/protocol@^2.2.0-next.341", "@eclipse-glsp/protocol@next":
-  version "2.2.0-next.341"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.2.0-next.341.tgz#e10ebe45e46693cfbfa28d343542ef4f250a5475"
-  integrity sha512-DVbtriSJ+jpAydKZQwvD9GQd5uouCUMz5Odfn3xo5nxyhJum7BZhmfC9NAr+arAc8oEdjwanLCpK6/TFB8WDzA==
+"@eclipse-glsp/protocol@2.2.0-next.348+062e335", "@eclipse-glsp/protocol@^2.2.0-next.348", "@eclipse-glsp/protocol@next":
+  version "2.2.0-next.348"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.2.0-next.348.tgz#940b8f0583fd31138f82a4289b4e7c22b4e8097f"
+  integrity sha512-bQ73qtUx/opjeSw43ymJY/C7nU8ULPp/MGBSsMpbaMUz8CZwh2AoJ6cVOpHS698+EekMney4kSR6pxM4gESBWg==
   dependencies:
-    sprotty-protocol "1.0.0"
+    sprotty-protocol "1.2.0"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
 
-"@eclipse-glsp/sprotty@2.2.0-next.341+65b68e3":
-  version "2.2.0-next.341"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.2.0-next.341.tgz#94b5c274f7f97d5cd539e887e463a5a422fda627"
-  integrity sha512-H2sFJnOYErvWFLYYXM5MCOkjp4GTxKuHo/4u1/g/rktdvKvDCpVljGvrqdQukrcUZLeLMshC17bUdNRY7An3Cg==
+"@eclipse-glsp/sprotty@2.2.0-next.348+062e335":
+  version "2.2.0-next.348"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.2.0-next.348.tgz#c1be4a366b0b9a8e4c842291bcc1852544234e79"
+  integrity sha512-GdTddg2DwWVvQ/NcLTAQ2JUM0RTe93LSoUIInn3jOIqdOtDTDe9hA1WN0dBeXbsCoKki22qaI+ZSfSjFbsoR2A==
   dependencies:
-    "@eclipse-glsp/protocol" "2.2.0-next.341+65b68e3"
+    "@eclipse-glsp/protocol" "2.2.0-next.348+062e335"
     autocompleter "^9.1.0"
-    snabbdom "^3.5.1"
-    sprotty "1.0.0"
-    sprotty-protocol "1.0.0"
+    snabbdom "~3.5.1"
+    sprotty "1.2.0"
+    sprotty-protocol "1.2.0"
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"
@@ -3395,6 +3395,11 @@ autocompleter@^9.1.0:
   resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-9.1.2.tgz#1f30c2db277de029a05a3fbbfac642e73ca107c1"
   integrity sha512-L4DJ2UIsIy/YrTchKHHfyQRng2p8m9xpari1uHYZ/5DynQombeshF73uVQbrtdLxLSlK0R7ObhpnbPBkI8j8xA==
 
+autocompleter@^9.1.2:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/autocompleter/-/autocompleter-9.2.1.tgz#af24b3bc5d68b209ce43e2c4980706e7313f2714"
+  integrity sha512-lZVD5JZxxg3o6hnh7oB3M4kVAJPp/xFKmrO9RYeMGpFIH1XokmwevMLzSYz0BHSAbXMX6H3hEMsDxAd2dMebag==
+
 available-typed-arrays@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
@@ -5286,7 +5291,7 @@ invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
-inversify@^6.0.1:
+inversify@^6.0.1, inversify@~6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/inversify/-/inversify-6.0.2.tgz#dc7fa0348213d789d35ffb719dea9685570989c7"
   integrity sha512-i9m8j/7YIv4mDuYXUAcrpKPSaju/CIly9AHK5jvCBeoiM/2KEsuCQTTP+rzSWWpLYWRukdXFSl6ZTk2/uumbiA==
@@ -7677,7 +7682,7 @@ snabbdom-to-html@^7.1.0:
     object-assign "^4.1.0"
     parse-sel "^1.0.0"
 
-snabbdom@^3.5.1:
+snabbdom@~3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/snabbdom/-/snabbdom-3.5.1.tgz#25f80ef15b194baea703d9d5441892e369de18e1"
   integrity sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==
@@ -7775,20 +7780,21 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-sprotty-protocol@1.0.0, sprotty-protocol@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-1.0.0.tgz#b22e2da7e10b168debdc17feb61c4b832f01f614"
-  integrity sha512-p1H+ihcOmj0LEk2atcwOnYQPm0WByaOB1yX7fd869ONfQ5R+7x0X20YPdVLeCWmnhsszC/Rf91ojwaQiNIiHNA==
+sprotty-protocol@1.2.0, sprotty-protocol@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sprotty-protocol/-/sprotty-protocol-1.2.0.tgz#cfd6d637f2670a3d641997bb5add27cb1bddb57a"
+  integrity sha512-SHu61Qiw7bAD2nyRqdOASSihVNbeEuKI7cQx+o9EeyLpbmXKX6NTcGSVpxmWztHUIP0I6gZhKnkhF/BWo46mUQ==
 
-sprotty@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-1.0.0.tgz#f575a97064ec90f08c468aa3f98a8b0df6887230"
-  integrity sha512-PaGVT1Qc19Mjl1X29UtMm1TNqz9k4AT1QgaXc04njSBKDsSfskS0OupV+oV5m/igbf+juOcHwcbcZdhAxF7RjQ==
+sprotty@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/sprotty/-/sprotty-1.2.0.tgz#6c377b36fc6d410bcb65aff0d3893076f84bc8d8"
+  integrity sha512-/YL1+S+pLhV+hF0Z9C4vQGuaVv9NVsDgEqRnF+vevvdbeio1w8lfGxOMKjzY7DHcVDBQoKe0kbKJXvMr3f/RsA==
   dependencies:
-    autocompleter "^9.1.0"
+    autocompleter "^9.1.2"
     file-saver "^2.0.5"
-    snabbdom "^3.5.1"
-    sprotty-protocol "^1.0.0"
+    inversify "~6.0.2"
+    snabbdom "~3.5.1"
+    sprotty-protocol "^1.2.0"
     tinyqueue "^2.0.3"
 
 ssri@^10.0.0, ssri@^10.0.1:
