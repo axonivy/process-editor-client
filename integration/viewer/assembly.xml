@@ -13,7 +13,7 @@
   <fileSets>
     <fileSet>
       <directory>build</directory>
-      <outputDirectory>./META-INF/resources/process-editor</outputDirectory>
+      <outputDirectory>./META-INF/resources/process-viewer</outputDirectory>
     </fileSet>
   </fileSets>
 </assembly>
