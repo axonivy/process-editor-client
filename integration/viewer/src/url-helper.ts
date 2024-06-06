@@ -2,7 +2,7 @@ export function getServerDomain(): string {
   const protocol = window.location.protocol;
   if (protocol.startsWith('http')) {
     const href = window.location.href;
-    return href.substring(protocol.length + 2, href.indexOf('/process-editor'));
+    return href.substring(protocol.length + 2, href.indexOf('/process-viewer'));
   }
   return 'localhost:8081';
 }
