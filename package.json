@@ -48,7 +48,7 @@
   },
   "resolutions": {
     "vscode-jsonrpc": "8.2.0",
-    "@eclipse-glsp/protocol": "^2.2.0-next.348",
-    "@eclipse-glsp/client": "^2.2.0-next.348"
+    "@eclipse-glsp/protocol": "^2.2.0-next.349",
+    "@eclipse-glsp/client": "^2.2.0-next.349"
   }
 }

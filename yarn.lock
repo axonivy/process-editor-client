@@ -137,12 +137,12 @@
     monaco-editor "0.44.0"
     vscode "npm:@codingame/monaco-vscode-api@1.83.5"
 
-"@eclipse-glsp/client@^2.2.0-next.348", "@eclipse-glsp/client@next":
-  version "2.2.0-next.348"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.2.0-next.348.tgz#89de0a95cf60065d649b611ad88742ff74ecf010"
-  integrity sha512-1uJ9U4Go64EPi3NEGrzq9eS1dshOCBknwi7yP84SUQsRxRl3LaRo1pyDfYYAIz8SwNSEy1FQDw0z6HxcF5GKsQ==
+"@eclipse-glsp/client@^2.2.0-next.349", "@eclipse-glsp/client@next":
+  version "2.2.0-next.349"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/client/-/client-2.2.0-next.349.tgz#759acb53cb5a5be2730ce17ebc22487a118e2c9b"
+  integrity sha512-vYFvAuZiCKY9VUJ7nTV6zXtokBbzmcCC1wT/5zIvHte0DnHcGyO7AkHvnu7orOnEKC5Ygx0bXheN837a7eJ+1w==
   dependencies:
-    "@eclipse-glsp/sprotty" "2.2.0-next.348+062e335"
+    "@eclipse-glsp/sprotty" "2.2.0-next.349+663c6df"
     autocompleter "^9.1.0"
     file-saver "^2.0.5"
     lodash "4.17.21"
@@ -154,21 +154,21 @@
   dependencies:
     "@eclipse-glsp/client" next
 
-"@eclipse-glsp/protocol@2.2.0-next.348+062e335", "@eclipse-glsp/protocol@^2.2.0-next.348", "@eclipse-glsp/protocol@next":
-  version "2.2.0-next.348"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.2.0-next.348.tgz#940b8f0583fd31138f82a4289b4e7c22b4e8097f"
-  integrity sha512-bQ73qtUx/opjeSw43ymJY/C7nU8ULPp/MGBSsMpbaMUz8CZwh2AoJ6cVOpHS698+EekMney4kSR6pxM4gESBWg==
+"@eclipse-glsp/protocol@2.2.0-next.349+663c6df", "@eclipse-glsp/protocol@^2.2.0-next.349", "@eclipse-glsp/protocol@next":
+  version "2.2.0-next.349"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/protocol/-/protocol-2.2.0-next.349.tgz#0a79b9ab9384c26c30f739b44b37cbc1ec67401d"
+  integrity sha512-gYUAHZE1VnCUaGDXGRFta9+Y5IEz99DnsiqBFXZy3DlQxiXRJJzeksYIchpsJfBygcEKcuytGhMz5aXtskzYqg==
   dependencies:
     sprotty-protocol "1.2.0"
     uuid "7.0.3"
     vscode-jsonrpc "^8.0.2"
 
-"@eclipse-glsp/sprotty@2.2.0-next.348+062e335":
-  version "2.2.0-next.348"
-  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.2.0-next.348.tgz#c1be4a366b0b9a8e4c842291bcc1852544234e79"
-  integrity sha512-GdTddg2DwWVvQ/NcLTAQ2JUM0RTe93LSoUIInn3jOIqdOtDTDe9hA1WN0dBeXbsCoKki22qaI+ZSfSjFbsoR2A==
+"@eclipse-glsp/sprotty@2.2.0-next.349+663c6df":
+  version "2.2.0-next.349"
+  resolved "https://registry.yarnpkg.com/@eclipse-glsp/sprotty/-/sprotty-2.2.0-next.349.tgz#d9f482384dbf6aacb22087d11162a559c67be6be"
+  integrity sha512-br7i6nd40P7OkdiLlTAas/tvMsTi1OjSmWP8vMIGxWPHAT6/1uWTRfjL01+7Bd0/5eQkCVsYAQxfiHNjoNUjXQ==
   dependencies:
-    "@eclipse-glsp/protocol" "2.2.0-next.348+062e335"
+    "@eclipse-glsp/protocol" "2.2.0-next.349+663c6df"
     autocompleter "^9.1.0"
     snabbdom "~3.5.1"
     sprotty "1.2.0"

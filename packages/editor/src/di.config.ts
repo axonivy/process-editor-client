@@ -9,21 +9,13 @@ import {
   baseViewModule,
   bindAsService,
   bindOrRebind,
-  changeBoundsToolModule,
-  decorationModule,
-  exportModule,
   gridModule,
   helperLineModule,
   hoverModule,
   initializeDiagramContainer,
-  labelEditModule,
-  labelEditUiModule,
   navigationModule,
   overrideViewerOptions,
-  statusModule,
-  toolPaletteModule,
-  viewportModule,
-  zorderModule
+  statusModule
 } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import ivyAnimateModule from './animate/di.config';
@@ -67,14 +59,14 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     // replacements:
     // ensure that replacements have the same featureId as the original modules to properly handle
     // dependencies/requirements between modules as otherwise some other modules might not be loaded
-    { remove: viewportModule, add: ivyViewportModule },
-    { remove: decorationModule, add: ivyDecorationModule },
-    { remove: zorderModule, add: ivyZorderModule },
-    { remove: toolPaletteModule, add: ivyToolBarModule },
-    { remove: labelEditModule, add: ivyLabelEditModule },
-    { remove: labelEditUiModule, add: ivyLabelEditUiModule },
-    { remove: changeBoundsToolModule, add: ivyChangeBoundsToolModule },
-    { remove: exportModule, add: ivyExportModule },
+    { replace: ivyViewportModule },
+    { replace: ivyDecorationModule },
+    { replace: ivyZorderModule },
+    { replace: ivyToolBarModule },
+    { replace: ivyLabelEditModule },
+    { replace: ivyLabelEditUiModule },
+    { replace: ivyChangeBoundsToolModule },
+    { replace: ivyExportModule },
 
     // Ivy additions
     ivyDiagramModule,
