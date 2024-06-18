@@ -1,4 +1,4 @@
-import { GModelElement } from '@eclipse-glsp/client';
+import { GModelElement, GArgument } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { StartProcessAction, SearchProcessCallersAction } from '@axonivy/process-editor-protocol';
 import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
@@ -10,12 +10,13 @@ import { IvyIcons } from '@axonivy/ui-icons';
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
   singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (element instanceof StartEventNode && element.type === EventStartTypes.START) {
+      const processStartUri = GArgument.getString(element, 'processStartUri') ?? '';
       return {
         icon: IvyIcons.Play,
         title: 'Start Process (X)',
         location: 'Left',
         sorting: 'A',
-        action: StartProcessAction.create(element.id),
+        action: StartProcessAction.create(element.id, processStartUri),
         readonlySupport: true,
         shortcut: 'KeyX',
         removeSelection: true

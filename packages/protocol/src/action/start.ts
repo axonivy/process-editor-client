@@ -1,18 +1,24 @@
-import { Action } from '@eclipse-glsp/protocol';
+import { Action, hasStringProp } from '@eclipse-glsp/protocol';
 
 export interface StartProcessAction extends Action {
   kind: typeof StartProcessAction.KIND;
   elementId: string;
+  processStartUri: string;
 }
 
 export namespace StartProcessAction {
   export const KIND = 'startProcess';
 
-  export function create(elementId: string): StartProcessAction {
+  export function create(elementId: string, processStartUri: string): StartProcessAction {
     return {
       kind: KIND,
-      elementId
+      elementId,
+      processStartUri
     };
+  }
+
+  export function is(object: any): object is StartProcessAction {
+    return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId') && hasStringProp(object, 'processStartUri');
   }
 }
 
