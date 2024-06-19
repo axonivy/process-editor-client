@@ -1,23 +1,23 @@
 import {
   angleOfPoint,
+  Bounds,
+  Dimension,
   EdgePadding,
+  GEdge,
   GEdgeView,
+  GResizeHandle,
+  GResizeHandleView,
+  hasArgs,
+  IntersectingRoutedPoint,
   IView,
+  IViewArgs,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
-  GEdge,
-  svg,
-  toDegrees,
-  hasArgs,
-  IntersectingRoutedPoint,
   SEdgeImpl,
-  IViewArgs,
-  Bounds,
-  Dimension,
-  SResizeHandle,
-  SResizeHandleView,
-  setAttr
+  setAttr,
+  svg,
+  toDegrees
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
@@ -25,8 +25,8 @@ import virtualize from 'sprotty/lib/lib/virtualize';
 import { Edge, MulitlineEditLabel } from './model';
 import { escapeHtmlWithLineBreaks } from './util';
 
-import { ActivityTypes } from './view-types';
 import { isLaneResizable, LaneResizable } from '../lanes/model';
+import { ActivityTypes } from './view-types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
@@ -148,8 +148,8 @@ export class AssociationEdgeView extends GEdgeView {
 }
 
 @injectable()
-export class IvyResizeHandleView extends SResizeHandleView {
-  render(handle: SResizeHandle, context: RenderingContext): VNode | undefined {
+export class IvyResizeHandleView extends GResizeHandleView {
+  render(handle: GResizeHandle, context: RenderingContext): VNode | undefined {
     if (context.targetKind === 'hidden') {
       return undefined;
     }
@@ -165,7 +165,7 @@ export class IvyResizeHandleView extends SResizeHandleView {
     return <g />;
   }
 
-  protected renderLandeResizeHandle(handle: SResizeHandle, position: Point) {
+  protected renderLandeResizeHandle(handle: GResizeHandle, position: Point) {
     const node = (
       <svg
         class-lane-resize-handle={true}
@@ -183,7 +183,7 @@ export class IvyResizeHandleView extends SResizeHandleView {
     return node;
   }
 
-  protected getLaneHandlePosition(handle: SResizeHandle, element: LaneResizable): Point | undefined {
+  protected getLaneHandlePosition(handle: GResizeHandle, element: LaneResizable): Point | undefined {
     if (handle.isNResize()) {
       return { x: Dimension.center(element.bounds).x, y: 5 };
     } else if (handle.isSResize()) {

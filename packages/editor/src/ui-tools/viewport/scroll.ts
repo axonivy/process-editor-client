@@ -4,8 +4,8 @@ import {
   GLSPMouseTool,
   GLSPScrollMouseListener,
   GModelElement,
+  GResizeHandle,
   ICommand,
-  SResizeHandle,
   findParentByFeature,
   isCtrlOrCmd,
   isViewport,
@@ -36,7 +36,7 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
   }
 
   mouseDown(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
-    const handle = findParentByFeature(target, toTypeGuard(SResizeHandle));
+    const handle = findParentByFeature(target, toTypeGuard(GResizeHandle));
     if (handle) {
       return [];
     }

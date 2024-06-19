@@ -4,8 +4,8 @@ import {
   ExportSvgCommand,
   ExportSvgPostprocessor,
   FeatureModule,
+  GResizeHandle,
   HideChangeBoundsToolResizeFeedbackCommand,
-  SResizeHandle,
   ShowChangeBoundsToolResizeFeedbackCommand,
   TYPES,
   bindAsService,
@@ -15,11 +15,11 @@ import {
   exportModule
 } from '@eclipse-glsp/client';
 
+import { IvyResizeHandleView } from '../diagram/views';
 import { IvySvgExporter } from './export/ivy-svg-exporter';
 import './helper-line.css';
-import { ShowNegativeAreaFeedbackCommand } from './negative-area/model';
 import { IvyChangeBoundsManager } from './ivy-change-bounds-manager';
-import { IvyResizeHandleView } from '../diagram/views';
+import { ShowNegativeAreaFeedbackCommand } from './negative-area/model';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -31,7 +31,7 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
 
     // GLSP replacements
     bindAsService(context, ChangeBoundsManager, IvyChangeBoundsManager);
-    configureView(context, SResizeHandle.TYPE, IvyResizeHandleView);
+    configureView(context, GResizeHandle.TYPE, IvyResizeHandleView);
 
     // extension
     configureCommand(context, ShowNegativeAreaFeedbackCommand);
