@@ -1,6 +1,14 @@
-import { GChildElement, Command, CommandExecutionContext, GModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import {
+  GChildElement,
+  Command,
+  CommandExecutionContext,
+  GModelRoot,
+  TYPES,
+  Action,
+  addCssClasses,
+  removeCssClasses
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { addCssClass, removeCssClass } from '../utils/element-css-classes';
 
 import { isAnimateable } from './model';
 
@@ -50,20 +58,20 @@ export class AnimateFeedbackCommand extends Command {
 
   undo(context: CommandExecutionContext): GModelRoot {
     for (const element of this.animated) {
-      removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
+      removeCssClasses(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     for (const element of this.deanimated) {
-      addCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
+      addCssClasses(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     return context.root;
   }
 
   redo(context: CommandExecutionContext): GModelRoot {
     for (const element of this.deanimated) {
-      removeCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
+      removeCssClasses(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     for (const element of this.animated) {
-      addCssClass(element, AnimateFeedbackCommand.CSS_CLASS);
+      addCssClasses(element, AnimateFeedbackCommand.CSS_CLASS);
     }
     return context.root;
   }

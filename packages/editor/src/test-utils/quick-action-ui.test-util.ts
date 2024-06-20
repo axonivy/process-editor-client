@@ -36,8 +36,8 @@ export function createContainer(options?: Partial<IvyViewerOptions>): Container 
     ivyJumpModule,
     ivyLaneModule,
     ivyConnectorModule,
-    ivyToolBarModule,
-    ivyLabelEditModule,
+    { replace: ivyToolBarModule },
+    { replace: ivyLabelEditModule },
     ivyWrapModule
   );
   configureModelElement(container, DefaultTypes.GRAPH, GGraph, GGraphView);

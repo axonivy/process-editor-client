@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-expressions */
-import { GNode } from '@eclipse-glsp/client';
+import { GNode, addCssClassToElements, addCssClasses, removeCssClassOfElements, removeCssClasses } from '@eclipse-glsp/client';
 import { describe, test, expect, afterEach } from 'vitest';
-import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from './element-css-classes';
 
 describe('ElementCssClassesUtil', () => {
   const node = new GNode();
@@ -13,25 +12,25 @@ describe('ElementCssClassesUtil', () => {
   });
 
   test('addCssClass', () => {
-    addCssClass(node, 'test');
+    addCssClasses(node, 'test');
     expect(node.cssClasses).to.include('test');
   });
 
   test('addCssClass only once', () => {
-    addCssClass(node, 'test');
-    addCssClass(node, 'test');
-    addCssClass(node, 'test2');
+    addCssClasses(node, 'test');
+    addCssClasses(node, 'test');
+    addCssClasses(node, 'test2');
     expect(node.cssClasses).to.have.length(2).and.to.include('test').and.include('test2');
   });
 
   test('removeCssClass', () => {
     node.cssClasses = ['bla', 'test'];
-    removeCssClass(node, 'test');
+    removeCssClasses(node, 'test');
     expect(node.cssClasses).to.include('bla').but.not.to.include('test');
   });
 
   test('removeCssClass of empty array', () => {
-    removeCssClass(node, 'nothingToRemove');
+    removeCssClasses(node, 'nothingToRemove');
     expect(node.cssClasses).to.be.undefined;
   });
 

@@ -31,7 +31,7 @@ describe('GatewayNodeView', () => {
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
     const unknownVNode = context.renderElement(unknown);
     expect(toHTML(unknownVNode)).to.be.equal(
-      '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">?unknown?</text>'
+      '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">missing &quot;unknown&quot; view</text>'
     );
   });
 

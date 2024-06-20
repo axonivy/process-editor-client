@@ -20,7 +20,7 @@ export async function createAllElements(
   const pickersCount = await pickers.count();
   for (let i = 0; i < pickersCount; i++) {
     await pickers.nth(i).click();
-    await graph.click({ position: { x: 30 + 80 * i, y: 100 } });
+    await graph.click({ position: { x: 80 + 80 * i, y: 100 } });
     await expect(elements).toHaveCount(i + 1);
     if (checkSelection) {
       await expect(elements.last()).toHaveAttribute('class', /selected/);

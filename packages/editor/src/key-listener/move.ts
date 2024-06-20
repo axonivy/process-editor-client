@@ -15,18 +15,19 @@ import {
   SetViewportAction,
   Viewport,
   findParentByFeature,
-  isViewport
+  isViewport,
+  GridManager
 } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, injectable, optional } from 'inversify';
 import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
-import { IvyGridSnapper } from '../diagram/snap';
 
 @injectable()
 export class MoveElementKeyListener extends KeyListener {
   @inject(SelectionService) protected selectionService: SelectionService;
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
+  @inject(GridManager) readonly gridManager: GridManager;
 
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
     const delta = this.moveDelta(event);
@@ -41,16 +42,16 @@ export class MoveElementKeyListener extends KeyListener {
 
   protected moveDelta(event: KeyboardEvent) {
     if (matchesKeystroke(event, 'ArrowUp')) {
-      return { x: 0, y: -IvyGridSnapper.GRID.y };
+      return { x: 0, y: -this.gridManager.grid.y };
     }
     if (matchesKeystroke(event, 'ArrowDown')) {
-      return { x: 0, y: IvyGridSnapper.GRID.y };
+      return { x: 0, y: this.gridManager.grid.y };
     }
     if (matchesKeystroke(event, 'ArrowLeft')) {
-      return { x: -IvyGridSnapper.GRID.x, y: 0 };
+      return { x: -this.gridManager.grid.x, y: 0 };
     }
     if (matchesKeystroke(event, 'ArrowRight')) {
-      return { x: IvyGridSnapper.GRID.x, y: 0 };
+      return { x: this.gridManager.grid.x, y: 0 };
     }
     return undefined;
   }

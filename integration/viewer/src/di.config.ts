@@ -6,18 +6,23 @@ import {
   ivyLabelEditModule,
   ivyLabelEditUiModule,
   ivyLaneModule,
-  ivyNodeCreationToolModule,
   ivyQuickActionModule,
   ivyThemeModule,
   ivyWrapModule
 } from '@axonivy/process-editor';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
-import { IDiagramOptions, createDiagramOptionsModule, deletionToolModule, edgeEditToolModule } from '@eclipse-glsp/client';
+import {
+  IDiagramOptions,
+  createDiagramOptionsModule,
+  deletionToolModule,
+  edgeEditToolModule,
+  nodeCreationToolModule
+} from '@eclipse-glsp/client';
 import { Container } from 'inversify';
-import ivyNavigationModule from './navigate/di.config';
-import { ivyStartupDiagramModule } from './startup';
-import ivyViewerQuickActionModule from './quick-action/di.config';
 import ivyViewerKeyListenerModule from './key-listener/di.config';
+import ivyNavigationModule from './navigate/di.config';
+import ivyViewerQuickActionModule from './quick-action/di.config';
+import { ivyStartupDiagramModule } from './startup';
 
 export interface IvyDiagramOptions extends IDiagramOptions {
   highlight: string;
@@ -39,12 +44,12 @@ export default function createContainer(options: IvyDiagramOptions): Container {
         ivyLabelEditModule,
         ivyLabelEditUiModule,
         ivyChangeBoundsToolModule,
-        ivyNodeCreationToolModule,
         ivyWrapModule,
         ivyLaneModule,
         ivyConnectorModule,
         deletionToolModule,
-        edgeEditToolModule
+        edgeEditToolModule,
+        nodeCreationToolModule
       ]
     },
     { remove: ivyQuickActionModule, add: ivyViewerQuickActionModule },

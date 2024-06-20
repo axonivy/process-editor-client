@@ -1,4 +1,17 @@
-import { Bounds, getModelBounds, isViewport, GChildElement, GModelElement, Disposable } from '@eclipse-glsp/client';
+import {
+  Action,
+  Bounds,
+  CommandExecutionContext,
+  CommandReturn,
+  Disposable,
+  FeedbackCommand,
+  GChildElement,
+  GModelElement,
+  TYPES,
+  getModelBounds,
+  isViewport
+} from '@eclipse-glsp/client';
+import { inject, injectable } from 'inversify';
 
 export class NegativeMarker extends GChildElement {
   static readonly TYPE = 'negative-marker';
@@ -25,4 +38,36 @@ export function addNegativeArea(element: GModelElement): Disposable {
 
 export function removeNegativeArea(element: GModelElement): void {
   element.root.removeAll(child => child instanceof NegativeMarker);
+}
+
+export interface ShowNegativeAreaAction extends Action {
+  kind: typeof ShowNegativeAreaAction.KIND;
+  visible: boolean;
+}
+
+export namespace ShowNegativeAreaAction {
+  export const KIND = 'showNegativeArea';
+
+  export function create(options: { visible: boolean }): ShowNegativeAreaAction {
+    return {
+      kind: KIND,
+      visible: options.visible
+    };
+  }
+}
+
+@injectable()
+export class ShowNegativeAreaFeedbackCommand extends FeedbackCommand {
+  static readonly KIND = ShowNegativeAreaAction.KIND;
+
+  @inject(TYPES.Action) protected action: ShowNegativeAreaAction;
+
+  execute(context: CommandExecutionContext): CommandReturn {
+    if (this.action.visible) {
+      addNegativeArea(context.root);
+    } else {
+      removeNegativeArea(context.root);
+    }
+    return context.root;
+  }
 }

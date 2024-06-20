@@ -21,12 +21,6 @@ body {
   font-size: 10pt;
   height: 100%;
 }
-.grid .sprotty-graph,
-.sprotty-graph.grid {
-  background-image: radial-gradient(var(--glsp-grid) 1px, transparent 0);
-  background-size: 16px 16px;
-  background-position: 8px 8px;
-}
 
 /* Pool / Lane */
 .pool .sprotty-label,

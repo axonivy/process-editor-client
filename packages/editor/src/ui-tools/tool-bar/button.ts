@@ -1,10 +1,9 @@
-import { Action, EnableDefaultToolsAction, EnableToolsAction, RedoAction, UndoAction } from '@eclipse-glsp/client';
+import { Action, EnableDefaultToolsAction, EnableToolsAction, GridManager, RedoAction, UndoAction } from '@eclipse-glsp/client';
 import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
 import { injectable, inject, optional } from 'inversify';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
 import { SwitchThemeActionHandler } from '../../theme/action-handler';
-import { ShowGridActionHandler } from '../../diagram/grid/action-handler';
 import { IvyIcons } from '@axonivy/ui-icons';
 
 export interface ToolBarButtonProvider {
@@ -81,12 +80,12 @@ export const RedoToolButton: ToolBarButton = {
 @injectable()
 export class OptionsButtonProvider implements ToolBarButtonProvider {
   @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
-  @inject(ShowGridActionHandler) protected gridHandler: ShowGridActionHandler;
+  @inject(GridManager) protected gridManager: GridManager;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
   button() {
     const customIconState = () => this.customIconHandler.isShowCustomIcons;
-    const grid = () => this.gridHandler.isVisible();
+    const grid = () => this.gridManager.isGridVisible;
     const theme = this.switchThemeHandler ? () => this.switchThemeHandler!.theme() : undefined;
     return {
       icon: IvyIcons.Settings,

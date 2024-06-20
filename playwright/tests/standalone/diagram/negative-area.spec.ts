@@ -8,6 +8,7 @@ test.describe('Diagram - Negative Area', () => {
     const toolbar = processEditor.toolbar();
     await area.expectHidden();
     await toolbar.triggerCreateElement('activities', 'User Dialog');
+    await page.mouse.move(100, 100);
     await area.expectVisible();
     await processEditor.clickAt({ x: 100, y: 100 });
     await processEditor.element('dialogCall').expectSelected();

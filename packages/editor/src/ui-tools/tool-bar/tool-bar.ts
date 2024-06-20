@@ -1,4 +1,5 @@
 import {
+  GLSPAbstractUIExtension,
   Action,
   DisposableCollection,
   EditorContextService,
@@ -36,12 +37,11 @@ import {
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
-import { IvyUIExtension } from '../../utils/ivy-ui-extension';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
 @injectable()
-export class ToolBar extends IvyUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
+export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
   static readonly ID = 'ivy-tool-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;

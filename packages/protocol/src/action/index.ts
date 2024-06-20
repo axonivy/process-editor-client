@@ -7,7 +7,6 @@ export * from './connector';
 export * from './custom-icon';
 export * from './data-class';
 export * from './decorator';
-export * from './diagram';
 export * from './execution';
 export * from './go-to-source';
 export * from './inscription';

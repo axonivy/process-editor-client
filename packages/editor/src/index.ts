@@ -13,7 +13,7 @@ export { default as ivyConnectorModule } from './connector/di.config';
 export { default as ivyQuickActionModule } from './ui-tools/quick-action/di.config';
 export { default as ivyKeyListenerModule } from './key-listener/di.config';
 export { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config';
-export { ivyChangeBoundsToolModule, ivyNodeCreationToolModule } from './tools/di.config';
+export { ivyChangeBoundsToolModule, ivyExportModule } from './tools/di.config';
 
 /* Features */
 export * from './jump/action';
@@ -38,7 +38,6 @@ export * from './ui-tools/tool-bar/button';
 export * from './ui-tools/tool-bar/tool-bar';
 export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
-export * from './utils/ivy-ui-extension';
 export * from './key-listener/jump-out';
 export * from './key-listener/quick-actions';
 export * from './start-action/actions';

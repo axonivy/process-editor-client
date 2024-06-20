@@ -1,11 +1,10 @@
-import { createFeatureSet, GModelElement } from '@eclipse-glsp/client';
+import { createFeatureSet, GModelElement, GridSnapper } from '@eclipse-glsp/client';
 import { describe, test, expect } from 'vitest';
 
 import { ActivityNode } from './model';
-import { IvyGridSnapper } from './snap';
 
 describe('IvyGridSnapper', () => {
-  const snapper = new IvyGridSnapper();
+  const snapper = new GridSnapper({ x: 8, y: 8 });
 
   test('element with no size should snap to grid', () => {
     const element = new GModelElement();

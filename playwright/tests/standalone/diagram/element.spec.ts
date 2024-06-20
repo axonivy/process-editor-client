@@ -43,8 +43,12 @@ test.describe('diagram', () => {
     await element.resize(bottomRightHandle, { x: 800, y: 700 });
     await processEditor.resetSelection();
     await element.select();
+    // x: 800 (mouse) = 800 diagram mouse position --> snapped on a 8x8 grid: 800
+    // y: 700 (mouse) - 48 (toolbar) = 652 diagram mouse position --> snapped on a 8x8 grid: 656
+    // expected position = same position for bottom right resizing = (240,170)
+    // expected size = element position - diagram mouse position = (560,486)
     await element.expectPosition({ x: 240, y: 170 });
-    await element.expectSize(560, 484);
+    await element.expectSize(560, 486);
     expect(topLeftHandleBounds).toStrictEqual(await topLeftHandle.boundingBox());
     expect(bottomRightHandleBounds).not.toStrictEqual(await bottomRightHandle.boundingBox());
   });
@@ -63,8 +67,12 @@ test.describe('diagram', () => {
     await element.resize(topLeftHandle, { x: 300, y: 200 });
     await processEditor.resetSelection();
     await element.select();
-    await element.expectPosition({ x: 304, y: 154 });
-    await element.expectSize(48, 76);
+    // x: 300 (mouse) = 800 diagram mouse position --> snapped on a 8x8 grid: 304
+    // y: 200 (mouse) - 48 (toolbar) = 152 diagram mouse position --> snapped on a 8x8 grid: 152
+    // expected position = snapped diagram mouse position = (304,152)
+    // expected size = previous size + delta(diagram mouse position, previous position) = (48,78)
+    await element.expectPosition({ x: 304, y: 152 });
+    await element.expectSize(48, 78);
     expect(bottomRightHandleBounds).toStrictEqual(await bottomRightHandle.boundingBox());
     expect(topLeftHandleBounds).not.toStrictEqual(await topLeftHandle.boundingBox());
   });

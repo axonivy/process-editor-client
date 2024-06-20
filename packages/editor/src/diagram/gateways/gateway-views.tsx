@@ -1,4 +1,4 @@
-import { Diamond, DiamondNodeView, Point, RenderingContext, GShapeElement, svg } from '@eclipse-glsp/client';
+import { Diamond, DiamondNodeView, Point, RenderingContext, GShapeElement, svg, hiddenBoundingRect } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
@@ -22,6 +22,7 @@ export class GatewayNodeView extends DiamondNodeView {
     const radius = this.getRadius(node);
     return (
       <g>
+        {hiddenBoundingRect(node, context)}
         <polygon
           class-sprotty-node={true}
           class-mouseover={node.hoverFeedback}

@@ -156,11 +156,11 @@ export class ProcessEditor {
   }
 
   async expectGridVisible() {
-    await expect(this.page.locator('.grid')).toBeVisible();
+    await expect(this.graph).toHaveAttribute('style', /--grid-background-image/);
   }
 
   async expectGridHidden() {
-    await expect(this.page.locator('.grid')).toBeHidden();
+    await expect(this.graph).not.toHaveAttribute('style', /--grid-background-image/);
   }
 
   async reload() {

@@ -1,6 +1,17 @@
-import { GChildElement, Command, CommandExecutionContext, GModelElement, GModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import {
+  GChildElement,
+  Command,
+  CommandExecutionContext,
+  GModelElement,
+  GModelRoot,
+  TYPES,
+  Action,
+  removeCssClasses,
+  removeCssClassOfElements,
+  addCssClassToElements,
+  addCssClasses
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
 
 import { isExecutable, Executable } from './model';
 import { ElementExecution } from '@axonivy/process-editor-protocol';
@@ -48,7 +59,7 @@ export class ExecutedFeedbackCommand extends Command {
       if (element instanceof GChildElement && isExecutable(element)) {
         setExecutionCount(element as Executable, 0);
         const cssClass = elementExecution.failed ? ExecutedFeedbackCommand.FAILED_CSS_CLASS : ExecutedFeedbackCommand.EXECUTED_CSS_CLASS;
-        removeCssClass(element, cssClass);
+        removeCssClasses(element, cssClass);
       }
     });
     this.action.elementExecutions.forEach(elementExecution => {
@@ -76,7 +87,7 @@ export class ExecutedFeedbackCommand extends Command {
     addCssClassToElements(this.failed, ExecutedFeedbackCommand.FAILED_CSS_CLASS);
     removeCssClassOfElements(this.executed, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
     if (this.lastExecutedElement) {
-      addCssClass(this.lastExecutedElement, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
+      addCssClasses(this.lastExecutedElement, ExecutedFeedbackCommand.LAST_EXECUTED_CSS_CLASS);
     }
     return context.root;
   }
@@ -112,7 +123,7 @@ export class StoppedFeedbackCommand extends Command {
     const model = context.root;
     const oldElement = model.index.getById(this.action.oldStoppedElement);
     if (oldElement instanceof GChildElement && isExecutable(oldElement)) {
-      removeCssClass(oldElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
+      removeCssClasses(oldElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     }
     const element = model.index.getById(this.action.stoppedElement ?? '');
     if (element instanceof GChildElement && isExecutable(element)) {
@@ -122,12 +133,12 @@ export class StoppedFeedbackCommand extends Command {
   }
 
   undo(context: CommandExecutionContext): GModelRoot {
-    removeCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
+    removeCssClasses(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }
 
   redo(context: CommandExecutionContext): GModelRoot {
-    addCssClass(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
+    addCssClasses(this.stoppedElement, StoppedFeedbackCommand.STOPPED_CSS_CLASS);
     return context.root;
   }
 }

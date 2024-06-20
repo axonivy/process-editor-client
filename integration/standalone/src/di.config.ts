@@ -1,6 +1,12 @@
 import { createIvyDiagramContainer, ivyThemeModule } from '@axonivy/process-editor';
 import { ivyInscriptionModule } from '@axonivy/process-editor-inscription';
-import { IDiagramOptions, createDiagramOptionsModule, standaloneSelectModule, undoRedoModule } from '@eclipse-glsp/client';
+import {
+  IDiagramOptions,
+  createDiagramOptionsModule,
+  standaloneExportModule,
+  standaloneSelectModule,
+  undoRedoModule
+} from '@eclipse-glsp/client';
 import { Container } from 'inversify';
 import ivyStandaloneBreakpointModule from './breakpoint/di.config';
 import ivyStandaloneCopyPasteModule from './copy-paste/di.config';
@@ -22,6 +28,7 @@ export default function createContainer(options: IvyDiagramOptions): Container {
     createDiagramOptionsModule(options),
     // standalone modules
     standaloneSelectModule,
+    standaloneExportModule,
     undoRedoModule,
     ivyStandaloneBreakpointModule,
     ivyStandaloneCopyPasteModule,

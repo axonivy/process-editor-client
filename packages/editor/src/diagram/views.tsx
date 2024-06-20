@@ -1,18 +1,23 @@
 import {
   angleOfPoint,
+  Bounds,
+  Dimension,
   EdgePadding,
+  GEdge,
   GEdgeView,
+  GResizeHandle,
+  GResizeHandleView,
+  hasArgs,
+  IntersectingRoutedPoint,
   IView,
+  IViewArgs,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
   RenderingContext,
-  GEdge,
-  svg,
-  toDegrees,
-  hasArgs,
-  IntersectingRoutedPoint,
   SEdgeImpl,
-  IViewArgs
+  setAttr,
+  svg,
+  toDegrees
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
@@ -20,6 +25,7 @@ import virtualize from 'sprotty/lib/lib/virtualize';
 import { Edge, MulitlineEditLabel } from './model';
 import { escapeHtmlWithLineBreaks } from './util';
 
+import { isLaneResizable, LaneResizable } from '../lanes/model';
 import { ActivityTypes } from './view-types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,5 +144,51 @@ export class AssociationEdgeView extends GEdgeView {
       return edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
     }
     return [];
+  }
+}
+
+@injectable()
+export class IvyResizeHandleView extends GResizeHandleView {
+  render(handle: GResizeHandle, context: RenderingContext): VNode | undefined {
+    if (context.targetKind === 'hidden') {
+      return undefined;
+    }
+    const element = handle.parent;
+    if (!isLaneResizable(element)) {
+      return super.render(handle, context);
+    }
+
+    const position = this.getLaneHandlePosition(handle, element);
+    if (position !== undefined) {
+      return this.renderLandeResizeHandle(handle, position);
+    }
+    return <g />;
+  }
+
+  protected renderLandeResizeHandle(handle: GResizeHandle, position: Point) {
+    const node = (
+      <svg
+        class-lane-resize-handle={true}
+        class-mouseover={handle.hoverFeedback}
+        x={position.x - 20}
+        y={position.y - 10}
+        width={40}
+        height={20}
+      >
+        <rect x={0} y={0} height={20} width={40} class-lane-resize-mouse-handle={true} />
+        <line x1={0} y1={10} x2={40} y2={10} />;
+      </svg>
+    );
+    setAttr(node, 'data-kind', handle.location);
+    return node;
+  }
+
+  protected getLaneHandlePosition(handle: GResizeHandle, element: LaneResizable): Point | undefined {
+    if (handle.isNResize()) {
+      return { x: Dimension.center(element.bounds).x, y: 5 };
+    } else if (handle.isSResize()) {
+      return { x: Dimension.center(element.bounds).x, y: Bounds.dimension(element.bounds).height - 5 };
+    }
+    return super.getPosition(handle);
   }
 }
