@@ -14,7 +14,7 @@ import { ivyInscriptionModule } from '@axonivy/process-editor-inscription';
 import ivyEclipseCopyPasteModule from './copy-paste/di.config';
 import ivyEclipseDeleteModule from './delete/di.config';
 import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
-import { IDiagramOptions, createDiagramOptionsModule } from '@eclipse-glsp/client';
+import { IDiagramOptions, createDiagramOptionsModule, standaloneExportModule } from '@eclipse-glsp/client';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
 import { ivyStartupDiagramModule as ivyStartupDiagramModule } from './startup';
 import ivyToolBarModule from './tool-bar/di.config';
@@ -40,7 +40,8 @@ export default function createContainer(widgetId: string, options: IvyDiagramOpt
     ivyOpenDataClassModule,
     ivyInscriptionModule,
     ivyStartupDiagramModule,
-    ivyToolBarModule
+    ivyToolBarModule,
+    standaloneExportModule
   );
 
   return container;
