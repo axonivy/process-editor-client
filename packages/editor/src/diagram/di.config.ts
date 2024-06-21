@@ -1,4 +1,5 @@
 import './diagram.css';
+import './marker/marker.css';
 
 import {
   ConsoleLogger,
@@ -7,15 +8,14 @@ import {
   DeleteElementContextMenuItemProvider,
   FeatureModule,
   GGraph,
-  GModelElement,
-  IView,
+  GIssueMarker,
   LogLevel,
   TYPES,
   configureModelElement,
   moveFeature,
+  overrideModelElement,
   selectFeature
 } from '@eclipse-glsp/client';
-import { interfaces } from 'inversify';
 
 import { breakpointFeature } from '../breakpoint/model';
 import { goToSourceFeature, jumpFeature } from '../jump/model';
@@ -56,6 +56,7 @@ import {
   LaneTypes
 } from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
+import { IvyIssueMarkerView } from './marker/issue-marker-view';
 
 const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -64,7 +65,9 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   bind(TYPES.IMovementRestrictor).to(IvyMovementRestrictor);
 
   const context = { bind, unbind, isBound, rebind };
-  configureIvyModelElement(DefaultTypes.GRAPH, GGraph, IvyGraphView);
+  overrideModelElement(context, DefaultTypes.GRAPH, GGraph, IvyGraphView);
+  overrideModelElement(context, DefaultTypes.ISSUE_MARKER, GIssueMarker, IvyIssueMarkerView);
+
   configureStartEvent(EventStartTypes.START);
   configureStartEvent(EventStartTypes.START_ERROR);
   configureStartEvent(EventStartTypes.START_SIGNAL);
@@ -86,20 +89,22 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   configureEndEvent(EventEndTypes.END_HD_EXIT);
   configureEndEvent(EventEndTypes.END_EMBEDDED);
 
-  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
-  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, { enable: [goToSourceFeature] });
-  configureIvyModelElement(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, EventNode, IntermediateEventNodeView);
+  configureModelElement(context, EventIntermediateTypes.INTERMEDIATE_TASK, EventNode, IntermediateEventNodeView);
+  configureModelElement(context, EventIntermediateTypes.INTERMEDIATE_WAIT, EventNode, IntermediateEventNodeView, {
+    enable: [goToSourceFeature]
+  });
+  configureModelElement(context, EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY, EventNode, IntermediateEventNodeView);
 
-  configureIvyModelElement(EventBoundaryTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
-  configureIvyModelElement(EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
+  configureModelElement(context, EventBoundaryTypes.BOUNDARY_ERROR, StartEventNode, IntermediateEventNodeView);
+  configureModelElement(context, EventBoundaryTypes.BOUNDARY_SIGNAL, StartEventNode, IntermediateEventNodeView);
 
   configureGateway(GatewayTypes.TASK);
   configureGateway(GatewayTypes.JOIN, { disable: [multipleOutgoingEdgesFeature] });
   configureGateway(GatewayTypes.SPLIT);
   configureGateway(GatewayTypes.ALTERNATIVE);
 
-  configureIvyModelElement(ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
-  configureIvyModelElement(ActivityTypes.COMMENT, CommentNode, ActivityNodeView, {
+  configureModelElement(context, ActivityTypes.LABEL, ActivityLabel, ForeignLabelView);
+  configureModelElement(context, ActivityTypes.COMMENT, CommentNode, ActivityNodeView, {
     disable: [breakpointFeature, errorBoundaryFeature, singleWrapFeature]
   });
   configureActivity(ActivityTypes.GENERIC);
@@ -127,44 +132,36 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   configureEmbedded(ActivityTypes.BPMN_SERVICE);
   configureEmbedded(ActivityTypes.BPMN_USER);
 
-  configureIvyModelElement(LaneTypes.LANE, LaneNode, LaneNodeView);
-  configureIvyModelElement(LaneTypes.POOL, LaneNode, PoolNodeView);
-  configureIvyModelElement(LaneTypes.LABEL, RotateLabel, RotateLabelView);
+  configureModelElement(context, LaneTypes.LANE, LaneNode, LaneNodeView);
+  configureModelElement(context, LaneTypes.POOL, LaneNode, PoolNodeView);
+  configureModelElement(context, LaneTypes.LABEL, RotateLabel, RotateLabelView);
 
-  configureIvyModelElement(EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
-  configureIvyModelElement(EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
-  configureIvyModelElement(EdgeTypes.LABEL, EdgeLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  overrideModelElement(context, EdgeTypes.DEFAULT, Edge, WorkflowEdgeView);
+  configureModelElement(context, EdgeTypes.ASSOCIATION, Edge, AssociationEdgeView);
+  configureModelElement(context, EdgeTypes.LABEL, EdgeLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 
-  configureIvyModelElement(LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
-  configureIvyModelElement(NegativeMarker.TYPE, NegativeMarker, SNegativeMarkerView);
-
-  function configureIvyModelElement(
-    type: string,
-    modelConstr: new () => GModelElement,
-    viewConstr: interfaces.ServiceIdentifier<IView>,
-    features?: CustomFeatures
-  ): void {
-    configureModelElement(context, type, modelConstr, viewConstr, features);
-  }
+  overrideModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
+  configureModelElement(context, NegativeMarker.TYPE, NegativeMarker, SNegativeMarkerView);
 
   function configureStartEvent(type: string, features?: CustomFeatures): void {
-    configureIvyModelElement(type, StartEventNode, EventNodeView, features);
+    configureModelElement(context, type, StartEventNode, EventNodeView, features);
   }
 
   function configureEndEvent(type: string, features?: CustomFeatures): void {
-    configureIvyModelElement(type, EndEventNode, EventNodeView, features);
+    configureModelElement(context, type, EndEventNode, EventNodeView, features);
   }
 
   function configureGateway(type: string, features?: CustomFeatures): void {
-    configureIvyModelElement(type, GatewayNode, GatewayNodeView, features);
+    configureModelElement(context, type, GatewayNode, GatewayNodeView, features);
   }
 
   function configureActivity(type: string, features?: CustomFeatures): void {
-    configureIvyModelElement(type, ActivityNode, ActivityNodeView, features);
+    configureModelElement(context, type, ActivityNode, ActivityNodeView, features);
   }
 
   function configureEmbedded(type: string, features?: CustomFeatures): void {
-    configureIvyModelElement(
+    configureModelElement(
+      context,
       type,
       ActivityNode,
       SubActivityNodeView,

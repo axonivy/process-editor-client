@@ -9,6 +9,7 @@ import {
   baseViewModule,
   bindAsService,
   bindOrRebind,
+  contextMenuModule,
   gridModule,
   helperLineModule,
   hoverModule,
@@ -49,7 +50,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
   const container = initializeDiagramContainer(
     new Container(),
     // removals: not needed defaults
-    { remove: [hoverModule, navigationModule, statusModule] },
+    { remove: [hoverModule, navigationModule, statusModule, contextMenuModule] },
 
     // GLSP additions
     baseViewModule,
