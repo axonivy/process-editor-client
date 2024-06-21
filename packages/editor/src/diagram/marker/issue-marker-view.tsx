@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { GIssueMarkerView, GIssueSeverity, svg } from '@eclipse-glsp/client';
+import { GIssueMarker, GIssueMarkerView, GIssueSeverity, setClass, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
@@ -8,6 +8,19 @@ const JSX = { createElement: svg };
 
 @injectable()
 export class IvyIssueMarkerView extends GIssueMarkerView {
+  override render(marker: GIssueMarker): VNode {
+    const maxSeverity = super.getMaxSeverity(marker);
+    const group = (
+      <g class-sprotty-issue={true}>
+        <g>
+          {this.getGlspIssueMarkerBackground(maxSeverity)}
+          <path d={this.getGlspIssueMarkerPath(maxSeverity)} />
+        </g>
+      </g>
+    );
+    setClass(group, 'sprotty-' + maxSeverity, true);
+    return group;
+  }
   protected getGlspIssueMarkerBackground(severity: GIssueSeverity): VNode {
     switch (severity) {
       case 'warning':

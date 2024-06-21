@@ -21,6 +21,7 @@ import {
   Disposable,
   Emitter,
   IDiagramOptions,
+  baseViewModule,
   contextMenuModule,
   createDiagramOptionsModule,
   defaultModule,
@@ -108,6 +109,7 @@ export function createTestDiagramContainer(...containerConfigurations: Container
   return initializeDiagramContainer(
     new Container(),
     createDiagramOptionsModule(createTestDiagramOptions()),
+    baseViewModule,
     ivyDiagramModule,
     { remove: contextMenuModule },
     ...containerConfigurations
