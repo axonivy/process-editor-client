@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@axonivy/process-editor-protocol": "~11.4.0-next",
-    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/client": "~2.2.0",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
   },

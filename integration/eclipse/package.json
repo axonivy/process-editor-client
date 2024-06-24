@@ -9,9 +9,9 @@
     "@axonivy/process-editor": "11.4.0-next",
     "@axonivy/process-editor-inscription": "11.4.0-next",
     "@axonivy/inscription-editor": "~11.4.0-next.1145",
-    "@eclipse-glsp/client": "next",
-    "@eclipse-glsp/ide": "next",
-    "@eclipse-glsp/protocol": "next"
+    "@eclipse-glsp/client": "~2.2.0",
+    "@eclipse-glsp/ide": "~2.2.0",
+    "@eclipse-glsp/protocol": "~2.2.0"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",

@@ -5,7 +5,7 @@ import {
   GLSPCenterGridSnapper,
   IHelperLineOptions,
   LogLevel,
-  MarqueeMouseTool,
+  MarqueeUtil,
   TYPES,
   baseViewModule,
   bindOrRebind,
@@ -44,7 +44,7 @@ import '@axonivy/ui-icons/lib/ivy-icons.css';
 import 'toastify-js/src/toastify.css';
 import './colors.css';
 import './toastify.css';
-import { IvyMarqueeMouseTool } from './ui-tools/tool-bar/marquee-mouse-tool';
+import { IvyMarqueeUtil } from './ui-tools/tool-bar/marquee-behavior';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -52,7 +52,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     // removals: not needed defaults
     { remove: [hoverModule, navigationModule, statusModule, contextMenuModule] },
 
-    // GLSP additions
+    // GLSP additions: optional modules from GLSP
     baseViewModule,
     helperLineModule,
     gridModule,
@@ -92,7 +92,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     alignmentElementFilter: element => !(element instanceof LaneNode) && DEFAULT_ALIGNABLE_ELEMENT_FILTER(element)
   });
 
-  container.rebind(MarqueeMouseTool).to(IvyMarqueeMouseTool);
+  bindOrRebind(container, MarqueeUtil).to(IvyMarqueeUtil).inSingletonScope();
   bindOrRebind(container, TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   bindOrRebind(container, TYPES.ICommandStack).to(IvyGLSPCommandStack).inSingletonScope();
   bindOrRebind(container, TYPES.ILogger).to(ConsoleLogger).inSingletonScope();

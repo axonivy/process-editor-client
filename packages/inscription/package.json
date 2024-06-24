@@ -17,7 +17,7 @@
     "@codingame/monaco-vscode-editor-service-override": "1.83.3",
     "@codingame/monaco-vscode-languages-service-override": "1.83.3",
     "@codingame/monaco-vscode-model-service-override": "1.83.3",
-    "@eclipse-glsp/client": "next",
+    "@eclipse-glsp/client": "~2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

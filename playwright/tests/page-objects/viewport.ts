@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { Point } from './types';
+import { Dimension, Point } from './types';
 import { graphLocator } from './graph';
 
 export const ORIGIN_VIEWPORT = 'scale(1) translate(0,0)' as const;
@@ -65,14 +65,18 @@ export class ViewportBar {
   }
 
   async expectGridOriginSize() {
-    await expect(this.grid).toHaveAttribute('style', /background-size: 16px 16px;/);
+    await expect(this.grid).toHaveAttribute('style', this.gridSize({ width: 16, height: 16 }));
   }
 
   async expectGridNotOriginSize() {
-    await expect(this.grid).not.toHaveAttribute('style', /background-size: 16px 16px;/);
+    await expect(this.grid).not.toHaveAttribute('style', this.gridSize({ width: 16, height: 16 }));
+  }
+
+  private gridSize(gridSize: Dimension) {
+    return new RegExp(`--grid-background-width: ${gridSize.width}px; --grid-background-height: ${gridSize.height}px;`);
   }
 
   private gridPosition(gridMove: Point) {
-    return new RegExp(`background-position: ${8 + gridMove.x}px ${8 + gridMove.y}px;`);
+    return new RegExp(`--grid-background-x: ${8 + gridMove.x}px; --grid-background-y: ${8 + gridMove.y}px;`);
   }
 }
