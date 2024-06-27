@@ -26,12 +26,9 @@
 .stopped.animate .sprotty-node {
   animation: shadow-pulse-stopped 1s 1 ease-in-out;
 }
-.sprotty-edge.executed {
-  stroke: var(--glsp-execution);
-}
-.sprotty-edge.executed .arrow {
-  stroke: var(--glsp-execution);
-  fill: var(--glsp-execution);
+.sprotty-edge.executed > path:not(.mouse-handle) {
+  stroke: var(--glsp-execution) !important;
+  fill: var(--glsp-execution) !important;
 }
 .execution-badge {
   fill: var(--glsp-node);
