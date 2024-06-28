@@ -13,6 +13,7 @@
     "**/node_modules": true,
     "**/lib": true
   },
+  "vitest.rootConfig": "packages/editor/vitest.config.mts",
   "task.autoDetect": "off",
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.insertSpaces": true,

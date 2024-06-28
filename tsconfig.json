@@ -1,0 +1,15 @@
+{
+  "extends": "./configs/tsconfig.base.json",
+  "files": [],
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "references": [
+    { "path": "packages/editor/tsconfig.json" },
+    { "path": "packages/protocol/tsconfig.json" },
+    { "path": "packages/inscription/tsconfig.json" },
+    { "path": "integration/standalone/tsconfig.json" },
+    { "path": "integration/viewer/tsconfig.json" },
+    { "path": "integration/eclipse/tsconfig.json" }
+  ]
+}

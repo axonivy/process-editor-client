@@ -21,9 +21,9 @@
     "build": "tsc --build",
     "lint": "eslint --ext .ts,.tsx ./tests",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./tests",
-    "start:standalone": "yarn --cwd .. start ",
-    "start:viewer": "yarn --cwd .. start:viewer ",
-    "webtest": "yarn webtest:standalone && yarn webtest:viewer",
+    "dev:standalone": "npm run --workspace=@axonivy/standalone-integration dev",
+    "dev:viewer": "npm run --workspace=@axonivy/viewer-integration dev",
+    "webtest": "npm run webtest:standalone && npm run webtest:viewer",
     "webtest:standalone": "playwright test -c ./tests/standalone",
     "webtest:viewer": "playwright test -c ./tests/viewer",
     "webtest:screenshots": "playwright test -c ./tests/screenshots"

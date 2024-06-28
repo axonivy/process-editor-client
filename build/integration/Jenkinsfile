@@ -23,8 +23,8 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'yarn update:axonivy:next'
-            sh 'yarn install'
+            sh 'npm run update:axonivy:next'
+            sh 'npm install'
             dir ('playwright/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
@@ -40,13 +40,9 @@ pipeline {
   }
 }
 
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
-}
-
 def browser() {
   if (params.browser == '') {
-    if (isReleaseOrMasterBranch()) {
+    if (isReleasingBranch()) {
       return 'all'
     }
     return 'chrome'

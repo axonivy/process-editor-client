@@ -69,6 +69,7 @@
     },
     "[yaml]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "vitest.rootConfig": "packages/editor/vitest.config.mts"
   }
 }
