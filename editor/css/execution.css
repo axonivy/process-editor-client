@@ -28,6 +28,8 @@
 }
 .sprotty-edge.executed > path:not(.mouse-handle) {
   stroke: var(--glsp-execution) !important;
+}
+.sprotty-edge.executed > .arrow {
   fill: var(--glsp-execution) !important;
 }
 .execution-badge {
