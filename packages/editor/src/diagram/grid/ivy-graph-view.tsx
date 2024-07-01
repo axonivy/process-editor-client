@@ -33,7 +33,7 @@ export class IvyGraphView extends GLSPProjectionView {
     return bounds;
   }
 
-  protected override getBackgroundImage(model: Readonly<SGraphImpl>, context: RenderingContext, gridManager: GridManager): string {
+  protected getBackgroundImage(model: Readonly<SGraphImpl>, context: RenderingContext, gridManager: GridManager): string {
     return `radial-gradient(var(--glsp-grid) ${model.zoom}px, transparent 0)`;
   }
 }

@@ -1,6 +1,6 @@
 {
   "version": "11.4.0-next",
-  "npmClient": "yarn",
+  "npmClient": "npm",
   "command": {
     "run": {
       "stream": true

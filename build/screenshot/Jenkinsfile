@@ -19,8 +19,8 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'yarn update:axonivy:next'
-            sh 'yarn install'
+            sh 'npm run update:axonivy:next'
+            sh 'npm install'
             dir ('playwright/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots"
             }
@@ -35,7 +35,7 @@ pipeline {
     }
     stage('Deploy') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.currentResult == 'SUCCESS' }
+        expression { isReleasingBranch() && currentBuild.currentResult == 'SUCCESS' }
       }
       steps {
         script {
@@ -47,8 +47,4 @@ pipeline {
       }
     }
   }
-}
-
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

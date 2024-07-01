@@ -4,7 +4,7 @@ import defaultConfig from '../../playwright.base';
 export default defineConfig(defaultConfig, {
   testDir: './',
   webServer: {
-    command: 'yarn start:viewer',
+    command: 'npm run dev:viewer',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI
   }

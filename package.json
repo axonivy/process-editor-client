@@ -2,26 +2,26 @@
   "private": true,
   "name": "parent",
   "engines": {
-    "yarn": "1.0.x || >=1.2.1",
     "node": ">=20.10.0"
   },
   "volta": {
     "node": "20.10.0"
   },
   "scripts": {
-    "build": "yarn && lerna run build",
+    "ci": "npm install && npm run build && npm run package && npm run lint:ci && npm run test:ci",
     "clean": "lerna run clean",
-    "build:production": "lerna run build:production",
-    "lint": "lerna run --parallel lint --",
-    "lint:fix": "lerna run --parallel lint:fix --",
+    "build": "tsc --build && tscp --build",
+    "package": "lerna run package",
     "type": "lerna run type",
-    "start": "yarn --cwd integration/standalone start",
-    "start:viewer": "yarn --cwd integration/viewer start",
-    "start:eclipse": "yarn --cwd integration/eclipse start",
+    "lint": "lerna run lint --",
+    "lint:ci": "npm run lint -- -o eslint.xml -f checkstyle",
+    "lint:fix": "lerna run --parallel lint:fix --",
+    "dev": "npm run --workspace=@axonivy/standalone-integration dev",
+    "dev:viewer": "npm run --workspace=@axonivy/viewer-integration dev",
+    "dev:eclipse": "npm run --workspace=@axonivy/eclipse-integration dev",
     "test": "lerna run test",
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
-    "playwright:install": "yarn playwright install",
     "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
@@ -33,7 +33,7 @@
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-no-null": "^1.0.2",
-    "lerna": "^8.0.1",
+    "lerna": "^8.1.5",
     "prettier": "^2.8.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.3.3",
@@ -46,7 +46,7 @@
       "playwright"
     ]
   },
-  "resolutions": {
+  "overrides": {
     "vscode-jsonrpc": "8.2.0",
     "@eclipse-glsp/protocol": "^2.2.0-next.349",
     "@eclipse-glsp/client": "^2.2.0-next.349"

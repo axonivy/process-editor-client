@@ -31,7 +31,7 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "build": "tsc --build",
-    "build:production": "yarn type && vite build",
-    "start": "vite"
+    "package": "vite build",
+    "dev": "vite"
   }
 }

@@ -43,10 +43,9 @@
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>yarn</executable>
+              <executable>npm</executable>
               <arguments>
-                <argument>--cwd</argument>
-                <argument>../</argument>
+                <argument>run</argument>
                 <argument>${webtest.cmd}</argument>
               </arguments>
               <environmentVariables>

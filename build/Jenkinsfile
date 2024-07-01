@@ -18,47 +18,17 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
-              sh 'yarn update:axonivy:next'
-              sh 'yarn build && yarn build:production'
-              archiveArtifacts 'integration/eclipse/build/**'
-              archiveArtifacts 'integration/standalone/build/**'
-              archiveArtifacts 'integration/viewer/build/**'
-              currentBuild.description = "<a href=${BUILD_URL}artifact/integration/standalone/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Standalone</a><br>" + 
-                "<a href=${BUILD_URL}artifact/integration/viewer/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Viewer</a>"
-            }
-          }
-        }
-      }
-    }
-
-    stage('Codechecks (ESLint)') {
-      steps {
-        script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
             docker.build('node', '-f build/Dockerfile .').inside {
-              timeout(30) {
-                sh 'yarn lint -o eslint.xml -f checkstyle'
-              }
+              sh 'npm run update:axonivy:next'
+              sh 'npm run ci'
             }
           }
+          archiveArtifacts 'integration/*/build/**'
+          currentBuild.description = "<a href=${BUILD_URL}artifact/integration/standalone/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Standalone</a><br>" + 
+            "<a href=${BUILD_URL}artifact/integration/viewer/build/index.html?server=dev.demo.ivyteam.io&app=demo-app-dev&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json>Viewer</a>"
           withChecks('ESLint') {
             recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: 'packages/**/eslint.xml,integration/**/eslint.xml', skipSymbolicLinks: true)], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-          }
-        }
-      }
-    }
-
-    stage('Tests') {
-      steps {
-        script {
-          catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
-              timeout(30) {
-                sh 'yarn test:ci'
-              }
-            }
           }
           withChecks('Tests') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'packages/**/report.xml'
@@ -69,7 +39,7 @@ pipeline {
 
     stage('Deploy (Maven)') {
       when {
-        expression { isReleaseOrMasterBranch() }
+        expression { isReleasingBranch() }
       }
       steps {
         script {
@@ -85,16 +55,16 @@ pipeline {
 
     stage('Publish (NPM)') {
       when {
-        expression { isReleaseOrMasterBranch() && currentBuild.changeSets.size() > 0 }
+        expression { isReleasingBranch() && currentBuild.changeSets.size() > 0 }
       }
       steps {
         script {
           docker.build('node', '-f build/Dockerfile .').inside {
-            sh 'yarn build'
+            sh 'npm run build'
             sh 'git checkout .'
             withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {
               sh 'npm set "//npmjs-registry.ivyteam.ch/:_authToken = $NPM_AUTH_TOKEN"'
-              sh 'yarn publish:next'
+              sh 'npm run publish:next'
             }
           }
         }
@@ -107,8 +77,4 @@ pipeline {
       discoverGitReferenceBuild()
     }
   }
-}
-
-def isReleaseOrMasterBranch() {
-  return env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('release/') 
 }

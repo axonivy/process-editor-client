@@ -1,2 +1,2 @@
-FROM node:20.10-bookworm
+FROM node:20.15-bookworm
 ENV CI=true

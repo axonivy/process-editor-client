@@ -23,11 +23,11 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
-    "build": "tsc --build",
-    "build:production": "yarn type && vite build",
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
-    "start": "vite"
+    "build": "tsc --build",
+    "package": "vite build",
+    "dev": "vite"
   }
 }

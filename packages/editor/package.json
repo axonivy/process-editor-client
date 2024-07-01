@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "@axonivy/process-editor-protocol": "~11.4.0-next",
-    "@axonivy/ui-icons": "~11.4.0-next.160",
+    "@axonivy/ui-icons": "~11.4.0-next.217",
     "@eclipse-glsp/client": "next",
     "showdown": "^2.1.0",
     "toastify-js": "1.12.0"
@@ -42,8 +42,8 @@
     "lint": "eslint --ext .ts,.tsx ./src",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
-    "test": "yarn vitest",
-    "test:ci": "yarn test --watch=false"
+    "test": "vitest",
+    "test:ci": "vitest --watch=false"
   },
   "files": [
     "lib",
