@@ -5,9 +5,9 @@ import {
   GLSPCenterGridSnapper,
   IHelperLineOptions,
   LogLevel,
+  MarqueeMouseTool,
   TYPES,
   baseViewModule,
-  bindAsService,
   bindOrRebind,
   contextMenuModule,
   gridModule,
@@ -92,7 +92,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     alignmentElementFilter: element => !(element instanceof LaneNode) && DEFAULT_ALIGNABLE_ELEMENT_FILTER(element)
   });
 
-  bindAsService(container, TYPES.ITool, IvyMarqueeMouseTool);
+  container.rebind(MarqueeMouseTool).to(IvyMarqueeMouseTool);
   bindOrRebind(container, TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   bindOrRebind(container, TYPES.ICommandStack).to(IvyGLSPCommandStack).inSingletonScope();
   bindOrRebind(container, TYPES.ILogger).to(ConsoleLogger).inSingletonScope();

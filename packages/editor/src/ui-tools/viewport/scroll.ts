@@ -1,18 +1,15 @@
 import {
   Action,
-  EnableToolsAction,
   GLSPMouseTool,
   GLSPScrollMouseListener,
   GModelElement,
   GResizeHandle,
-  ICommand,
   findParentByFeature,
   isCtrlOrCmd,
   isViewport,
   toTypeGuard
 } from '@eclipse-glsp/client';
 import { inject, injectable, postConstruct } from 'inversify';
-import { IvyMarqueeMouseTool } from '../tool-bar/marquee-mouse-tool';
 
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 
@@ -24,15 +21,6 @@ export class IvyScrollMouseListener extends GLSPScrollMouseListener {
   @postConstruct()
   protected init(): void {
     this.mouseTool.registerListener(this);
-  }
-
-  handle(action: Action): void | Action | ICommand {
-    if (EnableToolsAction.is(action)) {
-      if (action.toolIds.includes(IvyMarqueeMouseTool.ID)) {
-        this.preventScrolling = true;
-      }
-    }
-    super.handle(action);
   }
 
   mouseDown(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
