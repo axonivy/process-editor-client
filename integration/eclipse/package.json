@@ -8,7 +8,7 @@
   "dependencies": {
     "@axonivy/process-editor": "11.4.0-next",
     "@axonivy/process-editor-inscription": "11.4.0-next",
-    "@axonivy/inscription-editor": "11.4.0-next.1143",
+    "@axonivy/inscription-editor": "~11.4.0-next.1145",
     "@eclipse-glsp/client": "next",
     "@eclipse-glsp/ide": "next",
     "@eclipse-glsp/protocol": "next"
@@ -29,6 +29,7 @@
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "package": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "serve": "vite preview"
   }
 }

@@ -5,7 +5,7 @@ export default defineConfig(defaultConfig, {
   testDir: './',
   webServer: {
     command: 'npm run dev:standalone',
-    url: 'http://localhost:3000',
+    url: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
     reuseExistingServer: !process.env.CI
   }
 });
