@@ -1,10 +1,17 @@
-import { Action, EnableDefaultToolsAction, EnableToolsAction, GridManager, RedoAction, UndoAction } from '@eclipse-glsp/client';
-import { IvyMarqueeMouseTool } from './marquee-mouse-tool';
-import { injectable, inject, optional } from 'inversify';
+import { IvyIcons } from '@axonivy/ui-icons';
+import {
+  Action,
+  EnableDefaultToolsAction,
+  EnableToolsAction,
+  GridManager,
+  MarqueeMouseTool,
+  RedoAction,
+  UndoAction
+} from '@eclipse-glsp/client';
+import { inject, injectable, optional } from 'inversify';
+import { SwitchThemeActionHandler } from '../../theme/action-handler';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
-import { SwitchThemeActionHandler } from '../../theme/action-handler';
-import { IvyIcons } from '@axonivy/ui-icons';
 
 export interface ToolBarButtonProvider {
   button(): ToolBarButton;
@@ -52,7 +59,7 @@ export const MarqueeToolButton: ToolBarButton = {
   icon: IvyIcons.MultiSelection,
   title: 'Marquee Tool (Shift)',
   sorting: 'B',
-  action: () => EnableToolsAction.create([IvyMarqueeMouseTool.ID]),
+  action: () => EnableToolsAction.create([MarqueeMouseTool.ID]),
   id: 'btn_marquee_tools',
   location: ToolBarButtonLocation.Left,
   readonly: true,

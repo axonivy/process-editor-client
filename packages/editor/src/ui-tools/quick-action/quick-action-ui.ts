@@ -1,11 +1,11 @@
 import {
-  GLSPAbstractUIExtension,
   Action,
   Bounds,
   BoundsAware,
   CursorCSS,
   EditorContextService,
   GEdge,
+  GLSPAbstractUIExtension,
   GLSPMouseTool,
   GModelElement,
   GModelRoot,
@@ -26,7 +26,7 @@ import {
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 import { createElement, createIcon } from '../../utils/ui-utils';
 
-import { Edge } from '../../diagram/model';
+import { Edge, EdgeLabel } from '../../diagram/model';
 import { IVY_TYPES } from '../../types';
 import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
 import { Menu } from '../menu/menu';
@@ -164,7 +164,13 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
     if (this.activeQuickActions.length === 0) {
       return;
     }
-    const selectionBounds = elements.map(e => getAbsoluteBounds(e)).reduce((b1, b2) => Bounds.combine(b1, b2));
+
+    // skip edge labels as they have bounds that do not actually match their rendering
+    const selectionBounds = elements
+      .filter(element => !(element instanceof EdgeLabel))
+      .map(getAbsoluteBounds)
+      .filter(Bounds.isValid)
+      .reduce(Bounds.combine);
     this.quickActionBar = this.createQuickActionsBar(containerElement, selectionBounds, true);
     this.createQuickActions(this.quickActionBar, this.activeQuickActions);
     this.shiftBar(this.quickActionBar);
