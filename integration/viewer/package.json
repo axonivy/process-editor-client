@@ -31,6 +31,7 @@
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "package": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "serve": "vite preview"
   }
 }

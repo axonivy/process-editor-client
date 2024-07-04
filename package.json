@@ -1,11 +1,12 @@
 {
   "private": true,
   "name": "parent",
+  "version": "11.4.0-next",
   "engines": {
     "node": ">=20.10.0"
   },
   "volta": {
-    "node": "20.10.0"
+    "node": "20.15.0"
   },
   "scripts": {
     "ci": "npm install && npm run build && npm run package && npm run lint:ci && npm run test:ci",
