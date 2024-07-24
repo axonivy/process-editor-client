@@ -18,7 +18,7 @@
     "bpmn"
   ],
   "dependencies": {
-    "@eclipse-glsp/protocol": "next"
+    "@eclipse-glsp/protocol": "~2.2.0"
   },
   "devDependencies": {
     "rimraf": "^5.0.5",

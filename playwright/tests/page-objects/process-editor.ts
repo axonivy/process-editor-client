@@ -10,19 +10,21 @@ import { QuickActionBar } from './quick-action-bar';
 import { JumpOutBar } from './jump-out';
 import { ViewportBar } from './viewport';
 import { Inscription } from './inscription';
-import { GRAPH_SELECTOR, graphLocator } from './graph';
+import { GRAPH_SELECTOR, diagramLocator, graphLocator } from './graph';
 
 const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 
 export class ProcessEditor {
   protected readonly page: Page;
   protected readonly graph: Locator;
+  protected readonly diagram: Locator;
   public readonly startElement: Element;
   public readonly endElement: Element;
 
   constructor(page: Page) {
     this.page = page;
     this.graph = graphLocator(this.page);
+    this.diagram = diagramLocator(this.page);
     this.startElement = this.element('start:requestStart');
     this.endElement = this.element('end:taskEnd');
   }
@@ -156,11 +158,11 @@ export class ProcessEditor {
   }
 
   async expectGridVisible() {
-    await expect(this.graph).toHaveAttribute('style', /--grid-background-image/);
+    await expect(this.diagram).toHaveClass('grid-background');
   }
 
   async expectGridHidden() {
-    await expect(this.graph).not.toHaveAttribute('style', /--grid-background-image/);
+    await expect(this.diagram).not.toHaveAttribute('grid-background');
   }
 
   async reload() {

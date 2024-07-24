@@ -3,4 +3,9 @@ export interface Point {
   y: number;
 }
 
+export interface Dimension {
+  width: number;
+  height: number;
+}
+
 export type CmdCtrl = 'Meta' | 'Control';

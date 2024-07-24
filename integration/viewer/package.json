@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@axonivy/process-editor": "11.4.0-next",
-    "@eclipse-glsp/client": "next"
+    "@eclipse-glsp/client": "~2.2.0"
   },
   "devDependencies": {
     "@types/uuid": "^9.0.7",

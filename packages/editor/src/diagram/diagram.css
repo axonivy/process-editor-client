@@ -308,3 +308,9 @@ svg {
   visibility: hidden;
   opacity: 0;
 }
+
+.grid-background .sprotty-graph,
+.grid-background.sprotty-graph {
+  --grid-color: var(--glsp-grid);
+  background-image: radial-gradient(var(--grid-color) var(--grid-stroke-width), transparent 0);
+}
