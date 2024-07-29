@@ -32,7 +32,7 @@ import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
-import { ivyChangeBoundsToolModule, ivyExportModule } from './tools/di.config';
+import { ivyChangeBoundsToolModule, ivyExportModule, ivySelectModule } from './tools/di.config';
 import { IVY_TYPES } from './types';
 import ivyQuickActionModule from './ui-tools/quick-action/di.config';
 import ivyToolBarModule from './ui-tools/tool-bar/di.config';
@@ -68,6 +68,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     { replace: ivyLabelEditUiModule },
     { replace: ivyChangeBoundsToolModule },
     { replace: ivyExportModule },
+    { replace: ivySelectModule },
 
     // Ivy additions
     ivyDiagramModule,

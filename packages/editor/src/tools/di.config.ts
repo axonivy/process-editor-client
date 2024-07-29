@@ -6,13 +6,17 @@ import {
   FeatureModule,
   GResizeHandle,
   HideChangeBoundsToolResizeFeedbackCommand,
+  SelectAllCommand,
+  SelectCommand,
+  SelectFeedbackCommand,
   ShowChangeBoundsToolResizeFeedbackCommand,
   TYPES,
   bindAsService,
   changeBoundsToolModule,
   configureCommand,
   configureView,
-  exportModule
+  exportModule,
+  selectModule
 } from '@eclipse-glsp/client';
 
 import { IvyResizeHandleView } from '../diagram/views';
@@ -20,6 +24,7 @@ import { IvySvgExporter } from './export/ivy-svg-exporter';
 import './helper-line.css';
 import { IvyChangeBoundsManager } from './ivy-change-bounds-manager';
 import { ShowNegativeAreaFeedbackCommand } from './negative-area/model';
+import { IvySelectMouseListener } from './select-mouse-listener';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -50,4 +55,18 @@ export const ivyExportModule = new FeatureModule(
     bindAsService(context, TYPES.SvgExporter, IvySvgExporter);
   },
   { featureId: exportModule.featureId }
+);
+
+export const ivySelectModule = new FeatureModule(
+  (bind, _unbind, isBound) => {
+    const context = { bind, isBound };
+    // GLSP defaults
+    configureCommand(context, SelectCommand);
+    configureCommand(context, SelectAllCommand);
+    configureCommand(context, SelectFeedbackCommand);
+
+    // GLSP replacements
+    bindAsService(context, TYPES.MouseListener, IvySelectMouseListener);
+  },
+  { featureId: selectModule.featureId }
 );
