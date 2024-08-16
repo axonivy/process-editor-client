@@ -9,7 +9,6 @@ export * from './data-class';
 export * from './decorator';
 export * from './execution';
 export * from './go-to-source';
-export * from './inscription';
 export * from './insert-extension';
 export * from './jump';
 export * from './model';

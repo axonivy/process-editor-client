@@ -4,7 +4,6 @@ import {
   ivyGoToSourceModule,
   ivyOpenDataClassModule,
   ivyOpenDecoratorBrowserModule,
-  ivyOpenInscriptionModule,
   ivyStartActionModule,
   ivyThemeModule
 } from '@axonivy/process-editor';
@@ -31,7 +30,6 @@ export default function createContainer(widgetId: string, options: IvyDiagramOpt
     ivyThemeModule,
     ivyEclipseCopyPasteModule,
     ivyEclipseDeleteModule,
-    ivyOpenInscriptionModule,
     ivyOpenDecoratorBrowserModule,
     ivyOpenQuickOutlineModule,
     ivyGoToSourceModule,
