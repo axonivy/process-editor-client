@@ -2,7 +2,6 @@ export { default as createIvyDiagramContainer } from './di.config';
 export { default as ivyBreakpointModule } from './breakpoint/di.config';
 export { default as ivyToolBarModule } from './ui-tools/tool-bar/di.config';
 export { default as ivyThemeModule } from './theme/di.config';
-export { default as ivyOpenInscriptionModule } from './open-inscription/di.config';
 export { default as ivyOpenDataClassModule } from './open-dataclass/di.config';
 export { default as ivyOpenDecoratorBrowserModule } from './open-decorator-browser/di.config';
 export { default as ivyGoToSourceModule } from './open-source/di.config';
