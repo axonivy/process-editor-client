@@ -24,7 +24,7 @@ describe('QuickActionUi', () => {
 
   test('hidden by default', () => {
     const uiDiv = getQuickActionDiv();
-    expect(uiDiv).to.be.null;
+    expect(uiDiv).toBeNull();
   });
 
   test('hidden if feature disabled', () => {

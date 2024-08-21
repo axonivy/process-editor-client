@@ -120,6 +120,7 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
   protected intersectionPath(edge: SEdgeImpl, segments: Point[], intersectingPoint: IntersectingRoutedPoint, args?: IViewArgs): string {
     try {
       return super.intersectionPath(edge, segments, intersectingPoint, args);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (ex) {
       // ingnore exception which can occur if one point of the segmet is NaN
       return '';

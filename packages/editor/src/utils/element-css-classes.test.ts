@@ -31,7 +31,7 @@ describe('ElementCssClassesUtil', () => {
 
   test('removeCssClass of empty array', () => {
     removeCssClasses(node, 'nothingToRemove');
-    expect(node.cssClasses).to.be.undefined;
+    expect(node.cssClasses).toBeUndefined();
   });
 
   test('addCssClassToElements', () => {
@@ -58,7 +58,7 @@ describe('ElementCssClassesUtil', () => {
 
   test('removeCssClassOfElements of empty array', () => {
     removeCssClassOfElements([node, node2], 'nothingToRemove');
-    expect(node.cssClasses).to.be.undefined;
-    expect(node2.cssClasses).to.be.undefined;
+    expect(node.cssClasses).toBeUndefined();
+    expect(node2.cssClasses).toBeUndefined();
   });
 });

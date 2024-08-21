@@ -50,7 +50,7 @@ describe('BreakpointFeedbackAction', () => {
 
     const invalidBreakpoint = { elementId: 'notbreakable', condition: '', disabled: false };
     await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [invalidBreakpoint] }));
-    expect(node.children).to.be.empty;
+    expect(node.children).toHaveLength(0);
   });
 
   test('SBreakpointHandle will be added/removed to/from a breakable element', async () => {
@@ -66,7 +66,7 @@ describe('BreakpointFeedbackAction', () => {
     expect(node.children[0]).to.be.an.instanceOf(SBreakpointHandle);
 
     await actionDispatcher.dispatch(BreakpointFeedbackAction.create({ breakpoints: [], oldBreakpoints: [elementBreakpoint] }));
-    expect(node.children).to.be.empty;
+    expect(node.children).toHaveLength(0);
   });
 
   test('SBreakpointHandle will get correct infos', async () => {
