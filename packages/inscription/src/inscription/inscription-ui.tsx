@@ -1,14 +1,16 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
-import { SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
   GArgument,
   GLSPAbstractUIExtension,
+  GLSPActionDispatcher,
   GModelRoot,
   IActionHandler,
   ISelectionListener,
+  SelectAction,
   SelectionService,
   isNotUndefined,
   isOpenable
@@ -20,6 +22,7 @@ import { Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
 import InscriptionView from './InscriptionView';
 import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
+import { outlineNodes } from './outline-data';
 
 const JSX = { createElement: React.createElement };
 
@@ -28,6 +31,7 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
   static readonly ID = 'inscription-ui';
 
   @inject(SelectionService) protected readonly selectionService: SelectionService;
+  @inject(GLSPActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
 
   private inscriptionElement?: string;
   private action?: EnableInscriptionAction;
@@ -63,11 +67,21 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
     }
     const element = this.inscriptionElement;
     this.inscriptionClient?.then(client => {
+      const model = this.selectionService.getModelRoot();
       this.root.render(
         <React.StrictMode>
           <ClientContextProvider client={client}>
             <QueryClientProvider client={this.queryClient}>
-              <InscriptionView app={this.inscriptionContext.app} pmv={this.inscriptionContext.pmv} pid={element} />
+              <InscriptionView
+                app={this.inscriptionContext.app}
+                pmv={this.inscriptionContext.pmv}
+                pid={element}
+                outline={{
+                  outline: outlineNodes(model.root),
+                  selection: this.selectionService.getSelectedElementIDs()[0],
+                  onClick: id => this.selectFromOutline(id)
+                }}
+              />
             </QueryClientProvider>
           </ClientContextProvider>
         </React.StrictMode>
@@ -147,5 +161,12 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
       this.changeUiVisiblitiy(false);
     }
     this.updateInscriptionUi();
+  }
+
+  selectFromOutline(id: string) {
+    this.actionDispatcher.dispatchAll([
+      SelectAction.create({ selectedElementsIDs: [id], deselectedElementsIDs: true }),
+      MoveIntoViewportAction.create({ elementIds: [id] })
+    ]);
   }
 }

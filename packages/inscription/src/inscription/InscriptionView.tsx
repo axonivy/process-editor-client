@@ -1,17 +1,11 @@
 import { App } from '@axonivy/inscription-editor';
-import React, { useEffect, useState } from 'react';
+import React, { ComponentProps, useEffect, useState } from 'react';
 import { useMove } from 'react-aria';
 import { inscriptionWidthStorage } from './inscription-width-storage';
 
 const JSX = { createElement: React.createElement };
 
-interface InscriptionViewProps {
-  app: string;
-  pmv: string;
-  pid: string;
-}
-
-const InscriptionView = ({ app, pmv, pid }: InscriptionViewProps) => {
+const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
   const [element, setElement] = useState(pid);
   useEffect(() => {
     setElement(pid);
@@ -38,7 +32,7 @@ const InscriptionView = ({ app, pmv, pid }: InscriptionViewProps) => {
   return (
     <div style={{ width: width }}>
       <div className={`inscription-resizer${resizeActive ? ' active' : ''}`} {...moveProps} />
-      <App app={app} pmv={pmv} pid={element} />
+      <App pid={element} {...props} />
     </div>
   );
 };
