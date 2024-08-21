@@ -43,7 +43,7 @@ describe('AnimateActionHandler', () => {
     await actionDispatcher.dispatch(AnimateAction.create({ elementIds: ['foo'] }));
     const action = getAndAssertFeedbackAction();
     expect(action.animatedIDs).to.include('foo');
-    expect(action.deAnimatedIDs).to.be.undefined;
+    expect(action.deAnimatedIDs).toBeUndefined();
 
     await new Promise(r => setTimeout(r, 2100));
     expect(feedbackDispatcher.getRegisteredFeedback()).to.have.lengthOf(0);

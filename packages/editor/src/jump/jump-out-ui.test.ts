@@ -51,12 +51,12 @@ describe('ToolPaletteFeedback', () => {
 
   test('hidden on main process (contains no "-")', async () => {
     await actionDispatcher.dispatch(JumpOutFeedbackAction.create());
-    expect(jumpOutBtn).to.be.false;
+    expect(jumpOutBtn).toBeFalsy();
   });
 
   test('shown on sub process (root pid contains "-")', async () => {
     root.id = 'graph-f1';
     await actionDispatcher.dispatch(JumpOutFeedbackAction.create());
-    expect(jumpOutBtn).to.be.true;
+    expect(jumpOutBtn).toBeTruthy();
   });
 });

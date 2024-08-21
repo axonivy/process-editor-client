@@ -40,20 +40,20 @@ describe('ShowBreakpointActionHandler', () => {
     await actionDispatcher.dispatch(ShowBreakpointAction.create({ elementBreakpoints: [elementBreakpoint], globalDisabled: false }));
     let action = getAndAssertBreakpointFeedbackAction();
     expect(action.breakpoints).to.include(elementBreakpoint);
-    expect(action.oldBreakpoints).to.be.empty;
-    expect(action.globalDisabled).to.be.false;
+    expect(action.oldBreakpoints).toHaveLength(0);
+    expect(action.globalDisabled).toBeFalsy();
 
     await actionDispatcher.dispatch(ShowBreakpointAction.create({ elementBreakpoints: [elementBreakpoint], globalDisabled: true }));
     action = getAndAssertBreakpointFeedbackAction();
     expect(action.breakpoints).to.include(elementBreakpoint);
     expect(action.oldBreakpoints).to.include(elementBreakpoint);
-    expect(action.globalDisabled).to.be.true;
+    expect(action.globalDisabled).toBeTruthy();
 
     await actionDispatcher.dispatch(ShowBreakpointAction.create({ elementBreakpoints: [], globalDisabled: false }));
     action = getAndAssertBreakpointFeedbackAction();
-    expect(action.breakpoints).to.be.empty;
+    expect(action.breakpoints).toHaveLength(0);
     expect(action.oldBreakpoints).to.include(elementBreakpoint);
-    expect(action.globalDisabled).to.be.false;
+    expect(action.globalDisabled).toBeFalsy();
 
     function getAndAssertBreakpointFeedbackAction(): BreakpointFeedbackAction {
       const feedbacks = feedbackDispatcher.getRegisteredFeedback();

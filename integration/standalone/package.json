@@ -12,7 +12,7 @@
   "dependencies": {
     "@axonivy/process-editor": "11.4.0-next",
     "@axonivy/process-editor-inscription": "11.4.0-next",
-    "@axonivy/inscription-editor": "~11.4.0-next.1145",
+    "@axonivy/inscription-editor": "~11.4.0-next.1168",
     "@eclipse-glsp/client": "~2.2.0"
   },
   "devDependencies": {
@@ -20,10 +20,8 @@
     "@vscode/codicons": "^0.0.25",
     "path-browserify": "^1.0.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.3.3",
-    "vite": "^5.2.8",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite": "^5.4.2",
+    "vite-tsconfig-paths": "^5.0.1"
   },
   "type": "module",
   "scripts": {

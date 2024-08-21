@@ -32,6 +32,7 @@ export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
         this.connectionPromise = undefined;
         this.resolvedConnection = undefined;
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       // Disposing a connection could fail if error cases.
     }

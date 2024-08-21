@@ -55,12 +55,12 @@ describe('Activity Icons', () => {
 
 function assertNoIcon(node: VNode): void {
   expect(node.sel).to.be.equals('g');
-  expect(node.children).to.be.empty;
+  expect(node.children).toHaveLength(0);
 }
 
 function assertIcon(node: VNode, expectedBounds: Bounds, expectedPath: string, color?: string): void {
   expect(node.sel).to.be.equals('svg');
-  expect(node.children).to.be.not.empty;
+  expect(node.children).not.toHaveLength(0);
   assertIconBounds(node.data, expectedBounds, '0 0 20 20');
 
   const path = node.children![0] as any;
@@ -74,7 +74,7 @@ function assertIcon(node: VNode, expectedBounds: Bounds, expectedPath: string, c
 
 function assertImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
   expect(node.sel).to.be.equals('g');
-  expect(node.children).to.be.not.empty;
+  expect(node.children).not.toHaveLength(0);
 
   const foreignObject = node.children![0] as any;
   expect(foreignObject.sel).to.be.equals('foreignObject');

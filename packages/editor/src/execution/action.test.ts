@@ -45,7 +45,7 @@ describe('ExecutionActionHandler', () => {
     const execution: ElementExecution = { elementId: 'foo', count: 2, failed: false };
     await actionDispatcher.dispatch(SetExecutedElementsAction.create({ elementExecutions: [execution], lastExecutedElementId: '' }));
     const firstAction = getAndAssertFeedbackAction();
-    expect(firstAction.oldElementExecutions).to.be.undefined;
+    expect(firstAction.oldElementExecutions).toBeUndefined();
     expect(firstAction.elementExecutions).to.include(execution);
 
     await actionDispatcher.dispatch(SetExecutedElementsAction.create({ elementExecutions: [execution], lastExecutedElementId: '' }));
@@ -75,7 +75,7 @@ describe('StoppedActionHandler', () => {
   test('register StoppedFeedbackAction', async () => {
     await actionDispatcher.dispatch(StoppedAction.create({ elementId: 'foo' }));
     const firstAction = getAndAssertFeedbackAction();
-    expect(firstAction.oldStoppedElement).to.be.undefined;
+    expect(firstAction.oldStoppedElement).toBeUndefined();
     expect(firstAction.stoppedElement).to.be.equals('foo');
 
     await actionDispatcher.dispatch(StoppedAction.create({ elementId: 'bar' }));
@@ -84,7 +84,7 @@ describe('StoppedActionHandler', () => {
     expect(secondAction.stoppedElement).to.be.equals('bar');
 
     await actionDispatcher.dispatch(StoppedAction.create({}));
-    expect(feedbackDispatcher.getRegisteredFeedback()).to.be.empty;
+    expect(feedbackDispatcher.getRegisteredFeedback()).toHaveLength(0);
 
     function getAndAssertFeedbackAction(): StoppedFeedbackAction {
       const feedbacks = feedbackDispatcher.getRegisteredFeedback();

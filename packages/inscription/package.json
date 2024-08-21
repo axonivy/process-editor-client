@@ -10,22 +10,20 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@axonivy/inscription-core": "~11.4.0-next.1145",
-    "@axonivy/inscription-editor": "~11.4.0-next.1145",
-    "@axonivy/inscription-protocol": "~11.4.0-next.1145",
+    "@axonivy/inscription-core": "~11.4.0-next.1168",
+    "@axonivy/inscription-editor": "~11.4.0-next.1168",
+    "@axonivy/inscription-protocol": "~11.4.0-next.1168",
     "@axonivy/process-editor": "~11.4.0-next",
     "@codingame/monaco-vscode-editor-service-override": "1.83.3",
     "@codingame/monaco-vscode-languages-service-override": "1.83.3",
     "@codingame/monaco-vscode-model-service-override": "1.83.3",
     "@eclipse-glsp/client": "~2.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
-    "rimraf": "^5.0.5",
-    "typescript": "^5.3.3"
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.0"
   },
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
