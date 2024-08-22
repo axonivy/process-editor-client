@@ -1,4 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { Outline } from './outline';
 
 export class Inscription {
   protected readonly page: Page;
@@ -34,6 +35,12 @@ export class Inscription {
       await section.click();
     }
     return section;
+  }
+
+  async toggleOutline() {
+    const outline = new Outline(this.page, this.view);
+    await outline.open();
+    return outline;
   }
 
   async expectOpen() {
