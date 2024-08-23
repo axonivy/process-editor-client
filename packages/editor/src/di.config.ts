@@ -40,8 +40,6 @@ import ivyViewportModule from './ui-tools/viewport/di.config';
 import ivyWrapModule from './wrap/di.config';
 import ivyZorderModule from './zorder/di.config';
 
-import '@axonivy/ui-icons/lib/ivy-icons.css';
-import 'toastify-js/src/toastify.css';
 import './colors.css';
 import './toastify.css';
 import { IvyMarqueeUtil } from './ui-tools/tool-bar/marquee-behavior';
