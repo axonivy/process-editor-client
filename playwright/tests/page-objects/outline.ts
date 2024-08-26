@@ -28,7 +28,7 @@ export class Outline {
   }
 
   async doubleClick(name: string) {
-    await this.outlineNode(name).click({ clickCount: 2 });
+    await this.outlineNode(name).dblclick();
   }
 
   private outlineNode(name: string) {
