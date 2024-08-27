@@ -20,7 +20,7 @@
       "name": "Launch Viewer (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
+      "url": "http://localhost:3000?server=localhost:8081&mode=viewer&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
       "presentation": {
         "group": "4. Standalone",
         "order": 1

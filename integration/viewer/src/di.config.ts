@@ -8,7 +8,9 @@ import {
   ivyLaneModule,
   ivyQuickActionModule,
   ivyThemeModule,
-  ivyWrapModule
+  ivyToolBarModule,
+  ivyWrapModule,
+  overrideIvyViewerOptions
 } from '@axonivy/process-editor';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
 import {
@@ -49,11 +51,13 @@ export default function createContainer(options: IvyDiagramOptions): Container {
         ivyConnectorModule,
         deletionToolModule,
         edgeEditToolModule,
-        nodeCreationToolModule
+        nodeCreationToolModule,
+        ivyToolBarModule
       ]
     },
     { remove: ivyQuickActionModule, add: ivyViewerQuickActionModule },
     { remove: ivyKeyListenerModule, add: ivyViewerKeyListenerModule }
   );
+  overrideIvyViewerOptions(container, { hideSensitiveInfo: true });
   return container;
 }

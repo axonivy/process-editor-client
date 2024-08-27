@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { jumpToExternalTargetAndAssert } from '../../standalone/navigation/jump-to-external-target.spec';
+import { jumpToExternalTargetAndAssert } from '../standalone/navigation/jump-to-external-target.spec';
 
 test.describe('Jump to external target', () => {
   test('hd process with viewer', async ({ page }) => {

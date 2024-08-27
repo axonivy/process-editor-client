@@ -6,7 +6,7 @@ import { Container } from 'inversify';
 import { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import './index.css';
-import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';
+import { getParameters, getServerDomain, isSecureConnection } from './url-helper';
 
 const parameters = getParameters();
 const app = parameters.get('app') ?? 'designer';
@@ -42,7 +42,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     diagramType,
     glspClientProvider: async () => glspClient,
     sourceUri,
-    editMode: isReadonly() ? EditMode.READONLY : EditMode.EDITABLE,
+    editMode: EditMode.READONLY,
     highlight,
     select,
     zoom,
@@ -52,7 +52,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
   const diagramLoader = container.get(DiagramLoader);
   await diagramLoader.load({
     // Our custom server needs the 'readonly' argument here as well and not only set through the edit mode in the diagram options
-    requestModelOptions: { isReconnecting, app, pmv, pid, highlight, readonly: isReadonly(), diagramType },
+    requestModelOptions: { isReconnecting, app, pmv, pid, highlight, readonly: true, diagramType },
     initializeParameters: {
       applicationId: ApplicationIdProvider.get(),
       protocolVersion: GLSPClient.protocolVersion
