@@ -1,18 +1,8 @@
-import { IVY_TYPES, ToolBar, ivyToolBarModule, overrideIvyViewerOptions } from '@axonivy/process-editor';
 import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
-import {
-  Action,
-  CenterAction,
-  EnableToolPaletteAction,
-  GLSPActionDispatcher,
-  IDiagramStartup,
-  NavigationTarget,
-  SelectAction,
-  TYPES
-} from '@eclipse-glsp/client';
+import { Action, CenterAction, GLSPActionDispatcher, IDiagramStartup, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable, interfaces } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
-import { isInPreviewMode, isInViewerMode } from './url-helper';
+import { isInPreviewMode } from './url-helper';
 
 const ContainerSymbol = Symbol('ContainerSymbol');
 
@@ -29,11 +19,6 @@ export class ViewerDiagramStartup implements IDiagramStartup {
 
   async postModelInitialization(): Promise<void> {
     await this.dispatchAfterModelInitialized();
-    if (isInViewerMode() || isInPreviewMode()) {
-      this.setViewerMode();
-    } else {
-      this.actionDispatcher.dispatch(EnableToolPaletteAction.create());
-    }
     if (!isInPreviewMode()) {
       this.actionDispatcher.dispatch(EnableViewportAction.create());
     }
@@ -66,12 +51,6 @@ export class ViewerDiagramStartup implements IDiagramStartup {
 
   protected isNumeric(num: any): boolean {
     return !isNaN(parseFloat(num)) && isFinite(num);
-  }
-
-  protected setViewerMode(): void {
-    this.container.get<ToolBar>(IVY_TYPES.ToolBar).disable();
-    this.container.unload(ivyToolBarModule);
-    overrideIvyViewerOptions(this.container, { hideSensitiveInfo: true });
   }
 }
 

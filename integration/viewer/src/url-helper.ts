@@ -11,14 +11,6 @@ export function isSecureConnection(): boolean {
   return window.location.protocol === 'https:' || getParameters().get('secure') === 'true';
 }
 
-export function isReadonly(): boolean {
-  return getParameters().get('readonly') === 'true' || isInViewerMode() || isInPreviewMode();
-}
-
-export function isInViewerMode(): boolean {
-  return getParameters().get('mode') === 'viewer';
-}
-
 export function isInPreviewMode(): boolean {
   return getParameters().get('mode') === 'preview';
 }
