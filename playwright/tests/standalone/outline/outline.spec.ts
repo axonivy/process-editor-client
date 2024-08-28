@@ -30,6 +30,7 @@ test('select node', async ({ page }) => {
   await outline.select('Start');
   await processEditor.startElement.expectSelected();
 
+  await outline.select('End');
   await outline.doubleClick('End');
   await processEditor.endElement.expectSelected();
   await outline.expectClosed();
