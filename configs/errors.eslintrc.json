@@ -64,8 +64,7 @@
     ],
     "import/no-unresolved": "off",
     "import/export": "off",
-    "import/no-deprecated": "error",
-    "no-null/no-null": "error"
+    "import/no-deprecated": "error"
   },
   "overrides": [
     {

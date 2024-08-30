@@ -32,6 +32,6 @@ export class Outline {
   }
 
   private outlineNode(name: string) {
-    return this.view.getByRole('row', { name });
+    return this.view.getByRole('row', { name }).first();
   }
 }
