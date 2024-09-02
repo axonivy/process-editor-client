@@ -11,6 +11,13 @@ test.describe('screenshots', () => {
     await screenshot(page, 'process-editor.png', { height: 350 });
   });
 
+  test('outline', async ({ page }) => {
+    const editor = await ProcessEditor.openProcess(page, { file: '/processes/quickstart.p.json' });
+    const inscription = await editor.toggleInscription();
+    await inscription.toggleOutline();
+    await screenshot(page, 'process-outline.png', { width: 900, height: 350 });
+  });
+
   test('warning', async ({ page }) => {
     const editor = await ProcessEditor.openProcess(page, { file: '/processes/warning.p.json' });
     await editor.element('dialogCall').expectHasWarning();
