@@ -1,7 +1,7 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
 import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
-import { MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { JumpAction, MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
   GArgument,
@@ -11,6 +11,7 @@ import {
   IActionHandler,
   ISelectionListener,
   SelectAction,
+  SelectAllAction,
   SelectionService,
   isNotUndefined,
   isOpenable
@@ -22,7 +23,6 @@ import { Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
 import InscriptionView from './InscriptionView';
 import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
-import { outlineNodes } from './outline-data';
 
 const JSX = { createElement: React.createElement };
 
@@ -67,7 +67,6 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
     }
     const element = this.inscriptionElement;
     this.inscriptionClient?.then(client => {
-      const model = this.selectionService.getModelRoot();
       this.root.render(
         <React.StrictMode>
           <ClientContextProvider client={client}>
@@ -77,7 +76,6 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
                 pmv={this.inscriptionContext.pmv}
                 pid={element}
                 outline={{
-                  outline: outlineNodes(model.root),
                   selection: this.selectionService.getSelectedElementIDs()[0],
                   onClick: id => this.selectFromOutline(id)
                 }}
@@ -158,15 +156,29 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
       this.inscriptionElement = selected.id;
     } else {
       this.inscriptionElement = this.inscriptionElement ? root.id : undefined;
-      this.changeUiVisiblitiy(false);
+      if (!this.isOutlineOpen()) {
+        this.changeUiVisiblitiy(false);
+      }
     }
     this.updateInscriptionUi();
   }
 
+  private isOutlineOpen() {
+    return this.containerElement.querySelector('.ui-outline') !== null;
+  }
+
   selectFromOutline(id: string) {
-    this.actionDispatcher.dispatchAll([
+    const actions = [
       SelectAction.create({ selectedElementsIDs: [id], deselectedElementsIDs: true }),
       MoveIntoViewportAction.create({ elementIds: [id] })
-    ]);
+    ];
+    const parent = id.substring(0, id.lastIndexOf('-'));
+    if (this.selectionService.getModelRoot().id !== parent) {
+      this.actionDispatcher.dispatch(JumpAction.create({ elementId: parent, noViewportUpdate: true }));
+      this.actionDispatcher.dispatch(SelectAllAction.create(false));
+      this.actionDispatcher.dispatchAfterNextUpdate(...actions);
+    } else {
+      this.actionDispatcher.dispatchAll(actions);
+    }
   }
 }
