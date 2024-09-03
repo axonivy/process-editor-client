@@ -11,6 +11,11 @@ body {
 .sprotty {
   user-select: none;
 }
+.sprotty,
+.sprotty > div:focus-visible,
+.sprotty-graph:focus {
+  outline: none;
+}
 .sprotty-graph {
   background: var(--glsp-editor-background);
   font-size: 10pt;

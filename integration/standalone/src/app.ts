@@ -20,12 +20,14 @@ import {
   SwitchThemeAction,
   SwitchThemeActionHandler,
   overrideIvyViewerOptions,
-  IvyBaseJsonrpcGLSPClient
+  IvyBaseJsonrpcGLSPClient,
+  GLSPWebSocketProvider
 } from '@ivyteam/process-editor';
-import { ApplicationIdProvider, GLSPClient, JsonrpcGLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
+import { MessageConnection } from 'vscode-jsonrpc';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -34,7 +36,6 @@ if (server === undefined) {
 }
 const id = 'ivy-glsp-process';
 const diagramType = 'ivy-glsp-process';
-const websocket = new WebSocket(`${isSecureConnection() ? 'wss' : 'ws'}://${server}/${id}`);
 const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
@@ -48,23 +49,22 @@ const zoom = parameters['zoom'];
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
 
-websocket.onopen = () => {
-  const connectionProvider = JsonrpcGLSPClient.createWebsocketConnectionProvider(websocket);
-  const glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
-  initialize(glspClient);
-};
+let glspClient: GLSPClient;
 
-async function initialize(client: GLSPClient): Promise<void> {
-  await diagramServer.connect(client);
-  const result = await client.initializeServer({
+const webSocketUrl = `${isSecureConnection() ? 'wss' : 'ws'}://${server}/${id}`;
+const wsProvider = new GLSPWebSocketProvider(webSocketUrl, { reconnectDelay: 5000, reconnectAttempts: 120 });
+wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
+
+async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
+  glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
+  await diagramServer.connect(glspClient);
+  const result = await glspClient.initializeServer({
     applicationId: ApplicationIdProvider.get(),
     protocolVersion: GLSPClient.protocolVersion
   });
   await configureServerActions(result, diagramType, container);
-
+  await glspClient.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   const actionDispatcher = container.get<GLSPActionDispatcher>(TYPES.IActionDispatcher);
-
-  await client.initializeClientSession({ clientSessionId: diagramServer.clientId, diagramType });
   actionDispatcher
     .dispatch(
       RequestModelAction.create({
@@ -83,6 +83,11 @@ async function initialize(client: GLSPClient): Promise<void> {
         actionDispatcher.dispatch(EnableViewportAction.create());
       }
     });
+}
+
+async function reconnect(connectionProvider: MessageConnection): Promise<void> {
+  glspClient.stop();
+  initialize(connectionProvider, true /* isReconnecting */);
 }
 
 async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
@@ -117,5 +122,3 @@ function setViewerMode(): void {
   container.unload(ivyToolBarModule);
   overrideIvyViewerOptions(container, { hideSensitiveInfo: true });
 }
-
-websocket.onerror = ev => alert('Connection to server errored. Please make sure that the server is running');
