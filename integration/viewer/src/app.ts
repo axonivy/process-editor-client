@@ -32,7 +32,7 @@ const webSocketUrl = `${webSocketBase}${app}/${id}`;
 
 let glspClient: GLSPClient;
 let container: Container;
-const wsProvider = new GLSPWebSocketProvider(webSocketUrl);
+const wsProvider = new GLSPWebSocketProvider(webSocketUrl, { reconnectDelay: 5000, reconnectAttempts: 120 });
 wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
