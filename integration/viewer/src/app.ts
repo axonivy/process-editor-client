@@ -22,6 +22,7 @@ const highlight = parameters.get('highlight') ?? '';
 const select = parameters.get('select');
 const zoom = parameters.get('zoom') ?? '';
 const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
+const measurePerformance = parameters.has('performance', 'true');
 
 const id = 'ivy-glsp-process-viewer';
 const diagramType = 'ivy-glsp-process';
@@ -46,7 +47,8 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     highlight,
     select,
     zoom,
-    theme
+    theme,
+    measurePerformance
   });
 
   const diagramLoader = container.get(DiagramLoader);
