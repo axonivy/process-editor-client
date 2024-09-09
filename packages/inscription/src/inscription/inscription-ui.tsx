@@ -1,6 +1,6 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
-import { InscriptionClient, InscriptionContext } from '@axonivy/inscription-protocol';
+import { InscriptionContext } from '@axonivy/inscription-protocol';
 import { JumpAction, MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
@@ -16,6 +16,8 @@ import {
   isNotUndefined,
   isOpenable
 } from '@eclipse-glsp/client';
+import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
+import type { MonacoLanguageClient } from 'monaco-languageclient';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { inject, injectable, postConstruct } from 'inversify';
 import React from 'react';
@@ -37,7 +39,7 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
   private action?: EnableInscriptionAction;
   private inscriptionContext: InscriptionContext;
   private root: Root;
-  private inscriptionClient?: Promise<InscriptionClient>;
+  private inscriptionClient?: Promise<InscriptionClientJsonRpc>;
   private queryClient: QueryClient;
 
   public id(): string {
@@ -87,22 +89,55 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
     });
   }
 
-  async startInscriptionClient(): Promise<InscriptionClient> {
+  async startInscriptionClient(): Promise<InscriptionClientJsonRpc> {
     const model = this.selectionService.getModelRoot();
     const webSocketAddress = this.action?.connection?.server ?? GArgument.getString(model, 'webSocket') ?? 'ws://localhost:8081/';
     if (this.action?.connection?.ivyScript) {
       IvyScriptLanguage.startClient(this.action?.connection?.ivyScript, MonacoEditorUtil.getInstance());
     } else {
-      IvyScriptLanguage.startWebSocketClient(webSocketAddress, MonacoEditorUtil.getInstance());
+      this.startIvyScriptWebSocketClient(webSocketAddress);
     }
-    let client: InscriptionClient;
     if (this.action?.connection?.inscription) {
-      client = await InscriptionClientJsonRpc.startClient(this.action.connection.inscription);
-    } else {
-      client = await InscriptionClientJsonRpc.startWebSocketClient(webSocketAddress);
+      return InscriptionClientJsonRpc.startClient(this.action.connection.inscription);
     }
-    await client.initialize();
-    return client;
+    return this.startInscriptionWebSocketClient(webSocketAddress);
+  }
+
+  private async startIvyScriptWebSocketClient(webSocketAddress: string) {
+    const initScript = async (connection: Connection) => IvyScriptLanguage.startClient(connection, MonacoEditorUtil.getInstance());
+    const reconnectScript = async (connection: Connection, oldClient: MonacoLanguageClient) => {
+      try {
+        await oldClient.stop(0);
+      } catch (error) {
+        console.warn(error);
+      }
+      return initScript(connection);
+    };
+    webSocketConnection<MonacoLanguageClient>(IvyScriptLanguage.webSocketUrl(webSocketAddress)).listen({
+      onConnection: initScript,
+      onReconnect: reconnectScript,
+      logger: console
+    });
+  }
+
+  private async startInscriptionWebSocketClient(webSocketAddress: string) {
+    const initInscription = async (connection: Connection) => {
+      this.inscriptionClient = InscriptionClientJsonRpc.startClient(connection);
+      return this.inscriptionClient;
+    };
+    const reconnectInscription = async (connection: Connection, oldClient: InscriptionClientJsonRpc) => {
+      try {
+        await oldClient.stop();
+      } catch (error) {
+        console.warn(error);
+      }
+      return initInscription(connection);
+    };
+    return webSocketConnection<InscriptionClientJsonRpc>(InscriptionClientJsonRpc.webSocketUrl(webSocketAddress)).listen({
+      onConnection: initInscription,
+      onReconnect: reconnectInscription,
+      logger: console
+    });
   }
 
   handle(action: Action) {
