@@ -17,6 +17,9 @@ export class IvyGLSPDiagramServer extends GLSPDiagramServer {
       });
       this.toast.showToast();
     }
+    if (action.severity === 'WARNING' && action.timeout) {
+      this.toast = undefined; // will be hidden by timeout
+    }
     return false;
   }
 }
