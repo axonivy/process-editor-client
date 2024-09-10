@@ -23,11 +23,12 @@ import {
   IvyBaseJsonrpcGLSPClient,
   GLSPWebSocketProvider
 } from '@ivyteam/process-editor';
-import { ApplicationIdProvider, GLSPClient, NavigationTarget } from '@eclipse-glsp/protocol';
+import { ApplicationIdProvider, GLSPClient, NavigationTarget, ServerMessageAction } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
 import { MessageConnection } from 'vscode-jsonrpc';
+import * as Toastify from 'toastify-js';
 
 const parameters = getParameters();
 let server = parameters['server'];
@@ -53,7 +54,11 @@ let glspClient: GLSPClient;
 
 const webSocketUrl = `${isSecureConnection() ? 'wss' : 'ws'}://${server}/${id}`;
 const wsProvider = new GLSPWebSocketProvider(webSocketUrl, { reconnectDelay: 5000, reconnectAttempts: 120 });
-wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
+wsProvider.listen({
+  onConnection: initialize,
+  onReconnect: reconnect,
+  logger: { log: console.log, warn: console.warn, info: console.info, error: showError }
+});
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
   glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });
@@ -83,11 +88,32 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
         actionDispatcher.dispatch(EnableViewportAction.create());
       }
     });
+  if (isReconnecting) {
+    actionDispatcher.dispatchAll([
+      ServerMessageAction.create('Connection to the server got closed. Connection was successfully re-established.', {
+        severity: 'WARNING',
+        timeout: 5000
+      })
+    ]);
+  }
 }
 
 async function reconnect(connectionProvider: MessageConnection): Promise<void> {
+  (glspClient as IvyBaseJsonrpcGLSPClient).error('bla');
   glspClient.stop();
   initialize(connectionProvider, true /* isReconnecting */);
+}
+
+function showError(message: string): void {
+  Toastify({
+    text: message,
+    className: 'severity-ERROR',
+    duration: -1,
+    close: true,
+    gravity: 'bottom',
+    position: 'left',
+    onClick: () => window.location.reload()
+  }).showToast();
 }
 
 async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): Promise<void> {
