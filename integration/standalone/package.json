@@ -10,7 +10,7 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@axonivy/inscription-editor": "~11.4.0-next.1186",
+    "@axonivy/inscription-editor": "~11.4.0-next.1188",
     "@axonivy/process-editor": "12.0.0-next",
     "@axonivy/process-editor-inscription": "12.0.0-next",
     "@eclipse-glsp/client": "~2.2.0"
