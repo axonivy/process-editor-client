@@ -23,7 +23,7 @@
     "test": "lerna run test",
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
-    "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u && npm install && npm dedupe",
+    "update:axonivy:next": "npx --yes npm-check-updates @axonivy* -ws -t patch -u",
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {

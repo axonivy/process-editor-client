@@ -23,7 +23,7 @@ pipeline {
       steps {
         script {
           docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
-            sh 'npm run update:axonivy:next'
+            sh 'npm run update:axonivy:next && npm install'
             sh 'npm run package'
             dir ('playwright/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
