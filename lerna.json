@@ -1,5 +1,5 @@
 {
-  "version": "11.4.0-next",
+  "version": "12.0.0-next",
   "npmClient": "npm",
   "command": {
     "run": {
