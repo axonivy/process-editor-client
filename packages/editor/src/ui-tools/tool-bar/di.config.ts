@@ -48,6 +48,7 @@ const ivyToolBarModule = new FeatureModule(
 
     // GLSP replacements
     configureActionHandler(context, EnableDefaultToolsAction.KIND, ToolBar);
+    configureActionHandler(context, UpdatePaletteItems.KIND, ToolBar);
   },
   { featureId: toolPaletteModule.featureId }
 );

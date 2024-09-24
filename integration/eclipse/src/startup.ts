@@ -26,10 +26,10 @@ export class EclipseDiagramStartup implements IDiagramStartup {
 
   async postRequestModel(): Promise<void> {
     this.actionDispatcher.dispatch(ShowGridAction.create({ show: this.options.showGrid }));
-    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
   }
 
   async postModelInitialization(): Promise<void> {
+    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
     this.actionDispatcher.dispatch(EnableInscriptionAction.create({}));
   }
 }

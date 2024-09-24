@@ -8,6 +8,7 @@ export * from './custom-icon';
 export * from './data-class';
 export * from './decorator';
 export * from './execution';
+export * from './form-editor';
 export * from './go-to-source';
 export * from './insert-extension';
 export * from './jump';
