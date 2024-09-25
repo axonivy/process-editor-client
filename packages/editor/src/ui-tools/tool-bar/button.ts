@@ -14,7 +14,7 @@ import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
 
 export interface ToolBarButtonProvider {
-  button(): ToolBarButton;
+  button(): ToolBarButton | undefined;
 }
 
 export enum ToolBarButtonLocation {

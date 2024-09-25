@@ -1,21 +1,7 @@
 import { ToolBarButtonProvider, ToolBarButtonLocation } from '@axonivy/process-editor';
-import { OpenDataClassAction, OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
+import { OpenInsertExtensionAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { injectable } from 'inversify';
-
-@injectable()
-export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
-  button() {
-    return {
-      icon: IvyIcons.DatabaseLink,
-      title: 'Open Data Class (C)',
-      sorting: 'E',
-      action: () => OpenDataClassAction.create(),
-      location: ToolBarButtonLocation.Right,
-      readonly: true
-    };
-  }
-}
 
 @injectable()
 export class OpenInsertExtensionButtonProvider implements ToolBarButtonProvider {

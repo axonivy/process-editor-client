@@ -4,6 +4,7 @@ export { default as ivyToolBarModule } from './ui-tools/tool-bar/di.config';
 export { default as ivyThemeModule } from './theme/di.config';
 export { default as ivyOpenDataClassModule } from './open-dataclass/di.config';
 export { default as ivyOpenDecoratorBrowserModule } from './open-decorator-browser/di.config';
+export { default as ivyOpenFormModule } from './open-form/di.config';
 export { default as ivyGoToSourceModule } from './open-source/di.config';
 export { default as ivyStartActionModule } from './start-action/di.config';
 export { default as ivyWrapModule } from './wrap/di.config';

@@ -12,4 +12,8 @@ export namespace OpenDataClassAction {
       kind: KIND
     };
   }
+
+  export function is(object: any): object is OpenDataClassAction {
+    return Action.hasKind(object, KIND);
+  }
 }

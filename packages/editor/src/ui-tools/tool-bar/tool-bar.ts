@@ -16,7 +16,8 @@ import {
   SelectAllAction,
   SelectionService,
   SetUIExtensionVisibilityAction,
-  TYPES
+  TYPES,
+  isNotUndefined
 } from '@eclipse-glsp/client';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
@@ -37,6 +38,7 @@ import {
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
+import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -128,6 +130,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   private appendProvidedButtons(parent: HTMLElement, location: ToolBarButtonLocation): void {
     this.toolBarButtonProvider
       .map(provider => provider.button())
+      .filter(isNotUndefined)
       .filter(button => button.location === location)
       .filter(button => !this.editorContext.isReadonly || button.readonly)
       .sort(compareButtons)
@@ -182,6 +185,11 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     }
     if (ShowToolBarMenuAction.is(action)) {
       this.toggleToolBarMenu(action);
+    }
+    if (UpdatePaletteItems.is(action)) {
+      if (this.containerElement) {
+        this.createHeader();
+      }
     }
   }
 
