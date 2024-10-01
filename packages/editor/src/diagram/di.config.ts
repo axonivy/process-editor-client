@@ -18,7 +18,7 @@ import {
 } from '@eclipse-glsp/client';
 
 import { breakpointFeature } from '../breakpoint/model';
-import { goToSourceFeature, jumpFeature } from '../jump/model';
+import { jumpFeature } from '../jump/model';
 import { IvyMovementRestrictor } from '../tools/movement-restrictor';
 import { NegativeMarker } from '../tools/negative-area/model';
 import { SNegativeMarkerView } from '../tools/negative-area/view';
@@ -57,6 +57,8 @@ import {
 } from './view-types';
 import { AssociationEdgeView, ForeignLabelView, WorkflowEdgeView } from './views';
 import { IvyIssueMarkerView } from './marker/issue-marker-view';
+import { goToFormFeature } from '../open-form/model';
+import { goToSourceFeature } from '../open-source/model';
 
 const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   rebind(TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
@@ -117,9 +119,9 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   configureActivity(ActivityTypes.THIRD_PARTY_RULE);
   configureActivity(ActivityTypes.PROGRAM, { enable: [goToSourceFeature] });
   configureActivity(ActivityTypes.TRIGGER, { enable: [jumpFeature] });
-  configureActivity(ActivityTypes.HD, { enable: [jumpFeature, goToSourceFeature] });
+  configureActivity(ActivityTypes.HD, { enable: [goToFormFeature] });
   configureActivity(ActivityTypes.USER, {
-    enable: [signalBoundaryFeature, jumpFeature, goToSourceFeature]
+    enable: [signalBoundaryFeature, goToFormFeature]
   });
   configureEmbedded(ActivityTypes.SUB_PROCESS, { enable: [jumpFeature], disable: [singleWrapFeature] });
   configureEmbedded(ActivityTypes.EMBEDDED_PROCESS);
