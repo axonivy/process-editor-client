@@ -14,10 +14,12 @@ export class PerfActionDispatcher extends GLSPActionDispatcher {
     return result;
   }
 
-  override async dispatch(action: Action): Promise<void> {
+  protected override async handleAction(action: Action): Promise<void> {
     const counter = ++this.counter;
-    console.time(`dispatch-${action.kind}-${counter}`);
-    await super.dispatch(action);
-    console.timeEnd(`dispatch-${action.kind}-${counter}`);
+    console.time(`handleAction-${action.kind}-${counter}`);
+    console.log(`handleAction-${action.kind}-${counter}`, action);
+    const result = await super.handleAction(action);
+    console.timeEnd(`handleAction-${action.kind}-${counter}`);
+    return result;
   }
 }
