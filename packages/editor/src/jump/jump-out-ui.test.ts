@@ -1,38 +1,39 @@
 /* eslint-disable no-unused-expressions */
 import {
+  Action,
   ActionDispatcher,
   ArgsAware,
   Bounds,
-  CommandExecutionContext,
-  CommandReturn,
   GGraph,
   GModelFactory,
   GModelRoot,
+  IActionHandler,
+  ICommand,
   InitializeCanvasBoundsAction,
   TYPES,
-  configureCommand,
+  configureActionHandler,
   selectModule
 } from '@eclipse-glsp/client';
 import { Container, injectable } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import { createTestContainer } from '../utils/test-utils';
-import { JumpOutFeedbackAction, JumpOutFeedbackCommand } from './jump-out-ui';
+import { JumpOutFeedbackAction, JumpOutUi } from './jump-out-ui';
 
 let root: GModelRoot & ArgsAware;
 let jumpOutBtn = false;
 
 @injectable()
-class JumpOutFeedbackCommandMock extends JumpOutFeedbackCommand {
-  execute(context: CommandExecutionContext): CommandReturn {
-    jumpOutBtn = this.showJumpOutBtn(root);
-    return root;
+class JumpOutActionHandlerMock implements IActionHandler {
+  handle(action: Action): ICommand | Action | void {
+    const outUi = new JumpOutUi();
+    jumpOutBtn = outUi.showJumpOutBtn(root);
   }
 }
 
 function createContainer(): Container {
   const container = createTestContainer(selectModule);
-  configureCommand(container, JumpOutFeedbackCommandMock);
+  configureActionHandler(container, JumpOutFeedbackAction.KIND, JumpOutActionHandlerMock);
 
   return container;
 }

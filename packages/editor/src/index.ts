@@ -18,6 +18,7 @@ export { ivyChangeBoundsToolModule, ivyExportModule } from './tools/di.config';
 /* Features */
 export * from './jump/action';
 export * from './jump/model';
+export * from './jump/jump-out-ui';
 export * from './ui-tools/quick-action/model';
 export * from './ui-tools/quick-action/quick-action';
 export * from './ui-tools/quick-action/quick-action-ui';

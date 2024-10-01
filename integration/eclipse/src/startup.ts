@@ -1,4 +1,4 @@
-import { IVY_TYPES, ToolBar } from '@axonivy/process-editor';
+import { IVY_TYPES, ToolBar, JumpOutFeedbackAction } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { EnableToolPaletteAction, GLSPActionDispatcher, IDiagramStartup, ShowGridAction, TYPES } from '@eclipse-glsp/client';
@@ -24,11 +24,11 @@ export class EclipseDiagramStartup implements IDiagramStartup {
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));
   }
 
-  async postRequestModel(): Promise<void> {
-    this.actionDispatcher.dispatch(ShowGridAction.create({ show: this.options.showGrid }));
-  }
+  async postRequestModel(): Promise<void> {}
 
   async postModelInitialization(): Promise<void> {
+    this.actionDispatcher.dispatch(JumpOutFeedbackAction.create());
+    this.actionDispatcher.dispatch(ShowGridAction.create({ show: this.options.showGrid }));
     this.actionDispatcher.dispatch(UpdatePaletteItems.create());
     this.actionDispatcher.dispatch(EnableInscriptionAction.create({}));
   }

@@ -1,3 +1,4 @@
+import { JumpOutFeedbackAction } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
@@ -10,7 +11,6 @@ import {
 } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
-
 import './index.css';
 
 @injectable()
@@ -27,17 +27,16 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));
   }
 
-  async postRequestModel(): Promise<void> {
-    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
-  }
-
   async postModelInitialization(): Promise<void> {
+    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
     this.actionDispatcher.dispatch(
       EnableInscriptionAction.create({
         connection: { server: this.options.inscriptionContext.server },
         inscriptionContext: this.options.inscriptionContext
       })
     );
+    this.actionDispatcher.dispatch(JumpOutFeedbackAction.create());
+
     if (this.options.select) {
       const elementIds = this.options.select.split(NavigationTarget.ELEMENT_IDS_SEPARATOR);
       this.actionDispatcher.dispatch(SelectAction.create({ selectedElementsIDs: elementIds }));
