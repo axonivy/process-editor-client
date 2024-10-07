@@ -302,3 +302,8 @@ g[class^='end'] .sprotty-node {
 svg {
   border: none;
 }
+
+/* Hide issue markers if the are on the graph */
+.sprotty-graph > g > g.sprotty-issue {
+  display: none;
+}
