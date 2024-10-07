@@ -1,5 +1,6 @@
 import {
   createIvyDiagramContainer,
+  createPerformanceModule,
   ivyChangeBoundsToolModule,
   ivyConnectorModule,
   ivyKeyListenerModule,
@@ -31,6 +32,7 @@ export interface IvyDiagramOptions extends IDiagramOptions {
   select: string | null;
   zoom: string;
   theme: ThemeMode;
+  measurePerformance?: boolean;
 }
 
 export default function createContainer(options: IvyDiagramOptions): Container {
@@ -38,6 +40,7 @@ export default function createContainer(options: IvyDiagramOptions): Container {
   const container = createIvyDiagramContainer(
     'sprotty',
     createDiagramOptionsModule(options),
+    createPerformanceModule(options.measurePerformance),
     ivyThemeModule,
     ivyNavigationModule,
     ivyStartupDiagramModule,

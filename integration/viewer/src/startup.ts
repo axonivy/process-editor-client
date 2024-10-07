@@ -3,6 +3,7 @@ import { Action, CenterAction, GLSPActionDispatcher, IDiagramStartup, Navigation
 import { ContainerModule, inject, injectable, interfaces } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
 import { isInPreviewMode } from './url-helper';
+import { JumpOutFeedbackAction } from '@axonivy/process-editor/';
 
 const ContainerSymbol = Symbol('ContainerSymbol');
 
@@ -26,6 +27,7 @@ export class ViewerDiagramStartup implements IDiagramStartup {
 
   protected async dispatchAfterModelInitialized(): Promise<void> {
     const actions: Action[] = [];
+    actions.push(JumpOutFeedbackAction.create());
     if (this.isNumeric(this.options.zoom)) {
       actions.push(SetViewportZoomAction.create({ zoom: +this.options.zoom / 100 }));
       actions.push(...this.showElement((ids: string[]) => CenterAction.create(ids, { animate: false, retainZoom: true })));

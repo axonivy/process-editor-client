@@ -1,24 +1,22 @@
+import { JumpAction } from '@axonivy/process-editor-protocol';
+import { IvyIcons } from '@axonivy/ui-icons';
 import {
   Action,
-  CommandExecutionContext,
-  CommandReturn,
   EditorContextService,
-  FeedbackCommand,
-  IActionDispatcher,
-  IFeedbackActionDispatcher,
-  SetUIExtensionVisibilityAction,
+  GLSPAbstractUIExtension,
   GModelRoot,
-  TYPES,
+  IActionDispatcher,
+  IActionHandler,
+  IFeedbackActionDispatcher,
   SelectionService,
-  GLSPAbstractUIExtension
+  SetUIExtensionVisibilityAction,
+  TYPES
 } from '@eclipse-glsp/client';
 import { inject, injectable, postConstruct } from 'inversify';
-import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../utils/ui-utils';
-import { JumpAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
-export class JumpOutUi extends GLSPAbstractUIExtension {
+export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler {
   static readonly ID = 'jumpOutUi';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
@@ -34,11 +32,6 @@ export class JumpOutUi extends GLSPAbstractUIExtension {
     return 'jump-out-container';
   }
 
-  @postConstruct()
-  protected postConstruct(): void {
-    this.feedbackDispatcher.registerFeedback(this, [JumpOutFeedbackAction.create()]);
-  }
-
   protected initializeContents(containerElement: HTMLElement): void {
     containerElement.style.position = 'absolute';
   }
@@ -51,36 +44,32 @@ export class JumpOutUi extends GLSPAbstractUIExtension {
     button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
     containerElement.appendChild(button);
   }
-}
 
-export interface JumpOutFeedbackAction extends Action {
-  kind: typeof JumpOutFeedbackCommand.KIND;
-  elementId?: string;
-}
-
-export namespace JumpOutFeedbackAction {
-  export function create(elementId?: string): JumpOutFeedbackAction {
-    return {
-      kind: JumpOutFeedbackCommand.KIND,
-      elementId
-    };
-  }
-}
-
-@injectable()
-export class JumpOutFeedbackCommand extends FeedbackCommand {
-  static readonly KIND = 'toolPaletteFeedback';
-  @inject(TYPES.Action) protected action: JumpOutFeedbackAction;
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
-
-  execute(context: CommandExecutionContext): CommandReturn {
-    this.actionDispatcher.dispatch(
-      SetUIExtensionVisibilityAction.create({ extensionId: JumpOutUi.ID, visible: this.showJumpOutBtn(context.root) })
-    );
-    return context.root;
+  handle(action: Action): void {
+    if (action.kind === JumpOutFeedbackAction.KIND) {
+      this.feedbackDispatcher.registerFeedback(this, [
+        SetUIExtensionVisibilityAction.create({ extensionId: JumpOutUi.ID, visible: this.showJumpOutBtn(this.editorContext.modelRoot) })
+      ]);
+    }
   }
 
   showJumpOutBtn(root: GModelRoot): boolean {
     return root.id.includes('-');
+  }
+}
+
+export interface JumpOutFeedbackAction extends Action {
+  kind: typeof JumpOutFeedbackAction.KIND;
+  elementId?: string;
+}
+
+export namespace JumpOutFeedbackAction {
+  export const KIND = 'jumpOutFeedback';
+
+  export function create(elementId?: string): JumpOutFeedbackAction {
+    return {
+      kind: JumpOutFeedbackAction.KIND,
+      elementId
+    };
   }
 }

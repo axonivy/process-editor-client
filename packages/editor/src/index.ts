@@ -18,6 +18,7 @@ export { ivyChangeBoundsToolModule, ivyExportModule } from './tools/di.config';
 /* Features */
 export * from './jump/action';
 export * from './jump/model';
+export * from './jump/jump-out-ui';
 export * from './ui-tools/quick-action/model';
 export * from './ui-tools/quick-action/quick-action';
 export * from './ui-tools/quick-action/quick-action-ui';
@@ -41,5 +42,5 @@ export * from './ui-tools/viewport/viewport-bar';
 export * from './key-listener/jump-out';
 export * from './key-listener/quick-actions';
 export * from './start-action/actions';
-
+export * from './performance/performance-module';
 export * from './ivy-glsp-jsonrpc-client';
