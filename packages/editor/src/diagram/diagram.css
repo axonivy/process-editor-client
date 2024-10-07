@@ -314,3 +314,8 @@ svg {
   --grid-color: var(--glsp-grid);
   background-image: radial-gradient(var(--grid-color) var(--grid-stroke-width), transparent 0);
 }
+
+/* Hide issue markers if the are on the graph */
+.sprotty-graph > g > g.sprotty-issue {
+  display: none;
+}
