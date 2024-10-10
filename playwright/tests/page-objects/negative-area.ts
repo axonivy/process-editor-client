@@ -12,9 +12,13 @@ export class NegativeArea {
 
   async expectVisible() {
     await expect(this.area).toHaveCount(2);
+    await expect(this.area.first()).toBeVisible();
+    await expect(this.area.last()).toBeVisible();
   }
 
   async expectHidden() {
-    await expect(this.area).toHaveCount(0);
+    await expect(this.area).toHaveCount(2);
+    await expect(this.area.first()).toBeHidden();
+    await expect(this.area.last()).toBeHidden();
   }
 }

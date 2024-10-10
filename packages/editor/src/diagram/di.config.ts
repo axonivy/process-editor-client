@@ -20,8 +20,6 @@ import {
 import { breakpointFeature } from '../breakpoint/model';
 import { jumpFeature } from '../jump/model';
 import { IvyMovementRestrictor } from '../tools/movement-restrictor';
-import { NegativeMarker } from '../tools/negative-area/model';
-import { SNegativeMarkerView } from '../tools/negative-area/view';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 import { singleWrapFeature, unwrapFeature } from '../wrap/model';
 import { ActivityNodeView, SubActivityNodeView } from './activities/activity-views';
@@ -143,7 +141,6 @@ const ivyDiagramModule = new FeatureModule((bind, unbind, isBound, rebind) => {
   configureModelElement(context, EdgeTypes.LABEL, EdgeLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
 
   overrideModelElement(context, LabelType.DEFAULT, MulitlineEditLabel, ForeignLabelView, { enable: [selectFeature, moveFeature] });
-  configureModelElement(context, NegativeMarker.TYPE, NegativeMarker, SNegativeMarkerView);
 
   function configureStartEvent(type: string, features?: CustomFeatures): void {
     configureModelElement(context, type, StartEventNode, EventNodeView, features);

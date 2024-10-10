@@ -10,7 +10,6 @@ import {
 } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import { IvyDiagramOptions } from './di.config';
-
 import './index.css';
 
 @injectable()
@@ -27,11 +26,8 @@ export class StandaloneDiagramStartup implements IDiagramStartup {
     this.actionDispatcher.dispatch(SwitchThemeAction.create({ theme: this.options.theme }));
   }
 
-  async postRequestModel(): Promise<void> {
-    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
-  }
-
   async postModelInitialization(): Promise<void> {
+    this.actionDispatcher.dispatch(UpdatePaletteItems.create());
     this.actionDispatcher.dispatch(
       EnableInscriptionAction.create({
         connection: { server: this.options.inscriptionContext.server },

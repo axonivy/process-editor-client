@@ -15,7 +15,7 @@ export async function createAllElements(
   const menu = processEditor.toolbar().menu().locator();
 
   const graph = graphLocator(page);
-  const elements = graph.locator('> g > g');
+  const elements = graph.locator('> g > g:not(.negative-area-group)');
   const pickers = menu.locator('.menu-group-items').nth(groupIndex).locator('.menu-item');
   const pickersCount = await pickers.count();
   for (let i = 0; i < pickersCount; i++) {
