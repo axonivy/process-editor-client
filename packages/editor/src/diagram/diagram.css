@@ -243,6 +243,12 @@ g[class^='end'] .sprotty-node {
 }
 .negative-area {
   opacity: 0.3;
+  display: none;
+}
+.move-mode .negative-area,
+.edge-modification-not-allowed-mode .negative-area,
+.node-creation-mode .negative-area {
+  display: inline;
 }
 
 /* Projection Bars */

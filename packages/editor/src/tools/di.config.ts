@@ -23,7 +23,6 @@ import { IvyResizeHandleView } from '../diagram/views';
 import { IvySvgExporter } from './export/ivy-svg-exporter';
 import './helper-line.css';
 import { IvyChangeBoundsManager } from './ivy-change-bounds-manager';
-import { ShowNegativeAreaFeedbackCommand } from './negative-area/model';
 import { IvySelectMouseListener } from './select-mouse-listener';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
@@ -37,9 +36,6 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
     // GLSP replacements
     bindAsService(context, ChangeBoundsManager, IvyChangeBoundsManager);
     configureView(context, GResizeHandle.TYPE, IvyResizeHandleView);
-
-    // extension
-    configureCommand(context, ShowNegativeAreaFeedbackCommand);
   },
   { featureId: changeBoundsToolModule.featureId }
 );
