@@ -17,9 +17,14 @@ export class ElementsPaletteHandler implements IActionHandler {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
 
   protected paletteItems: PaletteItem[] = [];
+  protected extensionItems: PaletteItem[] = [];
 
   getPaletteItems(): PaletteItem[] {
     return this.paletteItems;
+  }
+
+  getExtensionItems(): PaletteItem[] {
+    return this.extensionItems;
   }
 
   handle(action: Action): void | Action | ICommand {
@@ -34,6 +39,13 @@ export class ElementsPaletteHandler implements IActionHandler {
       .then(response => {
         if (SetContextActions.is(response)) {
           this.paletteItems = response.actions.map(e => e as PaletteItem);
+        }
+      });
+    this.actionDispatcher
+      .request(RequestContextActions.create({ contextId: 'ivy-tool-extensions-palette', editorContext: { selectedElementIds: [] } }))
+      .then(response => {
+        if (SetContextActions.is(response)) {
+          this.extensionItems = response.actions.map(e => e as PaletteItem);
         }
       });
   }

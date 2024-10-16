@@ -22,6 +22,7 @@ import {
   AllElementsButtonProvider,
   ArtifactsButtonProvider,
   EventsButtonProvider,
+  ExtensionButtonProvider,
   GatewaysButtonProvider
 } from './node/button';
 import { ShowToolBarOptionsMenuAction } from './options/action';
@@ -61,6 +62,7 @@ function configureToolBarButtons(context: { bind: interfaces.Bind; isBound: inte
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(GatewaysButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(ActivitiesButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(ArtifactsButtonProvider);
+  context.bind(IVY_TYPES.ToolBarButtonProvider).to(ExtensionButtonProvider);
   context.bind(IVY_TYPES.ToolBarButtonProvider).to(OptionsButtonProvider);
 }
 

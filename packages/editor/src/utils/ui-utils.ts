@@ -8,10 +8,13 @@ export function createIcon(icon?: IvyIcons, additionalClasses?: string[]): HTMLE
   return createElement('i', cssClasses);
 }
 
-export function createElement(tagName: string, cssClasses?: string[]): HTMLElement {
+export function createElement(tagName: string, cssClasses?: string[], label?: string): HTMLElement {
   const element = document.createElement(tagName);
   if (cssClasses) {
     element.classList.add(...cssClasses);
+  }
+  if (label) {
+    element.textContent = label;
   }
   return element;
 }

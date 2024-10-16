@@ -106,14 +106,17 @@
   max-width: 106px;
   flex-grow: 1;
   font-weight: 400;
-  font-size: 10px;
-  line-height: 10px;
+  font-size: 11px;
+  line-height: 11px;
   display: flex;
   align-items: center;
   padding-right: 0.8rem;
   cursor: pointer;
   word-break: break-word;
   overflow: hidden;
+}
+.bar-menu-items .menu-item .menu-item-info {
+  font-style: italic;
 }
 .bar-menu-items .menu-item.focus {
   background: var(--glsp-bar-menu-item-hover);
@@ -129,6 +132,11 @@
   text-align: center;
   font-size: 24px;
 }
+.bar-menu-items .menu-item img {
+  width: 16px;
+  height: 16px;
+  padding: 8px;
+}
 .bar-menu-items .menu-item svg {
   margin: 0.8em;
   width: 14px;
@@ -136,6 +144,11 @@
   fill: none;
   stroke: var(--glsp-bar-menu-item);
   flex: none;
+}
+.bar-menu-items .menu-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 .bar-menu.colors-menu .menu-item span {
   height: 1rem;
@@ -171,7 +184,7 @@
 }
 .bar-menu .no-result {
   font-weight: 400;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .tool-bar-options-menu {
@@ -190,7 +203,7 @@
   position: absolute;
   top: 3.5rem;
   right: 0;
-  left: 0;
+  left: 5rem;
   margin-left: auto;
   margin-right: auto;
   border-radius: 4px;
@@ -240,12 +253,10 @@
 .tool-bar-options-menu .tool-bar-option {
   display: flex;
   align-items: center;
-}
-.tool-bar-options-menu .tool-bar-option i {
-  margin-right: 6px;
+  gap: 5px;
 }
 .tool-bar-options-menu .tool-bar-option label {
-  font-size: 10px;
+  font-size: 11px;
   cursor: pointer;
 }
 .tool-bar-options-menu .tool-bar-option .switch {
@@ -330,4 +341,23 @@
   background-color: transparent;
   color: var(--glsp-bar-menu-item);
   border: 1px solid var(--glsp-bar-menu-item);
+}
+
+.bar-menu.menu-as-list .bar-menu-items .menu-group-items {
+  flex-direction: column;
+  .menu-item {
+    width: unset;
+    max-width: calc(100% - 1rem);
+    word-break: normal;
+    gap: 2px;
+  }
+  .menu-item-label,
+  .menu-item-info {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .menu-item-info {
+    font-size: 10px;
+  }
 }

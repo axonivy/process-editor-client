@@ -32,7 +32,7 @@ export class AllElementsButtonProvider extends CreateElementsButtonProvider {
       icon: IvyIcons.Task,
       title: 'All Elements',
       sorting: 'A',
-      action: () => ShowToolBarMenuAction.create({ paletteItems: paletteItems, actions: this.actions, showSearch: true }),
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions, showSearch: true }),
       id: 'btn_all_elements_menu',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
@@ -52,11 +52,7 @@ export class EventsButtonProvider extends CreateElementsButtonProvider {
       icon: IvyIcons.Start,
       title: 'Events',
       sorting: 'B',
-      action: () =>
-        ShowToolBarMenuAction.create({
-          paletteItems: paletteItems,
-          actions: this.actions
-        }),
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
       id: 'btn_events_menu',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
@@ -76,11 +72,7 @@ export class GatewaysButtonProvider extends CreateElementsButtonProvider {
       icon: IvyIcons.GatewaysGroup,
       title: 'Gateways',
       sorting: 'C',
-      action: () =>
-        ShowToolBarMenuAction.create({
-          paletteItems: paletteItems,
-          actions: this.actions
-        }),
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
       id: 'btn_gateways_menu',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
@@ -103,11 +95,7 @@ export class ActivitiesButtonProvider extends CreateElementsButtonProvider {
       icon: IvyIcons.ActivitiesGroup,
       title: 'Activities',
       sorting: 'D',
-      action: () =>
-        ShowToolBarMenuAction.create({
-          paletteItems: paletteItems,
-          actions: this.actions
-        }),
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
       id: 'btn_activities_menu',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
@@ -127,12 +115,28 @@ export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
       icon: IvyIcons.PoolSwimlanes,
       title: 'Artifacts',
       sorting: 'E',
-      action: () =>
-        ShowToolBarMenuAction.create({
-          paletteItems: paletteItems,
-          actions: this.actions
-        }),
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
       id: 'btn_artifacts_menu',
+      location: ToolBarButtonLocation.Middle,
+      switchFocus: true,
+      showTitle: true
+    };
+  }
+}
+
+@injectable()
+export class ExtensionButtonProvider extends CreateElementsButtonProvider {
+  paletteItems(): () => PaletteItem[] {
+    return () => this.paletteHandler.getExtensionItems();
+  }
+
+  createToolBarButton(paletteItems: () => PaletteItem[]) {
+    return {
+      icon: IvyIcons.Extension,
+      title: 'Extensions',
+      sorting: 'F',
+      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions, showSearch: true, customCssClass: 'menu-as-list' }),
+      id: 'insertextensionbutton',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
