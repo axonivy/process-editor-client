@@ -22,8 +22,8 @@
   right: 0;
   bottom: 0;
   background-color: var(--glsp-bar-menu-switch-bg);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .slider:before {
@@ -34,8 +34,8 @@
   left: 3px;
   bottom: 3px;
   background-color: var(--glsp-bar-menu-switch);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 input:checked + .slider:before {

@@ -17,7 +17,6 @@ import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
 import { IDiagramOptions, createDiagramOptionsModule, standaloneExportModule } from '@eclipse-glsp/client';
 import { ThemeMode } from '@axonivy/process-editor-protocol';
 import { ivyStartupDiagramModule as ivyStartupDiagramModule } from './startup';
-import ivyExtensionToolBarModule from './extension/di.config';
 
 export interface IvyDiagramOptions extends IDiagramOptions {
   theme: ThemeMode;
@@ -40,7 +39,6 @@ export default function createContainer(widgetId: string, options: IvyDiagramOpt
     ivyOpenFormModule,
     ivyInscriptionModule,
     ivyStartupDiagramModule,
-    ivyExtensionToolBarModule,
     standaloneExportModule
   );
 

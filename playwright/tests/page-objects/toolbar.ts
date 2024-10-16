@@ -100,7 +100,7 @@ export class Toolbar {
     await expect(this.defaultTool).toBeVisible();
     await expect(this.optionsBtn).toBeVisible();
     await expect(this.toolbar.locator('.edit-buttons')).toBeVisible();
-    await expect(this.toolbar.locator('.middle-buttons > span')).toHaveCount(5);
+    await expect(this.toolbar.locator('.middle-buttons > span')).toHaveCount(6);
   }
 
   async expectReadonly() {

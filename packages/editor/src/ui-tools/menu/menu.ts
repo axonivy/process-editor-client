@@ -191,9 +191,17 @@ export abstract class ItemMenu implements Menu {
     const button = createElement('div', [ItemMenu.ITEM_BUTTON]);
     button.tabIndex = index;
     button.appendChild(this.appendPaletteIcon(button, item));
-    button.insertAdjacentText('beforeend', item.label);
+    const text = createElement('div', ['menu-item-text']);
+    text.appendChild(createElement('span', ['menu-item-label'], item.label));
+    if ('info' in item && typeof item.info === 'string') {
+      text.appendChild(createElement('span', ['menu-item-info'], item.info));
+    }
+    button.appendChild(text);
     button.onclick = _ev => this.actionDispatcher.dispatchAll(this.toolButtonOnClick(item));
     button.onmouseenter = _ev => this.focusButton(button);
+    if ('description' in item && typeof item.description === 'string' && item.description !== 'undefined') {
+      button.title = item.description;
+    }
     this.appendToToolButton(button, item);
     return button;
   }
@@ -215,6 +223,11 @@ export abstract class ItemMenu implements Menu {
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     if (!item.icon) {
       return createIcon();
+    }
+    if (item.icon.startsWith('http')) {
+      const img = createElement('img') as HTMLImageElement;
+      img.src = item.icon;
+      return img;
     }
     return createIcon(this.resolveIcon(item.icon));
   }
