@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { Menu, OptionsMenu } from './menu';
 
-export type ElementPaletteGroup = 'all_elements' | 'events' | 'gateways' | 'activities' | 'artifacts';
+export type ElementPaletteGroup = 'all_elements' | 'events' | 'gateways' | 'activities' | 'artifacts' | 'extensions';
 export type MenuBtn = `${ElementPaletteGroup}_menu` | 'options_menu';
 export type ToolBtn = 'default_tools' | 'marquee_tools';
 

@@ -136,7 +136,7 @@ export class ExtensionButtonProvider extends CreateElementsButtonProvider {
       title: 'Extensions',
       sorting: 'F',
       action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions, showSearch: true, customCssClass: 'menu-as-list' }),
-      id: 'insertextensionbutton',
+      id: 'btn_extensions_menu',
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true

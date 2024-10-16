@@ -15,11 +15,11 @@ import { GRAPH_SELECTOR, diagramLocator, graphLocator } from './graph';
 const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 
 export class ProcessEditor {
-  protected readonly page: Page;
-  protected readonly graph: Locator;
-  protected readonly diagram: Locator;
-  public readonly startElement: Element;
-  public readonly endElement: Element;
+  readonly page: Page;
+  readonly graph: Locator;
+  readonly diagram: Locator;
+  readonly startElement: Element;
+  readonly endElement: Element;
 
   constructor(page: Page) {
     this.page = page;
