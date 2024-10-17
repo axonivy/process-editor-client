@@ -14,7 +14,7 @@ export abstract class CreateElementsButtonProvider implements ToolBarButtonProvi
   }
 
   protected actions = (paletteItem: PaletteItem): Action[] => [
-    ShowToolBarMenuAction.create({ paletteItems: () => [], actions: (item: PaletteItem) => [] }),
+    ShowToolBarMenuAction.create({ id: '', paletteItems: () => [], actions: (item: PaletteItem) => [] }),
     ...paletteItem.actions
   ];
 
@@ -28,12 +28,13 @@ export abstract class CreateElementsButtonProvider implements ToolBarButtonProvi
 @injectable()
 export class AllElementsButtonProvider extends CreateElementsButtonProvider {
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'all_elements_menu';
     return {
       icon: IvyIcons.Task,
       title: 'All Elements',
       sorting: 'A',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions, showSearch: true }),
-      id: 'btn_all_elements_menu',
+      action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions, showSearch: true }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
@@ -48,12 +49,13 @@ export class EventsButtonProvider extends CreateElementsButtonProvider {
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'events_menu';
     return {
       icon: IvyIcons.Start,
       title: 'Events',
       sorting: 'B',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
-      id: 'btn_events_menu',
+      action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
@@ -68,12 +70,13 @@ export class GatewaysButtonProvider extends CreateElementsButtonProvider {
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'gateways_menu';
     return {
       icon: IvyIcons.GatewaysGroup,
       title: 'Gateways',
       sorting: 'C',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
-      id: 'btn_gateways_menu',
+      action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
@@ -91,12 +94,13 @@ export class ActivitiesButtonProvider extends CreateElementsButtonProvider {
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'activities_menu';
     return {
       icon: IvyIcons.ActivitiesGroup,
       title: 'Activities',
       sorting: 'D',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
-      id: 'btn_activities_menu',
+      action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
@@ -111,12 +115,13 @@ export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
   }
 
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'artifacts_menu';
     return {
       icon: IvyIcons.PoolSwimlanes,
       title: 'Artifacts',
       sorting: 'E',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions }),
-      id: 'btn_artifacts_menu',
+      action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true
@@ -126,17 +131,21 @@ export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
 
 @injectable()
 export class ExtensionButtonProvider extends CreateElementsButtonProvider {
-  paletteItems(): () => PaletteItem[] {
-    return () => this.paletteHandler.getExtensionItems();
-  }
-
   createToolBarButton(paletteItems: () => PaletteItem[]) {
+    const id = 'extensions_menu';
     return {
       icon: IvyIcons.Extension,
       title: 'Extensions',
       sorting: 'F',
-      action: () => ShowToolBarMenuAction.create({ paletteItems, actions: this.actions, showSearch: true, customCssClass: 'menu-as-list' }),
-      id: 'btn_extensions_menu',
+      action: () =>
+        ShowToolBarMenuAction.create({
+          id,
+          paletteItems: () => this.paletteHandler.getExtensionItems(),
+          actions: this.actions,
+          showSearch: true,
+          customCssClass: 'menu-as-list'
+        }),
+      id: `btn_${id}`,
       location: ToolBarButtonLocation.Middle,
       switchFocus: true,
       showTitle: true

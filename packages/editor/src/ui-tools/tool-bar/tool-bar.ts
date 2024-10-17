@@ -55,7 +55,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   protected defaultToolsButton?: HTMLElement;
   protected toggleCustomIconsButton: HTMLElement;
   protected verticalAlignButton: HTMLElement;
-  protected lastMenuAction?: Action;
+  protected lastMenuAction?: string;
   protected toolBarMenu?: Menu;
 
   protected toDisposeOnDisable = new DisposableCollection();
@@ -193,24 +193,17 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     }
   }
 
-  toggleToolBarMenu(action: ShowToolBarMenuAction): void {
-    const items = action.paletteItems();
-    if (
-      items.length !== 0 &&
-      !(
-        ShowToolBarMenuAction.is(this.lastMenuAction) &&
-        this.lastMenuAction.paletteItems().length === items.length &&
-        this.lastMenuAction.paletteItems()[0].label === items[0].label
-      )
-    ) {
-      this.toolBarMenu = new ToolBarMenu(this.actionDispatcher, action);
+  async toggleToolBarMenu(action: ShowToolBarMenuAction): Promise<void> {
+    const items = await action.paletteItems();
+    if (items.length !== 0 && action.id !== this.lastMenuAction) {
+      this.toolBarMenu = new ToolBarMenu(this.actionDispatcher, action, items);
       const menu = this.toolBarMenu.create(this.containerElement);
       if (this.lastActivebutton) {
         const menuRight = menu.offsetLeft + menu.offsetWidth;
         const buttonCenter = this.lastActivebutton.offsetLeft + this.lastActivebutton.offsetWidth / 2;
         menu.style.setProperty('--menu-arrow-pos', `${menuRight - buttonCenter - 6}px`);
       }
-      this.setLastMenuAction(action);
+      this.setLastMenuAction(action.id);
     } else {
       this.changeActiveButton();
       this.setLastMenuAction(undefined);
@@ -218,18 +211,18 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   }
 
   toggleOptionsMenu(action: ShowToolBarOptionsMenuAction): void {
-    if (!ShowToolBarOptionsMenuAction.is(this.lastMenuAction)) {
+    if (action.id !== this.lastMenuAction) {
       this.toolBarMenu = new ToolBarOptionsMenu(this.actionDispatcher, action);
       this.toolBarMenu.create(this.containerElement);
-      this.setLastMenuAction(action);
+      this.setLastMenuAction(action.id);
     } else {
       this.changeActiveButton();
       this.setLastMenuAction(undefined);
     }
   }
 
-  setLastMenuAction(menuAction?: Action): void {
-    this.lastMenuAction = menuAction;
+  setLastMenuAction(id?: string): void {
+    this.lastMenuAction = id;
   }
 
   changeActiveButton(button?: HTMLElement): void {

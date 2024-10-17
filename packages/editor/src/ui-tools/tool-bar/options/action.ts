@@ -2,6 +2,7 @@ import { Action } from '@eclipse-glsp/client';
 
 export interface ShowToolBarOptionsMenuAction extends Action {
   kind: typeof ShowToolBarOptionsMenuAction.KIND;
+  id: 'options_menu';
   customIconState: () => boolean;
   grid: () => boolean;
   theme?: () => string;
@@ -17,6 +18,7 @@ export namespace ShowToolBarOptionsMenuAction {
   }): ShowToolBarOptionsMenuAction {
     return {
       kind: KIND,
+      id: 'options_menu',
       ...options
     };
   }
