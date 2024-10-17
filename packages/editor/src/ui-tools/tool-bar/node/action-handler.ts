@@ -16,14 +16,25 @@ import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 export class ElementsPaletteHandler implements IActionHandler {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
 
-  protected paletteItems: PaletteItem[] = [];
-  protected extensionItems: PaletteItem[] = [];
+  protected paletteItems: Array<PaletteItem> = [];
+  protected extensionItems: Promise<Array<PaletteItem>>;
 
   getPaletteItems(): PaletteItem[] {
     return this.paletteItems;
   }
 
-  getExtensionItems(): PaletteItem[] {
+  async getExtensionItems() {
+    if (!this.extensionItems) {
+      this.extensionItems = new Promise(resolve => {
+        this.actionDispatcher
+          .request(RequestContextActions.create({ contextId: 'ivy-tool-extensions-palette', editorContext: { selectedElementIds: [] } }))
+          .then(response => {
+            if (SetContextActions.is(response)) {
+              resolve(response.actions.map(e => e as PaletteItem));
+            }
+          });
+      });
+    }
     return this.extensionItems;
   }
 
@@ -39,13 +50,6 @@ export class ElementsPaletteHandler implements IActionHandler {
       .then(response => {
         if (SetContextActions.is(response)) {
           this.paletteItems = response.actions.map(e => e as PaletteItem);
-        }
-      });
-    this.actionDispatcher
-      .request(RequestContextActions.create({ contextId: 'ivy-tool-extensions-palette', editorContext: { selectedElementIds: [] } }))
-      .then(response => {
-        if (SetContextActions.is(response)) {
-          this.extensionItems = response.actions.map(e => e as PaletteItem);
         }
       });
   }

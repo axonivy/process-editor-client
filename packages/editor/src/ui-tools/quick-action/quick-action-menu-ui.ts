@@ -46,8 +46,12 @@ export class QuickActionMenu extends ItemMenu {
   protected menuCssClass = ['bar-menu', 'quick-action-bar-menu'];
   protected editUi?: EditColorUi;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowQuickActionMenuAction) {
-    super(actionDispatcher, action);
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly action: ShowQuickActionMenuAction,
+    protected paletteItems: Array<PaletteItem>
+  ) {
+    super(actionDispatcher, action, paletteItems);
   }
 
   protected appendMenuParts(body: HTMLElement): void {
