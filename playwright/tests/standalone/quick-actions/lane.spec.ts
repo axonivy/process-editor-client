@@ -37,7 +37,7 @@ test.describe('quick actions - lanes', () => {
   test('pool label', async ({ page }) => {
     const processEditor = await ProcessEditor.openProcess(page);
     const pool = await processEditor.createPool({ x: 10, y: 60 });
-    const processName = page.url().substring(page.url().lastIndexOf('/') + 1, page.url().lastIndexOf('.'));
+    const processName = page.url().substring(page.url().lastIndexOf('/') + 1, page.url().lastIndexOf('.p.json'));
     await pool.expectLabel(processName);
 
     const labelEdit = await pool.quickActionBar().editLabel();
