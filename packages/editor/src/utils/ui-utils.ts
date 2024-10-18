@@ -18,13 +18,11 @@ type Props = Record<string, string | number | null | undefined> | null;
 type Child = Node | string;
 type Children = Array<Child>;
 
-export const h = <K extends keyof HTMLElementTagNameMap>(tag: Tag<K>, props: Props, ...children: Children) => {
-  // If the tag is a function component, pass props and children inside it
+export const h = <K extends keyof HTMLElementTagNameMap>(tag: Tag<K>, props: Props, ...children: Children): HTMLElement => {
   if (typeof tag === 'function') {
     return tag({ ...props }, children);
   }
 
-  // Create the element and add attributes to it
   const el = document.createElement(tag);
   if (props) {
     Object.entries(props).forEach(([key, val]) => {
@@ -32,12 +30,22 @@ export const h = <K extends keyof HTMLElementTagNameMap>(tag: Tag<K>, props: Pro
         el.classList.add(...((val as string) || '').trim().split(' '));
         return;
       }
+      if (key === 'style' && val && typeof val === 'object') {
+        Object.entries(val).forEach(([styleKey, styleValue]) => {
+          if (styleKey.startsWith('--')) {
+            el.style.setProperty(styleKey, styleValue as string);
+          } else {
+            const kebabKey = styleKey.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
+            (el.style as any)[kebabKey] = styleValue;
+          }
+        });
+        return;
+      }
 
       (el as any)[key as keyof HTMLElement] = val;
     });
   }
 
-  // Append all children to the element
   children.forEach((child: Child) => {
     el.append(child);
   });
@@ -58,6 +66,6 @@ declare global {
 }
 
 type HTMLAttributes<T> = Partial<Omit<T, 'style'>> & {
-  style?: Partial<CSSStyleDeclaration>;
+  style?: Partial<CSSStyleDeclaration> & Record<`--${string}`, string>;
   children?: string | number | boolean | null | Node | Array<string | number | boolean | null | Node>;
 };

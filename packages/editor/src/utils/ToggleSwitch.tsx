@@ -5,7 +5,14 @@ import { h } from './ui-utils';
 
 const JSX = { createElement: h };
 
-export const ToggleSwitch = (icon: IvyIcons, label: string, defaultValue: boolean, onclick: (state: boolean) => void): HTMLElement => (
+interface ToggleSwitchProps {
+  icon: IvyIcons;
+  label: string;
+  defaultValue: boolean;
+  onclick: (state: boolean) => void;
+}
+
+export const ToggleSwitch = ({ icon, label, defaultValue, onclick }: ToggleSwitchProps): HTMLElement => (
   <label className='toggle-switch'>
     <IvyIcon icon={icon} />
     <span>{label}</span>
