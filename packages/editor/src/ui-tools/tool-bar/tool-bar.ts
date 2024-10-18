@@ -138,7 +138,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   }
 
   private createToolButton(toolBarButton: ToolBarButton): HTMLElement {
-    const button = createElement('span', ['tool-bar-button']);
+    const button = createElement('button', ['tool-bar-button']);
     button.appendChild(createIcon(toolBarButton.icon));
     button.title = toolBarButton.title;
     if (toolBarButton.id) {

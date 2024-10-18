@@ -31,12 +31,12 @@ export class QuickActionBar {
   async trigger(label: string, option?: 'startsWith' | 'endsWith') {
     await this.element?.select();
     const find = option === 'startsWith' ? '^' : option === 'endsWith' ? '$' : '';
-    await this.bar.locator(`span[title${find}="${label}"]`).click();
+    await this.bar.locator(`button[title${find}="${label}"]`).click();
   }
 
   async pressShortCut(shortcut: string) {
     await this.element?.select();
-    await expect(this.bar.locator(`span[title$="(${shortcut})"]`).first()).toBeVisible();
+    await expect(this.bar.locator(`button[title$="(${shortcut})"]`).first()).toBeVisible();
     await this.page.keyboard.press(shortcut);
   }
 
@@ -81,6 +81,6 @@ export class QuickActionBar {
   }
 
   async count(count: number) {
-    await expect(this.bar.locator('span')).toHaveCount(count);
+    await expect(this.bar.locator('button')).toHaveCount(count);
   }
 }

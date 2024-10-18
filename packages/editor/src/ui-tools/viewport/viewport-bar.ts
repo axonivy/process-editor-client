@@ -63,7 +63,7 @@ export class ViewportBar extends GLSPAbstractUIExtension implements IActionHandl
   }
 
   protected createViewportButton(toolButton: ViewportBarButton): HTMLElement {
-    const button = createElement('span');
+    const button = createElement('button');
     button.appendChild(createIcon(toolButton.icon));
     button.id = toolButton.id;
     button.title = toolButton.title;
