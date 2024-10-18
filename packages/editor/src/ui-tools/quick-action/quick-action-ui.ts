@@ -15,6 +15,7 @@ import {
   ICommand,
   ISelectionListener,
   MouseListener,
+  PaletteItem,
   RemoveMarqueeAction,
   SelectAllAction,
   SelectionService,
@@ -100,7 +101,11 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
   private async showItemMenu(action: ShowQuickActionMenuAction): Promise<void> {
     this.removeMenu();
     if (action.elementIds.length > 0) {
-      this.quickActionMenu = new QuickActionMenu(await this.actionDispatcherProvider(), action);
+      this.quickActionMenu = new QuickActionMenu(
+        await this.actionDispatcherProvider(),
+        action,
+        action.paletteItems() as Array<PaletteItem>
+      );
       this.createMenu(this.quickActionMenu);
     } else {
       this.setActiveQuickActionBtn();
