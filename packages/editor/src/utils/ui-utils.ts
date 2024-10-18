@@ -9,10 +9,6 @@ export function createElement(tagName: string, cssClasses?: string[], label?: st
   return element;
 }
 
-export function changeCSSClass(element: Element, css: string): void {
-  element.classList.toggle(css);
-}
-
 type Tag<K extends keyof HTMLElementTagNameMap> = K | ((props: any, children: any[]) => HTMLElementTagNameMap[K]);
 type Props = Record<string, string | number | null | undefined> | null;
 type Child = Node | string;
