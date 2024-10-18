@@ -2,7 +2,7 @@ html,
 body {
   overflow: hidden;
   margin: 0;
-  color: var(--glsp-foreground);
+  color: var(--body, var(--glsp-foreground));
 }
 
 /* Graph */
@@ -291,9 +291,11 @@ g[class^='end'] .sprotty-node {
 }
 .sprotty-projection-bar.vertical.bordered-projection-bar {
   width: 10px;
+  border-top: 0;
 }
 .sprotty-projection-bar.horizontal.bordered-projection-bar {
   height: 10px;
+  border-left: 0;
 }
 
 /* General */

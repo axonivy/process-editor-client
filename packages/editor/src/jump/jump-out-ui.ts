@@ -38,7 +38,7 @@ export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
-    const button = createElement('div', ['jump-out-btn']);
+    const button = createElement('button', ['jump-out-btn']);
     button.title = 'Jump out (J)';
     button.appendChild(createIcon(IvyIcons.JumpOut));
     button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));

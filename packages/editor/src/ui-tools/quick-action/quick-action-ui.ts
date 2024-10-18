@@ -258,7 +258,7 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
   }
 
   private createQuickActionBtn(quickAction: QuickAction): HTMLElement {
-    const button = createElement('span');
+    const button = createElement('button');
     button.appendChild(createIcon(quickAction.icon));
     button.title = quickAction.title;
     const actions = [quickAction.action];

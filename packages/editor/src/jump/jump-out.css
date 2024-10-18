@@ -1,7 +1,7 @@
 .jump-out-container {
-  inset: 1rem 0 0 1rem;
-  width: 2.25rem;
-  height: 2.25rem;
+  inset: var(--size-3, 0.75rem) 0 0 var(--size-3, 0.75rem);
+  width: 30px;
+  height: 30px;
 }
 .jump-out-container .jump-out-btn {
   width: 100%;
@@ -12,8 +12,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--glsp-tool-button);
+  color: var(--body, var(--glsp-tool-button));
   cursor: pointer;
+  border: none;
 }
 .jump-out-container .jump-out-btn:hover {
   background: var(--glsp-tool-bar-button-active-bg);

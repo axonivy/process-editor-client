@@ -8,8 +8,8 @@
   max-height: 44px;
   background: var(--glsp-tool-bg);
   box-shadow: var(--glsp-box-shadow);
-  border-radius: 4px;
-  padding: 6px;
+  border-radius: var(--border-r2, 5px);
+  padding: var(--size-1, 0.25rem);
   display: inline-flex;
   gap: 1rem;
   z-index: 10;
@@ -20,23 +20,27 @@
 }
 .quick-actions-group {
   display: inline-flex;
+  gap: var(--size-1, 0.25rem);
 }
-.quick-actions-group span {
-  height: 2.25rem;
-  width: 2.25rem;
+.quick-actions-group button {
+  height: 30px;
+  width: 30px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
 }
-.quick-actions-group span:hover,
-.quick-actions-group span.active {
+.quick-actions-group button:hover,
+.quick-actions-group button.active {
   background: var(--glsp-tool-button-active-bg);
-  border-radius: 2px;
+  border-radius: var(--border-r2, 5px);
 }
-.quick-actions-group span i {
-  width: 2.25rem;
-  line-height: 2.25rem;
-  color: var(--glsp-tool-button);
+.quick-actions-group button i {
+  color: var(--body, var(--glsp-tool-button));
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 }
 .multi-selection-box {
   position: absolute;

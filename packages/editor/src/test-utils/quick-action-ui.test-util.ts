@@ -152,7 +152,7 @@ export function assertMultiQuickActionUi(childCount: number, dimension: Dimensio
 
 export function assertQuickActionUi(childCount: number, position?: Point): void {
   const uiDiv = getQuickActionDiv();
-  const children = uiDiv.querySelectorAll('.quick-actions-group > span');
+  const children = uiDiv.querySelectorAll('.quick-actions-group > button');
   expect(children.length).to.be.equals(childCount);
   if (position) {
     expect(uiDiv.style.top).to.be.equals(`${position.y}px`);
@@ -162,8 +162,8 @@ export function assertQuickActionUi(childCount: number, position?: Point): void 
 
 export function assertQuickAction(childIndex: number, title: string, icon?: string): void {
   const uiDiv = getQuickActionDiv();
-  const quickAction = uiDiv.querySelectorAll('.quick-actions-group > span')[childIndex] as HTMLElement;
-  expect(quickAction.tagName).to.be.equals('SPAN');
+  const quickAction = uiDiv.querySelectorAll('.quick-actions-group > button')[childIndex] as HTMLElement;
+  expect(quickAction.tagName).to.be.equals('BUTTON');
   expect(quickAction.title).to.be.equals(title);
   if (icon) {
     const iconElement = quickAction.children[0];
