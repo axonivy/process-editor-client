@@ -25,7 +25,7 @@ import {
   isNotUndefined
 } from '@eclipse-glsp/client';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
-import { createElement, createIcon } from '../../utils/ui-utils';
+import { createElement } from '../../utils/ui-utils';
 
 import { Edge, EdgeLabel } from '../../diagram/model';
 import { IVY_TYPES } from '../../types';
@@ -34,6 +34,7 @@ import { Menu } from '../menu/menu';
 import { isQuickActionAware } from './model';
 import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { InfoQuickActionMenu, QuickActionMenu, ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
+import { IvyIcon } from '../../utils/IvyIcon';
 
 @injectable()
 export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHandler, ISelectionListener {
@@ -259,7 +260,7 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
 
   private createQuickActionBtn(quickAction: QuickAction): HTMLElement {
     const button = createElement('span');
-    button.appendChild(createIcon(quickAction.icon));
+    button.appendChild(IvyIcon({ icon: quickAction.icon }));
     button.title = quickAction.title;
     const actions = [quickAction.action];
     if (!quickAction.letQuickActionsOpen) {

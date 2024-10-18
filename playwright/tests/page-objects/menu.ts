@@ -57,7 +57,7 @@ export class Menu {
 
 export class OptionsMenu extends Menu {
   async toggleOption(option: string, initalValue: boolean) {
-    const toggle = this.menu.locator(`.tool-bar-option label:has-text("${option}") ~ .switch`);
+    const toggle = this.menu.locator(`.toggle-switch label:has-text("${option}") ~ .switch`);
     const toggleInput = toggle.locator('> input');
     if (initalValue) {
       await expect(toggleInput).toBeChecked();

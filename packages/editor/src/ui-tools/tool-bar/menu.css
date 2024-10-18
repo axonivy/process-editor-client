@@ -250,18 +250,6 @@
   justify-content: center;
   gap: 1rem;
 }
-.tool-bar-options-menu .tool-bar-option {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.tool-bar-options-menu .tool-bar-option label {
-  font-size: 11px;
-  cursor: pointer;
-}
-.tool-bar-options-menu .tool-bar-option .switch {
-  margin-left: auto;
-}
 
 /* Color Dialog */
 .edit-color {

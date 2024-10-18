@@ -1,9 +1,10 @@
 import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { createElement, createIcon } from '../../utils/ui-utils';
+import { createElement } from '../../utils/ui-utils';
 import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
+import { IvyIcon } from '../../utils/IvyIcon';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
   kind: typeof ShowQuickActionMenuAction.KIND;
@@ -86,7 +87,7 @@ export class QuickActionMenu extends ItemMenu {
   }
 
   private createEditButton(item: PaletteItem): HTMLElement {
-    const editButton = createIcon(IvyIcons.Edit, ['color-edit-button']);
+    const editButton = IvyIcon({ icon: IvyIcons.Edit, className: 'color-edit-button' });
     editButton.title = 'Edit Color';
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
@@ -220,7 +221,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   private createIssue(sIssue: GIssue): HTMLElement {
     const issue = createElement('div', ['menu-issue']);
     const issueTitle = createElement('div', ['menu-issue-title']);
-    issueTitle.appendChild(createIcon(this.ivyIconForSeverity(sIssue.severity)));
+    issueTitle.appendChild(IvyIcon({ icon: this.ivyIconForSeverity(sIssue.severity) }));
     const issueTitleSpan = createElement('span');
     issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
     issueTitle.appendChild(issueTitleSpan);

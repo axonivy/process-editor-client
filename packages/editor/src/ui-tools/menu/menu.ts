@@ -2,8 +2,9 @@ import { Action, compare, IActionDispatcher, MaybePromise, PaletteItem } from '@
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { ActivityTypes, EventIntermediateTypes, EventStartTypes } from '../../diagram/view-types';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { createElement, createIcon } from '../../utils/ui-utils';
+import { createElement } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
+import { IvyIcon } from '../../utils/IvyIcon';
 
 export interface ShowMenuAction extends Action {
   paletteItems: () => MaybePromise<Array<PaletteItem>>;
@@ -72,7 +73,7 @@ export abstract class ItemMenu implements Menu {
 
   private createPaletteItemSearchField(): HTMLElement {
     const searchDiv = createElement('div', ['bar-menu-search']);
-    searchDiv.appendChild(createIcon(IvyIcons.Search));
+    searchDiv.appendChild(IvyIcon({ icon: IvyIcons.Search }));
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';
@@ -220,14 +221,14 @@ export abstract class ItemMenu implements Menu {
 
   protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
     if (!item.icon) {
-      return createIcon();
+      return IvyIcon({});
     }
     if (item.icon.startsWith('http')) {
       const img = createElement('img') as HTMLImageElement;
       img.src = item.icon;
       return img;
     }
-    return createIcon(this.resolveIcon(item.icon));
+    return IvyIcon({ icon: this.resolveIcon(item.icon) });
   }
 
   private resolveIcon(type: string) {

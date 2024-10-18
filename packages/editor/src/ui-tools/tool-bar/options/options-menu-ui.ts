@@ -1,9 +1,11 @@
 import { Action, IActionDispatcher, ShowGridAction } from '@eclipse-glsp/client';
 import { Menu } from '../../menu/menu';
-import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
+import { createElement } from '../../../utils/ui-utils';
 import { ShowToolBarOptionsMenuAction } from './action';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { CustomIconToggleAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { ToggleSwitch } from '../../../utils/ToggleSwitch';
+import { IvyIcon } from '../../../utils/IvyIcon';
 
 interface Option {
   icon: IvyIcons;
@@ -56,7 +58,7 @@ export class ToolBarOptionsMenu implements Menu {
 
   createHeader(): HTMLElement {
     const header = createElement('div', ['tool-bar-options-header']);
-    header.appendChild(createIcon(IvyIcons.Settings));
+    header.appendChild(IvyIcon({ icon: IvyIcons.Settings }));
     const label = document.createElement('label');
     label.textContent = 'Options';
     header.appendChild(label);
@@ -74,15 +76,7 @@ export class ToolBarOptionsMenu implements Menu {
   }
 
   createOption(setting: Option, state: boolean): HTMLElement {
-    const option = createElement('div', ['tool-bar-option']);
-    option.appendChild(createIcon(setting.icon));
-    const label = document.createElement('label');
-    label.textContent = setting.label;
-    option.appendChild(label);
-    const toggle = new ToggleSwitch(state, newState => this.actionDispatcher.dispatch(setting.action(newState)));
-    option.appendChild(toggle.create());
-    label.onclick = _ev => toggle.switch();
-    return option;
+    return ToggleSwitch(setting.icon, setting.label, state, newState => this.actionDispatcher.dispatch(setting.action(newState)));
   }
 
   public remove(): void {

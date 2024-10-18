@@ -14,7 +14,9 @@ import {
   UpdateModelAction
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { createElement, createIcon } from '../utils/ui-utils';
+import { h } from '../utils/ui-utils';
+
+const JSX = { createElement: h };
 
 @injectable()
 export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler {
@@ -38,10 +40,15 @@ export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler
 
   protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {
     containerElement.innerHTML = '';
-    const button = createElement('div', ['jump-out-btn']);
-    button.title = 'Jump out (J)';
-    button.appendChild(createIcon(IvyIcons.JumpOut));
-    button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
+    const button = (
+      <div
+        className='jump-out-btn'
+        title='Jump out (J)'
+        onclick={() => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }))}
+      >
+        <i className={`ivy ivy-${IvyIcons.JumpOut}`} />
+      </div>
+    );
     containerElement.appendChild(button);
   }
 

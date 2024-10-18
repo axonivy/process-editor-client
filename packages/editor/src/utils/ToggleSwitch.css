@@ -1,9 +1,22 @@
-/* The switch - the box around the slider */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.toggle-switch label {
+  font-size: 11px;
+  cursor: pointer;
+}
+.toggle-switch .switch {
+  margin-left: auto;
+}
+
 .switch {
   position: relative;
   display: inline-block;
   width: 24px;
   height: 14px;
+  flex-shrink: 0;
 }
 
 /* Hide default HTML checkbox */

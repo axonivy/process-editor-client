@@ -23,7 +23,7 @@ import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
 import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_TYPES } from '../../types';
-import { createElement, createIcon } from '../../utils/ui-utils';
+import { createElement } from '../../utils/ui-utils';
 import { Menu } from '../menu/menu';
 import {
   DefaultSelectButton,
@@ -39,6 +39,7 @@ import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
 import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
+import { IvyIcon } from '../../utils/IvyIcon';
 
 const CLICKED_CSS_CLASS = 'clicked';
 
@@ -139,7 +140,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
 
   private createToolButton(toolBarButton: ToolBarButton): HTMLElement {
     const button = createElement('span', ['tool-bar-button']);
-    button.appendChild(createIcon(toolBarButton.icon));
+    button.appendChild(IvyIcon({ icon: toolBarButton.icon }));
     button.title = toolBarButton.title;
     if (toolBarButton.id) {
       button.id = toolBarButton.id;
@@ -159,7 +160,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
       const title = document.createElement('label');
       title.textContent = toolBarButton.title;
       if (!toolBarButton.isNotMenu) {
-        button.appendChild(createIcon(IvyIcons.Chevron));
+        button.appendChild(IvyIcon({ icon: IvyIcons.Chevron }));
       }
       titleButton.appendChild(title);
       titleButton.appendChild(button);

@@ -15,9 +15,10 @@ import {
 import { inject, injectable } from 'inversify';
 import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
 
-import { createElement, createIcon } from '../../utils/ui-utils';
+import { createElement } from '../../utils/ui-utils';
 import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { EnableViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
+import { IvyIcon } from '../../utils/IvyIcon';
 
 @injectable()
 export class ViewportBar extends GLSPAbstractUIExtension implements IActionHandler {
@@ -64,7 +65,7 @@ export class ViewportBar extends GLSPAbstractUIExtension implements IActionHandl
 
   protected createViewportButton(toolButton: ViewportBarButton): HTMLElement {
     const button = createElement('span');
-    button.appendChild(createIcon(toolButton.icon));
+    button.appendChild(IvyIcon({ icon: toolButton.icon }));
     button.id = toolButton.id;
     button.title = toolButton.title;
     button.onclick = () =>
