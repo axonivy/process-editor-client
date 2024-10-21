@@ -3,9 +3,10 @@ import {
   Action,
   EnableDefaultToolsAction,
   EnableToolsAction,
-  GridManager,
+  IGridManager,
   MarqueeMouseTool,
   RedoAction,
+  TYPES,
   UndoAction
 } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
@@ -87,7 +88,7 @@ export const RedoToolButton: ToolBarButton = {
 @injectable()
 export class OptionsButtonProvider implements ToolBarButtonProvider {
   @inject(CustomIconToggleActionHandler) protected customIconHandler: CustomIconToggleActionHandler;
-  @inject(GridManager) protected gridManager: GridManager;
+  @inject(TYPES.IGridManager) protected gridManager: IGridManager;
   @inject(SwitchThemeActionHandler) @optional() protected switchThemeHandler?: SwitchThemeActionHandler;
 
   button() {

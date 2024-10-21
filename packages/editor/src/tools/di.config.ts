@@ -1,5 +1,4 @@
 import {
-  ChangeBoundsManager,
   ChangeBoundsTool,
   ExportSvgCommand,
   ExportSvgPostprocessor,
@@ -34,7 +33,7 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
     bindAsService(context, TYPES.IDefaultTool, ChangeBoundsTool);
 
     // GLSP replacements
-    bindAsService(context, ChangeBoundsManager, IvyChangeBoundsManager);
+    bindAsService(context, TYPES.IChangeBoundsManager, IvyChangeBoundsManager);
     configureView(context, GResizeHandle.TYPE, IvyResizeHandleView);
   },
   { featureId: changeBoundsToolModule.featureId }
