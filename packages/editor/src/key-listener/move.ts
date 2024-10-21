@@ -16,7 +16,7 @@ import {
   Viewport,
   findParentByFeature,
   isViewport,
-  GridManager
+  IGridManager
 } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, injectable, optional } from 'inversify';
@@ -27,7 +27,7 @@ import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 export class MoveElementKeyListener extends KeyListener {
   @inject(SelectionService) protected selectionService: SelectionService;
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
-  @inject(GridManager) readonly gridManager: GridManager;
+  @inject(TYPES.IGridManager) readonly gridManager: IGridManager;
 
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
     const delta = this.moveDelta(event);
