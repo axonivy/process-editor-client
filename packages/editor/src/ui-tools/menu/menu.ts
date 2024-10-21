@@ -222,27 +222,25 @@ export abstract class ItemMenu implements Menu {
     if (!item.icon) {
       return createIcon();
     }
-    if (item.icon.startsWith('http')) {
-      const img = createElement('img') as HTMLImageElement;
-      img.src = item.icon;
-      return img;
+    const icon = this.resolveIcon(item.icon);
+    if (icon) {
+      return createIcon(icon);
     }
-    return createIcon(this.resolveIcon(item.icon));
+    const img = createElement('img') as HTMLImageElement;
+    img.src = item.icon;
+    return img;
   }
 
   private resolveIcon(type: string) {
-    const icon = MenuIcons.get(type);
-    if (!icon) {
-      if (type.startsWith(ActivityTypes.THIRD_PARTY)) {
-        return MenuIcons.get(ActivityTypes.THIRD_PARTY);
-      }
-      if (type.startsWith(EventStartTypes.START_THIRD_PARTY)) {
-        return MenuIcons.get(EventStartTypes.START_THIRD_PARTY);
-      }
-      if (type.startsWith(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY)) {
-        return MenuIcons.get(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY);
-      }
+    if (type.startsWith(ActivityTypes.THIRD_PARTY)) {
+      return MenuIcons.get(ActivityTypes.THIRD_PARTY);
     }
-    return icon;
+    if (type.startsWith(EventStartTypes.START_THIRD_PARTY)) {
+      return MenuIcons.get(EventStartTypes.START_THIRD_PARTY);
+    }
+    if (type.startsWith(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY)) {
+      return MenuIcons.get(EventIntermediateTypes.INTERMEDIATE_THIRD_PARTY);
+    }
+    return MenuIcons.get(type);
   }
 }
