@@ -18,7 +18,7 @@ pipeline {
     stage('Screenshots') {
       steps {
         script {
-          docker.build('node-webtest', '-f build/playwright/Dockerfile .').inside {
+          docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
             sh 'npm run update:axonivy:next && npm install'
             sh 'npm run package'
             dir ('playwright/glsp-test-project') {
