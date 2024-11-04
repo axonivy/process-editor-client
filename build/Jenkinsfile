@@ -19,7 +19,7 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
               sh 'npm run update:axonivy:next'
               sh 'npm run ci'
             }
@@ -59,7 +59,7 @@ pipeline {
       }
       steps {
         script {
-          docker.build('node', '-f build/Dockerfile .').inside {
+          docker.build('node', '-f build/Dockerfile.node .').inside {
             sh 'npm run build'
             sh 'git checkout .'
             withCredentials([string(credentialsId: 'npmjs-registry.ivyteam.ch-auth-token', variable: 'NPM_AUTH_TOKEN')]) {

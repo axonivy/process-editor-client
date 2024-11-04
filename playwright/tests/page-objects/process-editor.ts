@@ -1,5 +1,4 @@
 import type { Locator, Page } from '@playwright/test';
-import { v4 as uuid } from 'uuid';
 import { expect } from '@playwright/test';
 import { Activity, Element, Lane, Pool } from './element';
 import { Toolbar } from './toolbar';
@@ -11,6 +10,7 @@ import { JumpOutBar } from './jump-out';
 import { ViewportBar } from './viewport';
 import { Inscription } from './inscription';
 import { GRAPH_SELECTOR, diagramLocator, graphLocator } from './graph';
+import { randomUUID } from 'crypto';
 
 const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 
@@ -38,7 +38,7 @@ export class ProcessEditor {
 
   static async openProcess(page: Page, options?: { urlQueryParam?: string; file?: string; waitFor?: string }) {
     await page.goto(
-      ProcessEditor.processEditorUrl('glsp-test-project', options?.file ?? `/processes/test/${uuid()}.p.json`) +
+      ProcessEditor.processEditorUrl('glsp-test-project', options?.file ?? `/processes/test/${randomUUID()}.p.json`) +
         (options?.urlQueryParam ?? '')
     );
     await page.addStyleTag({ content: '.palette-body {transition: none !important;}' });
