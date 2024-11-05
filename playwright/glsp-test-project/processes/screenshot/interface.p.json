@@ -1,0 +1,74 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "192FC4D4F5911DE2",
+  "config" : {
+    "data" : "glsp.test.project.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "Database",
+      "name" : "Database",
+      "config" : {
+        "query" : {
+          "dbName" : "IvySystemDatabase",
+          "sql" : {
+            "table" : "IWA_APPLICATION"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 120, "y" : 80 }
+      }
+    }, {
+      "id" : "f1",
+      "type" : "WebServiceCall",
+      "name" : "Web Service",
+      "config" : {
+        "clientId" : "1842DB7CC45C39D7",
+        "operation" : {
+          "name" : "GetGeoIP",
+          "port" : "GeoIPServiceSoap"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 280, "y" : 80 }
+      }
+    }, {
+      "id" : "f2",
+      "type" : "RestClientCall",
+      "name" : "Rest Client",
+      "config" : {
+        "target" : {
+          "clientId" : "d319aec9-4d1f-49a2-b859-ce8854b3091a"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 440, "y" : 80 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "EMail",
+      "name" : "Mail",
+      "visual" : {
+        "at" : { "x" : 120, "y" : 192 }
+      }
+    }, {
+      "id" : "f4",
+      "type" : "ThirdPartyProgramInterface",
+      "impl" : "RuleActivity",
+      "name" : "Rule",
+      "visual" : {
+        "at" : { "x" : 280, "y" : 192 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "ProgramInterface",
+      "name" : "Program",
+      "config" : {
+        "javaClass" : "ch.ivyteam.ivy.process.extension.impl.AbstractUserProcessExtension"
+      },
+      "visual" : {
+        "at" : { "x" : 440, "y" : 192 }
+      }
+    } ]
+}
