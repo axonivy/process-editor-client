@@ -3,21 +3,50 @@ import { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { IconStyle, resolveIcon } from './icons';
+import { ActivityTypes } from '../view-types';
+import { ActivityNode } from '../model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
-export function getActivityIconDecorator(iconUri: string, color: string): VNode {
-  const bounds = { height: 14, width: 14, x: 4, y: 3 };
-  return iconDecorator(iconUri, bounds, false, color);
+const WORKFLOW_ACTIVITY_TYPES = [
+  ActivityTypes.USER,
+  ActivityTypes.SCRIPT,
+  ActivityTypes.HD,
+  ActivityTypes.TRIGGER,
+  ActivityTypes.SUB_PROCESS
+];
+
+export function getActivityIconDecorator(node: ActivityNode, iconUri: string): VNode | undefined {
+  const bounds = { height: 20, width: 20, x: 10, y: node.bounds.height / 2 - 10 };
+  const icon = iconDecorator(iconUri, bounds, false, '');
+  if (icon) {
+    return (
+      <g class-activity-icon data-actitiy-type={activityColorType(node.type)}>
+        <rect height={30} width={30} x={5} y={node.bounds.height / 2 - 15} />
+        {icon}
+      </g>
+    );
+  }
+  return;
 }
 
-export function getIconDecorator(iconUri: string, radius: number, color: string): VNode {
+const activityColorType = (type: string): 'workflow' | 'interface' | 'bpmn' => {
+  if (type.endsWith('BpmnElement')) {
+    return 'bpmn';
+  }
+  if (WORKFLOW_ACTIVITY_TYPES.includes(type)) {
+    return 'workflow';
+  }
+  return 'interface';
+};
+
+export function getIconDecorator(iconUri: string, radius: number, color: string): VNode | undefined {
   const bounds = { height: 14, width: 18, x: radius - 9, y: radius - 7 };
   return iconDecorator(iconUri, bounds, true, color);
 }
 
-function iconDecorator(iconUri: string, bounds: Bounds, smallIcon: boolean, color: string): VNode {
+function iconDecorator(iconUri: string, bounds: Bounds, smallIcon: boolean, color: string): VNode | undefined {
   const icon = resolveIcon(iconUri);
   if (icon.style === IconStyle.SI) {
     return (
@@ -29,20 +58,18 @@ function iconDecorator(iconUri: string, bounds: Bounds, smallIcon: boolean, colo
   if (icon.style === IconStyle.IMG) {
     const foreignObjectContents = virtualize(`<img src="${icon.res}"></img>`);
     return (
-      <g>
-        <foreignObject
-          requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
-          height={bounds.height}
-          width={bounds.width}
-          x={bounds.x}
-          y={bounds.y}
-          class-sprotty-icon
-          class-icon-small={smallIcon}
-        >
-          {foreignObjectContents}
-        </foreignObject>
-      </g>
+      <foreignObject
+        requiredFeatures='http://www.w3.org/TR/SVG11/feature#Extensibility'
+        height={bounds.height}
+        width={bounds.width}
+        x={bounds.x}
+        y={bounds.y}
+        class-sprotty-icon
+        class-icon-small={smallIcon}
+      >
+        {foreignObjectContents}
+      </foreignObject>
     );
   }
-  return <g></g>;
+  return;
 }

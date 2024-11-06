@@ -33,17 +33,17 @@ export class ActivityNodeView extends RectangularNodeView {
           width={node.bounds.width}
           height={node.bounds.height}
           style={{ stroke: node.color }}
-        ></rect>
+        />
         {context.renderChildren(node)}
-        {getActivityIconDecorator(this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.type, node.color)}
+        {getActivityIconDecorator(node, this.customIconHandler?.isShowCustomIcons ? node.customIcon : node.type)}
         {this.getNodeDecorator(node)}
         {createExecutionBadge(node, node.bounds.width)}
       </g>
     );
   }
 
-  protected getNodeDecorator(node: ActivityNode): VNode {
-    return <g></g>;
+  protected getNodeDecorator(node: ActivityNode): VNode | undefined {
+    return;
   }
 
   protected getRoundedCornerRadius(node: GShapeElement): number {

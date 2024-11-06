@@ -5,7 +5,7 @@ import { Executable } from './model';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
-export function createExecutionBadge(node: Executable, width: number): VNode {
+export function createExecutionBadge(node: Executable, width: number): VNode | undefined {
   if (node.executionCount) {
     return (
       <g>
@@ -16,5 +16,5 @@ export function createExecutionBadge(node: Executable, width: number): VNode {
       </g>
     );
   }
-  return <g></g>;
+  return;
 }

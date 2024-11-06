@@ -95,7 +95,7 @@ export class QuickActionMenu extends ItemMenu {
     return editButton;
   }
 
-  protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+  protected appendPaletteIcon(item: PaletteItem): Node {
     if (this.action.isEditable) {
       if (item.icon && item.icon.length > 0) {
         const span = createElement('span', ['color-icon']);
@@ -105,7 +105,7 @@ export class QuickActionMenu extends ItemMenu {
         return createElement('span', ['empty-icon']);
       }
     }
-    return super.appendPaletteIcon(button, item);
+    return super.appendPaletteIcon(item);
   }
 }
 
