@@ -1,0 +1,58 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "id" : "193017E6831BF81C",
+  "config" : {
+    "data" : "glsp.test.project.Data"
+  },
+  "elements" : [ {
+      "id" : "f3",
+      "type" : "Script",
+      "visual" : {
+        "at" : { "x" : 120, "y" : 192 }
+      },
+      "boundaries" : [ {
+          "id" : "f6",
+          "type" : "ErrorBoundaryEvent",
+          "name" : "ivy:error",
+          "config" : {
+            "errorCode" : "ivy:error"
+          },
+          "visual" : {
+            "at" : { "x" : 152, "y" : 232 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          }
+        } ]
+    }, {
+      "id" : "f0",
+      "type" : "UserTask",
+      "name" : "Assign Keys",
+      "visual" : {
+        "at" : { "x" : 120, "y" : 80 }
+      },
+      "boundaries" : [ {
+          "id" : "f7",
+          "type" : "SignalBoundaryEvent",
+          "name" : "hr:onboarding:end",
+          "config" : {
+            "signalCode" : "hr:onboarding:end"
+          },
+          "visual" : {
+            "at" : { "x" : 152, "y" : 120 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : [
+            { "id" : "f4", "to" : "f1", "via" : [ { "x" : 240, "y" : 120 }, { "x" : 240, "y" : 80 } ] }
+          ]
+        } ],
+      "connect" : [
+        { "id" : "f2", "to" : "f1" }
+      ]
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 336, "y" : 80 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    } ]
+}

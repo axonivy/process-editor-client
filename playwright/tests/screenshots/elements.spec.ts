@@ -20,6 +20,12 @@ test('intermediate', async ({ page }) => {
   await screenshot(editor.element('intermediate:waitEvent'), 'intermediate-wait');
 });
 
+test('boundary', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/boundary.p.json', waitFor: '.sprotty-graph' });
+  await screenshot(editor.element('boundary:signal'), 'boundary-signal');
+  await screenshot(editor.element('boundary:error'), 'boundary-error');
+});
+
 test('end', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/end.p.json', waitFor: '.sprotty-graph' });
   await screenshot(editor.element('end:taskEnd'), 'end-task');
