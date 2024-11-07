@@ -183,6 +183,40 @@ g[class^='end'] .sprotty-node {
   align-items: center;
   justify-content: center;
 }
+[data-svg-metadata-type='activity-label']:has(~ .activity-icon) .node-child-label > div {
+  margin-left: 40px;
+  text-align: start;
+  justify-content: flex-start;
+}
+.activity-icon {
+  rect {
+    ry: 3px;
+  }
+  &[data-actitiy-type='workflow'] {
+    rect {
+      fill: var(--glsp-activity-workflow-bg);
+    }
+    path {
+      fill: var(--glsp-activity-workflow);
+    }
+  }
+  &[data-actitiy-type='interface'] {
+    rect {
+      fill: var(--glsp-activity-interface-bg);
+    }
+    path {
+      fill: var(--glsp-activity-interface);
+    }
+  }
+  &[data-actitiy-type='bpmn'] {
+    rect {
+      fill: var(--glsp-activity-bpmn-bg);
+    }
+    path {
+      fill: var(--glsp-activity-bpmn);
+    }
+  }
+}
 .processAnnotation .sprotty-label div {
   text-align: left;
   justify-content: start;
@@ -196,8 +230,8 @@ g[class^='end'] .sprotty-node {
   font-size: 14px;
 }
 .sprotty-icon img {
-  height: 14px;
-  width: 14px;
+  height: 20px;
+  width: 20px;
   object-fit: contain;
 }
 .sprotty-icon.icon-small i {

@@ -182,13 +182,17 @@ export abstract class ItemMenu implements Menu {
 
     const groupItems = createElement('div', ['menu-group-items']);
     group.appendChild(groupItems);
+
+    group.appendChild(createElement('div', ['menu-group-divider']));
     return groupItems;
   }
 
   private createToolButton(item: PaletteItem, index: number): HTMLElement {
     const button = createElement('div', [ItemMenu.ITEM_BUTTON]);
     button.tabIndex = index;
-    button.appendChild(this.appendPaletteIcon(button, item));
+    const icon = createElement('div', ['menu-item-icon']);
+    icon.appendChild(this.appendPaletteIcon(item));
+    button.appendChild(icon);
     const text = createElement('div', ['menu-item-text']);
     text.appendChild(createElement('span', ['menu-item-label'], item.label));
     if ('info' in item && typeof item.info === 'string') {
@@ -199,8 +203,10 @@ export abstract class ItemMenu implements Menu {
     button.onmouseenter = _ev => this.focusButton(button);
     if ('description' in item && typeof item.description === 'string' && item.description !== 'undefined') {
       button.title = item.description;
+    } else {
+      button.title = item.label;
     }
-    this.appendToToolButton(button, item);
+    this.appendToToolButton(text, item);
     return button;
   }
 
@@ -218,7 +224,7 @@ export abstract class ItemMenu implements Menu {
     return this.itemsDiv?.querySelector(`.${ItemMenu.ITEM_BUTTON}.${ItemMenu.ACTIVE_ELEMENT}`);
   }
 
-  protected appendPaletteIcon(button: HTMLElement, item: PaletteItem): Node {
+  protected appendPaletteIcon(item: PaletteItem): Node {
     if (!item.icon) {
       return createIcon();
     }

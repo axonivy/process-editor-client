@@ -6,6 +6,7 @@ import { Bounds } from '@eclipse-glsp/client';
 import { getActivityIconDecorator, getIconDecorator } from './views';
 import { GatewayTypes, EventStartTypes, ActivityTypes } from '../view-types';
 import { SvgIcons } from './icons';
+import { ActivityNode } from '../model';
 
 describe('Event and Gateway Icons', () => {
   test('no icon', () => {
@@ -17,80 +18,102 @@ describe('Event and Gateway Icons', () => {
 
   test('icon', () => {
     let node = getIconDecorator(GatewayTypes.ALTERNATIVE, 25, '');
-    assertIcon(node, { height: 14, width: 18, x: 16, y: 18 }, SvgIcons.ALTERNATIVE, '');
+    assertIcon(node!, { height: 14, width: 18, x: 16, y: 18 }, SvgIcons.ALTERNATIVE, '');
     node = getIconDecorator(EventStartTypes.START_ERROR, 25, 'red');
-    assertIcon(node, { height: 14, width: 18, x: 16, y: 18 }, SvgIcons.ERROR_EVENT, 'red');
+    assertIcon(node!, { height: 14, width: 18, x: 16, y: 18 }, SvgIcons.ERROR_EVENT, 'red');
   });
 
   test('img icon', () => {
     let node = getIconDecorator('/faces/javax.faces.resource/url', 30, '');
-    assertImgIcon(node, { height: 14, width: 18, x: 21, y: 23 }, '/faces/javax.faces.resource/url');
+    assertImgIcon(node!, { height: 14, width: 18, x: 21, y: 23 }, '/faces/javax.faces.resource/url');
     node = getIconDecorator('/faces/javax.faces.resource/url', 30, 'red');
-    assertImgIcon(node, { height: 14, width: 18, x: 21, y: 23 }, '/faces/javax.faces.resource/url');
+    assertImgIcon(node!, { height: 14, width: 18, x: 21, y: 23 }, '/faces/javax.faces.resource/url');
   });
 });
 
 describe('Activity Icons', () => {
   test('no icon', () => {
-    let node = getActivityIconDecorator('', '');
-    assertNoIcon(node);
-    node = getActivityIconDecorator('std:NoDecorator', 'red');
-    assertNoIcon(node);
+    const activity = { bounds: { height: 60, width: 120, x: 0, y: 0 } } as ActivityNode;
+    assertNoIcon(getActivityIconDecorator(activity, ''));
+    assertNoIcon(getActivityIconDecorator(activity, 'std:NoDecorator'));
   });
 
   test('icon', () => {
-    let node = getActivityIconDecorator(ActivityTypes.SCRIPT, '');
-    assertIcon(node, { height: 14, width: 14, x: 4, y: 3 }, SvgIcons.SCRIPT);
-    node = getActivityIconDecorator(ActivityTypes.SCRIPT, 'red');
-    assertIcon(node, { height: 14, width: 14, x: 4, y: 3 }, SvgIcons.SCRIPT, 'red');
+    const activity = { type: ActivityTypes.SCRIPT, bounds: { height: 60, width: 120, x: 0, y: 0 } } as ActivityNode;
+    let node = getActivityIconDecorator(activity, ActivityTypes.SCRIPT);
+    assertActivityIcon(node!, { height: 20, width: 20, x: 10, y: 60 / 2 - 10 }, SvgIcons.SCRIPT);
+    node = getActivityIconDecorator(activity, ActivityTypes.SCRIPT);
+    assertActivityIcon(node!, { height: 20, width: 20, x: 10, y: 60 / 2 - 10 }, SvgIcons.SCRIPT);
   });
 
   test('img icon', () => {
-    let node = getActivityIconDecorator('/faces/javax.faces.resource/url', '');
-    assertImgIcon(node, { height: 14, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
-    node = getActivityIconDecorator('/faces/javax.faces.resource/url', 'red');
-    assertImgIcon(node, { height: 14, width: 14, x: 4, y: 3 }, '/faces/javax.faces.resource/url');
+    const activity = { type: ActivityTypes.SCRIPT, bounds: { height: 60, width: 120, x: 0, y: 0 } } as ActivityNode;
+    let node = getActivityIconDecorator(activity, '/faces/javax.faces.resource/url');
+    assertActivityImgIcon(node!, { height: 20, width: 20, x: 10, y: 60 / 2 - 10 }, '/faces/javax.faces.resource/url');
+    node = getActivityIconDecorator(activity, '/faces/javax.faces.resource/url');
+    assertActivityImgIcon(node!, { height: 20, width: 20, x: 10, y: 60 / 2 - 10 }, '/faces/javax.faces.resource/url');
   });
 });
 
-function assertNoIcon(node: VNode): void {
-  expect(node.sel).to.be.equals('g');
-  expect(node.children).toHaveLength(0);
+function assertNoIcon(node?: VNode): void {
+  expect(node).toBeUndefined();
+}
+
+function assertActivityIcon(node: VNode, expectedBounds: Bounds, expectedPath: string): void {
+  expect(node.sel).toEqual('g');
+  expect(node.children).toHaveLength(2);
+  assertBounds((node.children![0] as any).data, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
+  const svg = node.children![1] as any;
+  assertBounds(svg.data, expectedBounds, '0 0 20 20');
+
+  const path = svg.children![0] as any;
+  expect(path.sel).toEqual('path');
+  expect(path.data.attrs.d).toEqual(expectedPath);
 }
 
 function assertIcon(node: VNode, expectedBounds: Bounds, expectedPath: string, color?: string): void {
-  expect(node.sel).to.be.equals('svg');
+  expect(node.sel).toEqual('svg');
   expect(node.children).not.toHaveLength(0);
-  assertIconBounds(node.data, expectedBounds, '0 0 20 20');
+  assertBounds(node.data, expectedBounds, '0 0 20 20');
 
   const path = node.children![0] as any;
-  expect(path.sel).to.be.equals('path');
-  expect(path.data.attrs.d).to.be.equals(expectedPath);
+  expect(path.sel).toEqual('path');
+  expect(path.data.attrs.d).toEqual(expectedPath);
 
   if (color) {
-    expect(path.data.style.fill).to.be.equals(color);
+    expect(path.data.style.fill).toEqual(color);
   }
 }
 
-function assertImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
-  expect(node.sel).to.be.equals('g');
-  expect(node.children).not.toHaveLength(0);
+function assertActivityImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
+  expect(node.sel).toEqual('g');
+  expect(node.children).toHaveLength(2);
+  assertBounds((node.children![0] as any).data, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
 
-  const foreignObject = node.children![0] as any;
-  expect(foreignObject.sel).to.be.equals('foreignObject');
-  assertIconBounds(foreignObject.data, expectedBounds);
+  const foreignObject = node.children![1] as any;
+  expect(foreignObject.sel).toEqual('foreignObject');
+  assertBounds(foreignObject.data, expectedBounds);
 
   const icon = foreignObject.children[0].children[1].children[0] as any;
-  expect(icon.sel).to.be.equals('IMG');
-  expect(icon.data.attrs.src).to.be.equals(exprectedUrl);
+  expect(icon.sel).toEqual('IMG');
+  expect(icon.data.attrs.src).toEqual(exprectedUrl);
 }
 
-function assertIconBounds(data: any, expectedBounds: Bounds, viewBox?: string): void {
-  expect(data.attrs.height).to.be.equals(expectedBounds.height);
-  expect(data.attrs.width).to.be.equals(expectedBounds.width);
-  expect(data.attrs.x).to.be.equals(expectedBounds.x);
-  expect(data.attrs.y).to.be.equals(expectedBounds.y);
+function assertImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
+  expect(node.sel).toEqual('foreignObject');
+  assertBounds(node.data, expectedBounds);
+
+  const icon = (node as any).children[0].children[1].children[0] as any;
+  expect(icon.sel).toEqual('IMG');
+  expect(icon.data.attrs.src).toEqual(exprectedUrl);
+}
+
+function assertBounds(data: any, expectedBounds: Bounds, viewBox?: string): void {
+  expect(data.attrs.height).toEqual(expectedBounds.height);
+  expect(data.attrs.width).toEqual(expectedBounds.width);
+  expect(data.attrs.x).toEqual(expectedBounds.x);
+  expect(data.attrs.y).toEqual(expectedBounds.y);
   if (viewBox) {
-    expect(data.attrs.viewBox).to.be.equals(viewBox);
+    expect(data.attrs.viewBox).toEqual(viewBox);
   }
 }
