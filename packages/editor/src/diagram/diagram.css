@@ -183,7 +183,7 @@ g[class^='end'] .sprotty-node {
   align-items: center;
   justify-content: center;
 }
-g[id^='sprotty_label']:has(~ .activity-icon) .node-child-label > div {
+g[id*='_label']:has(~ .activity-icon) .node-child-label > div {
   margin-left: 40px;
   text-align: start;
   justify-content: flex-start;
