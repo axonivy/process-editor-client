@@ -27,6 +27,12 @@ test('end', async ({ page }) => {
   await screenshot(editor.element('end:errorEnd'), 'end-error');
 });
 
+test('boundary', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/boundary.p.json', waitFor: '.sprotty-graph' });
+  await screenshot(editor.element('userTask'), 'boundary-signal', 0);
+  await screenshot(editor.element('userTask'), 'boundary-error', 1);
+});
+
 test('gateway', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/gateway.p.json', waitFor: '.sprotty-graph' });
   await screenshot(editor.element('alternative'), 'gateway-alternative');
@@ -88,8 +94,16 @@ test('hd', async ({ page }) => {
   await screenshot(editor.element('end:htmlDialogExit'), 'hd-exit-end');
 });
 
-async function screenshot(element: BaseElement, name: string) {
+test('note', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/note.p.json', waitFor: '.sprotty-graph' });
+  await screenshot(editor.element('processAnnotation'), 'annotation');
+});
+
+async function screenshot(element: BaseElement, name: string, nth?: number) {
   const dir = process.env.SCREENSHOT_DIR ?? './target';
-  const buffer = await element.locator().screenshot({ path: `${dir}/screenshots/elements/${name}.png`, animations: 'disabled' });
+  const buffer = await element
+    .locator()
+    .nth(nth ?? 0)
+    .screenshot({ path: `${dir}/screenshots/elements/${name}.png`, animations: 'disabled' });
   expect(buffer.byteLength).toBeGreaterThan(500);
 }

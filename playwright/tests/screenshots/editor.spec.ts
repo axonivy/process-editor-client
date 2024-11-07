@@ -18,14 +18,20 @@ test('outline', async ({ page }) => {
 });
 
 test('warning', async ({ page }) => {
-  const editor = await ProcessEditor.openProcess(page, { file: '/processes/warning.p.json' });
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/warning.p.json' });
   await editor.element('dialogCall').expectHasWarning();
   await screenshot(page, 'process-editor-problem.png', { height: 250 });
 });
 
 test('swimlanes', async ({ page }) => {
-  await ProcessEditor.openProcess(page, { file: '/processes/swimlanes.p.json', waitFor: '.pool' });
+  await ProcessEditor.openProcess(page, { file: '/processes/screenshot/swimlanes.p.json', waitFor: '.pool' });
   await screenshot(page, 'swimlanes.png');
+});
+
+test('extensions', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/quickstart.p.json', waitFor: '.sprotty-graph' });
+  await editor.toolbar().openElementPalette('extensions');
+  await screenshot(page, 'extensions.png');
 });
 
 async function screenshot(page: Page, name: string, size?: { width?: number; height?: number }) {
