@@ -44,7 +44,7 @@ describe('EdgeView', () => {
     const vnode = view.render(graph.index.getById('edge') as GEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 130,115 L 200,115" />' +
-      '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(180 200 115) translate(200 115)" /></g>';
+      '<path class="sprotty-edge arrow" d="M 0,0.3 L 6,-3.5 M 0,-0.3 L 6,3.5" transform="rotate(180 200 115) translate(200 115)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
 
@@ -53,7 +53,7 @@ describe('EdgeView', () => {
     const vnode = view.render(graph.index.getById('edgeWithRoutes') as GEdge, context);
     const expectation =
       '<g class="sprotty-edge"><path d="M 116.35803619063778,129.93839809701555 L 150,500 L 212.5028714424112,129.79068453341068" />' +
-      '<path class="sprotty-edge arrow" d="M 0.5,0 L 6,-3 L 6,3 Z" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
+      '<path class="sprotty-edge arrow" d="M 0,0.3 L 6,-3.5 M 0,-0.3 L 6,3.5" transform="rotate(99.58294472353258 212.5028714424112 129.79068453341068) ' +
       'translate(212.5028714424112 129.79068453341068)" /></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
   });
