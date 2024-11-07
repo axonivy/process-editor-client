@@ -396,12 +396,14 @@
   }
 }
 
-#activity-group .menu-item-icon {
+#activity-group .menu-item-icon,
+#callable-extensions .menu-item-icon {
   background: var(--glsp-activity-workflow-bg);
   color: var(--glsp-activity-workflow);
 }
 
-#interface-activity-group .menu-item-icon {
+#interface-activity-group .menu-item-icon,
+#rest-extensions .menu-item-icon {
   background: var(--glsp-activity-interface-bg);
   color: var(--glsp-activity-interface);
 }
