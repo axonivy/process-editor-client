@@ -27,7 +27,7 @@
     "@types/lodash": "4.14.202",
     "@types/showdown": "^2.0.6",
     "@types/toastify-js": "^1.12.3",
-    "happy-dom": "^14.7.1",
+    "happy-dom": "^15.10.2",
     "inversify": "^6.0.1",
     "reflect-metadata": "^0.1.13",
     "snabbdom-to-html": "^7.1.0",
