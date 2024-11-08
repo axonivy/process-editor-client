@@ -33,6 +33,10 @@ export default defineConfig(() => {
       open: false,
       sourcemapIgnoreList(sourcePath, sourcemapPath) {
         return sourcePath.includes('node_modules') && !sourcePath.includes('@eclipse-glsp') && !sourcePath.includes('@axonivy');
+      },
+      proxy: {
+        // needed for custom images on screenshots
+        '/glsp-test-project': { target: process.env.BASE_URL ?? 'http://localhost:8081/' }
       }
     },
     resolve: {
