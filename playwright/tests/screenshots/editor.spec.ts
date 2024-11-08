@@ -30,7 +30,12 @@ test('swimlanes', async ({ page }) => {
 
 test('extensions', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/quickstart.p.json', waitFor: '.sprotty-graph' });
-  await editor.toolbar().openElementPalette('extensions');
+  const menu = await editor.toolbar().openElementPalette('extensions');
+  await menu.expectVisible();
+  for (const img of await menu.locator().locator('img').all()) {
+    await expect(img).toHaveJSProperty('complete', true);
+    await expect(img).not.toHaveJSProperty('naturalWidth', 0);
+  }
   await screenshot(page, 'extensions.png');
 });
 
