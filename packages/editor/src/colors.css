@@ -45,12 +45,12 @@
   --glsp-execution-failed: #ff796f;
   --glsp-execution-stopped: #cca700;
 
-  --glsp-activity-workflow-bg: rgb(253, 220, 197);
-  --glsp-activity-workflow: rgb(249, 115, 22);
+  --glsp-activity-workflow-bg: rgb(206, 224, 253);
+  --glsp-activity-workflow: rgb(59, 130, 246);
   --glsp-activity-interface-bg: rgb(195, 237, 223);
   --glsp-activity-interface: rgb(59, 161, 127);
-  --glsp-activity-bpmn-bg: rgb(206, 224, 253);
-  --glsp-activity-bpmn: rgb(59, 130, 246);
+  --glsp-activity-bpmn-bg: rgb(226, 214, 253);
+  --glsp-activity-bpmn: rgb(139, 92, 246);
 
   --glsp-inline-label-background: #fafafa;
 }
