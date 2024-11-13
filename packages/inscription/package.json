@@ -10,10 +10,10 @@
     "url": "https://github.com/axonivy/glsp-editor-client"
   },
   "dependencies": {
-    "@axonivy/inscription-core": "~12.0.0-next.1239",
-    "@axonivy/inscription-editor": "~12.0.0-next.1239",
-    "@axonivy/inscription-protocol": "~12.0.0-next.1239",
-    "@axonivy/process-editor": "13.1.0-next",
+    "@axonivy/inscription-core": "~13.1.0-next.1241",
+    "@axonivy/inscription-editor": "~13.1.0-next.1241",
+    "@axonivy/inscription-protocol": "~13.1.0-next.1241",
+    "@axonivy/process-editor": "~13.1.0-next",
     "@codingame/monaco-vscode-editor-service-override": "1.83.3",
     "@codingame/monaco-vscode-languages-service-override": "1.83.3",
     "@codingame/monaco-vscode-model-service-override": "1.83.3",
