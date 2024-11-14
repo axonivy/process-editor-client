@@ -92,10 +92,9 @@ describe('QuickActionUi', () => {
 
   test('pool', () => {
     quickActionUi.show(root, 'pool');
-    assertQuickActionUi(3, { x: 250, y: 100 });
+    assertQuickActionUi(2, { x: 250, y: 100 });
     assertQuickAction(0, 'Delete', IvyIcons.Trash);
-    assertQuickAction(1, 'Select color', IvyIcons.ColorDrop);
-    assertQuickAction(2, 'Create Lane', IvyIcons.LaneSwimlanes);
+    assertQuickAction(1, 'Create Lane', IvyIcons.LaneSwimlanes);
   });
 
   test('lane', () => {
