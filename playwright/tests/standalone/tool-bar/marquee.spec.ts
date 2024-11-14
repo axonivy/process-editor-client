@@ -34,4 +34,5 @@ async function markAndAssert(page: Page, processEditor: ProcessEditor) {
 async function assertAfterRelease(processEditor: ProcessEditor) {
   await expect(processEditor.toolbar().marquee()).toBeHidden();
   await expect(processEditor.quickAction().locator()).toBeVisible();
+  await processEditor.quickAction().count(4);
 }

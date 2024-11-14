@@ -7,6 +7,7 @@ import {
   GEdge,
   GLSPAbstractUIExtension,
   GLSPMouseTool,
+  GLabel,
   GModelElement,
   GModelRoot,
   GRoutableElement,
@@ -317,7 +318,10 @@ export class QuickActionUiMouseListener extends MouseListener {
 }
 
 function getElements(contextElementIds: string[], root: Readonly<GModelRoot>): GModelElement[] {
-  return contextElementIds.map(id => root.index.getById(id)).filter(isNotUndefined);
+  return contextElementIds
+    .map(id => root.index.getById(id))
+    .filter(isNotUndefined)
+    .filter(e => !(e instanceof GLabel));
 }
 
 function getFirstQuickActionElement(elements: GModelElement[], root: Readonly<GModelRoot>): GModelElement & BoundsAware {
