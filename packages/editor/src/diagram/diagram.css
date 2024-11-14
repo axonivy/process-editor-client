@@ -149,6 +149,9 @@ g[class^='end'] .sprotty-node {
   stroke-dasharray: none;
   cursor: move;
 }
+.sprotty-edge > .sprotty-routing-handle[data-kind='source'] {
+  display: none;
+}
 .sprotty-edge > .sprotty-routing-handle[data-kind='line'] {
   opacity: 0.35;
 }
