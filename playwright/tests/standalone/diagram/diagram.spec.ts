@@ -9,7 +9,7 @@ test('diagram', async ({ page }) => {
 
 test('problem marker', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
-  const hd = await editor.createActivity('User Dialog', { x: 100, y: 100 });
+  const hd = await editor.createActivity('User Dialog');
   await hd.expectHasWarning();
 
   await hd.quickActionBar().trigger('Wrap', 'startsWith');

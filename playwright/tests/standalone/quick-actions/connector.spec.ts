@@ -42,7 +42,7 @@ test('bend and straigthen', async ({ page }) => {
 test('reconnect', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const edge = processEditor.edge();
-  const hd = await processEditor.createActivity('User Dialog', { x: 200, y: 200 });
+  const hd = await processEditor.createActivity('User Dialog');
   await expect(edge.locator()).toBeVisible();
   await expect(edge.feedbackLocator()).toBeHidden();
   const oldPath = await edge.getPath();

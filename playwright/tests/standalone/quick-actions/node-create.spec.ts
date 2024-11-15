@@ -4,7 +4,7 @@ import { Element } from '../../page-objects/element';
 
 test('switch categories', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
-  const hd = await processEditor.createActivity('User Dialog', { x: 200, y: 200 });
+  const hd = await processEditor.createActivity('User Dialog');
 
   await switchAndAssertGroup(hd, 'Events', ['Intermediate Events', 'End Events', 'Boundary Events']);
   await switchAndAssertGroup(hd, 'Gateways', ['Gateways']);
@@ -68,7 +68,7 @@ test('attach comment', async ({ page }) => {
 
 test('attach error boundary', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
-  const hd = await processEditor.createActivity('User Dialog', { x: 200, y: 200 });
+  const hd = await processEditor.createActivity('User Dialog');
   const errorBoundary = processEditor.element('boundary:errorBoundaryEvent');
   await expect(errorBoundary.locator()).toBeHidden();
 
@@ -78,7 +78,7 @@ test('attach error boundary', async ({ page }) => {
 
 test('attach signal boundary', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
-  const userTask = await processEditor.createActivity('User Task', { x: 200, y: 200 });
+  const userTask = await processEditor.createActivity('User Task');
   const signalBoundary = processEditor.element('boundary:signalBoundaryEvent');
   await expect(signalBoundary.locator()).toBeHidden();
 

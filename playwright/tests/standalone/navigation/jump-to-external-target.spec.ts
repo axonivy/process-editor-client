@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
 import { jumpToExternalTargetAndAssert } from '../../page-objects/navigation-helper';
 
@@ -32,3 +32,19 @@ test('embedded process', async ({ page }) => {
   await expect(embedded.locator()).toBeVisible();
   await viewport.expectGraphNotOriginViewport();
 });
+
+test('unknown trigger process', async ({ page }) => {
+  await assertJumpToUnknownTarget(page, 'Trigger');
+});
+
+test('unknown sub process', async ({ page }) => {
+  await assertJumpToUnknownTarget(page, 'Call');
+});
+
+const assertJumpToUnknownTarget = async (page: Page, element: string) => {
+  const editor = await ProcessEditor.openProcess(page);
+  const trigger = await editor.createActivity('Trigger');
+  await trigger.quickActionBar().trigger('Jump', 'startsWith');
+  await trigger.expectSelected();
+  await editor.inscription().expectHeader('Trigger');
+};
