@@ -408,6 +408,7 @@
   color: var(--glsp-activity-interface);
 }
 
+#types .menu-item-icon,
 #bpmn-activity-group .menu-item-icon {
   background: var(--glsp-activity-bpmn-bg);
   color: var(--glsp-activity-bpmn);
