@@ -3,18 +3,11 @@ import { ProcessEditor } from '../../page-objects/process-editor';
 
 const BAR = '.quick-actions-bar';
 
-test('hide bar when edit label shortcut is pressed', async ({ page }) => {
+test('let bar open on edit label', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const start = processEditor.startElement;
   await start.quickActionBar().pressShortCut('L');
-  await expect(start.quickActionBar().locator()).toBeHidden();
-});
-
-test('hide bar when edit label is clicked', async ({ page }) => {
-  const processEditor = await ProcessEditor.openProcess(page);
-  const start = processEditor.startElement;
-  await start.quickActionBar().trigger('Edit Label', 'startsWith');
-  await expect(start.quickActionBar().locator()).toBeHidden();
+  await expect(start.quickActionBar().locator()).toBeVisible();
 });
 
 test('visible bar when create all elements shortcut is pressed', async ({ page }) => {
