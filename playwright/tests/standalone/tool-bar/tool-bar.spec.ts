@@ -53,3 +53,13 @@ test('ghost element', async ({ page }) => {
   await expect(userTask.locator()).toBeVisible();
   await expect(userTask.locator()).toHaveClass(/ghost-element/);
 });
+
+test('cancel element creation', async ({ page }) => {
+  const processEditor = await ProcessEditor.openProcess(page);
+  await expect(processEditor.diagram).not.toHaveClass(/node-creation-mode/);
+  await processEditor.toolbar().triggerCreateElement('activities', 'User Task');
+  await page.mouse.move(300, 300);
+  await expect(processEditor.diagram).toHaveClass(/node-creation-mode/);
+  await page.keyboard.press('Escape');
+  await expect(processEditor.diagram).not.toHaveClass(/node-creation-mode/);
+});

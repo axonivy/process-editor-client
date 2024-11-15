@@ -207,6 +207,8 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     } else {
       this.changeActiveButton();
       this.setLastMenuAction(undefined);
+      // Reset focus to diagram
+      document.getElementById(`sprotty_${this.editorContext.modelRoot.id}`)?.focus();
     }
   }
 
