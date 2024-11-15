@@ -96,9 +96,13 @@ export class ProcessEditor {
     return new JumpOutBar(this.page);
   }
 
-  async createActivity(type: string, position: Point) {
+  inscription() {
+    return new Inscription(this.page);
+  }
+
+  async createActivity(type: string, position?: Point) {
     await this.toolbar().triggerCreateElement('activities', type);
-    await this.clickAt(position);
+    await this.clickAt(position ?? { x: 200, y: 200 });
     const id = (await this.graph.locator('> g > g.selected').getAttribute('id')) ?? undefined;
     return new Activity(this.page, this.graph, { id });
   }
@@ -146,7 +150,7 @@ export class ProcessEditor {
 
   async toggleInscription() {
     await this.page.locator('#btn_inscription_toggle').click();
-    return new Inscription(this.page);
+    return this.inscription();
   }
 
   async expectDarkMode() {
