@@ -15,7 +15,8 @@ export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
         title: 'Custom Icon',
         location: 'Middle',
         sorting: 'C',
-        action: OpenDecoratorBrowserAction.create(element.id)
+        action: OpenDecoratorBrowserAction.create(element.id),
+        letQuickActionsOpen: true
       };
     }
     return undefined;

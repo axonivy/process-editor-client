@@ -13,7 +13,8 @@ export class EditLabelActionProvider extends SingleQuickActionProvider {
         location: 'Middle',
         sorting: 'C',
         action: EditLabelAction.create(element.editableLabel.id),
-        shortcut: 'KeyL'
+        shortcut: 'KeyL',
+        letQuickActionsOpen: true
       };
     }
     return undefined;
