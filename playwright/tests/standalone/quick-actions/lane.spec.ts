@@ -30,7 +30,7 @@ test('pool actions', async ({ page }) => {
   const pool = await processEditor.createPool({ x: 10, y: 60 });
   await pool.quickActionBar().count(0);
   await pool.select();
-  await pool.quickActionBar().count(4);
+  await pool.quickActionBar().count(3);
 });
 
 test('pool label', async ({ page }) => {

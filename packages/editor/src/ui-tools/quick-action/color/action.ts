@@ -6,6 +6,7 @@ import { IVY_TYPES } from '../../../types';
 import { ColorPaletteHandler } from './action-handler';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
+import { LaneTypes } from '../../../diagram/view-types';
 
 @injectable()
 export class SelectColorQuickActionProvider implements QuickActionProvider {
@@ -13,6 +14,9 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
 
   singleQuickAction(element: GModelElement): QuickAction | undefined {
+    if (element.type === LaneTypes.POOL) {
+      return;
+    }
     return this.quickAction([element.id], () => this.colors.getPaletteItems());
   }
 
