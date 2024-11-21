@@ -8,7 +8,7 @@ export interface CustomIconToggleAction extends Action {
 export namespace CustomIconToggleAction {
   export const KIND = 'toggleCustomIcons';
 
-  export function is(object: any): object is CustomIconToggleAction {
+  export function is(object: unknown): object is CustomIconToggleAction {
     return Action.hasKind(object, KIND) && hasBooleanProp(object, 'showCustomIcons');
   }
 

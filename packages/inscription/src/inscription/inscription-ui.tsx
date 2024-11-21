@@ -20,13 +20,12 @@ import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import type { MonacoLanguageClient } from 'monaco-languageclient';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { inject, injectable, postConstruct } from 'inversify';
-import React from 'react';
+
 import { Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
 import InscriptionView from './InscriptionView';
 import { EnableInscriptionAction, ToggleInscriptionAction } from './action';
-
-const JSX = { createElement: React.createElement };
+import * as React from 'react';
 
 @injectable()
 export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHandler, ISelectionListener {

@@ -1,4 +1,5 @@
-import { BoundsAware, GModelElement, Selectable, isBoundsAware, isSelectable } from '@eclipse-glsp/client';
+import type { BoundsAware, GModelElement, Selectable } from '@eclipse-glsp/client';
+import { isBoundsAware, isSelectable } from '@eclipse-glsp/client';
 import { LaneNode } from '../diagram/model';
 
 export const laneResizeFeature = Symbol('laneResizeFeature');

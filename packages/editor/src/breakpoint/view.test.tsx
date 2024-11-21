@@ -1,19 +1,16 @@
-import {
+import type {
   GGraph,
   GModelFactory,
   GNode,
   IVNodePostprocessor,
   ModelRenderer,
   ModelRendererFactory,
-  TYPES,
-  ViewRegistry,
-  baseViewModule,
-  configureView,
-  routingModule
+  ViewRegistry
 } from '@eclipse-glsp/client';
+import { TYPES, baseViewModule, configureView, routingModule } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
-import { Container } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { Container } from 'inversify';
+import type { VNode } from 'snabbdom';
 import toHTML from 'snabbdom-to-html';
 import { beforeEach, describe, expect, test } from 'vitest';
 import { createTestContainer } from '../utils/test-utils';

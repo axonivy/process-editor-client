@@ -11,7 +11,7 @@ export namespace UpdatePaletteItems {
     return { kind: KIND };
   }
 
-  export function is(object: any): object is UpdatePaletteItems {
+  export function is(object: unknown): object is UpdatePaletteItems {
     return Action.hasKind(object, KIND);
   }
 }

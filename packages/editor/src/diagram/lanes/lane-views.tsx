@@ -26,7 +26,7 @@ export class LaneNodeView extends RectangularNodeView {
       z`;
       return (
         <g>
-          <path class-sprotty-node={true} class-selected={node.selected} d={path} {...{ style: this.laneStyle(node) }}></path>
+          <path class-sprotty-node class-selected={node.selected} d={path} {...{ style: this.laneStyle(node) }}></path>
           {context.renderChildren(node)}
         </g>
       );
@@ -34,7 +34,7 @@ export class LaneNodeView extends RectangularNodeView {
     return (
       <g>
         <rect
-          class-sprotty-node={true}
+          class-sprotty-node
           class-selected={node.selected}
           x='0'
           y='0'
@@ -54,8 +54,9 @@ export class LaneNodeView extends RectangularNodeView {
     return node.parent instanceof LaneNode;
   }
 
-  protected getDecoratorLine(node: LaneNode): VNode {
-    return <g></g>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected getDecoratorLine(node: LaneNode): VNode | undefined {
+    return;
   }
 
   protected laneStyle(node: LaneNode): VNodeStyle {
@@ -72,10 +73,11 @@ export class PoolNodeView extends LaneNodeView {
     const poolLaneSpace = this.getPoolLaneSpace(node);
     const nodeHeight = node.size.height;
     const path = `M${poolLaneSpace},0 v${nodeHeight} h-${poolLaneSpace - 4} q-4,0 -4,-4 v-${nodeHeight - 8} q0,-4 4,-4 z`;
-    return <path class-sprotty-node={true} class-pool-label-rect d={path}></path>;
+    return <path class-sprotty-node class-pool-label-rect d={path} />;
   }
 
-  protected laneStyle(node: LaneNode): VNodeStyle {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  override laneStyle(node: LaneNode): VNodeStyle {
     return {};
   }
 
@@ -90,16 +92,16 @@ export class PoolNodeView extends LaneNodeView {
 
 @injectable()
 export class RotateLabelView extends GLabelView {
-  render(label: Readonly<GLabel>, context: RenderingContext): VNode | undefined {
+  render(label: Readonly<GLabel>): VNode | undefined {
     let height = label.bounds.height;
     if (isBoundsAware(label.parent)) {
       height = label.parent.bounds.height;
     }
     const rotate = `rotate(270) translate(-${height / 2} ${label.bounds.width / 2})`;
     return (
-      <text class-sprotty-label={true} transform={rotate}>
+      <text class-sprotty-label transform={rotate}>
         {label.text.split('\n').map((line, index) => (
-          <tspan dy={index === 0 ? 0 : '1.2em'} x={0} style={line ? {} : { visibility: 'hidden' }}>
+          <tspan key={index} dy={index === 0 ? 0 : '1.2em'} x={0} style={line ? {} : { visibility: 'hidden' }}>
             {line ? line : '.'}
           </tspan>
         ))}

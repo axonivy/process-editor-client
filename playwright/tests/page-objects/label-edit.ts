@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { CmdCtrl } from './types';
+import type { CmdCtrl } from './types';
 
 export class LabelEdit {
   readonly page: Page;

@@ -15,7 +15,7 @@ export interface SetExecutedElementsAction extends Action {
 export namespace SetExecutedElementsAction {
   export const KIND = 'setExecutedElements';
 
-  export function is(object: any): object is SetExecutedElementsAction {
+  export function is(object: unknown): object is SetExecutedElementsAction {
     return Action.hasKind(object, KIND) && hasArrayProp(object, 'elementExecutions');
   }
 
@@ -35,7 +35,7 @@ export interface StoppedAction extends Action {
 export namespace StoppedAction {
   export const KIND = 'elementStopped';
 
-  export function is(object: any): object is StoppedAction {
+  export function is(object: unknown): object is StoppedAction {
     return Action.hasKind(object, KIND);
   }
 

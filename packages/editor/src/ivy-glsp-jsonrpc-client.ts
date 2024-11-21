@@ -1,9 +1,8 @@
-import { Message } from 'vscode-jsonrpc';
 import { BaseJsonrpcGLSPClient, ClientState } from '@eclipse-glsp/client';
 import Toastify from 'toastify-js';
 
 export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
-  error(message: string, ...optionalParams: any[]): void {
+  error(message: string, ...optionalParams: Error[]): void {
     console.error(`[IvyJsonrpcGLSPClient] ${message}`, optionalParams);
     Toastify({
       text: `${message}  (Click to reload)`,
@@ -16,13 +15,13 @@ export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
     }).showToast();
   }
 
-  protected handleConnectionError(error: Error, message: Message | undefined, count: number | undefined): void {
+  override handleConnectionError(error: Error): void {
     this.error('Connection to server is erroring. Shutting down server.', error);
     this.stop();
     this.state = ClientState.ServerError;
   }
 
-  protected handleConnectionClosed(): void {
+  override handleConnectionClosed(): void {
     if (this.state === ClientState.Stopping || this.state === ClientState.Stopped) {
       return;
     }

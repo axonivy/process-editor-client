@@ -1,7 +1,8 @@
-import { Action, IActionDispatcher, ShowGridAction } from '@eclipse-glsp/client';
-import { Menu } from '../../menu/menu';
+import type { Action, IActionDispatcher } from '@eclipse-glsp/client';
+import { ShowGridAction } from '@eclipse-glsp/client';
+import type { Menu } from '../../menu/menu';
 import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
-import { ShowToolBarOptionsMenuAction } from './action';
+import type { ShowToolBarOptionsMenuAction } from './action';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { CustomIconToggleAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 
@@ -81,7 +82,7 @@ export class ToolBarOptionsMenu implements Menu {
     option.appendChild(label);
     const toggle = new ToggleSwitch(state, newState => this.actionDispatcher.dispatch(setting.action(newState)));
     option.appendChild(toggle.create());
-    label.onclick = _ev => toggle.switch();
+    label.onclick = () => toggle.switch();
     return option;
   }
 

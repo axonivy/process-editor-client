@@ -1,9 +1,9 @@
 import './diagram.css';
 import './marker/marker.css';
 
+import type { CustomFeatures } from '@eclipse-glsp/client';
 import {
   ConsoleLogger,
-  CustomFeatures,
   DefaultTypes,
   DeleteElementContextMenuItemProvider,
   FeatureModule,

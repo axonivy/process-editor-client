@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 import { Activity, Element, Lane, Pool } from './element';
 import { Toolbar } from './toolbar';
 import { NegativeArea } from './negative-area';
-import { CmdCtrl, Point } from './types';
+import type { CmdCtrl, Point } from './types';
 import { Connector } from './connector';
 import { QuickActionBar } from './quick-action-bar';
 import { JumpOutBar } from './jump-out';

@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { Point } from './types';
+import type { Point } from './types';
 import { QuickActionBar } from './quick-action-bar';
 import { LabelEdit } from './label-edit';
 import { Inscription } from './inscription';

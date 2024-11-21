@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
-import { Inscription } from '../../page-objects/inscription';
+import type { Inscription } from '../../page-objects/inscription';
 
 test('elements', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);

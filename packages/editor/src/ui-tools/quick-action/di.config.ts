@@ -1,7 +1,7 @@
 import './quick-action.css';
 
 import { FeatureModule, RemoveMarqueeAction, TYPES, bindAsService, configureActionHandler } from '@eclipse-glsp/client';
-import { interfaces } from 'inversify';
+import type { interfaces } from 'inversify';
 
 import { UpdateColorPaletteAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { IVY_TYPES } from '../../types';

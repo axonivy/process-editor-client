@@ -10,7 +10,7 @@ export interface SwitchThemeAction extends Action {
 export namespace SwitchThemeAction {
   export const KIND = 'switchTheme';
 
-  export function is(object: any): object is SwitchThemeAction {
+  export function is(object: unknown): object is SwitchThemeAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'theme');
   }
 

@@ -1,0 +1,9 @@
+{
+  "extends": "../../configs/tsconfig.package.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../inscription-protocol/tsconfig.json" }]
+}

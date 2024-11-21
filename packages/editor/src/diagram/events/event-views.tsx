@@ -20,7 +20,7 @@ export class EventNodeView extends CircularNodeView {
       <g>
         {hiddenBoundingRect(node, context)}
         <circle
-          class-sprotty-node={true}
+          class-sprotty-node
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           r={radius}
@@ -36,14 +36,15 @@ export class EventNodeView extends CircularNodeView {
     );
   }
 
-  protected getEventDecorator(radius: number): VNode {
-    return <g></g>;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected getEventDecorator(radius: number): VNode | undefined {
+    return;
   }
 }
 
 @injectable()
 export class IntermediateEventNodeView extends EventNodeView {
   protected getEventDecorator(radius: number): VNode {
-    return <circle class-sprotty-node={true} class-sprotty-task-node={true} r={radius - 3} cx={radius} cy={radius}></circle>;
+    return <circle class-sprotty-node class-sprotty-task-node r={radius - 3} cx={radius} cy={radius}></circle>;
   }
 }

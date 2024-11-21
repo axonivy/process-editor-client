@@ -1,8 +1,10 @@
-import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
+import type { GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
+import { Action } from '@eclipse-glsp/client';
 import { Converter } from 'showdown';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../../utils/ui-utils';
-import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
+import type { ShowMenuAction } from '../menu/menu';
+import { ItemMenu, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
@@ -33,11 +35,11 @@ export namespace ShowQuickActionMenuAction {
     return create({
       elementIds: [],
       paletteItems: () => [],
-      actions: (item: PaletteItem, elementIds: string[]) => []
+      actions: () => []
     });
   }
 
-  export function is(object: any): object is ShowQuickActionMenuAction {
+  export function is(object: unknown): object is ShowQuickActionMenuAction {
     return Action.hasKind(object, KIND);
   }
 }
@@ -70,7 +72,7 @@ export class QuickActionMenu extends ItemMenu {
       button.appendChild(createElement('span', ['new-color-icon', 'ivy', `ivy-${IvyIcons.Plus}`]));
       button.insertAdjacentText('beforeend', 'New Color');
       button.onclick = () => this.editUi?.showEditUi();
-      button.onmouseenter = _ev => this.focusButton(button);
+      button.onmouseenter = () => this.focusButton(button);
       group.appendChild(button);
     }
   }
@@ -134,7 +136,7 @@ export namespace ShowInfoQuickActionMenuAction {
     };
   }
 
-  export function is(object: any): object is ShowInfoQuickActionMenuAction {
+  export function is(object: unknown): object is ShowInfoQuickActionMenuAction {
     return Action.hasKind(object, KIND);
   }
 }

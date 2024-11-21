@@ -81,7 +81,7 @@ export class BreakpointFeedbackCommand extends Command {
 
 @injectable()
 export class BreakpointMouseListener extends MouseListener {
-  mouseUp(target: GModelElement, event: MouseEvent): (Action | Promise<Action>)[] {
+  mouseUp(target: GModelElement): (Action | Promise<Action>)[] {
     if (target instanceof SBreakpointHandle) {
       return [ToggleBreakpointAction.create({ elementId: target.parent.id, disable: !target.disabled })];
     }

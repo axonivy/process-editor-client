@@ -160,7 +160,7 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
     } else if (elements.length === 1 && elements[0] instanceof GEdge && isQuickActionAware(elements[0])) {
       this.showEdgeQuickActionUi(containerElement, elements[0]);
     } else {
-      const element = getFirstQuickActionElement(elementsWithoutEdges, root);
+      const element = getFirstQuickActionElement(elementsWithoutEdges);
       this.showSingleQuickActionUi(containerElement, element);
     }
   }
@@ -311,7 +311,7 @@ export class QuickActionUiMouseListener extends MouseListener {
     super();
   }
 
-  wheel(target: GModelElement, event: WheelEvent): Action[] {
+  override wheel() {
     this.quickActionUi.showUi();
     return [];
   }
@@ -324,6 +324,6 @@ function getElements(contextElementIds: string[], root: Readonly<GModelRoot>): G
     .filter(e => !(e instanceof GLabel));
 }
 
-function getFirstQuickActionElement(elements: GModelElement[], root: Readonly<GModelRoot>): GModelElement & BoundsAware {
+function getFirstQuickActionElement(elements: GModelElement[]): GModelElement & BoundsAware {
   return elements.filter(isQuickActionAware)[0];
 }

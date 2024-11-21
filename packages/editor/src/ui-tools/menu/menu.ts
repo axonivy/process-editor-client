@@ -1,4 +1,5 @@
-import { Action, compare, IActionDispatcher, MaybePromise, PaletteItem } from '@eclipse-glsp/client';
+import type { Action, IActionDispatcher, MaybePromise, PaletteItem } from '@eclipse-glsp/client';
+import { compare } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { ActivityTypes, EventIntermediateTypes, EventStartTypes } from '../../diagram/view-types';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -67,7 +68,7 @@ export abstract class ItemMenu implements Menu {
     this.bodyDiv?.remove();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   protected appendMenuParts(body: HTMLElement): void {}
 
   private createPaletteItemSearchField(): HTMLElement {
@@ -168,7 +169,7 @@ export abstract class ItemMenu implements Menu {
     this.navigateUpOrDown(1);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   protected appendItemToGroup(group: HTMLElement): void {}
 
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
@@ -199,8 +200,8 @@ export abstract class ItemMenu implements Menu {
       text.appendChild(createElement('span', ['menu-item-info'], item.info));
     }
     button.appendChild(text);
-    button.onclick = _ev => this.actionDispatcher.dispatchAll(this.toolButtonOnClick(item));
-    button.onmouseenter = _ev => this.focusButton(button);
+    button.onclick = () => this.actionDispatcher.dispatchAll(this.toolButtonOnClick(item));
+    button.onmouseenter = () => this.focusButton(button);
     if ('description' in item && typeof item.description === 'string' && item.description !== 'undefined') {
       button.title = item.description;
     } else {
@@ -210,7 +211,7 @@ export abstract class ItemMenu implements Menu {
     return button;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {}
 
   abstract toolButtonOnClick(item: PaletteItem): Action[];

@@ -1,9 +1,8 @@
+import type { ContainerConfiguration, IHelperLineOptions } from '@eclipse-glsp/client';
 import {
   ConsoleLogger,
-  ContainerConfiguration,
   DEFAULT_ALIGNABLE_ELEMENT_FILTER,
   GLSPCenterGridSnapper,
-  IHelperLineOptions,
   LogLevel,
   MarqueeUtil,
   TYPES,
@@ -31,7 +30,8 @@ import ivyJumpModule from './jump/di.config';
 import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
-import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
+import type { IvyViewerOptions } from './options';
+import { defaultIvyViewerOptions } from './options';
 import { ivyChangeBoundsToolModule, ivyExportModule, ivySelectModule } from './tools/di.config';
 import { IVY_TYPES } from './types';
 import ivyQuickActionModule from './ui-tools/quick-action/di.config';

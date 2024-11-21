@@ -1,4 +1,5 @@
-import { GModelElement, openFeature } from '@eclipse-glsp/client';
+import type { GModelElement } from '@eclipse-glsp/client';
+import { openFeature } from '@eclipse-glsp/client';
 
 export interface WithCustomIcon {
   get customIcon(): string;

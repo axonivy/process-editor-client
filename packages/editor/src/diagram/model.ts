@@ -1,5 +1,16 @@
-import {
+import type {
   Args,
+  Dimension,
+  EditableLabel,
+  Nameable,
+  ArgsAware,
+  GChildElement,
+  GParentElement,
+  GRoutableElement,
+  WithEditableLabel,
+  ResizableModelElement
+} from '@eclipse-glsp/client';
+import {
   Bounds,
   boundsFeature,
   centerOfLine,
@@ -7,8 +18,6 @@ import {
   connectableFeature,
   deletableFeature,
   DiamondNode,
-  Dimension,
-  EditableLabel,
   editFeature,
   editLabelFeature,
   fadeFeature,
@@ -17,7 +26,6 @@ import {
   isEditableLabel,
   layoutContainerFeature,
   moveFeature,
-  Nameable,
   nameFeature,
   openFeature,
   Point,
@@ -25,25 +33,20 @@ import {
   reconnectFeature,
   RectangularNode,
   resizeFeature,
-  ArgsAware,
-  GChildElement,
   GEdge,
   selectFeature,
   GLabel,
-  GParentElement,
-  GRoutableElement,
-  WithEditableLabel,
   withEditLabelFeature,
-  ResizableModelElement,
   ResizeHandleLocation
 } from '@eclipse-glsp/client';
 import { singleWrapFeature, wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { Executable, executionFeature } from '../execution/model';
+import type { Executable } from '../execution/model';
+import { executionFeature } from '../execution/model';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
-import { WithCustomIcon } from './icon/model';
+import type { WithCustomIcon } from './icon/model';
 import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 
@@ -94,7 +97,7 @@ export class LaneNode extends RectangularNode implements WithEditableLabel, Args
     return this.children.filter(child => child instanceof LaneNode).map(child => <LaneNode>child);
   }
 
-  canConnect(routable: GRoutableElement, role: string): boolean {
+  override canConnect() {
     return false;
   }
 }

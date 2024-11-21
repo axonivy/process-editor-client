@@ -14,7 +14,7 @@ export abstract class CreateElementsButtonProvider implements ToolBarButtonProvi
   }
 
   protected actions = (paletteItem: PaletteItem): Action[] => [
-    ShowToolBarMenuAction.create({ id: '', paletteItems: () => [], actions: (item: PaletteItem) => [] }),
+    ShowToolBarMenuAction.create({ id: '', paletteItems: () => [], actions: () => [] }),
     ...paletteItem.actions
   ];
 
@@ -131,7 +131,7 @@ export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
 
 @injectable()
 export class ExtensionButtonProvider extends CreateElementsButtonProvider {
-  createToolBarButton(paletteItems: () => PaletteItem[]) {
+  createToolBarButton() {
     const id = 'extensions_menu';
     return {
       icon: IvyIcons.Extension,

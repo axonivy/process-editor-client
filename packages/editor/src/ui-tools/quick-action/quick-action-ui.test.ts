@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { GModelRoot } from '@eclipse-glsp/client';
+import type { GModelRoot } from '@eclipse-glsp/client';
 import { describe, test, beforeAll, expect } from 'vitest';
 import {
   assertMultiQuickActionUi,

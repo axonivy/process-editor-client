@@ -1,5 +1,6 @@
 import { OpenQuickOutlineAction } from '@axonivy/process-editor-protocol';
-import { Action, KeyListener, GModelElement } from '@eclipse-glsp/client';
+import type { Action, GModelElement } from '@eclipse-glsp/client';
+import { KeyListener } from '@eclipse-glsp/client';
 
 export class OpenQuickOutlineKeyListener extends KeyListener {
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {

@@ -1,11 +1,12 @@
-import { ModelRenderer, GEdge, GGraph, GModelFactory, ViewRegistry } from '@eclipse-glsp/client';
+import type { ModelRenderer, GEdge, GGraph, GModelFactory, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { ActivityTypes, EdgeTypes, EventStartTypes, EventEndTypes } from './view-types';
-import { Edge } from './model';
+import type { Edge } from './model';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../test-utils/view-container.test-util';
 
 function createModel(graphFactory: GModelFactory): GGraph {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [];
   children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: { width: 30, height: 30 } });
   children.push({ id: 'end', type: EventEndTypes.END, position: { x: 200, y: 100 }, size: { width: 30, height: 30 } });
@@ -62,7 +63,7 @@ describe('EdgeView', () => {
     const view = viewRegistry.get(EdgeTypes.DEFAULT);
     const vnode = view.render(graph.index.getById('edgeWithPadding') as GEdge, context);
     const mouseHandle =
-      '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />';
+      '<path class="mouse-handle" d="M 130,115 L 200,115" style="stroke-width: 10px; stroke: transparent; stroke-dasharray: none; stroke-dashoffset: 0" />';
     expect(toHTML(vnode)).to.contains(mouseHandle);
   });
 

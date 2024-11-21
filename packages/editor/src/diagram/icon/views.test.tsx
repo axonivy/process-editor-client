@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-expressions */
 import { describe, test, expect } from 'vitest';
-import { VNode } from 'snabbdom';
-import { Bounds } from '@eclipse-glsp/client';
+import type { VNode, VNodeData } from 'snabbdom';
+import type { Bounds } from '@eclipse-glsp/client';
 
 import { getActivityIconDecorator, getIconDecorator } from './views';
 import { GatewayTypes, EventStartTypes, ActivityTypes } from '../view-types';
 import { SvgIcons } from './icons';
-import { ActivityNode } from '../model';
+import type { ActivityNode } from '../model';
 
 describe('Event and Gateway Icons', () => {
   test('no icon', () => {
@@ -62,58 +62,58 @@ function assertNoIcon(node?: VNode): void {
 function assertActivityIcon(node: VNode, expectedBounds: Bounds, expectedPath: string): void {
   expect(node.sel).toEqual('g');
   expect(node.children).toHaveLength(2);
-  assertBounds((node.children![0] as any).data, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
-  const svg = node.children![1] as any;
-  assertBounds(svg.data, expectedBounds, '0 0 20 20');
+  assertBounds((node.children![0] as VNode).data!, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
+  const svg = node.children![1] as VNode;
+  assertBounds(svg.data!, expectedBounds, '0 0 20 20');
 
-  const path = svg.children![0] as any;
+  const path = svg.children![0] as VNode;
   expect(path.sel).toEqual('path');
-  expect(path.data.attrs.d).toEqual(expectedPath);
+  expect(path.data!.attrs!.d).toEqual(expectedPath);
 }
 
 function assertIcon(node: VNode, expectedBounds: Bounds, expectedPath: string, color?: string): void {
   expect(node.sel).toEqual('svg');
   expect(node.children).not.toHaveLength(0);
-  assertBounds(node.data, expectedBounds, '0 0 20 20');
+  assertBounds(node.data!, expectedBounds, '0 0 20 20');
 
-  const path = node.children![0] as any;
+  const path = node.children![0] as VNode;
   expect(path.sel).toEqual('path');
-  expect(path.data.attrs.d).toEqual(expectedPath);
+  expect(path.data!.attrs!.d).toEqual(expectedPath);
 
   if (color) {
-    expect(path.data.style.fill).toEqual(color);
+    expect(path.data!.style!.fill).toEqual(color);
   }
 }
 
 function assertActivityImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
   expect(node.sel).toEqual('g');
   expect(node.children).toHaveLength(2);
-  assertBounds((node.children![0] as any).data, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
+  assertBounds((node.children![0] as VNode).data!, { height: 30, width: 30, x: 5, y: 60 / 2 - 15 });
 
-  const foreignObject = node.children![1] as any;
+  const foreignObject = node.children![1] as VNode;
   expect(foreignObject.sel).toEqual('foreignObject');
-  assertBounds(foreignObject.data, expectedBounds);
+  assertBounds(foreignObject.data!, expectedBounds);
 
-  const icon = foreignObject.children[0].children[1].children[0] as any;
+  const icon = ((foreignObject.children![0] as VNode).children![1] as VNode).children![0] as VNode;
   expect(icon.sel).toEqual('IMG');
-  expect(icon.data.attrs.src).toEqual(exprectedUrl);
+  expect(icon.data!.attrs!.src).toEqual(exprectedUrl);
 }
 
 function assertImgIcon(node: VNode, expectedBounds: Bounds, exprectedUrl: string): void {
   expect(node.sel).toEqual('foreignObject');
-  assertBounds(node.data, expectedBounds);
+  assertBounds(node.data!, expectedBounds);
 
-  const icon = (node as any).children[0].children[1].children[0] as any;
+  const icon = ((node.children![0] as VNode).children![1] as VNode).children![0] as VNode;
   expect(icon.sel).toEqual('IMG');
-  expect(icon.data.attrs.src).toEqual(exprectedUrl);
+  expect(icon.data!.attrs!.src).toEqual(exprectedUrl);
 }
 
-function assertBounds(data: any, expectedBounds: Bounds, viewBox?: string): void {
-  expect(data.attrs.height).toEqual(expectedBounds.height);
-  expect(data.attrs.width).toEqual(expectedBounds.width);
-  expect(data.attrs.x).toEqual(expectedBounds.x);
-  expect(data.attrs.y).toEqual(expectedBounds.y);
+function assertBounds(data: VNodeData, expectedBounds: Bounds, viewBox?: string): void {
+  expect(data.attrs!.height).toEqual(expectedBounds.height);
+  expect(data.attrs!.width).toEqual(expectedBounds.width);
+  expect(data.attrs!.x).toEqual(expectedBounds.x);
+  expect(data.attrs!.y).toEqual(expectedBounds.y);
   if (viewBox) {
-    expect(data.attrs.viewBox).toEqual(viewBox);
+    expect(data.attrs!.viewBox).toEqual(viewBox);
   }
 }

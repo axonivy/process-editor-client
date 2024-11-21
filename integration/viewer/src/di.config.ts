@@ -12,15 +12,10 @@ import {
   ivyWrapModule,
   overrideIvyViewerOptions
 } from '@axonivy/process-editor';
-import { ThemeMode } from '@axonivy/process-editor-protocol';
-import {
-  IDiagramOptions,
-  createDiagramOptionsModule,
-  deletionToolModule,
-  edgeEditToolModule,
-  nodeCreationToolModule
-} from '@eclipse-glsp/client';
-import { Container } from 'inversify';
+import type { ThemeMode } from '@axonivy/process-editor-protocol';
+import type { IDiagramOptions } from '@eclipse-glsp/client';
+import { createDiagramOptionsModule, deletionToolModule, edgeEditToolModule, nodeCreationToolModule } from '@eclipse-glsp/client';
+import type { Container } from 'inversify';
 import ivyViewerKeyListenerModule from './key-listener/di.config';
 import ivyNavigationModule from './navigate/di.config';
 import ivyViewerQuickActionModule from './quick-action/di.config';

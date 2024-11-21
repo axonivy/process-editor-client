@@ -1,4 +1,4 @@
-import { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
+import type { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { createElement } from '../../../utils/ui-utils';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
 
@@ -102,7 +102,7 @@ export class EditColorUi {
     const confirmBtn = createElement('button', ['edit-color-save']) as HTMLButtonElement;
     confirmBtn.textContent = 'Save';
     confirmBtn.type = 'button';
-    confirmBtn.onclick = e => this.validateInputsAndRun(() => this.changeColor());
+    confirmBtn.onclick = () => this.validateInputsAndRun(() => this.changeColor());
     footer.appendChild(this.deleteBtn);
     footer.appendChild(confirmBtn);
     return footer;

@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
-import { ORIGIN_VIEWPORT, ViewportBar } from '../../page-objects/viewport';
+import type { ViewportBar } from '../../page-objects/viewport';
+import { ORIGIN_VIEWPORT } from '../../page-objects/viewport';
 
 let viewport: ViewportBar;
 

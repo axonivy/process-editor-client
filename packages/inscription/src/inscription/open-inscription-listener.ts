@@ -1,17 +1,9 @@
 import { OpenAction } from 'sprotty-protocol';
-import {
-  findParentByFeature,
-  isOpenable,
-  isSelectable,
-  KeyListener,
-  matchesKeystroke,
-  MouseListener,
-  GModelElement,
-  toArray
-} from '@eclipse-glsp/client';
+import type { GModelElement } from '@eclipse-glsp/client';
+import { findParentByFeature, isOpenable, isSelectable, KeyListener, matchesKeystroke, MouseListener, toArray } from '@eclipse-glsp/client';
 
 export class OpenInscriptionMouseListener extends MouseListener {
-  doubleClick(target: GModelElement, event: MouseEvent) {
+  doubleClick(target: GModelElement) {
     const element = findParentByFeature(target, isOpenable);
     if (element) {
       return [OpenAction.create(element.id)];

@@ -14,7 +14,7 @@ import Toastify from 'toastify-js';
 @injectable()
 export class ToastNotificationService implements IActionHandler {
   private duration = 2000;
-  private messageToast?: any;
+  private messageToast?: ReturnType<typeof Toastify>;
   private progressMessages = new Map<string, string>();
 
   handle(action: Action): void | Action | ICommand {
@@ -66,7 +66,7 @@ export class ToastNotificationService implements IActionHandler {
     }
   }
 
-  protected createToast(text: string, severity: SeverityLevel): any {
+  protected createToast(text: string, severity: SeverityLevel) {
     return Toastify({
       text,
       close: true,

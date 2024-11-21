@@ -26,7 +26,7 @@ export interface QuickActionProvider {
 @injectable()
 export abstract class SingleQuickActionProvider implements QuickActionProvider {
   abstract singleQuickAction(element: GModelElement): QuickAction | undefined;
-  multiQuickAction(elements: GModelElement[]): undefined {
+  multiQuickAction() {
     return undefined;
   }
 }
@@ -34,7 +34,7 @@ export abstract class SingleQuickActionProvider implements QuickActionProvider {
 @injectable()
 export abstract class MultipleQuickActionProvider implements QuickActionProvider {
   abstract multiQuickAction(elements: GModelElement[]): QuickAction | undefined;
-  singleQuickAction(element: GModelElement): undefined {
+  singleQuickAction() {
     return undefined;
   }
 }

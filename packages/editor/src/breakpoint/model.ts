@@ -1,13 +1,5 @@
-import {
-  Action,
-  BoundsAware,
-  Hoverable,
-  hoverFeedbackFeature,
-  GChildElement,
-  selectFeature,
-  GModelElement,
-  GParentElement
-} from '@eclipse-glsp/client';
+import type { Action, BoundsAware, Hoverable, GModelElement, GParentElement } from '@eclipse-glsp/client';
+import { hoverFeedbackFeature, GChildElement, selectFeature } from '@eclipse-glsp/client';
 
 export const breakpointFeature = Symbol('breakpointFeature');
 
@@ -38,7 +30,7 @@ export class SBreakpointHandle extends GChildElement implements Hoverable {
     return feature === hoverFeedbackFeature || feature === selectFeature;
   }
 
-  mouseUp(target: GModelElement): Action[] {
+  mouseUp(): Action[] {
     return [];
   }
 }

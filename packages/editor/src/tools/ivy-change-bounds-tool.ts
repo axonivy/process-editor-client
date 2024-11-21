@@ -1,11 +1,5 @@
-import {
-  Bounds,
-  ChangeBoundsListener,
-  ChangeBoundsTool,
-  ResizeHandleLocation,
-  SetBoundsFeedbackAction,
-  TrackedResize
-} from '@eclipse-glsp/client';
+import type { TrackedResize } from '@eclipse-glsp/client';
+import { Bounds, ChangeBoundsListener, ChangeBoundsTool, ResizeHandleLocation, SetBoundsFeedbackAction } from '@eclipse-glsp/client';
 import { LaneNode } from '../diagram/model';
 
 export class IvyChangeBoundsTool extends ChangeBoundsTool {

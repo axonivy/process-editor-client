@@ -4,7 +4,6 @@ import {
   Action,
   EditorContextService,
   GLSPAbstractUIExtension,
-  GModelRoot,
   IActionDispatcher,
   IActionHandler,
   SelectionService,
@@ -32,16 +31,16 @@ export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler
     return 'jump-out-container';
   }
 
-  protected initializeContents(containerElement: HTMLElement): void {
+  override initializeContents(containerElement: HTMLElement): void {
     containerElement.style.position = 'absolute';
   }
 
-  protected onBeforeShow(containerElement: HTMLElement, root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {
+  override onBeforeShow(containerElement: HTMLElement) {
     containerElement.innerHTML = '';
     const button = createElement('button', ['jump-out-btn']);
     button.title = 'Jump out (J)';
     button.appendChild(createIcon(IvyIcons.JumpOut));
-    button.onclick = _ev => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
+    button.onclick = () => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
     containerElement.appendChild(button);
   }
 

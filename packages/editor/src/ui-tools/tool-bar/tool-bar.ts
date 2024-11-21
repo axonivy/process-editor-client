@@ -6,8 +6,6 @@ import {
   EnableDefaultToolsAction,
   EnableToolPaletteAction,
   GLSPActionDispatcher,
-  GModelElement,
-  GModelRoot,
   IActionHandler,
   ICommand,
   IEditModeListener,
@@ -66,25 +64,25 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   }
 
   @postConstruct()
-  protected init(): void {
-    this.toDisposeOnDisable.push(this.editorContext.onEditModeChanged(event => this.editModeChanged(event.oldValue, event.newValue)));
+  protected init() {
+    this.toDisposeOnDisable.push(this.editorContext.onEditModeChanged(() => this.editModeChanged()));
   }
 
-  containerClass(): string {
+  containerClass() {
     return ToolBar.ID;
   }
 
-  protected initializeContents(containerElement: HTMLElement): void {
+  protected initializeContents(containerElement: HTMLElement) {
     this.createHeader();
     this.lastActivebutton = this.defaultToolsButton;
     containerElement.onwheel = ev => (ev.ctrlKey ? ev.preventDefault() : true);
   }
 
-  protected onBeforeShow(_containerElement: HTMLElement, _root: Readonly<GModelRoot>): void {
-    this.toDisposeOnHide.push(this.selectionService.onSelectionChanged(event => this.selectionChanged(event.root, event.selectedElements)));
+  protected onBeforeShow() {
+    this.toDisposeOnHide.push(this.selectionService.onSelectionChanged(() => this.selectionChanged()));
   }
 
-  hide(): void {
+  hide() {
     super.hide();
     this.toDisposeOnHide.dispose();
   }
@@ -144,7 +142,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     if (toolBarButton.id) {
       button.id = toolBarButton.id;
     }
-    button.onclick = _ev => {
+    button.onclick = () => {
       this.dispatchAction([toolBarButton.action()]);
       if (toolBarButton.switchFocus) {
         this.changeActiveButton(button);
@@ -243,13 +241,13 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     this.toolBarMenu = undefined;
   }
 
-  editModeChanged(_oldValue: string, _newValue: string): void {
+  editModeChanged(): void {
     if (this.containerElement) {
       this.createHeader();
     }
   }
 
-  selectionChanged(root: Readonly<GModelRoot>, selectedElements: string[]): void {
+  selectionChanged(): void {
     // placeholder
   }
 
@@ -264,7 +262,7 @@ export class ToolBarFocusMouseListener extends MouseListener {
     super();
   }
 
-  mouseDown(target: GModelElement, event: MouseEvent): Action[] {
+  mouseDown(): Action[] {
     this.toolBar.changeActiveButton();
     this.toolBar.setLastMenuAction();
     return [];

@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from '@playwright/test';
-import { Dimension, Point } from './types';
+import type { Dimension, Point } from './types';
 import { graphLocator } from './graph';
 
 export const ORIGIN_VIEWPORT = 'scale(1) translate(0,0)' as const;

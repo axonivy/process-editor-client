@@ -1,6 +1,6 @@
 import { Action } from '@eclipse-glsp/client';
-import { InscriptionContext } from '@axonivy/inscription-protocol';
-import { Connection } from '@axonivy/jsonrpc';
+import type { InscriptionContext } from '@axonivy/inscription-protocol';
+import type { Connection } from '@axonivy/jsonrpc';
 
 export interface EnableInscriptionAction extends Action {
   kind: typeof EnableInscriptionAction.KIND;
@@ -11,7 +11,7 @@ export interface EnableInscriptionAction extends Action {
 export namespace EnableInscriptionAction {
   export const KIND = 'enableInscription';
 
-  export function is(object: any): object is EnableInscriptionAction {
+  export function is(object: unknown): object is EnableInscriptionAction {
     return Action.hasKind(object, KIND);
   }
 
@@ -28,7 +28,7 @@ export interface ToggleInscriptionAction extends Action {
 export namespace ToggleInscriptionAction {
   export const KIND = 'showInscription';
 
-  export function is(object: any): object is ToggleInscriptionAction {
+  export function is(object: unknown): object is ToggleInscriptionAction {
     return Action.hasKind(object, KIND);
   }
 

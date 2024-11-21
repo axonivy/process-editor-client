@@ -13,15 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
-  Action,
-  DeleteElementOperation,
-  EditorContextService,
-  IActionDispatcher,
-  IActionHandler,
-  TYPES,
-  ViewerOptions
-} from '@eclipse-glsp/client';
+import type { Action, IActionDispatcher, IActionHandler, ViewerOptions } from '@eclipse-glsp/client';
+import { DeleteElementOperation, EditorContextService, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 export class InvokeDeleteAction implements Action {
