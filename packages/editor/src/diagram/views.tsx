@@ -161,23 +161,17 @@ export class IvyResizeHandleView extends GResizeHandleView {
 
     const position = this.getLaneHandlePosition(handle, element);
     if (position !== undefined) {
-      return this.renderLandeResizeHandle(handle, position);
+      return this.renderLaneResizeHandle(handle, position);
     }
     return <g />;
   }
 
-  protected renderLandeResizeHandle(handle: GResizeHandle, position: Point) {
+  protected renderLaneResizeHandle(handle: GResizeHandle, position: Point) {
+    const width = handle.parent.bounds.width;
     const node = (
-      <svg
-        class-lane-resize-handle={true}
-        class-mouseover={handle.hoverFeedback}
-        x={position.x - 20}
-        y={position.y - 10}
-        width={40}
-        height={20}
-      >
-        <rect x={0} y={0} height={20} width={40} class-lane-resize-mouse-handle={true} />
-        <line x1={0} y1={10} x2={40} y2={10} />;
+      <svg class-lane-resize-handle={true} class-mouseover={handle.hoverFeedback} x={0} y={position.y - 10} width={width} height={20}>
+        <rect x={0} y={0} height={20} width={width} class-lane-resize-mouse-handle={true} />
+        <line x1={width / 2 - 20} y1={10} x2={width / 2 + 20} y2={10} />;
       </svg>
     );
     setAttr(node, 'data-kind', handle.location);
