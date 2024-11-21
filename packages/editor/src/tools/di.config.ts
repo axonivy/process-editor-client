@@ -1,5 +1,4 @@
 import {
-  ChangeBoundsTool,
   ExportSvgCommand,
   ExportSvgPostprocessor,
   FeatureModule,
@@ -23,6 +22,7 @@ import { IvySvgExporter } from './export/ivy-svg-exporter';
 import './helper-line.css';
 import { IvyChangeBoundsManager } from './ivy-change-bounds-manager';
 import { IvySelectMouseListener } from './select-mouse-listener';
+import { IvyChangeBoundsTool } from './ivy-change-bounds-tool';
 
 export const ivyChangeBoundsToolModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -30,7 +30,7 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
     // GSLP defaults
     configureCommand(context, ShowChangeBoundsToolResizeFeedbackCommand);
     configureCommand(context, HideChangeBoundsToolResizeFeedbackCommand);
-    bindAsService(context, TYPES.IDefaultTool, ChangeBoundsTool);
+    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
 
     // GLSP replacements
     bindAsService(context, TYPES.IChangeBoundsManager, IvyChangeBoundsManager);

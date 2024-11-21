@@ -59,8 +59,8 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.POOL);
     const vnode = view.render(graph.index.getById('pool') as GNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
-      '<path class="sprotty-node pool-label-rect" d="M23,0 v499 h-19 q-4,0 -4,-4 v-491 q0,-4 4,-4 z" />' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="500" />' +
+      '<path class="sprotty-node pool-label-rect" d="M23,0 v500 h-19 q-4,0 -4,-4 v-492 q0,-4 4,-4 z" />' +
       '<text id="sprotty_poolLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_pool">' +
       '<tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
@@ -70,8 +70,8 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.POOL);
     const vnode = view.render(graph.index.getById('pool2') as GNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="499" />' +
-      '<path class="sprotty-node pool-label-rect" d="M37,0 v499 h-33 q-4,0 -4,-4 v-491 q0,-4 4,-4 z" />' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="800" height="500" />' +
+      '<path class="sprotty-node pool-label-rect" d="M37,0 v500 h-33 q-4,0 -4,-4 v-492 q0,-4 4,-4 z" />' +
       '<text id="sprotty_poolLabel2" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_pool2">' +
       '<tspan dy="0" x="0" /><tspan dy="1.2em" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);
@@ -81,7 +81,7 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.LANE);
     const vnode = view.render(graph.index.getById('lane') as GNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="499" /><g></g>' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="500" /><g></g>' +
       '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_lane">' +
       '<tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);

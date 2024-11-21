@@ -1,4 +1,4 @@
-import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs } from '@eclipse-glsp/client';
+import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs, isBoundsAware } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode, VNodeStyle } from 'snabbdom';
 
@@ -41,7 +41,7 @@ export class LaneNodeView extends RectangularNodeView {
           rx='4px'
           ry='4px'
           width={Math.max(node.size.width, 0)}
-          height={Math.max(node.size.height - 1, 0)}
+          height={Math.max(node.size.height, 0)}
           {...{ style: this.laneStyle(node) }}
         ></rect>
         {this.getDecoratorLine(node)}
@@ -70,7 +70,7 @@ export class LaneNodeView extends RectangularNodeView {
 export class PoolNodeView extends LaneNodeView {
   protected getDecoratorLine(node: LaneNode): VNode {
     const poolLaneSpace = this.getPoolLaneSpace(node);
-    const nodeHeight = node.size.height - 1;
+    const nodeHeight = node.size.height;
     const path = `M${poolLaneSpace},0 v${nodeHeight} h-${poolLaneSpace - 4} q-4,0 -4,-4 v-${nodeHeight - 8} q0,-4 4,-4 z`;
     return <path class-sprotty-node={true} class-pool-label-rect d={path}></path>;
   }
@@ -91,7 +91,11 @@ export class PoolNodeView extends LaneNodeView {
 @injectable()
 export class RotateLabelView extends GLabelView {
   render(label: Readonly<GLabel>, context: RenderingContext): VNode | undefined {
-    const rotate = `rotate(270) translate(-${label.bounds.height / 2} ${label.bounds.width / 2})`;
+    let height = label.bounds.height;
+    if (isBoundsAware(label.parent)) {
+      height = label.parent.bounds.height;
+    }
+    const rotate = `rotate(270) translate(-${height / 2} ${label.bounds.width / 2})`;
     return (
       <text class-sprotty-label={true} transform={rotate}>
         {label.text.split('\n').map((line, index) => (
