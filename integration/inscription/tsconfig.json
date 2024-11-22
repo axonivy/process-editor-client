@@ -1,0 +1,17 @@
+{
+  "extends": "../../configs/tsconfig.integration.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node"],
+    "jsx": "preserve",
+    "rootDir": ".",
+    "rootDirs": ["src"],
+    "outDir": "lib"
+  },
+  "include": ["src"],
+  "exclude": ["**/playwright.config.ts"],
+  "references": [
+    { "path": "../../packages/inscription-protocol/tsconfig.json" },
+    { "path": "../../packages/inscription-core/tsconfig.json" },
+    { "path": "../../packages/inscription-view/tsconfig.production.json" }
+  ]
+}

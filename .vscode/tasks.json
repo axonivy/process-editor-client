@@ -76,6 +76,30 @@
       ]
     },
     {
+      "label": "Start Inscription",
+      "type": "shell",
+      "group": "build",
+      "command": "npm run dev:inscription",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
+    },
+    {
       "label": "Terminate All Tasks",
       "command": "echo ${input:terminate}",
       "type": "shell",
