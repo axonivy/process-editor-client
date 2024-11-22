@@ -1,0 +1,31 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "JaxRsServiceCallData",
+  "namespace" : "com.axonivy",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "name",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "documentId",
+    "type" : "Number",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "price",
+    "type" : "BigDecimal",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "person",
+    "type" : "ch.ivyteam.test.Person",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "lastUpdate",
+    "type" : "Date",
+    "modifiers" : [ "PERSISTENT" ]
+  }, {
+    "name" : "generatedPassword",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

@@ -6,8 +6,8 @@ import type { Menu } from '../../page-objects/menu';
 test('additional info', async ({ page }) => {
   const menu = await openInfoMenu(page, '1842D6FBB6A107AB-f0');
   await assertTitle(menu, 'start.ivp');
-  await assertAdditionalInfo(menu, 'Request Role', 'TestRole1');
-  await assertAdditionalInfo(menu, 'Task Responsible', 'TestRole2');
+  await assertAdditionalInfo(menu, 'Request Role', 'FacilityManager');
+  await assertAdditionalInfo(menu, 'Task Responsible', 'Secretary');
 });
 
 test('code info', async ({ page }) => {

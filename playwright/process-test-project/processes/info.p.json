@@ -43,12 +43,12 @@
         "signature": "start",
         "permission": {
           "anonymous": false,
-          "role": "TestRole1"
+          "role": "FacilityManager"
         },
         "triggerable": true,
         "task": {
           "responsible": {
-            "activator": "TestRole2"
+            "activator": "Secretary"
           }
         }
       },
@@ -141,13 +141,13 @@
           {
             "id": "TaskA",
             "responsible": {
-              "activator": "TestRole1"
+              "activator": "FacilityManager"
             }
           },
           {
             "id": "TaskB",
             "responsible": {
-              "activator": "TestRole2"
+              "activator": "Secretary"
             }
           }
         ],
