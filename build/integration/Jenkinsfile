@@ -12,25 +12,22 @@ pipeline {
 
   parameters {
     string(name: 'engineSource', defaultValue: 'https://product.ivyteam.io/', description: 'Engine page url')
-    choice(name: 'browser', choices: ['', 'all', 'chrome', 'firefox', 'webkit'], description: 'Browser used for integration tests (default: "all" on master/release, "chrome" on branch)')
+    choice(name: 'browser', choices: ['', '*', 'chrome', 'firefox', 'webkit'], description: 'Browser used for integration tests (default: "all" on master/release, "chrome" on branch)')
   }
 
   stages {
     stage('Integration Test') {
-      environment {
-        BROWSERS = browser()
-      }
       steps {
         script {
           docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
             sh 'npm run update:axonivy:next && npm install'
             sh 'npm run package'
-            dir ('playwright/glsp-test-project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
+            dir ('playwright/process-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:${browser()}"
             }
           }
           archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'playwright/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/process-test-project/target/**/ivy.log', allowEmptyArchive: true
           withChecks('Integration WebTest') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
           }
@@ -43,7 +40,7 @@ pipeline {
 def browser() {
   if (params.browser == '') {
     if (isReleasingBranch()) {
-      return 'all'
+      return '*'
     }
     return 'chrome'
   }

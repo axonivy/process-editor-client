@@ -86,7 +86,7 @@ test('ws', async ({ page }) => {
 });
 
 test('hd', async ({ page }) => {
-  const editor = await ProcessEditor.openProcess(page, { file: '/src_hd/glsp/test/project/screenshot/hd/hdProcess.p.json', waitFor: '.sprotty-graph' });
+  const editor = await ProcessEditor.openProcess(page, { file: '/src_hd/process/test/project/screenshot/hd/hdProcess.p.json', waitFor: '.sprotty-graph' });
   await screenshot(editor.element('start:htmlDialogStart'), 'hd-init-start');
   await screenshot(editor.element('start:htmlDialogEventStart'), 'hd-event-start');
   await screenshot(editor.element('start:htmlDialogMethodStart'), 'hd-method-start');
