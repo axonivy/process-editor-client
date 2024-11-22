@@ -21,12 +21,12 @@ pipeline {
           docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
             sh 'npm run update:axonivy:next && npm install'
             sh 'npm run package'
-            dir ('playwright/glsp-test-project') {
+            dir ('playwright/process-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots"
             }
           }
           archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
-          archiveArtifacts artifacts: 'playwright/glsp-test-project/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/process-test-project/target/**/ivy.log', allowEmptyArchive: true
           withChecks('Screenshots') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
           }

@@ -5,12 +5,16 @@
       "path": ".",
     },
     {
-      "name": "packages/protocol",
-      "path": "./packages/protocol"
+      "name": "packages/process-protocol",
+      "path": "./packages/protocol",
     },
     {
-      "name": "packages/editor",
-      "path": "./packages/editor"
+      "name": "packages/process-editor",
+      "path": "./packages/editor",
+    },
+    {
+      "name": "packages/process-inscription",
+      "path": "./packages/inscription"
     },
     {
       "name": "packages/inscription-protocol",
@@ -23,10 +27,6 @@
     {
       "name": "packages/inscription-view",
       "path": "./packages/inscription-view"
-    },
-    {
-      "name": "packages/inscription",
-      "path": "./packages/inscription"
     },
     {
       "name": "integration/standalone",

@@ -2,50 +2,50 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig(() => {
-  const config = {
-    plugins: [tsconfigPaths()],
-    build: {
-      outDir: 'build',
-      chunkSizeWarningLimit: 5000,
-      rollupOptions: {
-        output: {
-          manualChunks: id => {
-            if (id.includes('monaco-languageclient') || id.includes('vscode')) {
-              return 'monaco-chunk';
-            }
+export default defineConfig(() => ({
+  plugins: [tsconfigPaths()],
+  build: {
+    outDir: 'build',
+    chunkSizeWarningLimit: 5000,
+    rollupOptions: {
+      output: {
+        manualChunks: id => {
+          if (id.includes('monaco-languageclient') || id.includes('vscode')) {
+            return 'monaco-chunk';
           }
         }
       }
-    },
-    esbuild: {
-      target: 'esnext',
-      tsconfigRaw: {
-        compilerOptions: {
-          experimentalDecorators: true,
-          emitDecoratorMetadata: true
-        }
-      }
-    },
-    server: {
-      port: 3000,
-      open: false,
-      sourcemapIgnoreList(sourcePath, sourcemapPath) {
-        return sourcePath.includes('node_modules') && !sourcePath.includes('@eclipse-glsp') && !sourcePath.includes('@axonivy');
-      }
-    },
-    base: './',
-    resolve: {
-      alias: {
-        path: 'path-browserify',
-        '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
-        '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
-        '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
-        '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
-        '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src'),
-        '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
+    }
+  },
+  esbuild: {
+    target: 'esnext',
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+        emitDecoratorMetadata: true
       }
     }
-  };
-  return config;
-});
+  },
+  server: {
+    port: 3002,
+    open: false,
+    sourcemapIgnoreList(sourcePath, sourcemapPath) {
+      return sourcePath.includes('node_modules') && !sourcePath.includes('@eclipse-glsp') && !sourcePath.includes('@axonivy');
+    }
+  },
+  preview: {
+    port: 4002
+  },
+  base: './',
+  resolve: {
+    alias: {
+      path: 'path-browserify',
+      '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
+      '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
+      '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
+      '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
+      '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src'),
+      '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
+    }
+  }
+}));

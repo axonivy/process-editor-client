@@ -12,7 +12,7 @@
 
   <fileSets>
     <fileSet>
-      <directory>../../glsp-test-project/target/screenshots</directory>
+      <directory>../../process-test-project/target/screenshots</directory>
       <outputDirectory>process-editor</outputDirectory>
     </fileSet>
   </fileSets>

@@ -2,60 +2,60 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig(() => {
-  const config = {
-    plugins: [tsconfigPaths()],
-    esbuild: {
-      target: 'esnext',
-      tsconfigRaw: {
-        compilerOptions: {
-          experimentalDecorators: true,
-          emitDecoratorMetadata: true
-        }
+export default defineConfig(() => ({
+  plugins: [tsconfigPaths()],
+  esbuild: {
+    target: 'esnext',
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+        emitDecoratorMetadata: true
       }
-    },
-    build: {
-      outDir: 'build',
-      chunkSizeWarningLimit: 5000,
-      rollupOptions: {
-        output: {
-          manualChunks: id => {
-            if (id.includes('monaco-languageclient') || id.includes('vscode')) {
-              return 'monaco-chunk';
-            }
+    }
+  },
+  build: {
+    outDir: 'build',
+    chunkSizeWarningLimit: 5000,
+    rollupOptions: {
+      output: {
+        manualChunks: id => {
+          if (id.includes('monaco-languageclient') || id.includes('vscode')) {
+            return 'monaco-chunk';
           }
         }
       }
-    },
-    server: {
-      port: 3000,
-      open: false,
-      sourcemapIgnoreList(sourcePath, sourcemapPath) {
-        return sourcePath.includes('node_modules') && !sourcePath.includes('@eclipse-glsp') && !sourcePath.includes('@axonivy');
-      },
-      proxy: {
-        // needed for custom images on screenshots
-        '/glsp-test-project': { target: process.env.BASE_URL ?? 'http://localhost:8081/' }
-      }
-    },
-    resolve: {
-      alias: {
-        path: 'path-browserify',
-        '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
-        '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
-        '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
-        '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
-        '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src'),
-        '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
-      }
-    },
-    base: './',
-    optimizeDeps: {
-      needsInterop: [
-        'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js',
-        'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js'
-      ]
     }
-  };
-  return config;
-});
+  },
+  server: {
+    port: 3000,
+    open: false,
+    sourcemapIgnoreList(sourcePath, sourcemapPath) {
+      return sourcePath.includes('node_modules') && !sourcePath.includes('@eclipse-glsp') && !sourcePath.includes('@axonivy');
+    },
+    proxy: {
+      // needed for custom images on screenshots
+      '/process-test-project': { target: process.env.BASE_URL ?? 'http://localhost:8081/' }
+    }
+  },
+  preview: {
+    port: 4000
+  },
+  resolve: {
+    alias: {
+      path: 'path-browserify',
+      '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
+      '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
+      '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
+      '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
+      '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src'),
+      '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
+    }
+  },
+  base: './',
+  optimizeDeps: {
+    needsInterop: [
+      'monaco-editor/esm/vs/editor/standalone/browser/accessibilityHelp/accessibilityHelp.js',
+      'monaco-editor/esm/vs/editor/standalone/browser/inspectTokens/inspectTokens.js'
+    ]
+  }
+}));

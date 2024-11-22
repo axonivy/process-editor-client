@@ -18,11 +18,11 @@
     "build": "tsc --build",
     "lint": "eslint --ext .ts,.tsx ./tests",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./tests",
-    "dev:standalone": "npm run --workspace=@axonivy/standalone-integration serve",
-    "dev:viewer": "npm run --workspace=@axonivy/viewer-integration serve",
-    "webtest": "npm run webtest:standalone && npm run webtest:viewer",
-    "webtest:standalone": "playwright test -c ./tests/standalone",
-    "webtest:viewer": "playwright test -c ./tests/viewer",
-    "webtest:screenshots": "playwright test -c ./tests/screenshots"
+    "webtest": "playwright test --project=standalone-chrome",
+    "webtest:screenshots": "playwright test --project=screenshots",
+    "webtest:*": "playwright test --project=standalone-* --project=viewer-*",
+    "webtest:chrome": "playwright test --project=standalone-chrome --project=viewer-chrome",
+    "webtest:firefox": "playwright test --project=standalone-firefox --project=viewer-firefox",
+    "webtest:webkit": "playwright test --project=standalone-webkit --project=viewer-webkit"
   }
 }
