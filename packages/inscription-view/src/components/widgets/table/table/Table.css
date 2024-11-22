@@ -1,0 +1,11 @@
+.ui-table-root {
+  max-height: 50vh;
+}
+
+.ui-outline .ui-table-root {
+  max-height: unset;
+}
+
+.ui-table-root .ui-dnd-row-handle {
+  margin-inline-end: var(--size-2);
+}

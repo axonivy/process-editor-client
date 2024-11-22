@@ -1,0 +1,7 @@
+.rest-target-url .path-param,
+.rest-target-url .query-value {
+  color: #0891b2;
+}
+.rest-target-url .query-name {
+  color: #a16207;
+}

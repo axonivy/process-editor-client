@@ -1,5 +1,5 @@
 import { Action } from '@eclipse-glsp/client';
-import type { InscriptionContext } from '@axonivy/inscription-protocol';
+import type { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
 import type { Connection } from '@axonivy/jsonrpc';
 
 export interface EnableInscriptionAction extends Action {

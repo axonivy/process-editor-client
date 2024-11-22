@@ -1,0 +1,18 @@
+.ui-table-cell .row-expand {
+  --tree-gap: calc((20px + var(--size-1)));
+}
+.ui-table-cell:has(.row-expand-button) {
+  padding: var(--size-1);
+}
+.ui-table-cell .row-expand-button .ivy-chevron {
+  transform: rotate(90deg);
+}
+.ui-table-cell .row-expand-button[data-state='collapsed'] .ivy-chevron {
+  transform: rotate(0deg);
+}
+.ui-table-cell .row-expand-label-info {
+  color: var(--N500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

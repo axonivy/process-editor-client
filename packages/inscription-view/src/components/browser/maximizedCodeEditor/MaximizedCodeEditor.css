@@ -1,0 +1,34 @@
+.maximized-code-editor {
+  width: 100%;
+  position: relative;
+}
+
+.maximized-code-editor .code-input {
+  height: calc(100vh - 150px);
+}
+
+.maximized-script-area {
+  display: flex;
+  gap: var(--size-1);
+  position: relative;
+}
+
+.maximized-script-area .ui-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: var(--size-2);
+  background-color: var(--background);
+}
+
+.maximized-script-area .ui-button:hover {
+  background-color: var(--N200);
+}
+
+.maximized-script-area:has(.monaco-editor .scrollbar.visible) .ui-button {
+  z-index: 20;
+}
+
+.maximized-script-area .code-editor {
+  border-radius: var(--border-r1);
+}

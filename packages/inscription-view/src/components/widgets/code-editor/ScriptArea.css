@@ -1,0 +1,27 @@
+.script-area {
+  display: flex;
+  gap: var(--size-1);
+  position: relative;
+}
+.script-area .resizable-code-editor {
+  flex: 1;
+  position: relative;
+}
+
+.script-area .ui-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: var(--size-2);
+  background-color: var(--background);
+}
+.script-area .ui-button:hover {
+  background-color: var(--N200);
+}
+.script-area:has(.monaco-editor .scrollbar.visible) .ui-button {
+  z-index: 20;
+}
+
+.script-area .code-editor {
+  border-radius: var(--border-r1);
+}

@@ -1,0 +1,13 @@
+.editor {
+  color: var(--body);
+  height: 100%;
+  position: relative;
+}
+
+.editor a {
+  color: var(--P300);
+}
+
+.content {
+  overflow-y: auto;
+}

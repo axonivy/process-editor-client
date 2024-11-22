@@ -1,6 +1,6 @@
 import { DiagramLoader } from '@eclipse-glsp/client';
 
-import { MonacoEditorUtil } from '@axonivy/inscription-editor';
+import { MonacoEditorUtil } from '@axonivy/process-editor-inscription-view';
 import { IvyBaseJsonrpcGLSPClient } from '@axonivy/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient, GLSPWebSocketProvider } from '@eclipse-glsp/protocol';

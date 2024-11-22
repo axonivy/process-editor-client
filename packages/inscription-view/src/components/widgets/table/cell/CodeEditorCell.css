@@ -1,0 +1,42 @@
+.ui-table-cell .monaco-editor-background {
+  background-color: unset;
+}
+
+.ui-table-cell:has(.script-input) {
+  padding: 0px;
+}
+
+.ui-table-cell .script-input .ui-input {
+  background-color: transparent;
+  border: none;
+}
+.ui-table-cell .script-input .ui-input::placeholder {
+  color: var(--N500);
+  font-style: italic;
+}
+.ui-select-row[data-state='selected'] .ui-table-cell .script-input .ui-input {
+  color: var(--background);
+}
+.ui-select-row[data-state='selected'] .ui-table-cell .script-input .ui-input::placeholder {
+  color: var(--N300);
+}
+
+.ui-table-cell .script-input .code-editor {
+  border-radius: 0px;
+}
+
+.ui-table-cell .script-input .code-editor .code-input {
+  padding-right: 55px;
+}
+
+.ui-table-cell .script-input .ui-button {
+  color: var(--body);
+}
+
+.ui-table-cell .code-editor .code-input {
+  border-radius: 0px;
+}
+
+.ui-table-cell .maximize-code-button {
+  margin-right: 30px;
+}

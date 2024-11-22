@@ -1,6 +1,6 @@
-import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/inscription-core';
-import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/inscription-editor';
-import { InscriptionContext } from '@axonivy/inscription-protocol';
+import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/process-editor-inscription-core';
+import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/process-editor-inscription-view';
+import { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
 import { JumpAction, MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
