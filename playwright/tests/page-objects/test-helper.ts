@@ -1,4 +1,4 @@
-import { CmdCtrl } from './types';
+import type { CmdCtrl } from './types';
 
 export function cmdCtrl(browserName?: string): CmdCtrl {
   if (browserName) {

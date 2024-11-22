@@ -11,7 +11,7 @@ import {
   toolPaletteModule,
   TYPES
 } from '@eclipse-glsp/client';
-import { interfaces } from 'inversify';
+import type { interfaces } from 'inversify';
 import { IVY_TYPES } from '../../types';
 
 import { CustomIconToggleAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';

@@ -24,7 +24,7 @@ export class GatewayNodeView extends DiamondNodeView {
       <g>
         {hiddenBoundingRect(node, context)}
         <polygon
-          class-sprotty-node={true}
+          class-sprotty-node
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           points={points}

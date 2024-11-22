@@ -1,5 +1,6 @@
-import { Bounds, GChildElement, GEdge, GModelElement } from '@eclipse-glsp/client';
-import { MulitlineEditLabel } from '../diagram/model';
+import type { GEdge, GModelElement } from '@eclipse-glsp/client';
+import { Bounds, GChildElement } from '@eclipse-glsp/client';
+import type { MulitlineEditLabel } from '../diagram/model';
 
 export function getAbsoluteEdgeBounds(edge: GEdge): Bounds {
   if (!edge.source || !edge.target) {

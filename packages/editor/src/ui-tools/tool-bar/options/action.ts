@@ -23,7 +23,7 @@ export namespace ShowToolBarOptionsMenuAction {
     };
   }
 
-  export function is(object: any): object is ShowToolBarOptionsMenuAction {
+  export function is(object: unknown): object is ShowToolBarOptionsMenuAction {
     return Action.hasKind(object, KIND);
   }
 }

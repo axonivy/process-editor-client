@@ -11,7 +11,7 @@ export class IvyIssueMarkerView extends GIssueMarkerView {
   override render(marker: GIssueMarker): VNode {
     const maxSeverity = super.getMaxSeverity(marker);
     const group = (
-      <g class-sprotty-issue={true}>
+      <g class-sprotty-issue>
         <g>
           {this.getGlspIssueMarkerBackground(maxSeverity)}
           <path d={this.getGlspIssueMarkerPath(maxSeverity)} />
@@ -24,10 +24,10 @@ export class IvyIssueMarkerView extends GIssueMarkerView {
   protected getGlspIssueMarkerBackground(severity: GIssueSeverity): VNode {
     switch (severity) {
       case 'warning':
-        return <polygon class-sprotty-issue-background={true} points='8 0, 12 12, 0 12' />;
+        return <polygon class-sprotty-issue-background points='8 0, 12 12, 0 12' />;
       case 'error':
       case 'info':
-        return <circle class-sprotty-issue-background={true} r={this.radius} cx={this.radius} cy={this.radius} />;
+        return <circle class-sprotty-issue-background r={this.radius} cx={this.radius} cy={this.radius} />;
     }
   }
 

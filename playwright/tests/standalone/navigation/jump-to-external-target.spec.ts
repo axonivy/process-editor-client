@@ -1,4 +1,5 @@
-import { expect, Page, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
 import { jumpToExternalTargetAndAssert } from '../../page-objects/navigation-helper';
 
@@ -43,8 +44,8 @@ test('unknown sub process', async ({ page }) => {
 
 const assertJumpToUnknownTarget = async (page: Page, element: string) => {
   const editor = await ProcessEditor.openProcess(page);
-  const trigger = await editor.createActivity('Trigger');
+  const trigger = await editor.createActivity(element);
   await trigger.quickActionBar().trigger('Jump', 'startsWith');
   await trigger.expectSelected();
-  await editor.inscription().expectHeader('Trigger');
+  await editor.inscription().expectHeader(element);
 };

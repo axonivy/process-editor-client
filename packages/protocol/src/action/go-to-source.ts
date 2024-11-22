@@ -1,4 +1,4 @@
-import { Action } from '@eclipse-glsp/protocol';
+import type { Action } from '@eclipse-glsp/protocol';
 
 export interface GoToSourceAction extends Action {
   kind: typeof GoToSourceAction.KIND;

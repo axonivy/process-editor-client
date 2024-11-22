@@ -1,15 +1,5 @@
-import {
-  IActionHandler,
-  IActionDispatcher,
-  TYPES,
-  EditorContextService,
-  RequestClipboardDataAction,
-  CutOperation,
-  PasteOperation,
-  IAsyncClipboardService,
-  ViewerOptions,
-  InvokeCopyPasteAction
-} from '@eclipse-glsp/client';
+import type { IActionHandler, IActionDispatcher, IAsyncClipboardService, ViewerOptions, InvokeCopyPasteAction } from '@eclipse-glsp/client';
+import { TYPES, EditorContextService, RequestClipboardDataAction, CutOperation, PasteOperation } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
 
 @injectable()

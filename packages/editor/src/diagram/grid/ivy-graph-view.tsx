@@ -5,7 +5,6 @@ import {
   GridManager,
   GViewportRootElement,
   isViewport,
-  IViewArgs,
   RenderingContext,
   SGraphImpl,
   Writable
@@ -29,7 +28,7 @@ export class IvyGraphView extends GLSPProjectionView {
     return bounds;
   }
 
-  protected override renderSvg(model: Readonly<GViewportRootElement>, context: RenderingContext, args?: IViewArgs): VNode {
+  protected override renderSvg(model: Readonly<GViewportRootElement>, context: RenderingContext): VNode {
     const edgeRouting = this.edgeRouterRegistry.routeAllChildren(model);
     const transform = `scale(${model.zoom}) translate(${-model.scroll.x},${-model.scroll.y})`;
     const ns = 'http://www.w3.org/2000/svg';

@@ -58,7 +58,7 @@ test('pool and lane', async ({ page, browserName }) => {
   await lane.expectPosition({ x: lanePos.x, y: lanePos.y + 8 });
 });
 
-test('graph', async ({ page, browserName }) => {
+test('graph', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const viewport = processEditor.viewport();
 

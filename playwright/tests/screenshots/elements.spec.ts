@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ProcessEditor } from '../page-objects/process-editor';
-import { BaseElement } from '../page-objects/element';
+import type { BaseElement } from '../page-objects/element';
 
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' });

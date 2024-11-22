@@ -1,20 +1,7 @@
-import {
-  Bounds,
-  CustomFeatures,
-  DefaultTypes,
-  Dimension,
-  GGraph,
-  GGraphView,
-  GLabel,
-  GModelFactory,
-  GNode,
-  Point,
-  TYPES,
-  configureModelElement,
-  createFeatureSet
-} from '@eclipse-glsp/client';
+import type { Bounds, CustomFeatures, Dimension, GLabel, GModelFactory, Point } from '@eclipse-glsp/client';
+import { DefaultTypes, GGraph, GGraphView, GNode, TYPES, configureModelElement, createFeatureSet } from '@eclipse-glsp/client';
 import { expect } from 'chai';
-import { Container } from 'inversify';
+import type { Container } from 'inversify';
 import ivyConnectorModule from '../connector/di.config';
 import { ActivityNode, Edge, EndEventNode, EventNode, GatewayNode, LaneNode, MulitlineEditLabel } from '../diagram/model';
 import { ActivityTypes, EdgeTypes, EventEndTypes, EventStartTypes, GatewayTypes, LaneTypes } from '../diagram/view-types';
@@ -22,7 +9,8 @@ import { ivyLabelEditModule } from '../edit-label/di.config';
 import ivyJumpModule from '../jump/di.config';
 import { jumpFeature } from '../jump/model';
 import ivyLaneModule from '../lanes/di.config';
-import { IvyViewerOptions, configureIvyViewerOptions } from '../options';
+import type { IvyViewerOptions } from '../options';
+import { configureIvyViewerOptions } from '../options';
 import ivyQuickActionModule from '../ui-tools/quick-action/di.config';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
 import ivyToolBarModule from '../ui-tools/tool-bar/di.config';
@@ -80,7 +68,7 @@ export function createRoot(container: Container): GGraph {
   const edge2 = createEdge('edge2', EdgeTypes.DEFAULT, 'alternativeWithConnection', 'end', Edge.DEFAULT_FEATURES);
   root.add(edge);
   root.add(edge2);
-  edge.add(createEdgeLabel(edge.id));
+  edge.add(createEdgeLabel());
   root.add(createNode(new LaneNode(), 'pool', LaneTypes.POOL, { x: 0, y: 0, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   root.add(createNode(new LaneNode(), 'lane', LaneTypes.LANE, { x: 0, y: 100, width: 500, height: 100 }, LaneNode.DEFAULT_FEATURES));
   return root;
@@ -123,7 +111,7 @@ function createEdge(
   return edge;
 }
 
-function createEdgeLabel(id: string): GLabel {
+function createEdgeLabel(): GLabel {
   const label = new MulitlineEditLabel();
   label.text = '';
   label.type = EdgeTypes.LABEL;

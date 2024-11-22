@@ -128,7 +128,7 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
     return this.target !== undefined;
   }
 
-  mouseOver(target: GModelElement, event: MouseEvent): Action[] {
+  override mouseOver(target: GModelElement) {
     const newCurrentTarget = findParentByFeature(target, isConnectable);
     if (newCurrentTarget !== this.currentTarget) {
       this.currentTarget = newCurrentTarget;
@@ -171,7 +171,7 @@ export interface QuickActionTriggerEdgeCreationAction extends Action {
 export namespace QuickActionTriggerEdgeCreationAction {
   export const KIND = 'quickActionTriggerEdgeCreation';
 
-  export function is(object: any): object is QuickActionTriggerEdgeCreationAction {
+  export function is(object: unknown): object is QuickActionTriggerEdgeCreationAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'elementTypeId') && hasStringProp(object, 'sourceId');
   }
 

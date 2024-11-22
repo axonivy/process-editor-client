@@ -1,4 +1,4 @@
-import { Operation } from '@eclipse-glsp/protocol';
+import type { Operation } from '@eclipse-glsp/protocol';
 
 export interface ChangeActivityTypeOperation extends Operation {
   kind: typeof ChangeActivityTypeOperation.KIND;

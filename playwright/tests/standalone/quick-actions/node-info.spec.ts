@@ -1,6 +1,7 @@
-import { expect, Page, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
-import { Menu } from '../../page-objects/menu';
+import type { Menu } from '../../page-objects/menu';
 
 test('additional info', async ({ page }) => {
   const menu = await openInfoMenu(page, '1842D6FBB6A107AB-f0');

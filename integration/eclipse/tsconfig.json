@@ -7,6 +7,9 @@
   "include": ["src"],
   "references": [
     { "path": "../../packages/inscription/tsconfig.json" },
+    { "path": "../../packages/inscription-protocol/tsconfig.json" },
+    { "path": "../../packages/inscription-core/tsconfig.json" },
+    { "path": "../../packages/inscription-view/tsconfig.production.json" },
     { "path": "../../packages/editor/tsconfig.build.json" }
   ]
 }

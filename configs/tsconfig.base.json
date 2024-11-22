@@ -16,9 +16,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "ES2022",
-    "jsx": "react",
-    "jsxFactory": "JSX.createElement",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "sourceMap": true
+    "sourceMap": true,
+    "jsx": "react"
   }
 }

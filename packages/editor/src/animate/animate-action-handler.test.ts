@@ -1,22 +1,15 @@
 /* eslint-disable no-unused-expressions */
-import {
-  ActionDispatcher,
-  Bounds,
-  CenterCommand,
-  configureActionHandler,
-  configureCommand,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
-  TYPES
-} from '@eclipse-glsp/client';
-import { Container } from 'inversify';
+import type { ActionDispatcher, FeedbackActionDispatcher } from '@eclipse-glsp/client';
+import { Bounds, CenterCommand, configureActionHandler, configureCommand, InitializeCanvasBoundsAction, TYPES } from '@eclipse-glsp/client';
+import type { Container } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import { AnimateAction } from '@axonivy/process-editor-protocol';
 import { MoveIntoViewportCommand } from '../ui-tools/viewport/viewport-commands';
 import { createTestContainer } from '../utils/test-utils';
 import { AnimateActionHandler } from './animate-action-handler';
-import { AnimateFeedbackAction, AnimateFeedbackCommand } from './animate-feedback-action';
+import type { AnimateFeedbackAction } from './animate-feedback-action';
+import { AnimateFeedbackCommand } from './animate-feedback-action';
 
 function createContainer(): Container {
   const container = createTestContainer();

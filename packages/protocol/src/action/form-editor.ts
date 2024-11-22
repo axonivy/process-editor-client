@@ -14,7 +14,7 @@ export namespace OpenFormEditorAction {
     };
   }
 
-  export function is(object: any): object is OpenFormEditorAction {
+  export function is(object: unknown): object is OpenFormEditorAction {
     return Action.hasKind(object, KIND);
   }
 }

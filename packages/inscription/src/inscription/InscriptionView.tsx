@@ -1,9 +1,8 @@
 import { App } from '@axonivy/inscription-editor';
-import React, { ComponentProps, useEffect, useState } from 'react';
+import type { ComponentProps } from 'react';
+import { useEffect, useState } from 'react';
 import { useMove } from 'react-aria';
 import { inscriptionWidthStorage } from './inscription-width-storage';
-
-const JSX = { createElement: React.createElement };
 
 const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
   const [element, setElement] = useState(pid);

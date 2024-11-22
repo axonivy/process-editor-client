@@ -13,18 +13,8 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
-import {
-  Action,
-  CutOperation,
-  EditorContextService,
-  IActionDispatcher,
-  IActionHandler,
-  IAsyncClipboardService,
-  PasteOperation,
-  RequestClipboardDataAction,
-  TYPES,
-  ViewerOptions
-} from '@eclipse-glsp/client';
+import type { Action, IActionDispatcher, IActionHandler, IAsyncClipboardService, ViewerOptions } from '@eclipse-glsp/client';
+import { CutOperation, EditorContextService, PasteOperation, RequestClipboardDataAction, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 // Eclipse-specific integration: in Eclipse, we trigger the Copy/Paste actions from

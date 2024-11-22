@@ -1,4 +1,4 @@
-import { FullConfig, Reporter, Suite, TestCase } from '@playwright/test/reporter';
+import type { FullConfig, Reporter, Suite, TestCase } from '@playwright/test/reporter';
 
 class CustomReporter implements Reporter {
   onBegin(config: FullConfig, suite: Suite): void {

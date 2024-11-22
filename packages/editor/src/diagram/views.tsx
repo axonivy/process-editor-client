@@ -76,8 +76,8 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
     const p2 = segments[segments.length - 1];
     const arrow = (
       <path
-        class-sprotty-edge={true}
-        class-arrow={true}
+        class-sprotty-edge
+        class-arrow
         d='M 0,0.3 L 6,-3.5 M 0,-0.3 L 6,3.5'
         transform={`rotate(${toDegrees(angleOfPoint({ x: p1.x - p2.x, y: p1.y - p2.y }))} ${p2.x} ${p2.y}) translate(${p2.x} ${p2.y})`}
         style={{ stroke: edge.color, fill: edge.color }}
@@ -99,10 +99,7 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
       <path
         class-mouse-handle
         d={this.createPathForSegments(segments)}
-        style-stroke-width={padding * 2}
-        style-stroke='transparent'
-        style-stroke-dasharray='none'
-        style-stroke-dashoffset='0'
+        style={{ strokeWidth: `${padding * 2}px`, stroke: 'transparent', strokeDasharray: 'none', strokeDashoffset: '0' }}
       />
     );
   }
@@ -138,7 +135,7 @@ export class AssociationEdgeView extends GEdgeView {
     return line;
   }
 
-  protected override renderAdditionals(edge: GEdge, segments: Point[], _context: RenderingContext): VNode[] {
+  protected override renderAdditionals(edge: GEdge, segments: Point[]): VNode[] {
     // for additional padding we draw another transparent path with larger stroke width
     if (hasArgs(edge) && edge.args) {
       const edgePadding = EdgePadding.from(edge);
@@ -169,8 +166,8 @@ export class IvyResizeHandleView extends GResizeHandleView {
   protected renderLaneResizeHandle(handle: GResizeHandle, position: Point) {
     const width = handle.parent.bounds.width;
     const node = (
-      <svg class-lane-resize-handle={true} class-mouseover={handle.hoverFeedback} x={0} y={position.y - 10} width={width} height={20}>
-        <rect x={0} y={0} height={20} width={width} class-lane-resize-mouse-handle={true} />
+      <svg class-lane-resize-handle class-mouseover={handle.hoverFeedback} x={0} y={position.y - 10} width={width} height={20}>
+        <rect x={0} y={0} height={20} width={width} class-lane-resize-mouse-handle />
         <line x1={width / 2 - 20} y1={10} x2={width / 2 + 20} y2={10} />;
       </svg>
     );

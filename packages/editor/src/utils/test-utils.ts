@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /********************************************************************************
  * Copyright (c) 2023 EclipseSource and others.
  *
@@ -14,13 +16,11 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 /* eslint-disable no-unused-expressions */
+import type { ActionMessage, ContainerConfiguration, IDiagramOptions } from '@eclipse-glsp/client';
 import {
-  ActionMessage,
   BaseJsonrpcGLSPClient,
-  ContainerConfiguration,
   Disposable,
   Emitter,
-  IDiagramOptions,
   baseViewModule,
   contextMenuModule,
   createDiagramOptionsModule,
@@ -29,14 +29,14 @@ import {
   initializeDiagramContainer
 } from '@eclipse-glsp/client';
 import { Container } from 'inversify';
-import { Event, MessageConnection, NotificationHandler, ProgressType } from 'vscode-jsonrpc';
+import type { Event, MessageConnection, NotificationHandler, ProgressType } from 'vscode-jsonrpc';
 import ivyDiagramModule from '../diagram/di.config';
 
 export class StubMessageConnection implements MessageConnection {
   private mockEvent: Event<any> = (listener: (e: any) => any, thisArgs?: any, disposables?: Disposable[]): Disposable =>
     Disposable.create(() => {});
 
-  sendRequest(...args: any[]): any {
+  sendRequest(...args: unknown[]): any {
     throw new Error('Method not implemented.');
   }
 

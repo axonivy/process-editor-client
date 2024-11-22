@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { LabelEdit } from './label-edit';
-import { BaseElement } from './element';
+import type { BaseElement } from './element';
 import { Menu } from './menu';
 
 export class QuickActionBar {

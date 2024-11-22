@@ -1,7 +1,10 @@
-import { GModelFactory, IVNodePostprocessor, ModelRenderer, ModelRendererFactory, TYPES, ViewRegistry } from '@eclipse-glsp/client';
+import type { GGraph, GModelFactory, IVNodePostprocessor, ModelRenderer, ModelRendererFactory, ViewRegistry } from '@eclipse-glsp/client';
+import { TYPES } from '@eclipse-glsp/client';
 import { createTestDiagramContainer } from '../utils/test-utils';
 
-export const setupViewTestContainer = (modelFactory: any): [ModelRenderer, GModelFactory, any, ViewRegistry] => {
+export const setupViewTestContainer = (
+  modelFactory: (factory: GModelFactory) => GGraph
+): [ModelRenderer, GModelFactory, GGraph, ViewRegistry] => {
   const container = createTestDiagramContainer();
   const postprocessors = container.getAll<IVNodePostprocessor>(TYPES.IVNodePostprocessor);
   const context = container.get<ModelRendererFactory>(TYPES.ModelRendererFactory)('hidden', postprocessors);

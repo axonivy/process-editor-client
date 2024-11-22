@@ -1,5 +1,7 @@
-import { Action, IActionDispatcher, MaybePromise, PaletteItem } from '@eclipse-glsp/client';
-import { ItemMenu, ShowMenuAction } from '../menu/menu';
+import type { IActionDispatcher, MaybePromise, PaletteItem } from '@eclipse-glsp/client';
+import { Action } from '@eclipse-glsp/client';
+import type { ShowMenuAction } from '../menu/menu';
+import { ItemMenu } from '../menu/menu';
 
 export interface ShowToolBarMenuAction extends ShowMenuAction {
   kind: typeof ShowToolBarMenuAction.KIND;
@@ -23,7 +25,7 @@ export namespace ShowToolBarMenuAction {
     };
   }
 
-  export function is(object: any): object is ShowToolBarMenuAction {
+  export function is(object: unknown): object is ShowToolBarMenuAction {
     return Action.hasKind(object, KIND);
   }
 }

@@ -1,4 +1,4 @@
-import { GModelElement } from '@eclipse-glsp/client';
+import type { GModelElement } from '@eclipse-glsp/client';
 
 export const errorBoundaryFeature = Symbol('errorBoundaryFeature');
 

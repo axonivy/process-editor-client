@@ -1,11 +1,12 @@
-import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
+import type { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { EventStartTypes, EventEndTypes, EventIntermediateTypes, EventBoundaryTypes } from '../view-types';
-import { EventNode } from '../model';
+import type { EventNode } from '../model';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
 
 function createModel(graphFactory: GModelFactory): GGraph {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [];
   const eventNodeSize = { width: 30, height: 30 };
   children.push({ id: 'start', type: EventStartTypes.START, position: { x: 100, y: 100 }, size: eventNodeSize });

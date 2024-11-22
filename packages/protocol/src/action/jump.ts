@@ -16,7 +16,7 @@ export namespace JumpAction {
     };
   }
 
-  export function is(object: any): object is JumpAction {
+  export function is(object: unknown): object is JumpAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId');
   }
 }

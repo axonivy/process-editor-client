@@ -1,4 +1,4 @@
-import { Action } from '@eclipse-glsp/protocol';
+import type { Action } from '@eclipse-glsp/protocol';
 
 export interface OpenDecoratorBrowserAction extends Action {
   kind: typeof OpenDecoratorBrowserAction.KIND;

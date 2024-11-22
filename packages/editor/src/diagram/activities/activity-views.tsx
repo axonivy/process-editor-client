@@ -23,7 +23,7 @@ export class ActivityNodeView extends RectangularNodeView {
       <g>
         <rect
           attrs={{ [ATTR_BBOX_ELEMENT]: true }}
-          class-sprotty-node={true}
+          class-sprotty-node
           class-mouseover={node.hoverFeedback}
           class-selected={node.selected}
           x={0}
@@ -42,10 +42,12 @@ export class ActivityNodeView extends RectangularNodeView {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getNodeDecorator(node: ActivityNode): VNode | undefined {
     return;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected getRoundedCornerRadius(node: GShapeElement): number {
     return 5;
   }
@@ -60,16 +62,7 @@ export class SubActivityNodeView extends ActivityNodeView {
     const innerPadding = 3;
     return (
       <svg x={node.bounds.width / 2 - radius} y={node.bounds.height - diameter - 1} height={diameter} width={diameter}>
-        <rect
-          class-sprotty-node={true}
-          class-sprotty-task-node={true}
-          x={1}
-          y={1}
-          rx={2}
-          ry={2}
-          width={diameter - padding}
-          height={diameter - padding}
-        />
+        <rect class-sprotty-node class-sprotty-task-node x={1} y={1} rx={2} ry={2} width={diameter - padding} height={diameter - padding} />
         <line class-sprotty-node-decorator x1={radius} y1={innerPadding} x2={radius} y2={diameter - innerPadding} />
         <line class-sprotty-node-decorator x1={innerPadding} y1={radius} x2={diameter - innerPadding} y2={radius} />
       </svg>

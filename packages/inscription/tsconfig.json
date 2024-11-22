@@ -2,11 +2,15 @@
   "extends": "../../configs/tsconfig.package.json",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "lib",
+    "jsx": "react-jsx"
   },
   "include": ["src"],
   "references": [
     { "path": "../protocol/tsconfig.json" },
-    { "path": "../editor/tsconfig.build.json" }
+    { "path": "../editor/tsconfig.build.json" },
+    { "path": "../inscription-protocol/tsconfig.json" },
+    { "path": "../inscription-core/tsconfig.json" },
+    { "path": "../inscription-view/tsconfig.production.json" }
   ]
 }

@@ -48,7 +48,7 @@ export interface ShowBreakpointAction extends Action {
 export namespace ShowBreakpointAction {
   export const KIND = 'showBreakpoints';
 
-  export function is(object: any): object is ShowBreakpointAction {
+  export function is(object: unknown): object is ShowBreakpointAction {
     return Action.hasKind(object, KIND) && hasArrayProp(object, 'elementBreakpoints') && hasBooleanProp(object, 'globalDisabled');
   }
 

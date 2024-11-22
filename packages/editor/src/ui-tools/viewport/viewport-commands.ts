@@ -45,14 +45,14 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
       return;
     }
     this.oldViewport = { scroll: model.scroll, zoom: model.zoom };
-    const newViewport = this.getNewViewport(Bounds.EMPTY, model);
+    const newViewport = this.getNewViewport();
     if (newViewport) {
       const { zoomLimits, horizontalScrollLimits, verticalScrollLimits } = this.viewerOptions;
       this.newViewport = limitViewport(newViewport, model.canvasBounds, horizontalScrollLimits, verticalScrollLimits, zoomLimits);
     }
   }
 
-  getNewViewport(_bounds: Bounds, _model: GModelRoot): Viewport | undefined {
+  getNewViewport() {
     return { zoom: 1, scroll: { x: 0, y: 0 } };
   }
 }

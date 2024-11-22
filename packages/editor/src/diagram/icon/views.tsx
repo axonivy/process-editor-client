@@ -1,10 +1,11 @@
-import { svg, Bounds } from '@eclipse-glsp/client';
-import { VNode } from 'snabbdom';
+import type { Bounds } from '@eclipse-glsp/client';
+import { svg } from '@eclipse-glsp/client';
+import type { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { IconStyle, resolveIcon } from './icons';
 import { ActivityTypes } from '../view-types';
-import { ActivityNode } from '../model';
+import type { ActivityNode } from '../model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };

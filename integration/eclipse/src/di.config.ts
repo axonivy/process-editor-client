@@ -8,14 +8,15 @@ import {
   ivyStartActionModule,
   ivyThemeModule
 } from '@axonivy/process-editor';
-import { Container } from 'inversify';
+import type { Container } from 'inversify';
 
 import { ivyInscriptionModule } from '@axonivy/process-editor-inscription';
 import ivyEclipseCopyPasteModule from './copy-paste/di.config';
 import ivyEclipseDeleteModule from './delete/di.config';
 import ivyOpenQuickOutlineModule from './open-quick-outline/di.config';
-import { IDiagramOptions, createDiagramOptionsModule, standaloneExportModule } from '@eclipse-glsp/client';
-import { ThemeMode } from '@axonivy/process-editor-protocol';
+import type { IDiagramOptions } from '@eclipse-glsp/client';
+import { createDiagramOptionsModule, standaloneExportModule } from '@eclipse-glsp/client';
+import type { ThemeMode } from '@axonivy/process-editor-protocol';
 import { ivyStartupDiagramModule as ivyStartupDiagramModule } from './startup';
 
 export interface IvyDiagramOptions extends IDiagramOptions {

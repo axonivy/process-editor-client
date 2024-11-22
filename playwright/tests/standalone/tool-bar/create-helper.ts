@@ -1,6 +1,7 @@
-import { Page, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/process-editor';
-import { ElementPaletteGroup } from '../../page-objects/toolbar';
+import type { ElementPaletteGroup } from '../../page-objects/toolbar';
 import { graphLocator } from '../../page-objects/graph';
 
 export async function createAllElements(

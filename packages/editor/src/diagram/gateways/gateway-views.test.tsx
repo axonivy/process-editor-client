@@ -1,11 +1,12 @@
-import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
+import type { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { GatewayTypes } from '../view-types';
-import { GatewayNode } from '../model';
+import type { GatewayNode } from '../model';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
 
 function createModel(graphFactory: GModelFactory): GGraph {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [];
   const gatewayNodeSize = { width: 32, height: 32 };
   children.push({ id: 'gatewayTask', type: GatewayTypes.TASK, position: { x: 500, y: 150 }, size: gatewayNodeSize });

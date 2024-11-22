@@ -1,12 +1,13 @@
 /* eslint-disable max-len */
-import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
+import type { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { LaneTypes } from '../view-types';
-import { LaneNode } from '../model';
+import type { LaneNode } from '../model';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
 import toHTML from 'snabbdom-to-html';
 
 function createModel(graphFactory: GModelFactory): GGraph {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [];
   children.push({
     id: 'pool',
@@ -81,7 +82,7 @@ describe('LaneNodeView', () => {
     const view = viewRegistry.get(LaneTypes.LANE);
     const vnode = view.render(graph.index.getById('lane') as GNode, context);
     const expectation =
-      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="500" /><g></g>' +
+      '<g><rect class="sprotty-node" x="0" y="0" rx="4px" ry="4px" width="770" height="500" />' +
       '<text id="sprotty_laneLabel" class="sprotty-label label" transform="rotate(270) translate(-250 15)" data-svg-metadata-type="lanes:label" data-svg-metadata-parent-id="sprotty_lane">' +
       '<tspan dy="0" x="0" /></text></g>';
     expect(toHTML(vnode)).to.be.equal(expectation);

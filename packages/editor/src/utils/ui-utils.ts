@@ -1,4 +1,4 @@
-import { IvyIcons } from '@axonivy/ui-icons';
+import type { IvyIcons } from '@axonivy/ui-icons';
 
 export function createIcon(icon?: IvyIcons, additionalClasses?: string[]): HTMLElement {
   const cssClasses = icon ? ['ivy', `ivy-${icon}`] : [];
@@ -34,7 +34,7 @@ export class ToggleSwitch {
     this.input = document.createElement('input');
     this.input.type = 'checkbox';
     this.input.checked = this.state;
-    this.input.onchange = _ev => {
+    this.input.onchange = () => {
       const newState = this.input?.checked ?? !this.state;
       this.state = newState;
       this.onclick(newState);

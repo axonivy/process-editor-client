@@ -44,6 +44,9 @@ export default defineConfig(() => {
         path: 'path-browserify',
         '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
         '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
+        '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
+        '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
+        '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src'),
         '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
       }
     },

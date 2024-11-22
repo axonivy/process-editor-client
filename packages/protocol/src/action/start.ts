@@ -17,7 +17,7 @@ export namespace StartProcessAction {
     };
   }
 
-  export function is(object: any): object is StartProcessAction {
+  export function is(object: unknown): object is StartProcessAction {
     return Action.hasKind(object, KIND) && hasStringProp(object, 'elementId') && hasStringProp(object, 'processStartUri');
   }
 }

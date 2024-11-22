@@ -5,9 +5,12 @@
     "noEmit": true
   },
   "references": [
-    { "path": "packages/editor/tsconfig.json" },
     { "path": "packages/protocol/tsconfig.json" },
+    { "path": "packages/inscription-protocol/tsconfig.json" },
+    { "path": "packages/inscription-core/tsconfig.json" },
+    { "path": "packages/inscription-view/tsconfig.production.json" },
     { "path": "packages/inscription/tsconfig.json" },
+    { "path": "packages/editor/tsconfig.build.json" },
     { "path": "integration/standalone/tsconfig.json" },
     { "path": "integration/viewer/tsconfig.json" },
     { "path": "integration/eclipse/tsconfig.json" }

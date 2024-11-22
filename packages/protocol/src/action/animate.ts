@@ -8,7 +8,7 @@ export interface AnimateAction extends Action {
 export namespace AnimateAction {
   export const KIND = 'elementAnimate';
 
-  export function is(object: any): object is AnimateAction {
+  export function is(object: unknown): object is AnimateAction {
     return Action.hasKind(object, KIND) && hasArrayProp(object, 'elementIds');
   }
 

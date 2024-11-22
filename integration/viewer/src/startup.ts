@@ -1,7 +1,9 @@
 import { EnableViewportAction, MoveIntoViewportAction, SetViewportZoomAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
-import { Action, CenterAction, GLSPActionDispatcher, IDiagramStartup, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule, inject, injectable, interfaces } from 'inversify';
-import { IvyDiagramOptions } from './di.config';
+import type { Action, IDiagramStartup } from '@eclipse-glsp/client';
+import { CenterAction, GLSPActionDispatcher, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
+import type { interfaces } from 'inversify';
+import { ContainerModule, inject, injectable } from 'inversify';
+import type { IvyDiagramOptions } from './di.config';
 import { isInPreviewMode } from './url-helper';
 
 const ContainerSymbol = Symbol('ContainerSymbol');
@@ -41,8 +43,9 @@ export class ViewerDiagramStartup implements IDiagramStartup {
     }
   }
 
-  protected isNumeric(num: any): boolean {
-    return !isNaN(parseFloat(num)) && isFinite(num);
+  protected isNumeric(number: string) {
+    const num = parseFloat(number);
+    return !isNaN(num) && isFinite(num);
   }
 }
 

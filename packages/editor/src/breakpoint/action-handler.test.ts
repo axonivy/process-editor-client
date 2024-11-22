@@ -1,20 +1,14 @@
 /* eslint-disable no-unused-expressions */
-import {
-  ActionDispatcher,
-  Bounds,
-  configureActionHandler,
-  configureCommand,
-  FeedbackActionDispatcher,
-  InitializeCanvasBoundsAction,
-  TYPES
-} from '@eclipse-glsp/client';
-import { Container } from 'inversify';
+import type { ActionDispatcher, FeedbackActionDispatcher } from '@eclipse-glsp/client';
+import { Bounds, configureActionHandler, configureCommand, InitializeCanvasBoundsAction, TYPES } from '@eclipse-glsp/client';
+import type { Container } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import { ShowBreakpointAction } from '@axonivy/process-editor-protocol';
 import { createTestContainer } from '../utils/test-utils';
 import { ShowBreakpointActionHandler } from './action-handler';
-import { BreakpointFeedbackAction, BreakpointFeedbackCommand } from './feedback-action';
+import type { BreakpointFeedbackAction } from './feedback-action';
+import { BreakpointFeedbackCommand } from './feedback-action';
 
 function createContainer(): Container {
   const container = createTestContainer();

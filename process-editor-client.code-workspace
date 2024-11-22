@@ -5,16 +5,28 @@
       "path": ".",
     },
     {
+      "name": "packages/protocol",
+      "path": "./packages/protocol"
+    },
+    {
       "name": "packages/editor",
       "path": "./packages/editor"
     },
     {
-      "name": "packages/inscription",
-      "path": "./packages/inscription"
+      "name": "packages/inscription-protocol",
+      "path": "./packages/inscription-protocol"
     },
     {
-      "name": "packages/protocol",
-      "path": "./packages/protocol"
+      "name": "packages/inscription-core",
+      "path": "./packages/inscription-core"
+    },
+    {
+      "name": "packages/inscription-view",
+      "path": "./packages/inscription-view"
+    },
+    {
+      "name": "packages/inscription",
+      "path": "./packages/inscription"
     },
     {
       "name": "integration/standalone",
@@ -70,6 +82,5 @@
     "[yaml]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "vitest.rootConfig": "packages/editor/vitest.config.mts"
   }
 }

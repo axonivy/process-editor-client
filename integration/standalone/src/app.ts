@@ -1,10 +1,10 @@
 import { MonacoEditorUtil } from '@axonivy/inscription-editor';
 import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/process-editor';
-import { ThemeMode } from '@axonivy/process-editor-protocol';
+import type { ThemeMode } from '@axonivy/process-editor-protocol';
 import { DiagramLoader, EditMode, GLSPActionDispatcher, GLSPWebSocketProvider, MessageAction, StatusAction } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
-import { Container } from 'inversify';
-import { MessageConnection } from 'vscode-jsonrpc';
+import type { Container } from 'inversify';
+import type { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import './index.css';
 import { getParameters, getServerDomain, isReadonly, isSecureConnection } from './url-helper';

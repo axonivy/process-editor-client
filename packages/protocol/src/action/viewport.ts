@@ -7,7 +7,7 @@ export interface EnableViewportAction extends Action {
 export namespace EnableViewportAction {
   export const KIND = 'enableViewport';
 
-  export function is(object: any): object is EnableViewportAction {
+  export function is(object: unknown): object is EnableViewportAction {
     return Action.hasKind(object, KIND);
   }
 
@@ -61,7 +61,7 @@ export interface SetViewportZoomAction extends Action {
 export namespace SetViewportZoomAction {
   export const KIND = 'ivyViewportZoom';
 
-  export function is(object: any): object is SetViewportZoomAction {
+  export function is(object: unknown): object is SetViewportZoomAction {
     return Action.hasKind(object, KIND);
   }
 

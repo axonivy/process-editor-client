@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
-import { isBoundsAware, IView, RenderingContext, svg } from '@eclipse-glsp/client';
+import { isBoundsAware, IView, svg } from '@eclipse-glsp/client';
 
 import { SBreakpointHandle } from './model';
 
@@ -9,12 +9,12 @@ const JSX = { createElement: svg };
 
 @injectable()
 export class SBreakpointHandleView implements IView {
-  render(handle: SBreakpointHandle, context: RenderingContext): VNode {
+  render(handle: SBreakpointHandle): VNode {
     if (isBoundsAware(handle.parent)) {
       return (
         <g>
           <circle
-            class-ivy-breakpoint-handle={true}
+            class-ivy-breakpoint-handle
             class-disabled={handle.disabled}
             class-condition={handle.condition?.length > 0 && handle.condition !== 'true'}
             class-mouseover={handle.hoverFeedback}

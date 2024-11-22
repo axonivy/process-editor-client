@@ -1,0 +1,63 @@
+{
+  "name": "@axonivy/process-editor-inscription-view",
+  "version": "12.0.0-next",
+  "private": false,
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/process-editor-client"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@axonivy/process-editor-inscription-core": "~12.0.0-next",
+    "@axonivy/process-editor-inscription-protocol": "~12.0.0-next",
+    "@axonivy/ui-components": "~12.0.0-next.340",
+    "@monaco-editor/react": "^4.6.0",
+    "@radix-ui/react-dialog": "1.1.2",
+    "@radix-ui/react-radio-group": "1.2.1",
+    "@radix-ui/react-tabs": "1.1.1",
+    "@tanstack/react-query": "5.32.1",
+    "@tanstack/react-query-devtools": "5.32.1",
+    "@tanstack/react-table": "8.20.5",
+    "@tanstack/react-virtual": "^3.0.1",
+    "@types/node": "^20.10.5",
+    "downshift": "9.0.8",
+    "immer": "^10.0.3",
+    "react": "^18.3.1",
+    "react-aria": "3.34.3",
+    "react-error-boundary": "^4.0.12"
+  },
+  "peerDependencies": {
+    "@axonivy/ui-icons": "~12.0.0-next"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "5.32.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.2",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^18.3.4",
+    "deepmerge-ts": "^5.1.0",
+    "eslint-plugin-testing-library": "^6.3.0",
+    "jsdom": "^24.1.1"
+  },
+  "type": "module",
+  "module": "lib/index",
+  "types": "lib/index",
+  "source": "src/index",
+  "scripts": {
+    "clean": "rimraf lib *.tsbuildinfo",
+    "build": "tsc --build && tscp",
+    "package": "tsc -p tsconfig.production.json && tscp",
+    "build:clean": "npm run clean && npm run build",
+    "type": "tsc --noEmit",
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
+    "test": "vitest",
+    "test:ci": "vitest --watch=false"
+  }
+}

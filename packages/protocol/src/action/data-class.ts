@@ -13,7 +13,7 @@ export namespace OpenDataClassAction {
     };
   }
 
-  export function is(object: any): object is OpenDataClassAction {
+  export function is(object: unknown): object is OpenDataClassAction {
     return Action.hasKind(object, KIND);
   }
 }

@@ -1,15 +1,9 @@
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
-import {
-  EnableToolPaletteAction,
-  GLSPActionDispatcher,
-  IDiagramStartup,
-  NavigationTarget,
-  SelectAction,
-  TYPES
-} from '@eclipse-glsp/client';
+import type { IDiagramStartup } from '@eclipse-glsp/client';
+import { EnableToolPaletteAction, GLSPActionDispatcher, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
-import { IvyDiagramOptions } from './di.config';
+import type { IvyDiagramOptions } from './di.config';
 import './index.css';
 
 @injectable()

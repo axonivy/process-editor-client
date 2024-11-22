@@ -1,13 +1,14 @@
-import { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
+import type { ModelRenderer, GGraph, GModelFactory, GNode, ViewRegistry } from '@eclipse-glsp/client';
 import { describe, test, expect, beforeEach } from 'vitest';
 import { ActivityTypes, LabelType } from '../view-types';
-import { ActivityNode } from '../model';
+import type { ActivityNode } from '../model';
 import { SvgIcons } from '../icon/icons';
 import toHTML from 'snabbdom-to-html';
 import { setupViewTestContainer } from '../../test-utils/view-container.test-util';
-import { VNode } from 'snabbdom-to-html-common';
+import type { VNode } from 'snabbdom-to-html-common';
 
 function createModel(graphFactory: GModelFactory): GGraph {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const children: any[] = [];
   const taskNodeSize = { width: 150, height: 50 };
   children.push({
