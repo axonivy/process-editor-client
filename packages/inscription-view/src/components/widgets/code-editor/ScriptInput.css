@@ -1,0 +1,18 @@
+.script-input {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+  position: relative;
+}
+
+.script-input .code-editor {
+  flex: 1;
+  position: relative;
+}
+
+.script-input .ui-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: var(--size-2);
+}

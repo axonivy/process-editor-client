@@ -10,7 +10,6 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "dependencies": {
-    "@axonivy/inscription-editor": "~12.0.0-next.1252",
     "@axonivy/process-editor": "~12.0.0-next",
     "@axonivy/process-editor-inscription": "~12.0.0-next",
     "@axonivy/process-editor-inscription-view": "~12.0.0-next",

@@ -1,0 +1,37 @@
+.code-editor {
+  background: var(--N25);
+}
+.code-editor .code-input {
+  border-radius: var(--border-r1);
+  border: var(--input-border);
+  font-size: 12px;
+  line-height: 12px;
+  color: var(--body);
+  text-align: start;
+  padding: var(--input-padding);
+}
+
+.code-editor .code-input:focus-within {
+  border: var(--activ-border);
+}
+
+.code-editor .monaco-placeholder {
+  position: absolute;
+  display: none;
+  white-space: nowrap;
+  top: 12px;
+  left: 11px;
+  font-size: 12px;
+  font-style: italic;
+  color: var(--N500);
+  pointer-events: none;
+  user-select: none;
+}
+
+.code-editor .monaco-placeholder.with-lineNumbers {
+  left: 35px;
+}
+
+.code-editor .header .type {
+  height: 100%;
+}

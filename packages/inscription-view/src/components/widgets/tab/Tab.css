@@ -1,0 +1,60 @@
+.tabs-root {
+  display: flex;
+  flex-direction: column;
+}
+.tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-bottom: var(--size-2);
+}
+.tabs-trigger {
+  all: unset;
+  font-family: inherit;
+  padding: var(--size-2) var(--size-4) var(--size-2) var(--size-4);
+  height: var(--size-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--N500);
+  user-select: none;
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--N500);
+  flex: 1;
+  gap: var(--size-1);
+}
+.tabs-trigger:focus-visible {
+  border: 1.5px solid var(--body);
+}
+.tabs-trigger:hover {
+  border-bottom: 1.5px solid var(--body);
+  color: var(--body);
+}
+
+.tabs-trigger[data-state='active'] {
+  border-bottom: 1.5px solid var(--body);
+  color: var(--body);
+}
+
+.tabs-trigger:focus-visible {
+  position: relative;
+  box-shadow: var(--focus-shadow);
+}
+.tabs-trigger[data-message='error'] {
+  color: var(--error-color);
+}
+.tabs-trigger[data-message='warning'] {
+  color: var(--warning-color);
+}
+.tabs-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+}
+
+.tabs-trigger i {
+  font-size: 16px;
+}

@@ -8,7 +8,7 @@ import ivyStandaloneCopyPasteModule from './copy-paste/di.config';
 import ivyDirtyStateModule from './dirty-state/di.config';
 import ivyNavigationModule from './navigate/di.config';
 import type { ThemeMode } from '@axonivy/process-editor-protocol';
-import type { InscriptionContext } from '@axonivy/inscription-protocol';
+import type { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
 import { ivyStartupDiagramModule } from './startup';
 
 export interface IvyDiagramOptions extends IDiagramOptions {

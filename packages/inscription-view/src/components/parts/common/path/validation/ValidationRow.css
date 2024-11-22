@@ -1,0 +1,12 @@
+.ui-table-row.row-error {
+  border: 1px solid var(--error-color);
+}
+.ui-table-row.row-warning {
+  border: 1px solid var(--warning-color);
+}
+.ui-table-row:has(+ .ui-table-row.row-error) {
+  border-bottom: 1px solid var(--error-color);
+}
+.ui-table-row:has(+ .ui-table-row.row-warning) {
+  border-bottom: 1px solid var(--warning-color);
+}

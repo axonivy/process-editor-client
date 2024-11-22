@@ -1,0 +1,6 @@
+.rest-method-input > :first-child:has(~ *) {
+  flex: 0 0 8rem;
+}
+.rest-method-input > * {
+  width: 100%;
+}

@@ -1,0 +1,66 @@
+.combobox-input {
+  display: flex;
+  gap: var(--size-1);
+  align-items: center;
+}
+.combobox-input .ui-input,
+.combobox-input .code-editor {
+  flex: 1 1 auto;
+}
+
+.combobox-input .ivy-chevron {
+  transform: rotate(90deg);
+  transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+.combobox-input [aria-expanded='true'] .ivy-chevron {
+  transform: rotate(-90deg);
+}
+.combobox-menu {
+  overflow: auto;
+  max-height: 20rem;
+  position: absolute;
+  list-style: none;
+  font-size: 12px;
+  text-align: start;
+  background-color: var(--background);
+  padding: 0;
+  margin: var(--size-1) 0 0 0;
+  z-index: 10;
+  box-shadow: var(--editor-shadow);
+  left: var(--size-2);
+  width: calc(100% - var(--size-4));
+  border-radius: var(--border-r2);
+}
+.combobox-menu-entry {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  gap: var(--size-2);
+  cursor: pointer;
+  --basic-border: 1px solid var(--N200);
+  border-bottom: var(--basic-border);
+}
+.combobox-menu-entry:last-child {
+  border-bottom: none;
+}
+.combobox-menu-entry.hover {
+  background: var(--P50);
+}
+.combobox-menu-entry.selected {
+  background: var(--P300);
+  color: var(--background);
+}
+.combobox-menu-entry-additional {
+  color: var(--N500);
+}
+.combobox-menu-entry > div {
+  display: flex;
+  align-items: center;
+  gap: var(--size-1);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.combobox-menu-entry .ivy {
+  font-size: 1rem;
+}

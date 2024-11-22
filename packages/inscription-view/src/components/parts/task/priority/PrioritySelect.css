@@ -1,0 +1,6 @@
+.priority-select > :first-child:has(~ *) {
+  flex: 0 0 8rem;
+}
+.priority-select > * {
+  width: 100%;
+}

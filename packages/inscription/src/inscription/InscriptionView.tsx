@@ -1,4 +1,4 @@
-import { App } from '@axonivy/inscription-editor';
+import { App } from '@axonivy/process-editor-inscription-view';
 import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 import { useMove } from 'react-aria';

@@ -1,0 +1,81 @@
+.tags {
+  display: flex;
+  gap: var(--size-1);
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.tag,
+.added-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--size-1);
+  background: var(--background);
+  border-radius: 1rem;
+  padding: 3px 6px;
+  border: var(--basic-border);
+}
+
+.added-tag span {
+  margin-right: 5px;
+}
+.tag-add {
+  border: var(--dashed-border);
+  background: none;
+}
+
+.tag-remove {
+  all: unset;
+  display: flex;
+  flex: 1;
+}
+
+.tag-remove-button {
+  border: var(--basic-border);
+}
+
+.tag-add .ivy {
+  transform: rotate(-45deg);
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.tag-remove-button .ivy {
+  transform: rotate(0deg);
+  transition: transform 200ms cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+.tag-remove-button .ivy,
+.tag-remove .ivy {
+  color: var(--N500);
+}
+
+.tag-remove-button .ivy,
+.tag-remove .ivy,
+.tag-add .ivy {
+  text-align: center;
+  font-size: 18px;
+  line-height: 12px;
+}
+
+.tag-remove:hover,
+.tag-add:hover {
+  cursor: pointer;
+}
+
+.tag-remove:focus-visible,
+.tag-add:focus-visible {
+  box-shadow: var(--focus-shadow);
+}
+
+.tag-add .new-tag-input,
+.tag-remove-button .new-tag-input {
+  border: 0px;
+  outline: 0px;
+  box-shadow: none;
+  background: none;
+}
+
+.tags .combobox-menu {
+  margin-top: var(--size-1);
+}
