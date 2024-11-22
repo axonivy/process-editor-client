@@ -281,7 +281,8 @@ g[id*='_label']:has(~ .activity-icon) .node-child-label > div {
 }
 .move-mode .negative-area,
 .edge-modification-not-allowed-mode .negative-area,
-.node-creation-mode .negative-area {
+.node-creation-mode .negative-area,
+.resize-mode .negative-area {
   display: inline;
 }
 
