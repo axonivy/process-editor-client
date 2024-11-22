@@ -9,10 +9,6 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
-      "presentation": {
-        "group": "4. Standalone",
-        "order": 1
-      },
       "preLaunchTask": "Start Standalone",
       "postDebugTask": "Terminate All Tasks"
     },
@@ -21,10 +17,6 @@
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000?server=localhost:8081&mode=viewer&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
-      "presentation": {
-        "group": "4. Standalone",
-        "order": 1
-      },
       "preLaunchTask": "Start Viewer",
       "postDebugTask": "Terminate All Tasks"
     },
@@ -36,87 +28,30 @@
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       },
-      "presentation": {
-        "group": "4. Standalone",
-        "order": 1
-      },
       "preLaunchTask": "Start Eclipse",
       "postDebugTask": "Terminate All Tasks"
     },
     {
-      "type": "node",
+      "name": "Launch Inscription (Chrome)",
+      "type": "chrome",
       "request": "launch",
-      "name": "Run Current Test",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
-      "args": [
-        "--config",
-        "${workspaceRoot}/packages/editor/vitest.config.ts",
-        "run",
-        "${workspaceRoot}/${relativeFile}"
-      ],
-      "smartStep": true,
-      "console": "integratedTerminal",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 1
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run All Test",
-      "autoAttachChildProcesses": true,
-      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
-      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
-      "args": ["--root", "${workspaceRoot}/packages/editor"],
-      "smartStep": true,
-      "console": "integratedTerminal",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 2
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run Current Web Tests",
-      "runtimeExecutable": "yarn",
-      "cwd": "${workspaceFolder}/integration/standalone",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "runtimeArgs": ["webtest", "${file}"],
-      "env": {
-        "BASE_URL": "${input:webtestBaseUrl}"
+      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&pid=15254DC87A1B183B-f3",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
       },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 3
-      }
+      "preLaunchTask": "Start Inscription",
+      "postDebugTask": "Terminate All Tasks"
     },
     {
-      "type": "node",
+      "name": "Launch Inscription Mock (Chrome)",
+      "type": "chrome",
       "request": "launch",
-      "name": "Run Web Tests",
-      "runtimeExecutable": "yarn",
-      "cwd": "${workspaceFolder}/integration/standalone",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "runtimeArgs": ["webtest"],
-      "env": {
-        "BASE_URL": "${input:webtestBaseUrl}"
+      "url": "http://localhost:3000/mock.html",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
       },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 4
-      }
+      "preLaunchTask": "Start Inscription",
+      "postDebugTask": "Terminate All Tasks"
     }
   ],
   "inputs": [

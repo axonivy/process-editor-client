@@ -20,6 +20,7 @@
     "dev": "npm run --workspace=@axonivy/standalone-integration dev",
     "dev:viewer": "npm run --workspace=@axonivy/viewer-integration dev",
     "dev:eclipse": "npm run --workspace=@axonivy/eclipse-integration dev",
+    "dev:inscription": "npm run --workspace=@axonivy/inscription-standalone dev",
     "test": "vitest test",
     "test:ci": "vitest test --watch=false --reporter=basic --reporter=junit --outputFile=report.xml",
     "webtest": "lerna run webtest --",

@@ -1,4 +1,3 @@
-/** @type {import('vite').UserConfig} */
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -21,7 +20,7 @@ export default defineConfig(() => {
       rollupOptions: {
         output: {
           manualChunks: id => {
-            if (id.includes('monaco-languageclient' || id.includes('vscode'))) {
+            if (id.includes('monaco-languageclient') || id.includes('vscode')) {
               return 'monaco-chunk';
             }
           }

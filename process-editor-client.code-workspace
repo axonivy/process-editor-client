@@ -41,6 +41,10 @@
       "path": "./integration/eclipse"
     },
     {
+      "name": "integration/inscription",
+      "path": "./integration/inscription"
+    },
+    {
       "name": "playwright",
       "path": "./playwright"
     }
