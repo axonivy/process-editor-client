@@ -1,0 +1,11 @@
+{
+  "$schema" : "https://json-schema.axonivy.com/data-class/12.0.0/data-class.json",
+  "simpleName" : "Data",
+  "namespace" : "ch.ivyteam.documentation.project",
+  "isBusinessCaseData" : false,
+  "fields" : [ {
+    "name" : "test",
+    "type" : "String",
+    "modifiers" : [ "PERSISTENT" ]
+  } ]
+}

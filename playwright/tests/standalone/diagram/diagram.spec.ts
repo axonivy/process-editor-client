@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
 
 test('diagram', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);

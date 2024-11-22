@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://json-schema.axonivy.com/app/0.0.1/databases.json
+Databases:
+  test:
+    Url: jdbc:hsqldb:mem:IvySystemDatabase
+    Driver: org.hsqldb.jdbc.JDBCDriver
+    Password: ${decrypt:}
+  ERP:
+    Url: jdbc:hsqldb:mem:ERP
+    Driver: org.hsqldb.jdbc.JDBCDriver
+    UserName: ''
+  HRM:
+    Url: jdbc:hsqldb:mem:HRM
+    Driver: org.hsqldb.jdbc.JDBCDriver
+    UserName: ''

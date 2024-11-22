@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
-import { cmdCtrl } from '../../page-objects/test-helper';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
+import { cmdCtrl } from '../../page-objects/editor/test-helper';
 
 test('event actions', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);

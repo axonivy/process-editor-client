@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
 
 const setupNegativProcess = async (page: Page) => {
   const processEditor = await ProcessEditor.openProcess(page);

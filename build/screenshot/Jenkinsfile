@@ -22,7 +22,10 @@ pipeline {
             sh 'npm run update:axonivy:next && npm install'
             sh 'npm run package'
             dir ('playwright/process-test-project') {
-              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots"
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots:process"
+            }
+            dir ('playwright/inscription-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:screenshots:inscription"
             }
           }
           archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
