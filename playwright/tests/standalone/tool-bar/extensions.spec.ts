@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
 
 test('extnsions with entries', async ({ page }) => {
   const editor = await ProcessEditor.openEmptyProcess(page);

@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
 
 test('outline', async ({ page }) => {
   const { outline } = await openOutline(page, '/processes/quickstart.p.json');

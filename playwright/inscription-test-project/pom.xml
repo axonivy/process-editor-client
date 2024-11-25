@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>inscription.test.project</groupId>
+  <artifactId>inscription-test-project</artifactId>
+  <version>12.0.0-SNAPSHOT</version>
+  <packaging>iar-integration-test</packaging>
+
+  <properties>
+    <engine.page.url>https://product.ivyteam.io/</engine.page.url>
+    <project.build.plugin.version>12.0.1-SNAPSHOT</project.build.plugin.version>
+    <engine.test.app>inscription-test</engine.test.app>
+    <webtest.cmd>webtest</webtest.cmd>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.axonivy.ivy.ci</groupId>
+        <artifactId>project-build-plugin</artifactId>
+        <version>${project.build.plugin.version}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <useLatestMinor>true</useLatestMinor>
+          <engineListPageUrl>${engine.page.url}</engineListPageUrl>
+          <deployToEngineApplication>${engine.test.app}</deployToEngineApplication>
+          <additionalVmOptions>
+            -Dglsp.test.mode=true -Ddev.mode=true
+          </additionalVmOptions>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>npm</executable>
+              <arguments>
+                <argument>run</argument>
+                <argument>${webtest.cmd}</argument>
+              </arguments>
+              <environmentVariables>
+                <BASE_URL>${test.engine.url}</BASE_URL>
+                <TEST_APP>${engine.test.app}</TEST_APP>
+                <SCREENSHOT_DIR>${project.build.directory}</SCREENSHOT_DIR>
+              </environmentVariables>
+              <successCodes>
+                <successCode>0</successCode>
+                <successCode>1</successCode>
+              </successCodes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+</project>

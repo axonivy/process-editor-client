@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { ProcessEditor } from '../page-objects/process-editor';
+import { ProcessEditor } from '../page-objects/editor/process-editor';
 
 test.describe('url parameters', () => {
   test('viewer mode', async ({ page }) => {

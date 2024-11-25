@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
-import { cmdCtrl } from '../../page-objects/test-helper';
-import { ORIGIN_VIEWPORT } from '../../page-objects/viewport';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
+import { cmdCtrl } from '../../page-objects/editor/test-helper';
+import { ORIGIN_VIEWPORT } from '../../page-objects/editor/viewport';
 
 test('elements', async ({ page, browserName }) => {
   const processEditor = await ProcessEditor.openProcess(page);

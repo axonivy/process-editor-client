@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
-import { cmdCtrl, isMac } from '../../page-objects/test-helper';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
+import { cmdCtrl, isMac } from '../../page-objects/editor/test-helper';
 
 test('move node', async ({ page, browserName }) => {
   const processEditor = await ProcessEditor.openProcess(page);

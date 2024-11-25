@@ -10,6 +10,7 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "devDependencies": {
+    "@open-rpc/client-js": "1.8.1",
     "@playwright/test": "1.48.2"
   },
   "type": "module",
@@ -19,10 +20,15 @@
     "lint": "eslint --ext .ts,.tsx ./tests",
     "lint:fix": "eslint --fix --ext .ts,.tsx ./tests",
     "webtest": "playwright test --project=standalone-chrome",
-    "webtest:screenshots": "playwright test --project=screenshots",
+    "webtest:screenshots:process": "playwright test --project=screenshots-process",
+    "webtest:screenshots:inscription": "playwright test --project=screenshots-inscription",
     "webtest:*": "playwright test --project=standalone-* --project=viewer-*",
     "webtest:chrome": "playwright test --project=standalone-chrome --project=viewer-chrome",
     "webtest:firefox": "playwright test --project=standalone-firefox --project=viewer-firefox",
-    "webtest:webkit": "playwright test --project=standalone-webkit --project=viewer-webkit"
+    "webtest:webkit": "playwright test --project=standalone-webkit --project=viewer-webkit",
+    "webtest:inscription:*": "playwright test --project=inscription-*",
+    "webtest:inscription:chrome": "playwright test --project=inscription-chrome",
+    "webtest:inscription:firefox": "playwright test --project=inscription-firefox",
+    "webtest:inscription:webkit": "playwright test --project=inscription-webkit"
   }
 }

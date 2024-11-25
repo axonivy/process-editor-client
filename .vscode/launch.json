@@ -16,7 +16,7 @@
       "name": "Launch Viewer (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000?server=localhost:8081&mode=viewer&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
+      "url": "http://localhost:3001?server=localhost:8081&mode=viewer&app=designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
       "preLaunchTask": "Start Viewer",
       "postDebugTask": "Terminate All Tasks"
     },
@@ -24,7 +24,7 @@
       "name": "Launch Eclipse (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000",
+      "url": "http://localhost:3002",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       },
@@ -35,7 +35,7 @@
       "name": "Launch Inscription (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000?server=localhost:8081&app=designer&pmv=workflow-demos&pid=15254DC87A1B183B-f3",
+      "url": "http://localhost:3003?server=localhost:8081&app=designer&pmv=workflow-demos&pid=15254DC87A1B183B-f3",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       },
@@ -46,7 +46,7 @@
       "name": "Launch Inscription Mock (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000/mock.html",
+      "url": "http://localhost:3003/mock.html",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       },

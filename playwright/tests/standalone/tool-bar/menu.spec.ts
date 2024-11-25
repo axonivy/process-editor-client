@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { ProcessEditor } from '../../page-objects/process-editor';
-import type { Menu } from '../../page-objects/menu';
-import type { Toolbar } from '../../page-objects/toolbar';
+import { ProcessEditor } from '../../page-objects/editor/process-editor';
+import type { Menu } from '../../page-objects/editor/menu';
+import type { Toolbar } from '../../page-objects/editor/toolbar';
 
 test('menus show / hide', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);

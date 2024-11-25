@@ -1,0 +1,48 @@
+pipeline {
+  agent any
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '5'))
+    disableConcurrentBuilds()
+  }
+
+  triggers {
+    cron '@midnight'
+  }
+
+  parameters {
+    string(name: 'engineSource', defaultValue: 'https://product.ivyteam.io/', description: 'Engine page url')
+    choice(name: 'browser', choices: ['', '*', 'chrome', 'firefox', 'webkit'], description: 'Browser used for integration tests (default: "all" on master/release, "chrome" on branch)')
+  }
+
+  stages {
+    stage('Inscription Integration Test') {
+      steps {
+        script {
+          docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
+            sh 'npm run update:axonivy:next && npm install'
+            sh 'npm run package'
+            dir ('playwright/inscription-test-project') {
+              maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource} -Dwebtest.cmd=webtest:inscription:${browser()}"
+            }
+          }
+          archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/inscription-test-project/target/**/ivy.log', allowEmptyArchive: true
+          withChecks('Inscription Integration WebTest') {
+            junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+          }
+        }
+      }
+    }
+  }
+}
+
+def browser() {
+  if (params.browser == '') {
+    if (isReleasingBranch()) {
+      return '*'
+    }
+    return 'chrome'
+  }
+  return params.browser;
+}
