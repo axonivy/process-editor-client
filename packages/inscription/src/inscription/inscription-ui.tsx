@@ -6,15 +6,16 @@ import {
   Action,
   GArgument,
   GLSPAbstractUIExtension,
-  GLSPActionDispatcher,
   GModelRoot,
   IActionHandler,
   ISelectionListener,
   SelectAction,
   SelectAllAction,
   SelectionService,
+  TYPES,
   isNotUndefined,
-  isOpenable
+  isOpenable,
+  type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import type { MonacoLanguageClient } from 'monaco-languageclient';
@@ -32,7 +33,7 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
   static readonly ID = 'inscription-ui';
 
   @inject(SelectionService) protected readonly selectionService: SelectionService;
-  @inject(GLSPActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
 
   private inscriptionElement?: string;
   private action?: EnableInscriptionAction;

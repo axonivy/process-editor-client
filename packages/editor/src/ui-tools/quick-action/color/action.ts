@@ -1,4 +1,4 @@
-import { Action, GLSPActionDispatcher, PaletteItem, GModelElement, TYPES } from '@eclipse-glsp/client';
+import { Action, PaletteItem, GModelElement, TYPES, type IActionDispatcher } from '@eclipse-glsp/client';
 import { QuickAction, QuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
@@ -11,7 +11,7 @@ import { LaneTypes } from '../../../diagram/view-types';
 @injectable()
 export class SelectColorQuickActionProvider implements QuickActionProvider {
   @inject(IVY_TYPES.ColorPalette) protected readonly colors: ColorPaletteHandler;
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
 
   singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (element.type === LaneTypes.POOL) {

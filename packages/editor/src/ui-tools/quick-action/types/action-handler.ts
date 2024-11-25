@@ -1,19 +1,19 @@
 import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   Action,
-  GLSPActionDispatcher,
   IActionHandler,
   ICommand,
   PaletteItem,
   RequestContextActions,
   SetContextActions,
-  TYPES
+  TYPES,
+  type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { injectable, inject } from 'inversify';
 
 @injectable()
 export class TypesPaletteHandler implements IActionHandler {
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
 
   protected paletteItems: PaletteItem[] = [];
 

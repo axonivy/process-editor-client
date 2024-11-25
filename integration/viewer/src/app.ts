@@ -1,6 +1,7 @@
 import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/process-editor';
 import type { ThemeMode } from '@axonivy/process-editor-protocol';
-import { DiagramLoader, EditMode, GLSPActionDispatcher, GLSPWebSocketProvider, MessageAction, StatusAction } from '@eclipse-glsp/client';
+import type { IActionDispatcher } from '@eclipse-glsp/client';
+import { DiagramLoader, EditMode, GLSPWebSocketProvider, MessageAction, StatusAction, TYPES } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
 import type { Container } from 'inversify';
 import type { MessageConnection } from 'vscode-jsonrpc';
@@ -59,7 +60,7 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     }
   });
 
-  const actionDispatcher = container.get(GLSPActionDispatcher);
+  const actionDispatcher = container.get<IActionDispatcher>(TYPES.IActionDispatcher);
   if (isReconnecting) {
     const message = `Connection to the ${id} glsp server got closed. Connection was successfully re-established.`;
     const timeout = 5000;

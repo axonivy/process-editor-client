@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@axonivy/process-editor": "~12.0.1-next",
-    "@eclipse-glsp/client": "2.3.0-next.381"
+    "@eclipse-glsp/client": "2.3.0-next.390"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
