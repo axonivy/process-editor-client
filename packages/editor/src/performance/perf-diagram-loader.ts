@@ -1,12 +1,4 @@
-import {
-  ApplicationIdProvider,
-  DiagramLoader,
-  DiagramLoadingOptions,
-  GLSPClient,
-  IDiagramStartup,
-  Ranked,
-  ResolvedDiagramLoadingOptions
-} from '@eclipse-glsp/client';
+import { DiagramLoader, DiagramLoadingOptions, IDiagramStartup, ResolvedDiagramLoadingOptions } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -30,27 +22,8 @@ export class PerfDiagramLoader extends DiagramLoader {
   }
 
   override async load(options: DiagramLoadingOptions = {}): Promise<void> {
-    this.diagramStartups.sort(Ranked.sort);
-    await this.invokeStartupHook('preLoadDiagram');
-    const resolvedOptions: ResolvedDiagramLoadingOptions = {
-      requestModelOptions: {
-        sourceUri: this.options.sourceUri ?? '',
-        diagramType: this.options.diagramType,
-        ...options.requestModelOptions
-      },
-      initializeParameters: {
-        applicationId: ApplicationIdProvider.get(),
-        protocolVersion: GLSPClient.protocolVersion,
-        ...options.initializeParameters
-      },
-      enableNotifications: options.enableNotifications ?? true
-    };
-    await this.actionDispatcher.initialize();
-    await this.invokeStartupHook('preInitialize');
-    await this.initialize(resolvedOptions);
-    await this.invokeStartupHook('preRequestModel');
-    await this.requestModel(resolvedOptions);
-    await this.invokeStartupHook('postRequestModel');
-    this.modelInitializationConstraint.onInitialized(() => this.invokeStartupHook('postModelInitialization'));
+    console.time('DiagramLoader.load');
+    await super.load(options);
+    console.timeEnd('DiagramLoader.load');
   }
 }
