@@ -9,6 +9,7 @@ import { useTypeBrowser } from './type/TypeBrowser';
 import { useTableColBrowser } from './tableCol/TableColBrowser';
 import BrowserBody from './BrowserBody';
 import { useRoleBrowser, type RoleOptions } from './role/RoleBrowser';
+import { useConditionBuilder } from './conditionBuilder/useConditionBuilder';
 import { Button } from '@axonivy/ui-components';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
@@ -49,8 +50,9 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
   );
   const tableColBrowser = useTableColBrowser(onRowDoubleClick);
   const roleBrowser = useRoleBrowser(onRowDoubleClick, roleOptions);
+  const conditionBuilder = useConditionBuilder();
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, roleBrowser];
+  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, roleBrowser, conditionBuilder];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 
