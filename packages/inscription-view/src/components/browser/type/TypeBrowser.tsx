@@ -58,6 +58,9 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
 
   const [showHelper, setShowHelper] = useState(false);
 
+  const [type, setType] = useState('');
+  const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method: '', paramTypes: [], type }, '');
+
   useEffect(() => {
     const typeComparator = (a: TypeBrowserObject, b: TypeBrowserObject) => {
       const fqCompare = a.fullQualifiedName.localeCompare(b.fullQualifiedName);
@@ -186,6 +189,9 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     const selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
     const isIvyType = ivyTypes.some(javaClass => javaClass.fullQualifiedName === selectedRow.original.fullQualifiedName);
+
+    setType(selectedRow.original.fullQualifiedName);
+
     if (location.includes('code')) {
       onChange({
         cursorValue: getCursorValue(selectedRow.original, isIvyType, typeAsList, true),
@@ -262,6 +268,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       {showHelper && (
         <pre className='browser-helptext'>
           <b>{value}</b>
+          <code>{doc}</code>
         </pre>
       )}
       <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
