@@ -268,7 +268,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       {showHelper && (
         <pre className='browser-helptext'>
           <b>{value}</b>
-          <code>{doc}</code>
+          <span dangerouslySetInnerHTML={{ __html: `${doc}` }}></span>
         </pre>
       )}
       <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
