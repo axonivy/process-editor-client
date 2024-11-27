@@ -36,6 +36,7 @@ test.describe('Browsers', () => {
     await browser.openTab('Type');
     await browser.search('Per');
     await browser.table.getByRole('row', { name: 'Person :' }).first().click();
+    await expect(browser.help).toContainText('registered webshop user');
     await screenshot(dialog, 'browser-type.png');
   });
 
