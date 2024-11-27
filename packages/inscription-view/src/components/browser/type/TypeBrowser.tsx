@@ -12,7 +12,7 @@ import { TableBody, TableCell } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 export const TYPE_BROWSER_ID = 'type' as const;
 
-export type TypeBrowserObject = JavaType & { icon: IvyIcons };
+export type TypeBrowserObject = JavaType & { icon: IvyIcons; description: string };
 
 export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () => string, location: string): UseBrowserImplReturnValue => {
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
@@ -58,8 +58,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
 
   const [showHelper, setShowHelper] = useState(false);
 
-  const [type, setType] = useState('');
-  const { data: doc } = useMeta('meta/scripting/apiDoc', { context, method: '', paramTypes: [], type }, '');
+  const [doc, setDoc] = useState('');
 
   useEffect(() => {
     const typeComparator = (a: TypeBrowserObject, b: TypeBrowserObject) => {
@@ -86,14 +85,14 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       if (mainFilter.length > 0) {
         allDatatypes.sort((a, b) => a.simpleName.localeCompare(b.simpleName));
       }
-      const mappedAllTypes: TypeBrowserObject[] = allDatatypes.map<TypeBrowserObject>(type => ({
-        icon: dataClasses.find(dc => dc.fullQualifiedName === type.fullQualifiedName)
-          ? IvyIcons.LetterD
-          : type.fullQualifiedName.includes('ivy')
-          ? IvyIcons.Ivy
-          : IvyIcons.DataClass,
-        ...type
-      }));
+      const mappedAllTypes: TypeBrowserObject[] = allDatatypes.map<TypeBrowserObject>(type => {
+        const dataClass = dataClasses.find(dc => dc.fullQualifiedName === type.fullQualifiedName);
+        return {
+          icon: dataClass ? IvyIcons.LetterD : type.fullQualifiedName.includes('ivy') ? IvyIcons.Ivy : IvyIcons.DataClass,
+          description: dataClass?.description || '',
+          ...type
+        };
+      });
       setTypes(mainFilter.length > 0 ? mappedAllTypes : []);
     } else {
       const mappedDataClasses: TypeBrowserObject[] = dataClasses.map<TypeBrowserObject>(dataClass => ({
@@ -103,6 +102,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       }));
       const mappedIvyTypes: TypeBrowserObject[] = ivyTypes.map<TypeBrowserObject>(ivyType => ({
         icon: ivyType.fullQualifiedName.includes('ivy') ? IvyIcons.Ivy : IvyIcons.DataClass,
+        description: '',
         ...ivyType
       }));
       const ownTypesWithoutDataClasses = ownTypes.filter(
@@ -113,6 +113,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       if (location.includes('code')) {
         const mappedOwnTypes: TypeBrowserObject[] = ownTypesWithoutDataClasses.map<TypeBrowserObject>(ownType => ({
           icon: IvyIcons.DataClass,
+          description: '',
           ...ownType
         }));
         const sortedMappedOwnTypes = mappedOwnTypes.sort(typeComparator);
@@ -189,8 +190,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     const selectedRow = tableDynamic.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
     const isIvyType = ivyTypes.some(javaClass => javaClass.fullQualifiedName === selectedRow.original.fullQualifiedName);
-
-    setType(selectedRow.original.fullQualifiedName);
+    setDoc(selectedRow.original.description);
 
     if (location.includes('code')) {
       onChange({

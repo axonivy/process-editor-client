@@ -65,7 +65,7 @@ export interface Inscription {
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   validationResult: ValidationResult[];
   variableInfo: VariableInfo;
@@ -242,6 +242,7 @@ export interface DatabaseTablesRequest {
   database: string;
 }
 export interface DataclassType {
+  description: string;
   fullQualifiedName: string;
   name: string;
   packageName: string;
