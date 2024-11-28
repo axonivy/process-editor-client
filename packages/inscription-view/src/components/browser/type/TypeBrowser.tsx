@@ -123,10 +123,6 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     }
   }, [allDatatypes, allSearchActive, dataClasses, ivyTypes, location, mainFilter, ownTypes]);
 
-  useEffect(() => {
-    setRowSelection({});
-  }, [setTypes.length, mainFilter]);
-
   const columns = useMemo<ColumnDef<TypeBrowserObject, string>[]>(
     () => [
       {
@@ -244,6 +240,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
           value: globalFilter,
           onChange: newFilterValue => {
             setGlobalFilter(newFilterValue);
+            setRowSelection({});
           }
         }}
       >
