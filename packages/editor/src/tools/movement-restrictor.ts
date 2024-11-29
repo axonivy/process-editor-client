@@ -7,10 +7,10 @@ export class IvyMovementRestrictor implements IMovementRestrictor {
   cssClasses = ['movement-not-allowed'];
 
   validate(element: GModelElement, newLocation?: Point): boolean {
-    if (isLaneResizable(element) || !newLocation) {
+    if (!newLocation) {
       return true;
     }
-    if (!isBoundsAwareMoveable(element)) {
+    if (!isBoundsAwareMoveable(element) && !isLaneResizable(element)) {
       return false;
     }
     const parentLocation = this.parentLocation(element, Point.ORIGIN);
