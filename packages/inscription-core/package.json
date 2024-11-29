@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "@axonivy/jsonrpc": "~12.0.1-next.384",
-    "@axonivy/process-editor-inscription-protocol": "12.0.1-next",
+    "@axonivy/process-editor-inscription-protocol": "~12.0.1-next",
     "monaco-editor": "^0.44.0",
     "monaco-editor-workers": "^0.44.0",
     "monaco-languageclient": "^6.6.1",
