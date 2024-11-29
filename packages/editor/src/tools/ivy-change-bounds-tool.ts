@@ -1,7 +1,8 @@
 import type { TrackedResize } from '@eclipse-glsp/client';
 import { Bounds, ChangeBoundsListener, ChangeBoundsTool, ResizeHandleLocation, SetBoundsFeedbackAction } from '@eclipse-glsp/client';
 import { LaneNode } from '../diagram/model';
-
+import { injectable } from 'inversify';
+@injectable()
 export class IvyChangeBoundsTool extends ChangeBoundsTool {
   protected createChangeBoundsListener() {
     return new IvyChangeBoundsListener(this);

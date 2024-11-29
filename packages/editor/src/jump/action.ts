@@ -6,8 +6,8 @@ import {
   isViewport,
   Viewport,
   TYPES,
-  GLSPActionDispatcher,
-  SetViewportAction
+  SetViewportAction,
+  type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable, inject } from 'inversify';
@@ -19,7 +19,7 @@ import { JumpAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class JumpActionHandler implements IActionHandler {
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   private jumpStack: Map<string, Viewport> = new Map();
 

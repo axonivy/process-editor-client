@@ -30,10 +30,10 @@ export const ivyChangeBoundsToolModule = new FeatureModule(
     // GSLP defaults
     configureCommand(context, ShowChangeBoundsToolResizeFeedbackCommand);
     configureCommand(context, HideChangeBoundsToolResizeFeedbackCommand);
-    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
 
     // GLSP replacements
     bindAsService(context, TYPES.IChangeBoundsManager, IvyChangeBoundsManager);
+    bindAsService(context, TYPES.IDefaultTool, IvyChangeBoundsTool);
     configureView(context, GResizeHandle.TYPE, IvyResizeHandleView);
   },
   { featureId: changeBoundsToolModule.featureId }

@@ -1,15 +1,15 @@
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
-import type { IDiagramStartup } from '@eclipse-glsp/client';
-import { EnableToolPaletteAction, GLSPActionDispatcher, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
+import type { IActionDispatcher, IDiagramStartup } from '@eclipse-glsp/client';
+import { EnableToolPaletteAction, NavigationTarget, SelectAction, TYPES } from '@eclipse-glsp/client';
 import { ContainerModule, inject, injectable } from 'inversify';
 import type { IvyDiagramOptions } from './di.config';
 import './index.css';
 
 @injectable()
 export class StandaloneDiagramStartup implements IDiagramStartup {
-  @inject(GLSPActionDispatcher)
-  protected actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher)
+  protected actionDispatcher: IActionDispatcher;
 
   @inject(TYPES.IDiagramOptions)
   protected options: IvyDiagramOptions;

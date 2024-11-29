@@ -5,7 +5,6 @@ import {
   EditorContextService,
   EnableDefaultToolsAction,
   EnableToolPaletteAction,
-  GLSPActionDispatcher,
   IActionHandler,
   ICommand,
   IEditModeListener,
@@ -15,7 +14,8 @@ import {
   SelectionService,
   SetUIExtensionVisibilityAction,
   TYPES,
-  isNotUndefined
+  isNotUndefined,
+  type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 
@@ -44,7 +44,7 @@ const CLICKED_CSS_CLASS = 'clicked';
 export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
   static readonly ID = 'ivy-tool-bar';
 
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(SelectionService) protected readonly selectionService: SelectionService;
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   @multiInject(IVY_TYPES.ToolBarButtonProvider) protected toolBarButtonProvider: ToolBarButtonProvider[];

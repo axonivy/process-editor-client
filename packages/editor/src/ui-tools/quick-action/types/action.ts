@@ -1,4 +1,4 @@
-import { Action, GLSPActionDispatcher, PaletteItem, GModelElement, TYPES } from '@eclipse-glsp/client';
+import { Action, PaletteItem, GModelElement, TYPES, type IActionDispatcher } from '@eclipse-glsp/client';
 import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
@@ -11,7 +11,7 @@ import { ChangeActivityTypeOperation } from '@axonivy/process-editor-protocol';
 @injectable()
 export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProvider {
   @inject(IVY_TYPES.ActivityTypesPalette) protected readonly types: TypesPaletteHandler;
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
 
   singleQuickAction(element: GModelElement): QuickAction | undefined {
     if (isUnwrapable(element)) {

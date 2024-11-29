@@ -1,14 +1,14 @@
 import {
   GArgument,
   GIssueMarker,
-  GLSPActionDispatcher,
   isWithEditableLabel,
   JsonAny,
   GChildElement,
   GEdge,
   GModelElement,
   TYPES,
-  hasArgs
+  hasArgs,
+  type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
@@ -20,7 +20,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 
 @injectable()
 export class InfoQuickActionProvider extends SingleQuickActionProvider {
-  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: GLSPActionDispatcher;
+  @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(IVY_TYPES.IvyViewerOptions) protected readonly options: IvyViewerOptions;
 
   singleQuickAction(element: GModelElement): QuickAction | undefined {
