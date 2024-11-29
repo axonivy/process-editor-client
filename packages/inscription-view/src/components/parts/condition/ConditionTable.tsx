@@ -45,7 +45,12 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
         header: () => <span>Expression</span>,
         cell: cell => (
           <ReorderHandleWrapper>
-            <ScriptCell cell={cell} type={IVY_SCRIPT_TYPES.BOOLEAN} browsers={['attr', 'func', 'type']} placeholder='Enter an Expression' />
+            <ScriptCell
+              cell={cell}
+              type={IVY_SCRIPT_TYPES.BOOLEAN}
+              browsers={['attr', 'func', 'type', 'condition']}
+              placeholder='Enter an Expression'
+            />
           </ReorderHandleWrapper>
         )
       }

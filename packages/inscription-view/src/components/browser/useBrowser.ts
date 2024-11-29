@@ -7,6 +7,7 @@ import type { FUNCTION_BROWSER_ID } from './function/FunctionBrowser';
 import type { TYPE_BROWSER_ID } from './type/TypeBrowser';
 import type { TABLE_COL_BROWSER_ID } from './tableCol/TableColBrowser';
 import type { ROLE_BROWSER } from './role/RoleBrowser';
+import type { CONDITION_BUILDER_ID } from './conditionBuilder/useConditionBuilder';
 
 export type BrowserType =
   | typeof ATTRIBUTE_BROWSER_ID
@@ -14,7 +15,8 @@ export type BrowserType =
   | typeof FUNCTION_BROWSER_ID
   | typeof TYPE_BROWSER_ID
   | typeof TABLE_COL_BROWSER_ID
-  | typeof ROLE_BROWSER;
+  | typeof ROLE_BROWSER
+  | typeof CONDITION_BUILDER_ID;
 
 type BrowserValue = { cursorValue: string; firstLineValue?: string };
 

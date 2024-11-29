@@ -8,7 +8,7 @@ import { InputGroup } from '@axonivy/ui-components';
 
 type InputWithBrowserProps = InputProps & {
   browsers: BrowserType[];
-  typeFilter: CmsTypeFilter;
+  typeFilter?: CmsTypeFilter;
 };
 
 const InputWithBrowser = ({ onChange, browsers, typeFilter, ...props }: InputWithBrowserProps) => {
@@ -16,7 +16,7 @@ const InputWithBrowser = ({ onChange, browsers, typeFilter, ...props }: InputWit
   const path = usePath();
 
   return (
-    <InputGroup>
+    <InputGroup style={{ flex: '1' }}>
       <Input onChange={onChange} {...props} />
       <Browser
         {...browser}

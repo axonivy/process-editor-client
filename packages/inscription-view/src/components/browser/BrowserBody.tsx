@@ -18,7 +18,12 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableAppl
 
   return (
     <DialogPortal container={editorRef.current}>
-      <DialogContent className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}>
+      <DialogContent
+        className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}
+        onInteractOutside={e => {
+          e.preventDefault();
+        }}
+      >
         <div className='browser-content'>
           <TabRoot tabs={tabs} value={activeTab} onChange={onTabsChange}>
             <DialogTitle className='browser-title'>
