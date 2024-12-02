@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView, type Inscription } from '../../page-objects/inscription/inscription-view';
 import { GeneralTestWithDisabledName, PermissionsTest, ProcessDataTest, runTest } from '../parts';
 import type { CreateProcessResult } from '../../glsp-protocol';
 import { createProcess } from '../../glsp-protocol';
 
 test.describe('Business Process', () => {
-  let view: InscriptionView;
+  let view: Inscription;
   let testee: CreateProcessResult;
 
   test.beforeAll(async () => {

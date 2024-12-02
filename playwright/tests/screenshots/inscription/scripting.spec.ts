@@ -1,7 +1,7 @@
 import { test, type Page } from '@playwright/test';
 import { screenshot } from './screenshot-util';
-import type { Accordion } from '../../page-objects/inscription/Accordion';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import type { Accordion } from '../../page-objects/inscription/accordion';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 
 const GENERIC_PID = {
   SCRIPT: '168F0C6DF682858E-f3',

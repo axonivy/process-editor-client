@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {

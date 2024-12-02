@@ -47,5 +47,5 @@ const assertJumpToUnknownTarget = async (page: Page, element: string) => {
   const trigger = await editor.createActivity(element);
   await trigger.quickActionBar().trigger('Jump', 'startsWith');
   await trigger.expectSelected();
-  await editor.inscription().expectHeader(element);
+  await editor.inscription().expectHeaderText(element);
 };

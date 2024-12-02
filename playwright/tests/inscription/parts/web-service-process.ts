@@ -1,7 +1,7 @@
-import type { Part } from '../../page-objects/inscription/Part';
-import type { RadioGroup } from '../../page-objects/inscription/RadioGroup';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { TextArea } from '../../page-objects/inscription/TextArea';
+import type { Part } from '../../page-objects/inscription/part';
+import type { RadioGroup } from '../../page-objects/inscription/radio-group';
+import type { Section } from '../../page-objects/inscription/section';
+import type { TextArea } from '../../page-objects/inscription/text-area';
 import { NewPartTest, PartObject } from './part-tester';
 
 class WsProcessPart extends PartObject {

@@ -1,7 +1,7 @@
-import type { MacroEditor } from '../../page-objects/inscription/CodeEditor';
-import type { Part } from '../../page-objects/inscription/Part';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { Select } from '../../page-objects/inscription/Select';
+import type { MacroEditor } from '../../page-objects/inscription/code-editor';
+import type { Part } from '../../page-objects/inscription/part';
+import type { Section } from '../../page-objects/inscription/section';
+import type { Select } from '../../page-objects/inscription/select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailContent extends PartObject {

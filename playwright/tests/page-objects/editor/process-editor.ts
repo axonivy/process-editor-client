@@ -8,9 +8,9 @@ import { Connector } from './connector';
 import { QuickActionBar } from './quick-action-bar';
 import { JumpOutBar } from './jump-out';
 import { ViewportBar } from './viewport';
-import { Inscription } from './inscription';
 import { GRAPH_SELECTOR, diagramLocator, graphLocator } from './graph';
 import { randomUUID } from 'crypto';
+import { Inscription } from '../inscription/inscription-view';
 
 const startSelector = GRAPH_SELECTOR + ' .start\\:requestStart';
 
@@ -97,7 +97,11 @@ export class ProcessEditor {
   }
 
   inscription() {
-    return new Inscription(this.page);
+    return ProcessEditor.inscriptionView(this.page);
+  }
+
+  public static inscriptionView(page: Page) {
+    return new Inscription(page, page.locator('#inscription-ui'));
   }
 
   async createActivity(type: string, position?: Point) {

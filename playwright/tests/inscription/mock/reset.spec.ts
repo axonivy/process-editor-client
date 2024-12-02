@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Reset part', () => {
   test('reset button', async ({ page }) => {
@@ -7,7 +7,7 @@ test.describe('Reset part', () => {
     const part = inscriptionView.accordion('General');
     await part.toggle();
 
-    const resetBtn = part.resetButton('General');
+    const resetBtn = part.reset();
     await expect(resetBtn).not.toBeVisible();
     const name = part.textArea({ label: 'Display name' });
     await name.fill('bla');

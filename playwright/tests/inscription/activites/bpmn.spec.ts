@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { GeneralTestWithoutTags, runTest } from '../parts';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 import { createProcess } from '../../glsp-protocol';
 
 test.describe('BPMN Activities', () => {

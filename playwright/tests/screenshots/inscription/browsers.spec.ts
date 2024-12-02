@@ -1,8 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import { screenshot } from './screenshot-util';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
-import { Browser } from '../../page-objects/inscription/CodeEditor';
-import type { Section } from '../../page-objects/inscription/Section';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { Browser } from '../../page-objects/inscription/code-editor';
+import type { Section } from '../../page-objects/inscription/section';
 
 const GENERIC_PID = {
   SCRIPT: '168F0C6DF682858E-f3',

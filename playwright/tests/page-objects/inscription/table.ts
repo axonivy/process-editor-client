@@ -1,8 +1,8 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
-import { ScriptCell } from './CodeEditor';
-import { Select } from './Select';
-import { Combobox } from './Combobox';
+import { ScriptCell } from './code-editor';
+import { Select } from './select';
+import { Combobox } from './combobox';
 
 export class Table {
   private readonly rows: Locator;

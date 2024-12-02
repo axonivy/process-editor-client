@@ -1,8 +1,8 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { Table } from '../../page-objects/inscription/Table';
-import type { InfoComponent } from '../../page-objects/inscription/InfoComponent';
+import type { Section } from '../../page-objects/inscription/section';
+import type { Table } from '../../page-objects/inscription/table';
+import type { InfoComponent } from '../../page-objects/inscription/info-component';
 
 class Case extends PartObject {
   info: InfoComponent;

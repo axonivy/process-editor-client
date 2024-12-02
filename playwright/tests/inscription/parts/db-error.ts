@@ -1,7 +1,7 @@
-import type { Part } from '../../page-objects/inscription/Part';
-import type { Select } from '../../page-objects/inscription/Select';
+import type { Part } from '../../page-objects/inscription/part';
+import type { Select } from '../../page-objects/inscription/select';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { Section } from '../../page-objects/inscription/section';
 
 class DbErrorPart extends PartObject {
   section: Section;

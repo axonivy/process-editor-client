@@ -1,7 +1,7 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { TextArea } from '../../page-objects/inscription/TextArea';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { TextArea } from '../../page-objects/inscription/text-area';
+import type { Section } from '../../page-objects/inscription/section';
 
 class EndPage extends PartObject {
   section: Section;

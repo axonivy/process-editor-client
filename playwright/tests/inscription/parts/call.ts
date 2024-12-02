@@ -1,9 +1,9 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Table } from '../../page-objects/inscription/Table';
-import type { ScriptArea } from '../../page-objects/inscription/CodeEditor';
-import type { Combobox } from '../../page-objects/inscription/Combobox';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { Table } from '../../page-objects/inscription/table';
+import type { ScriptArea } from '../../page-objects/inscription/code-editor';
+import type { Combobox } from '../../page-objects/inscription/combobox';
+import type { Section } from '../../page-objects/inscription/section';
 
 class Call extends PartObject {
   callSection: Section;

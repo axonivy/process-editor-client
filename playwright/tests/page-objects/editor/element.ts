@@ -2,7 +2,7 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import type { Point } from './types';
 import { QuickActionBar } from './quick-action-bar';
 import { LabelEdit } from './label-edit';
-import { Inscription } from './inscription';
+import { ProcessEditor } from './process-editor';
 
 export class BaseElement {
   protected readonly page: Page;
@@ -91,7 +91,7 @@ export class Element extends BaseElement {
   async inscribe() {
     await this.select();
     await this.element.dblclick();
-    const view = new Inscription(this.page);
+    const view = ProcessEditor.inscriptionView(this.page);
     await view.expectOpen();
     return view;
   }

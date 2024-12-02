@@ -1,7 +1,7 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Combobox } from '../../page-objects/inscription/Combobox';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { Combobox } from '../../page-objects/inscription/combobox';
+import type { Section } from '../../page-objects/inscription/section';
 
 class ProcessData extends PartObject {
   section: Section;

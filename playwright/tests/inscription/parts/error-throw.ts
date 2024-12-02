@@ -1,7 +1,7 @@
-import type { ScriptArea, ScriptInput } from '../../page-objects/inscription/CodeEditor';
-import type { Combobox } from '../../page-objects/inscription/Combobox';
-import type { Part } from '../../page-objects/inscription/Part';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { ScriptArea, ScriptInput } from '../../page-objects/inscription/code-editor';
+import type { Combobox } from '../../page-objects/inscription/combobox';
+import type { Part } from '../../page-objects/inscription/part';
+import type { Section } from '../../page-objects/inscription/section';
 import { NewPartTest, PartObject } from './part-tester';
 
 class ErrorThrow extends PartObject {
