@@ -162,6 +162,11 @@ export class Cell {
     await code.fill(value);
   }
 
+  async focusScriptCell() {
+    const code = new ScriptCell(this.page, this.textbox, this.locator);
+    await code.focus();
+  }
+
   async clearExpression() {
     const code = new ScriptCell(this.page, this.textbox, this.locator);
     await code.clear();
