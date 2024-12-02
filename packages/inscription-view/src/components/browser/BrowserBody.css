@@ -1,24 +1,12 @@
 .browser-dialog {
   --browser-padding: 20px;
-  background-color: var(--background);
-  color: var(--body);
-  box-shadow: var(--editor-shadow);
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  top: 0;
-  padding: var(--browser-padding);
-  animation: contentShow 200ms cubic-bezier(0.27, 0, 0.33, 1);
-  animation-fill-mode: forwards;
-  width: calc(100% - 2 * var(--browser-padding));
-  z-index: 3;
+  z-index: 100;
 }
 .browser-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: var(--size-2);
-  height: 100%;
 }
 .browser-content-exit {
   animation: contentExit 200ms cubic-bezier(0.73, 0, 0.67, 0);

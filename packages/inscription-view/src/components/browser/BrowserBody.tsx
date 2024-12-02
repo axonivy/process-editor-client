@@ -2,7 +2,6 @@ import './BrowserBody.css';
 import { DialogClose, DialogContent, DialogPortal, DialogTitle } from '@radix-ui/react-dialog';
 import { Button, Flex } from '@axonivy/ui-components';
 import { TabContent, TabList, TabRoot, type Tab } from '../widgets/tab/Tab';
-import { useEditorContext } from '../../context/useEditorContext';
 
 interface ReusableBrowserDialogProps {
   open: boolean;
@@ -14,10 +13,8 @@ interface ReusableBrowserDialogProps {
 }
 
 const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableApply }: ReusableBrowserDialogProps) => {
-  const { editorRef } = useEditorContext();
-
   return (
-    <DialogPortal container={editorRef.current}>
+    <DialogPortal>
       <DialogContent
         className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}
         onInteractOutside={e => {
