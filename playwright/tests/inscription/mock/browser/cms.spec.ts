@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
 import { applyBrowser, assertCodeHidden, assertCodeVisible, code } from './browser-mock-utils';
 
 test('browser add cms string', async ({ page }) => {

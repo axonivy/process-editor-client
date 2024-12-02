@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Validations', () => {
   const normalColor = 'rgb(231, 231, 231)';

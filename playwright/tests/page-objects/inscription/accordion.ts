@@ -1,13 +1,13 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
-import { Part } from './Part';
-import { Tab } from './Tab';
+import { Part } from './part';
+import { Tab } from './tab';
 import type { PartStateFlag } from '@axonivy/process-editor-inscription-view/src/components/editors/part/usePart';
 
 export class Accordion extends Part {
   private readonly toggleButtonLocator: Locator;
 
-  constructor(page: Page, label: string) {
+  constructor(page: Page, readonly label: string) {
     super(page, Accordion.locator(page, label));
     this.toggleButtonLocator = Accordion.toggleButtonLocator(page, label);
   }
@@ -28,8 +28,8 @@ export class Accordion extends Part {
     return new Tab(this.page, this.locator, label);
   }
 
-  resetButton(tab: string) {
-    return this.page.locator(`button[aria-label="Reset ${tab}"]`);
+  reset() {
+    return this.page.locator(`button[aria-label="Reset ${this.label}"]`);
   }
 
   async expectState(state: PartStateFlag) {

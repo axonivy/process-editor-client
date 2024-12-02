@@ -1,8 +1,8 @@
-import type { Part } from '../../page-objects/inscription/Part';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { Table } from '../../page-objects/inscription/Table';
-import type { Tags } from '../../page-objects/inscription/Tags';
-import type { TextArea } from '../../page-objects/inscription/TextArea';
+import type { Part } from '../../page-objects/inscription/part';
+import type { Section } from '../../page-objects/inscription/section';
+import type { Table } from '../../page-objects/inscription/table';
+import type { Tags } from '../../page-objects/inscription/tags';
+import type { TextArea } from '../../page-objects/inscription/text-area';
 import { NewPartTest, PartObject } from './part-tester';
 
 class General extends PartObject {

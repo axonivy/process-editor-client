@@ -1,11 +1,11 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { Select } from '../../page-objects/inscription/Select';
-import type { Table } from '../../page-objects/inscription/Table';
-import type { MacroEditor, ScriptArea } from '../../page-objects/inscription/CodeEditor';
-import type { Combobox } from '../../page-objects/inscription/Combobox';
-import type { RadioGroup } from '../../page-objects/inscription/RadioGroup';
+import type { Section } from '../../page-objects/inscription/section';
+import type { Select } from '../../page-objects/inscription/select';
+import type { Table } from '../../page-objects/inscription/table';
+import type { MacroEditor, ScriptArea } from '../../page-objects/inscription/code-editor';
+import type { Combobox } from '../../page-objects/inscription/combobox';
+import type { RadioGroup } from '../../page-objects/inscription/radio-group';
 import type { InputType } from '@axonivy/process-editor-inscription-protocol';
 import { expect, type Locator } from '@playwright/test';
 

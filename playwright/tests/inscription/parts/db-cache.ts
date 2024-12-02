@@ -1,6 +1,6 @@
-import type { ScriptInput } from '../../page-objects/inscription/CodeEditor';
-import type { Part } from '../../page-objects/inscription/Part';
-import type { RadioGroup } from '../../page-objects/inscription/RadioGroup';
+import type { ScriptInput } from '../../page-objects/inscription/code-editor';
+import type { Part } from '../../page-objects/inscription/part';
+import type { RadioGroup } from '../../page-objects/inscription/radio-group';
 import { NewPartTest, PartObject } from './part-tester';
 
 class DbCache extends PartObject {

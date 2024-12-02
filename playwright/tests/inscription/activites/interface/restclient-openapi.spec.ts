@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/InscriptionView';
+import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { RestRequestBodyOpenApiTest, RestRequestOpenApiTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 
 test.describe('Rest Client - OpenApi', () => {
-  let view: InscriptionView;
+  let view: Inscription;
   let testee: CreateProcessResult;
 
   test.beforeAll(async () => {

@@ -1,6 +1,6 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 
 export async function screenshotAccordion(page: Page, pid: string, accordionName: string, screenshotName: string, fullView = false) {
   const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');

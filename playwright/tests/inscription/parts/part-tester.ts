@@ -1,5 +1,5 @@
-import type { InscriptionView } from '../../page-objects/inscription/InscriptionView';
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Inscription } from '../../page-objects/inscription/inscription-view';
+import type { Part } from '../../page-objects/inscription/part';
 
 export abstract class PartObject {
   constructor(readonly part: Part) {}
@@ -42,22 +42,22 @@ export class NewPartTest implements PartTest {
   }
 }
 
-export async function runTest(view: InscriptionView, test: PartTest) {
+export async function runTest(view: Inscription, test: PartTest) {
   const accordion = view.accordion(test.partName());
 
   await accordion.toggle();
   await test.fill(accordion);
   await view.expectMutationStateSuccess();
-  await view.reload();
+  await view.page.reload();
 
   await accordion.toggle();
   await test.assertFill(accordion);
-  await view.reload();
+  await view.page.reload();
 
   await accordion.toggle();
   await test.clear(accordion);
   await view.expectMutationStateSuccess();
-  await view.reload();
+  await view.page.reload();
 
   await accordion.toggle();
   await test.assertClear(accordion);

@@ -1,8 +1,8 @@
 import type { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/process-editor-inscription-protocol';
-import { ScriptInput } from './CodeEditor';
-import { Select } from './Select';
-import type { Section } from './Section';
-import type { Part } from './Part';
+import { ScriptInput } from './code-editor';
+import { Select } from './select';
+import type { Section } from './section';
+import type { Part } from './part';
 
 export class ResponsibleComponent {
   typeSelect: Select;

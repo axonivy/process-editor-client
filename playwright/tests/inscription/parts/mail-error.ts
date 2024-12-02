@@ -1,7 +1,7 @@
-import type { Checkbox } from '../../page-objects/inscription/Checkbox';
-import type { Part } from '../../page-objects/inscription/Part';
-import type { Section } from '../../page-objects/inscription/Section';
-import type { Select } from '../../page-objects/inscription/Select';
+import type { Checkbox } from '../../page-objects/inscription/checkbox';
+import type { Part } from '../../page-objects/inscription/part';
+import type { Section } from '../../page-objects/inscription/section';
+import type { Select } from '../../page-objects/inscription/select';
 import { NewPartTest, PartObject } from './part-tester';
 
 class MailError extends PartObject {

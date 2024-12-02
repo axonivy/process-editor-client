@@ -1,9 +1,9 @@
-import type { Part } from '../../page-objects/inscription/Part';
+import type { Part } from '../../page-objects/inscription/part';
 import { NewPartTest, PartObject } from './part-tester';
-import type { Combobox } from '../../page-objects/inscription/Combobox';
-import type { Checkbox } from '../../page-objects/inscription/Checkbox';
-import type { MacroEditor } from '../../page-objects/inscription/CodeEditor';
-import type { Section } from '../../page-objects/inscription/Section';
+import type { Combobox } from '../../page-objects/inscription/combobox';
+import type { Checkbox } from '../../page-objects/inscription/checkbox';
+import type { MacroEditor } from '../../page-objects/inscription/code-editor';
+import type { Section } from '../../page-objects/inscription/section';
 
 class SignalCatch extends PartObject {
   section: Section;

@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/InscriptionView';
+import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
 import { assertCodeHidden, browserBtn } from './browser-mock-utils';
 
 test('browser add role', async ({ page }) => {

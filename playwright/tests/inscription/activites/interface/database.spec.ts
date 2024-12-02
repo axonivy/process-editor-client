@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/InscriptionView';
+import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { DbErrorTest, GeneralTest, OutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
@@ -7,7 +7,7 @@ import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWri
 import { DataCacheTest } from '../../parts/db-cache';
 
 test.describe('Database', () => {
-  let view: InscriptionView;
+  let view: Inscription;
   let testee: CreateProcessResult;
 
   test.beforeEach(async ({ page }) => {
