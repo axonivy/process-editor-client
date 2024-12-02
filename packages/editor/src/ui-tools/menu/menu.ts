@@ -135,7 +135,7 @@ export abstract class ItemMenu implements Menu {
       }
       const nextButton = buttons[nextIndex];
       this.focusButton(nextButton);
-      nextButton?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      nextButton?.scrollIntoView({ behavior: 'instant', block: 'end', inline: 'end' });
     }
   }
 
