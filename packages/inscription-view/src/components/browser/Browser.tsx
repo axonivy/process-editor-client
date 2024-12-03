@@ -52,7 +52,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
   const roleBrowser = useRoleBrowser(onRowDoubleClick, roleOptions);
   const conditionBuilder = useConditionBuilder();
 
-  const allBrowsers = [attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, roleBrowser, conditionBuilder];
+  const allBrowsers = [conditionBuilder, attrBrowser, cmsBrowser, funcBrowser, typeBrowser, tableColBrowser, roleBrowser];
 
   const tabs = allBrowsers.filter(browser => types.includes(browser.id));
 

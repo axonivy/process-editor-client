@@ -21,7 +21,7 @@ export const Condition = () => {
           <MacroArea
             value={config.query.sql.condition}
             onChange={change => updateSql('condition', change)}
-            browsers={['tablecol', 'attr', 'condition']}
+            browsers={['tablecol', 'attr']}
             maximizeState={maximizeState}
           />
         </ValidationFieldset>

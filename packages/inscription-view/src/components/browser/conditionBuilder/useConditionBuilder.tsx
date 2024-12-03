@@ -26,10 +26,9 @@ export const useConditionBuilder = (): UseBrowserImplReturnValue => {
         >
           <ConditionBuilder onChange={e => setCondition({ cursorValue: e })} />
         </ConditionBuilderProvider>
-        <pre
-          style={{ border: 'var(--basic-border)', maxHeight: '80px', padding: 'var(--input-padding)', borderRadius: 'var(--border-r2)' }}
-        >
-          {condition.cursorValue}
+        <pre className='browser-helptext'>
+          <b>Generated Condition</b>
+          <code>{condition.cursorValue}</code>
         </pre>
       </>
     ),
