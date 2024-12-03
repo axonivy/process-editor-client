@@ -42,11 +42,20 @@ export const useMonacoEditor = (options?: { modifyAction?: ModifyAction }) => {
         value.cursorValue.length > 0 && options?.modifyAction && type !== 'tablecol'
           ? options.modifyAction(value.cursorValue)
           : value.cursorValue;
-      editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
+      const editorModel = editor.getModel();
+      if (type === 'condition' && editorModel) {
+        editor.executeEdits('browser', [
+          {
+            range: editorModel.getFullModelRange(),
+            text,
+            forceMoveMarkers: true
+          }
+        ]);
+      } else {
+        editor.executeEdits('browser', [{ range: selection, text, forceMoveMarkers: true }]);
+      }
       if (type === 'func') {
         const updatedEditorContent = editor.getValue();
-        const editorModel = editor.getModel();
-
         if (editorModel && text.indexOf('(') !== -1) {
           const textIndex = updatedEditorContent.indexOf(text);
 
