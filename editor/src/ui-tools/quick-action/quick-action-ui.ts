@@ -33,6 +33,7 @@ import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuActi
 import { Menu } from '../menu/menu';
 import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
 import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
+import { calculateBarShift, calculateMenuShift } from './quick-action-util';
 
 @injectable()
 export class QuickActionUI extends AbstractUIExtension implements IActionHandler, SelectionListener {
@@ -41,6 +42,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
   private activeQuickActionBtn?: HTMLElement;
   private quickActionBar?: HTMLElement;
   private quickActionMenu?: Menu;
+  private resizeObserver?: ResizeObserver;
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(TYPES.IActionDispatcherProvider) public actionDispatcherProvider: IActionDispatcherProvider;
@@ -66,6 +68,11 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     this.selectionService.register(this);
     const mouseListener = new QuickActionUiMouseListener(this);
     this.mouseTool.register(mouseListener);
+    this.resizeObserver = new ResizeObserver(entries => {
+      if (entries.length === 1 && entries[0].target instanceof HTMLElement) {
+        QuickActionUI.shiftMenu(entries[0].target, this.quickActionBar);
+      }
+    });
   }
 
   protected initializeContents(containerElement: HTMLElement): void {
@@ -115,16 +122,19 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
       if (menu.offsetWidth > this.quickActionBar.offsetWidth) {
         menu.classList.add('border-radius');
         this.quickActionBar.classList.add('no-bottom-border-radius');
-        this.shiftBar(menu, 8);
+        QuickActionUI.shiftBar(menu, this.getParentContainer(), 8);
       } else {
-        this.shiftBar(menu, 24);
+        QuickActionUI.shiftBar(menu, this.getParentContainer(), 24);
       }
+      QuickActionUI.shiftMenu(menu, this.quickActionBar);
+      this.resizeObserver?.observe(menu);
     }
   }
 
   private removeMenu(): void {
     this.quickActionMenu?.remove();
     this.quickActionMenu = undefined;
+    this.resizeObserver?.disconnect();
   }
 
   public showUi(): void {
@@ -173,7 +183,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
     const selectionBounds = elements.map(e => getAbsoluteBounds(e)).reduce((b1, b2) => Bounds.combine(b1, b2));
     this.quickActionBar = this.createQuickActionsBar(containerElement, selectionBounds, true);
     this.createQuickActions(this.quickActionBar, this.activeQuickActions);
-    this.shiftBar(this.quickActionBar);
+    QuickActionUI.shiftBar(this.quickActionBar, this.getParentContainer());
   }
 
   private showSingleQuickActionUi(containerElement: HTMLElement, element: SModelElement & BoundsAware): void {
@@ -184,7 +194,7 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
       }
       this.quickActionBar = this.createQuickActionsBar(containerElement, getAbsoluteBounds(element));
       this.createQuickActions(this.quickActionBar, this.activeQuickActions);
-      this.shiftBar(this.quickActionBar);
+      QuickActionUI.shiftBar(this.quickActionBar, this.getParentContainer());
     }
   }
 
@@ -197,22 +207,34 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
       const absoluteBounds = getAbsoluteEdgeBounds(edge);
       this.quickActionBar = this.createQuickActionsBar(containerElement, absoluteBounds);
       this.createQuickActions(this.quickActionBar, this.activeQuickActions);
-      this.shiftBar(this.quickActionBar);
+      QuickActionUI.shiftBar(this.quickActionBar, this.getParentContainer());
     }
   }
 
-  private shiftBar(bar: HTMLElement, distanceToWindow = 16): void {
-    const bounds = bar.getBoundingClientRect();
-    let shift = bounds.width / 2;
-    const maxShift = bounds.x - distanceToWindow;
-    if (shift > maxShift) {
-      shift = maxShift;
+  static shiftBar(bar: HTMLElement, diagramDiv: HTMLElement | null, distanceToWindow = 16): void {
+    if (diagramDiv === null) {
+      return;
     }
-    const minShift = bounds.x + bounds.width + distanceToWindow - shift;
-    if (minShift > window.innerWidth) {
-      shift += minShift - window.innerWidth;
+    const shift = calculateBarShift(
+      bar.getBoundingClientRect(),
+      { width: diagramDiv.offsetWidth, height: diagramDiv.offsetHeight },
+      distanceToWindow
+    );
+    bar.style.left = `${shift.left}px`;
+    bar.style.top = `${shift.top}px`;
+  }
+
+  static shiftMenu(menu: HTMLElement, bar?: HTMLElement): void {
+    if (!bar) {
+      return;
     }
-    bar.style.marginLeft = `${-shift}px`;
+    const shift = calculateMenuShift(
+      { height: menu.getBoundingClientRect().height, y: menu.offsetTop },
+      { height: bar?.getBoundingClientRect().height, y: bar.offsetTop }
+    );
+    if (shift) {
+      menu.style.top = `${shift.top}px`;
+    }
   }
 
   private createQuickActionsBar(containerElement: HTMLElement, parentBounds: Bounds, drawSelectionBox = false): HTMLElement {
@@ -293,6 +315,10 @@ export class QuickActionUI extends AbstractUIExtension implements IActionHandler
 
   protected isReadonly(): boolean {
     return this.editorContext.isReadonly;
+  }
+
+  protected getParentContainer(): HTMLElement | null {
+    return document.querySelector<HTMLElement>('#' + this.options.baseDiv)!;
   }
 }
 

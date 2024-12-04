@@ -2,9 +2,12 @@
   width: 0;
   height: 0;
 }
+.quick-actions-container .bar-menu {
+  position: relative;
+  z-index: 10;
+}
 .quick-actions-bar {
   position: relative;
-  margin-top: 1rem;
   max-height: 44px;
   background: var(--glsp-tool-bg);
   box-shadow: var(--glsp-box-shadow);
