@@ -11,8 +11,8 @@ export class IvyChangeBoundsTool extends ChangeBoundsTool {
 
 export class IvyChangeBoundsListener extends ChangeBoundsListener {
   override mouseDown(target: GModelElement, event: MouseEvent) {
-    if (this.activeResizeElement) {
-      // We still have a resize element, so we don't need to reevaluate it.
+    if (this.activeResizeElement && this.activeResizeElement instanceof LaneNode) {
+      // We still have an active lane resize element (move), so we don't need to reevaluate it.
       // This may happens because the mouse left the window.
       return [];
     }
