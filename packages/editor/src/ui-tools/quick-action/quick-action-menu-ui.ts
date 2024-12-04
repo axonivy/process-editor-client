@@ -148,7 +148,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
     super();
   }
 
-  createMenuBody(bodyDiv: HTMLElement): void {
+  override createMenuBody(bodyDiv: HTMLElement): void {
     const menu = createElement('div', ['bar-menu-text']);
     bodyDiv.appendChild(menu);
     if (this.action.title) {
