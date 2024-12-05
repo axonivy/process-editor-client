@@ -1,15 +1,21 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
-import { ScriptArea, ScriptInput } from '../../widgets';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorThrowData } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
-import type { ClassifiedItem } from '../common';
-import { ClassificationCombobox, PathCollapsible, PathFieldset, ValidationFieldset } from '../common';
 import { useErrorThrowData } from './useErrorThrowData';
 import { classifiedItemInfo } from '../../../utils/event-code-categorie';
 import { deepEqual } from '../../../utils/equals';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import type { ClassifiedItem } from '../common/classification/ClassificationCombobox';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { PathFieldset } from '../common/path/PathFieldset';
+import ClassificationCombobox from '../common/classification/ClassificationCombobox';
+import { ScriptInput } from '../../widgets/code-editor/ScriptInput';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 
 export function useErrorThrowPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();

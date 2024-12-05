@@ -1,13 +1,17 @@
 import { useMemo } from 'react';
-import { useAction, useEditorContext, useMeta, useValidations } from '../../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import type { CallData, DialogCallData, VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import CallMapping, { useCallPartValidation } from '../CallMapping';
 import { useCallData, useDialogCallData } from '../useCallData';
 import CallSelect from '../CallSelect';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { FieldsetControl } from '../../../../components/widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
+import { useValidations } from '../../../../context/useValidation';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import { useAction } from '../../../../context/useAction';
+import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
 
 export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
   const callData = useCallData();

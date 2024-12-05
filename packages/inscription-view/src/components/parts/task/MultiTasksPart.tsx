@@ -1,10 +1,12 @@
 import type { TaskData } from '@axonivy/process-editor-inscription-protocol';
-import type { Tab } from '../../widgets';
-import { EmptyWidget, Tabs } from '../../widgets';
-import { PathContext, TaskDataContextInstance, mergePaths, useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import Task from './task/Task';
 import { useMutliTaskData } from './useTaskData';
+import { useValidations } from '../../../context/useValidation';
+import { Tabs, type Tab } from '../../widgets/tab/Tab';
+import { mergePaths, PathContext } from '../../../context/usePath';
+import { TaskDataContextInstance } from '../../../context/useDataContext';
+import EmptyWidget from '../../widgets/empty/EmptyWidget';
 
 export function useMultiTasksPart(): PartProps {
   const { config, defaultConfig, initConfig, resetTasks } = useMutliTaskData();

@@ -1,23 +1,20 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
 
-import {
-  useCasePart,
-  useSignalCatchPart,
-  useGeneralPart,
-  useOutputPart,
-  useTaskPart,
-  useStartPart,
-  useErrorCatchPart,
-  useTriggerPart,
-  useRequestPart,
-  useProgramStartPart,
-  useConfigurationPart
-} from '../../../components/parts';
 import Part from '../part/Part';
+import { useCasePart } from '../../parts/case/CasePart';
+import { useErrorCatchPart } from '../../parts/error/ErrorCatchPart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useConfigurationPart } from '../../parts/program/configuration/ConfigurationPart';
+import { useProgramStartPart } from '../../parts/program/event/ProgramStartPart';
+import { useRequestPart } from '../../parts/request/RequestPart';
+import { useSignalCatchPart } from '../../parts/signal/SignalCatchPart';
+import { useStartPart } from '../../parts/start/StartPart';
+import { useTaskPart } from '../../parts/task/TaskPart';
+import { useTriggerPart } from '../../parts/trigger/TriggerPart';
 
 const RequestStartEditor = memo(() => {
   const name = useGeneralPart();

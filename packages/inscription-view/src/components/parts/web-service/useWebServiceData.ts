@@ -1,8 +1,7 @@
-import type { ConfigDataContext } from '../../../context';
-import { useConfigDataContext } from '../../../context';
 import type { WebserviceStartData } from '@axonivy/process-editor-inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
+import { useConfigDataContext, type ConfigDataContext } from '../../../context/useDataContext';
 
 export function useWebServiceData(): ConfigDataContext<WebserviceStartData> & {
   updatePermission: DataUpdater<WebserviceStartData['permission']>;

@@ -1,10 +1,12 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
-import { useSignalCatchPart, useGeneralPart, useOutputPart, useErrorCatchPart } from '../../../components/parts';
 import Part from '../part/Part';
+import { useErrorCatchPart } from '../../parts/error/ErrorCatchPart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useSignalCatchPart } from '../../parts/signal/SignalCatchPart';
 
 const ErrorBoundaryEventEditor = memo(() => {
   const name = useGeneralPart();

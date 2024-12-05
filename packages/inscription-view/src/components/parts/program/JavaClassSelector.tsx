@@ -1,10 +1,14 @@
-import type { ComboboxItem, FieldsetControl } from '../../../components/widgets';
-import { Combobox } from '../../../components/widgets';
-import { useAction, useEditorContext, useMeta } from '../../../context';
 import type { Consumer } from '../../../types/lambda';
-import { PathCollapsible, ValidationFieldset } from '../common';
 import type { Type } from '@axonivy/process-editor-inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import type { ComboboxItem } from '../../widgets/combobox/Combobox';
+import { useAction } from '../../../context/useAction';
+import type { FieldsetControl } from '../../widgets/fieldset/fieldset-control';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import Combobox from '../../widgets/combobox/Combobox';
 
 type JavaClassSelectorProps = {
   javaClass: string;

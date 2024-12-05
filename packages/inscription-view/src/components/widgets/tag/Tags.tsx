@@ -1,11 +1,12 @@
 import './Tags.css';
 import { memo, useEffect, useRef, useState } from 'react';
-import { useEditorContext, useMeta } from '../../../context';
 import IvyIcon from '../IvyIcon';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useReadonly } from '@axonivy/ui-components';
 import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
   const { elementContext } = useEditorContext();

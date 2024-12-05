@@ -1,10 +1,11 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 import { ProgramStartTest } from '../../parts/program-start';
 import { ConfigTimerBeanTest, ConfigFilePickupStartEventBeanTest } from '../../parts/configuration';
+import { GeneralTest } from '../../parts/name';
+import { runTest } from '../../parts/part-tester';
 
 test.describe('Program Start', () => {
   let view: Inscription;

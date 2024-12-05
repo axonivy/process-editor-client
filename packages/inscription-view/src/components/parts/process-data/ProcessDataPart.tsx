@@ -1,11 +1,14 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { useProcessDataData } from './useProcessDataData';
 import type { ProcessDataData } from '@axonivy/process-editor-inscription-protocol';
-import { PathCollapsible, ValidationFieldset } from '../common';
 import type { DataClassItem } from './ClassSelectorPart';
 import DataClassSelector from './ClassSelectorPart';
 import { Message } from '@axonivy/ui-components';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 
 export function useProcessDataPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProcessDataData();

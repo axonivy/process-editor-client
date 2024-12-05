@@ -1,9 +1,12 @@
-/* eslint-disable react/jsx-key */
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
-import { useConfigurationPart, useEventPart, useGeneralPart, useOutputPart, useTaskPart } from '../../../components/parts';
 import Part from '../part/Part';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useEventPart } from '../../parts/program/intermediate/EventPart';
+import { useConfigurationPart } from '../../parts/program/configuration/ConfigurationPart';
+import { useTaskPart } from '../../parts/task/TaskPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
 
 const ThirdPartyWaitEventEditor = memo(() => {
   const name = useGeneralPart();

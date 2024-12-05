@@ -1,13 +1,13 @@
 import { Dialog } from '@radix-ui/react-dialog';
-import { type Tab } from '../widgets';
 import { type UseBrowserReturnValue } from './useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
-import MaximizedCodeEditor, { type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
+import { MaximizedCodeEditor, type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
 import BrowserBody from './BrowserBody';
+import type { Tab } from '../widgets/tab/Tab';
 
 type MaximaziedCodeEditorBrowserProps = UseBrowserReturnValue & MaximizedCodeEditorProps;
 
-const MaximizedCodeEditorBrowser = ({
+export const MaximizedCodeEditorBrowser = ({
   open,
   onOpenChange,
   browsers,
@@ -51,5 +51,3 @@ const MaximizedCodeEditorBrowser = ({
     </>
   );
 };
-
-export default MaximizedCodeEditorBrowser;

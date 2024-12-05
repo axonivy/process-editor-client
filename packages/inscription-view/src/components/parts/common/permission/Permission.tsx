@@ -1,12 +1,12 @@
 import type { StartPermission } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
 import RoleSelect from '../responsible/RoleSelect';
-import { Checkbox } from '../../../widgets';
 import { deepEqual } from '../../../../utils/equals';
 import { PathFieldset } from '../path/PathFieldset';
 import { PathCollapsible } from '../path/PathCollapsible';
 import ExceptionSelect from '../exception-handler/ExceptionSelect';
 import type { DataUpdater } from '../../../../types/lambda';
+import Checkbox from '../../../widgets/checkbox/Checkbox';
 
 interface PermissionProps {
   anonymousFieldActive: boolean;

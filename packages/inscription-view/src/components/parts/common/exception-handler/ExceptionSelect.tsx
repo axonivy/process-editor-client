@@ -1,7 +1,8 @@
-import type { SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
-import { useEditorContext, useMeta } from '../../../../context';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
 import type { Consumer } from '../../../../types/lambda';
+import type { SelectItem } from '../../../widgets/select/Select';
+import Select from '../../../widgets/select/Select';
 
 type ExceptionSelectProps = {
   value: string;

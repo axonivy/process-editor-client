@@ -1,11 +1,15 @@
-import { Checkbox, EmptyWidget, ScriptInput } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useTriggerData } from './useTriggerData';
 import type { TriggerData } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { PathFieldset, ValidationCollapsible } from '../common';
 import { ResponsibleCollapsible } from '../common/responsible/ResponsiblePart';
+import { useValidations } from '../../../context/useValidation';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import { PathContext } from '../../../context/usePath';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { PathFieldset } from '../common/path/PathFieldset';
+import { ScriptInput } from '../../widgets/code-editor/ScriptInput';
+import EmptyWidget from '../../widgets/empty/EmptyWidget';
 
 export function useTriggerPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();

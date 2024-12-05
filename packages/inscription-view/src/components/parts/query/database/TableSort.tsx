@@ -1,10 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { PathCollapsible } from '../../common';
 import { useQueryData } from '../useQueryData';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import type { SelectItem } from '../../../../components/widgets';
-import { useEditorContext, useMeta } from '../../../../context';
 import { QUERY_ORDER } from '@axonivy/process-editor-inscription-protocol';
 import { arraymove, indexOf } from '../../../../utils/array';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -18,6 +15,10 @@ import {
   TableCell,
   TableResizableHeader
 } from '@axonivy/ui-components';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import type { SelectItem } from '../../../widgets/select/Select';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 

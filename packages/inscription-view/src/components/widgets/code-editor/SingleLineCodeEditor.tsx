@@ -2,9 +2,9 @@ import { useCallback } from 'react';
 import { MonacoEditorUtil, SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { CodeEditorProps } from './CodeEditor';
-import CodeEditor from './CodeEditor';
+import { CodeEditor } from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
-import type { BrowserType } from '../../../components/browser';
+import type { BrowserType } from '../../browser/useBrowser';
 
 type EditorOptions = {
   editorOptions?: {
@@ -21,7 +21,7 @@ type EditorOptions = {
 export type CodeEditorInputProps = Omit<CodeEditorProps, 'macro' | 'options' | 'onMount' | 'height' | 'onMountFuncs' | 'context'> &
   EditorOptions & { browsers: BrowserType[]; placeholder?: string };
 
-const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
+export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyActions, ...props }: CodeEditorProps & EditorOptions) => {
   const mountFuncs = onMountFuncs ? onMountFuncs : [];
 
   const singleLineMountFuncs = (editor: monaco.editor.IStandaloneCodeEditor) => {
@@ -88,5 +88,3 @@ const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, keyAction
     />
   );
 };
-
-export default SingleLineCodeEditor;

@@ -1,10 +1,13 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTest, OutputTest, TaskTester, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 import { EventTest } from '../../parts/event';
 import { ConfigFileIntermediateEventBeanTest } from '../../parts/configuration';
+import { GeneralTest } from '../../parts/name';
+import { OutputTest } from '../../parts/output';
+import { runTest } from '../../parts/part-tester';
+import { TaskTester } from '../../parts/task';
 
 test.describe('Wait', () => {
   let view: Inscription;

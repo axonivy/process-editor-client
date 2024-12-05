@@ -1,6 +1,4 @@
-import { ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { Fieldset, ScriptCell } from '../../../../widgets';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -9,9 +7,12 @@ import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
 import type { RestParam } from './rest-parameter';
 import { restParamBuilder, toRestMap, updateRestParams } from './rest-parameter';
-import { PathContext } from '../../../../../context';
 import { deepEqual } from '../../../../../utils/equals';
 import { InputCell, SortableHeader, Table, TableAddRow, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { PathContext } from '../../../../../context/usePath';
+import Fieldset from '../../../../widgets/fieldset/Fieldset';
+import { ValidationRow } from '../../../common/path/validation/ValidationRow';
+import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
 
 const EMPTY_PARAMETER: RestParam = { name: '', expression: '', known: false };
 

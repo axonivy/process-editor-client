@@ -1,10 +1,12 @@
 import type { WebServiceProcessData, WsAuth } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES, WS_AUTH_TYPE } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
-import { useValidations } from '../../../context';
-import { Input, Radio } from '../../../components/widgets';
 import { useWebServiceProcessData } from './useWebServiceProcessData';
-import { PathFieldset, ValidationCollapsible } from '../common';
+import { useValidations } from '../../../context/useValidation';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { PathFieldset } from '../common/path/PathFieldset';
+import Input from '../../widgets/input/Input';
+import Radio from '../../widgets/radio/Radio';
 
 export function useWebServiceProcessPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceProcessData();

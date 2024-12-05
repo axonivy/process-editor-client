@@ -2,16 +2,16 @@ import { useCombobox } from 'downshift';
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
 import './Combobox.css';
-import { usePath } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { Button, Input, InputBadge, useField, useReadonly } from '@axonivy/ui-components';
-import { SingleLineCodeEditor } from '../code-editor';
 import { useMonacoEditor } from '../code-editor/useCodeEditor';
-import type { BrowserType } from '../../../components/browser';
-import { Browser, useBrowser } from '../../../components/browser';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import type { BrowserValue } from '../../browser/Browser';
 import { badgePropsExpression } from '../../../utils/badgeproperties';
+import { useBrowser, type BrowserType } from '../../browser/useBrowser';
+import { usePath } from '../../../context/usePath';
+import { SingleLineCodeEditor } from '../code-editor/SingleLineCodeEditor';
+import Browser from '../../browser/Browser';
 
 export interface ComboboxItem {
   value: string;

@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
-import type { SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
 import { useRoles } from './useRoles';
-import { Browser, useBrowser } from '../../../browser';
-import { usePath } from '../../../../context';
 import type { BrowserValue } from '../../../browser/Browser';
 import { Flex } from '@axonivy/ui-components';
+import type { SelectItem } from '../../../widgets/select/Select';
+import { useBrowser } from '../../../browser/useBrowser';
+import { usePath } from '../../../../context/usePath';
+import Select from '../../../widgets/select/Select';
+import Browser from '../../../browser/Browser';
 
 const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
 

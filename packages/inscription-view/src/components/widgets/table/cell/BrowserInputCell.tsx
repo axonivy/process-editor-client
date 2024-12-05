@@ -1,8 +1,9 @@
 import type { CellContext } from '@tanstack/react-table';
-import { Input } from '../../input';
-import { Browser, useBrowser } from '../../../browser';
-import { usePath } from '../../../../context';
 import { Flex, useEditCell } from '@axonivy/ui-components';
+import { useBrowser } from '../../../browser/useBrowser';
+import { usePath } from '../../../../context/usePath';
+import Input from '../../input/Input';
+import Browser from '../../../browser/Browser';
 
 type BrowserInputCellProps<TData> = {
   cell: CellContext<TData, string>;

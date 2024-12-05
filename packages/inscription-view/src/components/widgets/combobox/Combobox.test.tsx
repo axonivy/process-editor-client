@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import type { ComboboxItem } from './Combobox';
 import Combobox from './Combobox';
 import { render, screen, userEvent } from 'test-utils';
-import type { BrowserType } from '../../../components/browser';
 import { describe, test, expect } from 'vitest';
+import type { BrowserType } from '../../browser/useBrowser';
 
 describe('Combobox', () => {
   function renderCombobox(

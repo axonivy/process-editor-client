@@ -1,7 +1,9 @@
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
-import { Checkbox, ScriptInput } from '../../../widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
 import { useTaskData } from '../useTaskData';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import Checkbox from '../../../widgets/checkbox/Checkbox';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 
 const TaskOptionsPart = () => {
   const { task, update } = useTaskData();

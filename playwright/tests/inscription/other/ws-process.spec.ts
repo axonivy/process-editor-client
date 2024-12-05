@@ -1,8 +1,12 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../page-objects/inscription/inscription-view';
-import { GeneralTestWithDisabledName, PermissionsTest, ProcessDataTest, WebServiceProcessTest, runTest } from '../parts';
 import type { CreateProcessResult } from '../../glsp-protocol';
 import { createProcess } from '../../glsp-protocol';
+import { GeneralTestWithDisabledName } from '../parts/name';
+import { runTest } from '../parts/part-tester';
+import { PermissionsTest } from '../parts/permissions';
+import { ProcessDataTest } from '../parts/process-data';
+import { WebServiceProcessTest } from '../parts/web-service-process';
 
 test.describe('Web Service Process', () => {
   let view: Inscription;

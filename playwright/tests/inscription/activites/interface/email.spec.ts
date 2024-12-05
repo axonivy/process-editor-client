@@ -1,8 +1,13 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { MailAttachmentTest, MailContentTest, MailHeaderTest, MailErrorTest, GeneralTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { MailAttachmentTest } from '../../parts/mail-attachments';
+import { MailContentTest } from '../../parts/mail-content';
+import { MailErrorTest } from '../../parts/mail-error';
+import { MailHeaderTest } from '../../parts/mail-header';
+import { GeneralTest } from '../../parts/name';
+import { runTest } from '../../parts/part-tester';
 
 test.describe('EMail', () => {
   let view: Inscription;

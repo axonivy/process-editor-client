@@ -1,6 +1,6 @@
 import useMaximizedCodeEditor from '../../../../browser/useMaximizedCodeEditor';
-import { ScriptArea } from '../../../../widgets';
-import { PathFieldset } from '../../../common';
+import { ScriptArea } from '../../../../widgets/code-editor/ScriptArea';
+import { PathFieldset } from '../../../common/path/PathFieldset';
 import { useRestRequestData } from '../../useRestRequestData';
 
 export const RestJaxRsCode = () => {

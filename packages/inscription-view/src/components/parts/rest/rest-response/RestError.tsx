@@ -1,9 +1,9 @@
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
-import type { PathFieldsetProps } from '../../common';
-import { PathFieldset } from '../../common';
-import { useEditorContext, useMeta } from '../../../../context';
 import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
 import { ExceptionCombobox, type ExceptionItem } from '../../common/exception-handler/ExceptionCombobox';
+import { PathFieldset, type PathFieldsetProps } from '../../common/path/PathFieldset';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
 
 type RestErrorProps = Omit<PathFieldsetProps, 'value' | 'onChange' | 'children'> & {
   value: string;

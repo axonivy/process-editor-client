@@ -3,14 +3,15 @@ import type { QueryData } from '@axonivy/process-editor-inscription-protocol';
 import { DatabaseSelect } from './database/DatabaseSelect';
 import { QueryKindSelect } from './database/QueryKindSelect';
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
-import { PathContext, useValidations } from '../../../context';
 import { QueryRead } from './db-query/QueryRead';
 import { QueryWrite } from './db-query/QueryWrite';
 import { QueryUpdate } from './db-query/QueryUpdate';
 import { QueryDelete } from './db-query/QueryDelete';
 import { QueryAny } from './db-query/QueryAny';
 import { TableSelect } from './database/TableSelect';
-import { ValidationCollapsible } from '../common';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 
 export function useQueryPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useQueryData();

@@ -31,15 +31,11 @@ import { deepmerge } from 'deepmerge-ts';
 import type { ReactElement, ReactNode } from 'react';
 import { useRef } from 'react';
 import type { DeepPartial } from './type-utils';
-import type { ClientContext, DataContext } from '../context';
-import {
-  ClientContextProvider,
-  DataContextInstance,
-  DEFAULT_EDITOR_CONTEXT,
-  EditorContextInstance,
-  OpenApiContextProvider
-} from '../context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { DataContextInstance, type DataContext } from '../context/useDataContext';
+import { ClientContextProvider, type ClientContext } from '../context/useClient';
+import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../context/useEditorContext';
+import { OpenApiContextProvider } from '../context/useOpenApi';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;

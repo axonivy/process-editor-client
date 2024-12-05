@@ -1,8 +1,10 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTest, OutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { GeneralTest } from '../../parts/name';
+import { OutputTest } from '../../parts/output';
+import { runTest } from '../../parts/part-tester';
 
 test.describe('Event Start', () => {
   let view: Inscription;

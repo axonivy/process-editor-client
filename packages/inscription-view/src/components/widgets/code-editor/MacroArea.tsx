@@ -1,17 +1,18 @@
 import './ScriptArea.css';
-import { Browser, useBrowser } from '../../../components/browser';
 import type { CodeEditorAreaProps } from './ResizableCodeEditor';
-import ResizableCodeEditor from './ResizableCodeEditor';
+import { ResizableCodeEditor } from './ResizableCodeEditor';
 import { monacoAutoFocus, useMonacoEditor } from './useCodeEditor';
-import { usePath } from '../../../context';
 import type { ElementRef } from 'react';
 import { useRef } from 'react';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { InputBadgeArea, useField } from '@axonivy/ui-components';
 import { badgePropsExpression } from '../../../utils/badgeproperties';
-import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
+import { MaximizedCodeEditorBrowser } from '../../browser/MaximizedCodeEditorBrowser';
+import Browser from '../../browser/Browser';
+import { useBrowser } from '../../browser/useBrowser';
+import { usePath } from '../../../context/usePath';
 
-const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
+export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
@@ -57,5 +58,3 @@ const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps)
     </div>
   );
 };
-
-export default MacroArea;

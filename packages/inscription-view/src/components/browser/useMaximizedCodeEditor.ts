@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IvyIcons } from '@axonivy/ui-icons';
-import type { FieldsetControl } from '../widgets';
+import type { FieldsetControl } from '../widgets/fieldset/fieldset-control';
 
 const useMaximizedCodeEditor = () => {
   const [isMaximizedCodeEditorOpen, setIsMaximizedCodeEditorOpen] = useState(false);

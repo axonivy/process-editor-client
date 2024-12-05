@@ -1,8 +1,8 @@
 import './BrowserBody.css';
 import { DialogClose, DialogContent, DialogPortal, DialogTitle } from '@radix-ui/react-dialog';
-import { TabList, TabRoot, type Tab, TabContent } from '../widgets';
-import { useEditorContext } from '../../context';
 import { Button, Flex } from '@axonivy/ui-components';
+import { TabContent, TabList, TabRoot, type Tab } from '../widgets/tab/Tab';
+import { useEditorContext } from '../../context/useEditorContext';
 
 interface ReusableBrowserDialogProps {
   open: boolean;

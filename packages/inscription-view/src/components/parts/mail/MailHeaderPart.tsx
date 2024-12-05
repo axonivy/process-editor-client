@@ -1,11 +1,12 @@
-import { MacroInput } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/process-editor-inscription-protocol';
-import { useValidations } from '../../../context';
-import { PathCollapsible, PathFieldset } from '../common';
-import type { BrowserType } from '../../../components/browser';
 import { deepEqual } from '../../../utils/equals';
+import { useValidations } from '../../../context/useValidation';
+import type { BrowserType } from '../../browser/useBrowser';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { PathFieldset } from '../common/path/PathFieldset';
+import { MacroInput } from '../../widgets/code-editor/MacroInput';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();

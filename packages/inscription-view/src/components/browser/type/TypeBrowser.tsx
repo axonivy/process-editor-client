@@ -1,15 +1,18 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, FilterFn, RowSelectionState } from '@tanstack/react-table';
 import { getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
-import { useEditorContext, useMeta } from '../../../context';
 import type { JavaType } from '@axonivy/process-editor-inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getCursorValue } from './cursor-value';
 import { TableBody, TableCell } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import { SearchTable } from '../../widgets/table/table/Table';
 export const TYPE_BROWSER_ID = 'type' as const;
 
 export type TypeBrowserObject = JavaType & { icon: IvyIcons };

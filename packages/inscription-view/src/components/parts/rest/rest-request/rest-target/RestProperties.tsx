@@ -1,5 +1,6 @@
+import { useMeta } from '../../../../../context/useMeta';
+import { PathContext } from '../../../../../context/usePath';
 import { deepEqual } from '../../../../../utils/equals';
-import { PathContext, useMeta } from '../../../../../context';
 import { PropertyTable } from '../../../common/properties/PropertyTable';
 import { useRestRequestData } from '../../useRestRequestData';
 

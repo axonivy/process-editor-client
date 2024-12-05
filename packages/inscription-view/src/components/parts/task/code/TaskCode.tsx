@@ -1,7 +1,8 @@
-import { ScriptArea } from '../../../../components/widgets';
-import { PathCollapsible, ValidationFieldset } from '../../common';
 import { useTaskData } from '../useTaskData';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import { ScriptArea } from '../../../widgets/code-editor/ScriptArea';
 
 const TaskCode = () => {
   const { task, update } = useTaskData();

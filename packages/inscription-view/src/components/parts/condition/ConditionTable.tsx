@@ -1,12 +1,13 @@
-import { ScriptCell } from '../../widgets';
 import { useCallback, useMemo, useState } from 'react';
 import { Condition } from './condition';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
-import { ValidationCollapsible, ValidationSelectableReorderRow } from '../common';
 import { ReorderHandleWrapper, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { ScriptCell } from '../../widgets/table/cell/ScriptCell';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { ValidationSelectableReorderRow } from '../common/path/validation/ValidationRow';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {

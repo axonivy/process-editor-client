@@ -1,8 +1,7 @@
 import type { WsErrorData } from '@axonivy/process-editor-inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
-import type { ConfigDataContext } from '../../../context';
-import { useConfigDataContext } from '../../../context';
+import { useConfigDataContext, type ConfigDataContext } from '../../../context/useDataContext';
 
 export function useWsErrorData(): ConfigDataContext<WsErrorData> & {
   update: DataUpdater<WsErrorData>;

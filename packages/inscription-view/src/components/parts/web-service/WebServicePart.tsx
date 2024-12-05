@@ -1,11 +1,12 @@
 import type { WebserviceStartData } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
-import { useEditorContext, useValidations } from '../../../context';
 import { useWebServiceData } from './useWebServiceData';
 import { Exception } from './Exception';
 import { PID } from '../../../utils/pid';
 import { Permission } from '../common/permission/Permission';
 import { Message } from '@axonivy/ui-components';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
 
 export function useWebServicePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();

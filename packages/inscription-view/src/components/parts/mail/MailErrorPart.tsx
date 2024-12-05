@@ -1,10 +1,12 @@
-import { Checkbox } from '../../widgets';
+import { PathContext } from '../../../context/usePath';
+import { useValidations } from '../../../context/useValidation';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import ExceptionSelect from '../common/exception-handler/ExceptionSelect';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { ExceptionSelect, ValidationCollapsible } from '../common';
 
 export function useMailErrorPart(): PartProps {
   const { config, initConfig, defaultConfig, resetError } = useMailData();

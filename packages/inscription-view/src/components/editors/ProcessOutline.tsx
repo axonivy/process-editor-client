@@ -1,9 +1,10 @@
 import { Outline, type OutlineNode, type OutlineProps } from '@axonivy/ui-components';
 import type { OutlineNode as ProcessOutlineNode } from '@axonivy/process-editor-inscription-protocol';
-import { useEditorContext, useMeta } from '../../context';
 import { PID } from '../../utils/pid';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useMemo } from 'react';
+import { useEditorContext } from '../../context/useEditorContext';
+import { useMeta } from '../../context/useMeta';
 
 export type ProcessOutlineProps = Omit<OutlineProps, 'outline'>;
 

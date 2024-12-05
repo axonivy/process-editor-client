@@ -1,10 +1,13 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useConditionData } from './useConditionData';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { useEffect, useState } from 'react';
 import { Condition } from './condition';
 import ConditionTable from './ConditionTable';
 import type { ConditionData } from '@axonivy/process-editor-inscription-protocol';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
 
 export function useConditionPart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useConditionData();

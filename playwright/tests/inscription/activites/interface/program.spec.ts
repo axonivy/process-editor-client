@@ -1,8 +1,11 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTest, ProgramInterfaceErrorTest, ProgramInterfaceStartTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { GeneralTest } from '../../parts/name';
+import { runTest } from '../../parts/part-tester';
+import { ProgramInterfaceErrorTest } from '../../parts/program-interface-error';
+import { ProgramInterfaceStartTest } from '../../parts/program-interface-start';
 
 test.describe('Program', () => {
   let view: Inscription;

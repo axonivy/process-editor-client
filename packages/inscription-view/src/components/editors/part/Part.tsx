@@ -13,9 +13,9 @@ import {
 } from '@axonivy/ui-components';
 import { ErrorBoundary } from 'react-error-boundary';
 import type { PartProps } from './usePart';
-import { ErrorFallback } from '../../widgets';
 import type { Severity } from '@axonivy/process-editor-inscription-protocol';
 import { useSticky } from './useSticky';
+import ErrorFallback from '../../widgets/error/ErrorFallback';
 
 const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
   if (reset.dirty || control) {

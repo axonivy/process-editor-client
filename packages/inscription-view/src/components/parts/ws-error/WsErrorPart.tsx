@@ -1,9 +1,11 @@
 import type { WsErrorData } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
-import { useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useWsErrorData } from './useWsErrorData';
-import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../common';
+import { useValidations } from '../../../context/useValidation';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import ExceptionSelect from '../common/exception-handler/ExceptionSelect';
 
 export function useWsErrorPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsErrorData();

@@ -1,13 +1,14 @@
 import './ScriptArea.css';
 import type { CodeEditorAreaProps } from './ResizableCodeEditor';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
-import ResizableCodeEditor from './ResizableCodeEditor';
-import { Browser, useBrowser } from '../../../components/browser';
+import { ResizableCodeEditor } from './ResizableCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
-import { usePath } from '../../../context';
-import MaximizedCodeEditorBrowser from '../../browser/MaximizedCodeEditorBrowser';
+import { MaximizedCodeEditorBrowser } from '../../browser/MaximizedCodeEditorBrowser';
 import { MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 import { useField } from '@axonivy/ui-components';
+import { useBrowser } from '../../browser/useBrowser';
+import { usePath } from '../../../context/usePath';
+import Browser from '../../browser/Browser';
 
 type ScriptAreaProps = CodeEditorAreaProps & {
   maximizeState: {
@@ -16,7 +17,7 @@ type ScriptAreaProps = CodeEditorAreaProps & {
   };
 };
 
-const ScriptArea = (props: ScriptAreaProps) => {
+export const ScriptArea = (props: ScriptAreaProps) => {
   const browser = useBrowser();
   const { setEditor, modifyEditor, getMonacoSelection, getSelectionRange } = useMonacoEditor();
   const path = usePath();
@@ -61,5 +62,3 @@ const ScriptArea = (props: ScriptAreaProps) => {
     </>
   );
 };
-
-export default ScriptArea;

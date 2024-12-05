@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SearchTable, ExpandableCell } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
@@ -17,6 +16,8 @@ import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
 import { Flex, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 import { AddRolePopover } from './AddRolePopover';
 import BrowserTableRow from '../BrowserTableRow';
+import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
+import { SearchTable } from '../../widgets/table/table/Table';
 export const ROLE_BROWSER = 'role' as const;
 
 export type RoleOptions = {

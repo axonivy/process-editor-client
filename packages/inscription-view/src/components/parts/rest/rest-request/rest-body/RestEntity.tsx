@@ -1,12 +1,14 @@
-import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import { ScriptArea } from '../../../../widgets';
-import { PathContext, useEditorContext, useMeta } from '../../../../../context';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from '../../RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from '../../useRestResourceMeta';
 import { EMPTY_VAR_INFO } from '@axonivy/process-editor-inscription-protocol';
 import useMaximizedCodeEditor from '../../../../browser/useMaximizedCodeEditor';
 import { MappingField } from '../../../common/mapping-tree/MappingPart';
+import { PathContext } from '../../../../../context/usePath';
+import { PathFieldset } from '../../../common/path/PathFieldset';
+import { useEditorContext } from '../../../../../context/useEditorContext';
+import { useMeta } from '../../../../../context/useMeta';
+import { ScriptArea } from '../../../../widgets/code-editor/ScriptArea';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {
   const resource = useRestResourceMeta();

@@ -1,6 +1,5 @@
 import type { HttpMethod, RestRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { Field, Label, Switch } from '@axonivy/ui-components';
-import { PathContext, useEditorContext, useMeta, useOpenApi, useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRestRequestData } from './useRestRequestData';
 import { RestClientSelect } from './rest-request/rest-target/RestClientSelect';
@@ -11,7 +10,12 @@ import { RestParameters } from './rest-request/rest-target/RestParameters';
 import { RestTargetUrl } from './rest-request/rest-target/RestTargetUrl';
 import { RestJaxRsCode } from './rest-request/rest-body/RestJaxRsCode';
 import { RestBody } from './rest-request/rest-body/RestBody';
-import { ValidationCollapsible } from '../common';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { useOpenApi } from '../../../context/useOpenApi';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
 
 export function useRestRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();

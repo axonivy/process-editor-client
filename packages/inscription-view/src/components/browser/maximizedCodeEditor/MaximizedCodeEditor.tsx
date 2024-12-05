@@ -2,7 +2,7 @@ import './MaximizedCodeEditor.css';
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useBrowser, type BrowserType } from '../useBrowser';
 import { monacoAutoFocus, useMonacoEditor } from '../../widgets/code-editor/useCodeEditor';
-import CodeEditor from '../../widgets/code-editor/CodeEditor';
+import { CodeEditor } from '../../widgets/code-editor/CodeEditor';
 import Browser from '../Browser';
 import { MAXIMIZED_MONACO_OPTIONS, MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 
@@ -20,7 +20,7 @@ export type MaximizedCodeEditorProps = {
   type?: string;
 };
 
-const MaximizedCodeEditor = ({
+export const MaximizedCodeEditor = ({
   editorValue,
   location,
   browsers,
@@ -77,5 +77,3 @@ const MaximizedCodeEditor = ({
     )
   );
 };
-
-export default MaximizedCodeEditor;

@@ -1,5 +1,6 @@
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
-import { Checkbox, Collapsible } from '../../../components/widgets';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import Collapsible from '../../widgets/collapsible/Collapsible';
 import { usePermissionsData } from './usePermissionsData';
 import type { PermissionsData } from '@axonivy/process-editor-inscription-protocol';
 

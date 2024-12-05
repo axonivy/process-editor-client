@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
-import { ScriptArea } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useResultData } from './useResultData';
 import type { ResultData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathCollapsible, ValidationFieldset } from '../common';
 import { useQueryClient } from '@tanstack/react-query';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
+import ParameterTable from '../common/parameter/ParameterTable';
+import MappingPart from '../common/mapping-tree/MappingPart';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useResultData();

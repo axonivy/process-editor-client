@@ -1,7 +1,9 @@
-import { useAction, useEditorContext, useMeta } from '../../../context';
-import type { FieldsetControl, SelectItem } from '../../../components/widgets';
-import { Select } from '../../../components/widgets';
-import { PathFieldset } from '../common';
+import { useAction } from '../../../context/useAction';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import type { FieldsetControl } from '../../widgets/fieldset/fieldset-control';
+import Select, { type SelectItem } from '../../widgets/select/Select';
+import { PathFieldset } from '../common/path/PathFieldset';
 import { useWsRequestData } from './useWsRequestData';
 import { IvyIcons } from '@axonivy/ui-icons';
 

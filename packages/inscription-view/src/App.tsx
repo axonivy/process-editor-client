@@ -8,12 +8,14 @@ import type {
 } from '@axonivy/process-editor-inscription-protocol';
 import { PanelMessage, ReadonlyProvider, Spinner, Toaster } from '@axonivy/ui-components';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { DataContextInstance, DEFAULT_EDITOR_CONTEXT, EditorContextInstance, useClient } from './context';
 import AppStateView from './AppStateView';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Unary } from './types/lambda';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { InscriptionEditor, type InscriptionOutlineProps } from './components/editors/InscriptionEditor';
+import { useClient } from './context/useClient';
+import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from './context/useEditorContext';
+import { DataContextInstance } from './context/useDataContext';
 
 function App({ outline, app, pmv, pid }: InscriptionElementContext & InscriptionOutlineProps) {
   const [context, setContext] = useState({ app, pmv, pid });

@@ -1,19 +1,16 @@
-/* eslint-disable react/jsx-key */
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import NameEditor from '../NameEditor';
 import { IvyIcons } from '@axonivy/ui-icons';
-import {
-  useCasePart,
-  useDialogCallPart,
-  useGeneralPart,
-  useOutputPart,
-  useTaskPart,
-  useSubCallPart,
-  useTriggerCallPart
-} from '../../../components/parts';
 import Part from '../part/Part';
+import { useDialogCallPart } from '../../parts/call/dialog/DialogCallPart';
+import { useSubCallPart } from '../../parts/call/sub/SubCallPart';
+import { useTriggerCallPart } from '../../parts/call/trigger/TriggerCallPart';
+import { useCasePart } from '../../parts/case/CasePart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useTaskPart } from '../../parts/task/TaskPart';
 
 const DialogCallEditor = memo(() => {
   const name = useGeneralPart();

@@ -1,18 +1,15 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
-import {
-  useCasePart,
-  useConfigurationPart,
-  useEndPagePart,
-  useEventPart,
-  useGeneralPart,
-  useOutputPart,
-  useTaskPart
-} from '../../../components/parts';
 import Part from '../part/Part';
+import { useCasePart } from '../../parts/case/CasePart';
+import { useEndPagePart } from '../../parts/end-page/EndPagePart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useConfigurationPart } from '../../parts/program/configuration/ConfigurationPart';
+import { useEventPart } from '../../parts/program/intermediate/EventPart';
+import { useTaskPart } from '../../parts/task/TaskPart';
 
 const TaskSwitchEventEditor = memo(() => {
   const name = useGeneralPart();

@@ -2,8 +2,8 @@ import './ResizableCodeEditor.css';
 import { useState } from 'react';
 import { useMove } from 'react-aria';
 import type { CodeEditorProps } from './CodeEditor';
-import CodeEditor from './CodeEditor';
-import type { BrowserType } from '../../../components/browser';
+import { CodeEditor } from './CodeEditor';
+import type { BrowserType } from '../../browser/useBrowser';
 
 export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'options' | 'onMount' | 'location'> & {
   browsers: BrowserType[];
@@ -18,7 +18,7 @@ type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
   initHeight?: number;
 };
 
-const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEditorProps) => {
+export const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEditorProps) => {
   const [height, setHeight] = useState(initHeight ?? 90);
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
@@ -39,5 +39,3 @@ const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEd
     </div>
   );
 };
-
-export default ResizableCodeEditor;

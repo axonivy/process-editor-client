@@ -1,12 +1,16 @@
 import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/process-editor-inscription-protocol';
 import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
-import { ExceptionSelect, PathCollapsible, PathFieldset, ValidationFieldset } from '../../common';
-import { ScriptInput, Radio } from '../../../widgets';
-import { useValidations } from '../../../../context';
 import { useEventData } from './useEventData';
 import JavaClassSelector from '../JavaClassSelector';
 import { deepEqual } from '../../../../utils/equals';
+import { useValidations } from '../../../../context/useValidation';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import { PathFieldset } from '../../common/path/PathFieldset';
+import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
+import Radio from '../../../widgets/radio/Radio';
 
 export function useEventPart(options?: { thirdParty?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, reset } = useEventData();

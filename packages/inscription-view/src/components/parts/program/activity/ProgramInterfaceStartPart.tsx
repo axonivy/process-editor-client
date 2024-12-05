@@ -1,8 +1,8 @@
 import type { ProgramInterfaceStartData } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { useProgramInterfaceData } from './useProgramInterfaceData';
-import { useValidations } from '../../../../context';
 import JavaClassSelector from '../JavaClassSelector';
+import { useValidations } from '../../../../context/useValidation';
 
 export function useProgramInterfaceStartPart(): PartProps {
   const { config, defaultConfig, initConfig, resetJavaClass } = useProgramInterfaceData();

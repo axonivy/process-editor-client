@@ -1,8 +1,7 @@
-import type { ConfigDataContext } from '../../../context';
-import { useConfigDataContext, useDataContext } from '../../../context';
 import type { StartData } from '@axonivy/process-editor-inscription-protocol';
 import { produce } from 'immer';
 import type { Consumer, DataUpdater } from '../../../types/lambda';
+import { useConfigDataContext, useDataContext, type ConfigDataContext } from '../../../context/useDataContext';
 
 export function useStartData(synchParams?: boolean): ConfigDataContext<StartData> & {
   update: DataUpdater<StartData['input']>;

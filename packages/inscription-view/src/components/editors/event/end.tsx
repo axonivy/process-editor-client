@@ -1,11 +1,12 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useEndPagePart, useGeneralPart, useErrorThrowPart } from '../../../components/parts';
 import Part from '../part/Part';
+import { useEndPagePart } from '../../parts/end-page/EndPagePart';
+import { useErrorThrowPart } from '../../parts/error/ErrorThrowPart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
 
 const TaskEndPageEditor = memo(() => {
   const name = useGeneralPart();

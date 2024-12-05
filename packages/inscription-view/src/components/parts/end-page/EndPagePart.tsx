@@ -1,11 +1,13 @@
-import type { FieldsetControl } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useEndPageData } from './useEndPageData';
 import type { EndPageData } from '@axonivy/process-editor-inscription-protocol';
-import { useAction, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { PathCollapsible, ValidationFieldset } from '../common';
 import InputWithBrowser from '../../../components/widgets/input/InputWithBrowser';
+import { useValidations } from '../../../context/useValidation';
+import { useAction } from '../../../context/useAction';
+import type { FieldsetControl } from '../../widgets/fieldset/fieldset-control';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 
 export function useEndPagePart(): PartProps {
   const { config, initConfig, defaultConfig, update } = useEndPageData();

@@ -1,11 +1,14 @@
 import type { ProgramInterfaceStartData } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
-import { ExceptionSelect, PathCollapsible, PathFieldset } from '../../common';
 import { useProgramInterfaceData } from './useProgramInterfaceData';
-import { ScriptInput } from '../../../../components/widgets';
-import { PathContext, useValidations } from '../../../../context';
 import { deepEqual } from '../../../../utils/equals';
+import { useValidations } from '../../../../context/useValidation';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathContext } from '../../../../context/usePath';
+import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
+import { PathFieldset } from '../../common/path/PathFieldset';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 
 export function useProgramInterfaceErrorPart(): PartProps {
   const { config, defaultConfig, initConfig, resetError } = useProgramInterfaceData();

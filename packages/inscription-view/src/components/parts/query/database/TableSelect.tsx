@@ -1,7 +1,8 @@
-import { PathContext, useEditorContext, useMeta } from '../../../../context';
-import type { ComboboxItem } from '../../../widgets';
-import { Combobox } from '../../../widgets';
-import { PathFieldset } from '../../common';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import { PathContext } from '../../../../context/usePath';
+import Combobox, { type ComboboxItem } from '../../../widgets/combobox/Combobox';
+import { PathFieldset } from '../../common/path/PathFieldset';
 import { useQueryData } from '../useQueryData';
 
 export const TableSelect = () => {

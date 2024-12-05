@@ -1,12 +1,15 @@
 import type { ConfigurationData, Label, Script, Text, Widget } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
-import { useEditorContext, useMeta, useValidations } from '../../../../context';
 import { useConfigurationData } from './useConfigurationData';
-import { Input, ScriptInput } from '../../../widgets';
 import './Configuration.css';
 import { Flex, Message } from '@axonivy/ui-components';
-import { PathCollapsible } from '../../common';
+import { useValidations } from '../../../../context/useValidation';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import Input from '../../../widgets/input/Input';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
 
 export function useConfigurationPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useConfigurationData();

@@ -1,5 +1,7 @@
-import { PathContext, useEditorContext, useMeta } from '../../../context';
-import { MappingPart } from '../common';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
+import MappingPart from '../common/mapping-tree/MappingPart';
 import { useWsRequestData } from './useWsRequestData';
 
 export const WsMapping = () => {

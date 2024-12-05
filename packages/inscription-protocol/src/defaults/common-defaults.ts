@@ -1,34 +1,30 @@
+import type { Document, ElementScript, ScriptVariable, StartCustomStartField, WebserviceProcessConfig } from '../data/inscription';
+import type { ElementData } from '../data/inscription-data';
 import type {
-  CallData,
-  ElementData,
-  DialogCallData,
-  Document,
-  ElementScript,
-  EndPageData,
-  GeneralData,
-  ProcessCallData,
-  ConditionData,
-  StartData,
-  ScriptVariable,
-  ResultData,
-  ErrorCatchData,
-  SignalCatchData,
-  MailData,
-  TriggerData,
-  RequestData,
-  StartCustomStartField,
-  ErrorThrowData,
-  QueryData,
   CacheData,
-  WebserviceStartData,
-  WebserviceProcessConfig,
-  WsRequestData,
-  RestResponseData,
-  RestRequestData,
+  CallData,
+  ConditionData,
+  ConfigurationData,
+  DialogCallData,
+  EndPageData,
+  ErrorCatchData,
+  ErrorThrowData,
+  GeneralData,
+  MailData,
+  ProcessCallData,
   ProgramInterfaceStartData,
-  ConfigurationData
-} from '../data';
-import { MAIL_TYPE, IVY_EXCEPTIONS } from '../data';
+  QueryData,
+  RequestData,
+  RestRequestData,
+  RestResponseData,
+  ResultData,
+  SignalCatchData,
+  StartData,
+  TriggerData,
+  WebserviceStartData,
+  WsRequestData
+} from '../data/part-data';
+import { MAIL_TYPE, IVY_EXCEPTIONS } from '../data/workflow-data';
 import { DEFAULT_TASK_DATA, DEFAULT_CASE_DATA } from './workflow-defaults';
 
 export const DEFAULT_NAME_DATA: GeneralData = {

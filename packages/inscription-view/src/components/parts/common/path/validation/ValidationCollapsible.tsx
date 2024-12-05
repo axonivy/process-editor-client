@@ -1,6 +1,6 @@
+import { useValidations } from '../../../../../context/useValidation';
 import type { CollapsibleProps } from '../../../../widgets/collapsible/Collapsible';
 import Collapsible from '../../../../widgets/collapsible/Collapsible';
-import { useValidations } from '../../../../../context';
 import type { SchemaKeys } from '@axonivy/process-editor-inscription-protocol';
 import { useMemo } from 'react';
 

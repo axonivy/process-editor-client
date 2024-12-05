@@ -1,7 +1,7 @@
 import type { DataclassType } from '@axonivy/process-editor-inscription-protocol';
-import type { ComboboxItem } from '../../widgets';
-import { Combobox, IvyIcon } from '../../widgets';
 import { IvyIcons } from '@axonivy/ui-icons';
+import IvyIcon from '../../widgets/IvyIcon';
+import Combobox, { type ComboboxItem } from '../../widgets/combobox/Combobox';
 
 export type DataClassItem = Pick<DataclassType, 'name' | 'packageName' | 'path'> & ComboboxItem;
 

@@ -1,6 +1,9 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
+import Collapsible from '../../widgets/collapsible/Collapsible';
+import Fieldset from '../../widgets/fieldset/Fieldset';
+import Textarea from '../../widgets/input/Textarea';
+import Tags from '../../widgets/tag/Tags';
 import DocumentTable from './document/DocumentTable';
-import { Collapsible, Fieldset, Tags, Textarea } from '../../widgets';
 import { useGeneralData } from './useGeneralData';
 
 export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boolean }): PartProps {
