@@ -16,12 +16,21 @@ import { JSDOM } from 'jsdom';
 
 import ivyDiagramModule from '../src/diagram/di.config';
 
-interface Global {
-  document: Document;
-  window: Window;
-}
-
-declare const global: Global;
+global.ResizeObserver = class ResizeObserver {
+  [x: string]: any;
+  constructor(cb: any) {
+    this.cb = cb;
+  }
+  observe(): void {
+    this.cb([{ borderBoxSize: { inlineSize: 0, blockSize: 0 } }]);
+  }
+  unobserve(): null {
+    return null;
+  }
+  disconnect(): null {
+    return null;
+  }
+};
 
 export function setupGlobal(): void {
   const { window } = new JSDOM();

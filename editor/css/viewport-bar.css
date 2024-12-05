@@ -2,7 +2,7 @@
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  z-index: 1000;
+  z-index: 5;
   color: var(--glsp-tool-text);
   font-size: 13px;
   user-select: none;
