@@ -1,8 +1,10 @@
 import { IVY_EXCEPTIONS, type DbErrorData } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../../components/editors/part/usePart';
-import { useValidations } from '../../../../context';
-import { ExceptionSelect, PathCollapsible, ValidationFieldset } from '../../common';
 import { useDbErrorData } from './useDbErrorData';
+import { useValidations } from '../../../../context/useValidation';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
 
 export function useDbErrorPart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useDbErrorData();

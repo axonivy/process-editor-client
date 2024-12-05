@@ -1,11 +1,11 @@
-import type { ComboboxItem } from '../../../../widgets';
-import { Combobox, Fieldset } from '../../../../widgets';
-import { useMeta } from '../../../../../context';
-import { PathCollapsible } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import { deepEqual } from '../../../../../utils/equals';
 import { PropertyTable } from '../../../common/properties/PropertyTable';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
+import { useMeta } from '../../../../../context/useMeta';
+import { PathCollapsible } from '../../../common/path/PathCollapsible';
+import Fieldset from '../../../../widgets/fieldset/Fieldset';
+import Combobox, { type ComboboxItem } from '../../../../widgets/combobox/Combobox';
 
 export const RestHeaders = () => {
   const { config, defaultConfig, updateTarget, updateAcceptHeader } = useRestRequestData();

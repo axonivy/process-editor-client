@@ -1,9 +1,11 @@
 import type { CacheData } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { useCacheData } from './useCacheData';
-import { PathContext, useValidations } from '../../../context';
-import { Collapsible, Radio } from '../../../components/widgets';
 import { CacheLifetime } from './CacheLifetime';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import Radio from '../../widgets/radio/Radio';
+import Collapsible from '../../widgets/collapsible/Collapsible';
 
 export function useCachePart(): PartProps {
   const { config, defaultConfig, initConfig, reset } = useCacheData();

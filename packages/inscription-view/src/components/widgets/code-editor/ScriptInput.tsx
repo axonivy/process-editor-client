@@ -1,14 +1,15 @@
 import './ScriptInput.css';
-import { Input } from '../input';
 import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
+import { SingleLineCodeEditor } from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
-import { Browser, useBrowser } from '../../../components/browser';
-import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField } from '@axonivy/ui-components';
+import { useBrowser } from '../../browser/useBrowser';
+import { usePath } from '../../../context/usePath';
+import Browser from '../../browser/Browser';
+import Input from '../input/Input';
 
-const ScriptInput = ({
+export const ScriptInput = ({
   value,
   onChange,
   type,
@@ -47,5 +48,3 @@ const ScriptInput = ({
     </div>
   );
 };
-
-export default ScriptInput;

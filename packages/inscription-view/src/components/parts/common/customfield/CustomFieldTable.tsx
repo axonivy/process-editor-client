@@ -4,14 +4,16 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import type { SelectItem } from '../../../../components/widgets';
-import { ScriptCell } from '../../../../components/widgets';
-import { useAction, useEditorContext, useMeta } from '../../../../context';
 import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { deepEqual } from '../../../../utils/equals';
 import { ComboCell, SelectCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import type { SelectItem } from '../../../widgets/select/Select';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
+import { useAction } from '../../../../context/useAction';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];

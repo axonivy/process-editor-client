@@ -5,13 +5,15 @@ import NoEditor from './NoEditor';
 import { activityEditors } from './activity/all-activity-editors';
 import { eventEditors } from './event/all-event-editors';
 import { gatewayEditors } from './gateway/all-gateway-editors';
-import { useAction, useDataContext, useEditorContext } from '../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
 import { Button, Flex, Message, SidebarHeader, SidebarMessages, Switch } from '@axonivy/ui-components';
 import { ProcessOutline, type ProcessOutlineProps } from './ProcessOutline';
+import { useDataContext } from '../../context/useDataContext';
+import { useEditorContext } from '../../context/useEditorContext';
+import { useAction } from '../../context/useAction';
 
 export type KnownEditor = { editor: ReactNode; icon?: IvyIcons };
 

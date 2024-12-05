@@ -1,10 +1,13 @@
 import type { ValidationResult, VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
-import { ScriptArea } from '../../widgets';
 import { useCallData } from './useCallData';
-import { PathContext, useValidations } from '../../../context';
-import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import MappingPart from '../common/mapping-tree/MappingPart';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 
 export function useCallPartValidation(): ValidationResult[] {
   return useValidations(['call']);

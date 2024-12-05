@@ -44,15 +44,12 @@ const CodeEditorMock = ({ id, value, onChange }: { id: string; value: string; on
   return <input data-testid='code-editor' {...inputProps} id={id} value={value} onChange={e => onChange(e.target.value)} />;
 };
 
-vi.mock('../components/widgets/code-editor', () => ({
-  __esModule: true,
-  ScriptArea: CodeEditorMock,
-  ScriptInput: CodeEditorMock,
-  MacroArea: CodeEditorMock,
-  MacroInput: CodeEditorMock,
-  SingleLineCodeEditor: CodeEditorMock,
-  MaximizedCodeEditorBrowser: CodeEditorMock
-}));
+vi.mock('../components/widgets/code-editor/ScriptArea', () => ({ __esModule: true, ScriptArea: CodeEditorMock }));
+vi.mock('../components/widgets/code-editor/ScriptInput', () => ({ __esModule: true, ScriptInput: CodeEditorMock }));
+vi.mock('../components/widgets/code-editor/MacroArea', () => ({ __esModule: true, MacroArea: CodeEditorMock }));
+vi.mock('../components/widgets/code-editor/MacroInput', () => ({ __esModule: true, MacroInput: CodeEditorMock }));
+vi.mock('../components/widgets/code-editor/SingleLineCodeEditor', () => ({ __esModule: true, SingleLineCodeEditor: CodeEditorMock }));
+vi.mock('../components/browser/MaximizedCodeEditorBrowser', () => ({ __esModule: true, MaximizedCodeEditorBrowser: CodeEditorMock }));
 
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
 window.HTMLElement.prototype.hasPointerCapture = vi.fn();

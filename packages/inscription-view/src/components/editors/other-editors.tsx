@@ -1,14 +1,13 @@
-/* eslint-disable react/jsx-key */
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import NameEditor from './NameEditor';
 import { IvyIcons } from '@axonivy/ui-icons';
-import { useGeneralPart } from '../parts';
 import { useProcessDataPart } from '../parts/process-data/ProcessDataPart';
 import { usePermissionsPart } from '../parts/permissions/PermissionsPart';
 import { type KnownEditor } from './InscriptionEditor';
 import { useWebServiceProcessPart } from '../parts/web-service-process/WebServiceProcessPart';
 import Part from './part/Part';
+import { useGeneralPart } from '../parts/name/GeneralPart';
 
 const BusinessProcessEditor = memo(() => {
   const name = useGeneralPart({ disableName: true, hideTags: true });

@@ -1,6 +1,7 @@
-import type { ComboboxItem } from '../../../widgets';
-import { Combobox, IvyIcon } from '../../../widgets';
 import type { IvyIcons } from '@axonivy/ui-icons';
+import IvyIcon from '../../../widgets/IvyIcon';
+import type { ComboboxItem } from '../../../widgets/combobox/Combobox';
+import Combobox from '../../../widgets/combobox/Combobox';
 
 export type ClassifiedItem = { label?: string; info?: string } & ComboboxItem;
 

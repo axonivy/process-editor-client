@@ -1,10 +1,13 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { DbErrorTest, GeneralTest, OutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWriteTest } from '../../parts/query';
 import { DataCacheTest } from '../../parts/db-cache';
+import { DbErrorTest } from '../../parts/db-error';
+import { GeneralTest } from '../../parts/name';
+import { OutputTest } from '../../parts/output';
+import { runTest } from '../../parts/part-tester';
 
 test.describe('Database', () => {
   let view: Inscription;

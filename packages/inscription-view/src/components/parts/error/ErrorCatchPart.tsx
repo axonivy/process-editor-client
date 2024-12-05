@@ -1,11 +1,15 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useErrorCatchData } from './useErrorCatchData';
-import { useEditorContext, useMeta, useValidations } from '../../../context';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ErrorCatchData } from '@axonivy/process-editor-inscription-protocol';
-import type { ClassifiedItem } from '../common';
-import { ClassificationCombobox, PathCollapsible, ValidationFieldset } from '../common';
 import { classifiedItemInfo } from '../../../utils/event-code-categorie';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import type { ClassifiedItem } from '../common/classification/ClassificationCombobox';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import ClassificationCombobox from '../common/classification/ClassificationCombobox';
 
 export function useErrorCatchPart(): PartProps {
   const { config, defaultConfig, initConfig, updateError } = useErrorCatchData();

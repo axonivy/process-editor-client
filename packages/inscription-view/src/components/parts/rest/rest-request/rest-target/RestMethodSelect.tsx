@@ -1,14 +1,19 @@
 import { useMemo } from 'react';
-import { useEditorContext, useMeta, useOpenApi } from '../../../../../context';
-import type { ComboboxItem, SelectItem } from '../../../../widgets';
-import { Combobox, ScriptInput, Select } from '../../../../widgets';
-import { PathFieldset } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { HttpMethod, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES, HTTP_METHOD } from '@axonivy/process-editor-inscription-protocol';
 import './RestMethodSelect.css';
 import { useUpdateRestResource } from '../../useUpdateRestResource';
 import { Field, Flex } from '@axonivy/ui-components';
+import type { ComboboxItem } from '../../../../widgets/combobox/Combobox';
+import { useEditorContext } from '../../../../../context/useEditorContext';
+import { useMeta } from '../../../../../context/useMeta';
+import type { SelectItem } from '../../../../widgets/select/Select';
+import { useOpenApi } from '../../../../../context/useOpenApi';
+import { PathFieldset } from '../../../common/path/PathFieldset';
+import Combobox from '../../../../widgets/combobox/Combobox';
+import Select from '../../../../widgets/select/Select';
+import { ScriptInput } from '../../../../widgets/code-editor/ScriptInput';
 
 type RestMethodItem = ComboboxItem & RestResource;
 

@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { useGeneralPart } from '../parts';
 import Part from './part/Part';
+import { useGeneralPart } from '../parts/name/GeneralPart';
 
 const NameEditor = memo(({ hideTags }: { hideTags?: boolean }) => {
   const name = useGeneralPart({ hideTags });

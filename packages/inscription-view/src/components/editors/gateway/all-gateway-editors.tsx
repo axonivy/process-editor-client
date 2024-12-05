@@ -1,10 +1,14 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
-import { useCasePart, useConditionPart, useEndPagePart, useMultiTasksPart, useGeneralPart, useOutputPart } from '../../../components/parts';
 import Part from '../part/Part';
+import { useCasePart } from '../../parts/case/CasePart';
+import { useConditionPart } from '../../parts/condition/ConditionPart';
+import { useEndPagePart } from '../../parts/end-page/EndPagePart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useMultiTasksPart } from '../../parts/task/MultiTasksPart';
 
 const AlternativeEditor = memo(() => {
   const name = useGeneralPart();

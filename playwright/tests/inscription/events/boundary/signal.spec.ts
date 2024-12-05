@@ -1,8 +1,11 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { BoundarySignalCatchTest, GeneralTest, OutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { GeneralTest } from '../../parts/name';
+import { OutputTest } from '../../parts/output';
+import { runTest } from '../../parts/part-tester';
+import { BoundarySignalCatchTest } from '../../parts/signal-catch';
 
 test.describe('Signal', () => {
   let view: Inscription;

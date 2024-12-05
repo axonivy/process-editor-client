@@ -9,8 +9,8 @@ import {
 } from '@axonivy/ui-components';
 import type { ReactNode } from 'react';
 import { memo, useEffect, useState } from 'react';
-import type { FieldsetControl } from '../fieldset';
 import { type ValidationMessage, toMessageDataArray } from '../message/Message';
+import type { FieldsetControl } from '../fieldset/fieldset-control';
 
 export type CollapsibleProps = {
   label: string;

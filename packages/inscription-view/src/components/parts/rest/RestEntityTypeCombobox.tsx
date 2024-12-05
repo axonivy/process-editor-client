@@ -1,8 +1,8 @@
-import { useOpenApi } from '../../../context';
-import type { ComboboxItem } from '../../../components/widgets';
-import { Combobox } from '../../../components/widgets';
 import type { RestPayload } from '@axonivy/process-editor-inscription-protocol';
 import { typesSupportBinary } from './known-types';
+import type { ComboboxItem } from '../../widgets/combobox/Combobox';
+import { useOpenApi } from '../../../context/useOpenApi';
+import Combobox from '../../widgets/combobox/Combobox';
 
 type RestEntityTypeComboboxProps = {
   value: string;

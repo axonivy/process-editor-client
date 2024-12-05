@@ -1,9 +1,10 @@
 import type { RestResponseData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
-import { ValidationCollapsible } from '../common';
 import { RestError } from './rest-response/RestError';
 import { useRestErrorData } from './useRestErrorData';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 
 export function useRestErrorPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestErrorData();

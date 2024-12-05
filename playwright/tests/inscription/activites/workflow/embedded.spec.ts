@@ -1,8 +1,9 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTestWithoutTags, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { GeneralTestWithoutTags } from '../../parts/name';
+import { runTest } from '../../parts/part-tester';
 
 test.describe('Embedded Sub', () => {
   let view: Inscription;

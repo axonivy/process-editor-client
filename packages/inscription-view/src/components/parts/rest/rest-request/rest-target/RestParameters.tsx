@@ -1,7 +1,4 @@
-import { PathCollapsible, ValidationRow } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
-import type { SelectItem } from '../../../../widgets';
-import { ScriptCell } from '../../../../widgets';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -21,6 +18,10 @@ import {
   TableCell,
   TableResizableHeader
 } from '@axonivy/ui-components';
+import type { SelectItem } from '../../../../widgets/select/Select';
+import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
+import { PathCollapsible } from '../../../common/path/PathCollapsible';
+import { ValidationRow } from '../../../common/path/validation/ValidationRow';
 
 const EMPTY_PARAMETER: Parameter = { kind: 'Query', name: '', expression: '', known: false };
 

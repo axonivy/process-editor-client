@@ -1,11 +1,12 @@
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRequestData } from './useRequestData';
 import type { RequestData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
-import { Checkbox } from '../../../components/widgets';
 import Information from '../common/info/Information';
 import { Permission } from '../common/permission/Permission';
 import StartCustomFieldTable from '../common/customfield/StartCustomFieldTable';
+import { useValidations } from '../../../context/useValidation';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import { PathContext } from '../../../context/usePath';
 
 export function useRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRequestData();

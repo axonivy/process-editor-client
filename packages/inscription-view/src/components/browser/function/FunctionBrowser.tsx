@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ExpandableCell, SearchTable, TableShowMore } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { Function } from '@axonivy/process-editor-inscription-protocol';
 import {
@@ -14,10 +13,14 @@ import {
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { useEditorContext, useMeta } from '../../../context';
 import { getParentNames } from './parent-name';
 import { TableBody, TableFooter } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
+import { SearchTable } from '../../widgets/table/table/Table';
+import { TableShowMore } from '../../widgets/table/footer/TableFooter';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {

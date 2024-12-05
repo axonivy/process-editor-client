@@ -1,7 +1,5 @@
 import { useMemo, useEffect, useState } from 'react';
-import { Checkbox, ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
-import { useEditorContext, useMeta } from '../../../context';
 import type { ColumnDef, ColumnFiltersState, ExpandedState, RowSelectionState, VisibilityState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import type { ContentObject, ContentObjectType } from '@axonivy/process-editor-inscription-protocol';
@@ -10,6 +8,11 @@ import type { BrowserValue } from '../Browser';
 import { Button, Flex, Message, SelectRow, TableBody, TableCell, toast } from '@axonivy/ui-components';
 import { useFunction } from '../../../context/useFunction';
 import { useQueryClient } from '@tanstack/react-query';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
+import Checkbox from '../../widgets/checkbox/Checkbox';
+import { SearchTable } from '../../widgets/table/table/Table';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 

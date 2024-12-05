@@ -1,10 +1,17 @@
-import { Input, ScriptArea } from '../../../components/widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useStartData } from './useStartData';
 import type { StartData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
-import { MappingPart, ParameterTable, PathCollapsible, ValidationFieldset } from '../common';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import Input from '../../widgets/input/Input';
+import { PathContext } from '../../../context/usePath';
+import ParameterTable from '../common/parameter/ParameterTable';
+import MappingPart from '../common/mapping-tree/MappingPart';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 

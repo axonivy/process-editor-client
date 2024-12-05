@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { useEditorContext, useMeta } from '../../../context';
 import { useReactTable, type ColumnDef, type RowSelectionState, getCoreRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import { useQueryData } from '../../parts/query/useQueryData';
 import type { DatabaseColumn } from '@axonivy/process-editor-inscription-protocol';
 import { TableBody, TableCell, TableRow } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { SearchTable } from '../../widgets/table/table/Table';
 export const TABLE_COL_BROWSER_ID = 'tablecol' as const;
 
 export const useTableColBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {

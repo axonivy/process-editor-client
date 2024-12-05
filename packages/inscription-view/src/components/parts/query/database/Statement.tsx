@@ -1,7 +1,9 @@
 import { Message } from '@axonivy/ui-components';
-import { Checkbox, MacroArea } from '../../../widgets';
-import { PathCollapsible, PathFieldset } from '../../common';
 import { useQueryData } from '../useQueryData';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathFieldset } from '../../common/path/PathFieldset';
+import { MacroArea } from '../../../widgets/code-editor/MacroArea';
+import Checkbox from '../../../widgets/checkbox/Checkbox';
 
 export const Statement = () => {
   const { config, defaultConfig, updateSql } = useQueryData();

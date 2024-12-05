@@ -1,5 +1,6 @@
-import type { SelectItem } from '../../../widgets';
-import { useEditorContext, useMeta } from '../../../../context';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import type { SelectItem } from '../../../widgets/select/Select';
 
 const DEFAULT_TEMPLATE = 'Default';
 

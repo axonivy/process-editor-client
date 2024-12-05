@@ -1,14 +1,16 @@
-import { ScriptCell } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { ValidationCollapsible, ValidationRow } from '../common';
 import { useResizableEditableTable } from '../common/table/useResizableEditableTable';
 import { Table, TableBody, TableCell } from '@axonivy/ui-components';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import { ScriptCell } from '../../widgets/table/cell/ScriptCell';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { ValidationRow } from '../common/path/validation/ValidationRow';
 
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();

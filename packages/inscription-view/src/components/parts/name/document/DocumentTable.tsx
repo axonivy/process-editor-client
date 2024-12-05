@@ -3,10 +3,10 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import { Collapsible } from '../../../../components/widgets';
-import { useAction } from '../../../../context';
 import { useResizableEditableTable } from '../../common/table/useResizableEditableTable';
 import { InputCell, SelectRow, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { useAction } from '../../../../context/useAction';
+import Collapsible from '../../../widgets/collapsible/Collapsible';
 
 const EMPTY_DOCUMENT: Document = { name: '', url: '' } as const;
 

@@ -1,29 +1,26 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
-import {
-  useMailAttachmentPart,
-  useMailHeaderPart,
-  useMailMessagePart,
-  useGeneralPart,
-  useOutputPart,
-  useQueryPart,
-  useCachePart,
-  useWsRequestPart,
-  useWsErrorPart,
-  useRestOutputPart,
-  useRestRequestPart,
-  useProgramInterfaceStartPart,
-  useConfigurationPart,
-  useRestErrorPart,
-  useDbErrorPart,
-  useMailErrorPart,
-  useProgramInterfaceErrorPart
-} from '../../../components/parts';
 import { OpenApiContextProvider } from '../../../context/useOpenApi';
 import Part from '../part/Part';
+import { useCachePart } from '../../parts/cache/CachePart';
+import { useMailAttachmentPart } from '../../parts/mail/MailAttachmentPart';
+import { useMailErrorPart } from '../../parts/mail/MailErrorPart';
+import { useMailHeaderPart } from '../../parts/mail/MailHeaderPart';
+import { useMailMessagePart } from '../../parts/mail/MailMessagePart';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useProgramInterfaceErrorPart } from '../../parts/program/activity/ProgramInterfaceErrorPart';
+import { useProgramInterfaceStartPart } from '../../parts/program/activity/ProgramInterfaceStartPart';
+import { useConfigurationPart } from '../../parts/program/configuration/ConfigurationPart';
+import { useDbErrorPart } from '../../parts/query/db-error/DbErrorPart';
+import { useQueryPart } from '../../parts/query/QueryPart';
+import { useRestErrorPart } from '../../parts/rest/RestErrorPart';
+import { useRestOutputPart } from '../../parts/rest/RestOutputPart';
+import { useRestRequestPart } from '../../parts/rest/RestRequestPart';
+import { useWsErrorPart } from '../../parts/ws-error/WsErrorPart';
+import { useWsRequestPart } from '../../parts/ws-request/WsRequestPart';
 
 const DatabaseEditor = memo(() => {
   const name = useGeneralPart();

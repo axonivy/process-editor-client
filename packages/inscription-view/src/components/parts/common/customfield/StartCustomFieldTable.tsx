@@ -3,12 +3,15 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnDef } from '@tanstack/react-table';
 import { flexRender } from '@tanstack/react-table';
 import { memo, useMemo } from 'react';
-import { MacroCell, type ComboboxItem } from '../../../widgets';
-import { useAction, useEditorContext, useMeta } from '../../../../context';
 import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { ComboCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import type { ComboboxItem } from '../../../widgets/combobox/Combobox';
+import { useMeta } from '../../../../context/useMeta';
+import { MacroCell } from '../../../widgets/table/cell/MacroCell';
+import { useAction } from '../../../../context/useAction';
 
 type StartCustomFieldTableProps = {
   data: StartCustomStartField[];

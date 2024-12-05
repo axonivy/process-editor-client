@@ -3,12 +3,13 @@ import type { TaskPersistData } from './options/usePersistOptionsData';
 import { useTaskPersistData } from './options/usePersistOptionsData';
 import Task from './task/Task';
 import { useTaskData } from './useTaskData';
-import { EmptyWidget } from '../../widgets';
 import type { WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useValidations } from '../../../context';
 import RequestTask from './task/RequestTask';
 import WaitTask from './task/WaitTask';
 import WsTask from './task/WsTask';
+import { useValidations } from '../../../context/useValidation';
+import { PathContext } from '../../../context/usePath';
+import EmptyWidget from '../../widgets/empty/EmptyWidget';
 
 export function useTaskPart(options?: TaskPartProps): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();

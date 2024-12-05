@@ -2,10 +2,10 @@ import { memo } from 'react';
 import MappingTree from './MappingTree';
 import type { SchemaKeys, VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import { useTableGlobalFilter, useTableOnlyInscribed } from './useMappingTree';
-import type { BrowserType } from '../../../../components/browser';
 import { PathCollapsible } from '../path/PathCollapsible';
-import { Fieldset } from '../../../widgets';
-import { PathContext } from '../../../../context';
+import type { BrowserType } from '../../../browser/useBrowser';
+import { PathContext } from '../../../../context/usePath';
+import Fieldset from '../../../widgets/fieldset/Fieldset';
 
 export type MappingPartProps = {
   data: Record<string, string>;

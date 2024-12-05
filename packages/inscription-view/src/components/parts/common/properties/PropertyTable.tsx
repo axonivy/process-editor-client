@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ValidationCollapsible, ValidationRow } from '../';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import type { ComboboxItem } from '../../../../components/widgets';
-import { ScriptCell } from '../../../../components/widgets';
 import { Property } from './properties';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ScriptMappings } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { deepEqual } from '../../../../utils/equals';
 import { ComboCell, SortableHeader, Table, TableAddRow, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import type { ComboboxItem } from '../../../widgets/combobox/Combobox';
+import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
+import { ValidationCollapsible } from '../path/validation/ValidationCollapsible';
+import { ValidationRow } from '../path/validation/ValidationRow';
 
 type PropertyTableProps = {
   properties: ScriptMappings;

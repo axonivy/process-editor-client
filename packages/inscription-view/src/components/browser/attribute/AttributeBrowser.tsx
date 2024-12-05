@@ -1,16 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ExpandableCell, SearchTable } from '../../widgets';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
 import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { MappingTreeData } from '../../parts/common/mapping-tree/mapping-tree-data';
 import type { VariableInfo } from '@axonivy/process-editor-inscription-protocol';
-import { useEditorContext, useMeta } from '../../../context';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
+import { SearchTable } from '../../widgets/table/table/Table';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 

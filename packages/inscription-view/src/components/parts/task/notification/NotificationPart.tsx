@@ -1,6 +1,6 @@
 import { deepEqual } from '../../../../utils/equals';
-import { Checkbox } from '../../../widgets';
-import { PathCollapsible } from '../../common';
+import Checkbox from '../../../widgets/checkbox/Checkbox';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { useTaskData } from '../useTaskData';
 import TemplateSelect from './TemplateSelect';
 

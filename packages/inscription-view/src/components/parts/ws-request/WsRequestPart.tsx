@@ -1,5 +1,4 @@
 import type { WsRequestData } from '@axonivy/process-editor-inscription-protocol';
-import { useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useWsRequestData } from './useWsRequestData';
 import { WsClientSelect } from './WsClientSelect';
@@ -7,7 +6,8 @@ import { WsPortSelect } from './WsPortSelect';
 import { WsOperationSelect } from './WsOperationSelect';
 import { WsProperties } from './WsProperties';
 import { WsMapping } from './WsMapping';
-import { ValidationCollapsible } from '../common';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { useValidations } from '../../../context/useValidation';
 
 export function useWsRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useWsRequestData();

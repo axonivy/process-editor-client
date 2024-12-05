@@ -1,11 +1,17 @@
 import type { OutputData } from '@axonivy/process-editor-inscription-protocol';
-import { Checkbox, ScriptArea } from '../../widgets';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useOutputData } from './useOutputData';
-import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
-import type { BrowserType } from '../../../components/browser';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import type { BrowserType } from '../../browser/useBrowser';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
+import MappingPart from '../common/mapping-tree/MappingPart';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import Checkbox from '../../widgets/checkbox/Checkbox';
 
 export function useOutputPart(options?: { showSudo?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();

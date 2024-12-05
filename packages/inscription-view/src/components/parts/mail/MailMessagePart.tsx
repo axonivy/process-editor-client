@@ -1,12 +1,15 @@
-import type { SelectItem } from '../../widgets';
-import { Fieldset, MacroArea, Select } from '../../widgets';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useMailData } from './useMailData';
 import type { MailData } from '@axonivy/process-editor-inscription-protocol';
 import { MAIL_TYPE } from '@axonivy/process-editor-inscription-protocol';
-import { useValidations } from '../../../context';
-import { PathFieldset, ValidationCollapsible } from '../common';
 import { useMemo } from 'react';
+import { useValidations } from '../../../context/useValidation';
+import type { SelectItem } from '../../widgets/select/Select';
+import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { PathFieldset } from '../common/path/PathFieldset';
+import { MacroArea } from '../../widgets/code-editor/MacroArea';
+import Fieldset from '../../widgets/fieldset/Fieldset';
+import Select from '../../widgets/select/Select';
 
 export function useMailMessagePart(): PartProps {
   const { config, initConfig, defaultConfig, resetMessage } = useMailData();

@@ -1,7 +1,7 @@
-import { useEditorContext, useMeta } from '../../../../context';
-import type { SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
-import { PathFieldset } from '../../common';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
+import Select, { type SelectItem } from '../../../widgets/select/Select';
+import { PathFieldset } from '../../common/path/PathFieldset';
 import { useQueryData } from '../useQueryData';
 
 export const DatabaseSelect = () => {

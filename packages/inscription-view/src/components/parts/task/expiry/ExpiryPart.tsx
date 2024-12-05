@@ -1,5 +1,6 @@
-import { ScriptInput } from '../../../../components/widgets';
-import { PathCollapsible, PathFieldset } from '../../common';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathFieldset } from '../../common/path/PathFieldset';
 import { ResponsiblePart } from '../../common/responsible/ResponsiblePart';
 import { PriorityPart } from '../priority/PriorityPart';
 import ErrorSelect from './ErrorSelect';

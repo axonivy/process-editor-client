@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
-import { GeneralTestWithoutTags, runTest } from '../parts';
 import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 import { createProcess } from '../../glsp-protocol';
+import { GeneralTestWithoutTags } from '../parts/name';
+import { runTest } from '../parts/part-tester';
 
 test.describe('BPMN Activities', () => {
   test('Generic', async ({ page }) => {

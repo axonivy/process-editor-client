@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import type { SelectItem } from '../../../../components/widgets';
-import { useEditorContext, useMeta } from '../../../../context';
 import { EMPTY_ROLE, type RoleMeta } from '@axonivy/process-editor-inscription-protocol';
+import type { SelectItem } from '../../../widgets/select/Select';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { useMeta } from '../../../../context/useMeta';
 
 export const useRoles = (showTaskRoles = false) => {
   const [roles, setRoles] = useState<SelectItem[]>([]);

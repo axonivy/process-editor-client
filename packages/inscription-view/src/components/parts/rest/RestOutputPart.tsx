@@ -1,12 +1,17 @@
 import type { RestResponseData } from '@axonivy/process-editor-inscription-protocol';
-import { PathContext, useEditorContext, useMeta, useValidations } from '../../../context';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import { useRestOutputData } from './useRestOutputData';
-import { MappingPart, PathCollapsible, ValidationFieldset } from '../common';
-import { ScriptArea } from '../../widgets';
 import { RestEntityTypeCombobox, useShowRestEntityTypeCombo } from './RestEntityTypeCombobox';
 import { useRestEntityTypeMeta, useRestResourceMeta } from './useRestResourceMeta';
 import useMaximizedCodeEditor from '../../browser/useMaximizedCodeEditor';
+import { useValidations } from '../../../context/useValidation';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
+import { PathCollapsible } from '../common/path/PathCollapsible';
+import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import MappingPart from '../common/mapping-tree/MappingPart';
+import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 
 export function useRestOutputPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestOutputData();

@@ -1,9 +1,9 @@
 import type { ProgramStartData } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
-import { useValidations } from '../../../../context';
 import { useProgramStartData } from './useProgramStartData';
 import { Permission } from '../../common/permission/Permission';
 import JavaClassSelector from '../JavaClassSelector';
+import { useValidations } from '../../../../context/useValidation';
 
 export function useProgramStartPart(options?: { thirdParty?: boolean }): PartProps {
   const { config, defaultConfig, initConfig, reset } = useProgramStartData();

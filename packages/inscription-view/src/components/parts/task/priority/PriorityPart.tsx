@@ -1,4 +1,6 @@
-import { PathCollapsible, PathFieldset, ValidationFieldset } from '../../common';
+import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { PathFieldset } from '../../common/path/PathFieldset';
+import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
 import type { PrioritySelectProps } from './PrioritySelect';
 import PrioritySelect from './PrioritySelect';
 

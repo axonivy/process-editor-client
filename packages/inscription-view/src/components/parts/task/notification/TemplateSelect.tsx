@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
-import type { SelectItem } from '../../../widgets';
-import { Select } from '../../../widgets';
-import { PathFieldset } from '../../common';
 import { useTemplates } from './useTemplates';
 import type { WfNotification } from '@axonivy/process-editor-inscription-protocol';
+import { PathFieldset } from '../../common/path/PathFieldset';
+import Select, { type SelectItem } from '../../../widgets/select/Select';
 
 const TemplateSelect = ({ notification, onChange }: { notification: WfNotification; onChange: (value: SelectItem) => void }) => {
   const templates = useTemplates();

@@ -1,9 +1,8 @@
 import type { TriggerData } from '@axonivy/process-editor-inscription-protocol';
 import { produce } from 'immer';
 import type { DataUpdater } from '../../../types/lambda';
-import type { ConfigDataContext } from '../../../context';
-import { useConfigDataContext } from '../../../context';
 import type { ResponsibleUpdater } from '../common/responsible/ResponsibleSelect';
+import { useConfigDataContext, type ConfigDataContext } from '../../../context/useDataContext';
 
 export function useTriggerData(): ConfigDataContext<TriggerData> & {
   update: DataUpdater<TriggerData>;

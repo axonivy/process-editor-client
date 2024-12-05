@@ -2,11 +2,12 @@ import './ResponsibleSelect.css';
 import { useMemo } from 'react';
 import type { WfActivator, WfActivatorType, WfTask } from '@axonivy/process-editor-inscription-protocol';
 import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
-import type { SelectItem } from '../../../widgets';
-import { ScriptInput, Select } from '../../../widgets';
 import type { DataUpdater } from '../../../../types/lambda';
 import RoleSelect from './RoleSelect';
 import { Field, Flex } from '@axonivy/ui-components';
+import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import type { SelectItem } from '../../../widgets/select/Select';
+import Select from '../../../widgets/select/Select';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 

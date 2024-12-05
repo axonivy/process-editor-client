@@ -1,7 +1,7 @@
 import type { CellContext } from '@tanstack/react-table';
 import { CodeEditorCell } from './CodeEditorCell';
-import type { BrowserType } from '../../../../components/browser';
 import { InputCell } from '@axonivy/ui-components';
+import type { BrowserType } from '../../../browser/useBrowser';
 
 export const ScriptCell = <TData,>({
   cell,

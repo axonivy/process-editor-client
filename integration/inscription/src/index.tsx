@@ -1,12 +1,12 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/process-editor-inscription-core';
 import type { MonacoLanguageClient } from 'monaco-languageclient';
-import { App, ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/process-editor-inscription-view';
 import { ThemeProvider, Spinner, Flex } from '@axonivy/ui-components';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { URLParams } from './url-helper';
 import * as React from 'react';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
+import { App, ClientContextProvider, initQueryClient, MonacoEditorUtil, QueryProvider } from '@axonivy/process-editor-inscription-view';
 
 export async function start(): Promise<void> {
   const server = URLParams.webSocketBase();

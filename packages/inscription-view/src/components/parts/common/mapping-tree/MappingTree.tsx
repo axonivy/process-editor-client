@@ -9,12 +9,14 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { MappingTreeData } from './mapping-tree-data';
-import { ExpandableCell, ScriptCell, SearchTable } from '../../../../components/widgets';
 import type { MappingPartProps } from './MappingPart';
 import type { TableFilter } from './useMappingTree';
 import { calcFullPathId } from './useMappingTree';
 import { ValidationRow } from '../path/validation/ValidationRow';
 import { ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
+import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
+import { SearchTable } from '../../../widgets/table/table/Table';
+import { ExpandableCell } from '../../../widgets/table/cell/ExpandableCell';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;

@@ -1,5 +1,3 @@
-import { Radio } from '../../../../../components/widgets';
-import { PathCollapsible } from '../../../common';
 import { useRestRequestData } from '../../useRestRequestData';
 import type { InputType } from '@axonivy/process-editor-inscription-protocol';
 import { REST_INPUT_TYPES } from '@axonivy/process-editor-inscription-protocol';
@@ -8,10 +6,12 @@ import { RestContentType } from './RestContentType';
 import { RestForm } from './RestForm';
 import { RestEntity } from './RestEntity';
 import { deepEqual } from '../../../../../utils/equals';
-import { useOpenApi } from '../../../../../context';
 import type { RadioItemProps } from '../../../../../components/widgets/radio/Radio';
 import { useRestResourceMeta } from '../../useRestResourceMeta';
 import { isFormMedia } from '../../known-types';
+import { PathCollapsible } from '../../../common/path/PathCollapsible';
+import Radio from '../../../../../components/widgets/radio/Radio';
+import { useOpenApi } from '../../../../../context/useOpenApi';
 
 export const useBodyTypes = (currentType: InputType): RadioItemProps<InputType>[] => {
   const { openApi } = useOpenApi();

@@ -6,7 +6,7 @@ import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { InputCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
-import { BrowserInputCell } from '../../../widgets';
+import { BrowserInputCell } from '../../../widgets/table/cell/BrowserInputCell';
 
 type ParameterTableProps = {
   data: ScriptVariable[];

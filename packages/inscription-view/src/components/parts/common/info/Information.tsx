@@ -1,12 +1,16 @@
 import type { DataUpdater } from '../../../../types/lambda';
-import { MacroArea, MacroInput } from '../../../../components/widgets';
 import { PathFieldset } from '../path/PathFieldset';
-import { useAction, useEditorContext, useMeta, usePath } from '../../../../context';
 import type { SchemaKeys, SchemaPath, WorkflowType } from '@axonivy/process-editor-inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import ClassificationCombobox, { type ClassifiedItem } from '../classification/ClassificationCombobox';
 import { classifiedItemInfo } from '../../../../utils/event-code-categorie';
 import { ValidationCollapsible } from '../path/validation/ValidationCollapsible';
+import { useEditorContext } from '../../../../context/useEditorContext';
+import { usePath } from '../../../../context/usePath';
+import { useAction } from '../../../../context/useAction';
+import { useMeta } from '../../../../context/useMeta';
+import { MacroInput } from '../../../widgets/code-editor/MacroInput';
+import { MacroArea } from '../../../widgets/code-editor/MacroArea';
 
 type InformationConfig = {
   name: string;

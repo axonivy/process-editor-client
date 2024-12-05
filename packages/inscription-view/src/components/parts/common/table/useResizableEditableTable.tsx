@@ -2,9 +2,9 @@ import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react
 import { getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { useState, useEffect } from 'react';
 import { deepEqual } from '../../../../utils/equals';
-import type { FieldsetControl } from '../../../widgets';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { TableAddRow } from '@axonivy/ui-components';
+import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];

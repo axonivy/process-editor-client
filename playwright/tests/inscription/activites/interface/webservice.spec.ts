@@ -1,9 +1,13 @@
 import { test } from '@playwright/test';
 import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
-import { GeneralTest, WsRequestTest, WsErrorTest, WsOutputTest, runTest } from '../../parts';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
 import { DataCacheTest } from '../../parts/db-cache';
+import { GeneralTest } from '../../parts/name';
+import { runTest } from '../../parts/part-tester';
+import { WsErrorTest } from '../../parts/ws-error';
+import { WsOutputTest } from '../../parts/ws-output';
+import { WsRequestTest } from '../../parts/ws-request';
 
 test.describe('Web Service', () => {
   let view: Inscription;

@@ -1,7 +1,9 @@
-import { PathContext, useEditorContext, useMeta } from '../../../context';
-import type { SelectItem } from '../../widgets';
-import { Select } from '../../widgets';
-import { PathFieldset } from '../common';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
+import { PathContext } from '../../../context/usePath';
+import type { SelectItem } from '../../widgets/select/Select';
+import Select from '../../widgets/select/Select';
+import { PathFieldset } from '../common/path/PathFieldset';
 import { useWsRequestData } from './useWsRequestData';
 
 export const WsOperationSelect = () => {

@@ -1,16 +1,17 @@
 import './ScriptInput.css';
 import type { CodeEditorInputProps } from './SingleLineCodeEditor';
-import SingleLineCodeEditor from './SingleLineCodeEditor';
+import { SingleLineCodeEditor } from './SingleLineCodeEditor';
 import { useMonacoEditor } from './useCodeEditor';
-import { Browser, useBrowser } from '../../../components/browser';
-import { usePath } from '../../../context';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField, InputBadge } from '@axonivy/ui-components';
 import { badgePropsExpression } from '../../../utils/badgeproperties';
+import { useBrowser } from '../../browser/useBrowser';
+import { usePath } from '../../../context/usePath';
+import Browser from '../../browser/Browser';
 
 type MacroInputProps = Omit<CodeEditorInputProps, 'context'>;
 
-const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
+export const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
   const browser = useBrowser();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
@@ -38,5 +39,3 @@ const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputProps) =>
     </div>
   );
 };
-
-export default MacroInput;

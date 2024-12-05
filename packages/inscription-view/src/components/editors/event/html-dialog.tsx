@@ -1,11 +1,13 @@
-/* eslint-disable react/jsx-key */
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { ElementType } from '@axonivy/process-editor-inscription-protocol';
 import { memo } from 'react';
 import { type KnownEditor } from '../InscriptionEditor';
 import NameEditor from '../NameEditor';
-import { useGeneralPart, useOutputPart, useResultPart, useStartPart } from '../../../components/parts';
 import Part from '../part/Part';
+import { useGeneralPart } from '../../parts/name/GeneralPart';
+import { useOutputPart } from '../../parts/output/OutputPart';
+import { useResultPart } from '../../parts/result/ResultPart';
+import { useStartPart } from '../../parts/start/StartPart';
 
 const HtmlDialogStartEditor = memo(() => {
   const name = useGeneralPart();

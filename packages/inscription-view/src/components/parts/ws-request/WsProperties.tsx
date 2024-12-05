@@ -1,7 +1,9 @@
 import { useWsRequestData } from './useWsRequestData';
-import { PathContext, useEditorContext, useMeta } from '../../../context';
 import { PropertyTable } from '../common/properties/PropertyTable';
 import { deepEqual } from '../../../utils/equals';
+import { PathContext } from '../../../context/usePath';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
 
 export const WsProperties = () => {
   const { config, defaultConfig, update } = useWsRequestData();

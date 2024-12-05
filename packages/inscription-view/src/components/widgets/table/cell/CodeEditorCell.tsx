@@ -1,15 +1,16 @@
 import './CodeEditorCell.css';
 import type { CellContext } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
-import { usePath } from '../../../../context';
-import { Input } from '../../input';
-import { MaximizedCodeEditorBrowser, SingleLineCodeEditor } from '../../code-editor';
-import type { BrowserType } from '../../../browser';
-import { Browser, useBrowser } from '../../../browser';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
 import { Button } from '@axonivy/ui-components';
+import { useBrowser, type BrowserType } from '../../../browser/useBrowser';
+import { usePath } from '../../../../context/usePath';
+import { MaximizedCodeEditorBrowser } from '../../../browser/MaximizedCodeEditorBrowser';
+import { SingleLineCodeEditor } from '../../code-editor/SingleLineCodeEditor';
+import Browser from '../../../browser/Browser';
+import Input from '../../input/Input';
 
 type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, string>;
