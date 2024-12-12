@@ -6,7 +6,7 @@ import type { JavaType } from '@axonivy/process-editor-inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getCursorValue } from './cursor-value';
-import { TableBody, TableCell } from '@axonivy/ui-components';
+import { TableBody, TableCell, useTableKeyHandler } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -177,7 +177,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel()
   });
-
+  const { handleKeyDown } = useTableKeyHandler({ table: tableDynamic, data: types });
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       onChange({ cursorValue: '' });
@@ -246,6 +246,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
             setRowSelection({});
           }
         }}
+        onKeyDown={e => handleKeyDown(e, onDoubleClick)}
       >
         <TableBody>
           {tableDynamic.getRowModel().rows.length > 0 ? (

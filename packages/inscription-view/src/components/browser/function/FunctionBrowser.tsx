@@ -14,7 +14,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
 import { getParentNames } from './parent-name';
-import { TableBody, TableFooter } from '@axonivy/ui-components';
+import { TableBody, TableFooter, useTableKeyHandler } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -112,7 +112,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     getExpandedRowModel: getExpandedRowModel(),
     getFilteredRowModel: getFilteredRowModel()
   });
-
+  const { handleKeyDown } = useTableKeyHandler({ table, data: sortedTree });
   const { rows } = table.getRowModel();
   const parentRef = useRef<HTMLTableElement>(null);
 
@@ -161,6 +161,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
             setRowNumber(100);
           }
         }}
+        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
         ref={parentRef}
       >
         <TableBody>

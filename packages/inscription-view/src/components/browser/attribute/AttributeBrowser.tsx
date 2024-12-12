@@ -7,7 +7,7 @@ import type { VariableInfo } from '@axonivy/process-editor-inscription-protocol'
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
+import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow, useTableKeyHandler } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -110,6 +110,8 @@ const AttributeBrowser = ({
     getFilteredRowModel: getFilteredRowModel()
   });
 
+  const { handleKeyDown } = useTableKeyHandler({ table, data: tree });
+
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       return;
@@ -121,7 +123,7 @@ const AttributeBrowser = ({
 
   return (
     <>
-      <SearchTable search={{ value: globalFilter, onChange: setGlobalFilter }}>
+      <SearchTable search={{ value: globalFilter, onChange: setGlobalFilter }} onKeyDown={e => handleKeyDown(e, onDoubleClick)}>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
