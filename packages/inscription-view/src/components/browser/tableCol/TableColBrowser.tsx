@@ -5,7 +5,7 @@ import type { BrowserValue } from '../Browser';
 import { useReactTable, type ColumnDef, type RowSelectionState, getCoreRowModel, getFilteredRowModel } from '@tanstack/react-table';
 import { useQueryData } from '../../parts/query/useQueryData';
 import type { DatabaseColumn } from '@axonivy/process-editor-inscription-protocol';
-import { TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { TableBody, TableCell, TableRow, useTableKeyHandler } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -79,7 +79,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel()
   });
-
+  const { handleKeyDown } = useTableKeyHandler({ table, data });
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       props.onChange({ cursorValue: '' });
@@ -101,6 +101,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
             setGlobalFilter(newFilterValue);
           }
         }}
+        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (

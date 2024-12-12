@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { UseBrowserImplReturnValue } from '../useBrowser';
-import type { ColumnDef, ExpandedState, RowSelectionState } from '@tanstack/react-table';
+import type { ColumnDef, ExpandedState, Row, RowSelectionState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, useReactTable } from '@tanstack/react-table';
 import { MappingTreeData } from '../../parts/common/mapping-tree/mapping-tree-data';
 import type { VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import { calcFullPathId } from '../../parts/common/mapping-tree/useMappingTree';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow } from '@axonivy/ui-components';
+import { ExpandableHeader, TableBody, TableHead, TableHeader, TableRow, useTableKeyHandler } from '@axonivy/ui-components';
 import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -110,6 +110,14 @@ const AttributeBrowser = ({
     getFilteredRowModel: getFilteredRowModel()
   });
 
+  const { handleKeyDown } = useTableKeyHandler({
+    table,
+    data: tree,
+    options: {
+      lazyLoadChildren: (row: Row<MappingTreeData>) => loadChildren(row.original)
+    }
+  });
+
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       return;
@@ -121,7 +129,7 @@ const AttributeBrowser = ({
 
   return (
     <>
-      <SearchTable search={{ value: globalFilter, onChange: setGlobalFilter }}>
+      <SearchTable search={{ value: globalFilter, onChange: setGlobalFilter }} onKeyDown={e => handleKeyDown(e, onDoubleClick)}>
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
             <TableRow key={headerGroup.id}>
