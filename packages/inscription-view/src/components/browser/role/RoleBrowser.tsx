@@ -13,7 +13,7 @@ import {
 } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
-import { Flex, TableBody, TableCell, TableRow } from '@axonivy/ui-components';
+import { Flex, TableBody, TableCell, TableRow, useTableKeyHandler } from '@axonivy/ui-components';
 import { AddRolePopover } from './AddRolePopover';
 import BrowserTableRow from '../BrowserTableRow';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
@@ -80,6 +80,7 @@ const RoleBrowser = (props: {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel()
   });
+  const { handleKeyDown } = useTableKeyHandler({ table, data: roleItems });
 
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
@@ -121,6 +122,7 @@ const RoleBrowser = (props: {
             setExpanded(true);
           }
         }}
+        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (
