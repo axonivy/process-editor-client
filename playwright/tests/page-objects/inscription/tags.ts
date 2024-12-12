@@ -1,4 +1,4 @@
-import type { Locator, Page} from '@playwright/test';
+import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
 
 export class Tags {
@@ -6,8 +6,9 @@ export class Tags {
 
   async addTags(tags: string[]) {
     for (let i = 0; i < tags.length; i++) {
-      await this.locator.getByRole('button', { name: 'Add new tag' }).click();
-      const input = this.page.getByLabel('New Tag', { exact: true });
+      const newTagBtn = this.locator.getByRole('button', { name: 'Add new tag' });
+      await newTagBtn.click();
+      const input = newTagBtn.locator('input');
       await input.fill(tags[i]);
       await input.press('Enter');
     }

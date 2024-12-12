@@ -183,7 +183,7 @@ const ContextHelper = (
       }
     }
   };
-  const editorContext = DEFAULT_EDITOR_CONTEXT;
+  const editorContext = structuredClone(DEFAULT_EDITOR_CONTEXT);
   if (props.editor?.title) {
     editorContext.type.shortLabel = props.editor.title;
   }
