@@ -28,22 +28,22 @@
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
-    "@types/node": "^22.8.7",
-    "@typescript-eslint/eslint-plugin": "^8.15.0",
-    "@typescript-eslint/parser": "^8.15.0",
-    "eslint": "^8.56.0",
-    "eslint-import-resolver-typescript": "^3.6.3",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-no-null": "^1.0.2",
     "eslint-plugin-react": "^7.37.2",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "lerna": "^8.1.8",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "lerna": "^8.1.9",
     "prettier": "^2.8.0",
     "rimraf": "^6.0.1",
-    "typescript": "^5.5.4",
+    "typescript": "^5.7.2",
     "typescript-cp": "^0.1.9",
-    "vitest": "^2.1.5"
+    "vitest": "^2.1.8"
   },
   "workspaces": {
     "packages": [
