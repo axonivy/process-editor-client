@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@axonivy/eclipse-integration",
-  "version": "12.0.1-next",
+  "version": "12.0.2-next",
   "description": "Eclipse IDE integration webview for the Axon Ivy (GLSP-based) process editor",
   "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
   "author": "Axon Ivy AG",
@@ -10,9 +10,9 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "dependencies": {
-    "@axonivy/process-editor": "~12.0.1-next",
-    "@axonivy/process-editor-inscription": "~12.0.1-next",
-    "@axonivy/process-editor-inscription-view": "~12.0.1-next",
+    "@axonivy/process-editor": "12.0.2-next",
+    "@axonivy/process-editor-inscription": "12.0.2-next",
+    "@axonivy/process-editor-inscription-view": "12.0.2-next",
     "@eclipse-glsp/client": "2.3.0-next.390",
     "@eclipse-glsp/ide": "2.3.0-next.134",
     "@eclipse-glsp/protocol": "2.3.0-next.390"
