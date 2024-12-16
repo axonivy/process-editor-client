@@ -107,15 +107,14 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
             <input
               disabled={readonly}
               className='new-tag-input'
-              {...getInputProps({
-                onFocus: () => {
-                  openMenu();
-                  setAddValue('');
-                },
-                ref: inputRef,
-                value: addValue,
-                'aria-label': 'New Tag'
-              })}
+              {...getInputProps()}
+              onFocus={() => {
+                openMenu();
+                setAddValue('');
+              }}
+              ref={inputRef}
+              value={addValue}
+              aria-label='New Tag'
               style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
             />
           </button>

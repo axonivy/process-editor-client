@@ -40,7 +40,7 @@ export const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, opti
     handlePlaceholder(editor.getValue() === '');
   };
 
-  const monacoOptions = options ?? MONACO_OPTIONS;
+  const monacoOptions = { ...(options ?? MONACO_OPTIONS) };
   monacoOptions.readOnly = readonly;
   const language = macro ? 'ivyMacro' : 'ivyScript';
 
