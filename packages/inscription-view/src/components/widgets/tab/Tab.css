@@ -1,12 +1,12 @@
 .tabs-root {
   display: flex;
   flex-direction: column;
+  gap: var(--size-1);
 }
 .tabs-list {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  padding-bottom: var(--size-2);
 }
 .tabs-trigger {
   all: unset;

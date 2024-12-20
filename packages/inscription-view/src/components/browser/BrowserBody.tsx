@@ -20,24 +20,24 @@ const BrowserBody = ({ tabs, activeTab, onTabsChange, onApply, disableApply }: R
         }}
       >
         <TabRoot tabs={tabs} value={activeTab} onChange={onTabsChange}>
-          <DialogTitle className='browser-title'>
-            <TabList tabs={tabs} />
-          </DialogTitle>
+          {/* <DialogTitle className='browser-title'> */}
+          <TabList tabs={tabs} />
+          {/* </DialogTitle> */}
 
           <TabContent tabs={tabs} />
+          <Flex alignItems='center' justifyContent='flex-end' gap={1}>
+            <DialogClose asChild>
+              <Button aria-label='Cancel' size='large'>
+                Cancel
+              </Button>
+            </DialogClose>
+            <DialogClose asChild>
+              <Button aria-label='Apply' onClick={onApply} size='large' variant='primary' disabled={disableApply}>
+                Apply
+              </Button>
+            </DialogClose>
+          </Flex>
         </TabRoot>
-        <Flex alignItems='center' justifyContent='flex-end' gap={1}>
-          <DialogClose asChild>
-            <Button aria-label='Cancel' size='large'>
-              Cancel
-            </Button>
-          </DialogClose>
-          <DialogClose asChild>
-            <Button aria-label='Apply' onClick={onApply} size='large' variant='primary' disabled={disableApply}>
-              Apply
-            </Button>
-          </DialogClose>
-        </Flex>
       </DialogContent>
     </DialogPortal>
   );
