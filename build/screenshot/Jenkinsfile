@@ -30,6 +30,7 @@ pipeline {
           }
           archiveArtifacts artifacts: 'playwright/test-results/**', allowEmptyArchive: true
           archiveArtifacts artifacts: 'playwright/process-test-project/target/**/ivy.log', allowEmptyArchive: true
+          archiveArtifacts artifacts: 'playwright/*/target/screenshots/**/*.png', allowEmptyArchive: true
           withChecks('Screenshots') {
             junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
           }

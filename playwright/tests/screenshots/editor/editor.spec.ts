@@ -1,5 +1,5 @@
 import type { Page } from '@playwright/test';
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/editor/process-editor';
 
 test.beforeEach(async ({ page }) => {
@@ -38,6 +38,24 @@ test('extensions', async ({ page }) => {
     await expect(img).not.toHaveJSProperty('naturalWidth', 0);
   }
   await screenshot(page, 'extensions.png');
+});
+
+test('connector-process', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/market/erp.p.json', waitFor: '.sprotty-graph' });
+  const inscription = await editor.element('start:callSubStart').inscribe();
+  const start = inscription.accordion('Start');
+  await start.toggle();
+  await start.section('Mapping').close();
+  await start.section('Input parameters').open();
+  await screenshot(page, 'connector-process.png', { height: 400 });
+});
+
+test('connector-user', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/market/UserEnroll.p.json', waitFor: '.sprotty-graph' });
+  const inscription = await editor.element('subProcessCall').inscribe();
+  const process = inscription.accordion('Process');
+  await process.toggle();
+  await screenshot(page, 'connector-user.png', { height: 400 });
 });
 
 async function screenshot(page: Page, name: string, size?: { width?: number; height?: number }) {
