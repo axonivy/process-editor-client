@@ -3,28 +3,22 @@
   z-index: 100;
   height: 80vh;
 }
-.browser-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: var(--size-2);
-}
 
-.browser-content .tabs-content {
+.browser-dialog .tabs-content {
   gap: var(--size-1);
 }
-.browser-content .table-root {
+.browser-dialog .table-root {
   overflow: hidden;
 }
-.browser-content .table-root .table-container {
+.browser-dialog .table-root .table-container {
   max-height: calc(100vh - 300px);
   overflow: auto;
 }
-.browser-content .table-root .table-container .table {
+.browser-dialog .table-root .table-container .table {
   overflow: auto;
   max-height: 100%;
 }
-.browser-content .browser-helptext {
+.browser-dialog .browser-helptext {
   font-size: 12px;
   background-color: var(--background);
   border: var(--basic-border);
