@@ -57,7 +57,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange} modal={false}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogTrigger asChild>
           <Button icon={IvyIcons.ListSearch} aria-label='Browser' />
         </DialogTrigger>
@@ -65,7 +65,6 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
           activeTab={active}
           onTabsChange={change => setActive(change as BrowserType)}
           onApply={() => acceptBrowser()}
-          open={open}
           tabs={tabs}
           disableApply={disableApply}
         />

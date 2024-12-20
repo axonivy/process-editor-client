@@ -45,7 +45,7 @@ export const MaximizedCodeEditorBrowser = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <BrowserBody activeTab='maxCode' open={open} tabs={tabs} />
+      <BrowserBody activeTab='maxCode' tabs={tabs} />
     </Dialog>
   );
 };
