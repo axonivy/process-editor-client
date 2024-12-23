@@ -57,6 +57,7 @@ test('connector-user', async ({ page }) => {
   const subCall = editor.element('subProcessCall');
   const inscription = await subCall.inscribe();
   await expect(subCall.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
+  await page.waitForTimeout(1000); // wait for user.png being rendered
   const process = inscription.accordion('Process');
   await process.toggle();
   await screenshot(page, 'connector-user.png', { height: 400 });
