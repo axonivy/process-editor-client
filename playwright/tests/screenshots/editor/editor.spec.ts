@@ -42,7 +42,9 @@ test('extensions', async ({ page }) => {
 
 test('connector-process', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/market/erp.p.json', waitFor: '.sprotty-graph' });
-  const inscription = await editor.element('start:callSubStart').inscribe();
+  const subStart = editor.element('start:callSubStart');
+  const inscription = await subStart.inscribe();
+  await expect(subStart.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
   const start = inscription.accordion('Start');
   await start.toggle();
   await start.section('Mapping').close();
@@ -52,7 +54,9 @@ test('connector-process', async ({ page }) => {
 
 test('connector-user', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/market/UserEnroll.p.json', waitFor: '.sprotty-graph' });
-  const inscription = await editor.element('subProcessCall').inscribe();
+  const subCall = editor.element('subProcessCall');
+  const inscription = await subCall.inscribe();
+  await expect(subCall.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
   const process = inscription.accordion('Process');
   await process.toggle();
   await screenshot(page, 'connector-user.png', { height: 400 });
