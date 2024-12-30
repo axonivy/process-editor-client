@@ -1,6 +1,6 @@
 {
   "name": "@axonivy/inscription-standalone",
-  "version": "12.0.2-next",
+  "version": "13.1.0-next",
   "private": true,
   "author": "Axon Ivy AG",
   "homepage": "https://developer.axonivy.com/",
@@ -9,8 +9,8 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "dependencies": {
-    "@axonivy/process-editor-inscription-core": "12.0.2-next",
-    "@axonivy/process-editor-inscription-view": "12.0.2-next",
+    "@axonivy/process-editor-inscription-core": "13.1.0-next",
+    "@axonivy/process-editor-inscription-view": "13.1.0-next",
     "@axonivy/ui-icons": "~12.0.2-next.409",
     "path-browserify": "^1.0.1"
   },
