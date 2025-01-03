@@ -5,7 +5,7 @@ import { flexRender, getCoreRowModel, getExpandedRowModel, getFilteredRowModel, 
 import type { ContentObject, ContentObjectType } from '@axonivy/process-editor-inscription-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { BrowserValue } from '../Browser';
-import { Button, Flex, Message, SelectRow, TableBody, TableCell, toast } from '@axonivy/ui-components';
+import { Button, Flex, Message, SelectRow, TableBody, TableCell, toast, useTableKeyHandler } from '@axonivy/ui-components';
 import { useFunction } from '../../../context/useFunction';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEditorContext } from '../../../context/useEditorContext';
@@ -155,7 +155,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility
   });
-
+  const { handleKeyDown } = useTableKeyHandler({ table, data: tree });
   useEffect(() => {
     const addIvyPathToValue = (value: string, type: ContentObjectType, noApiCall?: boolean) => {
       if (noApiCall || value.length === 0) {
@@ -221,6 +221,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
             setExpanded(true);
           }
         }}
+        onKeyDown={e => handleKeyDown(e, onDoubleClick)}
       >
         <TableBody>
           {table.getRowModel().rows.map(row => (

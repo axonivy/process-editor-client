@@ -16,8 +16,8 @@
   "dependencies": {
     "@axonivy/process-editor-inscription-core": "~13.1.0-next",
     "@axonivy/process-editor-inscription-protocol": "~13.1.0-next",
-    "@axonivy/ui-components": "~13.1.0-next.413",
-    "@axonivy/ui-icons": "~13.1.0-next.413",
+    "@axonivy/ui-components": "~13.1.0-next.415",
+    "@axonivy/ui-icons": "~13.1.0-next.415",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-radio-group": "1.2.1",
