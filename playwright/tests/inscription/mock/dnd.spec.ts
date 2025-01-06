@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Drag and drop features', () => {
   test('Alternative condition reorder', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page, { type: 'Alternative' });
+    const inscriptionView = await openMockInscription(page, { type: 'Alternative' });
     const conditions = inscriptionView.accordion('Condition');
     await conditions.toggle();
 

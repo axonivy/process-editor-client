@@ -30,7 +30,7 @@ test('delete', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const start = processEditor.startElement;
   await start.quickActionBar().trigger('Delete');
-  await expect(start.locator()).not.toBeVisible();
+  await expect(start.locator()).toBeHidden();
 });
 
 test('connect', async ({ page }) => {
@@ -44,7 +44,7 @@ test('connect', async ({ page }) => {
   await expect(edge.feedbackLocator()).toBeVisible();
 
   await end.select();
-  await expect(edge.feedbackLocator()).not.toBeVisible();
+  await expect(edge.feedbackLocator()).toBeHidden();
   await expect(edge.locator()).toBeVisible();
 });
 

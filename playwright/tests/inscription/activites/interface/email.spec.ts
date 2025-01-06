@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { openElementInscription, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { MailAttachmentTest } from '../../parts/mail-attachments';
 import { MailContentTest } from '../../parts/mail-content';
 import { MailErrorTest } from '../../parts/mail-error';
@@ -18,7 +18,7 @@ test.describe('EMail', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = await InscriptionView.selectElement(page, testee.elementId);
+    view = await openElementInscription(page, testee.elementId);
   });
 
   test('Header', async () => {

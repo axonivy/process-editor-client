@@ -19,8 +19,8 @@ describe('WebServicePart', () => {
 
   test('empty data', async () => {
     renderPart();
-    expect(screen.queryByText('Permission')).toBeInTheDocument();
-    expect(screen.queryByText('Exception')).toBeInTheDocument();
+    expect(screen.getByText('Permission')).toBeInTheDocument();
+    expect(screen.getByText('Exception')).toBeInTheDocument();
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebserviceStartData>, validation?: ValidationResult) {

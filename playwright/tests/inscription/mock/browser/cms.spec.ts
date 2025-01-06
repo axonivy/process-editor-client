@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../../page-objects/inscription/inscription-view';
 import { applyBrowser, assertCodeHidden, assertCodeVisible, code } from './browser-mock-utils';
 
 test('browser add cms string', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 
@@ -17,7 +17,7 @@ test('browser add cms string', async ({ page }) => {
 });
 
 test('browser add cms file', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 
@@ -31,7 +31,7 @@ test('browser add cms file', async ({ page }) => {
 });
 
 test('browser add cms doubleclick', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 

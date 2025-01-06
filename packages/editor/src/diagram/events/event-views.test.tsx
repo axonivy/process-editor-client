@@ -61,11 +61,11 @@ describe('EventNodeView', () => {
   });
 
   test('render full event graph', () => {
-    const graphVNode = context.renderElement(graph);
-    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
+    let view = context.renderElement(graph);
+    expect(toHTML(view)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
-    const unknownVNode = context.renderElement(unknown);
-    expect(toHTML(unknownVNode)).to.be.equal(
+    view = context.renderElement(unknown);
+    expect(toHTML(view)).to.be.equal(
       '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">missing &quot;unknown&quot; view</text>'
     );
   });
@@ -155,29 +155,26 @@ describe('EventNodeView', () => {
   });
 
   test('render with execution badge', () => {
-    const view = viewRegistry.get(EventStartTypes.START);
     const start = graph.index.getById('start') as EventNode;
     start.executionCount = 3;
-    const vnode = view.render(start, context);
+    const view = viewRegistry.get(EventStartTypes.START).render(start, context);
     const executionBadge =
       '<g><rect class="execution-badge" rx="7" ry="7" x="19" y="-7" width="22" height="14" /><text class="execution-text" x="30" dy=".4em">3</text></g>';
-    expect(toHTML(vnode)).to.contains(executionBadge);
+    expect(toHTML(view)).to.contains(executionBadge);
   });
 
   test('render with color', () => {
-    const view = viewRegistry.get(EventBoundaryTypes.BOUNDARY_SIGNAL);
     const signal = graph.index.getById('boundarySignal') as EventNode;
     signal.args = { color: 'red' };
-    const vnode = view.render(signal, context);
+    const view = viewRegistry.get(EventBoundaryTypes.BOUNDARY_SIGNAL).render(signal, context);
     const colorCircle = /<circle.*style="stroke: red".*\/>/;
-    const newLocal = toHTML(vnode);
+    const newLocal = toHTML(view);
     expect(newLocal).to.matches(colorCircle);
   });
 
   function assertEvent(type: string, nodeId: string, options: { intermediate?: boolean; icon?: boolean }): void {
-    const view = viewRegistry.get(type);
-    const vnode = view.render(graph.index.getById(nodeId) as GNode, context);
-    const node = toHTML(vnode);
+    const view = viewRegistry.get(type).render(graph.index.getById(nodeId) as GNode, context);
+    const node = toHTML(view);
     expect(node).to.contains('<circle class="sprotty-node" r="15" cx="15" cy="15" style="stroke: " />');
     if (options.intermediate) {
       expect(node).to.contains('<circle class="sprotty-node sprotty-task-node" r="12" cx="15" cy="15" />');

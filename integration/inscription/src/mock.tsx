@@ -11,7 +11,11 @@ export async function start(): Promise<void> {
   const readonly = URLParams.parameter('readonly') ? true : false;
   const type = (URLParams.parameter('type') as ElementType) ?? undefined;
   const theme = URLParams.themeMode();
-  const root = createRoot(document.getElementById('root')!);
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    throw new Error('root element not found');
+  }
+  const root = createRoot(rootElement);
   const queryClient = initQueryClient();
   const client = new InscriptionClientMock(readonly, type);
   await MonacoEditorUtil.configureInstance({ theme, debug: true });

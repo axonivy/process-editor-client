@@ -63,11 +63,11 @@ describe('Select', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 
     await userEvent.keyboard('[Enter]');
-    expect(screen.queryByRole('listbox')).toBeInTheDocument();
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
     await userEvent.keyboard('[Enter]');
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
     await userEvent.keyboard('[Space]');
-    expect(screen.queryByRole('listbox')).toBeInTheDocument();
+    expect(screen.getByRole('listbox')).toBeInTheDocument();
 
     const option1 = screen.getByRole('option', { name: 'label' });
     const option2 = screen.getByRole('option', { name: 'test' });

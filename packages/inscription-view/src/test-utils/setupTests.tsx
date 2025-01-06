@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 // allows you to do things like:
@@ -13,7 +14,6 @@ afterEach(() => cleanup());
 
 //@ts-ignore
 global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
   observe() {
     return null;
   }

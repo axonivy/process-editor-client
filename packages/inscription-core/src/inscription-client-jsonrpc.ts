@@ -78,6 +78,7 @@ export class InscriptionClientJsonRpc extends BaseRpcClient implements Inscripti
 
   onNotification<K extends keyof InscriptionNotificationTypes>(
     kind: K,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     listener: (args: InscriptionNotificationTypes[K]) => any
   ): Disposable {
     return this.connection.onNotification(kind, listener);

@@ -12,7 +12,7 @@ export namespace ComboboxUtil {
       return screen.getByRole('combobox', { name: options.label });
     }
     if (options?.nth !== undefined) {
-      return screen.getAllByRole('combobox').at(options.nth)!;
+      return screen.getAllByRole('combobox')[options.nth];
     }
     return screen.getByRole('combobox');
   }

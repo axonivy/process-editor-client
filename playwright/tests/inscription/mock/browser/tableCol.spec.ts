@@ -1,10 +1,10 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../../page-objects/inscription/inscription-view';
 import { browserBtn, code } from './browser-mock-utils';
 
 test('browser add table column with all fields', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
+  const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
   await query.toggle();
   const allFieldsCheckbox = query.checkbox('Select all fields');
@@ -21,7 +21,7 @@ test('browser add table column with all fields', async ({ page }) => {
 });
 
 test('browser add table column with one field', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
+  const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
   await query.toggle();
   const allFieldsCheckbox = query.checkbox('Select all fields');
@@ -38,7 +38,7 @@ test('browser add table column with one field', async ({ page }) => {
 });
 
 test('browser add table column doubleclick', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page, { type: 'Database' });
+  const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
   await query.toggle();
   const allFieldsCheckbox = query.checkbox('Select all fields');
@@ -65,7 +65,7 @@ async function applyTableColBrowser(page: Page, expectedSelection: string = '', 
     await browserDialog.getByRole('row').nth(rowToCheck).dblclick();
   } else {
     if (numberOfRows) {
-      expect(browserDialog.getByRole('row')).toHaveCount(numberOfRows);
+      await expect(browserDialog.getByRole('row')).toHaveCount(numberOfRows);
     }
     await browserDialog.getByRole('row').nth(rowToCheck).click();
     await expect(browserDialog.locator('.browser-helptext')).toHaveText(expectedSelection);

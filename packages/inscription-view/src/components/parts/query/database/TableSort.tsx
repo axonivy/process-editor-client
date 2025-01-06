@@ -109,7 +109,7 @@ export const TableSort = () => {
         const newData = data.map((row, index) => {
           if (index === rowIndex) {
             return {
-              ...data[rowIndex]!,
+              ...data[rowIndex],
               [columnId]: value
             };
           }

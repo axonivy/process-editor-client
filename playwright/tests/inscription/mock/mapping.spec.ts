@@ -1,9 +1,9 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const callPart = inscriptionView.accordion('Dialog');
     await callPart.toggle();
 
@@ -19,7 +19,7 @@ test.describe('Mappings', () => {
   });
 
   test('SubStart result param change will update mapping tree', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page, { type: 'CallSubStart' });
+    const inscriptionView = await openMockInscription(page, { type: 'CallSubStart' });
     const resultPart = inscriptionView.accordion('Result');
     await resultPart.toggle();
 

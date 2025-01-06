@@ -94,7 +94,8 @@ export class OptionsButtonProvider implements ToolBarButtonProvider {
   button() {
     const customIconState = () => this.customIconHandler.isShowCustomIcons;
     const grid = () => this.gridManager.isGridVisible;
-    const theme = this.switchThemeHandler ? () => this.switchThemeHandler!.theme() : undefined;
+    const handler = this.switchThemeHandler;
+    const theme = handler ? () => handler.theme() : undefined;
     return {
       icon: IvyIcons.Settings,
       title: 'Settings',

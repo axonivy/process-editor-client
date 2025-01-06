@@ -95,7 +95,7 @@ export namespace MappingTreeData {
           };
         } else {
           return {
-            ...data[rowIndex]!,
+            ...data[rowIndex],
             children: updateDeep(rowData.children, subRows, columnId, value)
           };
         }

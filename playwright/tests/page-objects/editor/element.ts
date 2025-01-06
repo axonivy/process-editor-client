@@ -110,7 +110,10 @@ export class Element extends BaseElement {
 
   async getPosition() {
     const transform = await this.element.getAttribute('transform');
-    const position = transform!.substring(transform!.indexOf('(') + 1, transform!.indexOf(')'));
+    if (!transform) {
+      throw new Error('Element has no transform');
+    }
+    const position = transform.substring(transform.indexOf('(') + 1, transform.indexOf(')'));
     const x = parseInt(position.split(',')[0].trim(), 10);
     const y = parseInt(position.split(',')[1].trim(), 10);
     return { x: x, y: y };

@@ -2,7 +2,6 @@ import {
   Action,
   EditorContextService,
   IActionHandler,
-  ICommand,
   isViewport,
   IToolManager,
   SetUIExtensionVisibilityAction,
@@ -84,7 +83,7 @@ export class ViewportBar extends GLSPAbstractUIExtension implements IActionHandl
     return button;
   }
 
-  handle(action: Action): ICommand | Action | void {
+  handle(action: Action) {
     if (EnableViewportAction.is(action)) {
       this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ViewportBar.ID, visible: true }));
     }

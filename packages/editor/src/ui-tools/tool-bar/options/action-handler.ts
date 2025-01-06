@@ -6,11 +6,12 @@ import { injectable } from 'inversify';
 export class CustomIconToggleActionHandler implements IActionHandler {
   private showCustomIcons = true;
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (CustomIconToggleAction.is(action)) {
       this.showCustomIcons = action.showCustomIcons;
       return ReloadModelAction.create();
     }
+    return;
   }
 
   get isShowCustomIcons(): boolean {

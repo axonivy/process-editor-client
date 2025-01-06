@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { describe, test, expect } from 'vitest';
 import type { VNode, VNodeData } from 'snabbdom';
 import type { Bounds } from '@eclipse-glsp/client';

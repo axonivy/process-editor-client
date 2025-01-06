@@ -16,7 +16,6 @@ describe('ParameterTable', () => {
     const view = render(<ParameterTable label='Input parameters' data={data} onChange={change => (data = change)} />);
     return {
       data: () => data,
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       rerender: () => view.rerender(<ParameterTable label='Input parameters' data={data} onChange={change => (data = change)} />)
     };
   }

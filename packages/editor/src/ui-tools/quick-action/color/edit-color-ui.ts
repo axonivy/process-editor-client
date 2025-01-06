@@ -68,13 +68,14 @@ export class EditColorUi {
     if (showColorPicker) {
       const colorDiv = createElement('div', ['color-picker']);
       this.colorPickerDecorator = createElement('span', ['decorator']);
-      this.colorPickerInput = document.createElement('input');
-      this.colorPickerDecorator.onclick = () => this.colorPickerInput!.click();
-      this.colorPickerInput.type = 'color';
-      this.colorPickerInput.onchange = e => this.colorInputChange(e.target);
-      input.onchange = e => this.colorInputChange(e.target);
+      const colorInput = document.createElement('input');
+      this.colorPickerDecorator.onclick = () => colorInput.click();
+      colorInput.type = 'color';
+      colorInput.onchange = e => this.colorInputChange(e.target);
+      colorInput.onchange = e => this.colorInputChange(e.target);
+      this.colorPickerInput = colorInput;
       colorDiv.appendChild(this.colorPickerDecorator);
-      colorDiv.appendChild(this.colorPickerInput);
+      colorDiv.appendChild(colorInput);
       colorDiv.appendChild(input);
       div.appendChild(colorDiv);
     } else {
@@ -84,11 +85,11 @@ export class EditColorUi {
   }
 
   private colorInputChange(inputElement: EventTarget | null): void {
-    if (inputElement instanceof HTMLInputElement) {
+    if (inputElement instanceof HTMLInputElement && this.colorPickerInput && this.colorPickerDecorator && this.colorInput) {
       const value = inputElement.value;
-      this.colorPickerInput!.value = value;
-      this.colorPickerDecorator!.style.backgroundColor = value;
-      this.colorInput!.value = value;
+      this.colorPickerInput.value = value;
+      this.colorPickerDecorator.style.backgroundColor = value;
+      this.colorInput.value = value;
     }
   }
 

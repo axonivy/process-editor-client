@@ -57,7 +57,7 @@ test('attach comment', async ({ page }) => {
   const start = processEditor.startElement;
   const comment = processEditor.element('processAnnotation');
   const edge = processEditor.edge();
-  await expect(comment.locator()).not.toBeVisible();
+  await expect(comment.locator()).toBeHidden();
   await expect(edge.locator()).toHaveCount(1);
 
   await start.quickActionBar().pressShortCut('A');

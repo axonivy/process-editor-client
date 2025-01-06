@@ -61,7 +61,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     const updatedData = data.map((row, index) => {
       if (index === rowIndex) {
         return {
-          ...data[rowIndex]!,
+          ...data[rowIndex],
           [columnId]: value
         };
       }
