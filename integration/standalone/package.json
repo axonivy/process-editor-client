@@ -14,12 +14,12 @@
     "@axonivy/process-editor-inscription": "12.0.2-next",
     "@axonivy/process-editor-inscription-view": "12.0.2-next",
     "@axonivy/ui-components": "~12.0.2-next.409",
-    "@eclipse-glsp/client": "2.3.0-next.390"
+    "@eclipse-glsp/client": "2.3.0"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
     "path-browserify": "^1.0.1",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "~0.2.2",
     "vite": "^5.4.2",
     "vite-tsconfig-paths": "^5.1.4"
   },
