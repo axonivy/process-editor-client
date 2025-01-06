@@ -1,13 +1,13 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
-import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWriteTest } from '../../parts/query';
+import { openElementInscription, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { DataCacheTest } from '../../parts/db-cache';
 import { DbErrorTest } from '../../parts/db-error';
 import { GeneralTest } from '../../parts/name';
 import { OutputTest } from '../../parts/output';
 import { runTest } from '../../parts/part-tester';
+import { QueryAnyTest, QueryDeleteTest, QueryReadTest, QueryUpdateTest, QueryWriteTest } from '../../parts/query';
 
 test.describe('Database', () => {
   let view: Inscription;
@@ -15,7 +15,7 @@ test.describe('Database', () => {
 
   test.beforeEach(async ({ page }) => {
     testee = await createProcess('Database');
-    view = await InscriptionView.selectElement(page, testee.elementId);
+    view = await openElementInscription(page, testee.elementId);
   });
 
   test('Header', async () => {

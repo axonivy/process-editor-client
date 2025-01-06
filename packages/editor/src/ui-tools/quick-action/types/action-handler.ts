@@ -2,7 +2,6 @@ import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   Action,
   IActionHandler,
-  ICommand,
   PaletteItem,
   RequestContextActions,
   SetContextActions,
@@ -21,7 +20,7 @@ export class TypesPaletteHandler implements IActionHandler {
     return this.paletteItems;
   }
 
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (UpdatePaletteItems.is(action)) {
       this.updateActivityTypePalette();
     }

@@ -10,7 +10,7 @@ export class ShowBreakpointActionHandler implements IActionHandler {
 
   @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (ShowBreakpointAction.is(action)) {
       const breakpointFeedback = BreakpointFeedbackAction.create({
         breakpoints: action.elementBreakpoints,

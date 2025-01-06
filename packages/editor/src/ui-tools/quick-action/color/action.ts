@@ -48,7 +48,7 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
   actions = (item: PaletteItem, elementIds: string[]): Action[] => [
     ChangeColorOperation.changeColor({
       elementIds: elementIds,
-      color: item.icon!,
+      color: item.icon ?? '',
       colorName: item.label
     })
   ];

@@ -1,10 +1,10 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../../page-objects/inscription/inscription-view';
 import { assertCodeHidden, browserBtn } from './browser-mock-utils';
 
 test('browser add role', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.open();
   await assertCodeHidden(page);
@@ -14,7 +14,7 @@ test('browser add role', async ({ page }) => {
 });
 
 test('browser role open add role popover', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.open();
   await assertCodeHidden(page);
@@ -24,7 +24,7 @@ test('browser role open add role popover', async ({ page }) => {
 });
 
 test('browser add role doubleclick', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.open();
   await assertCodeHidden(page);
@@ -48,7 +48,7 @@ async function applyRoleBrowser(page: Page, expectedSelection: string = '', rowT
     await addRoleInput.fill('test');
     await addRoleButton.click();
 
-    await expect(popover).not.toBeVisible();
+    await expect(popover).toBeHidden();
   }
 
   if (dblClick) {

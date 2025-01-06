@@ -66,9 +66,9 @@ describe('BreakpointView', () => {
   });
 
   test('render breakpoint', () => {
-    const vnode = renderBreakpoint('breakpoint');
+    const view = renderBreakpoint('breakpoint');
     const expectation = '<g><circle class="ivy-breakpoint-handle" cx="-10" cy="9" r="4" /></g>';
-    expect(toHTML(vnode)).to.be.equals(expectation);
+    expect(toHTML(view)).to.be.equals(expectation);
   });
 
   test('render disabled breakpoint', () => {
@@ -100,11 +100,11 @@ describe('BreakpointView', () => {
   });
 
   test('render full graph', () => {
-    const vnode = context.renderElement(graph);
+    const view = context.renderElement(graph);
     const graphAndNode =
       '<svg id="sprotty_graph" class="sprotty-graph" tabindex="0"><g transform="scale(1) translate(0,0)">' +
       '<g id="sprotty_node" transform="translate(100, 100)"><rect class="sprotty-node" x="0" y="0" width="200" height="50" />';
-    expect(toHTML(vnode))
+    expect(toHTML(view))
       .to.contains(graphAndNode)
       .and.contains('<g id="sprotty_breakpoint">')
       .and.contains('<g id="sprotty_breakpoint-disabled">')
@@ -122,19 +122,19 @@ describe('BreakpointView', () => {
   }
 
   function assertBreakpoint(breakpointId: string, expectedCssClass: string): void {
-    const vnode = renderBreakpoint(breakpointId);
+    const view = renderBreakpoint(breakpointId);
     const breakpoint = `class="ivy-breakpoint-handle ${expectedCssClass}"`;
-    expect(toHTML(vnode)).to.contain(breakpoint);
+    expect(toHTML(view)).to.contain(breakpoint);
   }
 
   function assertBreakpointGlobalDisable(breakpointId: string, expectedCssClass?: string): void {
-    const vnode = renderBreakpoint(breakpointId);
+    const view = renderBreakpoint(breakpointId);
     let breakpoint = 'class="ivy-breakpoint-handle';
     if (expectedCssClass) {
       breakpoint = `class="ivy-breakpoint-handle ${expectedCssClass}"`;
     }
     const line = '<line class="ivy-breakpoint-handle-globaldisable" x1="-15" y1="14" x2="-5" y2="4" />';
-    expect(toHTML(vnode)).to.contain(breakpoint);
-    expect(toHTML(vnode)).to.contain(line);
+    expect(toHTML(view)).to.contain(breakpoint);
+    expect(toHTML(view)).to.contain(line);
   }
 });

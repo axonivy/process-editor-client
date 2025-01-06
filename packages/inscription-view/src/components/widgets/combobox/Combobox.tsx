@@ -113,6 +113,7 @@ const Combobox = <T extends ComboboxItem>({
                 macro={true}
                 onMountFuncs={[setEditor]}
               />
+              {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
               {browserTypes || (macro && browserTypes!) ? (
                 <Browser
                   {...browser}

@@ -38,27 +38,26 @@ describe('RestBody', () => {
 
 describe('useBodyTypes', () => {
   function renderTypesHook(currentType: InputType, restResource?: DeepPartial<RestResource>) {
-    const view = renderHook(() => useBodyTypes(currentType), { wrapperProps: { meta: { restResource } } });
-    return view.result;
+    return renderHook(() => useBodyTypes(currentType), { wrapperProps: { meta: { restResource } } });
   }
 
   test('no openapi', async () => {
-    expect(renderTypesHook('ENTITY').current).toHaveLength(3);
+    expect(renderTypesHook('ENTITY').result.current).toHaveLength(3);
   });
 
   test('form body', async () => {
     const restResource: DeepPartial<RestResource> = { method: { inBody: { media: 'multipart/form-data' } } };
-    let result = renderTypesHook('FORM', restResource);
+    let { result } = renderTypesHook('FORM', restResource);
     await waitFor(() => expect(result.current).toHaveLength(0));
-    result = renderTypesHook('RAW', restResource);
+    result = renderTypesHook('RAW', restResource).result;
     await waitFor(() => expect(result.current).toHaveLength(3));
   }, 1000);
 
   test('entity body', async () => {
     const restResource: DeepPartial<RestResource> = { method: { inBody: { media: 'other' } } };
-    let result = renderTypesHook('ENTITY', restResource);
+    let { result } = renderTypesHook('ENTITY', restResource);
     await waitFor(() => expect(result.current).toHaveLength(2));
-    result = renderTypesHook('FORM', restResource);
+    result = renderTypesHook('FORM', restResource).result;
     await waitFor(() => expect(result.current).toHaveLength(3));
   }, 1000);
 });

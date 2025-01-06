@@ -1,9 +1,9 @@
-import { Action, EditLabelUI, IActionHandler, ICommand, isEditLabelAction, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
+import { Action, EditLabelUI, IActionHandler, isEditLabelAction, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()
 export class IvyEditLabelActionHandler implements IActionHandler {
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (isEditLabelAction(action)) {
       return SetUIExtensionVisibilityAction.create({
         extensionId: IvyEditLabelUI.IVY_ID,
@@ -11,6 +11,7 @@ export class IvyEditLabelActionHandler implements IActionHandler {
         contextElementsId: [action.labelId]
       });
     }
+    return;
   }
 }
 

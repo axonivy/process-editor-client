@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { openElementInscription, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { runTest } from '../../parts/part-tester';
 import { RestRequestOpenApiTest } from '../../parts/rest-request';
 import { RestRequestBodyOpenApiTest } from '../../parts/rest-request-body';
@@ -15,7 +15,7 @@ test.describe('Rest Client - OpenApi', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = await InscriptionView.selectElement(page, testee.elementId);
+    view = await openElementInscription(page, testee.elementId);
   });
 
   test('Request - OpenApi', async () => {

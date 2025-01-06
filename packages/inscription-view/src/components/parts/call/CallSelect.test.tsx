@@ -2,6 +2,7 @@ import CallSelect from './CallSelect';
 import { render, screen, userEvent } from 'test-utils';
 import type { CallableStart } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 describe('CallSelect', () => {
   const DEPRECATED_STYLE = 'text-decoration: line-through';
@@ -35,8 +36,7 @@ describe('CallSelect', () => {
         }
       }
     ];
-    //@ts-ignore
-    render(<CallSelect start={selected} starts={items} onChange={() => {}} startIcon='' />);
+    render(<CallSelect start={selected} starts={items} onChange={() => {}} startIcon={IvyIcons.ActivitiesGroup} />);
   }
 
   test('deprecated option', async () => {

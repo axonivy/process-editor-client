@@ -152,7 +152,10 @@ export class ProcessEditor {
     const graph = this.page.locator('#sprotty');
     await expect(graph).toBeVisible();
     const bounds = await graph.boundingBox();
-    await graph.click({ position: { x: bounds!.width - 20, y: bounds!.height - 80 } });
+    if (!bounds) {
+      throw new Error('Graph has no bounds');
+    }
+    await graph.click({ position: { x: bounds.width - 20, y: bounds.height - 80 } });
     await expect(this.page.locator('g.selected')).toHaveCount(0);
   }
 

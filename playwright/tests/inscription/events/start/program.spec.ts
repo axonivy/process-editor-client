@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
-import { ProgramStartTest } from '../../parts/program-start';
-import { ConfigTimerBeanTest, ConfigFilePickupStartEventBeanTest } from '../../parts/configuration';
+import { openElementInscription, type Inscription } from '../../../page-objects/inscription/inscription-view';
+import { ConfigFilePickupStartEventBeanTest, ConfigTimerBeanTest } from '../../parts/configuration';
 import { GeneralTest } from '../../parts/name';
 import { runTest } from '../../parts/part-tester';
+import { ProgramStartTest } from '../../parts/program-start';
 
 test.describe('Program Start', () => {
   let view: Inscription;
@@ -16,7 +16,7 @@ test.describe('Program Start', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = await InscriptionView.selectElement(page, testee.elementId);
+    view = await openElementInscription(page, testee.elementId);
   });
 
   test('Header', async () => {

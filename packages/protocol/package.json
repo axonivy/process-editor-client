@@ -23,9 +23,7 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",
     "build": "tsc --build",
-    "type": "tsc --noEmit",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
+    "type": "tsc --noEmit"
   },
   "files": [
     "lib",

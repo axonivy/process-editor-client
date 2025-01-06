@@ -1,7 +1,6 @@
 import {
   Action,
   IActionHandler,
-  ICommand,
   PaletteItem,
   RequestContextActions,
   SetContextActions,
@@ -38,7 +37,7 @@ export class ElementsPaletteHandler implements IActionHandler {
     return this.extensionItems;
   }
 
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (UpdatePaletteItems.is(action)) {
       this.updateElementPalette();
     }

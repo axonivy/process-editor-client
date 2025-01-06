@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../../glsp-protocol';
 import { createProcess } from '../../../glsp-protocol';
+import { openElementInscription, type Inscription } from '../../../page-objects/inscription/inscription-view';
 import { GeneralTestWithoutTags } from '../../parts/name';
 import { runTest } from '../../parts/part-tester';
 
@@ -14,7 +14,7 @@ test.describe('Embedded End', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = await InscriptionView.selectElement(page, `${testee.elementId}-g1`);
+    view = await openElementInscription(page, `${testee.elementId}-g1`);
   });
 
   test('Header', async () => {

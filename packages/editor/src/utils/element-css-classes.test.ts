@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { GNode, addCssClassToElements, addCssClasses, removeCssClassOfElements, removeCssClasses } from '@eclipse-glsp/client';
 import { describe, test, expect, afterEach } from 'vitest';
 

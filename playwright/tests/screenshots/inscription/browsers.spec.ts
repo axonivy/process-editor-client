@@ -1,8 +1,8 @@
 import { test, expect, type Page } from '@playwright/test';
 import { screenshot } from './screenshot-util';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 import { Browser } from '../../page-objects/inscription/code-editor';
 import type { Section } from '../../page-objects/inscription/section';
+import { openElementInscription } from '../../page-objects/inscription/inscription-view';
 
 const GENERIC_PID = {
   SCRIPT: '168F0C6DF682858E-f3',
@@ -68,7 +68,7 @@ test.describe('Browsers', () => {
 });
 
 async function openSection(page: Page, pid: string, accordionName: string, sectionName: string): Promise<Section> {
-  const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
+  const view = await openElementInscription(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
   await accordion.open();

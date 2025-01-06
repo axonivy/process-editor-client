@@ -1,4 +1,4 @@
-/* eslint-disable import/export */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type {
   ElementData,
   ConfigData,

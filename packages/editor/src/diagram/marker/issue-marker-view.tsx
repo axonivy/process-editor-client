@@ -1,9 +1,7 @@
-/* eslint-disable max-len */
 import { GIssueMarker, GIssueMarkerView, GIssueSeverity, setClass, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { VNode } from 'snabbdom';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
 @injectable()

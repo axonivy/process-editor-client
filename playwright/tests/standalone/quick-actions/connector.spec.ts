@@ -22,7 +22,7 @@ test('delete', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const edge = processEditor.edge();
   await edge.quickActionBar().trigger('Delete');
-  await expect(edge.locator()).not.toBeVisible();
+  await expect(edge.locator()).toBeHidden();
 });
 
 test('bend and straigthen', async ({ page }) => {

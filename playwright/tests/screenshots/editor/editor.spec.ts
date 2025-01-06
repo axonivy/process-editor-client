@@ -56,8 +56,9 @@ test('connector-user', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page, { file: '/processes/market/UserEnroll.p.json', waitFor: '.sprotty-graph' });
   const subCall = editor.element('subProcessCall');
   const inscription = await subCall.inscribe();
-  await expect(subCall.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
-  await page.waitForTimeout(1000); // wait for user.png being rendered
+  const img = subCall.locator().getByRole('img').first();
+  await expect(img).toHaveJSProperty('complete', true);
+  await expect(img).not.toHaveJSProperty('naturalWidth', 0);
   const process = inscription.accordion('Process');
   await process.open();
   await screenshot(page, 'connector-user.png', { height: 400 });

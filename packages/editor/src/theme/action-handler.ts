@@ -1,5 +1,5 @@
 import { SwitchThemeAction, ThemeMode } from '@axonivy/process-editor-protocol';
-import { Action, IActionHandler, ICommand } from '@eclipse-glsp/client';
+import { Action, IActionHandler } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -8,7 +8,7 @@ export class SwitchThemeActionHandler implements IActionHandler {
     return (document.documentElement.dataset.theme as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
   }
 
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (SwitchThemeAction.is(action)) {
       const root = document.documentElement;
       root.dataset.theme = action.theme;

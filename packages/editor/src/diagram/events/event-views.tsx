@@ -7,7 +7,6 @@ import { CustomIconToggleActionHandler } from '../../ui-tools/tool-bar/options/a
 import { getIconDecorator } from '../icon/views';
 import { EventNode } from '../model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
 @injectable()

@@ -36,8 +36,6 @@
   "scripts": {
     "clean": "rimraf lib tsconfig.*tsbuildinfo",
     "build": "tsc --build tsconfig.build.json && tscp",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "test": "vitest",
     "test:ci": "vitest --watch=false"

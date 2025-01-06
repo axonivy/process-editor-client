@@ -32,15 +32,15 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
 
   const queryKeys = useMemo(() => {
     return {
-      data: () => ['data', context],
-      saveData: () => ['saveData', context],
-      validation: () => ['validations', context]
+      data: (context: InscriptionElementContext) => ['data', context],
+      saveData: (context: InscriptionElementContext) => ['saveData', context],
+      validation: (context: InscriptionElementContext) => ['validations', context]
     };
-  }, [context]);
+  }, []);
 
   useEffect(() => {
-    const validationDispose = client.onValidation(() => queryClient.invalidateQueries({ queryKey: queryKeys.validation() }));
-    const dataDispose = client.onDataChanged(() => queryClient.invalidateQueries({ queryKey: queryKeys.data() }));
+    const validationDispose = client.onValidation(() => queryClient.invalidateQueries({ queryKey: queryKeys.validation(context) }));
+    const dataDispose = client.onDataChanged(() => queryClient.invalidateQueries({ queryKey: queryKeys.data(context) }));
     return () => {
       validationDispose.dispose();
       dataDispose.dispose();
@@ -48,7 +48,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
   }, [client, context, queryClient, queryKeys]);
 
   const { data, isSuccess, isPending, isError, error } = useQuery({
-    queryKey: queryKeys.data(),
+    queryKey: queryKeys.data(context),
     queryFn: () => client.data(context),
     structuralSharing: false
   });
@@ -63,16 +63,16 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
   }, [context.pid, data, initData, isSuccess]);
 
   const { data: validations } = useQuery({
-    queryKey: queryKeys.validation(),
+    queryKey: queryKeys.validation(context),
     queryFn: () => client.validate(context),
     initialData: [],
     enabled: isSuccess
   });
 
   const mutation = useMutation({
-    mutationKey: queryKeys.saveData(),
+    mutationKey: queryKeys.saveData(context),
     mutationFn: (updateData: Unary<ElementData>) => {
-      const saveData = queryClient.setQueryData<InscriptionData>(queryKeys.data(), prevData => {
+      const saveData = queryClient.setQueryData<InscriptionData>(queryKeys.data(context), prevData => {
         if (prevData) {
           return { ...prevData, data: updateData(prevData.data) };
         }
@@ -83,7 +83,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
       }
       return Promise.resolve([]);
     },
-    onSuccess: (data: ValidationResult[]) => queryClient.setQueryData(queryKeys.validation(), data)
+    onSuccess: (data: ValidationResult[]) => queryClient.setQueryData(queryKeys.validation(context), data)
   });
 
   if (isPending) {

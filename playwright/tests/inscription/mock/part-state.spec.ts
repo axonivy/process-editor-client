@@ -1,9 +1,9 @@
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Part states', () => {
   test('different states on different parts', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const casePart = inscriptionView.accordion('Case');
     const dialogPart = inscriptionView.accordion('Dialog');
 

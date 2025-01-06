@@ -15,7 +15,11 @@ export async function start(): Promise<void> {
   const pid = URLParams.pid();
   const theme = URLParams.themeMode();
   const queryClient = initQueryClient();
-  const root = createRoot(document.getElementById('root')!);
+  const rootElement = document.getElementById('root');
+  if (!rootElement) {
+    throw new Error('root element not found');
+  }
+  const root = createRoot(rootElement);
 
   root.render(
     <React.StrictMode>

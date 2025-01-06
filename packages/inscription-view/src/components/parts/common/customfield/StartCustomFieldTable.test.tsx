@@ -16,7 +16,6 @@ describe('StartCustomFieldTable', () => {
     const view = render(<StartCustomFieldTable data={data} onChange={change => (data = change)} />);
     return {
       data: () => data,
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       rerender: () => view.rerender(<StartCustomFieldTable data={data} onChange={change => (data = change)} />)
     };
   }

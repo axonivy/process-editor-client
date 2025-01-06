@@ -46,11 +46,11 @@ describe('ActivityNodeView', () => {
   });
 
   test('render full activity graph', () => {
-    const graphVNode = context.renderElement(graph);
-    expect(toHTML(graphVNode)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
+    let view = context.renderElement(graph);
+    expect(toHTML(view)).to.not.include('sprotty_unknown').and.not.include('sprotty-missing');
     const unknown = graphFactory.createRoot({ type: 'unknown', id: 'unknown', children: [] });
-    const unknownVNode = context.renderElement(unknown);
-    expect(toHTML(unknownVNode)).to.be.equal(
+    view = context.renderElement(unknown);
+    expect(toHTML(view)).to.be.equal(
       '<text id="sprotty_unknown" class="sprotty-missing" x="0" y="0" data-svg-metadata-api="true" data-svg-metadata-type="unknown">missing &quot;unknown&quot; view</text>'
     );
   });
@@ -116,22 +116,20 @@ describe('ActivityNodeView', () => {
   });
 
   test('render with execution badge', () => {
-    const view = viewRegistry.get(ActivityTypes.SCRIPT);
     const script = graph.index.getById('script') as ActivityNode;
     script.executionCount = 3;
-    const vnode = view.render(script, context);
+    const view = viewRegistry.get(ActivityTypes.SCRIPT).render(script, context);
     const executionBadge =
       '<g><rect class="execution-badge" rx="7" ry="7" x="139" y="-7" width="22" height="14" /><text class="execution-text" x="150" dy=".4em">3</text></g>';
-    expect(toHTML(vnode)).to.contains(executionBadge);
+    expect(toHTML(view)).to.contains(executionBadge);
   });
 
   test('render with color', () => {
-    const view = viewRegistry.get(ActivityTypes.SCRIPT);
     const script = graph.index.getById('script') as ActivityNode;
     script.args = { color: 'red' };
-    const vnode = view.render(script, context);
+    const view = viewRegistry.get(ActivityTypes.SCRIPT).render(script, context);
     const colorRect = /<rect.*style="stroke: red".*\/>/;
-    expect(toHTML(vnode)).to.matches(colorRect);
+    expect(toHTML(view)).to.matches(colorRect);
   });
 
   function renderNode(type: string, nodeId: string): VNode | undefined {
