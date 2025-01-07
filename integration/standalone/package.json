@@ -13,7 +13,7 @@
     "@axonivy/process-editor": "~13.1.0-next",
     "@axonivy/process-editor-inscription": "~13.1.0-next",
     "@axonivy/process-editor-inscription-view": "~13.1.0-next",
-    "@axonivy/ui-components": "~13.1.0-next.413",
+    "@axonivy/ui-components": "~13.1.0-next.415",
     "@eclipse-glsp/client": "2.3.0"
   },
   "devDependencies": {
