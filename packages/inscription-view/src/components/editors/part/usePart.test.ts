@@ -1,10 +1,10 @@
 import { renderHook } from 'test-utils';
-import type { PartStateFlag } from './usePart';
-import { usePartState } from './usePart';
+import type { PartProps, PartStateFlag } from './usePart';
+import { useAccordionState, usePartState } from './usePart';
 import type { ValidationResult } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
-describe('PartState', () => {
+describe('usePartState', () => {
   function assertState(expectedState: PartStateFlag, data?: unknown, message?: ValidationResult[]) {
     const { result } = renderHook(() => usePartState({}, data ?? {}, message ?? []));
     expect(result.current.state).toEqual(expectedState);
@@ -23,5 +23,35 @@ describe('PartState', () => {
       { path: '', severity: 'WARNING', message: '' },
       { path: '', severity: 'ERROR', message: '' }
     ]);
+  });
+});
+
+describe('useAccordionState', () => {
+  const ACCORDION_STORAGE_KEY = 'process-inscription-accordion';
+  const parts = [{ name: 'General' }, { name: 'Dialog' }] as Array<PartProps>;
+
+  test('empty storage', () => {
+    const { result } = renderHook(() => useAccordionState(parts));
+    expect(result.current.value).toEqual('');
+  });
+
+  test('wrong storage', () => {
+    sessionStorage.setItem(ACCORDION_STORAGE_KEY, 'wrong');
+    const { result } = renderHook(() => useAccordionState(parts));
+    expect(result.current.value).toEqual('');
+  });
+
+  test('other storage', () => {
+    sessionStorage.setItem(ACCORDION_STORAGE_KEY, `["Result"]`);
+    const { result } = renderHook(() => useAccordionState(parts));
+    expect(result.current.value).toEqual('');
+  });
+
+  test('matching storage', () => {
+    sessionStorage.setItem(ACCORDION_STORAGE_KEY, `["Result", "Dialog"]`);
+    const { result } = renderHook(() => useAccordionState(parts));
+    expect(result.current.value).toEqual('Dialog');
+    result.current.updateValue('');
+    expect(sessionStorage.getItem(ACCORDION_STORAGE_KEY)).toEqual(`["Result"]`);
   });
 });

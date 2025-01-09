@@ -36,7 +36,7 @@ export class Table {
   async clear() {
     let totalRows = await this.rows.count();
     while (totalRows > 0) {
-      await this.row(0).remove();
+      await this.row(totalRows - 1).remove();
       await expect(this.rows).toHaveCount(totalRows - 1);
       totalRows = await this.rows.count();
     }

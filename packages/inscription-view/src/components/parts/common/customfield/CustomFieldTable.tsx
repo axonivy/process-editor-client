@@ -7,7 +7,6 @@ import { memo, useMemo } from 'react';
 import { ValidationRow } from '../path/validation/ValidationRow';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
-import { deepEqual } from '../../../../utils/equals';
 import { ComboCell, SelectCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 import type { SelectItem } from '../../../widgets/select/Select';
 import { useEditorContext } from '../../../../context/useEditorContext';
@@ -56,35 +55,20 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     [data, items, predefinedCustomField]
   );
 
-  const updateCustomFields = (rowId: string, columnId: string, value: string) => {
-    const rowIndex = parseInt(rowId);
-    const updatedData = data.map((row, index) => {
-      if (index === rowIndex) {
-        return {
-          ...data[rowIndex]!,
-          [columnId]: value
-        };
-      }
-      return row;
-    });
-    const autoChangedData =
-      columnId === 'name'
-        ? updatedData.map((customField, index) => {
-            if (index === rowIndex) {
-              const predefinedField = predefinedCustomField.find(pcf => pcf.name === customField.name);
-              if (predefinedField && predefinedField.type !== customField.type) {
-                return { ...customField, type: predefinedField.type };
-              }
-              return customField;
-            }
-            return customField;
-          })
-        : updatedData;
-    if (!deepEqual(autoChangedData[updatedData.length - 1], EMPTY_WFCUSTOMFIELD) && rowIndex === data.length - 1) {
-      onChange([...autoChangedData, EMPTY_WFCUSTOMFIELD]);
-    } else {
-      onChange(autoChangedData);
+  const updateCustomFields = (data: Array<WfCustomField>, rowIndex: number, columnId: string) => {
+    if (columnId !== 'name') {
+      return data;
     }
+    return data.map((customField, index) => {
+      if (index === rowIndex) {
+        const predefinedField = predefinedCustomField.find(pcf => pcf.name === customField.name);
+        if (predefinedField && predefinedField.type !== customField.type) {
+          return { ...customField, type: predefinedField.type };
+        }
+        return customField;
+      }
+      return customField;
+    });
   };
 
   const { table, rowSelection, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({

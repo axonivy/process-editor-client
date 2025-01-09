@@ -51,10 +51,10 @@ describe('DocumentTable', () => {
   test('table can add rows by keyboard', async () => {
     const view = renderTable();
     await TableUtil.assertAddRowWithKeyboard(view, 'ivyTeam ❤️');
+    // data does not contain empty object
     expect(view.data()).toEqual([
       { name: 'Doc 1', url: 'axonivy.com' },
-      { name: 'ivyTeam ❤️', url: 'ivyteam.ch' },
-      { name: '', url: '' }
+      { name: 'ivyTeam ❤️', url: 'ivyteam.ch' }
     ]);
   });
 

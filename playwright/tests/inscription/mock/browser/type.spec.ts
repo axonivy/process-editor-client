@@ -6,7 +6,7 @@ import { assertCodeHidden, assertCodeVisible, browserBtn, code } from './browser
 test('browser init searchfilter', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Dialog');
-  await task.toggle();
+  await task.open();
 
   const codeSection = task.section('Code');
   await codeSection.open();
@@ -25,7 +25,7 @@ test('browser init searchfilter', async ({ page }) => {
 test('browser add type', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   await task.section('Expiry').open();
   const timeout = task.macroArea('Timeout');
@@ -40,7 +40,7 @@ test('browser add type', async ({ page }) => {
 test('browser add type as list', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   await task.section('Expiry').open();
   const timeout = task.macroArea('Timeout');
@@ -55,7 +55,7 @@ test('browser add type as list', async ({ page }) => {
 test('browser add type doubleclick', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   await task.section('Expiry').open();
   const timeout = task.macroArea('Timeout');

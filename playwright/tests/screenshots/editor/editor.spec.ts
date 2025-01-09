@@ -46,7 +46,7 @@ test('connector-process', async ({ page }) => {
   const inscription = await subStart.inscribe();
   await expect(subStart.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
   const start = inscription.accordion('Start');
-  await start.toggle();
+  await start.open();
   await start.section('Mapping').close();
   await start.section('Input parameters').open();
   await screenshot(page, 'connector-process.png', { height: 400 });
@@ -59,7 +59,7 @@ test('connector-user', async ({ page }) => {
   await expect(subCall.locator().getByRole('img').first()).toHaveAttribute('src', /.+user.png/);
   await page.waitForTimeout(1000); // wait for user.png being rendered
   const process = inscription.accordion('Process');
-  await process.toggle();
+  await process.open();
   await screenshot(page, 'connector-user.png', { height: 400 });
 });
 

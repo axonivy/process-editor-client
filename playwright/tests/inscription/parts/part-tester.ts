@@ -45,20 +45,20 @@ export class NewPartTest implements PartTest {
 export async function runTest(view: Inscription, test: PartTest) {
   const accordion = view.accordion(test.partName());
 
-  await accordion.toggle();
+  await accordion.open();
   await test.fill(accordion);
   await view.expectMutationStateSuccess();
   await view.page.reload();
 
-  await accordion.toggle();
+  await accordion.open();
   await test.assertFill(accordion);
   await view.page.reload();
 
-  await accordion.toggle();
+  await accordion.open();
   await test.clear(accordion);
   await view.expectMutationStateSuccess();
   await view.page.reload();
 
-  await accordion.toggle();
+  await accordion.open();
   await test.assertClear(accordion);
 }

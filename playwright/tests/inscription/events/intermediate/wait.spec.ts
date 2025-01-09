@@ -35,7 +35,7 @@ test.describe('Wait', () => {
 
   test('Configuration FileIntermediateBean', async () => {
     const start = view.accordion('Event');
-    await start.toggle();
+    await start.open();
     await start.section('Java Class').open();
     await start.combobox().choose('ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean');
 
