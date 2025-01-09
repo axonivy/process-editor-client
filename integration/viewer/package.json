@@ -10,7 +10,7 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "dependencies": {
-    "@axonivy/process-editor": "12.0.3-next",
+    "@axonivy/process-editor": "~12.0.3-next",
     "@eclipse-glsp/client": "2.3.0"
   },
   "devDependencies": {
