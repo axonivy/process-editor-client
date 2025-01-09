@@ -1,5 +1,5 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/process-editor-inscription-core';
-import { ClientContextProvider, MonacoEditorUtil, initQueryClient } from '@axonivy/process-editor-inscription-view';
+import { ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/process-editor-inscription-view';
 import { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
 import { JumpAction, MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
@@ -19,7 +19,7 @@ import {
 } from '@eclipse-glsp/client';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import type { MonacoLanguageClient } from 'monaco-languageclient';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient } from '@tanstack/react-query';
 import { inject, injectable, postConstruct } from 'inversify';
 
 import { Root, createRoot } from 'react-dom/client';
@@ -72,7 +72,7 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
       this.root.render(
         <React.StrictMode>
           <ClientContextProvider client={client}>
-            <QueryClientProvider client={this.queryClient}>
+            <QueryProvider client={this.queryClient}>
               <InscriptionView
                 app={this.inscriptionContext.app}
                 pmv={this.inscriptionContext.pmv}
@@ -82,7 +82,7 @@ export class InscriptionUi extends GLSPAbstractUIExtension implements IActionHan
                   onClick: id => this.selectFromOutline(id)
                 }}
               />
-            </QueryClientProvider>
+            </QueryProvider>
           </ClientContextProvider>
         </React.StrictMode>
       );

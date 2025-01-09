@@ -56,10 +56,10 @@ describe('ParameterTable', () => {
     const view = renderTable();
     await CollapsableUtil.toggle('Input parameters');
     await TableUtil.assertAddRowWithKeyboard(view, 'number');
+    // data does not contain empty object
     expect(view.data()).toEqual([
       { name: 'field1', type: 'String', desc: 'this is a string' },
-      { name: 'number', type: 'Number', desc: '1' },
-      { name: '', type: 'String', desc: '' }
+      { name: 'number', type: 'Number', desc: '1' }
     ]);
   });
 

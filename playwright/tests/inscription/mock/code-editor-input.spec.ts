@@ -7,14 +7,14 @@ test.describe('Code Editor Input', () => {
   test('MacroInput - no new line', async ({ page }) => {
     const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Case');
-    await taskPart.toggle();
+    await taskPart.open();
     await assertNoNewLine(page, taskPart.macroInput('Name'));
   });
 
   test('ScriptInput - no new line', async ({ page }) => {
     const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Task');
-    await taskPart.toggle();
+    await taskPart.open();
     const expirySection = taskPart.section('Expiry');
     await expirySection.toggle();
     await assertNoNewLine(page, expirySection.scriptInput('Timeout'));
@@ -44,14 +44,14 @@ test.describe('Code Editor Input', () => {
   async function assertAcceptScriptCellValue(page: Page, key?: string) {
     const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Output');
-    await taskPart.toggle();
+    await taskPart.open();
     await taskPart.table(['label', 'expression']).row(1).column(1).fill('test');
     if (key) {
       await page.keyboard.press(key);
     }
 
-    await taskPart.toggle();
-    await taskPart.toggle();
+    await taskPart.open();
+    await taskPart.open();
     await taskPart.table(['label', 'expression']).row(1).column(1).expectValue('test');
   }
 });

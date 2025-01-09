@@ -12,8 +12,20 @@ export class Accordion extends Part {
     this.toggleButtonLocator = Accordion.toggleButtonLocator(page, label);
   }
 
-  async toggle() {
-    await this.toggleButtonLocator.click();
+  async open() {
+    await expect(this.toggleButtonLocator).toBeVisible();
+    if ((await this.toggleButtonLocator.getAttribute('data-state')) === 'closed') {
+      await this.toggleButtonLocator.click();
+    }
+    await this.expectOpen();
+  }
+
+  async close() {
+    await expect(this.toggleButtonLocator).toBeVisible();
+    if ((await this.toggleButtonLocator.getAttribute('data-state')) === 'open') {
+      await this.toggleButtonLocator.click();
+    }
+    await this.expectClosed();
   }
 
   private static locator(page: Page, label: string) {
@@ -39,5 +51,13 @@ export class Accordion extends Part {
     } else {
       await expect(stateLocator).toBeHidden();
     }
+  }
+
+  async expectOpen() {
+    await expect(this.toggleButtonLocator).toHaveAttribute('data-state', 'open');
+  }
+
+  async expectClosed() {
+    await expect(this.toggleButtonLocator).toHaveAttribute('data-state', 'closed');
   }
 }

@@ -5,7 +5,7 @@ test.describe('Drag and drop features', () => {
   test('Alternative condition reorder', async ({ page }) => {
     const inscriptionView = await openMockInscription(page, { type: 'Alternative' });
     const conditions = inscriptionView.accordion('Condition');
-    await conditions.toggle();
+    await conditions.open();
 
     const rows = page.locator('.ui-dnd-row');
     await expect(rows).toHaveCount(2);

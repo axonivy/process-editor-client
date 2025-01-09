@@ -5,7 +5,7 @@ test.describe('Reset part', () => {
   test('reset button', async ({ page }) => {
     const inscriptionView = await openMockInscription(page);
     const part = inscriptionView.accordion('General');
-    await part.toggle();
+    await part.open();
 
     const resetBtn = part.reset();
     await expect(resetBtn).toBeHidden();

@@ -31,7 +31,8 @@ export namespace TableUtil {
     await assertRowCount(expectedRows);
     const addButton = screen.getByRole('button', { name: 'Add row' });
     await userEvent.click(addButton);
-    expect(view.data()).toHaveLength(expectedRows);
+    // data does not contain empty object
+    expect(view.data()).toHaveLength(expectedRows - 1);
 
     view.rerender();
     await assertRowCount(expectedRows + 1);
@@ -51,7 +52,7 @@ export namespace TableUtil {
     }
     await userEvent.tab();
     view.rerender();
-    await waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(rowCount + 1));
+    await assertRowCount(rowCount + 1);
   }
 
   export async function assertRemoveRow(view: { data: () => unknown[]; rerender: () => void }, expectedRows: number): Promise<void> {

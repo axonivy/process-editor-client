@@ -1,6 +1,6 @@
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { deepEqual } from '../../../../utils/equals';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { TableAddRow } from '@axonivy/ui-components';
@@ -11,7 +11,7 @@ interface UseResizableEditableTableProps<TData> {
   columns: ColumnDef<TData, string>[];
   onChange: (change: TData[]) => void;
   emptyDataObject: TData;
-  specialUpdateData?: (rowId: string, columnId: string, value: string) => void;
+  specialUpdateData?: (data: Array<TData>, rowIndex: number, columnId: string) => void;
 }
 
 const useResizableEditableTable = <TData,>({
@@ -21,29 +21,36 @@ const useResizableEditableTable = <TData,>({
   emptyDataObject,
   specialUpdateData
 }: UseResizableEditableTableProps<TData>) => {
+  const [tableData, setTableData] = useState<TData[]>(data);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
+  const updateTableData = (tableData: Array<TData>) => {
+    setTableData(tableData);
+    onChange(tableData.filter(obj => !deepEqual(obj, emptyDataObject)));
+  };
+
   const updateData = (rowId: string, columnId: string, value: string) => {
     const rowIndex = parseInt(rowId);
-    const updatedData = data.map((row, index) => {
+    const updatedData = tableData.map((row, index) => {
       if (index === rowIndex) {
         return {
-          ...data[rowIndex],
+          ...tableData[rowIndex],
           [columnId]: value
         };
       }
       return row;
     });
-    if (!deepEqual(updatedData[updatedData.length - 1], emptyDataObject) && rowIndex === data.length - 1) {
-      onChange([...updatedData, emptyDataObject]);
+    specialUpdateData?.(updatedData, rowIndex, columnId);
+    if (!deepEqual(updatedData.at(-1), emptyDataObject) && rowIndex === tableData.length - 1) {
+      updateTableData([...updatedData, emptyDataObject]);
     } else {
-      onChange(updatedData);
+      updateTableData(updatedData);
     }
   };
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     state: { sorting, rowSelection },
     columnResizeMode: 'onChange',
@@ -55,42 +62,36 @@ const useResizableEditableTable = <TData,>({
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    meta: { updateData: specialUpdateData ? specialUpdateData : updateData }
+    meta: { updateData }
   });
 
-  useEffect(() => {
-    if (Object.keys(rowSelection).length !== 1) {
-      const filteredData = data.filter(obj => !deepEqual(obj, emptyDataObject));
-      if (filteredData.length !== data.length) {
-        setRowSelection({});
-        onChange(filteredData);
-      }
-    }
-  }, [data, emptyDataObject, onChange, rowSelection, table]);
-
   const addRow = () => {
-    const newData = [...data];
+    const newData = [...tableData];
     newData.push(emptyDataObject);
-    onChange(newData);
+    updateTableData(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
   };
 
   const showAddButton = () => {
-    if (data.filter(obj => deepEqual(obj, emptyDataObject)).length === 0) {
+    if (tableData.filter(obj => deepEqual(obj, emptyDataObject)).length === 0) {
       return <TableAddRow addRow={addRow} />;
     }
     return null;
   };
 
   const removeRow = (index: number) => {
-    const newData = [...data];
+    const newData = [...tableData];
     newData.splice(index, 1);
     if (newData.length === 0) {
       setRowSelection({});
-    } else if (index === data.length - 1) {
+    } else if (index === tableData.length - 1) {
       setRowSelection({ [`${newData.length - 1}`]: true });
     }
-    onChange(newData);
+    if (newData.length === 1 && deepEqual(newData[0], emptyDataObject)) {
+      updateTableData([]);
+    } else {
+      updateTableData(newData);
+    }
   };
 
   const removeRowAction: FieldsetControl = {

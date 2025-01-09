@@ -5,7 +5,7 @@ import { applyBrowser, assertCodeHidden, assertCodeVisible, code } from './brows
 test('browser add cms string', async ({ page }) => {
   const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const description = task.macroArea('Description');
   await assertCodeHidden(page);
@@ -19,7 +19,7 @@ test('browser add cms string', async ({ page }) => {
 test('browser add cms file', async ({ page }) => {
   const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const description = task.macroArea('Description');
   await assertCodeHidden(page);
@@ -33,7 +33,7 @@ test('browser add cms file', async ({ page }) => {
 test('browser add cms doubleclick', async ({ page }) => {
   const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const description = task.macroArea('Description');
   await assertCodeHidden(page);
