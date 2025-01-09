@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import type { ActionDispatcher, FeedbackActionDispatcher } from '@eclipse-glsp/client';
 import { Bounds, CenterCommand, configureActionHandler, configureCommand, InitializeCanvasBoundsAction, TYPES } from '@eclipse-glsp/client';
 import type { Container } from 'inversify';

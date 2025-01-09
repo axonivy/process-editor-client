@@ -6,7 +6,6 @@ import {
   EnableDefaultToolsAction,
   EnableToolPaletteAction,
   IActionHandler,
-  ICommand,
   IEditModeListener,
   ISelectionListener,
   MouseListener,
@@ -170,7 +169,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
     this.actionDispatcher.dispatchAll(actions.concat(SelectAllAction.create(false)));
   }
 
-  handle(action: Action): ICommand | Action | void {
+  handle(action: Action) {
     if (EnableToolPaletteAction.is(action)) {
       return SetUIExtensionVisibilityAction.create({ extensionId: ToolBar.ID, visible: true });
     }
@@ -189,6 +188,7 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
         this.createHeader();
       }
     }
+    return;
   }
 
   async toggleToolBarMenu(action: ShowToolBarMenuAction): Promise<void> {

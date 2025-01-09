@@ -1,10 +1,10 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../../page-objects/inscription/inscription-view';
 import { assertCodeHidden, assertCodeVisible, browserBtn, code } from './browser-mock-utils';
 
 test('browser init searchfilter', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Dialog');
   await task.toggle();
 
@@ -23,7 +23,7 @@ test('browser init searchfilter', async ({ page }) => {
 });
 
 test('browser add type', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 
@@ -38,7 +38,7 @@ test('browser add type', async ({ page }) => {
 });
 
 test('browser add type as list', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 
@@ -53,7 +53,7 @@ test('browser add type as list', async ({ page }) => {
 });
 
 test('browser add type doubleclick', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page);
+  const inscriptionView = await openMockInscription(page);
   const task = inscriptionView.accordion('Task');
   await task.toggle();
 

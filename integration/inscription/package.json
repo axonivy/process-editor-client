@@ -11,7 +11,7 @@
   "dependencies": {
     "@axonivy/process-editor-inscription-core": "~13.1.0-next",
     "@axonivy/process-editor-inscription-view": "~13.1.0-next",
-    "@axonivy/ui-icons": "~13.1.0-next.415",
+    "@axonivy/ui-icons": "~13.1.0-next.419",
     "path-browserify": "^1.0.1"
   },
   "devDependencies": {
@@ -27,8 +27,6 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf lib build tsconfig.tsbuildinfo",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "package": "vite build",

@@ -10,6 +10,7 @@ import type * as monacoEditorApi from 'monaco-editor';
 import { ConsoleTimer, logIf } from './console-util';
 export type MonacoEditorApi = typeof monacoEditorApi;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type WorkerConstructor = (new (...args: any) => Worker) | (new (...args: any) => Promise<Worker>);
 
 // from monaco-editor-workers

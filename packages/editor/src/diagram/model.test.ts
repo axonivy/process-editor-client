@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { GEdge, GModelRoot } from '@eclipse-glsp/client';
 import { describe, test, expect } from 'vitest';
 

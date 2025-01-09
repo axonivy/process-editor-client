@@ -23,9 +23,7 @@
     "package": "tsc",
     "build:clean": "npm run clean && npm run generate && npm run build",
     "generate": "node ./schemaCodegen.cjs",
-    "type": "tsc --noEmit",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
+    "type": "tsc --noEmit"
   },
   "devDependencies": {
     "json-schema-to-typescript": "^13.1.1"

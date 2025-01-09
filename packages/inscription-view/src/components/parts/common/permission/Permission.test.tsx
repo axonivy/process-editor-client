@@ -31,8 +31,8 @@ describe('Permission', () => {
 
   test('allowIsAvailable', async () => {
     renderPart(true, false, 'bla error', 'Test');
-    expect(screen.queryByText('Allow anonymous')).toBeInTheDocument();
-    expect(screen.queryByText('Role')).toBeInTheDocument();
+    expect(screen.getByText('Allow anonymous')).toBeInTheDocument();
+    expect(screen.getByText('Role')).toBeInTheDocument();
   });
 
   test('roleIsDisabled', async () => {

@@ -16,7 +16,6 @@ describe('CustomFieldTable', () => {
     const view = render(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />);
     return {
       data: () => data,
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       rerender: () => view.rerender(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />)
     };
   }

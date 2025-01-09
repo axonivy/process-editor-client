@@ -16,29 +16,29 @@ export class ResponsibleComponent {
     this.select = new Select(part.page, locator, { nth: 1 });
   }
 
-  async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+  async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible = '') {
     await this.typeSelect.choose(type);
     switch (type) {
       case 'Role from Attr.':
       case 'User from Attr.':
-        await this.script.fill(responsible!);
+        await this.script.fill(responsible);
         break;
       case 'Role':
-        await this.select.choose(responsible!);
+        await this.select.choose(responsible);
         break;
       case 'Nobody & delete':
     }
   }
 
-  async expectFill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+  async expectFill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible = '') {
     await this.typeSelect.expectValue(type);
     switch (type) {
       case 'Role from Attr.':
       case 'User from Attr.':
-        await this.script.expectValue(responsible!);
+        await this.script.expectValue(responsible);
         break;
       case 'Role':
-        await this.select.expectValue(responsible!);
+        await this.select.expectValue(responsible);
         break;
       case 'Nobody & delete':
     }

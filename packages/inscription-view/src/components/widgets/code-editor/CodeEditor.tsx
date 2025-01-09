@@ -28,9 +28,9 @@ export const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, opti
   const handlePlaceholder = (showPlaceholder: boolean) => {
     if (placeholderElement.current) {
       if (showPlaceholder) {
-        placeholderElement!.current.style.display = 'block';
+        placeholderElement.current.style.display = 'block';
       } else {
-        placeholderElement!.current.style.display = 'none';
+        placeholderElement.current.style.display = 'none';
       }
     }
   };

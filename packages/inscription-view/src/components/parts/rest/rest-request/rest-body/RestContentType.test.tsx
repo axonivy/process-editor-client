@@ -18,7 +18,7 @@ describe('RestContentType', () => {
 
   test('show', async () => {
     renderPart({ body: { type: 'RAW' } }, { method: {} });
-    await waitFor(() => expect(screen.getByRole('combobox')).toBeInTheDocument());
+    await screen.findByRole('combobox');
   });
 
   test('empty', async () => {

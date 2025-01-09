@@ -15,7 +15,7 @@ export class Outline {
   }
 
   async expectClosed() {
-    await expect(this.view).not.toBeVisible();
+    await expect(this.view).toBeHidden();
   }
 
   async expectSelected(name: string) {

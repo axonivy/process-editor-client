@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, waitFor, CollapsableUtil } from 'test-utils';
+import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
 import { useOutputPart } from './OutputPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import type { ElementData, OutputData } from '@axonivy/process-editor-inscription-protocol';
@@ -34,7 +34,7 @@ describe('OutputPart', () => {
 
   test('enable Sudo', async () => {
     renderPart({ sudo: true }, true);
-    await waitFor(() => expect(screen.queryByLabelText(/Disable Permission/)).toBeInTheDocument());
+    await screen.findByLabelText(/Disable Permission/);
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>, showSudo?: boolean) {

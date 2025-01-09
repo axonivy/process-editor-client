@@ -43,14 +43,12 @@ describe('Condition', () => {
   });
 
   test('replace - undefined', () => {
-    //@ts-ignore
-    const ref: ConnectorRef = undefined;
+    const ref = undefined as unknown as ConnectorRef;
     expect(Condition.replace(cloneObject(conditions), ref)).toEqual(conditions);
   });
 
   test('replace - null', () => {
-    //@ts-ignore
-    const ref: ConnectorRef = null;
+    const ref = null as unknown as ConnectorRef;
     expect(Condition.replace(cloneObject(conditions), ref)).toEqual(conditions);
   });
 

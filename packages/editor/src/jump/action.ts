@@ -23,11 +23,12 @@ export class JumpActionHandler implements IActionHandler {
   @inject(EditorContextService) protected readonly editorContext: EditorContextService;
   private jumpStack: Map<string, Viewport> = new Map();
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (JumpAction.is(action) && !action.noViewportUpdate) {
       this.updateViewport(action);
       return SelectAllAction.create(false);
     }
+    return;
   }
 
   updateViewport(action: JumpAction) {

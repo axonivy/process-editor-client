@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export function logIf(condition?: boolean, message?: any, ...optionalParams: any[]): void {
   if (condition) {
     console.log(message, ...optionalParams);

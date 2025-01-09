@@ -22,7 +22,7 @@ test('root lane delete', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const lane = await processEditor.createLane({ x: 10, y: 60 });
   await lane.quickActionBar().trigger('Delete');
-  await expect(lane.locator()).not.toBeVisible();
+  await expect(lane.locator()).toBeHidden();
 });
 
 test('pool actions', async ({ page }) => {
@@ -48,7 +48,7 @@ test('pool delete', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const pool = await processEditor.createPool({ x: 10, y: 60 });
   await pool.quickActionBar().trigger('Delete');
-  await expect(pool.locator()).not.toBeVisible();
+  await expect(pool.locator()).toBeHidden();
 });
 
 test('pool add and remove embedded lanes', async ({ page }) => {
@@ -62,5 +62,5 @@ test('pool add and remove embedded lanes', async ({ page }) => {
   await lane1.quickActionBar().trigger('Delete');
   await pool.expectEmbeddedLanes(1);
   await pool.quickActionBar().trigger('Delete');
-  await expect(pool.locator()).not.toBeVisible();
+  await expect(pool.locator()).toBeHidden();
 });

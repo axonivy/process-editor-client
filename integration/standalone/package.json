@@ -13,7 +13,7 @@
     "@axonivy/process-editor": "~13.1.0-next",
     "@axonivy/process-editor-inscription": "~13.1.0-next",
     "@axonivy/process-editor-inscription-view": "~13.1.0-next",
-    "@axonivy/ui-components": "~13.1.0-next.415",
+    "@axonivy/ui-components": "~13.1.0-next.419",
     "@eclipse-glsp/client": "2.3.0"
   },
   "devDependencies": {
@@ -26,8 +26,6 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "package": "vite build",

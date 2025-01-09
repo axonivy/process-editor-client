@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Validations', () => {
   const normalColor = 'rgb(231, 231, 231)';
@@ -7,7 +7,7 @@ test.describe('Validations', () => {
   const warningColor = 'rgb(255, 115, 0)';
 
   test('case', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const part = inscriptionView.accordion('Case');
     const section = part.section('Details');
     const name = section.macroInput('Name');
@@ -25,7 +25,7 @@ test.describe('Validations', () => {
   });
 
   test('dialog', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const part = inscriptionView.accordion('Dialog');
     const dialogSection = part.section('Dialog');
     const mappingSection = part.section('Mapping');
