@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import type { FieldsetControl } from './fieldset-control';
-import { ButtonGroup, Fieldset as Field, type FieldsetProps as FieldProps } from '@axonivy/ui-components';
+import { ButtonGroup, BasicField, type BasicFieldProps } from '@axonivy/ui-components';
 import { toMessageData, type ValidationMessage } from '../message/Message';
 
-export type FieldsetProps = Omit<FieldProps, 'message' | 'control'> & {
+export type FieldsetProps = Omit<BasicFieldProps, 'message' | 'control'> & {
   controls?: Array<FieldsetControl>;
   validation?: ValidationMessage;
 };
@@ -26,7 +26,7 @@ const Controls = ({ controls }: Pick<FieldsetProps, 'controls'>) => {
 };
 
 const Fieldset = ({ label, controls, validation, ...props }: FieldsetProps) => {
-  return <Field label={label} message={toMessageData(validation)} control={<Controls controls={controls} />} {...props} />;
+  return <BasicField label={label} message={toMessageData(validation)} control={<Controls controls={controls} />} {...props} />;
 };
 
 export default memo(Fieldset);

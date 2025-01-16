@@ -1,4 +1,4 @@
-import { SimpleSelect } from '@axonivy/ui-components';
+import { BasicSelect } from '@axonivy/ui-components';
 import { memo } from 'react';
 
 export type SelectItem = {
@@ -22,7 +22,7 @@ const Select = ({ value, onChange, items, emptyItem, disabled }: SelectProps) =>
     onChange(item ?? EMPTY_SELECT_ITEM);
   };
 
-  return <SimpleSelect value={value?.value} onValueChange={onValueChange} items={items} emptyItem={emptyItem} disabled={disabled} />;
+  return <BasicSelect value={value?.value} onValueChange={onValueChange} items={items} emptyItem={emptyItem} disabled={disabled} />;
 };
 
 export default memo(Select);
