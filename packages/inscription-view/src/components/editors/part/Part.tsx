@@ -1,5 +1,4 @@
 import './Part.css';
-import { useState } from 'react';
 import { IvyIcons } from '@axonivy/ui-icons';
 import {
   Accordion,
@@ -12,7 +11,7 @@ import {
   Flex
 } from '@axonivy/ui-components';
 import { ErrorBoundary } from 'react-error-boundary';
-import type { PartProps } from './usePart';
+import { useAccordionState, type PartProps } from './usePart';
 import type { Severity } from '@axonivy/process-editor-inscription-protocol';
 import { useSticky } from './useSticky';
 import ErrorFallback from '../../widgets/error/ErrorFallback';
@@ -29,23 +28,20 @@ const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'r
   return null;
 };
 
-const State = ({ state }: Pick<PartProps, 'state'>) => {
-  return (
-    <AccordionState
-      messages={state.validations.map(({ message, severity }) => ({
-        message,
-        variant: severity.toLocaleLowerCase() as Lowercase<Severity>
-      }))}
-      state={state.state}
-    />
-  );
-};
+const State = ({ state }: Pick<PartProps, 'state'>) => (
+  <AccordionState
+    messages={state.validations.map(({ message, severity }) => ({
+      message,
+      variant: severity.toLocaleLowerCase() as Lowercase<Severity>
+    }))}
+    state={state.state}
+  />
+);
 
 const Part = ({ parts }: { parts: PartProps[] }) => {
-  const [value, setValue] = useState('');
-
+  const { value, updateValue } = useAccordionState(parts);
   return (
-    <Accordion type='single' collapsible value={value} onValueChange={setValue}>
+    <Accordion type='single' collapsible value={value} onValueChange={updateValue}>
       {parts.map(part => (
         <PartItem {...part} key={part.name} />
       ))}

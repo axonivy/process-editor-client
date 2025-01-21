@@ -53,7 +53,7 @@ async function openAccordion(page: Page, pid: string, accordionName): Promise<Ac
   const view = await openElementInscription(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
-  await accordion.toggle();
+  await accordion.open();
   return accordion;
 }
 

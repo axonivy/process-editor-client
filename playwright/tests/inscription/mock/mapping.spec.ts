@@ -5,7 +5,7 @@ test.describe('Mappings', () => {
   test('DialogCall change will update mapping tree', async ({ page }) => {
     const inscriptionView = await openMockInscription(page);
     const callPart = inscriptionView.accordion('Dialog');
-    await callPart.toggle();
+    await callPart.open();
 
     const dialogSection = callPart.section('Dialog');
     await dialogSection.open();
@@ -21,22 +21,24 @@ test.describe('Mappings', () => {
   test('SubStart result param change will update mapping tree', async ({ page }) => {
     const inscriptionView = await openMockInscription(page, { type: 'CallSubStart' });
     const resultPart = inscriptionView.accordion('Result');
-    await resultPart.toggle();
+    await resultPart.open();
 
-    await resultPart.section('Mapping').open();
-    const resultTable = resultPart.table(['text', 'label', 'expression']);
+    const mapping = resultPart.section('Mapping');
+    await mapping.open();
+    const resultTable = mapping.table(['label', 'expression']);
     await resultTable.expectRowCount(1);
 
     const params = resultPart.section('Result parameters');
-    await params.toggle();
-    const paramTable = params.table(['text', 'label', 'expression']);
+    await params.open();
+    const paramTable = params.table(['text', 'text', 'text']);
     await paramTable.expectRowCount(0);
 
     await paramTable.addRow();
-    await params.toggle();
+    await resultTable.expectRowCount(1);
+
+    await paramTable.row(0).fill(['test', 'String', 'test']);
     await resultTable.expectRowCount(2);
 
-    await params.toggle();
     await paramTable.clear();
     await resultTable.expectRowCount(1);
   });

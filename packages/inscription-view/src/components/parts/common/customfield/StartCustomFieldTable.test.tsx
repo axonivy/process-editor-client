@@ -49,10 +49,10 @@ describe('StartCustomFieldTable', () => {
     const view = renderTable();
     await userEvent.click(screen.getAllByRole('row')[2]);
     await TableUtil.assertAddRowWithKeyboard(view, 'number', '1');
+    // data does not contain empty object
     expect(view.data()).toEqual([
       { name: 'field1', value: 'this is a string' },
-      { name: 'number1', value: '1' },
-      { name: '', value: '' }
+      { name: 'number1', value: '1' }
     ]);
   });
 

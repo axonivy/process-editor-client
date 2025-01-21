@@ -6,7 +6,7 @@ import { browserBtn, code } from './browser-mock-utils';
 test('browser add table column with all fields', async ({ page }) => {
   const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
-  await query.toggle();
+  await query.open();
   const allFieldsCheckbox = query.checkbox('Select all fields');
   await allFieldsCheckbox.expectUnchecked();
   await allFieldsCheckbox.click();
@@ -23,7 +23,7 @@ test('browser add table column with all fields', async ({ page }) => {
 test('browser add table column with one field', async ({ page }) => {
   const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
-  await query.toggle();
+  await query.open();
   const allFieldsCheckbox = query.checkbox('Select all fields');
   await allFieldsCheckbox.expectUnchecked();
   await page.getByRole('row').nth(1).click();
@@ -40,7 +40,7 @@ test('browser add table column with one field', async ({ page }) => {
 test('browser add table column doubleclick', async ({ page }) => {
   const inscriptionView = await openMockInscription(page, { type: 'Database' });
   const query = inscriptionView.accordion('Query');
-  await query.toggle();
+  await query.open();
   const allFieldsCheckbox = query.checkbox('Select all fields');
   await allFieldsCheckbox.expectUnchecked();
   await allFieldsCheckbox.click();

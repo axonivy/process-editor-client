@@ -28,7 +28,7 @@ test('undo', async ({ page }) => {
   await input.expectValue('');
 
   await start.select();
-  await part.toggle();
+  await part.open();
   await part.reset().click();
   await input.expectValue('start');
 });
@@ -37,7 +37,7 @@ test('ivyscript lsp', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const view = await processEditor.startElement.inscribe();
   const part = view.accordion('Start');
-  await part.toggle();
+  await part.open();
   const section = part.section('Code');
   await section.open();
   const code = section.scriptArea();
@@ -55,9 +55,33 @@ test('process', async ({ page }) => {
   await view.expectClosed();
 });
 
+test('hold accordion state', async ({ page }) => {
+  const processEditor = await ProcessEditor.openProcess(page);
+  const view = await processEditor.endElement.inscribe();
+  const general = view.accordion('General');
+  const task = view.accordion('Task');
+  await general.expectClosed();
+  await general.open();
+  await general.expectOpen();
+
+  await processEditor.startElement.select();
+  await general.expectOpen();
+  await task.expectClosed();
+  await task.open();
+  await general.expectClosed();
+  await task.expectOpen();
+
+  await processEditor.endElement.select();
+  await general.expectClosed();
+
+  await processEditor.startElement.select();
+  await general.expectClosed();
+  await task.expectOpen();
+});
+
 async function changeName(view: Inscription, oldValue: string, value: string) {
   const part = view.accordion('General');
-  await part.toggle();
+  await part.open();
   const section = part.section('Name / Description');
   await section.open();
   const input = section.textArea({ label: 'Display name' });
