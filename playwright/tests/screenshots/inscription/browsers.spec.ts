@@ -71,7 +71,7 @@ async function openSection(page: Page, pid: string, accordionName: string, secti
   const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
-  await accordion.toggle();
+  await accordion.open();
   const section = accordion.section(sectionName);
   await section.open();
   await page.setViewportSize({ width: 500, height: 500 });

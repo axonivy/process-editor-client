@@ -6,7 +6,7 @@ export async function screenshotAccordion(page: Page, pid: string, accordionName
   const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
-  await accordion.toggle();
+  await accordion.open();
   if (fullView) {
     const editor = view.page.locator('.editor');
     await editor.evaluate(element => (element.style.height = 'unset'));
@@ -15,18 +15,18 @@ export async function screenshotAccordion(page: Page, pid: string, accordionName
   } else {
     await screenshot(accordion.currentLocator(), screenshotName);
   }
-  await accordion.toggle();
+  await accordion.open();
 }
 
 export async function screenshotSection(page: Page, pid: string, accordionName: string, sectionName: string, screenshotName: string) {
   const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
-  await accordion.toggle();
+  await accordion.open();
   const section = accordion.section(sectionName);
   await section.open();
   await screenshot(section.currentLocator(), screenshotName);
-  await accordion.toggle();
+  await accordion.open();
 }
 
 export async function screenshot(page: Locator, name: string) {

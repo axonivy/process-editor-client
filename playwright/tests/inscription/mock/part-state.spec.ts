@@ -10,16 +10,16 @@ test.describe('Part states', () => {
     await casePart.expectState('configured');
     await dialogPart.expectState('warning');
 
-    await casePart.toggle();
+    await casePart.open();
     await casePart.macroInput('Name').clear();
-    await casePart.toggle();
+    await casePart.close();
     await casePart.expectState('error');
     await dialogPart.expectState('warning');
 
-    await dialogPart.toggle();
+    await dialogPart.open();
     await dialogPart.section('Dialog').open();
     await dialogPart.combobox().choose('AcceptRequest');
-    await dialogPart.toggle();
+    await dialogPart.close();
     await casePart.expectState('error');
     await dialogPart.expectState('configured');
   });

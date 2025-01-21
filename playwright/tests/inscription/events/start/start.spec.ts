@@ -44,7 +44,7 @@ test.describe('StartRequest', () => {
 
   test('Task', async () => {
     const request = view.accordion('Request');
-    await request.toggle();
+    await request.open();
     const permissions = request.section('Permission');
     await permissions.toggle();
     await permissions.checkbox('Anonymous').click();

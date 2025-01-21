@@ -27,6 +27,7 @@ class ProgramInterfaceStart extends PartObject {
   }
 
   async assertClear() {
+    await this.javaSection.open();
     await this.javaClass.expectValue('');
   }
 }

@@ -5,7 +5,7 @@ import { applyBrowser, assertCodeHidden, assertCodeVisible, code } from './brows
 test('browser add to input', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const description = task.macroArea('Description');
   await assertCodeHidden(page);
@@ -19,7 +19,7 @@ test('browser add to input', async ({ page }) => {
 test('browser replace selection', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const category = task.macroInput('Category');
   await assertCodeHidden(page);
@@ -36,7 +36,7 @@ test('browser replace selection', async ({ page }) => {
 test('browser add attribute doubleclick', async ({ page }) => {
   const inscriptionView = await InscriptionView.mock(page);
   const task = inscriptionView.accordion('Task');
-  await task.toggle();
+  await task.open();
 
   const description = task.macroArea('Description');
   await assertCodeHidden(page);

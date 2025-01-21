@@ -13,7 +13,7 @@ test.describe('Validations', () => {
     const name = section.macroInput('Name');
     const desc = section.macroArea('Description');
 
-    await part.toggle();
+    await part.open();
     await section.open();
     await expect(name.locator).toHaveCSS('border-color', normalColor);
     await expect(desc.locator).toHaveCSS('border-color', normalColor);
@@ -32,7 +32,7 @@ test.describe('Validations', () => {
     const dialog = dialogSection.combobox();
     const mapping = mappingSection.table(['text', 'expression']);
 
-    await part.toggle();
+    await part.open();
     await dialogSection.open();
     await mappingSection.open();
     await expect(dialog.locator).toHaveCSS('border-color', warningColor);
