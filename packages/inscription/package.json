@@ -17,13 +17,16 @@
     "@codingame/monaco-vscode-editor-service-override": "1.83.3",
     "@codingame/monaco-vscode-languages-service-override": "1.83.3",
     "@codingame/monaco-vscode-model-service-override": "1.83.3",
-    "@eclipse-glsp/client": "2.3.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@eclipse-glsp/client": "2.3.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2 || ^19.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.4",
-    "@types/react-dom": "^18.3.0"
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "scripts": {
     "clean": "rimraf lib tsconfig.tsbuildinfo",

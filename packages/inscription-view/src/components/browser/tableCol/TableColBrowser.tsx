@@ -23,7 +23,13 @@ export const useTableColBrowser = (onDoubleClick: () => void): UseBrowserImplRet
   };
 };
 
-const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserValue) => void; onDoubleClick: () => void }) => {
+type TableColumnBrowserProps = {
+  value: string;
+  onChange: (value: BrowserValue) => void;
+  onDoubleClick: () => void;
+};
+
+const TableColumnBrowser = ({ value, onChange, onDoubleClick }: TableColumnBrowserProps) => {
   const { elementContext: context } = useEditorContext();
   const { config } = useQueryData();
 
@@ -82,15 +88,15 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
   const { handleKeyDown } = useTableKeyHandler({ table, data });
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
-      props.onChange({ cursorValue: '' });
+      onChange({ cursorValue: '' });
       setShowHelper(false);
       return;
     }
 
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
-    props.onChange({ cursorValue: selectedRow.original.name });
-  }, [props, rowSelection, table]);
+    onChange({ cursorValue: selectedRow.original.name });
+  }, [onChange, rowSelection, table]);
 
   return (
     <>
@@ -101,11 +107,11 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
             setGlobalFilter(newFilterValue);
           }
         }}
-        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
+        onKeyDown={e => handleKeyDown(e, onDoubleClick)}
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (
-            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)
+            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)
           ) : (
             <TableRow>
               <TableCell>No Columns found</TableCell>
@@ -115,7 +121,7 @@ const TableColumnBrowser = (props: { value: string; onChange: (value: BrowserVal
       </SearchTable>
       {showHelper && (
         <pre className='browser-helptext'>
-          <b>{props.value}</b>
+          <b>{value}</b>
           <>{table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.type}</>
         </pre>
       )}
