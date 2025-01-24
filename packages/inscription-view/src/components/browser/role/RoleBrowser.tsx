@@ -37,13 +37,15 @@ export const useRoleBrowser = (onDoubleClick: () => void, options?: RoleOptions)
   };
 };
 
-const RoleBrowser = (props: {
+type RoleBrowserProps = {
   value: string;
   showtaskRoles?: boolean;
   onChange: (value: BrowserValue) => void;
   onDoubleClick: () => void;
-}) => {
-  const { rolesAsTree: roleItems } = useRoles(props.showtaskRoles);
+};
+
+const RoleBrowser = ({ value, showtaskRoles, onChange, onDoubleClick }: RoleBrowserProps) => {
+  const { rolesAsTree: roleItems } = useRoles(showtaskRoles);
 
   const [showHelper, setShowHelper] = useState(false);
 
@@ -84,15 +86,15 @@ const RoleBrowser = (props: {
 
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
-      props.onChange({ cursorValue: '' });
+      onChange({ cursorValue: '' });
       setShowHelper(false);
       return;
     }
 
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     setShowHelper(true);
-    props.onChange({ cursorValue: selectedRow.original.id });
-  }, [props, rowSelection, table]);
+    onChange({ cursorValue: selectedRow.original.id });
+  }, [onChange, rowSelection, table]);
 
   const [addedRole, setAddedRoleName] = useState('');
 
@@ -111,7 +113,7 @@ const RoleBrowser = (props: {
   return (
     <>
       <Flex justifyContent='flex-end'>
-        <AddRolePopover value={props.value} table={table} setAddedRoleName={setAddedRoleName} />
+        <AddRolePopover value={value} table={table} setAddedRoleName={setAddedRoleName} />
       </Flex>
       <SearchTable
         search={{
@@ -122,11 +124,11 @@ const RoleBrowser = (props: {
             setExpanded(true);
           }
         }}
-        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
+        onKeyDown={e => handleKeyDown(e, onDoubleClick)}
       >
         <TableBody>
           {table.getRowModel().rows.length > 0 ? (
-            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)
+            table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)
           ) : (
             <TableRow>
               <TableCell>No Columns found</TableCell>
@@ -136,7 +138,7 @@ const RoleBrowser = (props: {
       </SearchTable>
       {showHelper && (
         <pre className='browser-helptext'>
-          <b>{props.value}</b>
+          <b>{value}</b>
         </pre>
       )}
     </>

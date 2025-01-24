@@ -34,7 +34,13 @@ export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnV
   };
 };
 
-const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue) => void; onDoubleClick: () => void }) => {
+type FunctionBrowserProps = {
+  value: string;
+  onChange: (value: BrowserValue) => void;
+  onDoubleClick: () => void;
+};
+
+const FunctionBrowser = ({ value, onChange, onDoubleClick }: FunctionBrowserProps) => {
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
@@ -126,14 +132,14 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
   useEffect(() => {
     if (Object.keys(rowSelection).length !== 1) {
       setShowHelper(false);
-      props.onChange({ cursorValue: '' });
+      onChange({ cursorValue: '' });
       return;
     }
     const selectedRow = table.getRowModel().rowsById[Object.keys(rowSelection)[0]];
     //setup correct functionName for the accept-method
     const parentNames = getParentNames(selectedRow);
     const selectedName = parentNames.reverse().join('.');
-    props.onChange({ cursorValue: selectedName });
+    onChange({ cursorValue: selectedName });
 
     //setup Meta-Call for docApi
     const parentRow = selectedRow.getParentRow();
@@ -147,7 +153,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
     //setup Helpertext
     setSelectedFunctionDoc(doc);
     setShowHelper(true);
-  }, [doc, props, rowSelection, table]);
+  }, [doc, onChange, rowSelection, table]);
 
   return (
     <>
@@ -161,16 +167,16 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
             setRowNumber(100);
           }
         }}
-        onKeyDown={e => handleKeyDown(e, props.onDoubleClick)}
+        onKeyDown={e => handleKeyDown(e, onDoubleClick)}
         ref={parentRef}
       >
         <TableBody>
           {rows.some(row => row.depth === 1 && row.getIsExpanded())
             ? virtualizer.getVirtualItems().map(virtualRow => {
                 const row = rows[virtualRow.index];
-                return <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />;
+                return <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />;
               })
-            : table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={props.onDoubleClick} />)}
+            : table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)}
         </TableBody>
         {rowNumber < rows.length && (
           <TableFooter>
@@ -182,9 +188,7 @@ const FunctionBrowser = (props: { value: string; onChange: (value: BrowserValue)
           </TableFooter>
         )}
       </SearchTable>
-      {showHelper && (
-        <pre className='browser-helptext' dangerouslySetInnerHTML={{ __html: `<b>${props.value}</b>${selectedFunctionDoc}` }} />
-      )}
+      {showHelper && <pre className='browser-helptext' dangerouslySetInnerHTML={{ __html: `<b>${value}</b>${selectedFunctionDoc}` }} />}
     </>
   );
 };
