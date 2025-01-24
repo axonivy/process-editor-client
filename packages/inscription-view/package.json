@@ -14,10 +14,10 @@
     "src"
   ],
   "dependencies": {
-    "@axonivy/process-editor-inscription-core": "12.0.4-next",
-    "@axonivy/process-editor-inscription-protocol": "12.0.4-next",
-    "@axonivy/ui-components": "~12.0.3-next.415",
-    "@axonivy/ui-icons": "~12.0.3-next.415",
+    "@axonivy/process-editor-inscription-core": "~12.0.4-next",
+    "@axonivy/process-editor-inscription-protocol": "~12.0.4-next",
+    "@axonivy/ui-components": "~12.0.4-next.439",
+    "@axonivy/ui-icons": "~12.0.4-next.439",
     "@monaco-editor/react": "^4.6.0",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-radio-group": "1.2.1",
