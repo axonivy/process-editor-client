@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { MonacoEditorUtil, SINGLE_LINE_MONACO_OPTIONS } from '../../../monaco/monaco-editor-util';
-import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import type { CodeEditorProps } from './CodeEditor';
 import { CodeEditor } from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
@@ -50,11 +50,20 @@ export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ke
           triggerAcceptSuggestion(editor);
         } else {
           if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
+            MonacoEditorUtil.focusAdjacentTabIndexElement('next');
           }
           if (keyActions?.tab) {
             keyActions.tab();
           }
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
+      monaco.KeyMod.Shift | MonacoEditorUtil.KeyCode.Tab,
+      () => {
+        if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
+          MonacoEditorUtil.focusAdjacentTabIndexElement('previous');
         }
       },
       'singleLine'

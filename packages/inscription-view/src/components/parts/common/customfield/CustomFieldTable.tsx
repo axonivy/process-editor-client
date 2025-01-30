@@ -38,13 +38,14 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
           <ComboCell
             options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.name)).map(pcf => ({ value: pcf.name }))}
             cell={cell}
+            tabIndex={0}
           />
         )
       },
       {
         accessorKey: 'type',
         header: ({ column }) => <SortableHeader column={column} name='Type' />,
-        cell: cell => <SelectCell cell={cell} items={items} />
+        cell: cell => <SelectCell cell={cell} items={items} tabIndex={0} />
       },
       {
         accessorKey: 'value',
@@ -92,7 +93,6 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
           removeRowAction
         ]
       : [];
-
   return (
     <PathCollapsible path='customFields' label='Custom Fields' defaultOpen={data.length > 0} controls={tableActions}>
       <div>

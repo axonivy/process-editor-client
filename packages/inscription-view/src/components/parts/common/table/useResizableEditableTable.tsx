@@ -74,7 +74,7 @@ const useResizableEditableTable = <TData,>({
 
   const showAddButton = () => {
     if (tableData.filter(obj => deepEqual(obj, emptyDataObject)).length === 0) {
-      return <TableAddRow addRow={addRow} />;
+      return <TableAddRow addRow={addRow} tabindex={0} />;
     }
     return null;
   };

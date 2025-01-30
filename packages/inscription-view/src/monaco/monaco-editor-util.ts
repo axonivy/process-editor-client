@@ -125,6 +125,24 @@ export namespace MonacoEditorUtil {
     const monacoApi = await getInstance();
     monacoApi.editor.defineTheme(MonacoEditorUtil.DEFAULT_THEME_NAME, MonacoEditorUtil.themeData(theme));
   }
+
+  export const focusAdjacentTabIndexElement = (direction: 'next' | 'previous') => {
+    if (!(document.activeElement instanceof HTMLElement)) return;
+
+    const focusableElements = Array.from(
+      document.querySelectorAll<HTMLElement>('input, button, select, textarea, [tabindex]:not([tabindex="-1"])')
+    );
+
+    const currentElement = document.activeElement;
+    const currentIndex = focusableElements.indexOf(currentElement);
+    if (currentIndex === -1) return;
+
+    const nextElement = direction === 'next' ? focusableElements[currentIndex + 1] : focusableElements[currentIndex - 2];
+
+    if (nextElement) {
+      nextElement.focus();
+    }
+  };
 }
 
 // from @monaco-editor/loader
