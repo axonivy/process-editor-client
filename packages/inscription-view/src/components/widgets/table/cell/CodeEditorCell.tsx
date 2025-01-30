@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
-import { Button } from '@axonivy/ui-components';
+import { Button, selectNextPreviousCell } from '@axonivy/ui-components';
 import { useBrowser, type BrowserType } from '../../../browser/useBrowser';
 import { usePath } from '../../../../context/usePath';
 import { MaximizedCodeEditorBrowser } from '../../../browser/MaximizedCodeEditorBrowser';
 import { SingleLineCodeEditor } from '../../code-editor/SingleLineCodeEditor';
 import Browser from '../../../browser/Browser';
 import Input from '../../input/Input';
+import { focusAdjacentTabIndexMonaco } from '../../../../utils/focus';
 
 type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, string>;
@@ -49,13 +50,6 @@ export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder
     }
   }, [cell.row, isFocusWithin]);
 
-  const activeElementBlur = () => {
-    const activeElement = document.activeElement;
-    if (activeElement instanceof HTMLElement) {
-      activeElement.blur();
-    }
-  };
-
   return (
     <div className='script-input' {...focusWithinProps} tabIndex={1}>
       {isFocusWithin || browser.open || maximizeState.isMaximizedCodeEditorOpen ? (
@@ -77,8 +71,18 @@ export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder
                 {...focusValue}
                 context={{ type, location: path }}
                 keyActions={{
-                  enter: activeElementBlur,
-                  escape: activeElementBlur
+                  enter: () => focusAdjacentTabIndexMonaco('previous'),
+                  escape: () => focusAdjacentTabIndexMonaco('previous'),
+                  arrowDown: () => {
+                    if (document.activeElement) {
+                      selectNextPreviousCell(document.activeElement, cell, 1);
+                    }
+                  },
+                  arrowUp: () => {
+                    if (document.activeElement) {
+                      selectNextPreviousCell(document.activeElement, cell, -1);
+                    }
+                  }
                 }}
                 onMountFuncs={[setEditor]}
                 macro={macro}

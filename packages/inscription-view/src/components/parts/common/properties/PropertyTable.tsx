@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { Property } from './properties';
@@ -24,10 +24,7 @@ type PropertyTableProps = {
 const EMPTY_PROPERTY: Property = { expression: '', name: '' };
 
 export const PropertyTable = ({ properties, update, knownProperties, hideProperties, label, defaultOpen }: PropertyTableProps) => {
-  const [data, setData] = useState<Property[]>([]);
-  useEffect(() => {
-    setData(Property.of(properties));
-  }, [properties]);
+  const data = useMemo(() => Property.of(properties), [properties]);
 
   const onChange = (props: Property[]) => update(Property.to(props));
 
