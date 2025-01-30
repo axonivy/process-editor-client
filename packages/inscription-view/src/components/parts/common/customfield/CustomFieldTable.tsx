@@ -92,7 +92,6 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
           removeRowAction
         ]
       : [];
-
   return (
     <PathCollapsible path='customFields' label='Custom Fields' defaultOpen={data.length > 0} controls={tableActions}>
       <div>
