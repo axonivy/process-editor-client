@@ -14,6 +14,8 @@ type EditorOptions = {
     enter?: () => void;
     tab?: () => void;
     escape?: () => void;
+    arrowDown?: () => void;
+    arrowUp?: () => void;
   };
   modifyAction?: (value: string) => string;
 };
@@ -60,6 +62,28 @@ export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ke
       'singleLine'
     );
     editor.addCommand(
+      MonacoEditorUtil.KeyCode.DownArrow,
+      () => {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'selectNextSuggestion', undefined);
+        } else if (keyActions?.arrowDown) {
+          keyActions.arrowDown();
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
+      MonacoEditorUtil.KeyCode.UpArrow,
+      () => {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'selectPrevSuggestion', undefined);
+        } else if (keyActions?.arrowUp) {
+          keyActions.arrowUp();
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
       monaco.KeyMod.Shift | MonacoEditorUtil.KeyCode.Tab,
       () => {
         if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
@@ -71,7 +95,9 @@ export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ke
     editor.addCommand(
       MonacoEditorUtil.KeyCode.Escape,
       () => {
-        if (!isSuggestWidgetOpen(editor) && keyActions?.escape) {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'hideSuggestWidget', undefined);
+        } else if (keyActions?.escape) {
           keyActions.escape();
         }
       },

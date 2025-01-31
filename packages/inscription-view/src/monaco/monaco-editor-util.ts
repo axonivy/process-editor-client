@@ -110,7 +110,9 @@ export namespace MonacoEditorUtil {
     Tab = 2,
     Enter = 3,
     Escape = 9,
-    F2 = 60
+    F2 = 60,
+    UpArrow = 16,
+    DownArrow = 18
   }
 
   let monacoEditorReactApiPromise: Promise<MonacoEditorReactApi>;

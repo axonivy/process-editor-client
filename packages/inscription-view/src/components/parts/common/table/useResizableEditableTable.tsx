@@ -66,15 +66,20 @@ const useResizableEditableTable = <TData,>({
   });
 
   const addRow = () => {
+    const activeElement = document.activeElement;
+    const domTable = activeElement?.parentElement?.previousElementSibling?.getElementsByTagName('table')[0];
     const newData = [...tableData];
     newData.push(emptyDataObject);
     updateTableData(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+    setTimeout(() => {
+      domTable?.rows[newData.length]?.cells[0]?.querySelector('input')?.focus();
+    }, 0);
   };
 
   const showAddButton = () => {
     if (tableData.filter(obj => deepEqual(obj, emptyDataObject)).length === 0) {
-      return <TableAddRow addRow={addRow} tabindex={0} />;
+      return <TableAddRow addRow={addRow} tabIndex={0} />;
     }
     return null;
   };
