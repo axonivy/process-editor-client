@@ -10,6 +10,7 @@ export class OpenDataClassButtonProvider implements ToolBarButtonProvider {
     return {
       icon: IvyIcons.DatabaseLink,
       title: t('toolbar.openDataClass', { hotkey: 'C' }),
+      id: 'btn_open_data_class',
       sorting: 'E',
       action: () => OpenDataClassAction.create(),
       location: ToolBarButtonLocation.Right,

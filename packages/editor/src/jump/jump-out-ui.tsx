@@ -2,8 +2,6 @@ import { JumpAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import {
   Action,
-  EditorContextService,
-  GLSPAbstractUIExtension,
   type IActionDispatcher,
   type IActionHandler,
   SelectionService,
@@ -13,16 +11,17 @@ import {
   UpdateModelAction
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { createElement, createIcon } from '../utils/ui-utils';
+import { ReactUIExtension } from '../utils/react-ui-extension';
+import React from 'react';
+import { Button } from '@axonivy/ui-components';
 import { t } from 'i18next';
 
 @injectable()
-export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler {
+export class JumpOutUi extends ReactUIExtension implements IActionHandler {
   static readonly ID = 'jumpOutUi';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
   @inject(SelectionService) protected selectionService: SelectionService;
-  @inject(EditorContextService) protected readonly editorContext: EditorContextService;
 
   id(): string {
     return JumpOutUi.ID;
@@ -32,17 +31,24 @@ export class JumpOutUi extends GLSPAbstractUIExtension implements IActionHandler
     return 'jump-out-container';
   }
 
-  override initializeContents(containerElement: HTMLElement): void {
-    containerElement.style.position = 'absolute';
+  protected initializeContainer(container: HTMLElement): void {
+    super.initializeContainer(container);
+    container.style.position = 'absolute';
   }
 
-  override onBeforeShow(containerElement: HTMLElement) {
-    containerElement.innerHTML = '';
-    const button = createElement('button', ['jump-out-btn']);
-    button.title = t('tool.jumpOut', { hotkey: 'J' });
-    button.appendChild(createIcon(IvyIcons.JumpOut));
-    button.onclick = () => this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
-    containerElement.appendChild(button);
+  protected render(): React.ReactNode {
+    return (
+      <Button
+        title={t('tool.jumpOut', { hotkey: 'J' })}
+        className='jump-out-btn'
+        icon={IvyIcons.JumpOut}
+        onClick={() => this.handleJumpOutClick()}
+      />
+    );
+  }
+
+  protected handleJumpOutClick(): void {
+    this.actionDispatcher.dispatch(JumpAction.create({ elementId: '' }));
   }
 
   handle(action: Action): void {
