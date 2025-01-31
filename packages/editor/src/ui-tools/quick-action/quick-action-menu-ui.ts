@@ -1,6 +1,6 @@
 import type { GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, GIssue, GIssueSeverity } from '@eclipse-glsp/client';
 import { Action } from '@eclipse-glsp/client';
-import { Converter } from 'showdown';
+import { marked } from 'marked';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import type { ShowMenuAction } from '../menu/menu';
@@ -202,8 +202,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   }
 
   private createDescription(description: string): HTMLElement {
-    const converter = new Converter({ simpleLineBreaks: true });
-    const htmlText = converter.makeHtml(description);
+    const htmlText = marked.parse(description, { async: false, breaks: true });
     const template = document.createElement('template');
     template.innerHTML = htmlText;
     const text = createElement('div', ['simple-menu-text']);
