@@ -43,6 +43,7 @@ import ivyZorderModule from './zorder/di.config';
 import './colors.css';
 import './toastify.css';
 import { IvyMarqueeUtil } from './ui-tools/tool-bar/marquee-behavior';
+import { ivyAccessibilityModule } from './accessibility/di.config';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -67,6 +68,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     { replace: ivyChangeBoundsToolModule },
     { replace: ivyExportModule },
     { replace: ivySelectModule },
+    { replace: ivyAccessibilityModule },
 
     // Ivy additions
     ivyDiagramModule,
