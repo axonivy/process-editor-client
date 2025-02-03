@@ -2,7 +2,6 @@ import './viewport-bar.css';
 
 import {
   bindAsService,
-  CenterKeyboardListener,
   configureActionHandler,
   configureCommand,
   EnableDefaultToolsAction,
@@ -61,7 +60,6 @@ const ivyViewportModule = new FeatureModule(
     configureCommand(context, OriginViewportCommand);
     configureCommand(context, MoveIntoViewportCommand);
     configureCommand(context, IvySetViewportZoomCommand);
-    bindAsService(context, TYPES.KeyListener, CenterKeyboardListener);
   },
   { featureId: viewportModule.featureId }
 );
