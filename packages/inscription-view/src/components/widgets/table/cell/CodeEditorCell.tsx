@@ -14,13 +14,13 @@ import Input from '../../input/Input';
 
 type CodeEditorCellProps<TData> = {
   cell: CellContext<TData, string>;
-  makro: boolean;
+  macro: boolean;
   type?: string;
   placeholder?: string;
   browsers: BrowserType[];
 };
 
-export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder }: CodeEditorCellProps<TData>) {
+export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder }: CodeEditorCellProps<TData>) {
   const initialValue = cell.getValue() as string;
   const [value, setValue] = useState(initialValue);
 
@@ -28,7 +28,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
     setValue(initialValue);
   }, [initialValue]);
 
-  const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor();
+  const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor(macro ? { modifyAction: value => `<%=${value}%>` } : undefined);
   const path = usePath();
   const browser = useBrowser();
 
@@ -68,7 +68,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
             location={path}
             applyEditor={focusValue.onChange}
             selectionRange={getSelectionRange()}
-            macro={makro}
+            macro={macro}
             type={type}
           />
           {!maximizeState.isMaximizedCodeEditorOpen && (
@@ -81,7 +81,7 @@ export function CodeEditorCell<TData>({ cell, makro, type, browsers, placeholder
                   escape: activeElementBlur
                 }}
                 onMountFuncs={[setEditor]}
-                macro={makro}
+                macro={macro}
               />
 
               <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
