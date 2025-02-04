@@ -23,7 +23,7 @@ import { IvyAccessibleKeyShortcutTool } from './key-shortcut/accessible-key-shor
 import { IvyResizeKeyTool } from './resize-key-tool/resize-key-tool';
 import { IvyGlobalKeyListenerTool } from './global-keylistener-tool';
 import { IvyElementNavigatorTool } from './element-navigation/diagram-navigation-tool';
-import { ViewPortKeyboardListener } from './viewport-key-shortcut';
+import { ViewPortKeyboardListener } from '../ui-tools/viewport/button';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
