@@ -3,12 +3,14 @@ import {
   bindAsService,
   BindingContext,
   configureActionHandler,
-  configureKeyboardControlTools,
+  configureFocusTrackerTool,
   configureMoveZoom,
   configureToastTool,
   configureViewKeyTools,
+  EnableKeyboardGridAction,
   FeatureModule,
-  GlobalKeyListenerTool,
+  FocusDomAction,
+  KeyboardGrid,
   KeyShortcutUIExtension,
   LocalElementNavigator,
   PositionNavigator,
@@ -24,6 +26,7 @@ import { IvyResizeKeyTool } from './resize-key-tool/resize-key-tool';
 import { IvyGlobalKeyListenerTool } from './global-keylistener-tool';
 import { IvyElementNavigatorTool } from './element-navigation/diagram-navigation-tool';
 import { ViewPortKeyboardListener } from '../ui-tools/viewport/button';
+import { FocusDomActionHandler } from '../ui-tools/focus-dom-handler';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -34,24 +37,31 @@ export const ivyAccessibilityModule = new FeatureModule(
     configureSearchPaletteModule(context);
     configureShortcutHelpTool(context);
     configureKeyboardControlTools(context);
-    rebind(GlobalKeyListenerTool).to(IvyGlobalKeyListenerTool);
     configureElementNavigationTool(context);
     configureToastTool(context);
+    configureFocusTrackerTool(context);
 
     bindAsService(context, TYPES.KeyListener, ViewPortKeyboardListener);
+    configureActionHandler(context, FocusDomAction.KIND, FocusDomActionHandler);
   },
   {
     featureId: accessibilityModule.featureId
   }
 );
 
-export function configureElementNavigationTool(context: BindingContext): void {
+function configureKeyboardControlTools(context: BindingContext): void {
+  bindAsService(context, TYPES.IDefaultTool, IvyGlobalKeyListenerTool);
+  bindAsService(context, TYPES.IUIExtension, KeyboardGrid);
+  configureActionHandler(context, EnableKeyboardGridAction.KIND, KeyboardGrid);
+}
+
+function configureElementNavigationTool(context: BindingContext): void {
   bindAsService(context, TYPES.IDefaultTool, IvyElementNavigatorTool);
   bindAsService(context, TYPES.IElementNavigator, PositionNavigator);
   bindAsService(context, TYPES.ILocalElementNavigator, LocalElementNavigator);
 }
 
-export function configureSearchPaletteModule(context: Pick<BindingContext, 'bind'>): void {
+function configureSearchPaletteModule(context: BindingContext): void {
   //tbd improve palette
   bindAsService(context, TYPES.IUIExtension, SearchAutocompletePalette);
   bindAsService(context, TYPES.IDefaultTool, SearchAutocompletePaletteTool);

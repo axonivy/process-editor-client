@@ -38,10 +38,6 @@ const ivyViewportModule = new FeatureModule(
     configureCommand(context, SetViewportCommand);
     configureCommand(context, RepositionCommand);
 
-    bindAsService(context, TYPES.IDiagramStartup, RestoreViewportHandler);
-    configureActionHandler(context, EnableDefaultToolsAction.KIND, RestoreViewportHandler);
-    configureActionHandler(context, FocusDomAction.KIND, RestoreViewportHandler);
-
     // GLSP replacements
     configureCommand(context, IvyCenterCommand);
     configureCommand(context, IvyFitToScreenCommand);
