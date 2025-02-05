@@ -14,10 +14,6 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
         SetAccessibleKeyShortcutAction.create({
           token: 'Graph',
           keys: [{ shortcuts: ['2'], description: 'Focus on graph', group: 'Graph', position: 0 }]
-        }),
-        SetAccessibleKeyShortcutAction.create({
-          token: 'Inscription',
-          keys: [{ shortcuts: ['3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
         })
       ]);
     });
@@ -30,9 +26,6 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
     if (this.matchesSetFocusOnDiagram(event)) {
       return [FocusDomAction.create('graph')];
     }
-    if (this.matchesSetFocusOnInscription(event)) {
-      return [FocusDomAction.create('#inscription-ui button')];
-    }
     return [];
   }
 
@@ -42,9 +35,5 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
 
   protected matchesSetFocusOnDiagram(event: KeyboardEvent): boolean {
     return matchesKeystroke(event, 'Digit2') || matchesKeystroke(event, 'Numpad2');
-  }
-
-  protected matchesSetFocusOnInscription(event: KeyboardEvent): boolean {
-    return matchesKeystroke(event, 'Digit3') || matchesKeystroke(event, 'Numpad3');
   }
 }
