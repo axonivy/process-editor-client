@@ -19,6 +19,7 @@ import { useEditorContext } from '../../../../context/useEditorContext';
 import { useMeta } from '../../../../context/useMeta';
 import type { SelectItem } from '../../../widgets/select/Select';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { focusNewCell } from '../../common/table/cellFocus-utils';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 
@@ -34,13 +35,7 @@ export const TableSort = () => {
   const [data, setData] = useState<Column[]>([]);
 
   const { elementContext: context } = useEditorContext();
-  const columnItems = useMeta(
-    'meta/database/columns',
-    { context, database: config.query.dbName, table: config.query.sql.table },
-    []
-  ).data.map<SelectItem>(c => {
-    return { label: c.name, value: c.name };
-  });
+  const columnItems = useMeta('meta/database/columns', { context, database: config.query.dbName, table: config.query.sql.table }, []).data;
   const orderItems = useMemo<SelectItem[]>(() => Object.entries(QUERY_ORDER).map(([label, value]) => ({ label, value })), []);
 
   useEffect(() => {
@@ -61,7 +56,7 @@ export const TableSort = () => {
       {
         accessorKey: 'name',
         header: () => <span>Column</span>,
-        cell: cell => <SelectCell cell={cell} items={columnItems} />
+        cell: cell => <SelectCell cell={cell} items={columnItems.map(c => ({ label: c.name, value: c.name }))} />
       },
       {
         accessorKey: 'sorting',
@@ -132,10 +127,13 @@ export const TableSort = () => {
   };
 
   const addRow = () => {
+    const activeElement = document.activeElement;
+    const domTable = activeElement?.parentElement?.previousElementSibling?.getElementsByTagName('table')[0];
     const newData = [...data];
     newData.push(EMPTY_COLUMN);
     setData(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+    focusNewCell(domTable, newData.length, 'button');
   };
 
   const updateOrder = (moveId: string, targetId: string) => {

@@ -5,6 +5,7 @@ import { deepEqual } from '../../../../utils/equals';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { TableAddRow } from '@axonivy/ui-components';
 import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
+import { focusNewCell } from './cellFocus-utils';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];
@@ -66,10 +67,13 @@ const useResizableEditableTable = <TData,>({
   });
 
   const addRow = () => {
+    const activeElement = document.activeElement;
+    const domTable = activeElement?.parentElement?.previousElementSibling?.getElementsByTagName('table')[0];
     const newData = [...tableData];
     newData.push(emptyDataObject);
     updateTableData(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+    focusNewCell(domTable, newData.length, 'input');
   };
 
   const showAddButton = () => {

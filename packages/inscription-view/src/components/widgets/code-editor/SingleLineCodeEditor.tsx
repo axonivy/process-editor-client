@@ -5,6 +5,7 @@ import type { CodeEditorProps } from './CodeEditor';
 import { CodeEditor } from './CodeEditor';
 import { monacoAutoFocus } from './useCodeEditor';
 import type { BrowserType } from '../../browser/useBrowser';
+import { focusAdjacentTabIndexMonaco } from '../../../utils/focus';
 
 type EditorOptions = {
   editorOptions?: {
@@ -14,6 +15,8 @@ type EditorOptions = {
     enter?: () => void;
     tab?: () => void;
     escape?: () => void;
+    arrowDown?: () => void;
+    arrowUp?: () => void;
   };
   modifyAction?: (value: string) => string;
 };
@@ -50,7 +53,7 @@ export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ke
           triggerAcceptSuggestion(editor);
         } else {
           if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
-            document.activeElement.blur();
+            focusAdjacentTabIndexMonaco('next');
           }
           if (keyActions?.tab) {
             keyActions.tab();
@@ -60,9 +63,42 @@ export const SingleLineCodeEditor = ({ onChange, onMountFuncs, editorOptions, ke
       'singleLine'
     );
     editor.addCommand(
+      MonacoEditorUtil.KeyCode.DownArrow,
+      () => {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'selectNextSuggestion', undefined);
+        } else if (keyActions?.arrowDown) {
+          keyActions.arrowDown();
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
+      MonacoEditorUtil.KeyCode.UpArrow,
+      () => {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'selectPrevSuggestion', undefined);
+        } else if (keyActions?.arrowUp) {
+          keyActions.arrowUp();
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
+      MonacoEditorUtil.KeyCode.Shift | MonacoEditorUtil.KeyCode.Tab,
+      () => {
+        if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
+          focusAdjacentTabIndexMonaco('previous');
+        }
+      },
+      'singleLine'
+    );
+    editor.addCommand(
       MonacoEditorUtil.KeyCode.Escape,
       () => {
-        if (!isSuggestWidgetOpen(editor) && keyActions?.escape) {
+        if (isSuggestWidgetOpen(editor)) {
+          editor.trigger(undefined, 'hideSuggestWidget', undefined);
+        } else if (keyActions?.escape) {
           keyActions.escape();
         }
       },
