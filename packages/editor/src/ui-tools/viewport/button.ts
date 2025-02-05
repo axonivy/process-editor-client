@@ -37,12 +37,3 @@ export class FitToScreenButton implements ViewportBarButton {
     public readonly action = () => FitToScreenAction.create([], { padding: 10 })
   ) {}
 }
-
-export class ViewPortKeyboardListener extends KeyListener {
-  override keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
-    if (matchesKeystroke(event, 'KeyC')) return [CenterAction.create([])];
-    if (matchesKeystroke(event, 'KeyF')) return [FitToScreenAction.create([])];
-    if (matchesKeystroke(event, 'KeyO')) return [OriginViewportAction.create()];
-    return [];
-  }
-}
