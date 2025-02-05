@@ -68,7 +68,6 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     { replace: ivyChangeBoundsToolModule },
     { replace: ivyExportModule },
     { replace: ivySelectModule },
-    { replace: ivyAccessibilityModule },
 
     // Ivy additions
     ivyDiagramModule,
@@ -81,6 +80,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyConnectorModule,
     ivyKeyListenerModule,
     ivyNotificationModule,
+    ivyAccessibilityModule,
 
     // additional configurations
     ...containerConfiguration

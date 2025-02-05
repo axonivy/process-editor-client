@@ -6,27 +6,30 @@ import {
   configureFocusTrackerTool,
   configureMoveZoom,
   configureToastTool,
-  configureViewKeyTools,
+  DeselectKeyTool,
   EnableKeyboardGridAction,
   FeatureModule,
   FocusDomAction,
   KeyboardGrid,
+  KeyboardGridCellSelectedAction,
+  KeyboardGridKeyboardEventAction,
   KeyShortcutUIExtension,
   LocalElementNavigator,
+  MovementKeyTool,
   PositionNavigator,
   ResizeElementAction,
-  ResizeElementHandler,
+  ResizeKeyTool,
   SearchAutocompletePalette,
   SearchAutocompletePaletteTool,
   SetAccessibleKeyShortcutAction,
   TYPES
 } from '@eclipse-glsp/client';
 import { IvyAccessibleKeyShortcutTool } from './key-shortcut/accessible-key-shortcut-tool';
-import { IvyResizeKeyTool } from './resize-key-tool/resize-key-tool';
 import { IvyGlobalKeyListenerTool } from './global-keylistener-tool';
 import { IvyElementNavigatorTool } from './element-navigation/diagram-navigation-tool';
-import { ViewPortKeyboardListener } from '../ui-tools/viewport/button';
 import { FocusDomActionHandler } from '../ui-tools/focus-dom-handler';
+import { IvyResizeElementHandler } from './resize-key-tool/resize-key-handler';
+import { IvyZoomKeyTool } from './zoom-key-tool';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -41,13 +44,20 @@ export const ivyAccessibilityModule = new FeatureModule(
     configureToastTool(context);
     configureFocusTrackerTool(context);
 
-    bindAsService(context, TYPES.KeyListener, ViewPortKeyboardListener);
     configureActionHandler(context, FocusDomAction.KIND, FocusDomActionHandler);
   },
   {
     featureId: accessibilityModule.featureId
   }
 );
+
+export function configureViewKeyTools(context: BindingContext): void {
+  bindAsService(context, TYPES.IDefaultTool, MovementKeyTool);
+  bindAsService(context, TYPES.IDefaultTool, IvyZoomKeyTool);
+  configureActionHandler(context, KeyboardGridCellSelectedAction.KIND, IvyZoomKeyTool);
+  configureActionHandler(context, KeyboardGridKeyboardEventAction.KIND, IvyZoomKeyTool);
+  bindAsService(context, TYPES.IDefaultTool, DeselectKeyTool);
+}
 
 function configureKeyboardControlTools(context: BindingContext): void {
   bindAsService(context, TYPES.IDefaultTool, IvyGlobalKeyListenerTool);
@@ -68,9 +78,9 @@ function configureSearchPaletteModule(context: BindingContext): void {
 }
 
 function configureResizeTools(context: BindingContext): void {
-  context.bind(ResizeElementHandler).toSelf().inSingletonScope();
-  configureActionHandler(context, ResizeElementAction.KIND, ResizeElementHandler);
-  bindAsService(context, TYPES.IDefaultTool, IvyResizeKeyTool);
+  context.bind(IvyResizeElementHandler).toSelf().inSingletonScope();
+  configureActionHandler(context, ResizeElementAction.KIND, IvyResizeElementHandler);
+  bindAsService(context, TYPES.IDefaultTool, ResizeKeyTool);
 }
 
 function configureShortcutHelpTool(context: BindingContext): void {
