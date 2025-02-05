@@ -13,6 +13,7 @@ import { PathContext } from '../../../../../context/usePath';
 import Fieldset from '../../../../widgets/fieldset/Fieldset';
 import { ValidationRow } from '../../../common/path/validation/ValidationRow';
 import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
+import { focusNewCell } from '../../../common/table/cellFocus-utils';
 
 const EMPTY_PARAMETER: RestParam = { name: '', expression: '', known: false };
 
@@ -61,10 +62,13 @@ export const RestForm = () => {
   };
 
   const addRow = () => {
+    const activeElement = document.activeElement;
+    const domTable = activeElement?.parentElement?.previousElementSibling?.getElementsByTagName('table')[0];
     const newData = [...data];
     newData.push(EMPTY_PARAMETER);
     onChange(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+    focusNewCell(domTable, newData.length, 'input');
   };
 
   const removeRow = (index: number) => {

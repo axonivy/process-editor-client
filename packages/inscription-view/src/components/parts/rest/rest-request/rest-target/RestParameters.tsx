@@ -22,6 +22,7 @@ import type { SelectItem } from '../../../../widgets/select/Select';
 import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
 import { PathCollapsible } from '../../../common/path/PathCollapsible';
 import { ValidationRow } from '../../../common/path/validation/ValidationRow';
+import { focusNewCell } from '../../../common/table/cellFocus-utils';
 
 const EMPTY_PARAMETER: Parameter = { kind: 'Query', name: '', expression: '', known: false };
 
@@ -79,10 +80,13 @@ export const RestParameters = () => {
   };
 
   const addRow = () => {
+    const activeElement = document.activeElement;
+    const domTable = activeElement?.parentElement?.previousElementSibling?.getElementsByTagName('table')[0];
     const newData = [...data];
     newData.push(EMPTY_PARAMETER);
     onChange(newData);
     setRowSelection({ [`${newData.length - 1}`]: true });
+    focusNewCell(domTable, newData.length, 'button');
   };
 
   const removeRow = (index: number) => {
