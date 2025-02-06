@@ -20,7 +20,6 @@ const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
       return newWidth;
     });
   };
-
   useHotkeys('F3', () => updateWidth(-20), { scopes: ['global'] });
   useHotkeys('F4', () => updateWidth(20), { scopes: ['global'] });
   const { moveProps } = useMove({

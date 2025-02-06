@@ -20,10 +20,15 @@ export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected handleKeyEvent(event: KeyboardEvent) {
-    if (this.matchesSetFocusOnInscription(event)) {
-      return [ToggleInscriptionAction.create({}), FocusDomAction.create('#inscription-ui button')];
+    if (!this.matchesSetFocusOnInscription(event)) {
+      return [];
     }
-    return [];
+    const selector = '#inscription-ui button';
+    const focusAction = FocusDomAction.create(selector);
+    if (document.querySelector<HTMLElement>(selector)?.checkVisibility()) {
+      return [focusAction];
+    }
+    return [ToggleInscriptionAction.create({}), focusAction];
   }
 
   protected matchesSetFocusOnInscription(event: KeyboardEvent): boolean {
