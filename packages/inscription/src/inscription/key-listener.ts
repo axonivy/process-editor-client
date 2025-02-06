@@ -9,7 +9,7 @@ export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
       this.actionDispatcher.dispatchAll([
         SetAccessibleKeyShortcutAction.create({
           token: 'Inscription',
-          keys: [{ shortcuts: ['3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
+          keys: [{ shortcuts: ['CTRL', '3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
         })
       ]);
     });
@@ -27,6 +27,6 @@ export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected matchesSetFocusOnInscription(event: KeyboardEvent): boolean {
-    return matchesKeystroke(event, 'Digit3') || matchesKeystroke(event, 'Numpad3');
+    return matchesKeystroke(event, 'Digit3', 'ctrl') || matchesKeystroke(event, 'Numpad3', 'ctrl');
   }
 }

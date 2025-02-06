@@ -1,5 +1,5 @@
-import type { Action, GModelElement } from '@eclipse-glsp/client';
-import { CenterAction, FitToScreenAction, KeyListener, matchesKeystroke } from '@eclipse-glsp/client';
+import type { Action } from '@eclipse-glsp/client';
+import { CenterAction, FitToScreenAction } from '@eclipse-glsp/client';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { OriginViewportAction } from '@axonivy/process-editor-protocol';
 
