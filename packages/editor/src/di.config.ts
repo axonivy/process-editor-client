@@ -27,7 +27,6 @@ import { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config
 import ivyExecutionModule from './execution/di.config';
 import { IvyGLSPCommandStack } from './ivy-command-stack';
 import ivyJumpModule from './jump/di.config';
-import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import type { IvyViewerOptions } from './options';
@@ -78,7 +77,6 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyAnimateModule,
     ivyExecutionModule,
     ivyConnectorModule,
-    ivyKeyListenerModule,
     ivyNotificationModule,
     ivyAccessibilityModule,
 
