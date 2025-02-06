@@ -100,6 +100,10 @@ export class ProcessEditor {
     return ProcessEditor.inscriptionView(this.page);
   }
 
+  toast() {
+    return this.page.locator('#sprotty_toast');
+  }
+
   public static inscriptionView(page: Page) {
     return new Inscription(page, page.locator('#inscription-ui'));
   }
@@ -178,5 +182,10 @@ export class ProcessEditor {
 
   async reload() {
     await this.page.reload();
+  }
+
+  async focusDiagram() {
+    await this.page.keyboard.press('Control+Digit2');
+    await expect(this.diagram).toBeFocused();
   }
 }
