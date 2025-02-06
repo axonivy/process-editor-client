@@ -2,16 +2,13 @@ import './viewport-bar.css';
 
 import {
   bindAsService,
-  CenterKeyboardListener,
   configureActionHandler,
   configureCommand,
   EnableDefaultToolsAction,
   EnableToolsAction,
   FeatureModule,
-  FocusDomAction,
   GetViewportCommand,
   RepositionCommand,
-  RestoreViewportHandler,
   SetViewportAction,
   SetViewportCommand,
   TYPES,
@@ -39,10 +36,6 @@ const ivyViewportModule = new FeatureModule(
     configureCommand(context, SetViewportCommand);
     configureCommand(context, RepositionCommand);
 
-    bindAsService(context, TYPES.IDiagramStartup, RestoreViewportHandler);
-    configureActionHandler(context, EnableDefaultToolsAction.KIND, RestoreViewportHandler);
-    configureActionHandler(context, FocusDomAction.KIND, RestoreViewportHandler);
-
     // GLSP replacements
     configureCommand(context, IvyCenterCommand);
     configureCommand(context, IvyFitToScreenCommand);
@@ -61,7 +54,6 @@ const ivyViewportModule = new FeatureModule(
     configureCommand(context, OriginViewportCommand);
     configureCommand(context, MoveIntoViewportCommand);
     configureCommand(context, IvySetViewportZoomCommand);
-    bindAsService(context, TYPES.KeyListener, CenterKeyboardListener);
   },
   { featureId: viewportModule.featureId }
 );

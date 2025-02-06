@@ -9,7 +9,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { useGeneralData } from '../parts/name/useGeneralData';
 import { otherEditors } from './other-editors';
 import { thirdPartyEditors } from './third-party/all-third-party-editors';
-import { Button, Flex, Message, SidebarHeader, SidebarMessages, Switch } from '@axonivy/ui-components';
+import { Button, Flex, Message, SidebarHeader, SidebarMessages, Switch, useHotkeys } from '@axonivy/ui-components';
 import { ProcessOutline, type ProcessOutlineProps } from './ProcessOutline';
 import { useDataContext } from '../../context/useDataContext';
 import { useEditorContext } from '../../context/useEditorContext';
@@ -40,6 +40,7 @@ const Header = ({ children }: { children?: ReactNode }) => {
   const action = useAction('openPage');
   const title = type.id?.length === 0 ? 'Inscription' : `${type.shortLabel}${data.name?.length > 0 ? ` - ${data.name}` : ''}`;
   const icon = editors.get(type.id)?.icon;
+  useHotkeys('F1', () => action(helpUrl), { scopes: ['global'] });
   return (
     <>
       <SidebarHeader title={title} icon={icon} className='header'>
