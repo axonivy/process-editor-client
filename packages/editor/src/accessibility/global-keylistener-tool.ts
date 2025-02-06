@@ -9,11 +9,11 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
       this.actionDispatcher.dispatchAll([
         SetAccessibleKeyShortcutAction.create({
           token: KeyboardToolPalette.name,
-          keys: [{ shortcuts: ['1'], description: 'Focus on tool palette', group: 'Tool-Palette', position: 0 }]
+          keys: [{ shortcuts: ['CTRL', '1'], description: 'Focus on tool palette', group: 'Tool-Palette', position: 0 }]
         }),
         SetAccessibleKeyShortcutAction.create({
           token: 'Graph',
-          keys: [{ shortcuts: ['2'], description: 'Focus on graph', group: 'Graph', position: 0 }]
+          keys: [{ shortcuts: ['CTRL', '2'], description: 'Focus on graph', group: 'Graph', position: 0 }]
         })
       ]);
     });
@@ -30,10 +30,10 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected matchesSetFocusOnToolPalette(event: KeyboardEvent): boolean {
-    return matchesKeystroke(event, 'Digit1') || matchesKeystroke(event, 'Numpad1');
+    return matchesKeystroke(event, 'Digit1', 'ctrl') || matchesKeystroke(event, 'Numpad1', 'ctrl');
   }
 
   protected matchesSetFocusOnDiagram(event: KeyboardEvent): boolean {
-    return matchesKeystroke(event, 'Digit2') || matchesKeystroke(event, 'Numpad2');
+    return matchesKeystroke(event, 'Digit2', 'ctrl') || matchesKeystroke(event, 'Numpad2', 'ctrl');
   }
 }
