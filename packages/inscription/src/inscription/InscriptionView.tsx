@@ -3,6 +3,7 @@ import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 import { useMove } from 'react-aria';
 import { inscriptionWidthStorage } from './inscription-width-storage';
+import { useHotkeys } from '@axonivy/ui-components';
 
 const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
   const [element, setElement] = useState(pid);
@@ -12,16 +13,22 @@ const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
 
   const [width, setWidth] = useState(inscriptionWidthStorage().getWidth());
   const [resizeActive, setResizeActive] = useState(false);
+  const updateWidth = (delta: number) => {
+    setWidth(oldWidth => {
+      const newWidth = inscriptionWidthStorage().fixWidth(oldWidth - delta);
+      inscriptionWidthStorage().setWidth(newWidth);
+      return newWidth;
+    });
+  };
+
+  useHotkeys('F3', () => updateWidth(-20), { scopes: ['global'] });
+  useHotkeys('F4', () => updateWidth(20), { scopes: ['global'] });
   const { moveProps } = useMove({
     onMoveStart() {
       setResizeActive(true);
     },
     onMove(e) {
-      setWidth(oldWidth => {
-        const newWidth = inscriptionWidthStorage().fixWidth(oldWidth - e.deltaX);
-        inscriptionWidthStorage().setWidth(newWidth);
-        return newWidth;
-      });
+      updateWidth(e.deltaX);
       window.dispatchEvent(new CustomEvent('resize'));
     },
     onMoveEnd() {
