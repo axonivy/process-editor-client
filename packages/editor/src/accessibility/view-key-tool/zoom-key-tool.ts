@@ -15,7 +15,7 @@ import {
   ZoomViewportAction
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
+import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';
 
 @injectable()
 export class IvyZoomKeyTool extends ZoomKeyTool {
