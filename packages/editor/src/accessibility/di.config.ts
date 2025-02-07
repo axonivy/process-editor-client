@@ -5,7 +5,6 @@ import {
   configureActionHandler,
   configureElementNavigationTool,
   configureMoveZoom,
-  configureSearchPaletteModule,
   configureShortcutHelpTool,
   configureToastTool,
   DeselectKeyTool,
@@ -26,6 +25,8 @@ import { IvyMovementKeyTool } from './view-key-tool/movement-key-tool';
 import { IvyGlobalKeyListenerTool } from './key-listener/global-keylistener-tool';
 import { QuickActionKeyListener } from './key-listener/quick-actions';
 import { JumpOutKeyListener } from './key-listener/jump-out';
+import { IvySearchAutocompletePaletteTool } from './search/search-tool';
+import { IvySearchAutocompletePalette } from './search/search-palette';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -74,4 +75,9 @@ function configureKeyboardControlTools(context: BindingContext) {
 function configureIvyKeyListeners({ bind }: BindingContext) {
   bind(TYPES.KeyListener).to(QuickActionKeyListener);
   bind(TYPES.KeyListener).to(JumpOutKeyListener);
+}
+
+function configureSearchPaletteModule(context: BindingContext) {
+  bindAsService(context, TYPES.IUIExtension, IvySearchAutocompletePalette);
+  bindAsService(context, TYPES.IDefaultTool, IvySearchAutocompletePaletteTool);
 }

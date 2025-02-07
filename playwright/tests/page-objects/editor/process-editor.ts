@@ -184,8 +184,8 @@ export class ProcessEditor {
     await this.page.reload();
   }
 
-  async focusDiagram() {
-    await this.page.keyboard.press('Control+Digit2');
+  async focusDiagramAndCheck() {
+    await this.page.keyboard.press('Digit2');
     await expect(this.diagram).toBeFocused();
   }
 }

@@ -1,15 +1,16 @@
-import { FocusDomAction, GlobalKeyListenerTool, matchesKeystroke, SetAccessibleKeyShortcutAction } from '@eclipse-glsp/client';
+import { FocusDomAction, matchesKeystroke, SetAccessibleKeyShortcutAction } from '@eclipse-glsp/client';
 import { ToggleInscriptionAction } from './action';
 import { injectable } from 'inversify';
+import { IvyGlobalKeyListenerTool } from '@axonivy/process-editor';
 
 @injectable()
-export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
+export class IvyInscriptionGlobalKeyListenerTool extends IvyGlobalKeyListenerTool {
   registerShortcutKey(): void {
     this.actionDispatcher.onceModelInitialized().then(() => {
       this.actionDispatcher.dispatchAll([
         SetAccessibleKeyShortcutAction.create({
           token: 'Inscription',
-          keys: [{ shortcuts: ['CTRL', '3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
+          keys: [{ shortcuts: ['3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
         })
       ]);
     });
@@ -20,7 +21,7 @@ export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected handleKeyEvent(event: KeyboardEvent) {
-    if (!this.matchesSetFocusOnInscription(event)) {
+    if (this.isInput(event) || !this.matchesSetFocusOnInscription(event)) {
       return [];
     }
     const selector = '#inscription-ui button';
@@ -32,6 +33,6 @@ export class IvyInscriptionGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected matchesSetFocusOnInscription(event: KeyboardEvent): boolean {
-    return matchesKeystroke(event, 'Digit3', 'ctrl') || matchesKeystroke(event, 'Numpad3', 'ctrl');
+    return matchesKeystroke(event, 'Digit3') || matchesKeystroke(event, 'Numpad3');
   }
 }

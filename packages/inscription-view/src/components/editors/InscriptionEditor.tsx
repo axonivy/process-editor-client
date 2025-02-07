@@ -40,7 +40,7 @@ const Header = ({ children }: { children?: ReactNode }) => {
   const action = useAction('openPage');
   const title = type.id?.length === 0 ? 'Inscription' : `${type.shortLabel}${data.name?.length > 0 ? ` - ${data.name}` : ''}`;
   const icon = editors.get(type.id)?.icon;
-  useHotkeys('F1', () => action(helpUrl), { scopes: ['global'] });
+  useHotkeys('F1', () => action(helpUrl));
   return (
     <>
       <SidebarHeader title={title} icon={icon} className='header'>

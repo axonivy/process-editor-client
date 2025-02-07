@@ -40,5 +40,6 @@ export * from './ui-tools/tool-bar/tool-bar';
 export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
 export * from './start-action/actions';
+export * from './accessibility/key-listener/global-keylistener-tool';
 
 export * from './ivy-glsp-jsonrpc-client';

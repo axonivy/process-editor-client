@@ -5,22 +5,22 @@ test('focus tool bar shortcut', async ({ page }) => {
   await ProcessEditor.openProcess(page);
   const defaultToolsButton = page.locator('#btn_default_tools');
   await expect(defaultToolsButton).not.toBeFocused();
-  await page.keyboard.press('Control+Digit1');
+  await page.keyboard.press('Digit1');
   await expect(defaultToolsButton).toBeFocused();
 });
 
 test('focus diagram shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   await expect(editor.diagram).not.toBeFocused();
-  await editor.focusDiagram();
+  await editor.focusDiagramAndCheck();
 });
 
 test('toggle and focus inscription shortcut', async ({ page }) => {
   const inscription = (await ProcessEditor.openProcess(page)).inscription();
   await inscription.expectClosed();
-  await page.keyboard.press('Control+Digit3');
+  await page.keyboard.press('Digit3');
   await inscription.expectOpen();
-  await page.keyboard.press('Control+Digit3');
+  await page.keyboard.press('Digit3');
   await expect(inscription.locator().locator('button').first()).toBeFocused();
 });
 
@@ -39,7 +39,7 @@ test('open search for elements shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   const palette = page.locator('div.command-palette-suggestions');
   await expect(palette).toBeHidden();
-  await editor.focusDiagram();
+  await editor.focusDiagramAndCheck();
   await page.keyboard.press('Control+KeyF');
   await expect(palette).toBeVisible();
 });
