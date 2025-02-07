@@ -1,7 +1,7 @@
 @layer icons;
 
 @import '@axonivy/ui-icons/src-gen/ivy-icons.css' layer(icons);
-@import '@axonivy/ui-components/lib/style.css';
+@import '@axonivy/ui-components/lib/components.css';
 
 html,
 body {
