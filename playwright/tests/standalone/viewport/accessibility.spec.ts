@@ -48,10 +48,10 @@ test('element navigation mode', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   await editor.startElement.select();
   await page.keyboard.press('N');
-  await expect(editor.toast()).toContainText('Navigation On:');
+  await editor.expectToastToContainText('Navigation On:');
   await page.keyboard.press('ArrowRight');
   await page.keyboard.press('ArrowRight');
   await editor.endElement.expectSelected();
   await page.keyboard.press('Escape');
-  await expect(editor.toast()).toContainText('Navigation Off:');
+  await editor.expectToastToContainText('Navigation Off:');
 });

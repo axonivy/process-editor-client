@@ -100,8 +100,8 @@ export class ProcessEditor {
     return ProcessEditor.inscriptionView(this.page);
   }
 
-  toast() {
-    return this.page.locator('#sprotty_toast');
+  async expectToastToContainText(text: string) {
+    await expect(this.page.locator('#sprotty_toast')).toContainText(text);
   }
 
   public static inscriptionView(page: Page) {
