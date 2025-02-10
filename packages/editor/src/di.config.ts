@@ -42,7 +42,6 @@ import ivyZorderModule from './zorder/di.config';
 
 import './colors.css';
 import './toastify.css';
-import { IvyMarqueeUtil } from './ui-tools/tool-bar/marquee-behavior';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -91,7 +90,7 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     alignmentElementFilter: element => !(element instanceof LaneNode) && DEFAULT_ALIGNABLE_ELEMENT_FILTER(element)
   });
 
-  bindOrRebind(container, MarqueeUtil).to(IvyMarqueeUtil).inSingletonScope();
+  bindOrRebind(container, MarqueeUtil).to(MarqueeUtil).inSingletonScope();
   bindOrRebind(container, TYPES.IMarqueeBehavior).toConstantValue({ entireEdge: true, entireElement: true });
   bindOrRebind(container, TYPES.ICommandStack).to(IvyGLSPCommandStack).inSingletonScope();
   bindOrRebind(container, TYPES.ILogger).to(ConsoleLogger).inSingletonScope();
