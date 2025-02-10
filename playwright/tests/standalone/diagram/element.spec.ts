@@ -75,3 +75,22 @@ test('decrease element size using top-left handle', async ({ page }) => {
   expect(bottomRightHandleBounds).toStrictEqual(await bottomRightHandle.boundingBox());
   expect(topLeftHandleBounds).not.toStrictEqual(await topLeftHandle.boundingBox());
 });
+
+test('increase and decrease element size using shortcut', async ({ page }) => {
+  const processEditor = await ProcessEditor.openProcess(page);
+  const element = await processEditor.createActivity('Call', { x: 300, y: 200 });
+  await processEditor.resetSelection();
+  await element.select();
+  await element.expectPosition({ x: 248, y: 170 });
+  await element.expectSize(112, 60);
+  await page.keyboard.press('Alt+KeyA');
+  await processEditor.expectToastToContainText('Resize On:');
+  await processEditor.page.keyboard.press('+');
+  await element.expectPosition({ x: 248, y: 170 });
+  await element.expectSize(120, 68);
+  await processEditor.page.keyboard.press('-');
+  await element.expectPosition({ x: 248, y: 170 });
+  await element.expectSize(112, 60);
+  await page.keyboard.press('Escape');
+  await processEditor.expectToastToContainText('Resize Off:');
+});
