@@ -40,7 +40,7 @@ test('center', async ({ page }) => {
   await viewport.triggerOrigin();
   await viewport.expectGraphOriginViewport();
   await processEditor.focusDiagramAndCheck();
-  await page.keyboard.press('KeyC');
+  await page.keyboard.press('KeyM');
   await viewport.expectGraphNotOriginViewport();
   await viewport.expectGraphTransform(/scale\(1\) translate\(\d*\.?\d*,\d*\.?\d*\)/);
 });

@@ -1,4 +1,5 @@
 import {
+  isMac,
   matchesKeystroke,
   SearchAutocompletePaletteKeyListener,
   SearchAutocompletePaletteTool,
@@ -16,7 +17,7 @@ export class IvySearchAutocompletePaletteKeyListener extends SearchAutocompleteP
     this.tool.actionDispatcher.dispatchOnceModelInitialized(
       SetAccessibleKeyShortcutAction.create({
         token: this.token,
-        keys: [{ shortcuts: ['CTRL/CMD', 'F'], description: 'Activate search for elements', group: 'Search', position: 0 }]
+        keys: [{ shortcuts: [isMac() ? 'CMD' : 'CTRL', 'F'], description: 'Activate search for elements', group: 'Search', position: 0 }]
       })
     );
   }
