@@ -76,7 +76,7 @@ class IvyZoomKeyListener extends ZoomKeyListener {
       } else {
         this.dispatch(ZoomViewportAction.create(ZoomKeyListener.defaultZoomInFactor));
       }
-    } else if (matchesKeystroke(event, 'KeyC')) this.dispatch(CenterAction.create(selectedElementIds), true);
+    } else if (matchesKeystroke(event, 'KeyM')) this.dispatch(CenterAction.create(selectedElementIds), true);
     else if (matchesKeystroke(event, 'KeyF')) this.dispatch(FitToScreenAction.create(selectedElementIds), true);
     else if (matchesKeystroke(event, 'KeyO')) this.dispatch(OriginViewportAction.create(), true);
     return [];

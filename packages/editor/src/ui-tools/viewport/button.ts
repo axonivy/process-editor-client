@@ -15,7 +15,7 @@ export class CenterButton implements ViewportBarButton {
     public readonly elementIds: () => string[],
     public readonly icon = IvyIcons.Center,
     public readonly id = 'centerBtn',
-    public readonly title = 'Center (C)',
+    public readonly title = 'Center (M)',
     public readonly action = () => CenterAction.create(elementIds())
   ) {}
 }
