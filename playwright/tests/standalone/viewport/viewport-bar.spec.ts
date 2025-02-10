@@ -19,6 +19,15 @@ test('origin', async ({ page }) => {
   await viewport.triggerOrigin();
   await viewport.expectGraphOriginViewport();
   await viewport.expectGridOriginPosition();
+
+  await page.mouse.move(10, 80);
+  await page.mouse.down();
+  await page.mouse.move(200, 200);
+  await viewport.expectGraphNotOriginViewport();
+  await processEditor.focusDiagramAndCheck();
+  await page.keyboard.press('KeyO');
+  await viewport.expectGraphOriginViewport();
+  await viewport.expectGridOriginPosition();
 });
 
 test('center', async ({ page }) => {
@@ -27,12 +36,26 @@ test('center', async ({ page }) => {
   await viewport.triggerCenter();
   await viewport.expectGraphNotOriginViewport();
   await viewport.expectGraphTransform(/scale\(1\) translate\(\d*\.?\d*,\d*\.?\d*\)/);
+
+  await viewport.triggerOrigin();
+  await viewport.expectGraphOriginViewport();
+  await processEditor.focusDiagramAndCheck();
+  await page.keyboard.press('KeyC');
+  await viewport.expectGraphNotOriginViewport();
+  await viewport.expectGraphTransform(/scale\(1\) translate\(\d*\.?\d*,\d*\.?\d*\)/);
 });
 
 test('fit to screen', async ({ page }) => {
   const processEditor = await ProcessEditor.openProcess(page);
   const viewport = processEditor.viewport();
   await viewport.triggerFitToScreen();
+  await viewport.expectGraphNotOriginViewport();
+  await viewport.expectGraphTransform(/scale\(\d*\.?\d*\) translate\(-?\d*\.?\d*,-?\d*\.?\d*\)/);
+
+  await viewport.triggerOrigin();
+  await viewport.expectGraphOriginViewport();
+  await processEditor.focusDiagramAndCheck();
+  await page.keyboard.press('KeyF');
   await viewport.expectGraphNotOriginViewport();
   await viewport.expectGraphTransform(/scale\(\d*\.?\d*\) translate\(-?\d*\.?\d*,-?\d*\.?\d*\)/);
 });
@@ -56,6 +79,15 @@ test('zoom level', async ({ page, browserName }) => {
   await viewport.triggerOrigin();
   await viewport.expectZoomLevel('100%');
   await viewport.expectGridOriginPosition();
+
+  await processEditor.focusDiagramAndCheck();
+  await page.keyboard.press('+');
+  await viewport.expectZoomLevel('110%');
+  await viewport.triggerOrigin();
+  await viewport.expectZoomLevel('100%');
+  await processEditor.focusDiagramAndCheck();
+  await page.keyboard.press('-');
+  await viewport.expectZoomLevel('90%');
 });
 
 async function zoom(page: Page, browserName: string, wheelDelta: number) {

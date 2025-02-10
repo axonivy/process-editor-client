@@ -11,9 +11,9 @@ export { default as ivyWrapModule } from './wrap/di.config';
 export { default as ivyLaneModule } from './lanes/di.config';
 export { default as ivyConnectorModule } from './connector/di.config';
 export { default as ivyQuickActionModule } from './ui-tools/quick-action/di.config';
-export { default as ivyKeyListenerModule } from './key-listener/di.config';
 export { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config';
 export { ivyChangeBoundsToolModule, ivyExportModule } from './tools/di.config';
+export { ivyAccessibilityModule, ivyKeyListenerModule } from './accessibility/di.config';
 
 /* Features */
 export * from './jump/action';
@@ -39,8 +39,7 @@ export * from './ui-tools/tool-bar/button';
 export * from './ui-tools/tool-bar/tool-bar';
 export * from './ui-tools/viewport/viewport-commands';
 export * from './ui-tools/viewport/viewport-bar';
-export * from './key-listener/jump-out';
-export * from './key-listener/quick-actions';
 export * from './start-action/actions';
+export * from './accessibility/key-listener/global-keylistener-tool';
 
 export * from './ivy-glsp-jsonrpc-client';

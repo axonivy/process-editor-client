@@ -27,7 +27,6 @@ import { ivyLabelEditModule, ivyLabelEditUiModule } from './edit-label/di.config
 import ivyExecutionModule from './execution/di.config';
 import { IvyGLSPCommandStack } from './ivy-command-stack';
 import ivyJumpModule from './jump/di.config';
-import ivyKeyListenerModule from './key-listener/di.config';
 import ivyLaneModule from './lanes/di.config';
 import { ivyNotificationModule } from './notification/di.config';
 import type { IvyViewerOptions } from './options';
@@ -43,6 +42,7 @@ import ivyZorderModule from './zorder/di.config';
 import './colors.css';
 import './toastify.css';
 import { IvyMarqueeUtil } from './ui-tools/tool-bar/marquee-behavior';
+import { ivyAccessibilityModule } from './accessibility/di.config';
 
 export default function createContainer(widgetId: string, ...containerConfiguration: ContainerConfiguration): Container {
   const container = initializeDiagramContainer(
@@ -77,8 +77,8 @@ export default function createContainer(widgetId: string, ...containerConfigurat
     ivyAnimateModule,
     ivyExecutionModule,
     ivyConnectorModule,
-    ivyKeyListenerModule,
     ivyNotificationModule,
+    ivyAccessibilityModule,
 
     // additional configurations
     ...containerConfiguration

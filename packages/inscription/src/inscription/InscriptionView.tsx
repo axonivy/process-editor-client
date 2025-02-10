@@ -30,7 +30,7 @@ const InscriptionView = ({ pid, ...props }: ComponentProps<typeof App>) => {
   });
   return (
     <div style={{ width: width }}>
-      <div className={`inscription-resizer${resizeActive ? ' active' : ''}`} {...moveProps} />
+      <div tabIndex={0} className={`inscription-resizer${resizeActive ? ' active' : ''}`} {...moveProps} />
       <App pid={element} {...props} />
     </div>
   );
