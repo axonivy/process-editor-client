@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from '@playwright/test';
+import { cmdCtrl } from './test-helper';
 
 export class SearchPalette {
   readonly suggestions: Locator;
@@ -9,8 +10,8 @@ export class SearchPalette {
     this.searchField = this.page.locator('div.autocomplete-palette').locator('input');
   }
 
-  async openAndAssertVisible() {
-    await this.page.keyboard.press('Control+KeyF');
+  async openAndAssertVisible(browserName: string) {
+    await this.page.keyboard.press(cmdCtrl(browserName) + '+F');
     await expect(this.suggestions).toBeVisible();
   }
 

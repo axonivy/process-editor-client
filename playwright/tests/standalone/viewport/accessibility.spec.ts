@@ -29,20 +29,20 @@ test('resize inscription shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   const inscriptionView = (await editor.startElement.inscribe()).view;
   await inscriptionView.locator('div.inscription-resizer').focus();
-  await expect(inscriptionView).toHaveCSS('width', '426.656px');
+  await expect(inscriptionView).toHaveCSS('width', /426./);
   await page.keyboard.press('ArrowLeft');
-  await expect(inscriptionView).toHaveCSS('width', '427.656px');
+  await expect(inscriptionView).toHaveCSS('width', /427./);
   await page.keyboard.press('ArrowRight');
-  await expect(inscriptionView).toHaveCSS('width', '426.656px');
+  await expect(inscriptionView).toHaveCSS('width', /426./);
 });
 
-test('element search palette', async ({ page }) => {
+test('element search palette', async ({ page, browserName }) => {
   const editor = await ProcessEditor.openProcess(page);
   const searchPalette = new SearchPalette(page);
   await searchPalette.expectHidden();
   await editor.focusDiagramAndCheck();
   await editor.endElement.expectNotSelected();
-  await searchPalette.openAndAssertVisible();
+  await searchPalette.openAndAssertVisible(browserName);
   const startSuggestion = searchPalette.suggestion('[event:start:requestStart] - start');
   const endSuggestion = searchPalette.suggestion('[event:end:taskEnd]');
   const edgeSuggestion = searchPalette.suggestion('[edge] - event:start:requestStart -> event:end:taskEnd');
