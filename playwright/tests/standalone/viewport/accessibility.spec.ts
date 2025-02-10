@@ -27,12 +27,12 @@ test('toggle and focus inscription shortcut', async ({ page }) => {
 test('resize inscription shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   const inscriptionView = (await editor.startElement.inscribe()).view;
-  const inscriptionWidth = async () => (await inscriptionView.boundingBox())?.width;
-  const originalWidth = (await inscriptionWidth()) as number;
-  await page.keyboard.press('F3');
-  expect(await inscriptionWidth()).toBe(originalWidth + 20);
-  await page.keyboard.press('F4');
-  expect(await inscriptionWidth()).toBe(originalWidth);
+  const originalBounds = await inscriptionView.boundingBox();
+  await inscriptionView.locator('div.inscription-resizer').focus();
+  await page.keyboard.press('ArrowLeft');
+  expect((await inscriptionView.boundingBox())?.width).toBe((originalBounds?.width as number) + 1);
+  await page.keyboard.press('ArrowRight');
+  expect((await inscriptionView.boundingBox())?.width).toBe(originalBounds?.width);
 });
 
 test('open search for elements shortcut', async ({ page }) => {
