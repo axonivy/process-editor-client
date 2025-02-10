@@ -1,5 +1,6 @@
 import test, { expect } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/editor/process-editor';
+import { SearchPalette } from '../../page-objects/editor/search-palette';
 
 test('focus tool bar shortcut', async ({ page }) => {
   await ProcessEditor.openProcess(page);
@@ -27,21 +28,34 @@ test('toggle and focus inscription shortcut', async ({ page }) => {
 test('resize inscription shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   const inscriptionView = (await editor.startElement.inscribe()).view;
-  const originalBounds = await inscriptionView.boundingBox();
   await inscriptionView.locator('div.inscription-resizer').focus();
+  await expect(inscriptionView).toHaveCSS('width', '426.656px');
   await page.keyboard.press('ArrowLeft');
-  expect((await inscriptionView.boundingBox())?.width).toBe((originalBounds?.width as number) + 1);
+  await expect(inscriptionView).toHaveCSS('width', '427.656px');
   await page.keyboard.press('ArrowRight');
-  expect((await inscriptionView.boundingBox())?.width).toBe(originalBounds?.width);
+  await expect(inscriptionView).toHaveCSS('width', '426.656px');
 });
 
-test('open search for elements shortcut', async ({ page }) => {
+test('element search palette', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
-  const palette = page.locator('div.command-palette-suggestions');
-  await expect(palette).toBeHidden();
+  const searchPalette = new SearchPalette(page);
+  await searchPalette.expectHidden();
   await editor.focusDiagramAndCheck();
-  await page.keyboard.press('Control+KeyF');
-  await expect(palette).toBeVisible();
+  await editor.endElement.expectNotSelected();
+  await searchPalette.openAndAssertVisible();
+  const startSuggestion = searchPalette.suggestion('[event:start:requestStart] - start');
+  const endSuggestion = searchPalette.suggestion('[event:end:taskEnd]');
+  const edgeSuggestion = searchPalette.suggestion('[edge] - event:start:requestStart -> event:end:taskEnd');
+  await expect(startSuggestion).toBeVisible();
+  await expect(endSuggestion).toBeVisible();
+  await expect(edgeSuggestion).toBeVisible();
+  await searchPalette.searchField.fill('end');
+  await expect(startSuggestion).toBeHidden();
+  await expect(endSuggestion).toBeVisible();
+  await expect(edgeSuggestion).toBeVisible();
+  await endSuggestion.click();
+  await searchPalette.expectHidden();
+  await editor.endElement.expectSelected();
 });
 
 test('element navigation mode', async ({ page }) => {
