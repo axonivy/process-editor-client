@@ -1,5 +1,6 @@
 import {
   createIvyDiagramContainer,
+  ivyAccessibilityModule,
   ivyChangeBoundsToolModule,
   ivyConnectorModule,
   ivyKeyListenerModule,
@@ -19,7 +20,6 @@ import type { Container } from 'inversify';
 import ivyNavigationModule from './navigate/di.config';
 import ivyViewerQuickActionModule from './quick-action/di.config';
 import { ivyStartupDiagramModule } from './startup';
-import { ivyAccessibilityModule } from '@axonivy/process-editor';
 
 export interface IvyDiagramOptions extends IDiagramOptions {
   highlight: string;

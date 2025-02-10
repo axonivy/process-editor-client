@@ -1,7 +1,7 @@
+import type { BindingContext } from '@eclipse-glsp/client';
 import {
   accessibilityModule,
   bindAsService,
-  BindingContext,
   configureActionHandler,
   configureElementNavigationTool,
   configureMoveZoom,
