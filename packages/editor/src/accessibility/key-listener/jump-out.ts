@@ -2,7 +2,7 @@ import { JumpAction } from '@axonivy/process-editor-protocol';
 import { Action, GModelElement, KeyListener, SelectionService } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
-import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
+import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';
 
 @injectable()
 export class JumpOutKeyListener extends KeyListener {

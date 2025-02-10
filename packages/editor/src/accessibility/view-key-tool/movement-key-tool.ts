@@ -1,40 +1,58 @@
 import {
-  SelectionService,
   Action,
   BoundsAware,
   boundsFeature,
+  ChangeBoundsOperation,
+  ElementAndBounds,
+  findParentByFeature,
+  GChildElement,
   getElements,
+  GModelElement,
+  Grid,
   IMovementRestrictor,
   isBoundsAware,
-  KeyListener,
-  GChildElement,
+  isViewport,
+  matchesKeystroke,
+  MoveKeyListener,
+  MovementKeyTool,
+  Point,
   SetUIExtensionVisibilityAction,
-  GModelElement,
+  SetViewportAction,
   toElementAndBounds,
   TYPES,
-  SetViewportAction,
-  Viewport,
-  findParentByFeature,
-  isViewport,
-  IGridManager
+  Viewport
 } from '@eclipse-glsp/client';
-import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, injectable, optional } from 'inversify';
-import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
-import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
+import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';
 
 @injectable()
-export class MoveElementKeyListener extends KeyListener {
-  @inject(SelectionService) protected selectionService: SelectionService;
+export class IvyMovementKeyTool extends MovementKeyTool {
   @inject(TYPES.IMovementRestrictor) @optional() readonly movementRestrictor: IMovementRestrictor;
-  @inject(TYPES.IGridManager) readonly gridManager: IGridManager;
+
+  enable(): void {
+    if (!this.movementKeyListener) {
+      this.movementKeyListener = new IvyMoveKeyListener(this, this.grid);
+    }
+    this.keytool.register(this.movementKeyListener);
+    this.movementKeyListener.registerShortcutKey();
+  }
+}
+
+@injectable()
+class IvyMoveKeyListener extends MoveKeyListener {
+  constructor(
+    protected readonly tool: IvyMovementKeyTool,
+    protected grid: Grid = { x: MoveKeyListener.defaultMoveX, y: MoveKeyListener.defaultMoveY }
+  ) {
+    super(tool, grid);
+  }
 
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {
     const delta = this.moveDelta(event);
     if (delta === undefined) {
       return [];
     }
-    if (this.selectionService.hasSelectedElements()) {
+    if (this.tool.selectionService.hasSelectedElements()) {
       return this.moveElements(delta);
     }
     return this.moveGraph(element, delta);
@@ -42,16 +60,16 @@ export class MoveElementKeyListener extends KeyListener {
 
   protected moveDelta(event: KeyboardEvent) {
     if (matchesKeystroke(event, 'ArrowUp')) {
-      return { x: 0, y: -this.gridManager.grid.y };
+      return { x: 0, y: -this.grid.y };
     }
     if (matchesKeystroke(event, 'ArrowDown')) {
-      return { x: 0, y: this.gridManager.grid.y };
+      return { x: 0, y: this.grid.y };
     }
     if (matchesKeystroke(event, 'ArrowLeft')) {
-      return { x: -this.gridManager.grid.x, y: 0 };
+      return { x: -this.grid.x, y: 0 };
     }
     if (matchesKeystroke(event, 'ArrowRight')) {
-      return { x: this.gridManager.grid.x, y: 0 };
+      return { x: this.grid.x, y: 0 };
     }
     return undefined;
   }
@@ -73,8 +91,8 @@ export class MoveElementKeyListener extends KeyListener {
 
   protected moveElements(delta: Point): Action[] {
     let selectedElements = getElements(
-      this.selectionService.getModelRoot().index,
-      Array.from(this.selectionService.getSelectedElementIDs()),
+      this.tool.selectionService.getModelRoot().index,
+      Array.from(this.tool.selectionService.getSelectedElementIDs()),
       isBoundsAware
     );
     selectedElements = selectedElements.filter(e => !this.isChildOfSelected(selectedElements, e)).filter(e => e.hasFeature(boundsFeature));
@@ -101,9 +119,9 @@ export class MoveElementKeyListener extends KeyListener {
   }
 
   protected isMovementAllowed(element: GModelElement & BoundsAware, delta: Point): boolean {
-    if (this.movementRestrictor) {
+    if (this.tool.movementRestrictor) {
       const newPosition = this.updatePosition(element, delta);
-      return this.movementRestrictor.validate(element, newPosition);
+      return this.tool.movementRestrictor.validate(element, newPosition);
     }
     return true;
   }
