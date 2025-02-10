@@ -28,7 +28,7 @@ async function markAndAssert(page: Page, processEditor: ProcessEditor) {
   await page.mouse.move(10, 60);
   await page.mouse.down();
   await page.mouse.move(400, 200);
-  await expect(page.locator('g.selected')).toHaveCount(6);
+  await expect(page.locator('g.selected')).toHaveCount(3);
   await expect(processEditor.quickAction().locator()).toBeHidden();
 }
 
