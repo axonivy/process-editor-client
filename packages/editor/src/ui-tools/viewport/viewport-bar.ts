@@ -1,9 +1,9 @@
 import {
   Action,
   EditorContextService,
-  IActionHandler,
+  type IActionHandler,
   isViewport,
-  IToolManager,
+  type IToolManager,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
   TYPES,
@@ -12,7 +12,7 @@ import {
   type IActionDispatcher
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
+import { CenterButton, FitToScreenButton, OriginScreenButton, type ViewportBarButton } from './button';
 
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { QuickActionUI } from '../quick-action/quick-action-ui';

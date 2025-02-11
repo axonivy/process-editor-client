@@ -1,7 +1,7 @@
 import {
   accessibilityModule,
   bindAsService,
-  BindingContext,
+  type BindingContext,
   configureActionHandler,
   configureElementNavigationTool,
   configureMoveZoom,

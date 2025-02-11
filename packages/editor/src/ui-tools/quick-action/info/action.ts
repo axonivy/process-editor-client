@@ -2,7 +2,7 @@ import {
   GArgument,
   GIssueMarker,
   isWithEditableLabel,
-  JsonAny,
+  type JsonAny,
   GChildElement,
   GEdge,
   GModelElement,
@@ -10,11 +10,11 @@ import {
   hasArgs,
   type IActionDispatcher
 } from '@eclipse-glsp/client';
-import { QuickAction, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';
-import { IvyViewerOptions } from '../../../options';
+import type { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
 import { IvyIcons } from '@axonivy/ui-icons';
 

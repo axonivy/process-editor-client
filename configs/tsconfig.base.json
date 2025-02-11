@@ -18,6 +18,7 @@
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "verbatimModuleSyntax": true
   }
 }

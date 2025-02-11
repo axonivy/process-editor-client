@@ -1,7 +1,7 @@
 import {
   GChildElement,
   Command,
-  CommandExecutionContext,
+  type CommandExecutionContext,
   GModelElement,
   GModelRoot,
   TYPES,
@@ -13,8 +13,8 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
-import { isExecutable, Executable } from './model';
-import { ElementExecution } from '@axonivy/process-editor-protocol';
+import { isExecutable, type Executable } from './model';
+import type { ElementExecution } from '@axonivy/process-editor-protocol';
 
 export interface ExecutedFeedbackAction extends Action {
   kind: typeof ExecutedFeedbackCommand.KIND;

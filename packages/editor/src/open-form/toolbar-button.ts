@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { ToolBarButtonLocation, ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
+import { ToolBarButtonLocation, type ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
 import { OpenFormEditorAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EditorContextService, hasArgs, GArgument } from '@eclipse-glsp/client';

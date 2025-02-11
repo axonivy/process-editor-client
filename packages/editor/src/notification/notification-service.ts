@@ -1,11 +1,11 @@
 import {
   Action,
   EndProgressAction,
-  IActionHandler,
+  type IActionHandler,
   MessageAction,
   StartProgressAction,
   UpdateProgressAction,
-  SeverityLevel
+  type SeverityLevel
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import Toastify from 'toastify-js';
