@@ -1,9 +1,9 @@
 import {
-  AutocompleteSuggestion,
+  type AutocompleteSuggestion,
   codiconCSSString,
   GModelElement,
   GModelRoot,
-  IAutocompleteSuggestionProvider,
+  type IAutocompleteSuggestionProvider,
   SearchAutocompletePalette,
   SelectAction,
   toArray,

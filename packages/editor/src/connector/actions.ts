@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/edge/edge-creation-tool';
 
-import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { AutoBendEdgeOperation, StraightenEdgeOperation } from '@axonivy/process-editor-protocol';
 
 @injectable()

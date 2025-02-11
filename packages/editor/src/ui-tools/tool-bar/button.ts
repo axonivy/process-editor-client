@@ -3,7 +3,7 @@ import {
   Action,
   EnableDefaultToolsAction,
   EnableToolsAction,
-  IGridManager,
+  type IGridManager,
   MarqueeMouseTool,
   RedoAction,
   TYPES,

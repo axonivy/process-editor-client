@@ -1,7 +1,7 @@
 import {
   Action,
   Bounds,
-  BoundsAware,
+  type BoundsAware,
   CursorCSS,
   EditorContextService,
   GEdge,
@@ -11,8 +11,8 @@ import {
   GModelElement,
   GModelRoot,
   GRoutableElement,
-  IActionDispatcherProvider,
-  IActionHandler,
+  type IActionDispatcherProvider,
+  type IActionHandler,
   ISelectionListener,
   MouseListener,
   PaletteItem,
@@ -30,9 +30,9 @@ import { createElement, createIcon } from '../../utils/ui-utils';
 import { Edge, EdgeLabel } from '../../diagram/model';
 import { IVY_TYPES } from '../../types';
 import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
-import { Menu } from '../menu/menu';
+import type { Menu } from '../menu/menu';
 import { isQuickActionAware } from './model';
-import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
+import type { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
 import { InfoQuickActionMenu, QuickActionMenu, ShowInfoQuickActionMenuAction, ShowQuickActionMenuAction } from './quick-action-menu-ui';
 import { calculateBarShift, calculateMenuShift } from './quick-action-util';
 

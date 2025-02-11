@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { GModelElement } from '@eclipse-glsp/client';
 
-import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isBreakable } from './model';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { SetBreakpointAction } from '@axonivy/process-editor-protocol';

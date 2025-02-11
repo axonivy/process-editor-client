@@ -5,8 +5,8 @@ import {
   EditorContextService,
   EnableDefaultToolsAction,
   EnableToolPaletteAction,
-  IActionHandler,
-  IEditModeListener,
+  type IActionHandler,
+  type IEditModeListener,
   ISelectionListener,
   MouseListener,
   SelectAllAction,
@@ -21,14 +21,14 @@ import { inject, injectable, multiInject, postConstruct } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { IVY_TYPES } from '../../types';
 import { createElement, createIcon } from '../../utils/ui-utils';
-import { Menu } from '../menu/menu';
+import type { Menu } from '../menu/menu';
 import {
   DefaultSelectButton,
   MarqueeToolButton,
   RedoToolButton,
-  ToolBarButton,
+  type ToolBarButton,
   ToolBarButtonLocation,
-  ToolBarButtonProvider,
+  type ToolBarButtonProvider,
   UndoToolButton,
   compareButtons
 } from './button';

@@ -1,13 +1,13 @@
 import { InscriptionClientJsonRpc, IvyScriptLanguage } from '@axonivy/process-editor-inscription-core';
 import { ClientContextProvider, MonacoEditorUtil, QueryProvider, initQueryClient } from '@axonivy/process-editor-inscription-view';
-import { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
+import type { InscriptionContext } from '@axonivy/process-editor-inscription-protocol';
 import { JumpAction, MoveIntoViewportAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
 import {
   Action,
   GArgument,
   GLSPAbstractUIExtension,
   GModelRoot,
-  IActionHandler,
+  type IActionHandler,
   ISelectionListener,
   SelectAction,
   SelectAllAction,
@@ -22,7 +22,7 @@ import type { MonacoLanguageClient } from 'monaco-languageclient';
 import { QueryClient } from '@tanstack/react-query';
 import { inject, injectable, postConstruct } from 'inversify';
 
-import { Root, createRoot } from 'react-dom/client';
+import { type Root, createRoot } from 'react-dom/client';
 import { OpenAction } from 'sprotty-protocol';
 import InscriptionView from './InscriptionView';
 import { EnableInscriptionAction, ToggleInscriptionAction } from './action';

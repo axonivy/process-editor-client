@@ -1,6 +1,6 @@
-import { GIssueMarker, GIssueMarkerView, GIssueSeverity, setClass, svg } from '@eclipse-glsp/client';
+import { GIssueMarker, GIssueMarkerView, type GIssueSeverity, setClass, svg } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 
 const JSX = { createElement: svg };
 

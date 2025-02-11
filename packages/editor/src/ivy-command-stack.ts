@@ -1,4 +1,4 @@
-import { GLSPCommandStack, IActionDispatcher, RedoAction, GModelRoot, TYPES, UndoAction } from '@eclipse-glsp/client';
+import { GLSPCommandStack, type IActionDispatcher, RedoAction, GModelRoot, TYPES, UndoAction } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 @injectable()

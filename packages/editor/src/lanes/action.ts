@@ -4,7 +4,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';
-import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
 @injectable()
 export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {

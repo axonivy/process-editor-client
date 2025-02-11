@@ -1,7 +1,7 @@
 import {
   GChildElement,
   Command,
-  CommandExecutionContext,
+  type CommandExecutionContext,
   GModelRoot,
   TYPES,
   Action,

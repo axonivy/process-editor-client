@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { ToolBarButtonLocation, ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
+import { ToolBarButtonLocation, type ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
 import { OpenDataClassAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 
