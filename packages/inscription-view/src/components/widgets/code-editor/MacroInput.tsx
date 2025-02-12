@@ -34,7 +34,7 @@ export const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputPr
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <InputBadge badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} />
+        <InputBadge badgeProps={badgePropsExpression} value={value} tabIndex={0} {...inputProps} {...props} />
       )}
     </div>
   );

@@ -8,9 +8,9 @@ describe('focusAdjacentTabIndexMonaco', () => {
     document.body.innerHTML = `
       <input type="text" id="input1" />
       <button id="button">Click me</button>
+      <div tabindex="0" id="div1" />
       <input type="text" id="input2" />
       
-    <div tabindex="0" id="div1" />
     `;
 
     input1 = document.getElementById('input1') as HTMLInputElement;
@@ -28,7 +28,7 @@ describe('focusAdjacentTabIndexMonaco', () => {
   test('focus the previous focusable element', () => {
     input2.focus();
     focusAdjacentTabIndexMonaco('previous');
-    expect(document.activeElement).toBe(input1);
+    expect(document.activeElement).toBe(button);
   });
 
   test('do nothing if there is no active element', () => {

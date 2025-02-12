@@ -32,10 +32,18 @@ class CodeEditor {
     await this.blur();
   }
 
-  async focus() {
-    await this.locator.click();
+  async expectCodeFocused() {
     await this.waitLazyLoading();
     await expect(this.code).toBeVisible();
+  }
+
+  async expectBrowserButtonFocused() {
+    await expect(this.scriptArea.getByRole('button', { name: 'Browser' })).toBeFocused();
+  }
+
+  async focus() {
+    await this.locator.click();
+    await this.expectCodeFocused();
   }
 
   async openBrowsers() {
