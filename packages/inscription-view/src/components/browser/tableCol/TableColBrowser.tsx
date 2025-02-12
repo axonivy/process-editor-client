@@ -40,7 +40,7 @@ const TableColumnBrowser = ({ value, onChange, onDoubleClick }: TableColumnBrows
   const [showHelper, setShowHelper] = useState(false);
 
   useEffect(() => {
-    const select = config.query.sql.select;
+    const select = config.query.sql.select ?? [];
     let columns = columnMetas;
     if (select.length > 1 || select[0] !== '*') {
       columns = columnMetas.filter(c => select.includes(c.name));
