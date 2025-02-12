@@ -7,6 +7,7 @@ import type { Section } from '../../page-objects/inscription/section';
 import type { Checkbox } from '../../page-objects/inscription/checkbox';
 import type { Table } from '../../page-objects/inscription/table';
 import type { MacroEditor, ScriptInput } from '../../page-objects/inscription/code-editor';
+import { expect } from '@playwright/test';
 
 class TablePart extends PartObject {
   table: Combobox;
@@ -47,6 +48,10 @@ class DefinitionPart extends PartObject {
   async assertFill(): Promise<void> {
     await this.section.expectIsOpen();
     await this.query.expectValue('code');
+    const browser = await this.query.openBrowsers();
+    await expect(browser.dialog).toBeVisible();
+    await this.part.page.keyboard.press('Escape');
+    await expect(browser.dialog).toBeHidden();
     await this.quote.expectChecked();
   }
   async clear(): Promise<void> {
