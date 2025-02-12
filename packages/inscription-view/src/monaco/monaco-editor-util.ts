@@ -5,6 +5,7 @@ import { ivyMacroConf, ivyMacroLang } from './ivy-macro-language';
 import { ivyScriptConf, ivyScriptLang } from './ivy-script-language';
 
 import type * as monacoEditorReact from '@monaco-editor/react';
+import { focusAdjacentTabIndexMonaco } from '../utils/focus';
 export type MonacoEditorReactApi = typeof monacoEditorReact;
 
 type ThemeMode = 'light' | 'dark';
@@ -85,6 +86,22 @@ export namespace MonacoEditorUtil {
       rules: []
     };
   }
+
+  export const keyActionEscShiftTab = (editor: editor.IStandaloneCodeEditor) => {
+    editor.addCommand(KeyCode.Escape, () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if ((editor as any)._contentWidgets['editor.widget.suggestWidget']?.widget._widget._state === 3) {
+        editor.trigger(undefined, 'hideSuggestWidget', undefined);
+      } else {
+        focusAdjacentTabIndexMonaco('next');
+      }
+    });
+    editor.addCommand(KeyCode.Shift | KeyCode.Tab, () => {
+      if (editor.hasTextFocus() && document.activeElement instanceof HTMLElement) {
+        focusAdjacentTabIndexMonaco('previous');
+      }
+    });
+  };
 
   const instance: Deferred<monacoEditorReact.Monaco> = new Deferred<monacoEditorReact.Monaco>();
   export async function getInstance(): Promise<monacoEditorReact.Monaco> {

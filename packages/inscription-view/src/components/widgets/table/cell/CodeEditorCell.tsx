@@ -71,8 +71,8 @@ export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder
                 {...focusValue}
                 context={{ type, location: path }}
                 keyActions={{
-                  enter: () => focusAdjacentTabIndexMonaco('previous'),
-                  escape: () => focusAdjacentTabIndexMonaco('previous'),
+                  enter: () => focusAdjacentTabIndexMonaco('next', 2),
+                  escape: () => focusAdjacentTabIndexMonaco('next', 2),
                   arrowDown: () => {
                     if (document.activeElement) {
                       selectNextPreviousCell(document.activeElement, cell, 1);

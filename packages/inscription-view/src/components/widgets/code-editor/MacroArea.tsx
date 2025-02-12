@@ -11,6 +11,7 @@ import { MaximizedCodeEditorBrowser } from '../../browser/MaximizedCodeEditorBro
 import Browser from '../../browser/Browser';
 import { useBrowser } from '../../browser/useBrowser';
 import { usePath } from '../../../context/usePath';
+import { MonacoEditorUtil } from '../../../monaco/monaco-editor-util';
 
 export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAreaProps) => {
   const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, onChange);
@@ -46,7 +47,7 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
                 {...inputProps}
                 {...props}
                 location={path}
-                onMountFuncs={[setEditor, monacoAutoFocus]}
+                onMountFuncs={[setEditor, monacoAutoFocus, MonacoEditorUtil.keyActionEscShiftTab]}
                 macro={true}
                 initHeight={monacoInitHeight}
               />
@@ -55,7 +56,7 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
           )}
         </>
       ) : (
-        <InputBadgeArea badgeProps={badgePropsExpression} value={value} {...inputProps} {...props} ref={areaRef} />
+        <InputBadgeArea badgeProps={badgePropsExpression} value={value} tabIndex={0} {...inputProps} {...props} ref={areaRef} />
       )}
     </div>
   );
