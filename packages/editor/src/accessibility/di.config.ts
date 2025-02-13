@@ -3,7 +3,6 @@ import {
   accessibilityModule,
   bindAsService,
   configureActionHandler,
-  configureElementNavigationTool,
   configureMoveZoom,
   configureShortcutHelpTool,
   configureToastTool,
@@ -14,6 +13,8 @@ import {
   KeyboardGrid,
   KeyboardGridCellSelectedAction,
   KeyboardGridKeyboardEventAction,
+  LocalElementNavigator,
+  PositionNavigator,
   ResizeElementAction,
   ResizeKeyTool,
   TYPES
@@ -27,6 +28,7 @@ import { QuickActionKeyListener } from './key-listener/quick-actions';
 import { JumpOutKeyListener } from './key-listener/jump-out';
 import { IvySearchAutocompletePaletteTool } from './search/search-tool';
 import { IvySearchAutocompletePalette } from './search/search-palette';
+import { IvyElementNavigatorTool } from './element-navigation/diagram-navigarion-tool';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -80,4 +82,10 @@ function configureIvyKeyListeners({ bind }: BindingContext) {
 function configureSearchPaletteModule(context: BindingContext) {
   bindAsService(context, TYPES.IUIExtension, IvySearchAutocompletePalette);
   bindAsService(context, TYPES.IDefaultTool, IvySearchAutocompletePaletteTool);
+}
+
+function configureElementNavigationTool(context: BindingContext) {
+  bindAsService(context, TYPES.IDefaultTool, IvyElementNavigatorTool);
+  bindAsService(context, TYPES.IElementNavigator, PositionNavigator);
+  bindAsService(context, TYPES.ILocalElementNavigator, LocalElementNavigator);
 }
