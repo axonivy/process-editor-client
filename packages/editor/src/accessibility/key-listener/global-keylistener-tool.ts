@@ -1,9 +1,18 @@
-import { FocusDomAction, GlobalKeyListenerTool, KeyboardToolPalette, SetAccessibleKeyShortcutAction } from '@eclipse-glsp/client';
-import { Action, matchesKeystroke } from '@eclipse-glsp/sprotty';
-import { injectable } from 'inversify';
+import {
+  FocusDomAction,
+  GlobalKeyListenerTool,
+  KeyboardToolPalette,
+  SelectionService,
+  SetAccessibleKeyShortcutAction
+} from '@eclipse-glsp/client';
+import { Action, matchesKeystroke, SelectAction, toArray } from '@eclipse-glsp/sprotty';
+import { injectable, inject } from 'inversify';
+import { StartEventNode } from '../../diagram/model';
 
 @injectable()
 export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
+  @inject(SelectionService) protected selectionService: SelectionService;
+
   registerShortcutKey(): void {
     this.actionDispatcher.onceModelInitialized().then(() => {
       this.actionDispatcher.dispatchAll([
@@ -27,7 +36,14 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
       return [FocusDomAction.create(`#btn_default_tools`)];
     }
     if (this.matchesSetFocusOnDiagram(event)) {
-      return [FocusDomAction.create(`#${document.querySelector('svg.sprotty-graph')?.parentElement?.id}`)];
+      const actions: Action[] = [FocusDomAction.create(`#${document.querySelector('svg.sprotty-graph')?.parentElement?.id}`)];
+      if (!this.selectionService.hasSelectedElements()) {
+        const startEvent = toArray(this.selectionService.getModelRoot().index.all()).find(e => e instanceof StartEventNode);
+        if (startEvent) {
+          actions.push(SelectAction.create({ selectedElementsIDs: [startEvent.id] }));
+        }
+      }
+      return actions;
     }
     return [];
   }

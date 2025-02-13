@@ -14,6 +14,11 @@ test('focus diagram shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   await expect(editor.diagram).not.toBeFocused();
   await editor.focusDiagramAndCheck();
+  await editor.startElement.expectSelected();
+  await editor.endElement.select();
+  await editor.focusDiagramAndCheck();
+  await editor.endElement.expectSelected();
+  await editor.startElement.expectNotSelected();
 });
 
 test('toggle and focus inscription shortcut', async ({ page }) => {
