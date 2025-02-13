@@ -54,7 +54,7 @@ export const ScriptArea = (props: ScriptAreaProps) => {
             {...props}
             initHeight={props.value.length > 0 ? 250 : undefined}
             location={path}
-            onMountFuncs={[setEditor, keyActionMountFunc, setScrollPosition]}
+            onMountFuncs={[setEditor, keyActionMountFunc, MonacoEditorUtil.keyActionEscShiftTab, setScrollPosition]}
           />
           <Browser {...browser} types={props.browsers} accept={modifyEditor} location={path} initSearchFilter={getMonacoSelection} />
         </div>
