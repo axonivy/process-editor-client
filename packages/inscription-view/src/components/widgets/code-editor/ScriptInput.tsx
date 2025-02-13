@@ -43,7 +43,7 @@ export const ScriptInput = ({
           <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
         </>
       ) : (
-        <Input value={value} onChange={onChange} placeholder={placeholder} {...inputProps} {...props} />
+        <Input value={value} onChange={onChange} placeholder={placeholder} tabIndex={0} {...inputProps} {...props} />
       )}
     </div>
   );
