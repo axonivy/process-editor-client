@@ -20,6 +20,8 @@
     "@eclipse-glsp/client": "2.3.0"
   },
   "peerDependencies": {
+    "@axonivy/jsonrpc": "~13.1.0-next",
+    "@axonivy/ui-icons": "~13.1.0-next",
     "react": "^18.2 || ^19.0"
   },
   "devDependencies": {

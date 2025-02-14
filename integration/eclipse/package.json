@@ -13,9 +13,14 @@
     "@axonivy/process-editor": "~13.1.0-next",
     "@axonivy/process-editor-inscription": "~13.1.0-next",
     "@axonivy/process-editor-inscription-view": "~13.1.0-next",
+    "@axonivy/jsonrpc": "~13.1.0-next.544",
+    "@axonivy/ui-components": "~13.1.0-next.544",
+    "@axonivy/ui-icons": "~13.1.0-next.544",
     "@eclipse-glsp/client": "2.3.0",
     "@eclipse-glsp/ide": "2.3.0",
-    "@eclipse-glsp/protocol": "2.3.0"
+    "@eclipse-glsp/protocol": "2.3.0",
+    "@tanstack/react-query": "^5.64",
+    "@tanstack/react-query-devtools": "^5.64"
   },
   "devDependencies": {
     "@vscode/codicons": "^0.0.25",
