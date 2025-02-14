@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/playwright:v1.48.2-jammy
+FROM mcr.microsoft.com/playwright:v1.50.1-jammy
 
 RUN apt-get update &&\
   apt-get install software-properties-common -y &&\
