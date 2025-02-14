@@ -1,6 +1,6 @@
+import { IvyIcons } from '@axonivy/ui-icons';
 import {
-  AutocompleteSuggestion,
-  codiconCSSString,
+  type AutocompleteSuggestion,
   GModelElement,
   GModelRoot,
   IAutocompleteSuggestionProvider,
@@ -13,6 +13,8 @@ import {
   GLabel
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
+import { ActivityTypes, EventTypes, GatewayTypes } from '../../diagram/view-types';
+import './search-palette.css';
 
 @injectable()
 export class IvySearchAutocompletePalette extends SearchAutocompletePalette {
@@ -32,6 +34,19 @@ export class IvySearchAutocompletePalette extends SearchAutocompletePalette {
   }
 }
 
+const iconForType = (type: string) => {
+  if (type.startsWith(ActivityTypes.DEFAULT)) {
+    return IvyIcons.ActivitiesGroup;
+  }
+  if (type.startsWith(EventTypes.DEFAULT)) {
+    return IvyIcons.Start;
+  }
+  if (type.startsWith(GatewayTypes.DEFAULT)) {
+    return IvyIcons.GatewaysGroup;
+  }
+  return IvyIcons.PoolSwimlanes;
+};
+
 export class RevealNodeAutocompleteSuggestionProvider implements IAutocompleteSuggestionProvider {
   async retrieveSuggestions(root: Readonly<GModelRoot>): Promise<AutocompleteSuggestion[]> {
     return toArray(root.index.all())
@@ -41,7 +56,7 @@ export class RevealNodeAutocompleteSuggestionProvider implements IAutocompleteSu
         action: {
           label: `[${node.type}] - ${this.getNodeLabel(node)}`,
           actions: this.getActions(node),
-          icon: codiconCSSString('eye')
+          icon: `ivy ivy-${iconForType(node.type)}`
         }
       }));
   }
@@ -62,7 +77,7 @@ export class RevealEdgeElementAutocompleteSuggestionProvider implements IAutocom
       action: {
         label: `[${edge.type}] - ${this.getEdgeLabel(root, edge)}`,
         actions: this.getActions(edge),
-        icon: codiconCSSString('arrow-both')
+        icon: `ivy ivy-${IvyIcons.Straighten}`
       }
     }));
   }
