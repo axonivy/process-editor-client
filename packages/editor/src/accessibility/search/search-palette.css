@@ -1,0 +1,11 @@
+.command-palette-suggestions {
+  background: var(--glsp-tool-bg);
+  > div {
+    &.selected {
+      background: var(--N100);
+    }
+    &:hover:not(.group) {
+      background: var(--N200);
+    }
+  }
+}

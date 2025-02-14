@@ -1,5 +1,9 @@
+export namespace EventTypes {
+  export const DEFAULT = 'event';
+}
+
 export namespace EventStartTypes {
-  export const DEFAULT = 'event:start';
+  export const DEFAULT = EventTypes.DEFAULT + ':start';
   export const START = DEFAULT + ':requestStart';
   export const START_ERROR = DEFAULT + ':errorStartEvent';
   export const START_SIGNAL = DEFAULT + ':signalStartEvent';
@@ -14,7 +18,7 @@ export namespace EventStartTypes {
 }
 
 export namespace EventEndTypes {
-  export const DEFAULT = 'event:end';
+  export const DEFAULT = EventTypes.DEFAULT + ':end';
   export const END = DEFAULT + ':taskEnd';
   export const END_ERROR = DEFAULT + ':errorEnd';
   export const END_PAGE = DEFAULT + ':taskEndPage';
@@ -26,14 +30,14 @@ export namespace EventEndTypes {
 }
 
 export namespace EventIntermediateTypes {
-  export const DEFAULT = 'event:intermediate';
+  export const DEFAULT = EventTypes.DEFAULT + ':intermediate';
   export const INTERMEDIATE_TASK = DEFAULT + ':taskSwitchEvent';
   export const INTERMEDIATE_WAIT = DEFAULT + ':waitEvent';
   export const INTERMEDIATE_THIRD_PARTY = DEFAULT + ':thirdPartyWaitEvent';
 }
 
 export namespace EventBoundaryTypes {
-  export const DEFAULT = 'event:boundary';
+  export const DEFAULT = EventTypes.DEFAULT + ':boundary';
   export const BOUNDARY_ERROR = DEFAULT + ':errorBoundaryEvent';
   export const BOUNDARY_SIGNAL = DEFAULT + ':signalBoundaryEvent';
 }
