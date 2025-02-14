@@ -14,12 +14,14 @@
     "src"
   ],
   "dependencies": {
-    "@axonivy/jsonrpc": "~12.0.4-next.501",
     "@axonivy/process-editor-inscription-protocol": "~12.0.4-next",
     "monaco-editor": "^0.44.0",
     "monaco-editor-workers": "^0.44.0",
     "monaco-languageclient": "^6.6.1",
     "vscode-languageserver-protocol": "^3.17.5"
+  },
+  "peerDependencies": {
+    "@axonivy/jsonrpc": "~12.0.4-next"
   },
   "type": "module",
   "types": "lib/index",
