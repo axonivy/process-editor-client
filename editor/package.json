@@ -29,7 +29,7 @@
     "@types/showdown": "^2.0.0",
     "@types/toastify-js": "^1.11.1",
     "chai": "^4.3.4",
-    "cpx": "^1.5.0",
+    "cpx2": "^2.0.0",
     "fantasticon": "^1.2.3",
     "jsdom": "^18.0.1",
     "mocha": "^9.1.3",
