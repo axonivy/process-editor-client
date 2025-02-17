@@ -1,4 +1,11 @@
-import { Action, hasArrayProp, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
+import {
+  Action,
+  hasArrayProp,
+  type IActionDispatcher,
+  type IActionHandler,
+  type IFeedbackActionDispatcher,
+  TYPES
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { MoveIntoViewportAction } from '../ui-tools/viewport/viewport-commands';
 

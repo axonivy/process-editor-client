@@ -1,5 +1,5 @@
-import { Action, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
-import { ItemMenu, ShowMenuAction } from '../menu/menu';
+import { Action, type IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
+import { ItemMenu, type ShowMenuAction } from '../menu/menu';
 
 export interface ShowToolBarMenuAction extends ShowMenuAction {
   kind: typeof ShowToolBarMenuAction.KIND;
@@ -29,7 +29,10 @@ export namespace ShowToolBarMenuAction {
 export class ToolBarMenu extends ItemMenu {
   protected menuCssClass = ['bar-menu', 'tool-bar-menu'];
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowToolBarMenuAction) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly action: ShowToolBarMenuAction
+  ) {
     super(actionDispatcher, action);
   }
 

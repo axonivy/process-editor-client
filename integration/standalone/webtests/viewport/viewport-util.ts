@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 export const ORIGIN_VIEWPORT = 'scale(1) translate(0,52)';
 export const GRAPH_SELECTOR = '.sprotty-graph > g';

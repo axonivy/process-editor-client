@@ -1,4 +1,4 @@
-import { Action, hasBooleanProp, SModelRootSchema, UpdateModelAction } from '@eclipse-glsp/client';
+import { Action, hasBooleanProp, type SModelRootSchema, UpdateModelAction } from '@eclipse-glsp/client';
 import * as sprotty from 'sprotty-protocol/lib/actions';
 
 export interface CustomIconToggleAction extends Action {

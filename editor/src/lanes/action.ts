@@ -4,7 +4,7 @@ import { StreamlineIcons } from '../StreamlineIcons';
 
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
 @injectable()
 export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {

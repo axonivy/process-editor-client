@@ -2,8 +2,8 @@ import {
   Action,
   Bounds,
   Command,
-  CommandExecutionContext,
-  CommandReturn,
+  type CommandExecutionContext,
+  type CommandReturn,
   BoundsAwareViewportCommand,
   Dimension,
   FitToScreenAction,
@@ -13,7 +13,7 @@ import {
   Point,
   SModelRoot,
   TYPES,
-  Viewport
+  type Viewport
 } from '@eclipse-glsp/client';
 import { inject } from 'inversify';
 import { ToolBar } from '../tool-bar/tool-bar';
@@ -38,6 +38,7 @@ export namespace OriginViewportAction {
 export class OriginViewportCommand extends BoundsAwareViewportCommand {
   static readonly KIND = OriginViewportAction.KIND;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected action: OriginViewportAction) {
     super(action.animate);
   }
@@ -54,6 +55,7 @@ export class OriginViewportCommand extends BoundsAwareViewportCommand {
 export class IvyFitToScreenCommand extends FitToScreenCommand {
   static readonly KIND = FitToScreenAction.KIND;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: FitToScreenAction) {
     super(action);
   }
@@ -136,6 +138,7 @@ export namespace MoveIntoViewportAction {
 export class MoveIntoViewportCommand extends BoundsAwareViewportCommand {
   static readonly KIND = MoveIntoViewportAction.KIND;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected action: MoveIntoViewportAction) {
     super(action.animate);
   }
@@ -195,6 +198,7 @@ export namespace IvySetViewportZoomAction {
 export class IvySetViewportZoomCommand extends Command {
   static readonly KIND = IvySetViewportZoomAction.KIND;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: IvySetViewportZoomAction) {
     super();
   }

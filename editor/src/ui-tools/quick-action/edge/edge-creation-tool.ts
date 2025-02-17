@@ -1,7 +1,7 @@
 import {
   Action,
   AnchorComputerRegistry,
-  Args,
+  type Args,
   CreateEdgeOperation,
   CursorCSS,
   cursorFeedbackAction,
@@ -12,7 +12,7 @@ import {
   FeedbackEdgeEndMovingMouseListener,
   findParentByFeature,
   hasStringProp,
-  IActionHandler,
+  type IActionHandler,
   isConnectable,
   isCtrlOrCmd,
   Operation,
@@ -26,7 +26,7 @@ import { BaseGLSPTool } from '@eclipse-glsp/client/lib/features/tools/base-glsp-
 import { inject, injectable } from 'inversify';
 import { StreamlineIcons } from '../../../StreamlineIcons';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
 
 /**
@@ -78,7 +78,10 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
   protected allowedTarget = false;
   protected proxyEdge: SEdge;
 
-  constructor(protected triggerAction: QuickActionTriggerEdgeCreationAction, protected tool: QuickActionEdgeCreationTool) {
+  constructor(
+    protected triggerAction: QuickActionTriggerEdgeCreationAction,
+    protected tool: QuickActionEdgeCreationTool
+  ) {
     super();
     this.proxyEdge = new SEdge();
     this.proxyEdge.type = triggerAction.elementTypeId;

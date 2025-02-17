@@ -1,4 +1,4 @@
-import { FeedbackCommand, isNotUndefined, Action, CommandExecutionContext, CommandReturn, TYPES } from '@eclipse-glsp/client';
+import { FeedbackCommand, isNotUndefined, Action, type CommandExecutionContext, type CommandReturn, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { addLaneResizeHandles, isLaneResizable, removeLaneResizeHandles } from './model';
@@ -37,7 +37,7 @@ export class ShowChangeLaneBoundsToolFeedbackCommand extends FeedbackCommand {
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
-    index.all().filter(isLaneResizable).forEach(removeLaneResizeHandles);
+    index.all().forEach(removeLaneResizeHandles);
 
     if (isNotUndefined(this.action.elementId)) {
       const resizeElement = index.getById(this.action.elementId);
@@ -57,7 +57,7 @@ export class HideChangeLaneBoundsToolFeedbackCommand extends FeedbackCommand {
 
   execute(context: CommandExecutionContext): CommandReturn {
     const index = context.root.index;
-    index.all().filter(isLaneResizable).forEach(removeLaneResizeHandles);
+    index.all().forEach(removeLaneResizeHandles);
     return context.root;
   }
 }

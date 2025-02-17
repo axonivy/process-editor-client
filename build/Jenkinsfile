@@ -18,10 +18,9 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
-              sh 'yarn build'
-              archiveArtifacts 'integration/eclipse/app/*'
-              archiveArtifacts 'integration/standalone/app/*'
+            docker.build('node', '-f build/Dockerfile.node .').inside {
+              sh 'npm run ci'
+              archiveArtifacts 'integration/*/build/**'
             }
           }
         }
@@ -32,23 +31,26 @@ pipeline {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
               timeout(30) {
-                sh 'yarn lint -o eslint.xml -f checkstyle'
+                sh 'npm run lint:ci'
               }
             }
+          }
+          withChecks('ESLint') {
+            recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true, tools: [esLint(pattern: 'editor/eslint.xml,integration/**/eslint.xml', skipSymbolicLinks: true)], qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
           }
         }
       }
     }
 
-    stage('Tests (Mocha)') {
+    stage('Tests (Vitest)') {
       steps {
         script {
           catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-            docker.build('node', '-f build/Dockerfile .').inside {
+            docker.build('node', '-f build/Dockerfile.node .').inside {
               timeout(30) {
-                sh 'yarn test:ci'
+                sh 'npm run test:ci'
               }
             }
           }
@@ -59,7 +61,8 @@ pipeline {
     stage('Web Tests (Playwright)') {
       steps {
         script {
-          docker.build('node-webtest', '-f integration/standalone/Dockerfile .').inside {
+          docker.build('node-webtest', '-f build/Dockerfile.playwright .').inside {
+            sh 'npm install && npm run package'
             dir ('integration/standalone/glsp-test-project') {
               maven cmd: "-ntp verify -Dengine.page.url=${params.engineSource}"
             }
@@ -76,7 +79,7 @@ pipeline {
       }
       steps {
         script {
-          docker.image('maven:3.8.6-eclipse-temurin-17').inside {
+          docker.build('maven-build', '-f build/Dockerfile.maven .').inside {
             maven cmd: '-ntp -f integration/eclipse clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
             maven cmd: '-ntp -f integration/standalone clean deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn'
           }
@@ -89,13 +92,8 @@ pipeline {
   post {
     always {
       discoverGitReferenceBuild()
-      // Record & publish ESLint issues
-      recordIssues enabledForFailure: true, publishAllIssues: true, aggregatingResults: true,
-      tools: [esLint(pattern: 'node_modules/**/*/eslint.xml')],
-      qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]]
-
       withChecks('Tests') {
-        junit testDataPublishers: [[$class: 'AttachmentPublisher'], [$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
+        junit testDataPublishers: [[$class: 'StabilityTestDataPublisher']], testResults: 'node_modules/**/report.xml'
       }
     }
   }

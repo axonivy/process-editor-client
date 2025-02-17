@@ -2,13 +2,13 @@ import {
   Action,
   CutOperation,
   EditorContextService,
-  IActionDispatcher,
-  IActionHandler,
-  IAsyncClipboardService,
+  type IActionDispatcher,
+  type IActionHandler,
+  type IAsyncClipboardService,
   PasteOperation,
   RequestClipboardDataAction,
   TYPES,
-  ViewerOptions
+  type ViewerOptions
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 

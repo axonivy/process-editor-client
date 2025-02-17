@@ -1,8 +1,8 @@
 import { injectable } from 'inversify';
 import { Action, SModelElement } from '@eclipse-glsp/client';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isBreakable } from './model';
 import { StreamlineIcons } from '../StreamlineIcons';
 

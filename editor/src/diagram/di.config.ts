@@ -5,10 +5,10 @@ import {
   configureCommand,
   configureModelElement,
   ConsoleLogger,
-  CustomFeatures,
+  type CustomFeatures,
   DeleteElementContextMenuItemProvider,
   GLSPProjectionView,
-  IView,
+  type IView,
   LogLevel,
   moveFeature,
   selectFeature,
@@ -17,7 +17,7 @@ import {
   TYPES
 } from '@eclipse-glsp/client';
 import { DefaultTypes } from '@eclipse-glsp/protocol';
-import { ContainerModule, interfaces } from 'inversify';
+import { ContainerModule, type interfaces } from 'inversify';
 
 import { errorBoundaryFeature, signalBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';

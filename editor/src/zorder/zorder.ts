@@ -5,6 +5,7 @@ import { LaneNode } from '../diagram/model';
 
 @injectable()
 export class IvyBringToFrontCommand extends BringToFrontCommand {
+  // @ts-ignore
   constructor(@inject(TYPES.Action) public action: BringToFrontAction) {
     super(action);
   }

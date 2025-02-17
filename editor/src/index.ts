@@ -16,6 +16,7 @@ export * from './breakpoint/action-handler';
 export * from './diagram/icon/model';
 export * from './diagram/model';
 export * from './diagram/view-types';
+export * from './diagram/grid/action-handler';
 export * from './options';
 export * from './types';
 export * from './theme/action-handler';

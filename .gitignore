@@ -34,17 +34,11 @@ pack
 
 *.log
 
-**/browser-app/**
-!**/browser-app/package.json
-
-*.vsix
-
-**/electron-app/**
-!**/electron-app/package.json
-
 report.xml
 eslint.xml
 **/test-results/*
+tsconfig.*tsbuildinfo
+**/playwright-report/*
 
 ## Icons ##
 editor/icons/dist

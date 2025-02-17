@@ -1,6 +1,6 @@
 import { Action, DeleteElementOperation, isDeletable, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { type KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../../StreamlineIcons';
 
 import { AutoAlignOperation } from './operation';

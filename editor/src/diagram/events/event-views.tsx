@@ -1,6 +1,6 @@
-import { CircularNodeView, RenderingContext, svg } from '@eclipse-glsp/client';
+import { CircularNodeView, type RenderingContext, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
 
 import { CustomIconToggleActionHandler } from '../../ui-tools/tool-bar/options/action-handler';

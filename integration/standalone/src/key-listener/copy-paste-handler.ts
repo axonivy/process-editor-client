@@ -1,13 +1,13 @@
 import {
-  IActionHandler,
-  IActionDispatcher,
+  type IActionHandler,
+  type IActionDispatcher,
   TYPES,
   EditorContextService,
   RequestClipboardDataAction,
   CutOperation,
   PasteOperation,
-  IAsyncClipboardService,
-  ViewerOptions
+  type IAsyncClipboardService,
+  type ViewerOptions
 } from '@eclipse-glsp/client';
 import { InvokeCopyPasteAction } from '@eclipse-glsp/client/lib/features/copy-paste/copy-paste-context-menu';
 import { injectable, inject } from 'inversify';

@@ -1,4 +1,4 @@
-import { test, Page } from '@playwright/test';
+import { test, type Page } from '@playwright/test';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { assertGraphOriginViewport, assertGraphTransform, assertGridPosition, ORIGIN_VIEWPORT } from './viewport-util';
 

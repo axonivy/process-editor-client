@@ -1,4 +1,4 @@
-import { expect, Locator, Page, test } from '@playwright/test';
+import { expect, type Locator, type Page, test } from '@playwright/test';
 import { endSelector, resetSelection } from '../diagram-util';
 import { addActivity } from '../toolbar-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';

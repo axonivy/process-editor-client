@@ -7,14 +7,19 @@ import {
   RequestModelAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { EnableViewportAction, SwitchThemeAction, IvyBaseJsonrpcGLSPClient, GLSPWebSocketProvider } from '@ivyteam/process-editor';
+import {
+  EnableViewportAction,
+  SwitchThemeAction,
+  IvyBaseJsonrpcGLSPClient,
+  GLSPWebSocketProvider,
+  ShowGridAction
+} from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient, ServerMessageAction } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
-import { ShowGridAction } from '@ivyteam/process-editor/lib/diagram/grid/action-handler';
-import { MessageConnection } from 'vscode-jsonrpc';
-import * as Toastify from 'toastify-js';
+import type { MessageConnection } from 'vscode-jsonrpc';
+import Toastify from 'toastify-js';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -70,8 +75,8 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
         actionDispatcher.dispatch(RequestTypeHintsAction.create({ requestId: diagramType }));
         actionDispatcher.dispatch(EnableToolPaletteAction.create());
         actionDispatcher.dispatch(EnableViewportAction.create());
-        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme ?? 'light' }));
-        actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid === 'true' ?? true }));
+        actionDispatcher.dispatch(SwitchThemeAction.create({ theme: urlParameters.theme ? urlParameters.theme : 'light' }));
+        actionDispatcher.dispatch(ShowGridAction.create({ show: urlParameters.grid ? urlParameters.grid === 'true' : true }));
       })
     );
   if (isReconnecting) {

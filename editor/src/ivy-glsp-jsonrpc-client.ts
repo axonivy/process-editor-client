@@ -1,4 +1,4 @@
-import { Message } from 'vscode-ws-jsonrpc';
+import type { Message } from 'vscode-ws-jsonrpc';
 import { BaseJsonrpcGLSPClient, ClientState } from '@eclipse-glsp/client';
 
 export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {

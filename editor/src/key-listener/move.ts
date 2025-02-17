@@ -3,11 +3,11 @@ import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { inject, optional } from 'inversify';
 import {
   Action,
-  BoundsAware,
+  type BoundsAware,
   boundsFeature,
   findParentByFeature,
   getElements,
-  IMovementRestrictor,
+  type IMovementRestrictor,
   isBoundsAware,
   isViewport,
   KeyListener,
@@ -17,9 +17,9 @@ import {
   SModelElement,
   toElementAndBounds,
   TYPES,
-  Viewport
+  type Viewport
 } from '@eclipse-glsp/client';
-import { ChangeBoundsOperation, ElementAndBounds, Point } from '@eclipse-glsp/protocol';
+import { ChangeBoundsOperation, type ElementAndBounds, Point } from '@eclipse-glsp/protocol';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { IvyGridSnapper } from '../diagram/snap';
 

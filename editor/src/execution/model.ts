@@ -1,4 +1,4 @@
-import { SModelElement, SModelExtension } from '@eclipse-glsp/client';
+import { SModelElement, type SModelExtension } from '@eclipse-glsp/client';
 
 export const executionFeature = Symbol('executionFeature');
 

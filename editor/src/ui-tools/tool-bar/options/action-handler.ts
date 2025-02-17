@@ -1,4 +1,4 @@
-import { Action, IActionHandler } from '@eclipse-glsp/client';
+import { Action, type IActionHandler } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { CustomIconToggleAction, ReloadModelAction } from './action';
 

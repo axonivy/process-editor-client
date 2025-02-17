@@ -8,119 +8,17 @@
       "name": "Launch Standalone (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "file:///${workspaceFolder}/integration/standalone/app/index.html?server=localhost:8081/designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "presentation": {
-        "group": "4. Standalone",
-        "order": 1
-      },
-      "preLaunchTask": "Watch Editor",
+      "url": "http://localhost:3000?server=localhost:8081/designer&pmv=workflow-demos&file=/processes/Humantask/ProcurementRequestParallel.p.json",
+      "preLaunchTask": "Start Standalone",
       "postDebugTask": "Terminate All Tasks"
     },
     {
-      "name": "Launch Eclipse Integration (Chrome)",
+      "name": "Launch Eclipse (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "file": "${workspaceFolder}/integration/eclipse/app/diagram.html",
-      "webRoot": "${workspaceFolder}",
-      "sourceMaps": true,
-      "presentation": {
-        "group": "4. Standalone",
-        "order": 1
-      },
-      "preLaunchTask": "Watch Editor",
+      "url": "http://localhost:3002/diagram.html",
+      "preLaunchTask": "Start Eclipse",
       "postDebugTask": "Terminate All Tasks"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run Current Test",
-      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "args": ["--config", "${workspaceFolder}/configs/.mocharc.json", "${file}"],
-      "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.mocha.json"
-      },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 1
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run All Tests",
-      "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "args": [
-        "--config",
-        "${workspaceFolder}/configs/.mocharc.json",
-        "\"${workspaceFolder}/editor/tests/**/*.spec.?(ts|tsx)\""
-      ],
-      "env": {
-        "TS_NODE_PROJECT": "${workspaceFolder}/editor/tsconfig.mocha.json"
-      },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 2
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run Current Web Tests",
-      "runtimeExecutable": "yarn",
-      "cwd": "${workspaceFolder}/integration/standalone",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "runtimeArgs": ["webtest", "${file}"],
-      "env": {
-        "BASE_URL": "${input:webtestBaseUrl}"
-      },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 3
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Run Web Tests",
-      "runtimeExecutable": "yarn",
-      "cwd": "${workspaceFolder}/integration/standalone",
-      "console": "internalConsole",
-      "internalConsoleOptions": "openOnSessionStart",
-      "runtimeArgs": ["webtest"],
-      "env": {
-        "BASE_URL": "${input:webtestBaseUrl}"
-      },
-      "sourceMaps": true,
-      "smartStep": true,
-      "outputCapture": "std",
-      "presentation": {
-        "group": "1. Tests",
-        "order": 4
-      }
-    }
-  ],
-  "inputs": [
-    {
-      "id": "webtestBaseUrl",
-      "description": "BaseURL for Web Tests",
-      "type": "promptString",
-      "default": "localhost:8081/designer"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import {
   Action,
-  BoundsAware,
-  Hoverable,
+  type BoundsAware,
+  type Hoverable,
   hoverFeedbackFeature,
   SChildElement,
   selectFeature,

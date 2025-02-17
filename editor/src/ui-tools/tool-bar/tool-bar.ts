@@ -1,10 +1,10 @@
 import {
   AbstractUIExtension,
   Action,
-  EditModeListener,
+  type EditModeListener,
   EditorContextService,
-  IActionHandler,
-  ICommand,
+  type IActionHandler,
+  type ICommand,
   TYPES,
   GLSPActionDispatcher,
   EnableDefaultToolsAction,
@@ -16,7 +16,7 @@ import {
   MouseListener,
   SModelElement
 } from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { type SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, postConstruct, multiInject } from 'inversify';
 
 import { IVY_TYPES } from '../../types';
@@ -25,16 +25,16 @@ import {
   DefaultSelectButton,
   MarqueeToolButton,
   RedoToolButton,
-  ToolBarButton,
+  type ToolBarButton,
   ToolBarButtonLocation,
-  ToolBarButtonProvider,
+  type ToolBarButtonProvider,
   UndoToolButton
 } from './button';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { ToolBarOptionsMenu } from './options/options-menu-ui';
 import { ShowToolBarMenuAction, ToolBarMenu } from './tool-bar-menu';
-import { Menu } from '../menu/menu';
+import type { Menu } from '../menu/menu';
 import { StreamlineIcons } from '../../StreamlineIcons';
 
 const CLICKED_CSS_CLASS = 'clicked';

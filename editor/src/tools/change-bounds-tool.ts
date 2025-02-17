@@ -9,11 +9,11 @@ import {
   FeedbackMoveMouseListener,
   MoveAction,
   Point,
-  ElementMove,
+  type ElementMove,
   createMovementRestrictionFeedback,
   removeMovementRestrictionFeedback
 } from '@eclipse-glsp/client';
-import { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import type { SelectionListener } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';

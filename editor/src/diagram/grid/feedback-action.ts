@@ -1,4 +1,4 @@
-import { Command, CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { Command, type CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, removeCssClass } from '../../utils/element-css-classes';
 
@@ -23,6 +23,7 @@ export class GridFeedbackCommand extends Command {
 
   protected show: boolean;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: GridFeedbackAction) {
     super();
   }

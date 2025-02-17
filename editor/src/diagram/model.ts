@@ -1,5 +1,5 @@
 import {
-  Args,
+  type Args,
   Bounds,
   boundsFeature,
   centerOfLine,
@@ -8,7 +8,7 @@ import {
   deletableFeature,
   DiamondNode,
   Dimension,
-  EditableLabel,
+  type EditableLabel,
   editFeature,
   editLabelFeature,
   fadeFeature,
@@ -18,7 +18,7 @@ import {
   isEditableLabel,
   layoutContainerFeature,
   moveFeature,
-  Nameable,
+  type Nameable,
   nameFeature,
   openFeature,
   Point,
@@ -26,24 +26,24 @@ import {
   reconnectFeature,
   RectangularNode,
   resizeFeature,
-  SArgumentable,
+  type SArgumentable,
   SChildElement,
   SEdge,
   selectFeature,
   SLabel,
   SParentElement,
   SRoutableElement,
-  WithEditableLabel,
+  type WithEditableLabel,
   withEditLabelFeature
 } from '@eclipse-glsp/client';
 import { singleWrapFeature, wrapFeature } from '../wrap/model';
 import { animateFeature } from '../animate/model';
 import { errorBoundaryFeature } from './boundary/model';
 import { breakpointFeature } from '../breakpoint/model';
-import { Executable, executionFeature } from '../execution/model';
+import { type Executable, executionFeature } from '../execution/model';
 import { laneResizeFeature } from '../lanes/model';
 import { quickActionFeature } from '../ui-tools/quick-action/model';
-import { WithCustomIcon } from './icon/model';
+import type { WithCustomIcon } from './icon/model';
 import { ActivityTypes, EdgeTypes, LabelType, LaneTypes } from './view-types';
 import { multipleOutgoingEdgesFeature } from '../ui-tools/quick-action/edge/model';
 

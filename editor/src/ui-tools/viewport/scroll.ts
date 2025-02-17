@@ -3,7 +3,7 @@ import {
   EnableToolsAction,
   findParentByFeature,
   GLSPScrollMouseListener,
-  ICommand,
+  type ICommand,
   isCtrlOrCmd,
   isViewport,
   SModelElement

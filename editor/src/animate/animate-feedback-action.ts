@@ -1,4 +1,4 @@
-import { SChildElement, Command, CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { SChildElement, Command, type CommandExecutionContext, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, removeCssClass } from '../utils/element-css-classes';
 
@@ -27,6 +27,7 @@ export class AnimateFeedbackCommand extends Command {
   protected animated: SChildElement[] = [];
   protected deanimated: SChildElement[] = [];
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: AnimateFeedbackAction) {
     super();
   }

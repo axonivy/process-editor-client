@@ -5,8 +5,6 @@ import { injectable } from 'inversify';
 export class IvyDirectLabelEditTool extends DirectLabelEditTool {
   static readonly ID = 'glsp.direct-label-edit-tool';
 
-  protected editLabelKeyListener: KeyListener;
-
   get id(): string {
     return DirectLabelEditTool.ID;
   }

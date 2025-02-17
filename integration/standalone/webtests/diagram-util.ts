@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 export const startSelector = '.sprotty-graph .start\\:requestStart';
 export const endSelector = '.sprotty-graph .end\\:taskEnd';

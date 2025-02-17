@@ -1,4 +1,4 @@
-import { Action, IActionHandler, ICommand } from '@eclipse-glsp/client';
+import { Action, type IActionHandler, type ICommand } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { SwitchThemeAction } from './action';
 

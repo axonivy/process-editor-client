@@ -15,8 +15,8 @@ import {
 import { injectable, inject } from 'inversify';
 import { ActivityTypes, EventBoundaryTypes } from '../../../diagram/view-types';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { type KeyCode } from 'sprotty/lib/utils/keyboard';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';

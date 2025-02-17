@@ -1,9 +1,9 @@
-import { SChildElement, Command, CommandExecutionContext, SModelElement, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
+import { SChildElement, Command, type CommandExecutionContext, SModelElement, SModelRoot, TYPES, Action } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { addCssClass, addCssClassToElements, removeCssClass, removeCssClassOfElements } from '../utils/element-css-classes';
-import { ElementExecution } from './action';
+import type { ElementExecution } from './action';
 
-import { isExecutable, Executable } from './model';
+import { isExecutable, type Executable } from './model';
 
 export interface ExecutedFeedbackAction extends Action {
   kind: typeof ExecutedFeedbackCommand.KIND;
@@ -36,6 +36,7 @@ export class ExecutedFeedbackCommand extends Command {
   protected failed: SChildElement[] = [];
   protected lastExecutedElement?: SModelElement;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: ExecutedFeedbackAction) {
     super();
   }
@@ -104,6 +105,7 @@ export class StoppedFeedbackCommand extends Command {
 
   protected stoppedElement: SChildElement;
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: StoppedFeedbackAction) {
     super();
   }

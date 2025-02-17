@@ -1,4 +1,4 @@
-import { expect, Locator, Page, test } from '@playwright/test';
+import { expect, type Locator, type Page, test } from '@playwright/test';
 import { addLane, addPool } from '../toolbar-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { assertQuickActionsCount, clickQuickAction, clickQuickActionStartsWith, editLabel } from './quick-actions-util';

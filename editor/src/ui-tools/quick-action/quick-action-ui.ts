@@ -2,14 +2,14 @@ import {
   AbstractUIExtension,
   Action,
   Bounds,
-  BoundsAware,
+  type BoundsAware,
   CursorCSS,
   EditorContextService,
   getAbsoluteBounds,
-  IActionDispatcher,
-  IActionDispatcherProvider,
-  IActionHandler,
-  ICommand,
+  type IActionDispatcher,
+  type IActionDispatcherProvider,
+  type IActionHandler,
+  type ICommand,
   isNotUndefined,
   MouseListener,
   MouseTool,
@@ -21,16 +21,16 @@ import {
   SRoutableElement,
   TYPES
 } from '@eclipse-glsp/client';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { type SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable, multiInject, postConstruct } from 'inversify';
 import { createElement, createIcon } from '../../utils/ui-utils';
 
 import { Edge } from '../../diagram/model';
 import { isQuickActionAware } from './model';
-import { QuickAction, QuickActionLocation, QuickActionProvider } from './quick-action';
+import { type QuickAction, QuickActionLocation, type QuickActionProvider } from './quick-action';
 import { IVY_TYPES } from '../../types';
 import { QuickActionMenu, ShowQuickActionMenuAction, ShowInfoQuickActionMenuAction, InfoQuickActionMenu } from './quick-action-menu-ui';
-import { Menu } from '../menu/menu';
+import type { Menu } from '../menu/menu';
 import { RemoveMarqueeAction } from '@eclipse-glsp/client/lib/features/tool-feedback/marquee-tool-feedback';
 import { getAbsoluteEdgeBounds } from '../../utils/diagram-utils';
 import { calculateBarShift, calculateMenuShift } from './quick-action-util';

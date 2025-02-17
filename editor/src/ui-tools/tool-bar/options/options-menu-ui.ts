@@ -1,5 +1,5 @@
-import { Action, IActionDispatcher } from '@eclipse-glsp/client';
-import { Menu } from '../../menu/menu';
+import { Action, type IActionDispatcher } from '@eclipse-glsp/client';
+import type { Menu } from '../../menu/menu';
 import { ShowGridAction } from '../../../diagram/grid/action-handler';
 import { SwitchThemeAction } from '../../../theme/action';
 import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils';
@@ -39,7 +39,10 @@ class CustomIconOption implements Option {
 export class ToolBarOptionsMenu implements Menu {
   private bodyDiv?: HTMLDivElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly showAction: ShowToolBarOptionsMenuAction) {}
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly showAction: ShowToolBarOptionsMenuAction
+  ) {}
 
   public create(containerElement: HTMLElement): HTMLElement {
     this.bodyDiv = createElement('div', ['tool-bar-options-menu']) as HTMLDivElement;

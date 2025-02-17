@@ -5,19 +5,15 @@ import {
   getAbsolutePosition,
   NodeCreationTool,
   NodeCreationToolMouseListener,
-  SModelElement,
-  ISnapper,
-  TYPES
+  SModelElement
 } from '@eclipse-glsp/client';
 import { TriggerNodeCreationAction } from '@eclipse-glsp/protocol';
-import { inject, injectable, optional } from 'inversify';
+import { injectable } from 'inversify';
 import { addNegativeArea, removeNegativeArea } from './negative-area/model';
 
 @injectable()
 export class IvyNodeCreationTool extends NodeCreationTool {
   static ID = 'tool_create_node';
-
-  @inject(TYPES.ISnapper) @optional() readonly snapper?: ISnapper;
 
   protected ivyCreationToolMouseListener: NodeCreationToolMouseListener;
 

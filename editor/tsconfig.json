@@ -1,13 +1,10 @@
 {
-  "extends": "../configs/base.tsconfig",
+  "extends": "../configs/tsconfig.package.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "baseUrl": ".",
-    "reactNamespace": "JSX",
-    "skipLibCheck": true
+    "types": ["node", "reflect-metadata", "vitest/globals"],
+    "jsxFactory": "JSX.createElement"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"]
 }

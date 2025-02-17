@@ -1,7 +1,7 @@
 import '../../../css/quick-action.css';
 
 import { configureActionHandler, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule, interfaces } from 'inversify';
+import { ContainerModule, type interfaces } from 'inversify';
 
 import { ConnectQuickActionProvider, QuickActionEdgeCreationTool, QuickActionTriggerEdgeCreationAction } from './edge/edge-creation-tool';
 import { AutoAlignQuickActionProvider, DeleteQuickActionProvider } from './quick-action';

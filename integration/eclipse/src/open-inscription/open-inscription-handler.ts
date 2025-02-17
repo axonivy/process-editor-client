@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
 import {
   Action,
-  IActionDispatcher,
-  IActionHandler,
+  type IActionDispatcher,
+  type IActionHandler,
   isOpenable,
   isSelectable,
   KeyListener,

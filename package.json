@@ -3,35 +3,41 @@
   "name": "parent",
   "version": "10.0.1",
   "engines": {
-    "yarn": "1.0.x || >=1.2.1",
-    "node": ">=16.15.0 <17"
+    "node": ">=20.10.0"
   },
   "scripts": {
-    "prepare": "lerna run prepare",
-    "watch": "lerna run --parallel watch",
-    "build": "yarn install --ignore-scripts && lerna run build",
+    "ci": "npm install && npm run build:icons && npm run build && npm run type && npm run package",
+    "clean": "lerna run clean",
+    "build": "tsc --build && tscp --build",
+    "build:icons": "npm run -w @ivyteam/process-editor build:icons",
+    "package": "lerna run package",
+    "type": "lerna run type",
     "lint": "lerna run lint --",
-    "test": "lerna run test",
-    "test:win": "lerna run test:win",
-    "test:ci": "lerna run test:ci",
-    "webtest": "lerna run webtest --",
-    "playwright:install": "yarn playwright install",
+    "lint:ci": "npm run lint -- -o eslint.xml -f checkstyle",
+    "dev": "npm run -w @ivyteam/standalone-integration dev",
+    "dev:eclipse": "npm run -w @ivyteam/eclipse-integration dev",
+    "test": "npm run -w @ivyteam/process-editor test",
+    "test:ci": "npm run -w @ivyteam/process-editor test:ci",
+    "webtest": "npm run -w @ivyteam/standalone-integration webtest",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes"
   },
   "devDependencies": {
-    "@types/node": "^16.11.36",
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
+    "@types/node": "^22.13.5",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "eslint": "^8.57.1",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-no-null": "^1.0.2",
-    "ignore-styles": "^5.0.1",
-    "lerna": "^4.0.0",
-    "prettier": "^2.4.1",
-    "rimraf": "^3.0.2",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.5.2"
+    "lerna": "^8.2.0",
+    "prettier": "^3.5.2",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3",
+    "typescript-cp": "^0.1.9",
+    "vite": "^6.1.1",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vite-plugin-node-polyfills": "^0.23.0",
+    "setimmediate": "^1.0.5"
   },
   "workspaces": {
     "packages": [
@@ -41,7 +47,6 @@
     ]
   },
   "volta": {
-    "node": "16.15.1",
-    "yarn": "1.22.19"
+    "node": "22.11.0"
   }
 }

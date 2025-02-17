@@ -1,6 +1,6 @@
 import { SModelElement } from '@eclipse-glsp/client';
 import {
-  QuickAction,
+  type QuickAction,
   QuickActionLocation,
   SingleQuickActionProvider,
   isWithCustomIcon,

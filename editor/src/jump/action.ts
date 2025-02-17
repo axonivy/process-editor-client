@@ -3,19 +3,19 @@ import {
   EditorContextService,
   GLSPActionDispatcher,
   hasStringProp,
-  IActionHandler,
+  type IActionHandler,
   isViewport,
   SetViewportAction,
   SModelElement,
   TYPES,
-  Viewport
+  type Viewport
 } from '@eclipse-glsp/client';
 import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable, inject } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../StreamlineIcons';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
 
 export interface JumpAction extends Action {

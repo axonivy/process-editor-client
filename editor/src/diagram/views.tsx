@@ -2,15 +2,15 @@ import {
   angleOfPoint,
   EdgePadding,
   GEdgeView,
-  IView,
+  type IView,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
-  RenderingContext,
+  type RenderingContext,
   svg,
   toDegrees
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
 import { Edge, MulitlineEditLabel } from './model';
 import { escapeHtmlWithLineBreaks } from './util';
@@ -58,7 +58,7 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
 
   protected renderAdditionals(edge: Edge, segments: Point[], context: RenderingContext): VNode[] {
     const additionals = super.renderAdditionals(edge, segments, context);
-    const edgePadding = EdgePadding.from(edge);
+    const edgePadding = this.edgePadding(edge);
     const edgePaddingNode = edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
 
     const p1 = segments[segments.length - 2];
@@ -74,6 +74,13 @@ export class WorkflowEdgeView extends PolylineEdgeViewWithGapsOnIntersections {
     );
     additionals.push(...edgePaddingNode, arrow);
     return additionals;
+  }
+
+  private edgePadding(edge: Edge): number | undefined {
+    if (edge.args) {
+      return EdgePadding.from(edge);
+    }
+    return undefined;
   }
 
   protected renderMouseHandle(segments: Point[], padding: number): VNode {
@@ -108,5 +115,18 @@ export class AssociationEdgeView extends GEdgeView {
       line.data.style = { stroke: edge.color };
     }
     return line;
+  }
+
+  protected override renderAdditionals(edge: Edge, segments: Point[], _context: RenderingContext): VNode[] {
+    // for additional padding we draw another transparent path with larger stroke width
+    const edgePadding = this.edgePadding(edge);
+    return edgePadding ? [this.renderMouseHandle(segments, edgePadding)] : [];
+  }
+
+  private edgePadding(edge: Edge): number | undefined {
+    if (edge.args) {
+      return EdgePadding.from(edge);
+    }
+    return undefined;
   }
 }

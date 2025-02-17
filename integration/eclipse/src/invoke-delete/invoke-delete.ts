@@ -1,4 +1,11 @@
-import { Action, DeleteElementOperation, EditorContextService, IActionDispatcher, IActionHandler, TYPES } from '@eclipse-glsp/client';
+import {
+  Action,
+  DeleteElementOperation,
+  EditorContextService,
+  type IActionDispatcher,
+  type IActionHandler,
+  TYPES
+} from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 export class InvokeDeleteAction implements Action {
