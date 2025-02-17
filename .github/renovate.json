@@ -7,7 +7,7 @@
       "enabled": false
     },
     {
-      "matchDepNames": ["*playwright*"],
+      "matchDepNames": ["@playwright/test", "mcr.microsoft.com/playwright"],
       "matchBaseBranches": ["release/10.0"],
       "enabled": false
     }
