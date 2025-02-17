@@ -1,10 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["local>axonivy/renovate-config:npm", "group:allNonMajor"],
-  "dependencyDashboardApproval": true,
   "packageRules": [
     {
       "matchDepNames": ["@codingame/*", "monaco-editor*", "monaco-languageclient"],
+      "enabled": false
+    },
+    {
+      "matchDepNames": ["*playwright*"],
+      "matchBaseBranches": ["release/10.0"],
       "enabled": false
     }
   ]
