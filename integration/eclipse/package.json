@@ -32,9 +32,9 @@
     "webpack-cli": "^4.9.1"
   },
   "scripts": {
-    "build:clean": "yarn run clean && yarn build",
+    "build:clean": "npm run clean && npm run build",
     "clean": "rimraf lib app/bundle*.js app/bundle*.js.map",
-    "build": "tsc && webpack && yarn run lint",
+    "build": "tsc && webpack && npm run lint",
     "lint": "eslint -c ./.eslintrc.js --ext .ts ./src",
     "watch": "webpack --config webpack.dev.js --watch"
   }

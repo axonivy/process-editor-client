@@ -4,18 +4,18 @@
   "version": "10.0.1",
   "engines": {
     "yarn": "1.0.x || >=1.2.1",
-    "node": ">=16.15.0 <17"
+    "node": ">=16.15.0"
   },
   "scripts": {
-    "prepare": "lerna run prepare",
+    "ci": "npm run build && npm run lint && npm run test:ci",
     "watch": "lerna run --parallel watch",
-    "build": "yarn install --ignore-scripts && lerna run build",
+    "build": "npm install && lerna run build",
     "lint": "lerna run lint --",
     "test": "lerna run test",
     "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
-    "playwright:install": "yarn playwright install",
+    "playwright:install": "playwright install",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes"
   },
   "devDependencies": {
