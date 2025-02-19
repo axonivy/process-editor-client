@@ -13,7 +13,7 @@ describe('PID', () => {
   test('field guid', () => {
     expect(PID.fieldId(pid)).toEqual('');
     expect(PID.fieldId(pid + '-f01')).toEqual('f01');
-    expect(PID.fieldId(pid + '-S01-f01')).toEqual('f01');
+    expect(PID.fieldId(pid + '-S01-f01')).toEqual('S01-f01');
   });
 
   test('create child', () => {
