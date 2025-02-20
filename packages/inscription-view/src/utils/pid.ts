@@ -10,7 +10,7 @@ export namespace PID {
   }
 
   export function fieldId(pid: string): string {
-    const lastSeparator = pid.lastIndexOf(SEPARATOR);
+    const lastSeparator = pid.indexOf(SEPARATOR);
     if (lastSeparator === -1) {
       return '';
     }

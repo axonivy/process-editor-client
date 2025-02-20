@@ -85,4 +85,21 @@ describe('Condition', () => {
   test('to', () => {
     expect(Condition.to(conditions)).toEqual(altConditions);
   });
+
+  const embeddedConditions: Condition[] = [
+    { fid: 'S0-f1', expression: 'false' },
+    { fid: 'S0-f8', expression: '' }
+  ];
+
+  test('embedded condition', () => {
+    const ref: ConnectorRef = {
+      name: 'flow',
+      pid: 'asdf-S0-f8',
+      source: { name: 'alternative', pid: 'f5', type: altType },
+      target: { name: 'end', pid: 'f7', type: altType }
+    };
+    const expected = cloneObject(embeddedConditions);
+    expected[1].target = ref.target;
+    expect(Condition.replace(cloneObject(embeddedConditions), ref)).toEqual(expected);
+  });
 });
