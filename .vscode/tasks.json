@@ -4,46 +4,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Editor",
-      "type": "shell",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "command": "yarn ",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"],
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "label": "Watch Editor",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn watch",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "isBackground": true,
-      "problemMatcher": ["$tsc-watch", "$ts-webpack-watch"]
-    },
-    {
-      "label": "Build Eclipse Integration",
-      "type": "shell",
-      "group": "build",
-      "command": "yarn --cwd integration/eclipse build",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated"
-      },
-      "problemMatcher": ["$tsc", "$eslint-stylish"]
-    },
-    {
       "label": "Terminate All Tasks",
       "command": "echo ${input:terminate}",
       "type": "shell",
