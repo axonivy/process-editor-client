@@ -7,12 +7,17 @@ import {
   RequestModelAction,
   RequestTypeHintsAction
 } from '@eclipse-glsp/client';
-import { EnableViewportAction, SwitchThemeAction, IvyBaseJsonrpcGLSPClient, GLSPWebSocketProvider } from '@ivyteam/process-editor';
+import {
+  EnableViewportAction,
+  SwitchThemeAction,
+  IvyBaseJsonrpcGLSPClient,
+  GLSPWebSocketProvider,
+  ShowGridAction
+} from '@ivyteam/process-editor';
 import { getParameters } from '@eclipse-glsp/ide';
 import { ApplicationIdProvider, GLSPClient, ServerMessageAction } from '@eclipse-glsp/protocol';
 
 import createContainer from './di.config';
-import { ShowGridAction } from '@ivyteam/process-editor/lib/diagram/grid/action-handler';
 import { MessageConnection } from 'vscode-jsonrpc';
 import * as Toastify from 'toastify-js';
 

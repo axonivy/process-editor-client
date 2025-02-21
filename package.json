@@ -3,19 +3,21 @@
   "name": "parent",
   "version": "10.0.1",
   "engines": {
-    "yarn": "1.0.x || >=1.2.1",
-    "node": ">=16.15.0"
+    "node": ">=18.19.0"
   },
   "scripts": {
-    "ci": "npm run build && npm run lint && npm run test:ci",
-    "watch": "lerna run --parallel watch",
-    "build": "npm install && lerna run build",
+    "ci": "npm install && npm run build && npm run package && npm run lint:ci && npm run test:ci",
+    "clean": "lerna run clean",
+    "build": "lerna run build",
+    "package": "lerna run package",
+    "type": "lerna run type",
     "lint": "lerna run lint --",
+    "dev": "npm run --workspace=@ivyteam/standalone-integration dev",
+    "dev:eclipse": "npm run --workspace=@ivyteam/eclipse-integration dev",
     "test": "lerna run test",
     "test:win": "lerna run test:win",
     "test:ci": "lerna run test:ci",
     "webtest": "lerna run webtest --",
-    "playwright:install": "playwright install",
     "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes"
   },
   "devDependencies": {
@@ -41,7 +43,6 @@
     ]
   },
   "volta": {
-    "node": "16.15.1",
-    "yarn": "1.22.19"
+    "node": "18.19.0"
   }
 }

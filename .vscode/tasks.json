@@ -4,6 +4,54 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Start Standalone",
+      "type": "shell",
+      "group": "build",
+      "command": "npm run dev",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Start Eclipse",
+      "type": "shell",
+      "group": "build",
+      "command": "npm run dev:eclipse",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "typescript",
+          "pattern": {
+            "regexp": ""
+          },
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": ".*",
+            "endsPattern": ".*"
+          }
+        }
+      ]
+    },
+    {
       "label": "Terminate All Tasks",
       "command": "echo ${input:terminate}",
       "type": "shell",

@@ -1,10 +1,9 @@
 /** @type {import('eslint').Linter.Config} */
 module.exports = {
   extends: ['../../configs/base.eslintrc.json', '../../configs/warnings.eslintrc.json', '../../configs/errors.eslintrc.json'],
-  ignorePatterns: ['**/{app,css,node_modules,lib,server}'],
+  ignorePatterns: ['**/{css,node_modules,lib}', 'vite.*.ts', 'playwright.config.ts'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: 'tsconfig.json'
-  },
-  ignorePatterns: ['webpack.*.js']
+    project: 'tsconfig.eslint.json'
+  }
 };

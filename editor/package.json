@@ -57,7 +57,7 @@
     "src",
     "css"
   ],
-  "main": "lib/index",
+  "type": "module",
   "types": "lib/index",
-  "gitHead": "333816b1e34fd37d297c07b34e86c97784455ff5"
+  "module": "lib/index"
 }

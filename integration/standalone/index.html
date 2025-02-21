@@ -3,15 +3,16 @@
 
 <head>
   <meta charset="utf-8">
+  <title>Process Editor</title>
+
   <style>
     html,
     body {
       width: 100%;
       height: 100%;
-      overflow: hidden;
     }
 
-    .main-widget {
+    #sprotty {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -22,12 +23,14 @@
     svg {
       width: 100%;
       height: 100%;
+      overflow: hidden;
     }
   </style>
 </head>
 
 <body>
-  <div id="sprotty" class="main-widget"></div>
+  <div id="sprotty"></div>
+  <script async type="module" src="/src/index.ts"></script>
 </body>
 
 </html>
