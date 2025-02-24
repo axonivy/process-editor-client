@@ -61,7 +61,10 @@ export class RevealNodeAutocompleteSuggestionProvider implements IAutocompleteSu
       }));
   }
   protected getActions(element: GModelElement) {
-    return [SelectAction.create({ selectedElementsIDs: [element.id] }), CenterAction.create([element.id], { retainZoom: true })];
+    return [
+      SelectAction.create({ selectedElementsIDs: [element.id], deselectedElementsIDs: true }),
+      CenterAction.create([element.id], { retainZoom: true })
+    ];
   }
 
   protected getNodeLabel(node: GNode) {
@@ -83,7 +86,10 @@ export class RevealEdgeElementAutocompleteSuggestionProvider implements IAutocom
   }
 
   protected getActions(edge: GEdge) {
-    return [SelectAction.create({ selectedElementsIDs: [edge.id] }), CenterAction.create([edge.sourceId, edge.targetId])];
+    return [
+      SelectAction.create({ selectedElementsIDs: [edge.id], deselectedElementsIDs: true }),
+      CenterAction.create([edge.sourceId, edge.targetId])
+    ];
   }
   protected getEdgeLabel(root: Readonly<GModelRoot>, edge: GEdge): string {
     const label = edge.children.find(c => c instanceof GLabel);
