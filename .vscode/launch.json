@@ -53,13 +53,5 @@
       "preLaunchTask": "Start Inscription",
       "postDebugTask": "Terminate All Tasks"
     }
-  ],
-  "inputs": [
-    {
-      "id": "webtestBaseUrl",
-      "description": "BaseURL for Web Tests",
-      "type": "promptString",
-      "default": "localhost:8081/designer"
-    }
   ]
 }
