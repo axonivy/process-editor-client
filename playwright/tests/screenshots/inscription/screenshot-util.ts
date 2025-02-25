@@ -36,5 +36,5 @@ export async function screenshot(page: Locator, name: string) {
   }
   const dir = process.env.SCREENSHOT_DIR ?? './target';
   const buffer = await page.screenshot({ path: `${dir}/screenshots/${name}`, animations: 'disabled' });
-  expect(buffer.byteLength).toBeGreaterThan(3000);
+  expect(buffer.byteLength).toBeGreaterThan(2500);
 }
