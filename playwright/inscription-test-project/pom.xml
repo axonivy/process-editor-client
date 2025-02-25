@@ -53,6 +53,7 @@
                 <BASE_URL>${test.engine.url}</BASE_URL>
                 <TEST_APP>${engine.test.app}</TEST_APP>
                 <SCREENSHOT_DIR>${project.build.directory}</SCREENSHOT_DIR>
+                <REPORT_DIR>${project.build.directory}</REPORT_DIR>
               </environmentVariables>
               <successCodes>
                 <successCode>0</successCode>
