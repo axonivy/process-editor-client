@@ -4,7 +4,7 @@ import { isBoundsAware, type IView, type RenderingContext, svg } from '@eclipse-
 
 import { SBreakpointHandle } from './model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 @injectable()

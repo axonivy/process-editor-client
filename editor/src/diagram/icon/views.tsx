@@ -4,7 +4,7 @@ import virtualize from 'sprotty/lib/lib/virtualize';
 
 import { IconStyle, resolveIcon } from './icons';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 export function getActivityIconDecorator(iconUri: string, color: string): VNode {

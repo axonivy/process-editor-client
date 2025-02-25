@@ -4,7 +4,7 @@ import { type IView, type RenderingContext, svg } from '@eclipse-glsp/client';
 
 import { NegativeMarker } from './model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 @injectable()

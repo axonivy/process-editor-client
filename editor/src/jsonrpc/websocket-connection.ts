@@ -45,7 +45,6 @@ export function wrap(socket: WebSocket): WebSocketWrapper {
     onError: cb =>
       (socket.onerror = event => {
         if ('error' in event) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           cb(event.error);
         }

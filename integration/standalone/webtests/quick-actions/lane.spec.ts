@@ -28,7 +28,7 @@ test.describe('quick actions - lanes', () => {
     await addLane(page, 60);
 
     await deleteLane(page, lane);
-    await expect(lane).not.toBeVisible();
+    await expect(lane).toBeHidden();
   });
 
   test('pool actions', async ({ page }) => {
@@ -52,7 +52,7 @@ test.describe('quick actions - lanes', () => {
     const pool = page.locator('.sprotty-graph .pool');
     await addPool(page, 60);
     await deleteLane(page, pool);
-    await expect(pool).not.toBeVisible();
+    await expect(pool).toBeHidden();
   });
 
   test('pool add and remove embedded lanes', async ({ page }) => {
@@ -71,7 +71,7 @@ test.describe('quick actions - lanes', () => {
 
     await deleteLane(page, pool);
     await expect(embeddedLanes).toHaveCount(0);
-    await expect(pool).not.toBeVisible();
+    await expect(pool).toBeHidden();
   });
 
   async function createEmbeddedLane(page: Page, pool: Locator): Promise<void> {

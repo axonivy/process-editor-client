@@ -28,7 +28,7 @@ test.describe('quick actions - connectors', () => {
   test('connector delete', async ({ page }) => {
     const connector = page.locator('.sprotty-graph > g > .sprotty-edge');
     await deleteConnector(page, connector);
-    await expect(connector).not.toBeVisible();
+    await expect(connector).toBeHidden();
   });
 
   test('connector bend and straigthen', async ({ page }) => {

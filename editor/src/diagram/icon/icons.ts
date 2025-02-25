@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+ 
 import { ActivityTypes, EventBoundaryTypes, EventEndTypes, EventIntermediateTypes, EventStartTypes, GatewayTypes } from '../view-types';
 
 export enum IconStyle {
