@@ -1,15 +1,15 @@
 import {
   Action,
-  BoundsAware,
+  type BoundsAware,
   boundsFeature,
   ChangeBoundsOperation,
-  ElementAndBounds,
+  type ElementAndBounds,
   findParentByFeature,
   GChildElement,
   getElements,
   GModelElement,
-  Grid,
-  IMovementRestrictor,
+  type Grid,
+  type IMovementRestrictor,
   isBoundsAware,
   isViewport,
   matchesKeystroke,
@@ -20,7 +20,7 @@ import {
   SetViewportAction,
   toElementAndBounds,
   TYPES,
-  Viewport
+  type Viewport
 } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';

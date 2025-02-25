@@ -1,4 +1,4 @@
-import { Action, FocusDomAction, IActionHandler } from '@eclipse-glsp/client';
+import { Action, FocusDomAction, type IActionHandler } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()

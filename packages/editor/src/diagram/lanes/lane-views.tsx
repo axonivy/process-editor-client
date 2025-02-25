@@ -1,6 +1,15 @@
-import { GArgument, RectangularNodeView, RenderingContext, GLabel, GLabelView, svg, hasArgs, isBoundsAware } from '@eclipse-glsp/client';
+import {
+  GArgument,
+  RectangularNodeView,
+  type RenderingContext,
+  GLabel,
+  GLabelView,
+  svg,
+  hasArgs,
+  isBoundsAware
+} from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode, VNodeStyle } from 'snabbdom';
+import type { VNode, VNodeStyle } from 'snabbdom';
 
 import { LaneNode } from '../model';
 

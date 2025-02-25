@@ -1,7 +1,7 @@
 import {
   ActionDispatcher,
   Bounds,
-  CommandExecutionContext,
+  type CommandExecutionContext,
   GChildElement,
   GModelRoot,
   InitializeCanvasBoundsAction,
@@ -12,7 +12,7 @@ import {
 import { Container, injectable } from 'inversify';
 import { beforeEach, describe, expect, test } from 'vitest';
 
-import { ElementExecution } from '@axonivy/process-editor-protocol';
+import type { ElementExecution } from '@axonivy/process-editor-protocol';
 import { createTestContainer } from '../utils/test-utils';
 import { ExecutedFeedbackAction, ExecutedFeedbackCommand, StoppedFeedbackAction, StoppedFeedbackCommand } from './feedback-action';
 import { executionFeature } from './model';

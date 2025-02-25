@@ -1,5 +1,5 @@
-import { SwitchThemeAction, ThemeMode } from '@axonivy/process-editor-protocol';
-import { Action, IActionHandler } from '@eclipse-glsp/client';
+import { SwitchThemeAction, type ThemeMode } from '@axonivy/process-editor-protocol';
+import { Action, type IActionHandler } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()

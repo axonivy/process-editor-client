@@ -8,24 +8,24 @@ import {
   GResizeHandle,
   GResizeHandleView,
   hasArgs,
-  IntersectingRoutedPoint,
-  IView,
-  IViewArgs,
+  type IntersectingRoutedPoint,
+  type IView,
+  type IViewArgs,
   Point,
   PolylineEdgeViewWithGapsOnIntersections,
-  RenderingContext,
+  type RenderingContext,
   SEdgeImpl,
   setAttr,
   svg,
   toDegrees
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import virtualize from 'sprotty/lib/lib/virtualize';
 import { Edge, MulitlineEditLabel } from './model';
 import { escapeHtmlWithLineBreaks } from './util';
 
-import { isLaneResizable, LaneResizable } from '../lanes/model';
+import { isLaneResizable, type LaneResizable } from '../lanes/model';
 import { ActivityTypes } from './view-types';
 
 const JSX = { createElement: svg };

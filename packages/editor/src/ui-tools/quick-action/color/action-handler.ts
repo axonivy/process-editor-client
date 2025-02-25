@@ -1,6 +1,6 @@
 import {
   Action,
-  IActionHandler,
+  type IActionHandler,
   PaletteItem,
   RequestContextActions,
   SetContextActions,

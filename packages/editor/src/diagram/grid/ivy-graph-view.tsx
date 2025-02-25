@@ -5,12 +5,12 @@ import {
   GridManager,
   GViewportRootElement,
   isViewport,
-  RenderingContext,
+  type RenderingContext,
   SGraphImpl,
-  Writable
+  type Writable
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 
 @injectable()
 export class IvyGraphView extends GLSPProjectionView {

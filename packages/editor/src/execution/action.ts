@@ -1,15 +1,15 @@
 import {
   Action,
-  IActionDispatcher,
-  IActionHandler,
-  IFeedbackActionDispatcher,
+  type IActionDispatcher,
+  type IActionHandler,
+  type IFeedbackActionDispatcher,
   ModelInitializationConstraint,
   TYPES
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { ExecutedFeedbackAction, StoppedFeedbackAction } from './feedback-action';
-import { ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
+import { type ElementExecution, SetExecutedElementsAction, StoppedAction } from '@axonivy/process-editor-protocol';
 
 @injectable()
 export class SetExecutedElementsActionHandler implements IActionHandler {

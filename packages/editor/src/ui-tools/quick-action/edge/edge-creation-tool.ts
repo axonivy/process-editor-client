@@ -2,7 +2,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import {
   Action,
   AnchorComputerRegistry,
-  Args,
+  type Args,
   BaseCreationTool,
   CreateEdgeOperation,
   CursorCSS,
@@ -24,7 +24,7 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
-import { QuickAction, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
 
 /**

@@ -1,4 +1,4 @@
-import { IMovementRestrictor, isBoundsAware, isBoundsAwareMoveable, Point, GChildElement, GModelElement } from '@eclipse-glsp/client';
+import { type IMovementRestrictor, isBoundsAware, isBoundsAwareMoveable, Point, GChildElement, GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { isLaneResizable } from '../lanes/model';
 

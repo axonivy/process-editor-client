@@ -1,7 +1,7 @@
 import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import {
   Action,
-  IActionHandler,
+  type IActionHandler,
   PaletteItem,
   RequestContextActions,
   SetContextActions,
