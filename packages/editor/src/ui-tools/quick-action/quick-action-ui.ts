@@ -13,7 +13,6 @@ import {
   GRoutableElement,
   IActionDispatcherProvider,
   IActionHandler,
-  ICommand,
   ISelectionListener,
   MouseListener,
   PaletteItem,
@@ -88,7 +87,7 @@ export class QuickActionUI extends GLSPAbstractUIExtension implements IActionHan
     }
   }
 
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (ShowQuickActionMenuAction.is(action)) {
       this.showItemMenu(action);
     }

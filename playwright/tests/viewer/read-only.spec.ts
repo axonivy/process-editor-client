@@ -6,6 +6,7 @@ test('node removal disabled', async ({ page }) => {
   const start = processEditor.startElement;
   await start.select();
   await page.keyboard.press('Delete');
+  // eslint-disable-next-line playwright/no-wait-for-timeout
   await page.waitForTimeout(500);
   await start.isSelected();
 });

@@ -1,10 +1,10 @@
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../../page-objects/inscription/inscription-view';
 import { browserBtn } from './browser-mock-utils';
 
 test('Add Condition', async ({ page }) => {
-  const inscriptionView = await InscriptionView.mock(page, { type: 'Alternative' });
+  const inscriptionView = await openMockInscription(page, { type: 'Alternative' });
   const condition = inscriptionView.accordion('Condition');
   await condition.open();
   const conditionSection = condition.section('Condition');
@@ -24,9 +24,9 @@ export async function applyConditionBuilder(page: Page) {
   const condition = browserDialog.locator('.ui-condition-builder-condition');
   const group = browserDialog.locator('.ui-condition-builder-group');
 
-  expect(browserDialog.getByRole('combobox').nth(0)).toHaveText('Basic Condition');
-  expect(await condition.count()).toBe(1);
-  expect(await condition.getByRole('textbox').count()).toBe(2);
+  await expect(browserDialog.getByRole('combobox').nth(0)).toHaveText('Basic Condition');
+  await expect(condition).toHaveCount(1);
+  await expect(condition.getByRole('textbox')).toHaveCount(2);
 
   await condition.getByRole('textbox').nth(0).fill('data.value1');
   await condition.getByRole('combobox').click();
@@ -34,8 +34,7 @@ export async function applyConditionBuilder(page: Page) {
   await condition.getByRole('textbox').nth(1).fill('10');
 
   await page.getByLabel('Add Condition').click();
-  const newConditions = await condition.count();
-  expect(newConditions).toBe(2);
+  await expect(condition).toHaveCount(2);
   await condition.nth(1).getByRole('textbox').nth(0).fill('data.value2');
   await condition.nth(1).getByRole('combobox').click();
   await page.getByRole('option', { name: 'greater than', exact: true }).first().click();
@@ -44,9 +43,9 @@ export async function applyConditionBuilder(page: Page) {
   await page.getByRole('dialog').getByRole('combobox').nth(0).click();
   await page.getByRole('option', { name: 'Nested Condition', exact: true }).first().click();
 
-  expect(await group.count()).toBe(1);
+  await expect(group).toHaveCount(1);
   await page.getByLabel('Add Condition Group').click();
-  expect(await group.count()).toBe(2);
+  await expect(group).toHaveCount(2);
   await group.nth(0).getByRole('combobox').nth(3).click();
   await page.getByRole('option', { name: 'or', exact: true }).first().click();
 

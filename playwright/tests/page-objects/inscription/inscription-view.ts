@@ -3,44 +3,42 @@ import { expect } from '@playwright/test';
 import { Accordion } from './accordion';
 import { Outline } from './outline';
 
-export class InscriptionView {
-  static async selectElement(page: Page, pid: string, pmv = 'inscription-test-project') {
-    const server = process.env.BASE_URL ?? 'localhost:8081';
-    const app = process.env.TEST_APP ?? 'designer';
-    const serverUrl = server.replace(/^https?:\/\//, '');
-    const url = `?server=${serverUrl}&app=${app}&pmv=${pmv}&pid=${pid}`;
-    await page.goto(url);
-    await this.initPage(page);
-    const view = new Inscription(page);
-    await view.waitForView();
-    return view;
-  }
+export const openElementInscription = async (page: Page, pid: string, pmv = 'inscription-test-project') => {
+  const server = process.env.BASE_URL ?? 'localhost:8081';
+  const app = process.env.TEST_APP ?? 'designer';
+  const serverUrl = server.replace(/^https?:\/\//, '');
+  const url = `?server=${serverUrl}&app=${app}&pmv=${pmv}&pid=${pid}`;
+  await page.goto(url);
+  await initPage(page);
+  const view = new Inscription(page);
+  await view.waitForView();
+  return view;
+};
 
-  static async mock(page: Page, options?: { type?: string; readonly?: boolean; theme?: string }) {
-    let url = 'mock.html';
-    if (options) {
-      url += '?';
-      if (options.type) {
-        url += `type=${options.type}&`;
-      }
-      if (options.readonly) {
-        url += `readonly=${options.readonly}&`;
-      }
-      if (options.theme) {
-        url += `theme=${options.theme}&`;
-      }
+export const openMockInscription = async (page: Page, options?: { type?: string; readonly?: boolean; theme?: string }) => {
+  let url = 'mock.html';
+  if (options) {
+    url += '?';
+    if (options.type) {
+      url += `type=${options.type}&`;
     }
-    await page.goto(url);
-    await this.initPage(page);
-    const view = new Inscription(page);
-    await view.waitForView();
-    return view;
+    if (options.readonly) {
+      url += `readonly=${options.readonly}&`;
+    }
+    if (options.theme) {
+      url += `theme=${options.theme}&`;
+    }
   }
+  await page.goto(url);
+  await initPage(page);
+  const view = new Inscription(page);
+  await view.waitForView();
+  return view;
+};
 
-  static async initPage(page: Page) {
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-  }
-}
+const initPage = async (page: Page) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+};
 
 export class Inscription {
   readonly view: Locator;
@@ -68,7 +66,7 @@ export class Inscription {
   }
 
   async waitForView() {
-    await this.page.waitForSelector('.editor-root');
+    await expect(this.root).toBeVisible();
   }
 
   async expectOpen() {

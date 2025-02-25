@@ -11,7 +11,7 @@ export class AnimateActionHandler implements IActionHandler {
   @inject(TYPES.IFeedbackActionDispatcher) protected feedbackDispatcher: IFeedbackActionDispatcher;
   @inject(TYPES.IActionDispatcher) protected actionDispatcher: IActionDispatcher;
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (AnimateAction.is(action)) {
       for (const id of action.elementIds) {
         this.animateElementIDs.add(id);

@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { InscriptionView, type Inscription } from '../../page-objects/inscription/inscription-view';
+import { openElementInscription, type Inscription } from '../../page-objects/inscription/inscription-view';
 import type { CreateProcessResult } from '../../glsp-protocol';
 import { createProcess } from '../../glsp-protocol';
 import { GeneralTestWithDisabledName } from '../parts/name';
@@ -17,7 +17,7 @@ test.describe('Web Service Process', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    view = await InscriptionView.selectElement(page, testee.processId);
+    view = await openElementInscription(page, testee.processId);
   });
 
   test('Header', async () => {

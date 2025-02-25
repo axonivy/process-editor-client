@@ -28,7 +28,6 @@ import { escapeHtmlWithLineBreaks } from './util';
 import { isLaneResizable, LaneResizable } from '../lanes/model';
 import { ActivityTypes } from './view-types';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };
 
 @injectable()

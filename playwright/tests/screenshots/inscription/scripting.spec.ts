@@ -1,7 +1,7 @@
 import { test, type Page } from '@playwright/test';
 import { screenshot } from './screenshot-util';
 import type { Accordion } from '../../page-objects/inscription/accordion';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openElementInscription } from '../../page-objects/inscription/inscription-view';
 
 const GENERIC_PID = {
   SCRIPT: '168F0C6DF682858E-f3',
@@ -50,7 +50,7 @@ test.describe('Scripting', () => {
 });
 
 async function openAccordion(page: Page, pid: string, accordionName): Promise<Accordion> {
-  const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
+  const view = await openElementInscription(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
   await accordion.open();

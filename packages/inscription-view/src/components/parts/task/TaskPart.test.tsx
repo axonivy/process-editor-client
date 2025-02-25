@@ -14,7 +14,6 @@ const Part = () => {
 
 describe('TaskPart', () => {
   function renderEmptyPart() {
-    //@ts-ignore
     render(<Part />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 

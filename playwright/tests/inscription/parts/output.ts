@@ -77,10 +77,6 @@ class OutputCode extends Output {
 }
 
 class OutputEmptyMap extends OutputCode {
-  constructor(part: Part) {
-    super(part);
-  }
-
   override async assertClear() {
     await this.mappingSection.expectIsClosed();
     await this.codeSection.expectIsClosed();

@@ -2,7 +2,6 @@ import {
   Action,
   EndProgressAction,
   IActionHandler,
-  ICommand,
   MessageAction,
   StartProgressAction,
   UpdateProgressAction,
@@ -17,7 +16,7 @@ export class ToastNotificationService implements IActionHandler {
   private messageToast?: ReturnType<typeof Toastify>;
   private progressMessages = new Map<string, string>();
 
-  handle(action: Action): void | Action | ICommand {
+  handle(action: Action) {
     if (MessageAction.is(action)) {
       return this.updateToast(action.message, action.severity);
     }

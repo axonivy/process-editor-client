@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Keyboard Navigation', () => {
   test('navigate through script-input/areas', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Task');
     await taskPart.open();
     const detailsSection = taskPart.section('Details');
@@ -27,7 +27,7 @@ test.describe('Keyboard Navigation', () => {
   });
 
   test('navigate through code-block', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Output');
     await taskPart.open();
     const codeSection = taskPart.section('Code');

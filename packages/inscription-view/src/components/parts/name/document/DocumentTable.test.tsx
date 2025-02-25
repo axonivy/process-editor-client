@@ -16,7 +16,6 @@ describe('DocumentTable', () => {
     const view = render(<DocumentTable data={documents} onChange={change => (data = change)} />);
     return {
       data: () => data,
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       rerender: () => view.rerender(<DocumentTable data={data} onChange={change => (data = change)} />)
     };
   }

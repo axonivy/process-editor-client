@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@axonivy/process-editor": "~12.0.4-next",
-    "@axonivy/ui-components": "~12.0.4-next.511",
-    "@axonivy/ui-icons": "~12.0.4-next.511",
+    "@axonivy/ui-components": "~12.0.4-next.535",
+    "@axonivy/ui-icons": "~12.0.4-next.535",
     "@eclipse-glsp/client": "2.3.0"
   },
   "devDependencies": {
@@ -25,8 +25,6 @@
   "type": "module",
   "scripts": {
     "clean": "rimraf lib build/* tsconfig.tsbuildinfo",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "type": "tsc --noEmit",
     "build": "tsc --build",
     "package": "vite build",

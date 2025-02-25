@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import type { GModelRoot } from '@eclipse-glsp/client';
 import { describe, test, beforeAll, expect } from 'vitest';
 import {

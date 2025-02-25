@@ -1,18 +1,18 @@
 import type { Page } from '@playwright/test';
 import { test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
 import type { MacroEditor, ScriptInput } from '../../page-objects/inscription/code-editor';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Code Editor Input', () => {
   test('MacroInput - no new line', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Case');
     await taskPart.open();
     await assertNoNewLine(page, taskPart.macroInput('Name'));
   });
 
   test('ScriptInput - no new line', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Task');
     await taskPart.open();
     const expirySection = taskPart.section('Expiry');
@@ -42,7 +42,7 @@ test.describe('Code Editor Input', () => {
   }
 
   async function assertAcceptScriptCellValue(page: Page, key?: string) {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const taskPart = inscriptionView.accordion('Output');
     await taskPart.open();
     await taskPart.table(['label', 'expression']).row(1).column(1).fill('test');

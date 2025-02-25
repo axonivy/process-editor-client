@@ -19,7 +19,7 @@ export class SetExecutedElementsActionHandler implements IActionHandler {
 
   protected oldExecutions: ElementExecution[];
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (SetExecutedElementsAction.is(action)) {
       const feedbackAction = ExecutedFeedbackAction.create({
         oldElementExecutions: this.oldExecutions,
@@ -47,7 +47,7 @@ export class StoppedActionHandler implements IActionHandler {
 
   protected oldStoppedElement: string;
 
-  handle(action: Action): Action | void {
+  handle(action: Action) {
     if (StoppedAction.is(action)) {
       const feedbackAction = StoppedFeedbackAction.create({ oldStoppedElement: this.oldStoppedElement, stoppedElement: action.elementId });
       if (action.elementId && action.elementId.length > 0) {

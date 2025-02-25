@@ -106,7 +106,7 @@ export class Toolbar {
   async expectReadonly() {
     await expect(this.defaultTool).toBeVisible();
     await expect(this.optionsBtn).toBeVisible();
-    await expect(this.toolbar.locator('.edit-buttons')).not.toBeVisible();
-    await expect(this.toolbar.locator('.middle-buttons > span')).not.toBeVisible();
+    await expect(this.toolbar.locator('.edit-buttons')).toBeHidden();
+    await expect(this.toolbar.locator('.middle-buttons > span')).toBeHidden();
   }
 }

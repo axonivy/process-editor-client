@@ -1,9 +1,9 @@
 import type { Locator, Page } from '@playwright/test';
 import { expect } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openElementInscription } from '../../page-objects/inscription/inscription-view';
 
 export async function screenshotAccordion(page: Page, pid: string, accordionName: string, screenshotName: string, fullView = false) {
-  const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
+  const view = await openElementInscription(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
   await accordion.open();
@@ -19,7 +19,7 @@ export async function screenshotAccordion(page: Page, pid: string, accordionName
 }
 
 export async function screenshotSection(page: Page, pid: string, accordionName: string, sectionName: string, screenshotName: string) {
-  const view = await InscriptionView.selectElement(page, pid, 'inscription-test-project');
+  const view = await openElementInscription(page, pid, 'inscription-test-project');
   await page.addStyleTag({ content: 'body { overflow: hidden; }' });
   const accordion = view.accordion(accordionName);
   await accordion.open();

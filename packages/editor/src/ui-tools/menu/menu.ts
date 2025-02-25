@@ -68,7 +68,7 @@ export abstract class ItemMenu implements Menu {
     this.bodyDiv?.remove();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected appendMenuParts(body: HTMLElement): void {}
 
   private createPaletteItemSearchField(): HTMLElement {
@@ -112,6 +112,7 @@ export abstract class ItemMenu implements Menu {
         const matchingChildren = itemGroup.children.filter(child => child.label.toLowerCase().includes(filter.toLowerCase()));
         if (matchingChildren.length > 0) {
           itemGroup.children.splice(0, itemGroup.children.length);
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           matchingChildren.forEach(child => itemGroup.children!.push(child));
           filteredPaletteItems.push(itemGroup);
         }
@@ -169,7 +170,7 @@ export abstract class ItemMenu implements Menu {
     this.navigateUpOrDown(1);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected appendItemToGroup(group: HTMLElement): void {}
 
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
@@ -211,7 +212,7 @@ export abstract class ItemMenu implements Menu {
     return button;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {}
 
   abstract toolButtonOnClick(item: PaletteItem): Action[];

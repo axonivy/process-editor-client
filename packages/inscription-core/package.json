@@ -32,8 +32,6 @@
     "build": "tsc --build && tscp",
     "package": "tsc && tscp",
     "build:clean": "npm run clean && npm run build",
-    "type": "tsc --noEmit",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src"
+    "type": "tsc --noEmit"
   }
 }

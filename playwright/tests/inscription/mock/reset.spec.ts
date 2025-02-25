@@ -1,14 +1,14 @@
 import { expect, test } from '@playwright/test';
-import { InscriptionView } from '../../page-objects/inscription/inscription-view';
+import { openMockInscription } from '../../page-objects/inscription/inscription-view';
 
 test.describe('Reset part', () => {
   test('reset button', async ({ page }) => {
-    const inscriptionView = await InscriptionView.mock(page);
+    const inscriptionView = await openMockInscription(page);
     const part = inscriptionView.accordion('General');
     await part.open();
 
     const resetBtn = part.reset();
-    await expect(resetBtn).not.toBeVisible();
+    await expect(resetBtn).toBeHidden();
     const name = part.textArea({ label: 'Display name' });
     await name.fill('bla');
     await expect(resetBtn).toBeVisible();

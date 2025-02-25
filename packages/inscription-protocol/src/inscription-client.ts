@@ -3,6 +3,7 @@ import type { InscriptionData, InscriptionSaveData } from './data/inscription-da
 import type { InscriptionMetaRequestTypes } from './inscription-protocol';
 
 export interface Event<T> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (listener: (e: T) => any, thisArgs?: any, disposables?: Disposable[]): Disposable;
 }
 
