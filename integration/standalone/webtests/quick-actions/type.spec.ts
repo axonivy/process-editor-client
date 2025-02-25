@@ -16,7 +16,7 @@ test.describe('quick actions - change BPMN type', () => {
     await wrapToEmbedded([start, end], page, browserName);
   });
 
-  test('switch type', async ({ page, browserName }) => {
+  test('switch type', async ({ page }) => {
     const types = page.locator(PALETTE_BODY + ' .menu-item');
     const embedded = page.locator(embeddedSelector);
     const user = page.locator('.sprotty-graph .userBpmnElement');

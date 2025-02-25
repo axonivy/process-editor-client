@@ -46,7 +46,7 @@ test.describe('key listener - quick action shortcuts', () => {
     const label = page.locator('.label-edit textarea');
     const start = page.locator(startSelector);
     await expect(start.locator('.sprotty-label div')).toHaveText('start.ivp');
-    await expect(label).toBeHidden;
+    await expect(label).toBeHidden();
 
     await start.click();
     await pressQuickActionShortcut(page, 'L');

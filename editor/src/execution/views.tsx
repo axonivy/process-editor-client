@@ -2,7 +2,7 @@ import { svg } from '@eclipse-glsp/client';
 import type { VNode } from 'snabbdom';
 import type { Executable } from './model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 export function createExecutionBadge(node: Executable, width: number): VNode {

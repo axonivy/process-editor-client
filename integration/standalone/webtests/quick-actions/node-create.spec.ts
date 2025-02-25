@@ -82,7 +82,7 @@ test.describe('quick actions - create node', () => {
   test('attach comment', async ({ page }) => {
     const comment = page.locator('.sprotty-graph .processAnnotation');
     const connectors = page.locator('.sprotty-graph > g > .sprotty-edge');
-    await expect(comment).not.toBeVisible();
+    await expect(comment).toBeHidden();
     await expect(connectors).toHaveCount(1);
 
     await page.locator(startSelector).click();

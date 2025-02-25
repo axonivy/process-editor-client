@@ -39,8 +39,6 @@
     "build:icons": "fantasticon -c ./icons/.fantasticonrc.json && npm run cp:icons",
     "cp:icons": "cpx \"icons/dist/*.ts\" src/ && cpx \"icons/dist/*.{css,ttf}\" css/",
     "type": "tsc --noEmit",
-    "lint": "eslint --ext .ts,.tsx ./src",
-    "lint:fix": "eslint --fix --ext .ts,.tsx ./src",
     "test": "vitest",
     "test:ci": "vitest --watch=false --reporter=basic --reporter=junit --outputFile=report.xml"
   },

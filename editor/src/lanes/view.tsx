@@ -4,7 +4,7 @@ import { type IView, Point, type RenderingContext, setAttr, svg } from '@eclipse
 
 import { isLaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 @injectable()

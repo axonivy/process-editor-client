@@ -32,7 +32,7 @@ test.describe('quick actions - nodes', () => {
   test('delete', async ({ page }) => {
     const start = page.locator(startSelector);
     await deleteNode(page, start);
-    await expect(start).not.toBeVisible();
+    await expect(start).toBeHidden();
   });
 
   test('info', async ({ page }) => {
@@ -68,10 +68,10 @@ test.describe('quick actions - nodes', () => {
     await start.click();
     await clickQuickAction(page, 'Connect');
     await expect(connectorFeedback).toBeVisible();
-    await expect(connector).not.toBeVisible();
+    await expect(connector).toBeHidden();
 
     await end.click();
-    await expect(connectorFeedback).not.toBeVisible();
+    await expect(connectorFeedback).toBeHidden();
     await expect(connector).toBeVisible();
   });
 

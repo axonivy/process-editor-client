@@ -11,8 +11,8 @@ test.describe('url parameters', () => {
     const middleButtonGroup = page.locator('.middle-buttons > span');
     await expect(defaultMouseBtn).toBeVisible();
     await expect(optionsBtn).toBeVisible();
-    await expect(editButtonGroup).not.toBeVisible();
-    await expect(middleButtonGroup).not.toBeVisible();
+    await expect(editButtonGroup).toBeHidden();
+    await expect(middleButtonGroup).toBeHidden();
   });
 
   test('edit mode', async ({ page }) => {
@@ -33,7 +33,7 @@ test.describe('url parameters', () => {
     const viewport = page.locator('.ivy-viewport-bar');
     const start = page.locator(startSelector);
     await expect(start).toBeVisible();
-    await expect(toolbar).not.toBeVisible();
+    await expect(toolbar).toBeHidden();
     await expect(viewport).toBeVisible();
   });
 
@@ -43,8 +43,8 @@ test.describe('url parameters', () => {
     const viewport = page.locator('.ivy-viewport-bar');
     const start = page.locator(startSelector);
     await expect(start).toBeVisible();
-    await expect(toolbar).not.toBeVisible();
-    await expect(viewport).not.toBeVisible();
+    await expect(toolbar).toBeHidden();
+    await expect(viewport).toBeHidden();
   });
 
   test('zoom and highlight', async ({ page }) => {

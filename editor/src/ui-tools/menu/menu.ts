@@ -72,7 +72,7 @@ export abstract class ItemMenu implements Menu {
     this.bodyDiv?.remove();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+   
   protected appendMenuParts(body: HTMLElement): void {}
 
   private createPaletteItemSearchField(): HTMLElement {
@@ -173,7 +173,7 @@ export abstract class ItemMenu implements Menu {
     this.navigateUpOrDown(1);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+   
   protected appendItemToGroup(group: HTMLElement): void {}
 
   private createToolGroup(parent: HTMLElement, item: PaletteItem): HTMLElement {
@@ -201,7 +201,7 @@ export abstract class ItemMenu implements Menu {
     return button;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
+   
   protected appendToToolButton(button: HTMLElement, item: PaletteItem): void {}
 
   abstract toolButtonOnClick(item: PaletteItem): Action[];

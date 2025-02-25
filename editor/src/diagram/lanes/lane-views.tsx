@@ -4,7 +4,7 @@ import type { VNode } from 'snabbdom';
 
 import { LaneNode } from '../model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const JSX = { createElement: svg };
 
 @injectable()
