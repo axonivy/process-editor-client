@@ -1,6 +1,6 @@
-import { Diamond, DiamondNodeView, Point, RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
+import { Diamond, DiamondNodeView, Point, type RenderingContext, SShapeElement, svg } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { createExecutionBadge } from '../../execution/views';
 
 import { CustomIconToggleActionHandler } from '../../ui-tools/tool-bar/options/action-handler';

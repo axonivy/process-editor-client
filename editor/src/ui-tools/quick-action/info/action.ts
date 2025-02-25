@@ -4,18 +4,18 @@ import {
   GLSPActionDispatcher,
   hasArguments,
   isWithEditableLabel,
-  JsonAny,
+  type JsonAny,
   SChildElement,
   SEdge,
   SModelElement,
   TYPES
 } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { ShowInfoQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IVY_TYPES } from '../../../types';
-import { IvyViewerOptions } from '../../../options';
+import type { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
 import { StreamlineIcons } from '../../../StreamlineIcons';
 
@@ -32,13 +32,13 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
       element.id,
       this.markers(element),
       this.name(element),
-      GArgument.getString(element, 'desc'),
+      hasArguments(element) && element.args ? GArgument.getString(element, 'desc') : '',
       this.info(element)
     );
   }
 
   private info(element: SModelElement): JsonAny | undefined {
-    return hasArguments(element) ? element.args['info'] : undefined;
+    return hasArguments(element) && element.args ? element.args['info'] : undefined;
   }
 
   private name(element: SModelElement): string | undefined {
@@ -54,13 +54,15 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
   }
 
   private nameAddition(element: SModelElement): string | undefined {
-    const varName = GArgument.getString(element, 'varName');
-    if (varName) {
-      return ` [${varName}]`;
-    }
-    const outerElement = GArgument.getString(element, 'outerElement');
-    if (outerElement) {
-      return ` [${outerElement}]`;
+    if (hasArguments(element) && element.args) {
+      const varName = GArgument.getString(element, 'varName');
+      if (varName) {
+        return ` [${varName}]`;
+      }
+      const outerElement = GArgument.getString(element, 'outerElement');
+      if (outerElement) {
+        return ` [${outerElement}]`;
+      }
     }
     return undefined;
   }

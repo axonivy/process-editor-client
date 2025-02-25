@@ -35,7 +35,7 @@ import ivyExecutionModule from './execution/di.config';
 import ivyConnectorModule from './connector/di.config';
 import ivyToolsModule from './tools/di.config';
 import ivyKeyListenerModule from './key-listener/di.config';
-import { IvyViewerOptions, defaultIvyViewerOptions } from './options';
+import { type IvyViewerOptions, defaultIvyViewerOptions } from './options';
 import { IVY_TYPES } from './types';
 import { ivyEditLabelModule, ivyEditLabelUiModule } from './edit-label/di.config';
 

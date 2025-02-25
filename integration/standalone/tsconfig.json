@@ -1,10 +1,9 @@
 {
-  "extends": "../../configs/base.tsconfig",
+  "extends": "../../configs/tsconfig.integration.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "baseUrl": ".",
-    "noImplicitAny": false
+    "rootDir": ".",
+    "outDir": "lib"
   },
-  "include": ["src", "lib", "css", "app"]
+  "include": ["src", "webtests"],
+  "references": [{ "path": "../../editor/tsconfig.build.json" }]
 }

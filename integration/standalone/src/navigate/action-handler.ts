@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Action, IActionHandler, NavigateToExternalTargetAction, NavigationTarget } from '@eclipse-glsp/client';
+import { Action, type IActionHandler, NavigateToExternalTargetAction, NavigationTarget } from '@eclipse-glsp/client';
 
 @injectable()
 export class NavigateToExternalTargetActionHandler implements IActionHandler {

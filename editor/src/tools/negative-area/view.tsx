@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
-import { VNode } from 'snabbdom';
-import { IView, RenderingContext, svg } from '@eclipse-glsp/client';
+import type { VNode } from 'snabbdom';
+import { type IView, type RenderingContext, svg } from '@eclipse-glsp/client';
 
 import { NegativeMarker } from './model';
 

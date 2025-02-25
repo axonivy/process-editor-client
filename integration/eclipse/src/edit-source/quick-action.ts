@@ -1,13 +1,13 @@
 import { SModelElement } from '@eclipse-glsp/client';
 import {
-  QuickAction,
+  type QuickAction,
   QuickActionLocation,
   SingleQuickActionProvider,
   hasGoToSourceFeature,
   StreamlineIcons
 } from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { GoToSourceAction } from './action';
 
 @injectable()

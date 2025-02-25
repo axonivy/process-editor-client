@@ -1,12 +1,12 @@
 import {
   AbstractUIExtension,
   Action,
-  CommandExecutionContext,
-  CommandReturn,
+  type CommandExecutionContext,
+  type CommandReturn,
   EditorContextService,
   FeedbackCommand,
-  IActionDispatcher,
-  IFeedbackActionDispatcher,
+  type IActionDispatcher,
+  type IFeedbackActionDispatcher,
   SetUIExtensionVisibilityAction,
   SModelRoot,
   TYPES

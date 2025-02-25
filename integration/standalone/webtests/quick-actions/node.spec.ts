@@ -1,4 +1,4 @@
-import { expect, Locator, Page, test } from '@playwright/test';
+import { expect, type Locator, type Page, test } from '@playwright/test';
 import { embeddedSelector, endSelector, multiSelect, removeElement, startSelector } from '../diagram-util';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { clickQuickAction, clickQuickActionStartsWith, editLabel, assertQuickActionsCount } from './quick-actions-util';

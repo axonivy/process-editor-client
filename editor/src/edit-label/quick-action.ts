@@ -1,6 +1,6 @@
 import { EditLabelAction, isWithEditableLabel, SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { injectable } from 'inversify';
 import { StreamlineIcons } from '../StreamlineIcons';
 

@@ -1,6 +1,6 @@
 import { svg } from '@eclipse-glsp/client';
-import { VNode } from 'snabbdom';
-import { Executable } from './model';
+import type { VNode } from 'snabbdom';
+import type { Executable } from './model';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const JSX = { createElement: svg };

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  ********************************************************************************/
 
-import { Logger, MessageConnection } from 'vscode-jsonrpc';
+import type { Logger, MessageConnection } from 'vscode-jsonrpc';
 import { createWebSocketConnection, wrap } from './websocket-connection';
 
 type MaybePromise<T> = T | PromiseLike<T>;
@@ -69,12 +69,14 @@ export class GLSPWebSocketProvider {
 
     this.webSocket.onerror = (): void => {
       handler.logger?.error('GLSPWebSocketProvider Connection to server errored. Please make sure that the server is running!');
+      // @ts-ignore
       clearInterval(this.reconnectTimer);
       this.webSocket.close();
     };
 
     return new Promise(resolve => {
       this.webSocket.onopen = (): void => {
+        // @ts-ignore
         clearInterval(this.reconnectTimer);
         const wrappedSocket = wrap(this.webSocket);
         const wsConnection = createWebSocketConnection(wrappedSocket, handler.logger);

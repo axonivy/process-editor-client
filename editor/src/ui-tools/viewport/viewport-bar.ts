@@ -3,17 +3,17 @@ import {
   AbstractUIExtension,
   EditorContextService,
   GLSPActionDispatcher,
-  IActionHandler,
-  ICommand,
+  type IActionHandler,
+  type ICommand,
   isViewport,
-  IToolManager,
+  type IToolManager,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
   TYPES
 } from '@eclipse-glsp/client';
 import { SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { inject, injectable } from 'inversify';
-import { CenterButton, FitToScreenButton, OriginScreenButton, ViewportBarButton } from './button';
+import { CenterButton, FitToScreenButton, OriginScreenButton, type ViewportBarButton } from './button';
 
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { QuickActionUI } from '../quick-action/quick-action-ui';

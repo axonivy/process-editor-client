@@ -45,5 +45,5 @@ export class ToggleSwitch {
 }
 
 export function changeCSSClass(element: Element, css: string): void {
-  element.classList.contains(css) ? element.classList.remove(css) : element.classList.add(css);
+  element.classList.toggle(css);
 }

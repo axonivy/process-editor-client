@@ -2,7 +2,7 @@ import {
   MouseListener,
   Action,
   Command,
-  CommandExecutionContext,
+  type CommandExecutionContext,
   SChildElement,
   SModelElement,
   SModelRoot,
@@ -10,9 +10,9 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { ToggleBreakpointAction } from './action';
-import { ElementBreakpoint } from './action-handler';
+import type { ElementBreakpoint } from './action-handler';
 
-import { addBreakpointHandles, Breakable, isBreakable, removeBreakpointHandles, SBreakpointHandle } from './model';
+import { addBreakpointHandles, type Breakable, isBreakable, removeBreakpointHandles, SBreakpointHandle } from './model';
 
 export interface BreakpointFeedbackAction extends Action {
   kind: typeof BreakpointFeedbackCommand.KIND;
@@ -40,6 +40,7 @@ export class BreakpointFeedbackCommand extends Command {
 
   protected showBreakpoints: { element: SChildElement & Breakable; condition: string; disabled: boolean; globalDisabled: boolean }[] = [];
 
+  // @ts-ignore
   constructor(@inject(TYPES.Action) protected readonly action: BreakpointFeedbackAction) {
     super();
   }

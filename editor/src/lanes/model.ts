@@ -1,12 +1,12 @@
 import {
-  BoundsAware,
-  Hoverable,
+  type BoundsAware,
+  type Hoverable,
   hoverFeedbackFeature,
   isBoundsAware,
   isSelectable,
   isSelected,
   SChildElement,
-  Selectable,
+  type Selectable,
   SModelElement,
   SParentElement
 } from '@eclipse-glsp/client';
@@ -54,6 +54,8 @@ export function addLaneResizeHandles(element: SParentElement): void {
   element.add(new SLaneResizeHandle(LaneResizeHandleLocation.Bottom));
 }
 
-export function removeLaneResizeHandles(element: SParentElement): void {
-  element.removeAll(child => child instanceof SLaneResizeHandle);
+export function removeLaneResizeHandles(element: SModelElement): void {
+  if (isLaneResizable(element)) {
+    element.removeAll(child => child instanceof SLaneResizeHandle);
+  }
 }

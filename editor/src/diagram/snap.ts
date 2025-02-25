@@ -1,4 +1,4 @@
-import { isBoundsAwareMoveable, ISnapper, Point, SModelElement } from '@eclipse-glsp/client';
+import { isBoundsAwareMoveable, type ISnapper, Point, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()

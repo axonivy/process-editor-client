@@ -6,8 +6,7 @@ This repository contains the Axon Ivy (GLSP-based) process editor.
 
 The following libraries/frameworks need to be installed on your system:
 
-- [Node.js](https://nodejs.org/en/) `>= 16.15.0 AND < 17`
-- [Yarn](https://classic.yarnpkg.com/en/docs/install#debian-stable) `>=1.7.0`
+- [Node.js](https://nodejs.org/en/) `>= 20.10.0`
 
 The editor is developed using [Visual Studio Code](https://code.visualstudio.com/).
 However, it's of course also possible to use another text editor.
@@ -24,23 +23,18 @@ However, it's of course also possible to use another text editor.
 
 ## Building the process editor
 
-The process editor component has to be built using yarn.
-The build is automatically triggered if you open the folder in VS Code or you can run:
+The process editor component has to be built using npm.
 
 ```bash
-yarn
+#install node modules
+npm install
+
+#build typescript
+npm run build
+
+#build integrations
+npm run package
 ```
-
-- **Standalone Integration**:
-  If you build the process editor also the standalone integration is built.
-
-- **Eclipse Integration**:
-  Run bash command or run task in vscode:
-
-  ```bash
-  cd integration/eclipse
-  yarn build
-  ```
 
 ## Running the process editor
 

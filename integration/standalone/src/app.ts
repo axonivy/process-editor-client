@@ -27,12 +27,12 @@ import { ApplicationIdProvider, GLSPClient, NavigationTarget, ServerMessageActio
 
 import createContainer from './di.config';
 import { getParameters, getServerDomain, isInViewerMode, isReadonly, isSecureConnection, isInPreviewMode } from './url-helper';
-import { MessageConnection } from 'vscode-jsonrpc';
-import * as Toastify from 'toastify-js';
+import { type MessageConnection } from 'vscode-jsonrpc';
+import Toastify from 'toastify-js';
 
 const parameters = getParameters();
-let server = parameters['server'];
-if (server === undefined) {
+let server = parameters.get('server');
+if (!server) {
   server = getServerDomain();
 }
 const id = 'ivy-glsp-process';
@@ -40,12 +40,12 @@ const diagramType = 'ivy-glsp-process';
 const container = createContainer();
 
 const app = server.slice(server.lastIndexOf('/') + 1);
-const pmv = parameters['pmv'];
-const pid = parameters['pid'] ?? '';
-const givenFile = parameters['file'] ?? '';
-const highlight = parameters['highlight'];
-const selectElementIds = parameters['selectElementIds'];
-const zoom = parameters['zoom'];
+const pmv = parameters.get('pmv') ?? '';
+const pid = parameters.get('pid') ?? '';
+const givenFile = parameters.get('file') ?? '';
+const highlight = parameters.get('highlight') ?? '';
+const selectElementIds = parameters.get('selectElementIds');
+const zoom = parameters.get('zoom') ?? '';
 
 const diagramServer = container.get<GLSPDiagramServer>(TYPES.ModelSource);
 diagramServer.clientId = ApplicationIdProvider.get() + '_' + givenFile + pid;
@@ -124,7 +124,7 @@ async function dispatchAfterModelInitialized(dispatcher: GLSPActionDispatcher): 
   } else {
     actions.push(...showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true })));
   }
-  actions.push(SwitchThemeAction.create({ theme: parameters.theme ?? SwitchThemeActionHandler.prefsColorScheme() }));
+  actions.push(SwitchThemeAction.create({ theme: parameters.get('theme') ?? SwitchThemeActionHandler.prefsColorScheme() }));
   return dispatcher.onceModelInitialized().finally(() => dispatcher.dispatchAll(actions));
 }
 

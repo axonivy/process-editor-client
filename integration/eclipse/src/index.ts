@@ -2,3 +2,4 @@
 // the reflect-metadata import must be first!
 import 'reflect-metadata';
 import './app';
+import 'setimmediate';

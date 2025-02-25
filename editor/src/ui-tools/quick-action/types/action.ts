@@ -1,5 +1,5 @@
 import { Action, GLSPActionDispatcher, Operation, PaletteItem, SModelElement, TYPES } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { injectable, inject } from 'inversify';
 import { IVY_TYPES } from '../../../types';

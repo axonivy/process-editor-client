@@ -1,8 +1,8 @@
 import { isOpenable, SModelElement } from '@eclipse-glsp/client';
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider, StreamlineIcons } from '@ivyteam/process-editor';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider, StreamlineIcons } from '@ivyteam/process-editor';
 import { injectable } from 'inversify';
 import { OpenAction } from 'sprotty-protocol';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 
 @injectable()
 export class InscribeQuickActionProvider extends SingleQuickActionProvider {

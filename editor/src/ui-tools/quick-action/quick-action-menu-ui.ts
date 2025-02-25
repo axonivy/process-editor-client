@@ -1,8 +1,8 @@
-import { Action, GIssueMarker, IActionDispatcher, JsonAny, PaletteItem, SIssue } from '@eclipse-glsp/client';
-import { Converter } from 'showdown';
+import { Action, GIssueMarker, type IActionDispatcher, type JsonAny, PaletteItem, SIssue } from '@eclipse-glsp/client';
+import { marked } from 'marked';
 import { StreamlineIcons } from '../../StreamlineIcons';
 import { createElement, createIcon } from '../../utils/ui-utils';
-import { ItemMenu, ShowMenuAction, SimpleMenu } from '../menu/menu';
+import { ItemMenu, type ShowMenuAction, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
@@ -46,7 +46,10 @@ export class QuickActionMenu extends ItemMenu {
   protected menuCssClass = ['bar-menu', 'quick-action-bar-menu'];
   protected editUi?: EditColorUi;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowQuickActionMenuAction) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly action: ShowQuickActionMenuAction
+  ) {
     super(actionDispatcher, action);
   }
 
@@ -196,8 +199,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
   }
 
   private createDescription(description: string): HTMLElement {
-    const converter = new Converter({ simpleLineBreaks: true });
-    const htmlText = converter.makeHtml(description);
+    const htmlText = marked.parse(description, { async: false, breaks: true });
     const template = document.createElement('template');
     template.innerHTML = htmlText;
     const text = createElement('div', ['simple-menu-text']);

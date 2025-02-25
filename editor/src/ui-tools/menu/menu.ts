@@ -1,4 +1,4 @@
-import { Action, compare, IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
+import { Action, compare, type IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { matchesKeystroke } from 'sprotty/lib/utils/keyboard';
 import { ActivityTypes } from '../../diagram/view-types';
 import { StreamlineIcons } from '../../StreamlineIcons';
@@ -46,7 +46,10 @@ export abstract class ItemMenu implements Menu {
   protected searchField?: HTMLInputElement;
   protected itemsDiv?: HTMLElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowMenuAction) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly action: ShowMenuAction
+  ) {
     this.paletteItems = this.action.paletteItems();
     this.paletteItemsCopy = JSON.parse(JSON.stringify(this.paletteItems));
   }

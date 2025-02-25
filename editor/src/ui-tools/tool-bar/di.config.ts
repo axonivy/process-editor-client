@@ -3,7 +3,7 @@ import '../../../css/toggle-switch.css';
 import '../../../css/menu.css';
 
 import { configureActionHandler, EnableDefaultToolsAction, EnableToolPaletteAction, TYPES } from '@eclipse-glsp/client';
-import { ContainerModule, interfaces } from 'inversify';
+import { ContainerModule, type interfaces } from 'inversify';
 import { IVY_TYPES } from '../../types';
 
 import { ToolBar } from './tool-bar';

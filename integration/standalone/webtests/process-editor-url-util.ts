@@ -1,11 +1,6 @@
-import { expect, Page } from '@playwright/test';
-import { resolve } from 'path';
-import { v4 as uuid } from 'uuid';
+import { expect, type Page } from '@playwright/test';
 import { startSelector } from './diagram-util';
-
-function baseUrl(): string {
-  return resolve('app', 'index.html');
-}
+import { randomUUID } from 'crypto';
 
 function serverUrl(): string {
   const app = process.env.TEST_APP ?? '';
@@ -26,9 +21,9 @@ export async function gotoRandomTestProcessUrl(page: Page, urlQueryParam = ''): 
 }
 
 function randomTestProcessUrl(): string {
-  return processEditorUrl('glsp-test-project', `/processes/test/${uuid()}.p.json`);
+  return processEditorUrl('glsp-test-project', `/processes/test/${randomUUID()}.p.json`);
 }
 
 export function processEditorUrl(pmv: string, file: string): string {
-  return `file://${baseUrl()}?server=${serverUrl()}&pmv=${pmv}&file=${file}`;
+  return `?server=${serverUrl()}&pmv=${pmv}&file=${file}`;
 }

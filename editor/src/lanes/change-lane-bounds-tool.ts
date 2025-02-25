@@ -3,7 +3,7 @@ import {
   applyCssClasses,
   BaseGLSPTool,
   Bounds,
-  BoundsAware,
+  type BoundsAware,
   Dimension,
   ChangeBoundsOperation,
   CompoundOperation,
@@ -11,10 +11,10 @@ import {
   cursorFeedbackAction,
   deleteCssClasses,
   DragAwareMouseListener,
-  ElementAndBounds,
+  type ElementAndBounds,
   findParentByFeature,
   forEachElement,
-  ISnapper,
+  type ISnapper,
   isSelected,
   isViewport,
   MouseListener,
@@ -27,13 +27,13 @@ import {
   TYPES,
   SetUIExtensionVisibilityAction
 } from '@eclipse-glsp/client';
-import { SetBoundsAction, Writable } from '@eclipse-glsp/protocol';
-import { SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
+import { SetBoundsAction, type Writable } from '@eclipse-glsp/protocol';
+import { type SelectionListener, SelectionService } from '@eclipse-glsp/client/lib/features/select/selection-service';
 import { isValidSize } from '@eclipse-glsp/client/lib/utils/layout-utils';
 import { inject, injectable, optional } from 'inversify';
 
 import { HideChangeLaneBoundsToolFeedbackAction, ShowChangeLaneBoundsToolFeedbackAction } from './change-lane-bounds-tool-feedback';
-import { isLaneResizable, isSelectedLane, LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
+import { isLaneResizable, isSelectedLane, type LaneResizable, LaneResizeHandleLocation, SLaneResizeHandle } from './model';
 import { addNegativeArea, removeNegativeArea } from '../tools/negative-area/model';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';
 

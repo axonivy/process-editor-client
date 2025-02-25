@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import { Action, IActionHandler } from '@eclipse-glsp/client';
+import { Action, type IActionHandler } from '@eclipse-glsp/client';
 
 export interface StandaloneShowBreakpointAction extends Action {
   kind: typeof StandaloneShowBreakpointAction.KIND;

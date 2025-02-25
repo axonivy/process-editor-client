@@ -62,17 +62,10 @@
         "args": "none"
       }
     ],
-    "@typescript-eslint/quotes": [
-      "error",
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
-    "@typescript-eslint/semi": ["error", "always"],
     "import/no-unresolved": "off",
     "import/export": "off",
-    "import/no-deprecated": "error"
+    "import/no-deprecated": "error",
+    "@typescript-eslint/ban-ts-comment": "off"
   },
   "overrides": [
     {

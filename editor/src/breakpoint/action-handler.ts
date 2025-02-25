@@ -1,6 +1,6 @@
-import { IFeedbackActionDispatcher } from '@eclipse-glsp/client/lib/features/tool-feedback/feedback-action-dispatcher';
+import type { IFeedbackActionDispatcher } from '@eclipse-glsp/client/lib/features/tool-feedback/feedback-action-dispatcher';
 import { inject, injectable } from 'inversify';
-import { Action, hasArrayProp, hasBooleanProp, IActionHandler, TYPES } from '@eclipse-glsp/client';
+import { Action, hasArrayProp, hasBooleanProp, type IActionHandler, TYPES } from '@eclipse-glsp/client';
 
 import { BreakpointFeedbackAction } from './feedback-action';
 

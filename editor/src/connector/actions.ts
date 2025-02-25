@@ -1,10 +1,10 @@
 import { Operation, SEdge, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { StreamlineIcons } from '../StreamlineIcons';
 import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/edge/edge-creation-tool';
 
-import { QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, QuickActionLocation, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 
 export interface StraightenEdgeOperation extends Operation {
   kind: typeof StraightenEdgeOperation.KIND;

@@ -1,12 +1,12 @@
 import {
   Action,
   hasBooleanProp,
-  IActionDispatcher,
-  IActionHandler,
-  IFeedbackActionDispatcher,
+  type IActionDispatcher,
+  type IActionHandler,
+  type IFeedbackActionDispatcher,
   SetViewportAction,
   TYPES,
-  ViewerOptions
+  type ViewerOptions
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { IvyGridSnapper } from '../snap';

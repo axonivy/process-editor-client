@@ -1,4 +1,4 @@
-import { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
+import { type IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { createElement } from '../../../utils/ui-utils';
 import { ChangeColorOperation } from './action';
 
@@ -11,7 +11,11 @@ export class EditColorUi {
   private colorPickerDecorator?: HTMLElement;
   private deleteBtn?: HTMLButtonElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly elementIds: string[], containerElement: HTMLElement) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly elementIds: string[],
+    containerElement: HTMLElement
+  ) {
     this.editUi = this.createEditUi(containerElement);
   }
 

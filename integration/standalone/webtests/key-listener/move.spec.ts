@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { gotoRandomTestProcessUrl } from '../process-editor-url-util';
 import { resetSelection, multiSelect, assertPosition, getPosition, startSelector, endSelector } from '../diagram-util';
 import { clickQuickActionStartsWith } from '../quick-actions/quick-actions-util';
@@ -59,6 +59,7 @@ test.describe('key listener - move elements with arrow keys', () => {
 
     await resetSelection(page);
     await lane.click();
+    await expect(lane).toHaveClass(/selected/);
     await page.keyboard.press('ArrowDown');
     await assertPosition(start, { x: startPos.x, y: startPos.y });
     await assertPosition(pool, { x: poolPos.x, y: poolPos.y });

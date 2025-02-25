@@ -1,9 +1,9 @@
 import { Action, SModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { KeyCode } from 'sprotty/lib/utils/keyboard';
+import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import {
   EventStartTypes,
-  QuickAction,
+  type QuickAction,
   QuickActionLocation,
   SingleQuickActionProvider,
   StartEventNode,
