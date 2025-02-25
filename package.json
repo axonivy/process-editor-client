@@ -12,14 +12,13 @@
     "build:icons": "npm run -w @ivyteam/process-editor build:icons",
     "package": "lerna run package",
     "type": "lerna run type",
-    "lint": "lerna run lint --",
-    "lint:ci": "npm run lint -- -o eslint.xml -f checkstyle",
+    "lint": "lerna run lint",
+    "lint:ci": "npm run --workspaces --if-present lint -- -o eslint.xml -f checkstyle",
     "dev": "npm run -w @ivyteam/standalone-integration dev",
     "dev:eclipse": "npm run -w @ivyteam/eclipse-integration dev",
     "test": "npm run -w @ivyteam/process-editor test",
     "test:ci": "npm run -w @ivyteam/process-editor test:ci",
-    "webtest": "npm run -w @ivyteam/standalone-integration webtest",
-    "publish:package": "lerna publish from-package --exact --dist-tag=sprint --yes"
+    "webtest": "npm run -w @ivyteam/standalone-integration webtest"
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
@@ -29,7 +28,8 @@
     "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-no-null": "^1.0.2",
-    "lerna": "^8.2.0",
+    "@lerna-lite/cli": "^3.12.1",
+    "@lerna-lite/run": "^3.12.1",
     "prettier": "^3.5.2",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.3",
