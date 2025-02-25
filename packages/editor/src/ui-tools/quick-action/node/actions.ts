@@ -14,7 +14,7 @@ import {
 import { injectable, inject } from 'inversify';
 import { ActivityTypes, EventBoundaryTypes } from '../../../diagram/view-types';
 
-import { QuickAction, SingleQuickActionProvider } from '../quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { ShowQuickActionMenuAction } from '../quick-action-menu-ui';
 import { ElementsPaletteHandler } from '../../tool-bar/node/action-handler';
 import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boundary/model';

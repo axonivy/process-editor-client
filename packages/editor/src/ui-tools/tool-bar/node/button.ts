@@ -1,5 +1,5 @@
 import { Action, PaletteItem } from '@eclipse-glsp/client';
-import { ToolBarButton, ToolBarButtonLocation, ToolBarButtonProvider } from '../button';
+import { type ToolBarButton, ToolBarButtonLocation, type ToolBarButtonProvider } from '../button';
 import { ShowToolBarMenuAction } from '../tool-bar-menu';
 import { injectable, inject } from 'inversify';
 import { ElementsPaletteHandler } from './action-handler';

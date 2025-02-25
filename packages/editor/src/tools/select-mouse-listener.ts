@@ -1,6 +1,6 @@
 import { GLSPMouseTool, GModelElement, RankedSelectMouseListener } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
-import { Action } from 'sprotty-protocol/lib/actions';
+import type { Action } from 'sprotty-protocol/lib/actions';
 
 export class IvyMouseTool extends GLSPMouseTool {}
 

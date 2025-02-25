@@ -3,7 +3,7 @@ import {
   type AutocompleteSuggestion,
   GModelElement,
   GModelRoot,
-  IAutocompleteSuggestionProvider,
+  type IAutocompleteSuggestionProvider,
   SearchAutocompletePalette,
   SelectAction,
   toArray,

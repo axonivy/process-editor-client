@@ -5,7 +5,7 @@ import {
   SelectionService,
   SetUIExtensionVisibilityAction,
   TrackedMove,
-  TrackedResize
+  type TrackedResize
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { QuickActionUI } from '../ui-tools/quick-action/quick-action-ui';

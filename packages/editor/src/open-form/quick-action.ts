@@ -2,7 +2,7 @@ import { GModelElement } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 
-import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { OpenFormEditorAction } from '@axonivy/process-editor-protocol';
 import { hasGoToFormFeautre } from './model';
 

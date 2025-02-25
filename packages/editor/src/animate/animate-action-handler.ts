@@ -1,4 +1,4 @@
-import { Action, IActionDispatcher, IActionHandler, IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
+import { Action, type IActionDispatcher, type IActionHandler, type IFeedbackActionDispatcher, TYPES } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 
 import { AnimateFeedbackAction } from './animate-feedback-action';

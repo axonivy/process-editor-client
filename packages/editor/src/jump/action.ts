@@ -1,10 +1,10 @@
 import {
   Action,
-  IActionHandler,
+  type IActionHandler,
   GModelElement,
   EditorContextService,
   isViewport,
-  Viewport,
+  type Viewport,
   TYPES,
   SetViewportAction,
   type IActionDispatcher
@@ -13,7 +13,7 @@ import { SelectAllAction } from '@eclipse-glsp/protocol';
 import { injectable, inject } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
 
-import { QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
 import { JumpAction } from '@axonivy/process-editor-protocol';
 

@@ -1,5 +1,5 @@
 import { CustomIconToggleAction, ReloadModelAction } from '@axonivy/process-editor-protocol';
-import { Action, IActionHandler } from '@eclipse-glsp/client';
+import { Action, type IActionHandler } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()

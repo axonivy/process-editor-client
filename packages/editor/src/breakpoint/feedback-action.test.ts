@@ -1,7 +1,7 @@
 import {
   ActionDispatcher,
   Bounds,
-  CommandExecutionContext,
+  type CommandExecutionContext,
   GChildElement,
   GModelRoot,
   InitializeCanvasBoundsAction,

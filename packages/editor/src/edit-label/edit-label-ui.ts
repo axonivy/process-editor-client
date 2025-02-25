@@ -1,4 +1,4 @@
-import { Action, EditLabelUI, IActionHandler, isEditLabelAction, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
+import { Action, EditLabelUI, type IActionHandler, isEditLabelAction, SetUIExtensionVisibilityAction } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 
 @injectable()
