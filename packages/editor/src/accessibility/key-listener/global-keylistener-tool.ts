@@ -49,7 +49,7 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
   }
 
   protected isInput(event: KeyboardEvent) {
-    return event.target instanceof HTMLInputElement;
+    return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
   }
 
   protected matchesSetFocusOnToolPalette(event: KeyboardEvent): boolean {
