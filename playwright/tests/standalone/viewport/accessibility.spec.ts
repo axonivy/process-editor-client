@@ -30,6 +30,20 @@ test('toggle and focus inscription shortcut', async ({ page }) => {
   await expect(inscription.locator().locator('button').first()).toBeFocused();
 });
 
+test('do not change focus if input is focused', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page);
+  const inscription = await editor.startElement.inscribe();
+  await inscription.accordion('General').open();
+  const input = inscription.view.getByLabel('Display name');
+  await input.focus();
+  await expect(input).toBeFocused();
+  await page.keyboard.press('Digit1');
+  await page.keyboard.press('Digit2');
+  await page.keyboard.press('Digit3');
+  await expect(input).toContainText('123');
+  await expect(input).toBeFocused();
+});
+
 test('resize inscription shortcut', async ({ page }) => {
   const editor = await ProcessEditor.openProcess(page);
   const inscriptionView = (await editor.startElement.inscribe()).view;
