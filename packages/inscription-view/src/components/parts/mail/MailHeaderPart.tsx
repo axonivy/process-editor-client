@@ -7,6 +7,7 @@ import type { BrowserType } from '../../browser/useBrowser';
 import { PathCollapsible } from '../common/path/PathCollapsible';
 import { PathFieldset } from '../common/path/PathFieldset';
 import { MacroInput } from '../../widgets/code-editor/MacroInput';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useMailHeaderPart(): PartProps {
   const { config, initConfig, defaultConfig, resetHeaders } = useMailData();
@@ -14,7 +15,13 @@ export function useMailHeaderPart(): PartProps {
   const headerValidations = useValidations(['headers']);
   const state = usePartState(compareData(defaultConfig), compareData(config), headerValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Header', state, reset: { dirty, action: () => resetHeaders() }, content: <MailHeaderPart /> };
+  return {
+    name: 'Header',
+    state,
+    reset: { dirty, action: () => resetHeaders() },
+    content: <MailHeaderPart />,
+    icon: IvyIcons.EMail
+  };
 }
 
 const MailHeaderPart = () => {

@@ -1,3 +1,4 @@
+import { IvyIcons } from '@axonivy/ui-icons';
 import { PathContext } from '../../../context/usePath';
 import { useValidations } from '../../../context/useValidation';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
@@ -14,7 +15,7 @@ export function useMailErrorPart(): PartProps {
   const exceptionValidations = useValidations(['exceptionHandler']);
   const state = usePartState(compareData(defaultConfig), compareData(config), exceptionValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Error', state, reset: { dirty, action: () => resetError() }, content: <MailErrorPart /> };
+  return { name: 'Error', state, reset: { dirty, action: () => resetError() }, content: <MailErrorPart />, icon: IvyIcons.Error };
 }
 
 const MailErrorPart = () => {

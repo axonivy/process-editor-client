@@ -2,6 +2,7 @@ import type { ValidationResult } from '@axonivy/process-editor-inscription-proto
 import type { ReactNode } from 'react';
 import { useMemo, useState } from 'react';
 import { deepEqual } from '../../../utils/equals';
+import type { IvyIcons } from '@axonivy/ui-icons';
 
 export type PartStateFlag = 'configured' | 'warning' | 'error' | undefined;
 
@@ -16,6 +17,7 @@ export type PartProps = {
   reset: { dirty: boolean; action: () => void };
   content: ReactNode;
   control?: ReactNode;
+  icon?: IvyIcons;
 };
 
 export function usePartState(defaultData: unknown, data: unknown, validations: ValidationResult[]): PartState {

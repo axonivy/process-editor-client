@@ -10,6 +10,7 @@ import WsTask from './task/WsTask';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import EmptyWidget from '../../widgets/empty/EmptyWidget';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useTaskPart(options?: TaskPartProps): PartProps {
   const { task, defaultTask, initTask, resetTask } = useTaskData();
@@ -32,7 +33,8 @@ export function useTaskPart(options?: TaskPartProps): PartProps {
     name: 'Task',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <TaskPart type={options?.type} />
+    content: <TaskPart type={options?.type} />,
+    icon: IvyIcons.UserTask
   };
 }
 

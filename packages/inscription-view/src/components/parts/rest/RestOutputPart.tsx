@@ -12,6 +12,7 @@ import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import MappingPart from '../common/mapping-tree/MappingPart';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useRestOutputPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestOutputData();
@@ -20,7 +21,7 @@ export function useRestOutputPart(): PartProps {
   const compareData = (data: RestResponseData) => [data.response.entity];
   const state = usePartState(compareData(defaultConfig), compareData(config), filteredOutputValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Output', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
+  return { name: 'Output', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart />, icon: IvyIcons.Script };
 }
 
 const useShowResultTypeCombo = (types: string[], currentType: string) => {

@@ -5,6 +5,7 @@ import Information from '../common/info/Information';
 import CustomFieldTable from '../common/customfield/CustomFieldTable';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useCasePart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useCaseData();
@@ -12,7 +13,7 @@ export function useCasePart(): PartProps {
   const compareData = (data: CaseData) => [data.case];
   const state = usePartState(compareData(defaultConfig), compareData(config), validaitons);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Case', state: state, reset: { dirty, action: () => resetData() }, content: <CasePart /> };
+  return { name: 'Case', state: state, reset: { dirty, action: () => resetData() }, content: <CasePart />, icon: IvyIcons.TriggerOutline };
 }
 
 const CasePart = () => {

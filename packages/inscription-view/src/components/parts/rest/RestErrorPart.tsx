@@ -5,6 +5,7 @@ import { useRestErrorData } from './useRestErrorData';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useRestErrorPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestErrorData();
@@ -13,7 +14,7 @@ export function useRestErrorPart(): PartProps {
   const compareData = (data: RestResponseData) => [data.response.clientError, data.response.statusError];
   const state = usePartState(compareData(defaultConfig), compareData(config), filteredErrorValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Error', state: state, reset: { dirty, action: () => resetData() }, content: <RestErrorPart /> };
+  return { name: 'Error', state: state, reset: { dirty, action: () => resetData() }, content: <RestErrorPart />, icon: IvyIcons.Error };
 }
 
 const RestErrorPart = () => {

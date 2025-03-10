@@ -1,25 +1,14 @@
 import './Part.css';
 import { IvyIcons } from '@axonivy/ui-icons';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-  type AccordionControlProps,
-  AccordionState,
-  Button,
-  Flex
-} from '@axonivy/ui-components';
-import { ErrorBoundary } from 'react-error-boundary';
+import { type AccordionControlProps, AccordionState, Button, Flex } from '@axonivy/ui-components';
 import { useAccordionState, type PartProps } from './usePart';
 import type { Severity } from '@axonivy/process-editor-inscription-protocol';
-import { useSticky } from './useSticky';
-import ErrorFallback from '../../widgets/error/ErrorFallback';
+import { TabContent, TabList, TabRoot, type Tab } from './tab/PartTab';
 
-const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
+export const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
   if (reset.dirty || control) {
     return (
-      <Flex direction='row' gap={2} {...props}>
+      <Flex direction='row' gap={2} justifyContent='flex-end' {...props}>
         {control}
         {reset.dirty && <Button icon={IvyIcons.Undo} onClick={reset.action} title={`Reset ${name}`} aria-label={`Reset ${name}`} />}
       </Flex>
@@ -28,7 +17,7 @@ const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'r
   return null;
 };
 
-const State = ({ state }: Pick<PartProps, 'state'>) => (
+export const State = ({ state }: Pick<PartProps, 'state'>) => (
   <AccordionState
     messages={state.validations.map(({ message, severity }) => ({
       message,
@@ -40,30 +29,20 @@ const State = ({ state }: Pick<PartProps, 'state'>) => (
 
 const Part = ({ parts }: { parts: PartProps[] }) => {
   const { value, updateValue } = useAccordionState(parts);
-  return (
-    <Accordion type='single' collapsible value={value} onValueChange={updateValue}>
-      {parts.map(part => (
-        <PartItem {...part} key={part.name} />
-      ))}
-    </Accordion>
-  );
-};
+  const tabs: Tab[] = parts.map(part => ({
+    id: part.name,
+    name: part.name,
+    content: part.content,
+    reset: part.reset,
+    state: part.state,
+    icon: part.icon ? part.icon : IvyIcons.UserDialog
+  }));
 
-const PartItem = (part: PartProps) => {
-  const { ref, isSticky } = useSticky();
   return (
-    <AccordionItem value={part.name} data-sticky={isSticky ? 'true' : undefined}>
-      <AccordionTrigger ref={ref} control={props => <Control {...props} {...part} />} state={<State state={part.state} />}>
-        {part.name}
-      </AccordionTrigger>
-      <AccordionContent>
-        <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[part]}>
-          <Flex direction='column' gap={3}>
-            {part.content}
-          </Flex>
-        </ErrorBoundary>
-      </AccordionContent>
-    </AccordionItem>
+    <TabRoot tabs={tabs} value={value} onChange={updateValue}>
+      <TabList tabs={tabs} />
+      <TabContent tabs={tabs} />
+    </TabRoot>
   );
 };
 

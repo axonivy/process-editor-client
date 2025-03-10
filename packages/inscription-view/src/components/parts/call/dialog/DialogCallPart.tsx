@@ -29,7 +29,8 @@ export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
     name: 'Dialog',
     state,
     reset: { dirty, action: () => targetData.resetData() },
-    content: <DialogCallPart offline={options?.offline} />
+    content: <DialogCallPart offline={options?.offline} />,
+    icon: IvyIcons.EndPage
   };
 }
 

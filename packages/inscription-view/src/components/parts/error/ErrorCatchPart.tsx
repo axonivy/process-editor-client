@@ -21,7 +21,8 @@ export function useErrorCatchPart(): PartProps {
     name: 'Error',
     state,
     reset: { dirty, action: () => updateError(initConfig.errorCode) },
-    content: <ErrorCatchPart />
+    content: <ErrorCatchPart />,
+    icon: IvyIcons.Error
   };
 }
 

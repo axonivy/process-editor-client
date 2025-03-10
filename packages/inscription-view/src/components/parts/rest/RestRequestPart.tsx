@@ -16,6 +16,7 @@ import { ValidationCollapsible } from '../common/path/validation/ValidationColla
 import { useOpenApi } from '../../../context/useOpenApi';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useRestRequestPart(): PartProps {
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();
@@ -33,7 +34,8 @@ export function useRestRequestPart(): PartProps {
     state: state,
     reset: { dirty, action: () => resetData() },
     content: <RestRequestPart />,
-    control: <OpenApiSwitch />
+    control: <OpenApiSwitch />,
+    icon: IvyIcons.RestClient
   };
 }
 

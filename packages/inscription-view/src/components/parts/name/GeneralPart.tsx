@@ -1,3 +1,4 @@
+import { IvyIcons } from '@axonivy/ui-icons';
 import { usePartDirty, usePartState, type PartProps } from '../../editors/part/usePart';
 import Collapsible from '../../widgets/collapsible/Collapsible';
 import Fieldset from '../../widgets/fieldset/Fieldset';
@@ -15,7 +16,8 @@ export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boo
     name: 'General',
     state,
     reset: { dirty, action: () => resetData() },
-    content: <GeneralPart hideTags={options?.hideTags} disableName={options?.disableName} />
+    content: <GeneralPart hideTags={options?.hideTags} disableName={options?.disableName} />,
+    icon: IvyIcons.ChangeType
   };
 }
 

@@ -27,7 +27,8 @@ export function useErrorThrowPart(): PartProps {
     name: 'Error',
     state,
     reset: { dirty, action: () => reset() },
-    content: <ErrorThrowPart />
+    content: <ErrorThrowPart />,
+    icon: IvyIcons.Error
   };
 }
 

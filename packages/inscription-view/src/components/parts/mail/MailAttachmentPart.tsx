@@ -11,6 +11,7 @@ import { PathContext } from '../../../context/usePath';
 import { ScriptCell } from '../../widgets/table/cell/ScriptCell';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { ValidationRow } from '../common/path/validation/ValidationRow';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export function useMailAttachmentPart(): PartProps {
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();
@@ -18,7 +19,13 @@ export function useMailAttachmentPart(): PartProps {
   const validations = useValidations(['attachments']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Attachments', state, reset: { dirty, action: () => resetAttachments() }, content: <MailAttachmentsPart /> };
+  return {
+    name: 'Attachments',
+    state,
+    reset: { dirty, action: () => resetAttachments() },
+    content: <MailAttachmentsPart />,
+    icon: IvyIcons.Folders
+  };
 }
 
 const MailAttachmentsPart = () => {
