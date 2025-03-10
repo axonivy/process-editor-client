@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { IvyIcons } from '@axonivy/ui-icons';
 import type { ATTRIBUTE_BROWSER_ID } from './attribute/AttributeBrowser';
 import type { CMS_BROWSER_ID } from './cms/CmsBrowser';
@@ -31,7 +31,13 @@ export type UseBrowserReturnValue = {
   onOpenChange: (open: boolean) => void;
 };
 
-export const useBrowser = (): UseBrowserReturnValue => {
+export const useBrowser = (): UseBrowserReturnValue & { wasOpen: boolean } => {
   const [open, setOpen] = useState(false);
-  return { open, onOpenChange: setOpen };
+  const [wasOpen, setWasOpen] = useState(false);
+  useEffect(() => {
+    if (open && !wasOpen) {
+      setWasOpen(true);
+    }
+  }, [open, wasOpen]);
+  return { open, onOpenChange: setOpen, wasOpen };
 };
