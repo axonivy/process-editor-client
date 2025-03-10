@@ -1,7 +1,6 @@
 import './PartTab.css';
 import { Tabs as TabsRoot, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
 import type { IvyIcons } from '@axonivy/ui-icons';
 import type { ValidationMessage } from '../../../widgets/message/Message';
 import { Flex, IvyIcon } from '@axonivy/ui-components';
@@ -43,33 +42,40 @@ export const TabRoot = ({ tabs, value, onChange, children }: TabsProps & { child
   );
 };
 
-export const TabList = ({ tabs }: TabsProps) => {
-  const listRef = useRef<HTMLDivElement>(null);
-  const [compactView, setCompactView] = useState(false);
-  const MAX_TAB_WIDTH = 100;
+export const TabList = ({ tabs }: TabsProps) => (
+  <TabsList className='part-tabs-list'>
+    <style>
+      {`
+        @container tabs-list (width <= ${tabs.length * 6}rem ) {
+          .part-tabs-trigger .tab-label {
+            display: none;
+          }
+          .part-tabs-trigger[data-state='active'] {
+            min-width: 6rem;
+          }
+          .part-tabs-trigger[data-state='active'] .tab-label {
+            display: inline;
+          }
+        }
 
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (listRef.current) {
-        const availableWidth = listRef.current.clientWidth;
-        const requiredWidth = tabs.length * MAX_TAB_WIDTH;
-        setCompactView(availableWidth < requiredWidth);
-      }
-    };
-
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
-  }, [tabs.length]);
-
-  return (
-    <TabsList className='part-tabs-list' ref={listRef} data-compact={compactView}>
-      {tabs.map((tab, index) => (
-        <TabTrigger key={`${index}-${tab.name}`} tab={tab} tabIcon={tab.icon} compact={compactView} />
-      ))}
-    </TabsList>
-  );
-};
+        @container tabs-list (width <= ${tabs.length * 4}rem) {
+        .part-tabs-trigger {
+            padding: var(--size-3) 0 var(--size-3) 0;
+          }
+        .part-tabs-trigger[data-state='active'] {
+            min-width: 2rem;
+          }
+          .part-tabs-trigger[data-state='active'] .tab-label {
+            display: none;
+          }
+        }
+      `}
+    </style>
+    {tabs.map((tab, index) => (
+      <TabTrigger key={`${index}-${tab.name}`} tab={tab} tabIcon={tab.icon} />
+    ))}
+  </TabsList>
+);
 
 export const TabContent = ({ tabs }: TabsProps) => (
   <>
@@ -86,7 +92,7 @@ export const TabContent = ({ tabs }: TabsProps) => (
   </>
 );
 
-export const TabTrigger = ({ tab, tabIcon, compact }: { tab: Tab; tabIcon?: IvyIcons; compact: boolean }) => {
+export const TabTrigger = ({ tab, tabIcon }: { tab: Tab; tabIcon?: IvyIcons }) => {
   const state = tab.messages?.find(message => message.severity === 'ERROR')
     ? 'error'
     : tab.messages?.find(message => message.severity === 'WARNING')
@@ -94,10 +100,11 @@ export const TabTrigger = ({ tab, tabIcon, compact }: { tab: Tab; tabIcon?: IvyI
     : undefined;
 
   return (
-    <TabsTrigger className='part-tabs-trigger' data-message={state} value={tab.id} data-compact={compact}>
+    <TabsTrigger className='part-tabs-trigger' data-message={state} value={tab.id}>
       <State state={tab.state} />
       {tabIcon && <IvyIcon icon={tabIcon} />}
       <div className='tab-label'>{tab.name}</div>
+      <Control reset={tab.reset} name={tab.name} className='reset-tab' />
     </TabsTrigger>
   );
 };
