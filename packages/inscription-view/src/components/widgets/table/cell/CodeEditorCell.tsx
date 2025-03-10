@@ -5,7 +5,7 @@ import { useMonacoEditor } from '../../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../browser/useOnFocus';
 import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
 import { Button, selectNextPreviousCell } from '@axonivy/ui-components';
-import { useBrowser, type BrowserType } from '../../../browser/useBrowser';
+import { type BrowserType } from '../../../browser/useBrowser';
 import { usePath } from '../../../../context/usePath';
 import { MaximizedCodeEditorBrowser } from '../../../browser/MaximizedCodeEditorBrowser';
 import { SingleLineCodeEditor } from '../../code-editor/SingleLineCodeEditor';
@@ -31,18 +31,17 @@ export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder
 
   const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor(macro ? { modifyAction: value => `<%=${value}%>` } : undefined);
   const path = usePath();
-  const browser = useBrowser();
 
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
 
   const updateValue = (newValue: string) => {
     setValue(newValue);
-    if (!browser.open && newValue !== cell.getValue() && !maximizeState.isMaximizedCodeEditorOpen) {
+    if (newValue !== cell.getValue() && !maximizeState.isMaximizedCodeEditorOpen) {
       cell.table.options.meta?.updateData(cell.row.id, cell.column.id, newValue);
     }
   };
 
-  const { isFocusWithin, focusWithinProps, focusValue } = useOnFocus(value, updateValue);
+  const { isFocusWithin, focusWithinProps, focusValue, browser } = useOnFocus(value, updateValue);
 
   useEffect(() => {
     if (isFocusWithin && !cell.row.getIsSelected()) {
@@ -52,7 +51,7 @@ export function CodeEditorCell<TData>({ cell, macro, type, browsers, placeholder
 
   return (
     <div className='script-input' {...focusWithinProps} tabIndex={1}>
-      {isFocusWithin || browser.open || maximizeState.isMaximizedCodeEditorOpen ? (
+      {isFocusWithin || maximizeState.isMaximizedCodeEditorOpen ? (
         <>
           <MaximizedCodeEditorBrowser
             open={maximizeState.isMaximizedCodeEditorOpen}
