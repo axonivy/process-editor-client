@@ -25,7 +25,7 @@
     "@types/node": "^22.13.4",
     "downshift": "9.0.8",
     "immer": "^10.0.3",
-    "react-aria": "^3.35.1",
+    "react-aria": "^3.38.0",
     "react-error-boundary": "^4.1.2"
   },
   "peerDependencies": {

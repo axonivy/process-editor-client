@@ -8,7 +8,7 @@ import { useMonacoEditor } from '../code-editor/useCodeEditor';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import type { BrowserValue } from '../../browser/Browser';
 import { badgePropsExpression } from '../../../utils/badgeproperties';
-import { useBrowser, type BrowserType } from '../../browser/useBrowser';
+import { type BrowserType } from '../../browser/useBrowser';
 import { usePath } from '../../../context/usePath';
 import { SingleLineCodeEditor } from '../code-editor/SingleLineCodeEditor';
 import Browser from '../../browser/Browser';
@@ -94,8 +94,7 @@ const Combobox = <T extends ComboboxItem>({
   const readonly = useReadonly();
   const { setEditor, modifyEditor } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
-  const browser = useBrowser();
-  const { isFocusWithin, focusValue, focusWithinProps } = useOnFocus(value, onChange);
+  const { isFocusWithin, focusValue, focusWithinProps, browser } = useOnFocus(value, onChange);
 
   const { inputProps } = useField();
 
@@ -103,7 +102,7 @@ const Combobox = <T extends ComboboxItem>({
     <div className='combobox'>
       <div className='combobox-input' {...(macro ? { ...focusWithinProps, tabIndex: 1 } : {})}>
         {macro ? (
-          isFocusWithin || browser.open ? (
+          isFocusWithin ? (
             <>
               <SingleLineCodeEditor
                 {...focusValue}
