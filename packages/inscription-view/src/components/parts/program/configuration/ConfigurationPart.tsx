@@ -51,7 +51,7 @@ const ConfigurationPart = () => {
         return (
           <div className='info-text'>
             {sentences.map((sentence, index) => (
-              <p key={index}>{sentence}</p>
+              <p key={index}>{sentence?.length > 0 ? sentence : ' '}</p>
             ))}
           </div>
         );
