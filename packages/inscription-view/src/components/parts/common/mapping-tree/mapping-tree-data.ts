@@ -11,7 +11,7 @@ export namespace MappingTreeData {
     return paramInfo.variables.map(param => ({
       ...param,
       value: '',
-      children: typesOfParam(paramInfo, param.type),
+      children: typesOfParam(paramInfo, param.type, [param.type]),
       isLoaded: true
     }));
   }
@@ -19,7 +19,7 @@ export namespace MappingTreeData {
   export function loadChildrenFor(paramInfo: VariableInfo, paramType: string, tree: MappingTreeData[]): MappingTreeData[] {
     return tree.map(node => {
       if (node.isLoaded === false && node.type === paramType) {
-        node.children = typesOfParam(paramInfo, paramType);
+        node.children = typesOfParam(paramInfo, paramType, [paramType]);
         node.isLoaded = true;
       } else {
         loadChildrenFor(paramInfo, paramType, node.children);
@@ -28,13 +28,20 @@ export namespace MappingTreeData {
     });
   }
 
-  const typesOfParam = (paramInfo: VariableInfo, paramType: string): MappingTreeData[] =>
-    paramInfo.types[paramType]?.map(type => ({
-      ...type,
-      value: '',
-      children: [],
-      isLoaded: paramInfo.types[type.type] === undefined
-    })) ?? [];
+  const typesOfParam = (paramInfo: VariableInfo, paramType: string, checkParamTypes: Array<string> = []): MappingTreeData[] =>
+    paramInfo.types[paramType]?.map(type => {
+      const data = {
+        ...type,
+        value: '',
+        children: [] as Array<MappingTreeData>,
+        isLoaded: paramInfo.types[type.type] === undefined
+      };
+      if (data.isLoaded === false && !checkParamTypes.includes(data.type)) {
+        data.children = typesOfParam(paramInfo, data.type, [...checkParamTypes, data.type]);
+        data.isLoaded = true;
+      }
+      return data;
+    }) ?? [];
 
   export function update(paramInfo: VariableInfo, tree: MappingTreeData[], mappingPath: string[], mappingValue: string): void {
     if (mappingPath.length >= 2 && mappingPath[0] === 'param' && tree.find(n => n.attribute.includes('.'))) {
