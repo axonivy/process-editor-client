@@ -25,6 +25,8 @@ type MappingTreeProps = MappingPartProps & {
 
 const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter, browsers }: MappingTreeProps) => {
   const [tree, setTree] = useState<MappingTreeData[]>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>({ 0: true });
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   useEffect(() => {
     const treeData = MappingTreeData.of(variableInfo);
@@ -66,9 +68,6 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     [browsers, loadChildren]
   );
 
-  const [expanded, setExpanded] = useState<ExpandedState>(true);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-
   const table = useReactTable({
     data: tree,
     columns: columns,
@@ -102,7 +101,19 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
   });
 
   return (
-    <SearchTable search={globalFilter.active ? { value: globalFilter.filter, onChange: globalFilter.setFilter } : undefined}>
+    <SearchTable
+      search={
+        globalFilter.active
+          ? {
+              value: globalFilter.filter,
+              onChange: change => {
+                setExpanded(change.length > 0 ? true : { 0: true });
+                globalFilter.setFilter(change);
+              }
+            }
+          : undefined
+      }
+    >
       <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
       <TableBody>
         {table.getRowModel().rows.map(row => (
