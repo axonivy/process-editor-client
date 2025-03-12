@@ -29,7 +29,7 @@
     "publish:next": "lerna publish --exact --canary --preid next --pre-dist-tag next --no-git-tag-version --no-push --ignore-scripts --yes"
   },
   "devDependencies": {
-    "@axonivy/eslint-config": "~12.0.5-next.541",
+    "@axonivy/eslint-config": "~12.0.5-next.543",
     "@lerna-lite/cli": "^3.12.1",
     "@lerna-lite/publish": "^3.12.1",
     "@lerna-lite/run": "^3.12.1",
@@ -39,7 +39,7 @@
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
     "typescript-cp": "^0.1.9",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.8"
   },
   "workspaces": {
     "packages": [

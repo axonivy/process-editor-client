@@ -10,12 +10,12 @@
     "url": "https://github.com/axonivy/process-editor-client"
   },
   "dependencies": {
-    "@axonivy/jsonrpc": "~12.0.5-next.541",
+    "@axonivy/jsonrpc": "~12.0.5-next.543",
     "@axonivy/process-editor": "~12.0.5-next",
     "@axonivy/process-editor-inscription": "~12.0.5-next",
     "@axonivy/process-editor-inscription-view": "~12.0.5-next",
-    "@axonivy/ui-components": "~12.0.5-next.541",
-    "@axonivy/ui-icons": "~12.0.5-next.541",
+    "@axonivy/ui-components": "~12.0.5-next.543",
+    "@axonivy/ui-icons": "~12.0.5-next.543",
     "@eclipse-glsp/client": "2.3.0",
     "@tanstack/react-query": "^5.32",
     "@tanstack/react-query-devtools": "^5.32"
@@ -24,7 +24,7 @@
     "@vscode/codicons": "^0.0.36",
     "path-browserify": "^1.0.1",
     "reflect-metadata": "~0.2.2",
-    "vite": "^5.4.2",
+    "vite": "^6.2.1",
     "vite-tsconfig-paths": "^5.1.4"
   },
   "type": "module",
