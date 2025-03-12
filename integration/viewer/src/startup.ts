@@ -4,7 +4,6 @@ import { CenterAction, NavigationTarget, SelectAction, TYPES } from '@eclipse-gl
 import type { interfaces } from 'inversify';
 import { ContainerModule, inject, injectable } from 'inversify';
 import type { IvyDiagramOptions } from './di.config';
-import { isInPreviewMode } from './url-helper';
 
 const ContainerSymbol = Symbol('ContainerSymbol');
 
@@ -27,7 +26,7 @@ export class ViewerDiagramStartup implements IDiagramStartup {
     } else {
       this.showElement((ids: string[]) => MoveIntoViewportAction.create({ elementIds: ids, animate: false, retainZoom: true }));
     }
-    if (!isInPreviewMode()) {
+    if (!this.options.previewMode) {
       this.actionDispatcher.dispatch(EnableViewportAction.create());
     }
   }

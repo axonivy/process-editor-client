@@ -1,5 +1,4 @@
 import { IvyBaseJsonrpcGLSPClient, SwitchThemeActionHandler } from '@axonivy/process-editor';
-import type { ThemeMode } from '@axonivy/process-editor-protocol';
 import type { IActionDispatcher } from '@eclipse-glsp/client';
 import { DiagramLoader, EditMode, GLSPWebSocketProvider, MessageAction, StatusAction, TYPES } from '@eclipse-glsp/client';
 import { ApplicationIdProvider, GLSPClient } from '@eclipse-glsp/protocol';
@@ -7,33 +6,20 @@ import type { Container } from 'inversify';
 import type { MessageConnection } from 'vscode-jsonrpc';
 import createContainer from './di.config';
 import './index.css';
-import { getParameters, getServerDomain, isSecureConnection } from './url-helper';
+import { params } from './url-helper';
 
-const parameters = getParameters();
-const app = parameters.get('app') ?? 'designer';
-let server = parameters.get('server');
-if (!server) {
-  server = getServerDomain().replace(app, '');
-}
-
-const pmv = parameters.get('pmv') ?? '';
-const pid = parameters.get('pid') ?? '';
-const sourceUri = parameters.get('file') ?? '';
-const highlight = parameters.get('highlight') ?? '';
-const select = parameters.get('select');
-const zoom = parameters.get('zoom') ?? '';
-const theme = (parameters.get('theme') as ThemeMode) ?? SwitchThemeActionHandler.prefsColorScheme();
+const { webSocketUrl, app, pmv, pid, sourceUri, highlight, select, zoom, theme, previewMode } = params(
+  new URL(window.location.href),
+  SwitchThemeActionHandler.prefsColorScheme
+);
 
 const id = 'ivy-glsp-process-viewer';
 const diagramType = 'ivy-glsp-process';
 const clientId = ApplicationIdProvider.get() + '_' + sourceUri + pid;
 
-const webSocketBase = `${isSecureConnection() ? 'wss' : 'ws'}://${server}/`;
-const webSocketUrl = `${webSocketBase}${app}/${id}`;
-
 let glspClient: GLSPClient;
 let container: Container;
-const wsProvider = new GLSPWebSocketProvider(webSocketUrl, { reconnectDelay: 5000, reconnectAttempts: 120 });
+const wsProvider = new GLSPWebSocketProvider(`${webSocketUrl}/${id}`, { reconnectDelay: 5000, reconnectAttempts: 120 });
 wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
@@ -47,7 +33,8 @@ async function initialize(connectionProvider: MessageConnection, isReconnecting 
     highlight,
     select,
     zoom,
-    theme
+    theme,
+    previewMode
   });
 
   const diagramLoader = container.get(DiagramLoader);
