@@ -85,13 +85,13 @@ describe('AttributeBrowser', () => {
   test('render', async () => {
     renderBrowser();
     TableUtil.assertHeaders(['Attribute']);
-    await TableUtil.assertRowCount(4);
+    await TableUtil.assertRowCount(7);
   });
 
   test('render code location', async () => {
     renderBrowser({ location: 'something.code' });
     TableUtil.assertHeaders(['Attribute']);
-    await TableUtil.assertRowCount(7);
+    await TableUtil.assertRowCount(13);
   });
 
   test('accept', async () => {
