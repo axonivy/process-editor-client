@@ -106,12 +106,12 @@ describe('MappingPart', () => {
 
   test('tree can expand / collapse', async () => {
     renderTree();
-    const treeExpander = screen.getByRole('button', { name: 'Collapse tree' });
+    const treeExpander = screen.getByRole('button', { name: 'Expand tree' });
     await userEvent.click(treeExpander);
-    assertTableRows([ATTRIBUTES, PARAMS]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
 
     await userEvent.click(treeExpander);
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
+    assertTableRows([ATTRIBUTES, PARAMS]);
   });
 
   test('tree row can expand / collapse', async () => {
@@ -120,7 +120,7 @@ describe('MappingPart', () => {
     await userEvent.click(rowExpander);
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
     await userEvent.click(rowExpander);
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
   });
 
   test('tree will filter', async () => {
@@ -133,12 +133,12 @@ describe('MappingPart', () => {
     const searchInput = screen.getByPlaceholderText('Search');
     expect(searchInput).toHaveValue('');
 
-    await userEvent.type(searchInput, 'amo');
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_NUMBER]);
+    await userEvent.type(searchInput, 'ail');
+    assertTableRows([ATTRIBUTES, PARAMS, USER, NODE_STRING]);
 
     await userEvent.click(toggleFilter);
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
-    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
+    assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER, NODE_STRING]);
 
     await userEvent.click(toggleFilter);
     expect(screen.getByPlaceholderText('Search')).toHaveValue('');

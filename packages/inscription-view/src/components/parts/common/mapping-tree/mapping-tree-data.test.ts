@@ -74,11 +74,13 @@ describe('MappingTreeData', () => {
         { attribute: 'amount', children: [], value: '', type: 'Number', simpleType: 'Number', isLoaded: true, description: '' },
         {
           attribute: 'requester',
-          children: [],
+          children: [
+            { attribute: 'email', children: [], value: '', type: 'String', simpleType: 'String', isLoaded: true, description: '' }
+          ],
           value: '',
           type: 'workflow.humantask.User',
           simpleType: 'User',
-          isLoaded: false,
+          isLoaded: true,
           description: ''
         }
       ],
@@ -116,18 +118,6 @@ describe('MappingTreeData', () => {
 
   test('of', () => {
     expect(MappingTreeData.of(variableInfo)).toEqual(tree);
-  });
-
-  test('of with lazy loading', () => {
-    const treeData = MappingTreeData.of(variableInfo);
-    MappingTreeData.loadChildrenFor(variableInfo, 'workflow.humantask.User', treeData);
-
-    const expectTree = cloneObject(tree);
-
-    expectTree[0].children[2].isLoaded = true;
-    expectTree[0].children[2].children = [email_node];
-
-    expect(treeData).toEqual(expectTree);
   });
 
   test('of endless', () => {
