@@ -26,6 +26,7 @@ export interface IvyDiagramOptions extends IDiagramOptions {
   select: string | null;
   zoom: string;
   theme: ThemeMode;
+  previewMode: boolean;
 }
 
 export default function createContainer(options: IvyDiagramOptions): Container {
