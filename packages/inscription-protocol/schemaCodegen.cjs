@@ -17,7 +17,8 @@ tsGen.DEFAULT_OPTIONS.bannerComment = `
 `;
 
 const tsOut = path.resolve('./src/data/inscription.ts');
-var schemaUri = 'https://json-schema.ivyteam.ch/process/13.1.0/inscription.json';
+var schemaUri =
+  'https://jenkins.ivyteam.io/job/core_json-schema/job/master/lastSuccessfulBuild/artifact/workspace/ch.ivyteam.ivy.inscription.lsp.schema/target/schema/process/13.1.0/inscription.json';
 
 const args = process.argv.slice(2);
 if (args.length > 0) {

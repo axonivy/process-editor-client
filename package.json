@@ -18,6 +18,7 @@
     "lint:ci": "eslint -o eslint.xml -f checkstyle",
     "lint:fix": "eslint --fix",
     "lint:inspect": "eslint --inspect-config",
+    "protocol:inscription": "npm run -w @axonivy/process-editor-inscription-protocol",
     "dev": "npm run -w @axonivy/standalone-integration dev",
     "dev:viewer": "npm run -w @axonivy/viewer-integration dev",
     "dev:eclipse": "npm run -w @axonivy/eclipse-integration dev",
