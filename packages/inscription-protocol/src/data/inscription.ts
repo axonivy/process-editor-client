@@ -11,7 +11,12 @@ export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WorkflowType = "START" | "TASK" | "CASE";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
-export type WfResponsibleType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
+export type WfResponsibleType =
+  | "ROLE"
+  | "ROLE_FROM_ATTRIBUTE"
+  | "USER_FROM_ATTRIBUTE"
+  | "MEMBERS_FROM_ATTRIBUTE"
+  | "DELETE_TASK";
 export type CacheInvalidation = "NONE" | "FIXED_TIME" | "LIFETIME";
 export type CacheMode = "DO_NOT_CACHE" | "CACHE" | "INVALIDATE_CACHE";
 export type CacheScope = "SESSION" | "APPLICATION";
@@ -61,7 +66,7 @@ export interface Inscription {
   restEntityInfoRequest: RestEntityInfoRequest;
   restResource: RestResource;
   restResourceRequest: RestResourceRequest;
-  roleMeta: RoleMeta[];
+  roleMeta: RoleMeta;
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
