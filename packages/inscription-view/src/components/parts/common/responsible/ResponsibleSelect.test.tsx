@@ -26,12 +26,12 @@ describe('ResponsibleSelect', () => {
   test('all options', async () => {
     renderSelect({ type: 'ROLE', activator: 'bla' });
     await SelectUtil.assertValue('Role', { index: 0 });
-    await SelectUtil.assertOptionsCount(4, { index: 0 });
+    await SelectUtil.assertOptionsCount(5, { index: 0 });
   });
 
   test('no delete option', async () => {
     renderSelect({ optionsFilter: ['DELETE_TASK'] });
-    await SelectUtil.assertOptionsCount(3, { index: 0 });
+    await SelectUtil.assertOptionsCount(4, { index: 0 });
   });
 
   test('select for role option', async () => {
