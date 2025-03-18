@@ -1,7 +1,7 @@
-import type { WfActivator, WfPriority, WfTask, WfCustomField } from '../data/inscription';
+import type { WfResponsible, WfPriority, WfTask, WfCustomField } from '../data/inscription';
 import type { TaskData, CaseData } from '../data/part-data';
 
-const DEFAULT_RESPONSIBLE: WfActivator = {
+const DEFAULT_RESPONSIBLE: WfResponsible = {
   type: 'ROLE',
   activator: 'Everybody'
 } as const;

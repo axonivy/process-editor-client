@@ -2,7 +2,7 @@ import type {
   IntermediateEventTimeoutAction,
   HttpMethod,
   QueryKind,
-  WfActivatorType,
+  WfResponsibleType,
   WfFieldType,
   WfLevel,
   WsAuth,
@@ -17,7 +17,7 @@ export const RESPONSIBLE_TYPE = {
   ROLE_FROM_ATTRIBUTE: 'Role from Attr.',
   USER_FROM_ATTRIBUTE: 'User from Attr.',
   DELETE_TASK: 'Nobody & delete'
-} as const satisfies Record<WfActivatorType, string>;
+} as const satisfies Record<WfResponsibleType, string>;
 
 export const PRIORITY_LEVEL = {
   LOW: 'Low',

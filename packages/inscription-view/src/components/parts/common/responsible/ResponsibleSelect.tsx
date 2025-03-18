@@ -1,6 +1,6 @@
 import './ResponsibleSelect.css';
 import { useMemo } from 'react';
-import type { WfActivator, WfActivatorType, WfTask } from '@axonivy/process-editor-inscription-protocol';
+import type { WfResponsible, WfResponsibleType, WfTask } from '@axonivy/process-editor-inscription-protocol';
 import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import type { DataUpdater } from '../../../../types/lambda';
 import RoleSelect from './RoleSelect';
@@ -11,8 +11,8 @@ import Select from '../../../widgets/select/Select';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
-type ResponsibleProps = { responsible?: WfActivator; updateResponsible: ResponsibleUpdater };
-type ActivatorProps = ResponsibleProps & { selectedType?: WfActivatorType };
+type ResponsibleProps = { responsible?: WfResponsible; updateResponsible: ResponsibleUpdater };
+type ActivatorProps = ResponsibleProps & { selectedType?: WfResponsibleType };
 
 const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
   switch (selectedType) {
@@ -41,17 +41,17 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
   }
 };
 
-const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfActivatorType } = { label: 'Role', value: 'ROLE' };
+const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfResponsibleType } = { label: 'Role', value: 'ROLE' };
 
 export type ResponsibleSelectProps = ResponsibleProps & {
-  optionFilter?: WfActivatorType[];
+  optionFilter?: WfResponsibleType[];
 };
 
 const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: ResponsibleSelectProps) => {
   const typeItems = useMemo<SelectItem[]>(
     () =>
       Object.entries(RESPONSIBLE_TYPE)
-        .filter(([value]) => !(optionFilter && optionFilter.includes(value as WfActivatorType)))
+        .filter(([value]) => !(optionFilter && optionFilter.includes(value as WfResponsibleType)))
         .map(([value, label]) => ({ label, value })),
     [optionFilter]
   );
@@ -62,12 +62,12 @@ const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: Res
 
   return (
     <Flex direction='row' gap={2} className='responsible-select'>
-      <Select items={typeItems} value={selectedType} onChange={item => updateResponsible('type', item.value as WfActivatorType)} />
+      <Select items={typeItems} value={selectedType} onChange={item => updateResponsible('type', item.value as WfResponsibleType)} />
       <Field>
         <ResponsibleActivator
           responsible={responsible}
           updateResponsible={updateResponsible}
-          selectedType={selectedType?.value as WfActivatorType}
+          selectedType={selectedType?.value as WfResponsibleType}
         />
       </Field>
     </Flex>

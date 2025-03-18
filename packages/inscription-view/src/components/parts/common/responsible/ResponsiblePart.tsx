@@ -1,11 +1,11 @@
-import type { WfActivator } from '@axonivy/process-editor-inscription-protocol';
+import type { WfResponsible } from '@axonivy/process-editor-inscription-protocol';
 import { deepEqual } from '../../../../utils/equals';
 import { PathCollapsible } from '../path/PathCollapsible';
 import { ValidationFieldset } from '../path/validation/ValidationFieldset';
 import ResponsibleSelect, { type ResponsibleSelectProps } from './ResponsibleSelect';
 import { PathFieldset } from '../path/PathFieldset';
 
-type ResponsibleCollapsibleProps = ResponsibleSelectProps & { defaultResponsible: WfActivator };
+type ResponsibleCollapsibleProps = ResponsibleSelectProps & { defaultResponsible: WfResponsible };
 
 export const ResponsibleCollapsible = (props: ResponsibleCollapsibleProps) => (
   <PathCollapsible label='Responsible' path='responsible' defaultOpen={!deepEqual(props.responsible, props.defaultResponsible)}>
