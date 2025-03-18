@@ -54,6 +54,12 @@ describe('ResponsibleSelect', () => {
     expect(screen.getByRole('textbox')).toHaveValue('user activator');
   });
 
+  test('input for members attr option', async () => {
+    renderSelect({ type: 'MEMBERS_FROM_ATTRIBUTE', activator: 'members activator' });
+    await SelectUtil.assertValue('Members from Attr', { index: 0 });
+    expect(screen.getByRole('textbox')).toHaveValue('members activator');
+  });
+
   test('nothing for delete option', async () => {
     renderSelect({ type: 'DELETE_TASK' });
     await SelectUtil.assertValue('Nobody & delete', { index: 0 });

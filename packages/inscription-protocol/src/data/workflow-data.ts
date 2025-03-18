@@ -16,6 +16,7 @@ export const RESPONSIBLE_TYPE = {
   ROLE: 'Role',
   ROLE_FROM_ATTRIBUTE: 'Role from Attr.',
   USER_FROM_ATTRIBUTE: 'User from Attr.',
+  MEMBERS_FROM_ATTRIBUTE: 'Members from Attr.',
   DELETE_TASK: 'Nobody & delete'
 } as const satisfies Record<WfResponsibleType, string>;
 
@@ -94,7 +95,8 @@ export const IVY_SCRIPT_TYPES = {
   BOOLEAN: 'Boolean',
   INT: 'Integer',
   BPM_ERROR: 'ch.ivyteam.ivy.bpm.error.BpmError',
-  OBJECT: 'Object'
+  OBJECT: 'Object',
+  STRING_LIST: 'List<String>'
 } as const;
 
 export const WS_AUTH_TYPE = {

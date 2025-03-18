@@ -35,6 +35,16 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
           browsers={['attr', 'func', 'type']}
         />
       );
+    case 'MEMBERS_FROM_ATTRIBUTE':
+      return (
+        <ScriptInput
+          aria-label='activator'
+          value={props.responsible?.activator ?? ''}
+          onChange={change => props.updateResponsible('activator', change)}
+          type={IVY_SCRIPT_TYPES.STRING_LIST}
+          browsers={['attr', 'func', 'type']}
+        />
+      );
     case 'DELETE_TASK':
     default:
       return <></>;
