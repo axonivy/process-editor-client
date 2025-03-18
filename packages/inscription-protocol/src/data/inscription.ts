@@ -11,7 +11,7 @@ export type ContentObjectType = "STRING" | "FILE" | "FOLDER";
 export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WorkflowType = "START" | "TASK" | "CASE";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
-export type WfActivatorType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
+export type WfResponsibleType = "ROLE" | "ROLE_FROM_ATTRIBUTE" | "USER_FROM_ATTRIBUTE" | "DELETE_TASK";
 export type CacheInvalidation = "NONE" | "FIXED_TIME" | "LIFETIME";
 export type CacheMode = "DO_NOT_CACHE" | "CACHE" | "INVALIDATE_CACHE";
 export type CacheScope = "SESSION" | "APPLICATION";
@@ -379,22 +379,22 @@ export interface WfTask {
   name: string;
   notification: WfNotification;
   priority: WfPriority;
-  responsible: WfActivator;
+  responsible: WfResponsible;
   skipTasklist: boolean;
 }
 export interface WfExpiry {
   error: string;
   priority: WfPriority;
-  responsible: WfActivator;
+  responsible: WfResponsible;
   timeout: string;
 }
 export interface WfPriority {
   level: WfLevel;
   script: string;
 }
-export interface WfActivator {
+export interface WfResponsible {
   activator: string;
-  type: WfActivatorType;
+  type: WfResponsibleType;
 }
 export interface WfNotification {
   suppress: boolean;
