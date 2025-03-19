@@ -4,6 +4,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { MaximizedCodeEditor, type MaximizedCodeEditorProps } from './maximizedCodeEditor/MaximizedCodeEditor';
 import BrowserBody from './BrowserBody';
 import type { Tab } from '../widgets/tab/Tab';
+import { useTranslation } from 'react-i18next';
 
 type MaximaziedCodeEditorBrowserProps = UseBrowserReturnValue & MaximizedCodeEditorProps;
 
@@ -18,6 +19,7 @@ export const MaximizedCodeEditorBrowser = ({
   macro,
   type
 }: MaximaziedCodeEditorBrowserProps) => {
+  const { t } = useTranslation();
   const tabs: Tab[] = [
     {
       content: (
@@ -38,7 +40,7 @@ export const MaximizedCodeEditorBrowser = ({
         />
       ),
       id: 'maxCode',
-      name: 'Code',
+      name: t('browser.code.title'),
       icon: IvyIcons.StartProgram
     }
   ];

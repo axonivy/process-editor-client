@@ -1,11 +1,11 @@
 import ResponsibleSelect from './ResponsibleSelect';
-import type { RoleMeta, WfActivator, WfActivatorType } from '@axonivy/process-editor-inscription-protocol';
+import type { RoleMeta, WfResponsible, WfResponsibleType } from '@axonivy/process-editor-inscription-protocol';
 import { render, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options?: { type?: WfActivatorType; activator?: string; optionsFilter?: WfActivatorType[] }) {
-    const responsible: WfActivator = { type: options?.type as WfActivatorType, activator: options?.activator ?? '' };
+  function renderSelect(options?: { type?: WfResponsibleType; activator?: string; optionsFilter?: WfResponsibleType[] }) {
+    const responsible: WfResponsible = { type: options?.type as WfResponsibleType, activator: options?.activator ?? '' };
     const roleTree: RoleMeta = {
       id: 'Everybody',
       label: 'In this role is everyone',

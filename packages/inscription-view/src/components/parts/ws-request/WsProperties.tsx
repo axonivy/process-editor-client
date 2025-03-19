@@ -4,8 +4,10 @@ import { deepEqual } from '../../../utils/equals';
 import { PathContext } from '../../../context/usePath';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
+import { useTranslation } from 'react-i18next';
 
 export const WsProperties = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useWsRequestData();
 
   const { context } = useEditorContext();
@@ -17,7 +19,7 @@ export const WsProperties = () => {
         properties={config.properties}
         update={change => update('properties', change)}
         knownProperties={knownProperties}
-        label='Properties'
+        label={t('part.ws.properties')}
         defaultOpen={!deepEqual(config.properties, defaultConfig.properties)}
       />
     </PathContext>

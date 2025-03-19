@@ -128,6 +128,7 @@ const Combobox = <T extends ComboboxItem>({
         ) : (
           <Input {...getInputProps()} {...inputProps} {...props} />
         )}
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         <Button {...getToggleButtonProps()} icon={IvyIcons.Chevron} aria-label='toggle menu' disabled={readonly} />
       </div>
       <ul {...getMenuProps()} className='combobox-menu'>

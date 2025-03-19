@@ -1,25 +1,38 @@
 import './PrioritySelect.css';
 import { useMemo } from 'react';
 import type { WfPriority, WfLevel, WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { PRIORITY_LEVEL, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import type { DataUpdater } from '../../../../types/lambda';
 import { Field, Flex } from '@axonivy/ui-components';
 import type { SelectItem } from '../../../widgets/select/Select';
 import Select from '../../../widgets/select/Select';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
-
-const DEFAULT_PRIORITY: SelectItem & { value: WfLevel } = { label: PRIORITY_LEVEL.NORMAL, value: 'NORMAL' };
+import { useTranslation } from 'react-i18next';
 
 export type PriorityUpdater = DataUpdater<WfTask['priority']>;
 
 export type PrioritySelectProps = { priority?: WfPriority; updatePriority: PriorityUpdater };
 
-const PrioritySelect = ({ priority, updatePriority }: PrioritySelectProps) => {
-  const priorityItems = useMemo<SelectItem[]>(() => Object.entries(PRIORITY_LEVEL).map(([value, label]) => ({ label, value })), []);
-  const selectedLevel = useMemo<SelectItem>(
-    () => priorityItems.find(e => e.value === priority?.level) ?? DEFAULT_PRIORITY,
-    [priority?.level, priorityItems]
+const usePriorityItems = () => {
+  const { t } = useTranslation();
+  return useMemo<Array<SelectItem<WfLevel>>>(
+    () => [
+      { label: t('priority.low'), value: 'LOW' },
+      { label: t('priority.normal'), value: 'NORMAL' },
+      { label: t('priority.high'), value: 'HIGH' },
+      { label: t('priority.exception'), value: 'EXCEPTION' },
+      { label: t('priority.script'), value: 'SCRIPT' }
+    ],
+    [t]
   );
+};
+
+const PrioritySelect = ({ priority, updatePriority }: PrioritySelectProps) => {
+  const priorityItems = usePriorityItems();
+  const selectedLevel = useMemo(() => {
+    const defaultPrio = priorityItems.find(e => e.value === 'NORMAL') ?? priorityItems[1];
+    return priorityItems.find(e => e.value === (priority?.level as WfLevel)) ?? defaultPrio;
+  }, [priority?.level, priorityItems]);
 
   return (
     <Flex direction='row' gap={2} className='priority-select'>

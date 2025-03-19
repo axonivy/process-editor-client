@@ -6,8 +6,8 @@ const DEFAULT_TEMPLATE = 'Default';
 
 export const useTemplates = () => {
   const { context } = useEditorContext();
-  const templateItems = useMeta('meta/workflow/notificationTemplates', context, [DEFAULT_TEMPLATE]).data;
-  const items: SelectItem[] = [];
-  templateItems.forEach(template => items.push({ value: template, label: template }));
-  return items;
+  return useMeta('meta/workflow/notificationTemplates', context, [DEFAULT_TEMPLATE]).data.map<SelectItem>(template => ({
+    value: template,
+    label: template
+  }));
 };

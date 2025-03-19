@@ -53,7 +53,7 @@ describe('Tags', () => {
 
     const addTagBtn = screen.getByRole('button', { name: /Add new tag/i });
     await userEvent.click(addTagBtn);
-    const inputField = screen.getByLabelText('New Tag');
+    const inputField = screen.getByRole('combobox');
     await userEvent.type(inputField, 'newtag{enter}');
 
     view.rerender();
@@ -67,7 +67,7 @@ describe('Tags', () => {
 
     const addTagBtn = screen.getByRole('button', { name: /Add new tag/i });
     await userEvent.click(addTagBtn);
-    const inputField = screen.getByLabelText('New Tag');
+    const inputField = screen.getByRole('combobox');
     await userEvent.type(inputField, 'new tag{enter}');
 
     view.rerender();

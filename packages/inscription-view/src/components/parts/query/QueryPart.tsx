@@ -12,23 +12,26 @@ import { TableSelect } from './database/TableSelect';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { useTranslation } from 'react-i18next';
 
 export function useQueryPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useQueryData();
   const queryVal = useValidations(['query']);
   const compareData = (data: QueryData) => [data.query];
   const state = usePartState(compareData(defaultConfig), compareData(config), queryVal);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Query', state: state, reset: { dirty, action: () => reset() }, content: <QueryPart /> };
+  return { name: t('part.db.title'), state: state, reset: { dirty, action: () => reset() }, content: <QueryPart /> };
 }
 
 const QueryPart = () => {
+  const { t } = useTranslation();
   const { config } = useQueryData();
   const query = useQuery();
   return (
     <>
       <PathContext path='query'>
-        <ValidationCollapsible label='Database' defaultOpen={config.query.dbName.length > 0}>
+        <ValidationCollapsible label={t('label.database')} defaultOpen={config.query.dbName.length > 0}>
           <QueryKindSelect />
           <DatabaseSelect />
           {config.query.sql.kind !== 'ANY' && <TableSelect />}

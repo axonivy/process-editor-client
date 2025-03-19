@@ -17,6 +17,7 @@ import { ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@a
 import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
 import { SearchTable } from '../../../widgets/table/table/Table';
 import { ExpandableCell } from '../../../widgets/table/cell/ExpandableCell';
+import { useTranslation } from 'react-i18next';
 
 type MappingTreeProps = MappingPartProps & {
   globalFilter: TableFilter<string>;
@@ -24,6 +25,7 @@ type MappingTreeProps = MappingPartProps & {
 };
 
 const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter, browsers }: MappingTreeProps) => {
+  const { t } = useTranslation();
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [expanded, setExpanded] = useState<ExpandedState>({ 0: true });
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -44,7 +46,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.attribute,
         id: 'attribute',
-        header: header => <ExpandableHeader header={header} name='Attribute' />,
+        header: header => <ExpandableHeader header={header} name={t('common:label.attribute')} />,
         cell: cell => (
           <ExpandableCell
             cell={cell}
@@ -60,12 +62,12 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.value,
         id: 'value',
-        header: () => <span>Expression</span>,
+        header: () => <span>{t('label.expression')}</span>,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.type} browsers={browsers} placeholder={cell.row.original.type} />,
         filterFn: (row, columnId, filterValue) => filterValue || row.original.value.length > 0
       }
     ],
-    [browsers, loadChildren]
+    [browsers, loadChildren, t]
   );
 
   const table = useReactTable({

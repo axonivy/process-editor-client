@@ -32,6 +32,8 @@
     "@axonivy/ui-icons": "~13.1.0-next",
     "@tanstack/react-query": "^5.64",
     "@tanstack/react-query-devtools": "^5.64",
+    "i18next": "^24.2.3",
+    "react-i18next": "^15.4.1",
     "react": "^18.2 || ^19.0"
   },
   "devDependencies": {
@@ -41,6 +43,7 @@
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.8",
     "deepmerge-ts": "^7.0.0",
+    "i18next-parser": "^9.3.0",
     "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -56,6 +59,8 @@
     "build:clean": "npm run clean && npm run build",
     "type": "tsc --noEmit",
     "test": "vitest",
-    "test:ci": "vitest --watch=false"
+    "test:ci": "vitest --watch=false",
+    "i18n:extract": "i18next",
+    "i18n:ci": "i18next --fail-on-update"
   }
 }

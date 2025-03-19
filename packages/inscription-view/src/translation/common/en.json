@@ -1,0 +1,20 @@
+{
+  "hotkey": {
+    "help": "Open Help ({{hotkey}})"
+  },
+  "label": {
+    "apply": "Apply",
+    "attribute": "Attribute",
+    "browser": "Browser",
+    "cancel": "Cancel",
+    "category": "Category",
+    "description": "Description",
+    "details": "Details",
+    "mapping": "Mapping",
+    "name": "Name",
+    "role": "Role",
+    "search": "Search",
+    "type": "Type",
+    "value": "Value"
+  }
+}

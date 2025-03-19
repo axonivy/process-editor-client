@@ -49,6 +49,7 @@ export function ExpandableCell<TData>({
           <Button
             icon={IvyIcons.Chevron}
             className='row-expand-button'
+            // eslint-disable-next-line i18next/no-literal-string
             aria-label={row.getIsExpanded() ? 'Collapse row' : 'Expand row'}
             data-state={row.getIsExpanded() ? 'expanded' : 'collapsed'}
             {...{ onClick: row.getToggleExpandedHandler() }}
@@ -56,6 +57,7 @@ export function ExpandableCell<TData>({
           {icon && <IvyIcon icon={icon} />}
         </>
       ) : isLoaded === false ? (
+        // eslint-disable-next-line i18next/no-literal-string
         <Button icon={IvyIcons.Chevron} className='row-expand-button' aria-label='Expand row' onClick={onClick} data-state='collapsed' />
       ) : isUnknown === true ? (
         '⛔'

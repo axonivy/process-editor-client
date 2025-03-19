@@ -9,15 +9,17 @@ import { PathContext } from '../../../../context/usePath';
 import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
 import { PathFieldset } from '../../common/path/PathFieldset';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import { useTranslation } from 'react-i18next';
 
 export function useProgramInterfaceErrorPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetError } = useProgramInterfaceData();
   const compareData = (data: ProgramInterfaceStartData) => [data.exceptionHandler, data.timeout];
   const validation = [...useValidations(['timeout']), ...useValidations(['exceptionHandler'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Error',
+    name: t('part.program.error.title'),
     state,
     reset: { dirty, action: () => resetError() },
     content: <ProgramInterfaceErrorPart />
@@ -25,11 +27,16 @@ export function useProgramInterfaceErrorPart(): PartProps {
 }
 
 const ProgramInterfaceErrorPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update, updateTimeout } = useProgramInterfaceData();
 
   return (
     <>
-      <PathCollapsible label='Error' path='exceptionHandler' defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler}>
+      <PathCollapsible
+        label={t('part.program.error.title')}
+        path='exceptionHandler'
+        defaultOpen={config.exceptionHandler !== defaultConfig.exceptionHandler}
+      >
         <PathContext path='error'>
           <ExceptionSelect
             value={config.exceptionHandler}
@@ -39,8 +46,12 @@ const ProgramInterfaceErrorPart = () => {
         </PathContext>
       </PathCollapsible>
 
-      <PathCollapsible label='Timeout' path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
-        <PathFieldset label='Seconds' path='seconds'>
+      <PathCollapsible
+        label={t('part.program.error.timout')}
+        path='timeout'
+        defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}
+      >
+        <PathFieldset label={t('part.program.error.seconds')} path='seconds'>
           <ScriptInput
             value={config.timeout.seconds}
             onChange={change => updateTimeout('seconds', change)}
@@ -48,7 +59,7 @@ const ProgramInterfaceErrorPart = () => {
             browsers={['attr', 'func', 'type']}
           />
         </PathFieldset>
-        <PathFieldset label='Error' path='error'>
+        <PathFieldset label={t('part.program.error.title')} path='error'>
           <ExceptionSelect
             value={config.timeout.error}
             onChange={change => updateTimeout('error', change)}

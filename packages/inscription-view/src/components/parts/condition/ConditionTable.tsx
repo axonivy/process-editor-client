@@ -8,6 +8,7 @@ import { ReorderHandleWrapper, Table, TableBody, TableCell, TableResizableHeader
 import { ScriptCell } from '../../widgets/table/cell/ScriptCell';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { ValidationSelectableReorderRow } from '../common/path/validation/ValidationRow';
+import { useTranslation } from 'react-i18next';
 
 const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
   if (condition.target) {
@@ -17,6 +18,7 @@ const ConditionTypeCell = ({ condition }: { condition: Condition }) => {
 };
 
 const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (change: Condition[]) => void }) => {
+  const { t } = useTranslation();
   const updateOrder = useCallback(
     (moveId: string, targetId: string) => {
       onChange(Condition.move(data, moveId, targetId));
@@ -38,25 +40,25 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     () => [
       {
         accessorKey: 'fid',
-        header: () => <span>Type</span>,
+        header: () => <span>{t('common:label.type')}</span>,
         cell: cell => <ConditionTypeCell condition={cell.row.original} />
       },
       {
         accessorKey: 'expression',
-        header: () => <span>Expression</span>,
+        header: () => <span>{t('label.expression')}</span>,
         cell: cell => (
           <ReorderHandleWrapper>
             <ScriptCell
               cell={cell}
               type={IVY_SCRIPT_TYPES.BOOLEAN}
               browsers={['condition', 'attr', 'func']}
-              placeholder='Enter an Expression'
+              placeholder={t('label.enterExpression')}
             />
           </ReorderHandleWrapper>
         )
       }
     ],
-    []
+    [t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -89,7 +91,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
   const tableActions = showDeleteAction
     ? [
         {
-          label: 'Remove row',
+          label: t('label.removeRow'),
           icon: IvyIcons.Trash,
           action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
         }
@@ -97,7 +99,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     : [];
 
   return (
-    <ValidationCollapsible label='Condition' controls={tableActions} defaultOpen={data.length > 0}>
+    <ValidationCollapsible label={t('part.condition.title')} controls={tableActions} defaultOpen={data.length > 0}>
       <Table>
         <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
         <TableBody>

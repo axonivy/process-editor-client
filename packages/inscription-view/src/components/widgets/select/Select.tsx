@@ -1,9 +1,9 @@
 import { BasicSelect } from '@axonivy/ui-components';
 import { memo } from 'react';
 
-export type SelectItem = {
+export type SelectItem<T = string> = {
   label: string;
-  value: string;
+  value: T;
 };
 
 export const EMPTY_SELECT_ITEM: SelectItem = { label: '', value: '' };

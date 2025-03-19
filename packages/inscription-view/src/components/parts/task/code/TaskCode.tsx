@@ -3,14 +3,14 @@ import useMaximizedCodeEditor from '../../../browser/useMaximizedCodeEditor';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
 import { ScriptArea } from '../../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 const TaskCode = () => {
+  const { t } = useTranslation();
   const { task, update } = useTaskData();
-
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
-
   return (
-    <PathCollapsible label='Code' defaultOpen={task.code.length > 0} path='code' controls={[maximizeCode]}>
+    <PathCollapsible label={t('label.code')} defaultOpen={task.code.length > 0} path='code' controls={[maximizeCode]}>
       <ValidationFieldset>
         <ScriptArea
           maximizeState={maximizeState}

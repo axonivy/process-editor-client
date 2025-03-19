@@ -6,6 +6,7 @@ import { PathCollapsible } from '../path/PathCollapsible';
 import type { BrowserType } from '../../../browser/useBrowser';
 import { PathContext } from '../../../../context/usePath';
 import Fieldset from '../../../widgets/fieldset/Fieldset';
+import { useTranslation } from 'react-i18next';
 
 export type MappingPartProps = {
   data: Record<string, string>;
@@ -16,11 +17,12 @@ export type MappingPartProps = {
 };
 
 const MappingPart = ({ path, data, ...props }: MappingPartProps) => {
+  const { t } = useTranslation();
   const globalFilter = useTableGlobalFilter();
   const onlyInscribedFilter = useTableOnlyInscribed();
   return (
     <PathCollapsible
-      label='Mapping'
+      label={t('common:label.mapping')}
       controls={[globalFilter.control, onlyInscribedFilter.control]}
       path={path ?? 'map'}
       defaultOpen={Object.keys(data).length > 0}
@@ -31,11 +33,12 @@ const MappingPart = ({ path, data, ...props }: MappingPartProps) => {
 };
 
 export const MappingField = ({ path, data, ...props }: MappingPartProps) => {
+  const { t } = useTranslation();
   const globalFilter = useTableGlobalFilter();
   const onlyInscribedFilter = useTableOnlyInscribed();
   return (
     <PathContext path={path ?? 'map'}>
-      <Fieldset label='Mapping' controls={[globalFilter.control, onlyInscribedFilter.control]}>
+      <Fieldset label={t('common:label.mapping')} controls={[globalFilter.control, onlyInscribedFilter.control]}>
         <MappingTree data={data} {...props} globalFilter={globalFilter} onlyInscribedFilter={onlyInscribedFilter} />
       </Fieldset>
     </PathContext>

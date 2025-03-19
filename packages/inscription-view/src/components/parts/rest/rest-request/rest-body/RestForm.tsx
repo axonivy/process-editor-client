@@ -14,10 +14,12 @@ import Fieldset from '../../../../widgets/fieldset/Fieldset';
 import { ValidationRow } from '../../../common/path/validation/ValidationRow';
 import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
 import { focusNewCell } from '../../../common/table/cellFocus-utils';
+import { useTranslation } from 'react-i18next';
 
 const EMPTY_PARAMETER: RestParam = { name: '', expression: '', known: false };
 
 export const RestForm = () => {
+  const { t } = useTranslation();
   const { config, updateBody } = useRestRequestData();
 
   const [data, setData] = useState<RestParam[]>([]);
@@ -35,12 +37,12 @@ export const RestForm = () => {
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
         cell: cell => <InputCell cell={cell} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'expression',
-        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.expression')} />,
         cell: cell => (
           <ScriptCell
             placeholder={cell.row.original.type}
@@ -51,7 +53,7 @@ export const RestForm = () => {
         )
       }
     ],
-    []
+    [t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -109,7 +111,7 @@ export const RestForm = () => {
   const tableActions = showTableActions
     ? [
         {
-          label: 'Remove row',
+          label: t('label.removeRow'),
           icon: IvyIcons.Trash,
           action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
         }

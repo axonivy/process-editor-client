@@ -21,13 +21,15 @@ import { useMeta } from '../../../context/useMeta';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
 import { SearchTable } from '../../widgets/table/table/Table';
 import { TableShowMore } from '../../widgets/table/footer/TableFooter';
+import { useTranslation } from 'react-i18next';
 export const FUNCTION_BROWSER_ID = 'func' as const;
 
 export const useFuncBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: FUNCTION_BROWSER_ID,
-    name: 'Function',
+    name: t('browser.function.title'),
     content: <FunctionBrowser value={value.cursorValue} onChange={setValue} onDoubleClick={onDoubleClick} />,
     accept: () => value,
     icon: IvyIcons.Function
@@ -41,6 +43,7 @@ type FunctionBrowserProps = {
 };
 
 const FunctionBrowser = ({ value, onChange, onDoubleClick }: FunctionBrowserProps) => {
+  const { t } = useTranslation();
   const { context } = useEditorContext();
   const [method, setMethod] = useState('');
   const [paramTypes, setParamTypes] = useState<string[]>([]);
@@ -85,13 +88,13 @@ const FunctionBrowser = ({ value, onChange, onDoubleClick }: FunctionBrowserProp
               cell={cell}
               title={cell.row.original.name}
               icon={cell.row.original.isField ? IvyIcons.FolderOpen : IvyIcons.Function}
-              additionalInfo={cell.row.original.returnType ? cell.row.original.returnType.simpleName : 'no return type defined'}
+              additionalInfo={cell.row.original.returnType ? cell.row.original.returnType.simpleName : t('browser.function.noType')}
             />
           );
         }
       }
     ],
-    []
+    [t]
   );
 
   const [expanded, setExpanded] = useState<ExpandedState>({ [0]: true });
@@ -183,7 +186,7 @@ const FunctionBrowser = ({ value, onChange, onDoubleClick }: FunctionBrowserProp
             <TableShowMore
               colSpan={columns.length}
               showMore={() => setRowNumber(old => old + 100)}
-              helpertext={rowNumber + ' out of ' + rows.length + ' shown'}
+              helpertext={t('browser.function.loadMore', { rowNumber, rowCount: rows.length })}
             />
           </TableFooter>
         )}

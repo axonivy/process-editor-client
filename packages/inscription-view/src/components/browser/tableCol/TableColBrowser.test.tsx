@@ -1,7 +1,6 @@
-import { TableUtil, render } from 'test-utils';
+import { TableUtil, render, renderHook } from 'test-utils';
 import { useTableColBrowser } from './TableColBrowser';
 import { describe, test } from 'vitest';
-import { renderHook } from '@testing-library/react';
 
 describe('TableColBrowser', () => {
   test('select can be undefined', async () => {

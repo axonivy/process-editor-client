@@ -6,6 +6,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { TableAddRow } from '@axonivy/ui-components';
 import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
 import { focusNewCell } from './cellFocus-utils';
+import { useTranslation } from 'react-i18next';
 
 interface UseResizableEditableTableProps<TData> {
   data: TData[];
@@ -22,6 +23,7 @@ const useResizableEditableTable = <TData,>({
   emptyDataObject,
   specialUpdateData
 }: UseResizableEditableTableProps<TData>) => {
+  const { t } = useTranslation();
   const [tableData, setTableData] = useState<TData[]>(data);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -99,7 +101,7 @@ const useResizableEditableTable = <TData,>({
   };
 
   const removeRowAction: FieldsetControl = {
-    label: 'Remove row',
+    label: t('label.removeRow'),
     icon: IvyIcons.Trash,
     action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
   };

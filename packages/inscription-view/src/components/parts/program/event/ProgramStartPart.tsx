@@ -4,15 +4,17 @@ import { useProgramStartData } from './useProgramStartData';
 import { Permission } from '../../common/permission/Permission';
 import JavaClassSelector from '../JavaClassSelector';
 import { useValidations } from '../../../../context/useValidation';
+import { useTranslation } from 'react-i18next';
 
 export function useProgramStartPart(options?: { thirdParty?: boolean }): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useProgramStartData();
   const compareData = (data: ProgramStartData) => [data.javaClass, data.permission];
   const validation = useValidations(['javaClass']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Java Bean',
+    name: t('part.program.start.title'),
     state,
     reset: { dirty, action: () => reset() },
     content: <ProgramStartPart thirdParty={options?.thirdParty} />

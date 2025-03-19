@@ -7,6 +7,7 @@ import { PathCollapsible } from '../path/PathCollapsible';
 import { useResizableEditableTable } from '../table/useResizableEditableTable';
 import { InputCell, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 import { BrowserInputCell } from '../../../widgets/table/cell/BrowserInputCell';
+import { useTranslation } from 'react-i18next';
 
 type ParameterTableProps = {
   data: ScriptVariable[];
@@ -18,28 +19,29 @@ type ParameterTableProps = {
 const EMPTY_SCRIPT_VARIABLE: ScriptVariable = { name: '', type: 'String', desc: '' } as const;
 
 const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps) => {
+  const { t } = useTranslation();
   const columns = useMemo(() => {
     const colDef: ColumnDef<ScriptVariable, string>[] = [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
-        cell: cell => <InputCell cell={cell} placeholder={'Enter a Name'} />
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        cell: cell => <InputCell cell={cell} placeholder={t('label.enterName')} />
       },
       {
         accessorKey: 'type',
-        header: ({ column }) => <SortableHeader column={column} name='Type' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.type')} />,
         cell: cell => <BrowserInputCell cell={cell} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {
       colDef.push({
         accessorKey: 'desc',
-        header: ({ column }) => <SortableHeader column={column} name='Description' />,
-        cell: cell => <InputCell cell={cell} placeholder={'Enter a Description'} />
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.description')} />,
+        cell: cell => <InputCell cell={cell} placeholder={t('label.enterDesc')} />
       });
     }
     return colDef;
-  }, [hideDesc]);
+  }, [hideDesc, t]);
 
   const { table, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
     data,

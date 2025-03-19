@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
 import { PathContext } from '../../../context/usePath';
@@ -7,6 +8,7 @@ import { PathFieldset } from '../common/path/PathFieldset';
 import { useWsRequestData } from './useWsRequestData';
 
 export const WsOperationSelect = () => {
+  const { t } = useTranslation();
   const { config, updateOperation } = useWsRequestData();
 
   const { context } = useEditorContext();
@@ -21,7 +23,7 @@ export const WsOperationSelect = () => {
 
   return (
     <PathContext path='operation'>
-      <PathFieldset label='Operation' path='name'>
+      <PathFieldset label={t('part.ws.operation')} path='name'>
         <Select value={selectedItem} onChange={item => updateOperation('name', item.value)} items={items} />
       </PathFieldset>
     </PathContext>

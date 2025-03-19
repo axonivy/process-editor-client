@@ -26,7 +26,6 @@ export default defineConfig(() => ({
   preview: { port: 4003 },
   resolve: {
     alias: {
-      path: 'path-browserify',
       '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),
       '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
       '@axonivy/process-editor-inscription-protocol': resolve(__dirname, '../../packages/inscription-protocol/src')

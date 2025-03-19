@@ -7,6 +7,7 @@ import { PathCollapsible } from '../path/PathCollapsible';
 import ExceptionSelect from '../exception-handler/ExceptionSelect';
 import type { DataUpdater } from '../../../../types/lambda';
 import Checkbox from '../../../widgets/checkbox/Checkbox';
+import { useTranslation } from 'react-i18next';
 
 interface PermissionProps {
   anonymousFieldActive: boolean;
@@ -16,17 +17,18 @@ interface PermissionProps {
 }
 
 export const Permission = ({ anonymousFieldActive, config, defaultConfig, updatePermission }: PermissionProps) => {
+  const { t } = useTranslation();
   return (
-    <PathCollapsible path='permission' label='Permission' defaultOpen={!deepEqual(config, defaultConfig)}>
+    <PathCollapsible path='permission' label={t('label.permission')} defaultOpen={!deepEqual(config, defaultConfig)}>
       {anonymousFieldActive && (
-        <Checkbox label='Allow anonymous' value={config.anonymous} onChange={change => updatePermission('anonymous', change)} />
+        <Checkbox label={t('label.allowAnonymous')} value={config.anonymous} onChange={change => updatePermission('anonymous', change)} />
       )}
       {(!anonymousFieldActive || (anonymousFieldActive && !config.anonymous)) && (
-        <PathFieldset label='Role' path='role'>
+        <PathFieldset label={t('common:label.role')} path='role'>
           <RoleSelect value={config.role} onChange={change => updatePermission('role', change)} />
         </PathFieldset>
       )}
-      <PathFieldset label='Violation error' path='error'>
+      <PathFieldset label={t('label.validationError')} path='error'>
         <ExceptionSelect
           value={config.error}
           onChange={change => updatePermission('error', change)}

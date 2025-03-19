@@ -3,6 +3,7 @@ import { DialogClose, DialogContent, DialogPortal, DialogTitle } from '@radix-ui
 import { Button, Flex } from '@axonivy/ui-components';
 import { TabContent, TabList, TabRoot, type Tab } from '../widgets/tab/Tab';
 import { useEditorContext } from '../../context/useEditorContext';
+import { useTranslation } from 'react-i18next';
 
 interface ReusableBrowserDialogProps {
   open: boolean;
@@ -14,6 +15,7 @@ interface ReusableBrowserDialogProps {
 }
 
 const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableApply }: ReusableBrowserDialogProps) => {
+  const { t } = useTranslation();
   const { editorRef } = useEditorContext();
 
   return (
@@ -34,13 +36,13 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableAppl
           </TabRoot>
           <Flex alignItems='center' justifyContent='flex-end' gap={1}>
             <DialogClose asChild>
-              <Button aria-label='Cancel' size='large'>
-                Cancel
+              <Button aria-label={t('common:label.cancel')} size='large'>
+                {t('common:label.cancel')}
               </Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button aria-label='Apply' onClick={onApply} size='large' variant='primary' disabled={disableApply}>
-                Apply
+              <Button aria-label={t('common:label.apply')} onClick={onApply} size='large' variant='primary' disabled={disableApply}>
+                {t('common:label.apply')}
               </Button>
             </DialogClose>
           </Flex>

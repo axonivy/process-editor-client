@@ -7,13 +7,16 @@ import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
+import { useTranslation } from 'react-i18next';
 
 const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
+  const { t } = useTranslation();
+  const newTag = t('tags.new');
   const { elementContext } = useEditorContext();
 
   const { data } = useMeta('meta/workflow/tags', elementContext, []);
   const [dropDownTags, setDropDownTags] = useState<string[]>([]);
-  const [addValue, setAddValue] = useState('Add');
+  const [addValue, setAddValue] = useState(newTag);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -36,7 +39,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
     }
     closeMenu();
     selectItem('');
-    setAddValue('Add');
+    setAddValue(newTag);
     inputRef.current?.blur();
   };
 
@@ -99,8 +102,8 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
       <div className='tags'>
         <div {...getToggleButtonProps()}>
           <button
-            className={`tag ${isOpen || (!isOpen && addValue !== 'Add') ? 'tag-remove-button' : 'tag-add'}`}
-            aria-label='Add new tag'
+            className={`tag ${isOpen || (!isOpen && addValue !== newTag) ? 'tag-remove-button' : 'tag-add'}`}
+            aria-label={t('tags.addNew')}
             disabled={readonly}
           >
             <IvyIcon icon={IvyIcons.Close} />
@@ -114,7 +117,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
               }}
               ref={inputRef}
               value={addValue}
-              aria-label='New Tag'
+              aria-label={t('tags.newTag')}
               style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
             />
           </button>
@@ -138,7 +141,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
               onClick={() => {
                 removeTag(tag);
               }}
-              aria-label={`Remove Tag ${tag}`}
+              aria-label={t('tags.removeTag', { tag })}
               {...keyboardProps}
               disabled={readonly}
             >
