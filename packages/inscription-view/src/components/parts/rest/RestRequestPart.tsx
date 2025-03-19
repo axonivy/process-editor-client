@@ -16,8 +16,10 @@ import { ValidationCollapsible } from '../common/path/validation/ValidationColla
 import { useOpenApi } from '../../../context/useOpenApi';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
+import { useTranslation } from 'react-i18next';
 
 export function useRestRequestPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useRestRequestData();
   const validations = [
     ...useValidations(['method']),
@@ -29,7 +31,7 @@ export function useRestRequestPart(): PartProps {
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Request',
+    name: t('label.request'),
     state: state,
     reset: { dirty, action: () => resetData() },
     content: <RestRequestPart />,
@@ -38,6 +40,7 @@ export function useRestRequestPart(): PartProps {
 }
 
 const RestRequestPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig } = useRestRequestData();
 
   const bodyPart = (method: HttpMethod) => {
@@ -56,7 +59,7 @@ const RestRequestPart = () => {
   return (
     <>
       <PathContext path='target'>
-        <ValidationCollapsible label='Rest Service' defaultOpen={config.target.clientId !== defaultConfig.target.clientId}>
+        <ValidationCollapsible label={t('part.rest.service')} defaultOpen={config.target.clientId !== defaultConfig.target.clientId}>
           <RestTargetUrl />
           <RestClientSelect />
           <RestMethodSelect />
@@ -71,6 +74,7 @@ const RestRequestPart = () => {
 };
 
 const OpenApiSwitch = () => {
+  const { t } = useTranslation();
   const { openApi, setOpenApi } = useOpenApi();
   const { context } = useEditorContext();
   const { config } = useRestRequestData();
@@ -80,7 +84,7 @@ const OpenApiSwitch = () => {
   }
   return (
     <Field direction='row' alignItems='center' gap={2}>
-      <Label style={{ fontWeight: 'normal' }}>OpenAPI</Label>
+      <Label style={{ fontWeight: 'normal' }}>{t('part.rest.openApi')}</Label>
       <Switch checked={openApi} onCheckedChange={setOpenApi} />
     </Field>
   );

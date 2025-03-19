@@ -1,32 +1,4 @@
-import type {
-  IntermediateEventTimeoutAction,
-  HttpMethod,
-  QueryKind,
-  WfResponsibleType,
-  WfFieldType,
-  WfLevel,
-  WsAuth,
-  InputType,
-  RoleMeta,
-  VariableInfo,
-  Variable
-} from './inscription';
-
-export const RESPONSIBLE_TYPE = {
-  ROLE: 'Role',
-  ROLE_FROM_ATTRIBUTE: 'Role from Attr.',
-  USER_FROM_ATTRIBUTE: 'User from Attr.',
-  MEMBERS_FROM_ATTRIBUTE: 'Members from Attr.',
-  DELETE_TASK: 'Nobody & delete'
-} as const satisfies Record<WfResponsibleType, string>;
-
-export const PRIORITY_LEVEL = {
-  LOW: 'Low',
-  NORMAL: 'Normal',
-  HIGH: 'High',
-  EXCEPTION: 'Exception',
-  SCRIPT: 'Script'
-} as const satisfies Record<WfLevel, string>;
+import type { HttpMethod, QueryKind, WfFieldType, InputType, RoleMeta, VariableInfo, Variable } from './inscription';
 
 export const CUSTOM_FIELD_TYPE = {
   STRING: 'String',
@@ -98,18 +70,6 @@ export const IVY_SCRIPT_TYPES = {
   OBJECT: 'Object',
   STRING_LIST: 'List<String>'
 } as const;
-
-export const WS_AUTH_TYPE = {
-  NONE: 'None/Container',
-  WS_SECURITY: 'WS Security',
-  HTTP_BASIC: 'HTTP Basic'
-} as const satisfies Record<WsAuth, string>;
-
-export const EVENT_ACTION_TYPE = {
-  NOTHING: 'Do nothing',
-  DESTROY_TASK: 'Delete the Task',
-  CONTINUE_WITHOUT_EVENT: 'Continue without waiting'
-} as const satisfies Record<IntermediateEventTimeoutAction, string>;
 
 export const EMPTY_ROLE: RoleMeta = { id: 'Everybody', label: 'Everybody', children: [] as RoleMeta[] } as const;
 export const EMPTY_VAR_INFO: VariableInfo = { types: {}, variables: [] as Variable[] } as const;

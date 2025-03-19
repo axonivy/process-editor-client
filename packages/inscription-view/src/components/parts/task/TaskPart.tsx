@@ -10,8 +10,10 @@ import WsTask from './task/WsTask';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import EmptyWidget from '../../widgets/empty/EmptyWidget';
+import { useTranslation } from 'react-i18next';
 
 export function useTaskPart(options?: TaskPartProps): PartProps {
+  const { t } = useTranslation();
   const { task, defaultTask, initTask, resetTask } = useTaskData();
   const { config, defaultConfig, initConfig, updatePersist } = useTaskPersistData();
   let validations = useValidations(['task']);
@@ -29,7 +31,7 @@ export function useTaskPart(options?: TaskPartProps): PartProps {
     }
   };
   return {
-    name: 'Task',
+    name: t('part.task.task'),
     state,
     reset: { dirty, action: () => resetData() },
     content: <TaskPart type={options?.type} />
@@ -41,6 +43,7 @@ export type TaskPartProps = {
 };
 
 const TaskPart = ({ type }: TaskPartProps) => {
+  const { t } = useTranslation();
   const { defaultTask } = useTaskData();
   const task = (type: TaskPartProps['type']) => {
     switch (type) {
@@ -57,5 +60,5 @@ const TaskPart = ({ type }: TaskPartProps) => {
   if (defaultTask) {
     return <PathContext path='task'>{task(type)}</PathContext>;
   }
-  return <EmptyWidget message='There is no (Task) output flow connected.' />;
+  return <EmptyWidget message={t('part.task.noTaskMessage')} />;
 };

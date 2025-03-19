@@ -7,25 +7,27 @@ import { useResizableEditableTable } from '../../common/table/useResizableEditab
 import { InputCell, SelectRow, SortableHeader, Table, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 import { useAction } from '../../../../context/useAction';
 import Collapsible from '../../../widgets/collapsible/Collapsible';
+import { useTranslation } from 'react-i18next';
 
 const EMPTY_DOCUMENT: Document = { name: '', url: '' } as const;
 
 const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change: Document[]) => void }) => {
+  const { t } = useTranslation();
   const columns = useMemo<ColumnDef<Document, string>[]>(
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
-        cell: cell => <InputCell cell={cell} placeholder={'Enter a Name'} />
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        cell: cell => <InputCell cell={cell} placeholder={t('label.enterName')} />
       },
       {
         accessorFn: row => row.url,
         id: 'url',
-        header: ({ column }) => <SortableHeader column={column} name='URL' />,
-        cell: cell => <InputCell cell={cell} placeholder={'Enter a URL'} />
+        header: ({ column }) => <SortableHeader column={column} name={t('label.URL')} />,
+        cell: cell => <InputCell cell={cell} placeholder={t('label.enterUrl')} />
       }
     ],
-    []
+    [t]
   );
 
   const { table, rowSelection, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
@@ -40,9 +42,8 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
   const tableActions =
     table.getSelectedRowModel().rows.length > 0
       ? [
-          { label: 'Browse', icon: IvyIcons.Search, action: () => {} },
           {
-            label: 'Open URL',
+            label: t('label.openUrl'),
             icon: IvyIcons.GoToSource,
             action: () => action(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.url)
           },
@@ -51,7 +52,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
       : [];
 
   return (
-    <Collapsible label='Means / Documents' controls={tableActions} defaultOpen={data !== undefined && data.length > 0}>
+    <Collapsible label={t('part.general.meansAndDocuments')} controls={tableActions} defaultOpen={data !== undefined && data.length > 0}>
       <div>
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />

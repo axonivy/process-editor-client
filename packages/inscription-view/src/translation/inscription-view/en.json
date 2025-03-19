@@ -1,0 +1,344 @@
+{
+  "browser": {
+    "attribute": {
+      "title": "Attribute"
+    },
+    "cms": {
+      "add": "Add new CMS String",
+      "addFailed": "Failed to add cms",
+      "addSuccess": "String successfully added to CMS",
+      "requiredProjects": "Enable required Projects",
+      "title": "CMS"
+    },
+    "code": {
+      "button": "Fullsize Code Editor",
+      "title": "Code"
+    },
+    "condition": {
+      "info": "Generated Condition",
+      "title": "Condition"
+    },
+    "empty": "No data found",
+    "emptyInfo": "No element selected.",
+    "function": {
+      "loadMore": "{{rowNumber}} out of {{rowCount}} shown",
+      "noType": "no return type defined",
+      "title": "Function"
+    },
+    "role": {
+      "add": "Add Role to {{role}}",
+      "addFailed": "Failed to add new role",
+      "addSuccess": "Role successfully added",
+      "message": {
+        "newRoleAlreadyExists": "A role with that name already exists"
+      },
+      "newRole": "New role name",
+      "title": "Role"
+    },
+    "tableCol": {
+      "title": "Table Column"
+    },
+    "type": {
+      "asList": "Use Type as List",
+      "empty": "No type found, enter a fitting search term",
+      "loadingTypes": "loading more types...",
+      "searchAllTypes": "Search over all types",
+      "title": "Type"
+    }
+  },
+  "label": {
+    "action": "Action",
+    "allowAnonymous": "Allow anonymous",
+    "code": "Code",
+    "column": "Column",
+    "condition": "Condition",
+    "customFields": "Custom Fields",
+    "database": "Database",
+    "duration": "Duration",
+    "editorLoading": "Loading Editor...",
+    "editorPlaceholder": "Press CTRL + SPACE for auto-completion",
+    "enterDesc": "Enter a description",
+    "enterExpression": "Enter an expression",
+    "enterName": "Enter a name",
+    "enterUrl": "Enter a URL",
+    "error": "Error",
+    "expiry": "Expiry",
+    "expression": "Expression",
+    "message": "Message",
+    "openCMS": "Open CMS Editor",
+    "openCustomField": "Open custom field configuration",
+    "openFile": "Open file",
+    "openUrl": "Open URL",
+    "output": "Output",
+    "permission": "Permission",
+    "process": "Process",
+    "removeRow": "Remove row",
+    "request": "Request",
+    "resetPart": "Reset {{name}}",
+    "responsible": "Responsible",
+    "timeout": "Timeout",
+    "URL": "URL",
+    "validationError": "Violation error"
+  },
+  "message": {
+    "boundaryData": "Data:",
+    "boundaryTitle": "Something went wrong:",
+    "globalError": "An error occurred: {{error}}",
+    "noEditorForType": "No editor found for type: {{props.type}}",
+    "selectElement": "Select a process element"
+  },
+  "part": {
+    "cache": {
+      "entry": "Entry",
+      "entryDesc": "Give the entry a name that represents the result data set (query).",
+      "group": "Group",
+      "groupDesc": "Give the group a name that represents the entity of the result data.",
+      "lifetime": "Lifetime",
+      "lifetimeMode": {
+        "duration": "Duration",
+        "fixed": "Fixed time",
+        "forever": "Forever"
+      },
+      "mode": {
+        "cache": "Cache",
+        "cacheDesc": "Use if you call an operation that only reads data.",
+        "invalidate": "Invalidate Cache",
+        "invalidateMode": "Use if you call an operation that modifies data",
+        "noCache": "Do not cache",
+        "noCacheMode": "Does not use caching at all."
+      },
+      "scope": "Scope",
+      "scopeMode": {
+        "application": "Application",
+        "applicationDesc": "Use this option to cache global data.",
+        "session": "Session",
+        "sessionDesc": "Use this option to cache user specific data."
+      },
+      "title": "Cache"
+    },
+    "call": {
+      "dialog": {
+        "create": "Create new Html Dialog",
+        "title": "Dialog"
+      },
+      "processStart": "Process start",
+      "sub": {
+        "create": "Create new Sub Process"
+      },
+      "title": "Process",
+      "trigger": {
+        "create": "Create new Trigger Process"
+      }
+    },
+    "case": {
+      "title": "Case"
+    },
+    "category": {
+      "empty": "<< Empty >>",
+      "emptyDesc": "Select no Category"
+    },
+    "condition": {
+      "title": "Condition"
+    },
+    "db": {
+      "definition": "Definition",
+      "direction": "Direction",
+      "fields": "Fields",
+      "limit": "Limit",
+      "lotSize": "Lot size",
+      "queryKind": "Query Kind",
+      "quoteIvyScript": "Quote ivyScript variables",
+      "read": "Read",
+      "selectAllFields": "Select all fields",
+      "sort": "Sort",
+      "sqlQuery": "SQL Query",
+      "startIndex": "Start index",
+      "table": "Table",
+      "title": "Query"
+    },
+    "endPage": {
+      "title": "End Page"
+    },
+    "error": {
+      "cause": "Error Cause",
+      "code": "Error Code",
+      "codeToThrow": "Error Code to throw",
+      "empty": "<< Empty >>",
+      "emptyDesc": "Catches all errors",
+      "title": "Error"
+    },
+    "general": {
+      "displayName": "Display name",
+      "meansAndDocuments": "Means / Documents",
+      "nameAndDescription": "Name / Description",
+      "tags": "Tags",
+      "title": "General"
+    },
+    "mail": {
+      "attachments": {
+        "error": "Throw an error if any attachment is missing",
+        "title": "Attachments"
+      },
+      "content": {
+        "message": "Message",
+        "title": "Content",
+        "type": "Type"
+      },
+      "header": {
+        "bcc": "BCC",
+        "cc": "CC",
+        "from": "From",
+        "replyTo": "Reply to",
+        "subject": "Subject",
+        "title": "Header",
+        "to": "To"
+      }
+    },
+    "output": {
+      "disablePermission": "Disable Permission Checks (Execute this Script Step as SYSTEM)",
+      "title": "Output"
+    },
+    "permission": {
+      "allowProcessViewer": "Allow all workflow users to view the process on the Engine",
+      "title": "Permissions"
+    },
+    "processData": {
+      "dataClass": "Data Class",
+      "dataClassMessage": "If the process data class changes, all already used fields must exist in the new data class. Otherwise existing mappings and scripts will be removed.",
+      "title": "Process Data"
+    },
+    "program": {
+      "configuration": {
+        "title": "Configuration"
+      },
+      "error": {
+        "seconds": "Seconds",
+        "timout": "Timeout",
+        "title": "Error"
+      },
+      "event": {
+        "id": "Event ID",
+        "title": "Event",
+        "type": {
+          "continueWithoutEvent": "Continue without waiting",
+          "destroyTask": "Delete the Task",
+          "nothing": "Do nothing"
+        }
+      },
+      "javaClass": "Java Class",
+      "javaClassCreate": "Create new Java Class",
+      "javaClassOpen": "Open Java Class config",
+      "start": {
+        "title": "Java Bean"
+      }
+    },
+    "request": {
+      "showOnStartList": "Show on start list",
+      "startPerHttp": "Yes, this can be started with a HTTP-Request / -Link",
+      "title": "Request"
+    },
+    "rest": {
+      "accept": "Accept",
+      "acceptProperties": "Accept-Properties",
+      "body": "Body",
+      "client": "Client",
+      "contentType": "Content-Type",
+      "entityType": "Entity-Type",
+      "headers": "Headers",
+      "jaxRs": "JAX-RS",
+      "kind": "Kind",
+      "onError": "On Error (Connection, Timeout, etc.)",
+      "onNotSuccess": "On Status Code not successful (2xx)",
+      "openApi": "OpenAPI",
+      "parameters": "Parameters",
+      "properties": "Properties",
+      "readBodyType": "Read body as type (result variable)",
+      "resource": "Resource",
+      "restConfigCreate": "Create new Rest Client",
+      "restConfigOpen": "Open Rest config",
+      "resultType": "Result Type",
+      "service": "Rest Service"
+    },
+    "result": {
+      "paramter": "Result parameters",
+      "title": "Result"
+    },
+    "signal": {
+      "attachBusinessCase": "Attach to Business Case that signaled this process",
+      "code": "Signal Code",
+      "empty": "<< Empty >>",
+      "emptyDesc": "Receives every signal",
+      "title": "Signal"
+    },
+    "start": {
+      "inputParamters": "Input parameters",
+      "signature": "Signature",
+      "title": "Start"
+    },
+    "task": {
+      "delay": "Delay",
+      "noTaskMessage": "There is no (Task) output flow connected.",
+      "notification": "Notification",
+      "options": "Options",
+      "persist": "Persist task on creation",
+      "persistDisabled": "Persist task on creation (Only works if anonymous users are not allowed)",
+      "priority": "Priority",
+      "skipTasklist": "Skip Tasklist",
+      "suppress": "Suppress",
+      "task": "Task",
+      "tasks": "Tasks",
+      "template": "Template"
+    },
+    "trigger": {
+      "attachBusinessCase": "Attach to Business Case that triggered this process",
+      "startTriggerable": "Yes, this can be started with a Trigger Activity",
+      "title": "Trigger"
+    },
+    "ws": {
+      "authMessage": "Web service authentication on the <a>process</a>",
+      "client": "Client",
+      "clientCreate": "Create new WebService Client",
+      "clientOpen": "Open WebService config",
+      "exception": "Exception",
+      "exceptionHandling": "Use exception handling",
+      "operation": "Operation",
+      "port": "Port",
+      "properties": "Properties",
+      "request": "Request",
+      "title": "Web Service"
+    },
+    "wsprocess": {
+      "auth": {
+        "httpBasic": "HTTP Basic",
+        "none": "None/Container",
+        "wsSecurity": "WS Security"
+      },
+      "authentication": "Authentication",
+      "qualifiedName": "Qualified name",
+      "title": "Web Service Process"
+    }
+  },
+  "priority": {
+    "exception": "Exception",
+    "high": "High",
+    "low": "Low",
+    "normal": "Normal",
+    "script": "Script"
+  },
+  "responsible": {
+    "delete": "Nobody & delete",
+    "memberFromAttr": "Members from Attr.",
+    "role": "Role",
+    "roleFromAttr": "Role from Attr.",
+    "userFromAttr": "User from Attr."
+  },
+  "tags": {
+    "addNew": "Add new tag",
+    "new": "Add",
+    "newTag": "New tag",
+    "removeTag": "Remove tag {{tag}}"
+  },
+  "title": {
+    "inscription": "Inscription"
+  }
+}

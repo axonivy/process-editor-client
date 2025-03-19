@@ -12,15 +12,17 @@ import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
 import Checkbox from '../../widgets/checkbox/Checkbox';
+import { useTranslation } from 'react-i18next';
 
 export function useOutputPart(options?: { showSudo?: boolean; additionalBrowsers?: BrowserType[] }): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetOutput } = useOutputData();
   const compareData = (data: OutputData) => [data];
   const validations = [...useValidations(['output']), ...useValidations(['map'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Output',
+    name: t('part.output.title'),
     state,
     reset: { dirty, action: () => resetOutput(options?.showSudo) },
     content: <OutputPart showSudo={options?.showSudo} additionalBrowsers={options?.additionalBrowsers} />
@@ -28,6 +30,7 @@ export function useOutputPart(options?: { showSudo?: boolean; additionalBrowsers
 }
 
 const OutputPart = (props: { showSudo?: boolean; additionalBrowsers?: BrowserType[] }) => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update, updateSudo } = useOutputData();
 
   const { elementContext: context } = useEditorContext();
@@ -41,7 +44,7 @@ const OutputPart = (props: { showSudo?: boolean; additionalBrowsers?: BrowserTyp
     <PathContext path='output'>
       <MappingPart data={config.output.map} variableInfo={variableInfo} onChange={change => update('map', change)} browsers={browsers} />
       <PathCollapsible
-        label='Code'
+        label={t('label.code')}
         path='code'
         controls={[maximizeCode]}
         defaultOpen={config.output.code !== defaultConfig.output.code || config.sudo !== defaultConfig.sudo}
@@ -54,9 +57,7 @@ const OutputPart = (props: { showSudo?: boolean; additionalBrowsers?: BrowserTyp
             browsers={browsers}
           />
         </ValidationFieldset>
-        {props.showSudo && (
-          <Checkbox label='Disable Permission Checks (Execute this Script Step as SYSTEM)' value={config.sudo} onChange={updateSudo} />
-        )}
+        {props.showSudo && <Checkbox label={t('part.output.disablePermission')} value={config.sudo} onChange={updateSudo} />}
       </PathCollapsible>
     </PathContext>
   );

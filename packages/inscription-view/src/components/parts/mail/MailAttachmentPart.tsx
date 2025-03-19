@@ -11,14 +11,21 @@ import { PathContext } from '../../../context/usePath';
 import { ScriptCell } from '../../widgets/table/cell/ScriptCell';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { ValidationRow } from '../common/path/validation/ValidationRow';
+import { useTranslation } from 'react-i18next';
 
 export function useMailAttachmentPart(): PartProps {
+  const { t } = useTranslation();
   const { config, initConfig, defaultConfig, resetAttachments } = useMailData();
   const compareData = (data: MailData) => [data.attachments];
   const validations = useValidations(['attachments']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Attachments', state, reset: { dirty, action: () => resetAttachments() }, content: <MailAttachmentsPart /> };
+  return {
+    name: t('part.mail.attachments.title'),
+    state,
+    reset: { dirty, action: () => resetAttachments() },
+    content: <MailAttachmentsPart />
+  };
 }
 
 const MailAttachmentsPart = () => {
@@ -33,6 +40,7 @@ type MailAttachment = { attachment: string };
 const EMPTY_ATTACHMENT: MailAttachment = { attachment: '' } as const;
 
 const MailAttachmentTable = () => {
+  const { t } = useTranslation();
   const { config, update } = useMailData();
   const data = useMemo<MailAttachment[]>(() => config.attachments.map(filename => ({ attachment: filename })), [config.attachments]);
 
@@ -64,7 +72,7 @@ const MailAttachmentTable = () => {
   const tableActions = table.getSelectedRowModel().rows.length > 0 ? [removeRowAction] : [];
 
   return (
-    <ValidationCollapsible label='Attachments' controls={tableActions} defaultOpen={config.attachments.length > 0}>
+    <ValidationCollapsible label={t('part.mail.attachments.title')} controls={tableActions} defaultOpen={config.attachments.length > 0}>
       <div>
         {table.getRowModel().rows.length > 0 && (
           <Table>

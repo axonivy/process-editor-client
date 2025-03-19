@@ -6,6 +6,7 @@ import './index.css';
 import { InscriptionClientMock } from './mock/inscription-client-mock';
 import { URLParams } from './url-helper';
 import * as React from 'react';
+import { initTranslation } from './i18n';
 
 export async function start(): Promise<void> {
   const readonly = URLParams.parameter('readonly') ? true : false;
@@ -19,6 +20,7 @@ export async function start(): Promise<void> {
   const queryClient = initQueryClient();
   const client = new InscriptionClientMock(readonly, type);
   await MonacoEditorUtil.configureInstance({ theme, debug: true });
+  initTranslation();
 
   root.render(
     <React.StrictMode>

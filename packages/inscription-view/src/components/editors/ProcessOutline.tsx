@@ -5,10 +5,12 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { useMemo } from 'react';
 import { useEditorContext } from '../../context/useEditorContext';
 import { useMeta } from '../../context/useMeta';
+import { useTranslation } from 'react-i18next';
 
 export type ProcessOutlineProps = Omit<OutlineProps, 'outline'>;
 
 export const ProcessOutline = (props: ProcessOutlineProps) => {
+  const { t } = useTranslation();
   const { elementContext } = useEditorContext();
   const processId = PID.processId(elementContext.pid);
   const outlineData = useMeta(
@@ -17,7 +19,7 @@ export const ProcessOutline = (props: ProcessOutlineProps) => {
     { id: processId, title: 'Process', type: 'PROCESS', info: processId, children: [] }
   ).data;
   const outline = useMemo(() => outlineNodes(outlineData), [outlineData]);
-  return <Outline outline={outline} {...props} />;
+  return <Outline outline={outline} options={{ searchPlaceholder: t('common:label.search') }} {...props} />;
 };
 
 const iconForElement = (node: ProcessOutlineNode) => {

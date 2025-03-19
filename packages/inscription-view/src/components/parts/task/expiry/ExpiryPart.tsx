@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { PathFieldset } from '../../common/path/PathFieldset';
@@ -8,11 +9,12 @@ import { useExpiryData } from './useExpiryData';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 
 const ExpiryPart = () => {
+  const { t } = useTranslation();
   const { expiry, update, updateResponsible, updatePriority } = useExpiryData();
   const isTimeoutDefined = expiry.timeout.length > 0;
   return (
-    <PathCollapsible label='Expiry' defaultOpen={isTimeoutDefined} path='expiry'>
-      <PathFieldset label='Timeout' path='timeout'>
+    <PathCollapsible label={t('label.expiry')} defaultOpen={isTimeoutDefined} path='expiry'>
+      <PathFieldset label={t('label.timeout')} path='timeout'>
         <ScriptInput
           value={expiry.timeout}
           onChange={change => update('timeout', change)}

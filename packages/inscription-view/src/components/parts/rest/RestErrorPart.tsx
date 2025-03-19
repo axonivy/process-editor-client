@@ -5,24 +5,26 @@ import { useRestErrorData } from './useRestErrorData';
 import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
+import { useTranslation } from 'react-i18next';
 
 export function useRestErrorPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useRestErrorData();
   const validations = useValidations(['response']);
   const filteredErrorValidations = validations.filter(item => !item.path.startsWith('response.entity'));
   const compareData = (data: RestResponseData) => [data.response.clientError, data.response.statusError];
   const state = usePartState(compareData(defaultConfig), compareData(config), filteredErrorValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Error', state: state, reset: { dirty, action: () => resetData() }, content: <RestErrorPart /> };
+  return { name: t('label.error'), state: state, reset: { dirty, action: () => resetData() }, content: <RestErrorPart /> };
 }
 
 const RestErrorPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useRestErrorData();
-
   return (
     <PathContext path='response'>
       <ValidationCollapsible
-        label='Error'
+        label={t('label.error')}
         defaultOpen={
           config.response.clientError !== defaultConfig.response.clientError ||
           config.response.statusError !== defaultConfig.response.statusError
@@ -30,13 +32,13 @@ const RestErrorPart = () => {
         paths={['clientError', 'statusError']}
       >
         <RestError
-          label='On Error (Connection, Timeout, etc.)'
+          label={t('part.rest.onError')}
           value={config.response.clientError}
           onChange={change => update('clientError', change)}
           path='clientError'
         />
         <RestError
-          label='On Status Code not successful (2xx)'
+          label={t('part.rest.onNotSuccess')}
           value={config.response.statusError}
           onChange={change => update('statusError', change)}
           path='statusError'

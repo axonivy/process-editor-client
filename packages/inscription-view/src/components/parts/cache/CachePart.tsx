@@ -6,17 +6,20 @@ import { useValidations } from '../../../context/useValidation';
 import { PathContext } from '../../../context/usePath';
 import Radio from '../../widgets/radio/Radio';
 import Collapsible from '../../widgets/collapsible/Collapsible';
+import { useTranslation } from 'react-i18next';
 
 export function useCachePart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useCacheData();
   const compareData = (data: CacheData) => [data.cache];
   const validation = useValidations(['cache']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Cache', state, reset: { dirty, action: () => reset() }, content: <CachePart /> };
+  return { name: t('part.cache.title'), state, reset: { dirty, action: () => reset() }, content: <CachePart /> };
 }
 
 const CachePart = () => {
+  const { t } = useTranslation();
   const { config, update, updateGroup, updateEntry } = useCacheData();
   return (
     <PathContext path='cache'>
@@ -24,36 +27,44 @@ const CachePart = () => {
         value={config.cache.mode}
         onChange={change => update('mode', change)}
         items={[
-          { label: 'Do not cache', value: 'DO_NOT_CACHE', description: 'Does not use caching at all.' },
-          { label: 'Cache', value: 'CACHE', description: 'Use if you call an operation that only reads data.' },
-          { label: 'Invalidate Cache', value: 'INVALIDATE_CACHE', description: 'Use if you call an operation that modifies data' }
+          { label: t('part.cache.mode.noCache'), value: 'DO_NOT_CACHE', description: t('part.cache.mode.noCacheMode') },
+          { label: t('part.cache.mode.cache'), value: 'CACHE', description: t('part.cache.mode.cacheDesc') },
+          {
+            label: t('part.cache.mode.invalidate'),
+            value: 'INVALIDATE_CACHE',
+            description: t('part.cache.mode.invalidateMode')
+          }
         ]}
         style={{ paddingInline: 'var(--size-2)' }}
       />
       {config.cache.mode !== 'DO_NOT_CACHE' && (
         <>
-          <Collapsible label='Scope' defaultOpen={true}>
+          <Collapsible label={t('part.cache.scope')} defaultOpen={true}>
             <Radio
               value={config.cache.scope}
               onChange={change => update('scope', change)}
               items={[
-                { label: 'Session', value: 'SESSION', description: 'Use this option to cache user specific data.' },
-                { label: 'Application', value: 'APPLICATION', description: 'Use this option to cache global data.' }
+                { label: t('part.cache.scopeMode.session'), value: 'SESSION', description: t('part.cache.scopeMode.sessionDesc') },
+                {
+                  label: t('part.cache.scopeMode.application'),
+                  value: 'APPLICATION',
+                  description: t('part.cache.scopeMode.applicationDesc')
+                }
               ]}
             />
           </Collapsible>
           <CacheLifetime
             path='group'
-            label='Group'
-            description='Give the group a name that represents the entity of the result data.'
+            label={t('part.cache.group')}
+            description={t('part.cache.groupDesc')}
             config={config.cache.group}
             updater={updateGroup}
             cacheMode={config.cache.mode}
           />
           <CacheLifetime
             path='entry'
-            label='Entry'
-            description='Give the entry a name that represents the result data set (query).'
+            label={t('part.cache.entry')}
+            description={t('part.cache.entryDesc')}
             config={config.cache.entry}
             updater={updateEntry}
             cacheMode={config.cache.mode}

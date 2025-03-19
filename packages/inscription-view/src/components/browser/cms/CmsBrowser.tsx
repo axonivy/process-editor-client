@@ -13,6 +13,7 @@ import { useMeta } from '../../../context/useMeta';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
 import Checkbox from '../../widgets/checkbox/Checkbox';
 import { SearchTable } from '../../widgets/table/table/Table';
+import { useTranslation } from 'react-i18next';
 
 export const CMS_BROWSER_ID = 'cms' as const;
 
@@ -29,11 +30,12 @@ export const useCmsBrowser = (
   setDisableApply: (value: boolean) => void,
   options?: CmsOptions
 ): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
 
   return {
     id: CMS_BROWSER_ID,
-    name: 'CMS',
+    name: t('browser.cms.title'),
     content: (
       <CmsBrowser
         value={value.cursorValue}
@@ -61,6 +63,7 @@ interface CmsBrowserProps {
 }
 
 const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, location, setDisableApply }: CmsBrowserProps) => {
+  const { t } = useTranslation();
   const { context } = useEditorContext();
 
   const [requiredProject, setRequiredProject] = useState<boolean>(false);
@@ -78,11 +81,11 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
     },
     {
       onSuccess: () => {
-        toast.info('String successfully added to CMS');
+        toast.info(t('browser.cms.addSuccess'));
         queryClient.invalidateQueries({ queryKey: ['meta/cms/tree', { context, requiredProjects: requiredProject }] });
       },
       onError: error => {
-        toast.error('Failed to add cms', { description: error.message });
+        toast.error(t('browser.cms.addFailed'), { description: error.message });
       }
     }
   );
@@ -101,8 +104,8 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
                 cell.row.original.type === 'FOLDER'
                   ? IvyIcons.FolderOpen
                   : cell.row.original.type === 'FILE'
-                  ? IvyIcons.File
-                  : IvyIcons.ChangeType
+                    ? IvyIcons.File
+                    : IvyIcons.ChangeType
               }
               additionalInfo={cell.row.original.type}
             />
@@ -197,13 +200,13 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
   return (
     <>
       <Flex direction='row' justifyContent='space-between' alignItems='center'>
-        <Checkbox label='Enable required Projects' value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
+        <Checkbox label={t('browser.cms.requiredProjects')} value={requiredProject} onChange={() => setRequiredProject(!requiredProject)} />
         {context.app === 'designer' && (
           <Button
             icon={IvyIcons.Plus}
             onClick={() => addNewCmsString.mutate({ context, parentUri: table.getSelectedRowModel().flatRows[0].original.fullPath })}
-            aria-label='Add new CMS String'
-            title='Add new CMS String'
+            aria-label={t('browser.cms.add')}
+            title={t('browser.cms.add')}
             disabled={
               table.getSelectedRowModel().flatRows.length === 0 ||
               requiredProject ||
@@ -254,7 +257,7 @@ const CmsBrowser = ({ value, onChange, noApiCall, typeFilter, onDoubleClick, loc
           </pre>
         ) : (
           <pre className='browser-helptext'>
-            <Message message='No element selected.' variant='info' />
+            <Message message={t('browser.emptyInfo')} variant='info' />
           </pre>
         ))}
     </>

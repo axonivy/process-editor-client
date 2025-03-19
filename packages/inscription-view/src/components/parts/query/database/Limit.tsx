@@ -3,17 +3,18 @@ import { useQueryData } from '../useQueryData';
 import { ValidationCollapsible } from '../../common/path/validation/ValidationCollapsible';
 import { PathFieldset } from '../../common/path/PathFieldset';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
+import { useTranslation } from 'react-i18next';
 
 export const Limit = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useQueryData();
-
   return (
     <ValidationCollapsible
-      label='Limit'
+      label={t('part.db.limit')}
       defaultOpen={config.query.limit !== defaultConfig.query.limit || config.query.offset !== defaultConfig.query.offset}
       paths={['limit', 'offset']}
     >
-      <PathFieldset label='Lot size' path='limit'>
+      <PathFieldset label={t('part.db.lotSize')} path='limit'>
         <ScriptInput
           value={config.query.limit}
           onChange={change => update('limit', change)}
@@ -21,7 +22,7 @@ export const Limit = () => {
           browsers={['attr', 'func', 'type']}
         />
       </PathFieldset>
-      <PathFieldset label='Start index' path='offset'>
+      <PathFieldset label={t('part.db.startIndex')} path='offset'>
         <ScriptInput
           value={config.query.offset}
           onChange={change => update('offset', change)}

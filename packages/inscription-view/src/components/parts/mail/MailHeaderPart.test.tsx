@@ -26,7 +26,7 @@ describe('MailHeaderPart', () => {
 
   test('empty data', async () => {
     renderPart();
-    await CollapsableUtil.assertClosed('Headers');
+    await CollapsableUtil.assertClosed('Header');
   });
 
   test('full data', async () => {

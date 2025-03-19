@@ -6,8 +6,10 @@ import { useMeta } from '../../../../../context/useMeta';
 import { PathCollapsible } from '../../../common/path/PathCollapsible';
 import Fieldset from '../../../../widgets/fieldset/Fieldset';
 import Combobox, { type ComboboxItem } from '../../../../widgets/combobox/Combobox';
+import { useTranslation } from 'react-i18next';
 
 export const RestHeaders = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateTarget, updateAcceptHeader } = useRestRequestData();
 
   const knownContentTypes = useMeta('meta/rest/contentTypes', { forBody: false }, []).data.map<ComboboxItem>(type => ({ value: type }));
@@ -15,8 +17,12 @@ export const RestHeaders = () => {
   const restResourceHeaders = useRestResourceMeta().headers?.map(header => header.name) ?? [];
 
   return (
-    <PathCollapsible label='Headers' path='headers' defaultOpen={!deepEqual(config.target.headers, defaultConfig.target.headers)}>
-      <Fieldset label='Accept'>
+    <PathCollapsible
+      label={t('part.rest.headers')}
+      path='headers'
+      defaultOpen={!deepEqual(config.target.headers, defaultConfig.target.headers)}
+    >
+      <Fieldset label={t('part.rest.accept')}>
         <Combobox value={config.target.headers['Accept']} onChange={updateAcceptHeader} items={knownContentTypes} />
       </Fieldset>
       <PropertyTable
@@ -24,7 +30,7 @@ export const RestHeaders = () => {
         update={change => updateTarget('headers', change)}
         knownProperties={[...restResourceHeaders, ...knownHeaders]}
         hideProperties={['Accept']}
-        label='Accept-Properties'
+        label={t('part.rest.acceptProperties')}
         defaultOpen={true}
       />
     </PathCollapsible>

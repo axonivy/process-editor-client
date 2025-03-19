@@ -14,7 +14,7 @@ class MailHeader extends PartObject {
 
   constructor(part: Part) {
     super(part);
-    this.headers = part.section('Headers');
+    this.headers = part.section('Header');
     this.subject = this.headers.macroInput('Subject');
     this.from = this.headers.macroInput('From');
     this.reply = this.headers.macroInput('Reply to');

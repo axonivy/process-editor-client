@@ -23,10 +23,12 @@ import { ScriptCell } from '../../../../widgets/table/cell/ScriptCell';
 import { PathCollapsible } from '../../../common/path/PathCollapsible';
 import { ValidationRow } from '../../../common/path/validation/ValidationRow';
 import { focusNewCell } from '../../../common/table/cellFocus-utils';
+import { useTranslation } from 'react-i18next';
 
 const EMPTY_PARAMETER: Parameter = { kind: 'Query', name: '', expression: '', known: false };
 
 export const RestParameters = () => {
+  const { t } = useTranslation();
   const { config, updateParameters } = useRestRequestData();
 
   const [data, setData] = useState<Parameter[]>([]);
@@ -48,17 +50,17 @@ export const RestParameters = () => {
     () => [
       {
         accessorKey: 'kind',
-        header: ({ column }) => <SortableHeader column={column} name='Kind' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('part.rest.kind')} />,
         cell: cell => <SelectCell cell={cell} items={kindItems} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
         cell: cell => <InputCell cell={cell} disabled={cell.row.original.known} />
       },
       {
         accessorKey: 'expression',
-        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.expression')} />,
         cell: cell => (
           <ScriptCell
             cell={cell}
@@ -69,7 +71,7 @@ export const RestParameters = () => {
         )
       }
     ],
-    [kindItems]
+    [kindItems, t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -125,7 +127,7 @@ export const RestParameters = () => {
     table.getSelectedRowModel().rows.length > 0 && !table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.known
       ? [
           {
-            label: 'Remove row',
+            label: t('label.removeRow'),
             icon: IvyIcons.Trash,
             action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
           }
@@ -133,7 +135,7 @@ export const RestParameters = () => {
       : [];
 
   return (
-    <PathCollapsible label='Parameters' path='parameters' defaultOpen={data.length > 0} controls={tableActions}>
+    <PathCollapsible label={t('part.rest.parameters')} path='parameters' defaultOpen={data.length > 0} controls={tableActions}>
       <Table>
         <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />
         <TableBody>

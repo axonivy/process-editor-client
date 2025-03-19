@@ -10,15 +10,17 @@ import { useMeta } from '../../../../context/useMeta';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import Input from '../../../widgets/input/Input';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
+import { useTranslation } from 'react-i18next';
 
 export function useConfigurationPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useConfigurationData();
   const compareData = (data: ConfigurationData) => [data.userConfig];
   const validation = useValidations(['userConfig']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Configuration',
+    name: t('part.program.configuration.title'),
     state,
     reset: { dirty, action: () => reset() },
     content: <ConfigurationPart />
@@ -26,6 +28,7 @@ export function useConfigurationPart(): PartProps {
 }
 
 const ConfigurationPart = () => {
+  const { t } = useTranslation();
   const { config, updateUserConfig } = useConfigurationData();
   const { context } = useEditorContext();
   const editorItems = useMeta('meta/program/editor', { context, type: config.javaClass }, []).data;
@@ -89,7 +92,7 @@ const ConfigurationPart = () => {
   }
 
   return (
-    <PathCollapsible label='Configuration' defaultOpen={true} path={'userConfig'}>
+    <PathCollapsible label={t('part.program.configuration.title')} defaultOpen={true} path={'userConfig'}>
       {editorItems.map((widget, index) => (
         <Flex direction='column' className='configuration-widget' key={index}>
           {renderWidgetComponent(widget)}

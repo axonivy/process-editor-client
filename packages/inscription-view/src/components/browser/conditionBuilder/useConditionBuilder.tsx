@@ -5,14 +5,16 @@ import { useState } from 'react';
 import { generateConditionString, logicOperators, operators } from './conditionBuilderData';
 import { ConditionBuilder } from '@axonivy/ui-components';
 import InputWithBrowser from '../../widgets/input/InputWithBrowser';
+import { useTranslation } from 'react-i18next';
 
 export const CONDITION_BUILDER_ID = 'condition' as const;
 
 export const useConditionBuilder = (): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: CONDITION_BUILDER_ID,
-    name: 'Condition',
+    name: t('browser.condition.title'),
     content: <ConditionBrowser value={value.cursorValue} onChange={setValue} />,
     accept: () => value,
     icon: IvyIcons.Process
@@ -25,6 +27,7 @@ type ConditionBrowserProps = {
 };
 
 const ConditionBrowser = ({ value, onChange }: ConditionBrowserProps) => {
+  const { t } = useTranslation();
   return (
     <>
       <ConditionBuilder
@@ -35,7 +38,7 @@ const ConditionBrowser = ({ value, onChange }: ConditionBrowserProps) => {
         argumentInput={(value, onChange) => <InputWithBrowser value={value} onChange={onChange} browsers={['attr']} style={{ flex: 1 }} />}
       />
       <pre className='browser-helptext'>
-        <b>Generated Condition</b>
+        <b>{t('browser.condition.info')}</b>
         <code>{value}</code>
       </pre>
     </>

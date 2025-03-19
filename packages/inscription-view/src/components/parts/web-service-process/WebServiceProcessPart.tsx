@@ -1,37 +1,48 @@
 import type { WebServiceProcessData, WsAuth } from '@axonivy/process-editor-inscription-protocol';
-import { IVY_SCRIPT_TYPES, WS_AUTH_TYPE } from '@axonivy/process-editor-inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../components/editors/part/usePart';
 import { useWebServiceProcessData } from './useWebServiceProcessData';
 import { useValidations } from '../../../context/useValidation';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { PathFieldset } from '../common/path/PathFieldset';
 import Input from '../../widgets/input/Input';
-import Radio from '../../widgets/radio/Radio';
+import Radio, { type RadioItemProps } from '../../widgets/radio/Radio';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
 export function useWebServiceProcessPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useWebServiceProcessData();
   const compareData = (data: WebServiceProcessData) => [data.wsAuth, data.wsTypeName];
   const validation = [...useValidations(['wsAuth']), ...useValidations(['wsTypeName'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Web Service Process', state, reset: { dirty, action: () => reset() }, content: <WebServiceProcessPart /> };
+  return { name: t('part.wsprocess.title'), state, reset: { dirty, action: () => reset() }, content: <WebServiceProcessPart /> };
 }
 
-const WebServiceProcessPart = () => {
-  const { config, defaultConfig, update } = useWebServiceProcessData();
+const useAuthTypes = () => {
+  const { t } = useTranslation();
+  return useMemo<Array<RadioItemProps<WsAuth>>>(
+    () => [
+      { label: t('part.wsprocess.auth.none'), value: 'NONE' },
+      { label: t('part.wsprocess.auth.wsSecurity'), value: 'WS_SECURITY' },
+      { label: t('part.wsprocess.auth.httpBasic'), value: 'HTTP_BASIC' }
+    ],
+    [t]
+  );
+};
 
+const WebServiceProcessPart = () => {
+  const { t } = useTranslation();
+  const { config, defaultConfig, update } = useWebServiceProcessData();
+  const items = useAuthTypes();
   return (
-    <ValidationCollapsible label='Process' defaultOpen={config.wsTypeName !== defaultConfig.wsTypeName}>
-      <PathFieldset label='Qualified name' path='wsTypeName'>
+    <ValidationCollapsible label={t('label.process')} defaultOpen={config.wsTypeName !== defaultConfig.wsTypeName}>
+      <PathFieldset label={t('part.wsprocess.qualifiedName')} path='wsTypeName'>
         <Input value={config.wsTypeName} onChange={change => update('wsTypeName', change)} type={IVY_SCRIPT_TYPES.STRING} />
       </PathFieldset>
-      <PathFieldset label='Authentication' path='wsAuth'>
-        <Radio
-          value={config.wsAuth}
-          onChange={change => update('wsAuth', change as WsAuth)}
-          items={Object.entries(WS_AUTH_TYPE).map(([value, label]) => ({ label, value }))}
-          orientation='horizontal'
-        />
+      <PathFieldset label={t('part.wsprocess.authentication')} path='wsAuth'>
+        <Radio value={config.wsAuth} onChange={change => update('wsAuth', change as WsAuth)} items={items} orientation='horizontal' />
       </PathFieldset>
     </ValidationCollapsible>
   );

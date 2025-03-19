@@ -13,15 +13,17 @@ import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
 import { SearchTable } from '../../widgets/table/table/Table';
+import { useTranslation } from 'react-i18next';
 
 export const ATTRIBUTE_BROWSER_ID = 'attr' as const;
 
 export const useAttributeBrowser = (onDoubleClick: () => void, location: string): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: ATTRIBUTE_BROWSER_ID,
     icon: IvyIcons.Attribute,
-    name: 'Attribute',
+    name: t('browser.attribute.title'),
     content: <AttributeBrowser value={value.cursorValue} onChange={setValue} location={location} onDoubleClick={onDoubleClick} />,
     accept: () => value
   };
@@ -38,6 +40,7 @@ const AttributeBrowser = ({
   location: string;
   onDoubleClick: () => void;
 }) => {
+  const { t } = useTranslation();
   const [tree, setTree] = useState<MappingTreeData[]>([]);
   const [varInfo, setVarInfo] = useState<VariableInfo>({ variables: [], types: {} });
 
@@ -69,7 +72,7 @@ const AttributeBrowser = ({
       {
         accessorFn: row => row.attribute,
         id: 'attribute',
-        header: header => <ExpandableHeader header={header} name='Attribute' />,
+        header: header => <ExpandableHeader header={header} name={t('browser.attribute.title')} />,
         cell: cell => (
           <ExpandableCell
             cell={cell}
@@ -82,7 +85,7 @@ const AttributeBrowser = ({
         )
       }
     ],
-    [loadChildren]
+    [loadChildren, t]
   );
 
   const [expanded, setExpanded] = useState<ExpandedState>(true);
