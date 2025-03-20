@@ -101,7 +101,7 @@ export class ProcessEditor {
   }
 
   async expectToastToContainText(text: string) {
-    await expect(this.page.locator('#sprotty_toast')).toContainText(text);
+    await expect(this.page.locator('.toastify').first()).toContainText(text);
   }
 
   public static inscriptionView(page: Page) {

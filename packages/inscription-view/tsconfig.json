@@ -8,6 +8,6 @@
     },
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/translation/**/*.json"],
+  "include": ["src"],
   "references": [{ "path": "../inscription-protocol/tsconfig.json" }]
 }

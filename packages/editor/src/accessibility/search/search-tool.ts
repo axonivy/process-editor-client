@@ -5,6 +5,7 @@ import {
   SearchAutocompletePaletteTool,
   SetAccessibleKeyShortcutAction
 } from '@eclipse-glsp/client';
+import { t } from 'i18next';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -17,7 +18,14 @@ export class IvySearchAutocompletePaletteKeyListener extends SearchAutocompleteP
     this.tool.actionDispatcher.dispatchOnceModelInitialized(
       SetAccessibleKeyShortcutAction.create({
         token: this.token,
-        keys: [{ shortcuts: [isMac() ? 'CMD' : 'CTRL', 'F'], description: 'Activate search for elements', group: 'Search', position: 0 }]
+        keys: [
+          {
+            shortcuts: [isMac() ? 'CMD' : 'CTRL', 'F'],
+            description: t('a11y.hotkeyDesc.searchPalette'),
+            group: t('a11y.hotkeyGroup.search'),
+            position: 0
+          }
+        ]
       })
     );
   }

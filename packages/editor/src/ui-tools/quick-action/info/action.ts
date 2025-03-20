@@ -17,6 +17,7 @@ import { IVY_TYPES } from '../../../types';
 import type { IvyViewerOptions } from '../../../options';
 import { LaneNode } from '../../../diagram/model';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { t } from 'i18next';
 
 @injectable()
 export class InfoQuickActionProvider extends SingleQuickActionProvider {
@@ -29,7 +30,7 @@ export class InfoQuickActionProvider extends SingleQuickActionProvider {
     }
     return {
       icon: IvyIcons.InfoCircle,
-      title: 'Information (I)',
+      title: t('quickAction.information', { hotkey: 'I' }),
       location: 'Left',
       sorting: 'B',
       action: ShowInfoQuickActionMenuAction.create({

@@ -27,6 +27,7 @@
 }
 .tool-bar-header .middle-buttons .tool-bar-title-button {
   min-width: 60px;
+  white-space: nowrap;
 }
 .tool-bar-header .right-buttons {
   justify-content: end;

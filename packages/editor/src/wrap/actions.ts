@@ -5,6 +5,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { type QuickActionProvider, type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isSingleWrapable, isUnwrapable, isWrapable } from './model';
 import { UnwrapSubOperation, WrapToSubOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 @injectable()
 export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
@@ -12,7 +13,7 @@ export class UnwrapQuickActionProvider extends SingleQuickActionProvider {
     if (isUnwrapable(element)) {
       return {
         icon: IvyIcons.Unwrap,
-        title: 'Unwrap embedded subprocess (U)',
+        title: t('quickAction.unwrap', { hotkey: 'U' }),
         location: 'Middle',
         sorting: 'B',
         action: UnwrapSubOperation.create({ elementId: element.id }),
@@ -43,7 +44,7 @@ export class WrapQuickActionProvider implements QuickActionProvider {
   quickAction(elementIds: string[]): QuickAction {
     return {
       icon: IvyIcons.WrapToSubprocess,
-      title: 'Wrap to embedded process (W)',
+      title: t('quickAction.wrap', { hotkey: 'W' }),
       location: 'Middle',
       sorting: 'B',
       action: WrapToSubOperation.create({ elementIds }),

@@ -21,6 +21,7 @@ import { canAddErrorBoundary, canAddSignalBoundary } from '../../../diagram/boun
 import { QuickActionUI } from '../quick-action-ui';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { AttachBoundaryOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 export abstract class CreateElementQuickActionProvider extends SingleQuickActionProvider {
   @inject(ElementsPaletteHandler) protected paletteHandler: ElementsPaletteHandler;
@@ -99,7 +100,7 @@ export class CreateEventQuickActionProvider extends CreateElementQuickActionProv
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Events', icon: IvyIcons.Start, sortString: 'A', id: '', actions: [] };
+    return { label: t('toolbar.events'), icon: IvyIcons.Start, sortString: 'A', id: '', actions: [] };
   }
 }
 
@@ -110,7 +111,7 @@ export class CreateGatewayQuickActionProvider extends CreateElementQuickActionPr
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Gateways', icon: IvyIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
+    return { label: t('toolbar.gateways'), icon: IvyIcons.GatewaysGroup, sortString: 'B', id: '', actions: [] };
   }
 }
 
@@ -124,7 +125,7 @@ export class CreateActivityQuickActionProvider extends CreateElementQuickActionP
   }
 
   quickActionItem(): PaletteItem {
-    return { label: 'Activities', icon: IvyIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
+    return { label: t('toolbar.activities'), icon: IvyIcons.ActivitiesGroup, sortString: 'C', id: '', actions: [] };
   }
 }
 

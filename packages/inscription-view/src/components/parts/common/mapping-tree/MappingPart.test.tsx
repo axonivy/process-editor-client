@@ -126,7 +126,7 @@ describe('MappingPart', () => {
   test('tree will filter', async () => {
     renderTree();
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
-    const toggleFilter = screen.getByRole('button', { name: 'Toggle Search' });
+    const toggleFilter = screen.getByRole('button', { name: 'Search' });
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
     await userEvent.click(toggleFilter);
@@ -147,7 +147,7 @@ describe('MappingPart', () => {
   test('tree will show only inscribed values', async () => {
     renderTree();
     expect(screen.queryByPlaceholderText('Search')).not.toBeInTheDocument();
-    const toggleInscribed = screen.getByRole('button', { name: 'Toggle Inscribed' });
+    const toggleInscribed = screen.getByRole('button', { name: 'Mapped' });
     assertTableRows([ATTRIBUTES, PARAMS, NODE_BOOLEAN, NODE_NUMBER, USER]);
 
     await userEvent.click(toggleInscribed);

@@ -6,10 +6,10 @@ test('toggle theme', async ({ page }) => {
   await processEditor.expectLightMode();
 
   await processEditor.toolbar().openOptionsMenu();
-  await processEditor.toolbar().options().toggleOption('Darkmode', false);
+  await processEditor.toolbar().options().toggleOption('Theme', false);
   await processEditor.expectDarkMode();
 
-  await processEditor.toolbar().options().toggleOption('Darkmode', true);
+  await processEditor.toolbar().options().toggleOption('Theme', true);
   await processEditor.expectLightMode();
 });
 

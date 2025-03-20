@@ -32,7 +32,7 @@ export default tseslint.config(
   },
   {
     ...i18next.configs['flat/recommended'],
-    files: ['packages/inscription-*/src/**/*.{ts,tsx}'],
+    files: ['packages/*/src/**/*.{ts,tsx}'],
     ignores: ['**/*.{test,spec}.{ts,tsx}'],
     rules: {
       'i18next/no-literal-string': [

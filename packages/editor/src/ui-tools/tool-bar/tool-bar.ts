@@ -99,14 +99,14 @@ export class ToolBar extends GLSPAbstractUIExtension implements IActionHandler, 
   private createLeftButtons(): HTMLElement {
     const leftButtons = createElement('div', ['left-buttons']);
 
-    this.defaultToolsButton = this.createToolButton(DefaultSelectButton);
+    this.defaultToolsButton = this.createToolButton(DefaultSelectButton());
     leftButtons.appendChild(this.defaultToolsButton);
-    leftButtons.appendChild(this.createToolButton(MarqueeToolButton));
+    leftButtons.appendChild(this.createToolButton(MarqueeToolButton()));
 
     if (!this.editorContext.isReadonly) {
       const editPart = createElement('div', ['edit-buttons']);
-      editPart.appendChild(this.createToolButton(UndoToolButton));
-      editPart.appendChild(this.createToolButton(RedoToolButton));
+      editPart.appendChild(this.createToolButton(UndoToolButton()));
+      editPart.appendChild(this.createToolButton(RedoToolButton()));
       leftButtons.appendChild(editPart);
     }
     return leftButtons;

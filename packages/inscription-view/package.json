@@ -43,7 +43,6 @@
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.8",
     "deepmerge-ts": "^7.0.0",
-    "i18next-parser": "^9.3.0",
     "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -59,8 +58,6 @@
     "build:clean": "npm run clean && npm run build",
     "type": "tsc --noEmit",
     "test": "vitest",
-    "test:ci": "vitest --watch=false",
-    "i18n:extract": "i18next",
-    "i18n:ci": "i18next --fail-on-update"
+    "test:ci": "vitest --watch=false"
   }
 }
