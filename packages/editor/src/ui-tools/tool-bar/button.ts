@@ -13,6 +13,7 @@ import { inject, injectable, optional } from 'inversify';
 import { SwitchThemeActionHandler } from '../../theme/action-handler';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
+import { t } from 'i18next';
 
 export interface ToolBarButtonProvider {
   button(): ToolBarButton | undefined;
@@ -45,45 +46,45 @@ export function compareButtons(a: ToolBarButton, b: ToolBarButton): number {
   return a.title.localeCompare(b.title);
 }
 
-export const DefaultSelectButton: ToolBarButton = {
+export const DefaultSelectButton = (): ToolBarButton => ({
   icon: IvyIcons.SelectionTool,
-  title: 'Selection Tool',
+  title: t('toolbar.selection'),
   sorting: 'A',
   action: () => EnableDefaultToolsAction.create(),
   id: 'btn_default_tools',
   location: ToolBarButtonLocation.Left,
   readonly: true,
   switchFocus: true
-};
+});
 
-export const MarqueeToolButton: ToolBarButton = {
+export const MarqueeToolButton = (): ToolBarButton => ({
   icon: IvyIcons.MultiSelection,
-  title: 'Marquee Tool (Shift)',
+  title: t('toolbar.marquee', { hotkey: 'Shift' }),
   sorting: 'B',
   action: () => EnableToolsAction.create([MarqueeMouseTool.ID]),
   id: 'btn_marquee_tools',
   location: ToolBarButtonLocation.Left,
   readonly: true,
   switchFocus: true
-};
+});
 
-export const UndoToolButton: ToolBarButton = {
+export const UndoToolButton = (): ToolBarButton => ({
   icon: IvyIcons.Undo,
-  title: 'Undo',
+  title: t('toolbar.undo'),
   sorting: 'C',
   action: () => UndoAction.create(),
   id: 'btn_undo_tools',
   location: ToolBarButtonLocation.Left
-};
+});
 
-export const RedoToolButton: ToolBarButton = {
+export const RedoToolButton = (): ToolBarButton => ({
   icon: IvyIcons.Redo,
-  title: 'Redo',
+  title: t('toolbar.redo'),
   sorting: 'D',
   action: () => RedoAction.create(),
   id: 'btn_redo_tools',
   location: ToolBarButtonLocation.Left
-};
+});
 
 @injectable()
 export class OptionsButtonProvider implements ToolBarButtonProvider {
@@ -98,7 +99,7 @@ export class OptionsButtonProvider implements ToolBarButtonProvider {
     const theme = handler ? () => handler.theme() : undefined;
     return {
       icon: IvyIcons.Settings,
-      title: 'Settings',
+      title: t('common:label.settings'),
       sorting: 'Y',
       action: () => ShowToolBarOptionsMenuAction.create({ customIconState, grid, theme }),
       id: 'btn_options_menu',

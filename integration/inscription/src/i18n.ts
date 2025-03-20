@@ -1,6 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { enTranslation, enCommonTranslation } from '@axonivy/process-editor-inscription-view';
+import enTranslation from '../../../packages/editor/src/translation/process-editor/en.json';
+import enCommonTranslation from '../../../packages/editor/src/translation/common/en.json';
+import deTranslation from '../../../packages/editor/src/translation/process-editor/de.json';
+import deCommonTranslation from '../../../packages/editor/src/translation/common/de.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const initTranslation = () => {
@@ -10,12 +13,13 @@ export const initTranslation = () => {
     .use(LanguageDetector)
     .init({
       debug: true,
-      supportedLngs: ['en'],
+      supportedLngs: ['en', 'de'],
       fallbackLng: 'en',
-      ns: ['inscription-view'],
-      defaultNS: 'inscription-view',
+      ns: ['process-editor'],
+      defaultNS: 'process-editor',
       resources: {
-        en: { 'inscription-view': enTranslation, common: enCommonTranslation }
+        en: { 'process-editor': enTranslation, common: enCommonTranslation },
+        de: { 'process-editor': deTranslation, common: deCommonTranslation }
       }
     });
 };

@@ -5,6 +5,7 @@ import { QuickActionTriggerEdgeCreationAction } from '../ui-tools/quick-action/e
 
 import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { AutoBendEdgeOperation, StraightenEdgeOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 @injectable()
 export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider {
@@ -12,7 +13,7 @@ export class StraightenEdgeQuickActionProvider extends SingleQuickActionProvider
     if (element instanceof GEdge) {
       return {
         icon: IvyIcons.Straighten,
-        title: 'Straighten (S)',
+        title: t('quickAction.straighten', { hotkey: 'S' }),
         location: 'Middle',
         sorting: 'A',
         action: StraightenEdgeOperation.create({ elementId: element.id }),
@@ -30,7 +31,7 @@ export class AutoBendEdgeQuickActionProvider extends SingleQuickActionProvider {
     if (element instanceof GEdge) {
       return {
         icon: IvyIcons.Bend,
-        title: 'Bend (B)',
+        title: t('quickAction.bend', { hotkey: 'B' }),
         location: 'Middle',
         sorting: 'B',
         action: AutoBendEdgeOperation.create({ elementId: element.id }),
@@ -48,7 +49,7 @@ export class ReconnectEdgeQuickActionProvider extends SingleQuickActionProvider 
     if (element instanceof GEdge) {
       return {
         icon: IvyIcons.Reconnect,
-        title: 'Reconnect (R)',
+        title: t('quickAction.reconnect', { hotkey: 'R' }),
         location: 'Right',
         sorting: 'A',
         action: QuickActionTriggerEdgeCreationAction.create(element.type, element.sourceId, { edgeId: element.id, reconnect: true }),

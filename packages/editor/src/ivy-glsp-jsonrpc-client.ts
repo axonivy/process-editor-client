@@ -1,11 +1,12 @@
 import { BaseJsonrpcGLSPClient, ClientState } from '@eclipse-glsp/client';
+import { t } from 'i18next';
 import Toastify from 'toastify-js';
 
 export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
   error(message: string, ...optionalParams: Error[]): void {
     console.error(`[IvyJsonrpcGLSPClient] ${message}`, optionalParams);
     Toastify({
-      text: `${message}  (Click to reload)`,
+      text: t('message.clickToReload', { message }),
       className: 'severity-ERROR',
       duration: -1,
       close: true,
@@ -16,7 +17,7 @@ export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
   }
 
   override handleConnectionError(error: Error): void {
-    this.error('Connection to server is erroring. Shutting down server.', error);
+    this.error(t('message.connectionToServerError'), error);
     this.stop();
     this.state = ClientState.ServerError;
   }
@@ -36,7 +37,7 @@ export class IvyBaseJsonrpcGLSPClient extends BaseJsonrpcGLSPClient {
       // Disposing a connection could fail if error cases.
     }
 
-    this.error('Connection to server got closed.');
+    this.error(t('message.connectionClosed'));
     this.state = ClientState.ServerError;
   }
 }

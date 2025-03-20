@@ -1,6 +1,6 @@
 import type { RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { TableUtil, render, screen } from 'test-utils';
+import { TableUtil, render, screen, waitFor } from 'test-utils';
 import { RestForm } from './RestForm';
 import { describe, test, expect } from 'vitest';
 
@@ -19,7 +19,7 @@ describe('RestForm', () => {
     TableUtil.assertRows(['bla 123']);
   });
 
-  test.skip('openapi', async () => {
+  test('openapi', async () => {
     renderPart(
       { body: { form: { test: ['123'] } } },
       {
@@ -30,6 +30,7 @@ describe('RestForm', () => {
     );
     TableUtil.assertRows(['test 123']);
     expect(screen.getAllByRole('textbox')[0]).toHaveValue('test');
+    await waitFor(() => expect(screen.getAllByRole('textbox')[0]).toBeDisabled());
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
     expect(screen.getAllByRole('textbox')[1]).toHaveValue('123');
     expect(screen.getAllByRole('textbox')[1]).toBeEnabled();

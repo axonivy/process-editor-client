@@ -2,6 +2,7 @@ import { EditLabelAction, isWithEditableLabel, GModelElement } from '@eclipse-gl
 import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { injectable } from 'inversify';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { t } from 'i18next';
 
 @injectable()
 export class EditLabelActionProvider extends SingleQuickActionProvider {
@@ -9,7 +10,7 @@ export class EditLabelActionProvider extends SingleQuickActionProvider {
     if (isWithEditableLabel(element) && element.editableLabel) {
       return {
         icon: IvyIcons.Label,
-        title: 'Edit Label (L)',
+        title: t('quickAction.editLabel', { hotkey: 'L' }),
         location: 'Middle',
         sorting: 'C',
         action: EditLabelAction.create(element.editableLabel.id),

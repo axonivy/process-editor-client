@@ -4,6 +4,7 @@ import { GoToSourceAction } from '@axonivy/process-editor-protocol';
 import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { hasGoToSourceFeature } from './model';
+import { t } from 'i18next';
 
 @injectable()
 export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
@@ -11,7 +12,7 @@ export class GoToSourceQuickActionProvider extends SingleQuickActionProvider {
     if (hasGoToSourceFeature(element)) {
       return {
         icon: IvyIcons.GoToSource,
-        title: 'Go To Source (S)',
+        title: t('quickAction.goToSource', { hotkey: 'S' }),
         location: 'Middle',
         sorting: 'B',
         action: GoToSourceAction.create(element.id),

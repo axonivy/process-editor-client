@@ -5,6 +5,7 @@ import { createElement, createIcon, ToggleSwitch } from '../../../utils/ui-utils
 import type { ShowToolBarOptionsMenuAction } from './action';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { CustomIconToggleAction, SwitchThemeAction } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 interface Option {
   icon: IvyIcons;
@@ -15,7 +16,7 @@ interface Option {
 class ThemeOption implements Option {
   constructor(
     public readonly icon = IvyIcons.DarkMode,
-    public readonly label = 'Darkmode',
+    public readonly label = t('common:label.theme'),
     public readonly action = (state: boolean) => SwitchThemeAction.create({ theme: state ? 'dark' : 'light' })
   ) {}
 }
@@ -23,7 +24,7 @@ class ThemeOption implements Option {
 class GridOption implements Option {
   constructor(
     public readonly icon = IvyIcons.GridDots,
-    public readonly label = 'Grid',
+    public readonly label = t('toolbar.grid'),
     public readonly action = (state: boolean) => ShowGridAction.create({ show: state })
   ) {}
 }
@@ -31,7 +32,7 @@ class GridOption implements Option {
 class CustomIconOption implements Option {
   constructor(
     public readonly icon = IvyIcons.CustomImage,
-    public readonly label = 'Custom Icon',
+    public readonly label = t('toolbar.customIcon'),
     public readonly action = (state: boolean) => CustomIconToggleAction.create({ showCustomIcons: state })
   ) {}
 }
@@ -39,7 +40,10 @@ class CustomIconOption implements Option {
 export class ToolBarOptionsMenu implements Menu {
   private bodyDiv?: HTMLDivElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly showAction: ShowToolBarOptionsMenuAction) {}
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly showAction: ShowToolBarOptionsMenuAction
+  ) {}
 
   public create(containerElement: HTMLElement): HTMLElement {
     this.bodyDiv = createElement('div', ['tool-bar-options-menu']) as HTMLDivElement;
@@ -59,7 +63,7 @@ export class ToolBarOptionsMenu implements Menu {
     const header = createElement('div', ['tool-bar-options-header']);
     header.appendChild(createIcon(IvyIcons.Settings));
     const label = document.createElement('label');
-    label.textContent = 'Options';
+    label.textContent = t('common:label.settings');
     header.appendChild(label);
     return header;
   }

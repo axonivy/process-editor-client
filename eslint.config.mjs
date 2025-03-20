@@ -1,9 +1,9 @@
 import tseslint from 'typescript-eslint';
 import config from '@axonivy/eslint-config';
-import i18next from 'eslint-plugin-i18next';
 
 export default tseslint.config(
   ...config.base,
+  ...config.i18n,
   // TypeScript recommended configs
   {
     name: 'typescript-eslint',
@@ -22,26 +22,9 @@ export default tseslint.config(
     }
   },
   {
-    ignores: ['**/i18next-parser.config.*']
-  },
-  {
     name: 'packages/editor',
     rules: {
       'react/no-unknown-property': 'off'
-    }
-  },
-  {
-    ...i18next.configs['flat/recommended'],
-    files: ['packages/inscription-*/src/**/*.{ts,tsx}'],
-    ignores: ['**/*.{test,spec}.{ts,tsx}'],
-    rules: {
-      'i18next/no-literal-string': [
-        'warn',
-        {
-          mode: 'jsx-only',
-          'jsx-attributes': { include: ['label', 'aria-label', 'title', 'name'] }
-        }
-      ]
     }
   }
 );

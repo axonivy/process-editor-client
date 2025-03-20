@@ -5,6 +5,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { LaneNode } from '../diagram/model';
 import { LaneTypes } from '../diagram/view-types';
 import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
+import { t } from 'i18next';
 
 @injectable()
 export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
@@ -12,7 +13,7 @@ export class CreateLaneQuickActionProvider extends SingleQuickActionProvider {
     if (element instanceof LaneNode && element.type === LaneTypes.POOL) {
       return {
         icon: IvyIcons.LaneSwimlanes,
-        title: 'Create Lane',
+        title: t('quickAction.createLane'),
         location: 'Right',
         sorting: 'A',
         letQuickActionsOpen: true,

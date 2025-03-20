@@ -3,6 +3,7 @@ import { injectable } from 'inversify';
 import type { KeyCode } from 'sprotty/lib/utils/keyboard';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { AutoAlignOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 export type QuickActionLocation = 'Left' | 'Middle' | 'Right' | 'Hidden';
 
@@ -59,7 +60,7 @@ export class DeleteQuickActionProvider implements QuickActionProvider {
   quickAction(elementIds: string[]): QuickAction {
     return {
       icon: IvyIcons.Trash,
-      title: 'Delete',
+      title: t('quickAction.delete'),
       location: 'Left',
       sorting: 'A',
       action: DeleteElementOperation.create(elementIds)
@@ -74,7 +75,7 @@ export class AutoAlignQuickActionProvider extends MultipleQuickActionProvider {
     if (elementIds.length > 0) {
       return {
         icon: IvyIcons.AutoAlign,
-        title: 'Auto Align (A)',
+        title: t('quickAction.autoAlign', { hotkey: 'A' }),
         location: 'Middle',
         sorting: 'Y',
         action: AutoAlignOperation.create({ elementIds: elementIds }),

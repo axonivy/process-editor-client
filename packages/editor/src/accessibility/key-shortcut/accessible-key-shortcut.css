@@ -1,0 +1,21 @@
+.keyboard-shortcuts-menu {
+  border: var(--basic-border, 1px solid var(--glsp-border));
+  background-color: var(--glsp-tool-bg);
+  color: var(--glsp-tool-text);
+  font-size: 12px;
+  .menu-header {
+    background: var(--glsp-editor-background);
+    font-size: 14px;
+  }
+  #key-shortcut-close-btn {
+    background: var(--glsp-editor-background);
+    font-size: 14px;
+    top: 10px;
+  }
+  .keyboard-shortcuts-container {
+    color: var(--glsp-tool-text);
+  }
+  .shortcut-table thead th {
+    border-bottom: var(--basic-border, 1px solid var(--glsp-border));
+  }
+}

@@ -1,0 +1,445 @@
+{
+  "a11y": {
+    "hotkeyDesc": {
+      "focusGraph": "Fokus Graph",
+      "focusInscription": "Fokus Inscription",
+      "focusToolbar": "Fokus Toolbar",
+      "move": "Element oder Ansicht verschieben",
+      "navigation": "Navigieren nach Relation oder Nachbarn gemäss Navigationsmodus",
+      "navigationActivate": "Standardnavigation aktivieren",
+      "navigationActivatePosition": "Positionsbasierte Navigation aktivieren",
+      "resizeActivate": "Grössenänderungsmodus für ausgewähltes Element aktivieren",
+      "resizeDecrease": "Element verkleinern",
+      "resizeDefault": "Elementgrösse auf Standard setzen",
+      "resizeIncrease": "Element vergrößern",
+      "searchPalette": "Suche nach Elementen aktivieren",
+      "zoomIn": "In Element oder Ansicht hineinzoomen",
+      "zoomOut": "Aus Element oder Ansicht herauszoomen"
+    },
+    "hotkeyGroup": {
+      "graph": "Graph",
+      "inscription": "Inscription",
+      "move": "Bewegen",
+      "navigation": "Navigation",
+      "resize": "Grössenänderung",
+      "search": "Suche",
+      "toolbar": "Toolbar",
+      "viewport": "Ansicht"
+    },
+    "navigation": {
+      "off": "Navigation Aus: Drücken Sie 'N' für Standardnavigation, 'ALT+N' für positionsbasierte Navigation.",
+      "offPosition": "Positionsbasierte Navigation Aus: Drücken Sie 'N' für Standardnavigation, 'ALT+N' für positionsbasierte Navigation.",
+      "on": "Navigation Ein: Verwenden Sie die Pfeiltasten, um vorherige (←) oder nachfolgende (→) Elemente auszuwählen. Verwenden Sie die Pfeiltasten nach oben (↑) und unten (↓), um Pfade zu navigieren. Drücken Sie 'ESC', um zu beenden.",
+      "onPosition": "Positionsbasierte Navigation Ein: Navigieren Sie zu den nächstgelegenen Elementen mit den Pfeiltasten: (↑) für oben, (↓) für unten, (←) für vorheriges, (→) für nächstes Element. Drücken Sie 'ESC', um zu beenden."
+    },
+    "resize": {
+      "off": "Grössenänderung Aus: Drücken Sie 'ALT'+'A' für den Größenänderungsmodus.",
+      "on": "Grössenänderung Ein: Verwenden Sie Plus(+) und Minus(-), um die Größe zu ändern, 'STRG'+'0' für Standardgröße. Drücken Sie 'ESC', um zu beenden."
+    },
+    "search": {
+      "placeholder": "Suche nach Elementen"
+    },
+    "ui": {
+      "command": "Befehl",
+      "keybinding": "Tastenkombination",
+      "title": "Tastenkombinationen"
+    }
+  },
+  "browser": {
+    "attribute": {
+      "title": "Attribut"
+    },
+    "cms": {
+      "add": "Neuen CMS Eintrag hinzufügen",
+      "addFailed": "Hinzufügen zu CMS fehlgeschlagen",
+      "addSuccess": "Eintrag erfolgreich zu CMS hinzugefügt",
+      "requiredProjects": "Abhängige Projekte aktivieren",
+      "title": "CMS"
+    },
+    "code": {
+      "button": "Vollbild Code-Editor",
+      "title": "Code"
+    },
+    "condition": {
+      "info": "Generierte Bedingung",
+      "title": "Bedingung"
+    },
+    "empty": "Keine Daten gefunden",
+    "emptyInfo": "Kein Element ausgewählt.",
+    "function": {
+      "loadMore": "{{rowNumber}} von {{rowCount}} angezeigt",
+      "noType": "Kein Rückgabetyp definiert",
+      "title": "Funktion"
+    },
+    "role": {
+      "add": "Rolle zu {{role}} hinzufügen",
+      "addFailed": "Hinzufügen der neuen Rolle fehlgeschlagen",
+      "addSuccess": "Rolle erfolgreich hinzugefügt",
+      "message": {
+        "newRoleAlreadyExists": "Eine Rolle mit diesem Namen existiert bereits"
+      },
+      "newRole": "Neuer Rollenname",
+      "title": "Rolle"
+    },
+    "tableCol": {
+      "title": "Tabellenspalte"
+    },
+    "type": {
+      "asList": "Typ als Liste verwenden",
+      "empty": "Kein Typ gefunden, geben Sie einen passenden Suchbegriff ein",
+      "loadingTypes": "Lade mehr Typen...",
+      "searchAllTypes": "Über alle Typen suchen",
+      "title": "Typ"
+    }
+  },
+  "label": {
+    "action": "Aktion",
+    "allowAnonymous": "Anonym zulassen",
+    "code": "Code",
+    "colorEdit": "Farbe bearbeiten",
+    "colorNew": "Neue Farbe",
+    "column": "Spalte",
+    "condition": "Bedingung",
+    "customFields": "Benutzerdefinierte Felder",
+    "database": "Datenbank",
+    "duration": "Dauer",
+    "editorLoading": "Editor wird geladen...",
+    "editorPlaceholder": "Drücken Sie STRG + LEERTASTE für die Autovervollständigung",
+    "empty": "Keine Ergebnisse gefunden.",
+    "enterDesc": "Geben Sie eine Beschreibung ein",
+    "enterExpression": "Geben Sie einen Ausdruck ein",
+    "enterName": "Geben Sie einen Namen ein",
+    "enterUrl": "Geben Sie eine URL ein",
+    "error": "Fehler",
+    "expiry": "Ablauf",
+    "expression": "Ausdruck",
+    "mapped": "Zugeordnet",
+    "message": "Nachricht",
+    "openCMS": "CMS-Editor öffnen",
+    "openCustomField": "Konfiguration des benutzerdefinierten Feldes öffnen",
+    "openFile": "Datei öffnen",
+    "openUrl": "URL öffnen",
+    "output": "Ausgabe",
+    "permission": "Berechtigung",
+    "process": "Prozess",
+    "removeRow": "Zeile entfernen",
+    "request": "Anfrage",
+    "resetPart": "{{name}} zurücksetzen",
+    "responsible": "Verantwortlich",
+    "timeout": "Zeitüberschreitung",
+    "URL": "URL",
+    "validationError": "Validierungsfehler",
+    "warning": "Warnung"
+  },
+  "message": {
+    "boundaryData": "Daten:",
+    "boundaryTitle": "Etwas ist schief gelaufen:",
+    "clickToReload": "{{message}} (Klicken zum Neuladen)",
+    "connectionClosed": "Verbindung zum Server wurde geschlossen.",
+    "connectionToServerError": "Verbindung zum Server fehlerhaft. Server wird heruntergefahren.",
+    "globalError": "Ein Fehler ist aufgetreten: {{error}}",
+    "noEditorForType": "Kein Editor für Typ gefunden: {{props.type}}",
+    "selectElement": "Wählen Sie ein Prozesselement aus"
+  },
+  "part": {
+    "cache": {
+      "entry": "Eintrag",
+      "entryDesc": "Geben Sie dem Eintrag einen Namen, der den Ergebnissatz (Abfrage) darstellt.",
+      "group": "Gruppe",
+      "groupDesc": "Geben Sie der Gruppe einen Namen, der die Entität der Ergebnisdaten darstellt.",
+      "lifetime": "Lebensdauer",
+      "lifetimeMode": {
+        "duration": "Dauer",
+        "fixed": "Feste Zeit",
+        "forever": "Für immer"
+      },
+      "mode": {
+        "cache": "Cache",
+        "cacheDesc": "Verwenden Sie dies, wenn Sie eine Operation aufrufen, die nur Daten liest.",
+        "invalidate": "Cache ungültig machen",
+        "invalidateMode": "Verwenden Sie dies, wenn Sie eine Operation aufrufen, die Daten ändert",
+        "noCache": "Nicht zwischenspeichern",
+        "noCacheMode": "Verwendet überhaupt kein Caching."
+      },
+      "scope": "Geltungsbereich",
+      "scopeMode": {
+        "application": "Applikation",
+        "applicationDesc": "Verwenden Sie diese Option, um globale Daten zu cachen.",
+        "session": "Sitzung",
+        "sessionDesc": "Verwenden Sie diese Option, um benutzerspezifische Daten zu cachen."
+      },
+      "title": "Cache"
+    },
+    "call": {
+      "dialog": {
+        "create": "Neuen HTML-Dialog erstellen",
+        "title": "Dialog"
+      },
+      "processStart": "Prozessstart",
+      "sub": {
+        "create": "Neuen Unterprozess erstellen"
+      },
+      "title": "Prozess",
+      "trigger": {
+        "create": "Neuen Trigger-Prozess erstellen"
+      }
+    },
+    "case": {
+      "title": "Fall"
+    },
+    "category": {
+      "empty": "<< Leer >>",
+      "emptyDesc": "Keine Kategorie auswählen"
+    },
+    "condition": {
+      "title": "Bedingung"
+    },
+    "db": {
+      "definition": "Definition",
+      "direction": "Richtung",
+      "fields": "Felder",
+      "limit": "Limit",
+      "lotSize": "Losgrösse",
+      "queryKind": "Abfrageart",
+      "quoteIvyScript": "IvyScript-Variablen zitieren",
+      "read": "Lesen",
+      "selectAllFields": "Alle Felder auswählen",
+      "sort": "Sortieren",
+      "sqlQuery": "SQL-Abfrage",
+      "startIndex": "Startindex",
+      "table": "Tabelle",
+      "title": "Abfrage"
+    },
+    "endPage": {
+      "title": "Endseite"
+    },
+    "error": {
+      "cause": "Fehlerursache",
+      "code": "Fehlercode",
+      "codeToThrow": "Zu werfender Fehlercode",
+      "empty": "<< Leer >>",
+      "emptyDesc": "Fängt alle Fehler ab",
+      "title": "Fehler"
+    },
+    "general": {
+      "displayName": "Anzeigename",
+      "meansAndDocuments": "Mittel / Dokumente",
+      "nameAndDescription": "Name / Beschreibung",
+      "tags": "Tags",
+      "title": "Allgemein"
+    },
+    "mail": {
+      "attachments": {
+        "error": "Fehler auslösen, wenn ein Anhang fehlt",
+        "title": "Anhänge"
+      },
+      "content": {
+        "message": "Nachricht",
+        "title": "Inhalt",
+        "type": "Typ"
+      },
+      "header": {
+        "bcc": "BCC",
+        "cc": "CC",
+        "from": "Von",
+        "replyTo": "Antwort an",
+        "subject": "Betreff",
+        "title": "Kopfzeile",
+        "to": "An"
+      }
+    },
+    "output": {
+      "disablePermission": "Berechtigungsprüfungen deaktivieren (Dieses Skript als SYSTEM ausführen)",
+      "title": "Ausgabe"
+    },
+    "permission": {
+      "allowProcessViewer": "Allen Workflow-Benutzern erlauben, den Prozess auf der Engine anzuzeigen",
+      "title": "Berechtigungen"
+    },
+    "processData": {
+      "dataClass": "Datenklasse",
+      "dataClassMessage": "Wenn sich die Prozessdatenklasse ändert, müssen alle bereits verwendeten Felder in der neuen Datenklasse vorhanden sein. Andernfalls werden vorhandene Zuordnungen und Skripte entfernt.",
+      "title": "Prozessdaten"
+    },
+    "program": {
+      "configuration": {
+        "title": "Konfiguration"
+      },
+      "error": {
+        "seconds": "Sekunden",
+        "timout": "Zeitüberschreitung",
+        "title": "Fehler"
+      },
+      "event": {
+        "id": "Ereignis-ID",
+        "title": "Ereignis",
+        "type": {
+          "continueWithoutEvent": "Ohne Warten fortfahren",
+          "destroyTask": "Aufgabe löschen",
+          "nothing": "Nichts tun"
+        }
+      },
+      "javaClass": "Java-Klasse",
+      "javaClassCreate": "Neue Java-Klasse erstellen",
+      "javaClassOpen": "Java-Klassenkonfiguration öffnen",
+      "start": {
+        "title": "Java Bean"
+      }
+    },
+    "request": {
+      "showOnStartList": "In der Startliste anzeigen",
+      "startPerHttp": "Ja, dies kann mit einer HTTP-Anfrage / -Link gestartet werden",
+      "title": "Anfrage"
+    },
+    "rest": {
+      "accept": "Akzeptieren",
+      "acceptProperties": "Akzeptiere-Eigenschaften",
+      "body": "Körper",
+      "client": "Client",
+      "contentType": "Inhaltstyp",
+      "entityType": "Entitätstyp",
+      "headers": "Kopfzeilen",
+      "jaxRs": "JAX-RS",
+      "kind": "Art",
+      "onError": "Bei Fehler (Verbindung, Zeitüberschreitung, etc.)",
+      "onNotSuccess": "Bei nicht erfolgreichem Statuscode (2xx)",
+      "openApi": "OpenAPI",
+      "parameters": "Parameter",
+      "properties": "Eigenschaften",
+      "readBodyType": "Körper als Typ lesen (Ergebnisvariable)",
+      "resource": "Ressource",
+      "restConfigCreate": "Neuen Rest-Client erstellen",
+      "restConfigOpen": "Rest-Konfiguration öffnen",
+      "resultType": "Ergebnistyp",
+      "service": "Rest-Dienst"
+    },
+    "result": {
+      "paramter": "Ergebnisparameter",
+      "title": "Ergebnis"
+    },
+    "signal": {
+      "attachBusinessCase": "An den Geschäftsvorfall anhängen, der diesen Prozess signalisiert hat",
+      "code": "Signalcode",
+      "empty": "<< Leer >>",
+      "emptyDesc": "Empfängt jedes Signal",
+      "title": "Signal"
+    },
+    "start": {
+      "inputParamters": "Eingabeparameter",
+      "signature": "Signatur",
+      "title": "Start"
+    },
+    "task": {
+      "delay": "Verzögerung",
+      "noTaskMessage": "Es ist kein (Aufgaben-)Ausgabefluss verbunden.",
+      "notification": "Benachrichtigung",
+      "options": "Optionen",
+      "persist": "Aufgabe bei Erstellung speichern",
+      "persistDisabled": "Aufgabe bei Erstellung speichern (Funktioniert nur, wenn anonyme Benutzer nicht erlaubt sind)",
+      "priority": "Priorität",
+      "skipTasklist": "Aufgabenliste überspringen",
+      "suppress": "Unterdrücken",
+      "task": "Aufgabe",
+      "tasks": "Aufgaben",
+      "template": "Vorlage"
+    },
+    "trigger": {
+      "attachBusinessCase": "An den Geschäftsvorfall anhängen, der diesen Prozess ausgelöst hat",
+      "startTriggerable": "Ja, dies kann mit einer Trigger-Aktivität gestartet werden",
+      "title": "Trigger"
+    },
+    "ws": {
+      "authMessage": "Webdienst-Authentifizierung auf dem <a>Prozess</a>",
+      "client": "Client",
+      "clientCreate": "Neuen WebService-Client erstellen",
+      "clientOpen": "WebService-Konfiguration öffnen",
+      "exception": "Ausnahme",
+      "exceptionHandling": "Ausnahmebehandlung verwenden",
+      "operation": "Operation",
+      "port": "Port",
+      "properties": "Eigenschaften",
+      "request": "Anfrage",
+      "title": "Webdienst"
+    },
+    "wsprocess": {
+      "auth": {
+        "httpBasic": "HTTP Basic",
+        "none": "Keine/Container",
+        "wsSecurity": "WS-Sicherheit"
+      },
+      "authentication": "Authentifizierung",
+      "qualifiedName": "Qualifizierter Name",
+      "title": "Webdienst-Prozess"
+    }
+  },
+  "priority": {
+    "exception": "Ausnahme",
+    "high": "Hoch",
+    "low": "Niedrig",
+    "normal": "Normal",
+    "script": "Skript"
+  },
+  "quickAction": {
+    "autoAlign": "Automatisch ausrichten ({{hotkey}})",
+    "bend": "Biegen ({{hotkey}})",
+    "color": "Farbe auswählen",
+    "connect": "Verbinden",
+    "createLane": "Spur erstellen",
+    "customIcon": "Benutzerdefiniertes Symbol",
+    "delete": "Löschen",
+    "editLabel": "Label bearbeiten ({{hotkey}})",
+    "goToSource": "Zur Quelle gehen ({{hotkey}})",
+    "information": "Information ({{hotkey}})",
+    "jump": "Springen ({{hotkey}})",
+    "openForm": "Formular öffnen ({{hotkey}})",
+    "reconnect": "Erneut verbinden ({{hotkey}})",
+    "searchCallers": "Anrufer dieses Prozesses suchen ({{hotkey}})",
+    "selectType": "Aktivitätstyp auswählen",
+    "startProcess": "Prozess starten ({{hotkey}})",
+    "straighten": "Gerade machen ({{hotkey}})",
+    "toggleBreakpoint": "Haltepunkt umschalten ({{hotkey}})",
+    "unwrap": "Eingebetteten Unterprozess aufheben ({{hotkey}})",
+    "wrap": "In eingebetteten Prozess einwickeln ({{hotkey}})"
+  },
+  "responsible": {
+    "delete": "Niemand & löschen",
+    "memberFromAttr": "Mitglieder aus Attribut",
+    "role": "Rolle",
+    "roleFromAttr": "Rolle aus Attribut",
+    "userFromAttr": "Benutzer aus Attribut"
+  },
+  "tags": {
+    "addNew": "Neues Tag hinzufügen",
+    "new": "Hinzufügen",
+    "newTag": "Neues Tag",
+    "removeTag": "Tag {{tag}} entfernen"
+  },
+  "title": {
+    "inscription": "Inscription"
+  },
+  "tool": {
+    "jumpOut": "Herausspringen ({{hotkey}})"
+  },
+  "toolbar": {
+    "activities": "Aktivitäten",
+    "allElements": "Alle Elemente",
+    "artifacts": "Artefakte",
+    "customIcon": "Benutzerdefiniertes Symbol",
+    "details": "Inscription",
+    "events": "Ereignisse",
+    "extensions": "Erweiterungen",
+    "gateways": "Gateways",
+    "grid": "Raster",
+    "marquee": "Markier-Werkzeug ({{hotkey}})",
+    "openDataClass": "Datenklasse öffnen ({{hotkey}})",
+    "openFormEditor": "Formulareditor öffnen ({{hotkey}})",
+    "redo": "Wiederherstellen",
+    "selection": "Auswahlwerkzeug",
+    "undo": "Rückgängig"
+  },
+  "viewport": {
+    "center": "Zentrieren ({{hotkey}})",
+    "fitToScreen": "An Bildschirm anpassen ({{hotkey}})",
+    "origin": "Ursprungsbildschirm ({{hotkey}})"
+  }
+}

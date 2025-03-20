@@ -38,8 +38,8 @@ import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../context/useEdi
 import { OpenApiContextProvider } from '../context/useOpenApi';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import enTrans from '../translation/inscription-view/en.json';
-import enCommonTrans from '../translation/common/en.json';
+import enTranslation from '../../../editor/src/translation/process-editor/en.json';
+import enCommonTranslation from '../../../editor/src/translation/common/en.json';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -88,12 +88,11 @@ const customizedDeepmerge = deepmergeCustom<unknown, { DeepMergeFilterValuesURI:
 const initTranslation = () => {
   if (i18n.isInitializing || i18n.isInitialized) return;
   i18n.use(initReactI18next).init({
-    debug: true,
     lng: 'en',
     fallbackLng: 'en',
-    ns: ['inscription-view'],
-    defaultNS: 'inscription-view',
-    resources: { en: { 'inscription-view': enTrans, common: enCommonTrans } }
+    ns: ['process-editor'],
+    defaultNS: 'process-editor',
+    resources: { en: { 'process-editor': enTranslation, common: enCommonTranslation } }
   });
 };
 

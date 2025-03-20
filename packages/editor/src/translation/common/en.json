@@ -8,12 +8,17 @@
     "browser": "Browser",
     "cancel": "Cancel",
     "category": "Category",
+    "color": "Color",
+    "delete": "Delete",
     "description": "Description",
     "details": "Details",
     "mapping": "Mapping",
     "name": "Name",
     "role": "Role",
+    "save": "Save",
     "search": "Search",
+    "settings": "Settings",
+    "theme": "Theme",
     "type": "Type",
     "value": "Value"
   }

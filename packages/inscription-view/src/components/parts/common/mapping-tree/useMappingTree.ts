@@ -4,6 +4,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import type { ColumnFiltersState, Row } from '@tanstack/react-table';
 import type { MappingTreeData } from './mapping-tree-data';
 import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
+import { useTranslation } from 'react-i18next';
 
 export type TableFilter<TFilter> = {
   active: boolean;
@@ -13,6 +14,7 @@ export type TableFilter<TFilter> = {
 };
 
 export const useTableGlobalFilter = (): TableFilter<string> => {
+  const { t } = useTranslation();
   const [active, setActive] = useState(false);
   const [filter, setFilter] = useState('');
   return {
@@ -20,7 +22,7 @@ export const useTableGlobalFilter = (): TableFilter<string> => {
     filter,
     setFilter,
     control: {
-      label: 'Toggle Search',
+      label: t('common:label.search'),
       icon: IvyIcons.Search,
       active,
       action: () => {
@@ -32,6 +34,7 @@ export const useTableGlobalFilter = (): TableFilter<string> => {
 };
 
 export const useTableOnlyInscribed = (): TableFilter<ColumnFiltersState> => {
+  const { t } = useTranslation();
   const [active, setActive] = useState(false);
   const [filter, setFilter] = useState<ColumnFiltersState>([]);
   return {
@@ -39,7 +42,7 @@ export const useTableOnlyInscribed = (): TableFilter<ColumnFiltersState> => {
     filter,
     setFilter,
     control: {
-      label: 'Toggle Inscribed',
+      label: t('label.mapped'),
       icon: IvyIcons.Rule,
       active,
       action: () => {
