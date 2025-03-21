@@ -33,11 +33,10 @@ import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { ReactUIExtension } from '../../utils/react-ui-extension';
 import { SModelRootImpl } from 'sprotty';
 import React from 'react';
-import { type ToolBarButtonClickEvent, default as ToolBarComponent } from './ToolBar';
-import { ToolBarButtonLocation, type ToolBarButton } from '@axonivy/process-editor-view';
+import { ToolBar, ToolBarButtonLocation, type ToolBarButton, type ToolBarButtonClickEvent } from '@axonivy/process-editor-view';
 
 @injectable()
-export class ToolBar extends ReactUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
+export class ToolBarExtension extends ReactUIExtension implements IActionHandler, IEditModeListener, ISelectionListener {
   static readonly ID = 'ivy-tool-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
@@ -52,7 +51,7 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
   protected toDisposeOnHide = new DisposableCollection();
 
   id(): string {
-    return ToolBar.ID;
+    return ToolBarExtension.ID;
   }
 
   @postConstruct()
@@ -61,7 +60,7 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
   }
 
   containerClass() {
-    return ToolBar.ID;
+    return ToolBarExtension.ID;
   }
 
   protected initializeContents(containerElement: HTMLElement) {
@@ -81,10 +80,10 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
 
   protected render(): React.ReactNode {
     return (
-      <ToolBarComponent
-        activeButtonId={this.lastButtonClickEvent?.source.id ?? DefaultSelectButton.id}
-        left={[DefaultSelectButton, MarqueeToolButton, ...this.getProvidedToolBarButtons(ToolBarButtonLocation.Left)]}
-        edit={this.editorContext.isReadonly ? [] : [UndoToolButton, RedoToolButton]}
+      <ToolBar
+        activeButtonId={this.lastButtonClickEvent?.source.id ?? DefaultSelectButton().id}
+        left={[DefaultSelectButton(), MarqueeToolButton(), ...this.getProvidedToolBarButtons(ToolBarButtonLocation.Left)]}
+        edit={this.editorContext.isReadonly ? [] : [UndoToolButton(), RedoToolButton()]}
         middle={this.getProvidedToolBarButtons(ToolBarButtonLocation.Middle)}
         right={this.getProvidedToolBarButtons(ToolBarButtonLocation.Right)}
         onClick={evt => {
@@ -112,7 +111,7 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
 
   handle(action: Action) {
     if (EnableToolPaletteAction.is(action)) {
-      return SetUIExtensionVisibilityAction.create({ extensionId: ToolBar.ID, visible: true });
+      return SetUIExtensionVisibilityAction.create({ extensionId: ToolBarExtension.ID, visible: true });
     }
     if (EnableDefaultToolsAction.is(action)) {
       this.changeActiveButton();
@@ -194,7 +193,7 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
 
 @injectable()
 export class ToolBarFocusMouseListener extends MouseListener {
-  constructor(@inject(ToolBar) private readonly toolBar: ToolBar) {
+  constructor(@inject(ToolBarExtension) private readonly toolBar: ToolBarExtension) {
     super();
   }
 

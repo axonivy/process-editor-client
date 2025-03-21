@@ -41,6 +41,7 @@ export default defineConfig(() => ({
     alias: {
       path: 'path-browserify',
       '@axonivy/process-editor': resolve(__dirname, '../../packages/editor/src'),
+      '@axonivy/process-editor-view': resolve(__dirname, '../../packages/view/src'),
       '@axonivy/process-editor-inscription': resolve(__dirname, '../../packages/inscription/src'),
       '@axonivy/process-editor-inscription-view': resolve(__dirname, '../../packages/inscription-view/src'),
       '@axonivy/process-editor-inscription-core': resolve(__dirname, '../../packages/inscription-core/src'),

@@ -44,3 +44,8 @@ export * from './accessibility/key-listener/global-keylistener-tool';
 
 export * from './ivy-glsp-jsonrpc-client';
 export * from './utils/react-ui-extension';
+
+export { default as enTranslation } from './translation/process-editor/en.json';
+export { default as enCommonTranslation } from './translation/common/en.json';
+export { default as deTranslation } from './translation/process-editor/de.json';
+export { default as deCommonTranslation } from './translation/common/de.json';

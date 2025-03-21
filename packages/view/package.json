@@ -13,18 +13,14 @@
     "lib",
     "src"
   ],
-  "dependencies": {
-    "@axonivy/ui-components": "~13.1.0-next.451",
-    "@axonivy/ui-icons": "~13.1.0-next.451"
-  },
   "peerDependencies": {
-    "react": "^18.2 || ^19.0"
+    "react": "^18.2 || ^19.0",
+    "@axonivy/ui-components": "~13.1.0-next",
+    "@axonivy/ui-icons": "~13.1.0-next"
   },
   "devDependencies": {
     "@types/node": "^22.10.7",
     "@types/react": "^19.0.8",
-    "deepmerge-ts": "^5.1.0",
-    "jsdom": "^26.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -37,8 +33,6 @@
     "build": "tsc --build && tscp",
     "package": "tsc && tscp",
     "build:clean": "npm run clean && npm run build",
-    "type": "tsc --noEmit",
-    "test": "vitest",
-    "test:ci": "vitest --watch=false"
+    "type": "tsc --noEmit"
   }
 }

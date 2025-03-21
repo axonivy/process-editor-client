@@ -1,25 +1,30 @@
 import {
   Action,
+  CenterAction,
+  FitToScreenAction,
+  type IActionDispatcher,
   type IActionHandler,
   isViewport,
   type IToolManager,
+  OriginViewportAction,
+  SelectionService,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
-  TYPES,
-  SelectionService,
-  type IActionDispatcher
+  TYPES
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
-import { CenterButton, FitToScreenButton, OriginScreenButton } from './button';
 
-import { QuickActionUI } from '../quick-action/quick-action-ui';
 import { EnableViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
-import { ReactUIExtension } from '../../utils/react-ui-extension';
+import { Button } from '@axonivy/ui-components';
+import { IvyIcons } from '@axonivy/ui-icons';
 import React from 'react';
-import { default as ViewportBarComponent } from './ViewportBar';
+import { ReactUIExtension } from '../../utils/react-ui-extension';
+import { QuickActionUI } from '../quick-action/quick-action-ui';
+import { ViewportBar } from '@axonivy/process-editor-view';
+import { t } from 'i18next';
 
 @injectable()
-export class ViewportBar extends ReactUIExtension implements IActionHandler {
+export class ViewportBarExtension extends ReactUIExtension implements IActionHandler {
   static readonly ID = 'ivy-viewport-bar';
 
   @inject(TYPES.IActionDispatcher) protected readonly actionDispatcher: IActionDispatcher;
@@ -29,11 +34,11 @@ export class ViewportBar extends ReactUIExtension implements IActionHandler {
   protected zoomLevel = '100%';
 
   id(): string {
-    return ViewportBar.ID;
+    return ViewportBarExtension.ID;
   }
 
   containerClass(): string {
-    return ViewportBar.ID;
+    return ViewportBarExtension.ID;
   }
 
   protected initializeContainer(container: HTMLElement): void {
@@ -43,15 +48,29 @@ export class ViewportBar extends ReactUIExtension implements IActionHandler {
 
   protected render(): React.ReactNode {
     return (
-      <ViewportBarComponent
-        triggers={[
-          new OriginScreenButton(),
-          new FitToScreenButton(),
-          new CenterButton(() => [...this.selectionService.getSelectedElementIDs()])
-        ]}
-        onAction={action => this.onAction(action)}
-        zoomLevel={this.zoomLevel}
-      />
+      <ViewportBar zoomLevel={this.zoomLevel}>
+        <Button
+          key='originBtn'
+          id='originBtn'
+          icon={IvyIcons.WindowMinimize}
+          title={t('viewport.origin', { hotkey: 'O' })}
+          onClick={() => this.onAction(OriginViewportAction.create())}
+        />
+        <Button
+          key='fitToScreenBtn'
+          id='fitToScreenBtn'
+          icon={IvyIcons.FitToScreen}
+          title={t('viewport.fitToScreen', { hotkey: 'F' })}
+          onClick={() => this.onAction(FitToScreenAction.create([], { padding: 10 }))}
+        />
+        <Button
+          key='centerBtn'
+          id='centerBtn'
+          icon={IvyIcons.Center}
+          title={t('viewport.center', { hotkey: 'M' })}
+          onClick={() => this.onAction(CenterAction.create([...this.selectionService.getSelectedElementIDs()]))}
+        />
+      </ViewportBar>
     );
   }
 
@@ -72,7 +91,7 @@ export class ViewportBar extends ReactUIExtension implements IActionHandler {
 
   handle(action: Action) {
     if (EnableViewportAction.is(action)) {
-      this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ViewportBar.ID, visible: true }));
+      this.actionDispatcher.dispatch(SetUIExtensionVisibilityAction.create({ extensionId: ViewportBarExtension.ID, visible: true }));
     }
     if (SetViewportAction.is(action)) {
       this.updateZoomLevel(action.newViewport.zoom);

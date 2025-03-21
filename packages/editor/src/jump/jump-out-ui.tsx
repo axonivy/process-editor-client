@@ -14,6 +14,7 @@ import { inject, injectable } from 'inversify';
 import { ReactUIExtension } from '../utils/react-ui-extension';
 import React from 'react';
 import { Button } from '@axonivy/ui-components';
+import { t } from 'i18next';
 
 @injectable()
 export class JumpOutUi extends ReactUIExtension implements IActionHandler {
@@ -36,7 +37,14 @@ export class JumpOutUi extends ReactUIExtension implements IActionHandler {
   }
 
   protected render(): React.ReactNode {
-    return <Button className='jump-out-btn' icon={IvyIcons.JumpOut} onClick={() => this.handleJumpOutClick()} />;
+    return (
+      <Button
+        title={t('tool.jumpOut', { hotkey: 'J' })}
+        className='jump-out-btn'
+        icon={IvyIcons.JumpOut}
+        onClick={() => this.handleJumpOutClick()}
+      />
+    );
   }
 
   protected handleJumpOutClick(): void {

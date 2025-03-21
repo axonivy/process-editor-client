@@ -5,6 +5,7 @@ import { ShowToolBarMenuAction } from '../tool-bar-menu';
 import { ElementsPaletteHandler } from './action-handler';
 import { ToolBarButtonLocation, type ToolBarButton } from '@axonivy/process-editor-view';
 import type { ToolBarButtonProvider } from '../button';
+import { t } from 'i18next';
 
 @injectable()
 export abstract class CreateElementsButtonProvider implements ToolBarButtonProvider {
@@ -32,7 +33,7 @@ export class AllElementsButtonProvider extends CreateElementsButtonProvider {
     const id = 'all_elements_menu';
     return {
       icon: IvyIcons.Task,
-      title: 'All Elements',
+      title: t('toolbar.allElements'),
       sorting: 'A',
       action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions, showSearch: true }),
       id: `btn_${id}`,
@@ -53,7 +54,7 @@ export class EventsButtonProvider extends CreateElementsButtonProvider {
     const id = 'events_menu';
     return {
       icon: IvyIcons.Start,
-      title: 'Events',
+      title: t('toolbar.events'),
       sorting: 'B',
       action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
       id: `btn_${id}`,
@@ -74,7 +75,7 @@ export class GatewaysButtonProvider extends CreateElementsButtonProvider {
     const id = 'gateways_menu';
     return {
       icon: IvyIcons.GatewaysGroup,
-      title: 'Gateways',
+      title: t('toolbar.gateways'),
       sorting: 'C',
       action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
       id: `btn_${id}`,
@@ -98,7 +99,7 @@ export class ActivitiesButtonProvider extends CreateElementsButtonProvider {
     const id = 'activities_menu';
     return {
       icon: IvyIcons.ActivitiesGroup,
-      title: 'Activities',
+      title: t('toolbar.activities'),
       sorting: 'D',
       action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
       id: `btn_${id}`,
@@ -119,7 +120,7 @@ export class ArtifactsButtonProvider extends CreateElementsButtonProvider {
     const id = 'artifacts_menu';
     return {
       icon: IvyIcons.PoolSwimlanes,
-      title: 'Artifacts',
+      title: t('toolbar.artifacts'),
       sorting: 'E',
       action: () => ShowToolBarMenuAction.create({ id, paletteItems, actions: this.actions }),
       id: `btn_${id}`,
@@ -136,7 +137,7 @@ export class ExtensionButtonProvider extends CreateElementsButtonProvider {
     const id = 'extensions_menu';
     return {
       icon: IvyIcons.Extension,
-      title: 'Extensions',
+      title: t('toolbar.extensions'),
       sorting: 'F',
       action: () =>
         ShowToolBarMenuAction.create({

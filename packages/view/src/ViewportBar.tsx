@@ -1,22 +1,17 @@
-import { Action } from '@eclipse-glsp/client';
-import React from 'react';
-import ActionButton, { type ActionTrigger } from './ActionButton';
+import React, { type PropsWithChildren } from 'react';
+import { type ActionTrigger } from './ActionButton';
 import './viewport-bar.css';
 
 export type ViewportBarButton = ActionTrigger;
 
-type ViewportBarProps = {
-  triggers: ViewportBarButton[];
-  onAction: (action: Action) => void;
+type ViewportBarProps = PropsWithChildren<{
   zoomLevel: string;
-};
+}>;
 
-const ViewportBar = React.memo(({ triggers, onAction, zoomLevel }: ViewportBarProps) => (
+const ViewportBar: React.MemoExoticComponent<React.FC<ViewportBarProps>> = React.memo(({ children, zoomLevel }: ViewportBarProps) => (
   <div className='viewport-bar'>
     <div className='viewport-bar-tools'>
-      {triggers.map(trigger => (
-        <ActionButton key={trigger.id} trigger={trigger} onAction={onAction} />
-      ))}
+      {children}
       <label>{zoomLevel}</label>
     </div>
   </div>

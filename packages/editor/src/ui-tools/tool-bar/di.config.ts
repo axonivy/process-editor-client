@@ -27,19 +27,19 @@ import {
 } from './node/button';
 import { ShowToolBarOptionsMenuAction } from './options/action';
 import { CustomIconToggleActionHandler } from './options/action-handler';
-import { ToolBar, ToolBarFocusMouseListener } from './tool-bar';
+import { ToolBarExtension, ToolBarFocusMouseListener } from './tool-bar';
 import { ShowToolBarMenuAction } from './tool-bar-menu';
 
 const ivyToolBarModule = new FeatureModule(
   (bind, _unbind, isBound) => {
     const context = { bind, isBound };
     // Ivy extensions
-    bindAsService(context, IVY_TYPES.ToolBar, ToolBar);
-    bind(TYPES.IUIExtension).toService(ToolBar);
+    bindAsService(context, IVY_TYPES.ToolBar, ToolBarExtension);
+    bind(TYPES.IUIExtension).toService(ToolBarExtension);
 
-    configureActionHandler(context, EnableToolPaletteAction.KIND, ToolBar);
-    configureActionHandler(context, ShowToolBarMenuAction.KIND, ToolBar);
-    configureActionHandler(context, ShowToolBarOptionsMenuAction.KIND, ToolBar);
+    configureActionHandler(context, EnableToolPaletteAction.KIND, ToolBarExtension);
+    configureActionHandler(context, ShowToolBarMenuAction.KIND, ToolBarExtension);
+    configureActionHandler(context, ShowToolBarOptionsMenuAction.KIND, ToolBarExtension);
     configureToolBarButtons(context);
 
     bindAsService(context, TYPES.MouseListener, ToolBarFocusMouseListener);
@@ -48,8 +48,8 @@ const ivyToolBarModule = new FeatureModule(
     configureActionHandler(context, CustomIconToggleAction.KIND, CustomIconToggleActionHandler);
 
     // GLSP replacements
-    configureActionHandler(context, EnableDefaultToolsAction.KIND, ToolBar);
-    configureActionHandler(context, UpdatePaletteItems.KIND, ToolBar);
+    configureActionHandler(context, EnableDefaultToolsAction.KIND, ToolBarExtension);
+    configureActionHandler(context, UpdatePaletteItems.KIND, ToolBarExtension);
   },
   { featureId: toolPaletteModule.featureId }
 );
