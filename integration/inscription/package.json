@@ -11,9 +11,9 @@
   "dependencies": {
     "@axonivy/process-editor-inscription-core": "~13.1.0-next",
     "@axonivy/process-editor-inscription-view": "~13.1.0-next",
-    "@axonivy/jsonrpc": "~13.1.0-next.606",
-    "@axonivy/ui-components": "~13.1.0-next.606",
-    "@axonivy/ui-icons": "~13.1.0-next.606",
+    "@axonivy/jsonrpc": "~13.1.0-next.608",
+    "@axonivy/ui-components": "~13.1.0-next.608",
+    "@axonivy/ui-icons": "~13.1.0-next.608",
     "@tanstack/react-query": "^5.64",
     "@tanstack/react-query-devtools": "^5.64",
     "i18next": "^24.2.3",
