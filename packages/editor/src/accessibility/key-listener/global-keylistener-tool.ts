@@ -8,6 +8,7 @@ import {
 import { Action, matchesKeystroke, SelectAction, toArray } from '@eclipse-glsp/sprotty';
 import { injectable, inject } from 'inversify';
 import { StartEventNode } from '../../diagram/model';
+import { t } from 'i18next';
 
 @injectable()
 export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
@@ -18,11 +19,11 @@ export class IvyGlobalKeyListenerTool extends GlobalKeyListenerTool {
       this.actionDispatcher.dispatchAll([
         SetAccessibleKeyShortcutAction.create({
           token: KeyboardToolPalette.name,
-          keys: [{ shortcuts: ['1'], description: 'Focus on tool palette', group: 'Tool-Palette', position: 0 }]
+          keys: [{ shortcuts: ['1'], description: t('a11y.hotkeyDesc.focusToolbar'), group: t('a11y.hotkeyGroup.toolbar'), position: 0 }]
         }),
         SetAccessibleKeyShortcutAction.create({
           token: 'Graph',
-          keys: [{ shortcuts: ['2'], description: 'Focus on graph', group: 'Graph', position: 0 }]
+          keys: [{ shortcuts: ['2'], description: t('a11y.hotkeyDesc.focusGraph'), group: t('a11y.hotkeyGroup.graph'), position: 0 }]
         })
       ]);
     });

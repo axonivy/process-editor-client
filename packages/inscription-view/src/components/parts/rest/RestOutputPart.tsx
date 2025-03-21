@@ -12,15 +12,17 @@ import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import MappingPart from '../common/mapping-tree/MappingPart';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 export function useRestOutputPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useRestOutputData();
   const validations = useValidations(['response']);
   const filteredOutputValidations = validations.filter(item => item.path.startsWith('response.entity'));
   const compareData = (data: RestResponseData) => [data.response.entity];
   const state = usePartState(compareData(defaultConfig), compareData(config), filteredOutputValidations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Output', state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
+  return { name: t('label.output'), state: state, reset: { dirty, action: () => resetData() }, content: <RestOutputPart /> };
 }
 
 const useShowResultTypeCombo = (types: string[], currentType: string) => {
@@ -29,6 +31,7 @@ const useShowResultTypeCombo = (types: string[], currentType: string) => {
 };
 
 const RestOutputPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateEntity } = useRestOutputData();
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'response' }, { variables: [], types: {} });
@@ -39,8 +42,12 @@ const RestOutputPart = () => {
     <PathContext path='response'>
       <PathContext path='entity'>
         {showResultType && (
-          <PathCollapsible label='Result Type' path='type' defaultOpen={config.response.entity.type !== defaultConfig.response.entity.type}>
-            <ValidationFieldset label='Read body as type (result variable)'>
+          <PathCollapsible
+            label={t('part.rest.resultType')}
+            path='type'
+            defaultOpen={config.response.entity.type !== defaultConfig.response.entity.type}
+          >
+            <ValidationFieldset label={t('part.rest.readBodyType')}>
               <RestEntityTypeCombobox
                 value={config.response.entity.type}
                 onChange={change => updateEntity('type', change)}
@@ -56,7 +63,7 @@ const RestOutputPart = () => {
           onChange={change => updateEntity('map', change)}
         />
         <PathCollapsible
-          label='Code'
+          label={t('label.code')}
           path='code'
           controls={[maximizeCode]}
           defaultOpen={config.response.entity.code !== defaultConfig.response.entity.code}

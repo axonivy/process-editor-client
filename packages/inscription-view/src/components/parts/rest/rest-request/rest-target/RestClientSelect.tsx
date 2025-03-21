@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useAction } from '../../../../../context/useAction';
 import { useEditorContext } from '../../../../../context/useEditorContext';
 import { useMeta } from '../../../../../context/useMeta';
@@ -9,6 +10,7 @@ import { useRestRequestData } from '../../useRestRequestData';
 import { IvyIcons } from '@axonivy/ui-icons';
 
 export const RestClientSelect = () => {
+  const { t } = useTranslation();
   const { config, updateTarget } = useRestRequestData();
 
   const { context } = useEditorContext();
@@ -21,12 +23,12 @@ export const RestClientSelect = () => {
   const newAction = useAction('newRestClient');
   const openAction = useAction('openConfig');
   const controls: FieldsetControl[] = [
-    { label: 'Open Rest config', icon: IvyIcons.GoToSource, action: () => openAction() },
-    { label: 'Create new Rest Client', icon: IvyIcons.Plus, action: () => newAction() }
+    { label: t('part.rest.restConfigOpen'), icon: IvyIcons.GoToSource, action: () => openAction() },
+    { label: t('part.rest.restConfigCreate'), icon: IvyIcons.Plus, action: () => newAction() }
   ];
 
   return (
-    <PathFieldset label='Client' path='clientId' controls={controls}>
+    <PathFieldset label={t('part.rest.client')} path='clientId' controls={controls}>
       <div className='rest-client-select'>
         <Select value={selectedItem} onChange={item => updateTarget('clientId', item.value)} items={items} />
       </div>

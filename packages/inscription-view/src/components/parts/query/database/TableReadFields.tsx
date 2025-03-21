@@ -8,18 +8,18 @@ import { useEditorContext } from '../../../../context/useEditorContext';
 import { useMeta } from '../../../../context/useMeta';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import Checkbox from '../../../widgets/checkbox/Checkbox';
+import { useTranslation } from 'react-i18next';
 
 type Column = Omit<DatabaseColumn, 'ivyType'> & {
   selected: boolean;
 };
 
 export const TableReadFields = () => {
+  const { t } = useTranslation();
   const { config, updateSql } = useQueryData();
   const selectAll = !config.query.sql.select || (config.query.sql.select?.length === 1 && config.query.sql.select[0] === '*');
-
   const { elementContext: context } = useEditorContext();
   const columnMetas = useMeta('meta/database/columns', { context, database: config.query.dbName, table: config.query.sql.table }, []).data;
-
   const [data, setData] = useState<Column[]>([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const TableReadFields = () => {
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Column' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.column')} />,
         cell: cell => (
           <>
             <span>{cell.getValue() as string}</span>
@@ -44,11 +44,11 @@ export const TableReadFields = () => {
       },
       {
         accessorKey: 'selected',
-        header: ({ column }) => <SortableHeader column={column} name='Read' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('part.db.read')} />,
         cell: cell => <span>{(cell.getValue() as boolean) ? '✅' : ''}</span>
       }
     ],
-    []
+    [t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -76,8 +76,8 @@ export const TableReadFields = () => {
   };
 
   return (
-    <PathCollapsible label='Fields' path='fields' defaultOpen={!selectAll}>
-      <Checkbox label='Select all fields' value={selectAll} onChange={() => updateSql('select', selectAll ? [] : ['*'])} />
+    <PathCollapsible label={t('part.db.fields')} path='fields' defaultOpen={!selectAll}>
+      <Checkbox label={t('part.db.selectAllFields')} value={selectAll} onChange={() => updateSql('select', selectAll ? [] : ['*'])} />
       {!selectAll && (
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} />

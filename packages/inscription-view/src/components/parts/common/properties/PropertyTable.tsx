@@ -11,6 +11,7 @@ import type { ComboboxItem } from '../../../widgets/combobox/Combobox';
 import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
 import { ValidationCollapsible } from '../path/validation/ValidationCollapsible';
 import { ValidationRow } from '../path/validation/ValidationRow';
+import { useTranslation } from 'react-i18next';
 
 type PropertyTableProps = {
   properties: ScriptMappings;
@@ -24,6 +25,7 @@ type PropertyTableProps = {
 const EMPTY_PROPERTY: Property = { expression: '', name: '' };
 
 export const PropertyTable = ({ properties, update, knownProperties, hideProperties, label, defaultOpen }: PropertyTableProps) => {
+  const { t } = useTranslation();
   const data = useMemo(() => Property.of(properties), [properties]);
 
   const onChange = (props: Property[]) => update(Property.to(props));
@@ -34,23 +36,23 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
         cell: cell => <ComboCell cell={cell} options={knownPropertyItems} />
       },
       {
         accessorKey: 'expression',
-        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.expression')} />,
         cell: cell => (
           <ScriptCell
             cell={cell}
             type={IVY_SCRIPT_TYPES.OBJECT}
             browsers={['attr', 'func', 'type', 'cms']}
-            placeholder='Enter a Expression'
+            placeholder={t('label.enterExpression')}
           />
         )
       }
     ],
-    [knownPropertyItems]
+    [knownPropertyItems, t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -103,7 +105,7 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
     table.getSelectedRowModel().rows.length > 0
       ? [
           {
-            label: 'Remove row',
+            label: t('label.removeRow'),
             icon: IvyIcons.Trash,
             action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
           }

@@ -12,6 +12,7 @@ import { PathContext } from '../../../context/usePath';
 import ParameterTable from '../common/parameter/ParameterTable';
 import MappingPart from '../common/mapping-tree/MappingPart';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 type StartPartProps = { hideParamDesc?: boolean; synchParams?: boolean };
 
@@ -22,13 +23,14 @@ export const useStartPartValidation = () => {
 };
 
 export function useStartPart(props?: StartPartProps): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useStartData();
   const validations = useStartPartValidation();
   const compareData = (data: StartData) => [data.signature, data.input];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Start',
+    name: t('part.start.title'),
     state,
     reset: { dirty, action: () => resetData() },
     content: <StartPart {...props} />
@@ -36,23 +38,21 @@ export function useStartPart(props?: StartPartProps): PartProps {
 }
 
 const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateSignature, update } = useStartData(synchParams);
-
   const { elementContext: context } = useEditorContext();
   const { data: variableInfo } = useMeta('meta/scripting/out', { context, location: 'input' }, { variables: [], types: {} });
-
   const { maximizeState, maximizeCode } = useMaximizedCodeEditor();
-
   return (
     <>
-      <PathCollapsible label='Signature' path='signature' defaultOpen={config.signature !== defaultConfig.signature}>
+      <PathCollapsible label={t('part.start.signature')} path='signature' defaultOpen={config.signature !== defaultConfig.signature}>
         <ValidationFieldset>
           <Input value={config.signature} onChange={change => updateSignature(change)} />
         </ValidationFieldset>
       </PathCollapsible>
       <PathContext path='input'>
         <ParameterTable
-          label='Input parameters'
+          label={t('part.start.inputParamters')}
           data={config.input.params}
           onChange={change => update('params', change)}
           hideDesc={hideParamDesc}
@@ -63,7 +63,12 @@ const StartPart = ({ hideParamDesc, synchParams }: StartPartProps) => {
           onChange={change => update('map', change)}
           browsers={['attr', 'func', 'type']}
         />
-        <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.input.code !== defaultConfig.input.code}>
+        <PathCollapsible
+          label={t('label.code')}
+          path='code'
+          controls={[maximizeCode]}
+          defaultOpen={config.input.code !== defaultConfig.input.code}
+        >
           <ValidationFieldset>
             <ScriptArea
               maximizeState={maximizeState}

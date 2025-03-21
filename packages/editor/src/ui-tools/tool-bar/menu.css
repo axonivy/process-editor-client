@@ -221,7 +221,6 @@
   position: absolute;
   top: 3.5rem;
   right: 0.5rem;
-  width: 134px;
   background: var(--glsp-bar-menu-bg);
   filter: drop-shadow(0px 9px 27px rgba(0, 0, 0, 0.07)) drop-shadow(0px 3.75998px 11.28px rgba(0, 0, 0, 0.0503198))
     drop-shadow(0px 2.01027px 6.0308px rgba(0, 0, 0, 0.0417275)) drop-shadow(0px 1.12694px 3.38082px rgba(0, 0, 0, 0.035))
@@ -357,7 +356,6 @@
 }
 .edit-color .edit-color-footer button {
   height: 28px;
-  width: 60px;
   border-radius: 4px;
   border: none;
   cursor: pointer;

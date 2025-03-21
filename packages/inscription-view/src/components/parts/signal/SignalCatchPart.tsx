@@ -11,15 +11,17 @@ import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import ClassificationCombobox from '../common/classification/ClassificationCombobox';
 import Checkbox from '../../widgets/checkbox/Checkbox';
+import { useTranslation } from 'react-i18next';
 
 export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrowser?: boolean }): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useSignalCatchData();
   const compareData = (data: SignalCatchData) => [data.signalCode, options?.makroSupport ? '' : data.attachToBusinessCase];
   const validations = useValidations(['signalCode']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Signal',
+    name: t('part.signal.title'),
     state,
     reset: { dirty, action: () => resetData() },
     content: <SignalCatchPart makroSupport={options?.makroSupport} withBrowser={options?.withBrowser} />
@@ -27,17 +29,18 @@ export function useSignalCatchPart(options?: { makroSupport?: boolean; withBrows
 }
 
 const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean; withBrowser?: boolean }) => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update, updateSignal } = useSignalCatchData();
   const { context } = useEditorContext();
   const signalCodes = [
-    { value: '', label: '<< Empty >>', info: 'Receives every signal' },
+    { value: '', label: t('part.signal.empty'), info: t('part.signal.emptyDesc') },
     ...useMeta('meta/workflow/signalCodes', { context, macro: !!makroSupport }, []).data.map<ClassifiedItem>(code => {
       return { ...code, value: code.eventCode, info: classifiedItemInfo(code) };
     })
   ];
 
   return (
-    <PathCollapsible label='Signal Code' path='signalCode' defaultOpen={config.signalCode !== defaultConfig.signalCode}>
+    <PathCollapsible label={t('part.signal.code')} path='signalCode' defaultOpen={config.signalCode !== defaultConfig.signalCode}>
       <ValidationFieldset>
         <ClassificationCombobox
           value={config.signalCode}
@@ -49,7 +52,7 @@ const SignalCatchPart = ({ makroSupport, withBrowser }: { makroSupport?: boolean
       </ValidationFieldset>
       {!makroSupport && (
         <Checkbox
-          label='Attach to Business Case that signaled this process'
+          label={t('part.signal.attachBusinessCase')}
           value={config.attachToBusinessCase}
           onChange={change => update('attachToBusinessCase', change)}
         />

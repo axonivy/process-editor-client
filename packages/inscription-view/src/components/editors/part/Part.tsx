@@ -15,13 +15,22 @@ import { useAccordionState, type PartProps } from './usePart';
 import type { Severity } from '@axonivy/process-editor-inscription-protocol';
 import { useSticky } from './useSticky';
 import ErrorFallback from '../../widgets/error/ErrorFallback';
+import { useTranslation } from 'react-i18next';
 
 const Control = ({ name, reset, control, ...props }: Pick<PartProps, 'name' | 'reset' | 'control'> & AccordionControlProps) => {
+  const { t } = useTranslation();
   if (reset.dirty || control) {
     return (
       <Flex direction='row' gap={2} {...props}>
         {control}
-        {reset.dirty && <Button icon={IvyIcons.Undo} onClick={reset.action} title={`Reset ${name}`} aria-label={`Reset ${name}`} />}
+        {reset.dirty && (
+          <Button
+            icon={IvyIcons.Undo}
+            onClick={reset.action}
+            title={t('label.resetPart', { name })}
+            aria-label={t('label.resetPart', { name })}
+          />
+        )}
       </Flex>
     );
   }

@@ -11,6 +11,7 @@ import { useAction } from '../../../../context/useAction';
 import { useMeta } from '../../../../context/useMeta';
 import { MacroInput } from '../../../widgets/code-editor/MacroInput';
 import { MacroArea } from '../../../widgets/code-editor/MacroArea';
+import { useTranslation } from 'react-i18next';
 
 type InformationConfig = {
   name: string;
@@ -39,12 +40,13 @@ const toWorkflowType = (path: '' | SchemaPath | SchemaKeys): WorkflowType => {
 };
 
 const Information = <T extends InformationConfig>({ config, defaultConfig, update }: InformationProps<T>) => {
+  const { t } = useTranslation();
   const { context } = useEditorContext();
   const path = usePath();
   const openAction = useAction('openOrCreateCmsCategory');
 
   const categories = [
-    { value: '', label: '<< Empty >>', info: 'Select no Category' },
+    { value: '', label: t('part.category.empty'), info: t('part.category.emptyDesc') },
     ...useMeta('meta/workflow/categoryPaths', { context, type: toWorkflowType(path) }, []).data.map<ClassifiedItem>(categroy => {
       return { ...categroy, value: categroy.path, info: classifiedItemInfo(categroy) };
     })
@@ -52,22 +54,22 @@ const Information = <T extends InformationConfig>({ config, defaultConfig, updat
 
   return (
     <ValidationCollapsible
-      label='Details'
+      label={t('common:label.details')}
       defaultOpen={
         config.name !== defaultConfig.name || config.description !== defaultConfig.description || config.category !== defaultConfig.category
       }
       paths={['name', 'description', 'category']}
     >
-      <PathFieldset label='Name' path='name'>
+      <PathFieldset label={t('common:label.name')} path='name'>
         <MacroInput value={config.name} browsers={['attr', 'func', 'cms']} onChange={change => update('name', change)} />
       </PathFieldset>
-      <PathFieldset label='Description' path='description'>
+      <PathFieldset label={t('common:label.description')} path='description'>
         <MacroArea value={config.description} browsers={['attr', 'func', 'cms']} onChange={change => update('description', change)} />
       </PathFieldset>
       <PathFieldset
-        label='Category'
+        label={t('common:label.category')}
         path='category'
-        controls={[{ label: 'Open CMS Editor', icon: IvyIcons.Cms, action: () => openAction('/Categories/' + config.category + '/name') }]}
+        controls={[{ label: t('label.openCMS'), icon: IvyIcons.Cms, action: () => openAction('/Categories/' + config.category + '/name') }]}
       >
         <ClassificationCombobox
           value={config.category}

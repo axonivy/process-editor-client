@@ -7,28 +7,28 @@ import { Permission } from '../common/permission/Permission';
 import { Message } from '@axonivy/ui-components';
 import { useValidations } from '../../../context/useValidation';
 import { useEditorContext } from '../../../context/useEditorContext';
+import { Trans, useTranslation } from 'react-i18next';
 
 export function useWebServicePart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useWebServiceData();
   const compareData = (data: WebserviceStartData) => [data];
   const validation = [...useValidations(['permission']), ...useValidations(['exception'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Web Service', state, reset: { dirty, action: () => reset() }, content: <WebServicePart /> };
+  return { name: t('part.ws.title'), state, reset: { dirty, action: () => reset() }, content: <WebServicePart /> };
 }
 
 const WebServicePart = () => {
   const { elementContext, navigateTo } = useEditorContext();
   const { config, defaultConfig, updatePermission } = useWebServiceData();
   const navigateToProcess = () => navigateTo(PID.processId(elementContext.pid));
-
   return (
     <>
       <Message variant='info'>
-        Web service authentication on the
-        <a href='#' onClick={navigateToProcess}>
-          process
-        </a>
+        <Trans i18nKey='part.ws.authMessage' components={{ a: <a href='#' onClick={navigateToProcess} /> }}>
+          Web service authentication on the <a>process</a>
+        </Trans>
       </Message>
       <Permission
         anonymousFieldActive={false}

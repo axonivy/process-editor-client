@@ -12,6 +12,7 @@ import { isFormMedia } from '../../known-types';
 import { PathCollapsible } from '../../../common/path/PathCollapsible';
 import Radio from '../../../../../components/widgets/radio/Radio';
 import { useOpenApi } from '../../../../../context/useOpenApi';
+import { useTranslation } from 'react-i18next';
 
 export const useBodyTypes = (currentType: InputType): RadioItemProps<InputType>[] => {
   const { openApi } = useOpenApi();
@@ -32,6 +33,7 @@ export const useBodyTypes = (currentType: InputType): RadioItemProps<InputType>[
 };
 
 export const RestBody = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateBody } = useRestRequestData();
   const radioItems = useBodyTypes(config.body.type);
 
@@ -47,7 +49,7 @@ export const RestBody = () => {
   };
 
   return (
-    <PathCollapsible label='Body' path='body' defaultOpen={!deepEqual(config.body, defaultConfig.body)}>
+    <PathCollapsible label={t('part.rest.body')} path='body' defaultOpen={!deepEqual(config.body, defaultConfig.body)}>
       {radioItems.length > 0 && (
         <Radio value={config.body.type} onChange={change => updateBody('type', change)} items={radioItems} orientation='horizontal' />
       )}

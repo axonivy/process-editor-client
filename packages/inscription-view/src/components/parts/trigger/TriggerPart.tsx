@@ -10,20 +10,22 @@ import { ValidationCollapsible } from '../common/path/validation/ValidationColla
 import { PathFieldset } from '../common/path/PathFieldset';
 import { ScriptInput } from '../../widgets/code-editor/ScriptInput';
 import EmptyWidget from '../../widgets/empty/EmptyWidget';
+import { useTranslation } from 'react-i18next';
 
 export function useTriggerPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useTriggerData();
   const responsibleVal = useValidations(['task', 'responsible']);
   const delayVal = useValidations(['task', 'delay']);
   const compareData = (data: TriggerData) => [data.triggerable, data.case.attachToBusinessCase, data.task?.responsible, data.task?.delay];
   const state = usePartState(compareData(defaultConfig), compareData(config), [...responsibleVal, ...delayVal]);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Trigger', state: state, reset: { dirty, action: () => resetData() }, content: <TriggerPart /> };
+  return { name: t('part.trigger.title'), state: state, reset: { dirty, action: () => resetData() }, content: <TriggerPart /> };
 }
 
 const TriggerPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update, updateResponsible, updateDelay, updateAttach } = useTriggerData();
-
   return (
     <>
       {defaultConfig.task ? (
@@ -31,7 +33,7 @@ const TriggerPart = () => {
           <Checkbox
             value={config.triggerable}
             onChange={change => update('triggerable', change)}
-            label='Yes, this can be started with a Trigger Activity'
+            label={t('part.trigger.startTriggerable')}
           />
           {config.triggerable && (
             <PathContext path='task'>
@@ -40,13 +42,16 @@ const TriggerPart = () => {
                 defaultResponsible={defaultConfig.task.responsible}
                 updateResponsible={updateResponsible}
               />
-              <ValidationCollapsible label='Options' defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}>
+              <ValidationCollapsible
+                label={t('part.task.options')}
+                defaultOpen={!config.case.attachToBusinessCase || config.task.delay.length > 0}
+              >
                 <Checkbox
                   value={config.case.attachToBusinessCase}
                   onChange={change => updateAttach(change)}
-                  label='Attach to Business Case that triggered this process'
+                  label={t('part.trigger.attachBusinessCase')}
                 />
-                <PathFieldset label='Delay' path='delay'>
+                <PathFieldset label={t('part.task.delay')} path='delay'>
                   <ScriptInput
                     value={config.task.delay}
                     onChange={change => updateDelay(change)}
@@ -59,7 +64,7 @@ const TriggerPart = () => {
           )}
         </>
       ) : (
-        <EmptyWidget message='There is no (Task) output flow connected.' />
+        <EmptyWidget message={t('part.task.noTaskMessage')} />
       )}
     </>
   );

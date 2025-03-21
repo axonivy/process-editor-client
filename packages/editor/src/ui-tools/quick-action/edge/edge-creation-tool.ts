@@ -26,6 +26,7 @@ import { inject, injectable } from 'inversify';
 
 import { type QuickAction, SingleQuickActionProvider } from '../quick-action';
 import { isMultipleOutgoingEdgesFeature } from './model';
+import { t } from 'i18next';
 
 /**
  * Tool to create connections in a Diagram, by selecting a source and target node.
@@ -66,7 +67,10 @@ export class QuickActionEdgeCreationToolMouseListener extends DragAwareMouseList
   protected allowedTarget = false;
   protected proxyEdge: GEdge;
 
-  constructor(protected triggerAction: QuickActionTriggerEdgeCreationAction, protected tool: QuickActionEdgeCreationTool) {
+  constructor(
+    protected triggerAction: QuickActionTriggerEdgeCreationAction,
+    protected tool: QuickActionEdgeCreationTool
+  ) {
     super();
     this.proxyEdge = new GEdge();
     this.proxyEdge.type = triggerAction.elementTypeId;
@@ -201,7 +205,7 @@ export class ConnectQuickActionProvider extends SingleQuickActionProvider {
     ) {
       return {
         icon: IvyIcons.Connector,
-        title: 'Connect',
+        title: t('quickAction.connect'),
         location: 'Right',
         sorting: 'Z',
         action: QuickActionTriggerEdgeCreationAction.create('edge', element.id)

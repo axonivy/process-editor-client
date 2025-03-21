@@ -2,11 +2,14 @@ import {
   AccessibleKeyShortcutTool,
   ElementNavigatorKeyListener,
   ElementNavigatorTool,
+  EnableDefaultToolsAction,
   EnableToolsAction,
   GModelElement,
   SearchAutocompletePaletteTool,
+  SetAccessibleKeyShortcutAction,
   ShowToastMessageAction
 } from '@eclipse-glsp/client';
+import { t } from 'i18next';
 import { injectable } from 'inversify';
 
 @injectable()
@@ -16,11 +19,62 @@ export class IvyElementNavigatorTool extends ElementNavigatorTool {
 
 enum NavigationMode {
   DEFAULT = 'default',
-  POSITION = 'position'
+  POSITION = 'position',
+  NONE = 'none'
 }
 
 class IvyElementNavigatorKeyListener extends ElementNavigatorKeyListener {
-  protected triggerDefaultNavigationOnEvent(event: KeyboardEvent, element: GModelElement): boolean {
+  override registerShortcutKey(): void {
+    this.tool.actionDispatcher.dispatchOnceModelInitialized(
+      SetAccessibleKeyShortcutAction.create({
+        token: this.token,
+        keys: [
+          { shortcuts: ['N'], description: t('a11y.hotkeyDesc.navigationActivate'), group: t('a11y.hotkeyGroup.navigation'), position: 0 },
+          {
+            shortcuts: ['ALT', 'N'],
+            description: t('a11y.hotkeyDesc.navigationActivatePosition'),
+            group: t('a11y.hotkeyGroup.navigation'),
+            position: 1
+          },
+          {
+            shortcuts: ['← ↑ → ↓'],
+            description: t('a11y.hotkeyDesc.navigation'),
+            group: t('a11y.hotkeyGroup.navigation'),
+            position: 2
+          }
+        ]
+      })
+    );
+  }
+
+  protected resetOnEscape(event: KeyboardEvent, element: GModelElement): void {
+    if (this.mode !== NavigationMode.NONE && this.matchesDeactivateNavigationMode(event)) {
+      this.navigator?.clean?.(element.root);
+      this.clean();
+
+      if (this.mode === NavigationMode.POSITION) {
+        this.tool.actionDispatcher.dispatchAll([
+          EnableDefaultToolsAction.create(),
+          ShowToastMessageAction.createWithTimeout({
+            id: Symbol.for(ElementNavigatorKeyListener.name),
+            message: t('a11y.navigation.offPosition')
+          })
+        ]);
+      } else if (this.mode === NavigationMode.DEFAULT) {
+        this.tool.actionDispatcher.dispatchAll([
+          EnableDefaultToolsAction.create(),
+          ShowToastMessageAction.createWithTimeout({
+            id: Symbol.for(ElementNavigatorKeyListener.name),
+            message: t('a11y.navigation.off')
+          })
+        ]);
+      }
+
+      this.mode = NavigationMode.NONE;
+    }
+  }
+
+  protected override triggerDefaultNavigationOnEvent(event: KeyboardEvent, element: GModelElement): boolean {
     if (this.matchesActivateDefaultNavigation(event)) {
       if (this.mode !== NavigationMode.DEFAULT) {
         this.clean();
@@ -29,8 +83,7 @@ class IvyElementNavigatorKeyListener extends ElementNavigatorKeyListener {
           EnableToolsAction.create([ElementNavigatorTool.ID, SearchAutocompletePaletteTool.ID, AccessibleKeyShortcutTool.ID]),
           ShowToastMessageAction.create({
             id: Symbol.for(ElementNavigatorKeyListener.name),
-            message:
-              "Navigation On: Use arrow keys to select preceding (←) or succeding (→) elements. Use the up (↑) and down (↓) arrows to navigate paths. Press 'ESC' to exit."
+            message: t('a11y.navigation.on')
           })
         ]);
         this.navigator = this.tool.localElementNavigator;
@@ -38,13 +91,27 @@ class IvyElementNavigatorKeyListener extends ElementNavigatorKeyListener {
       } else {
         this.resetDefaultNavigationOnEvent(event, element);
       }
-
       return true;
     }
     return false;
   }
 
-  protected triggerPositionNavigationOnEvent(event: KeyboardEvent, element: GModelElement): boolean {
+  protected resetDefaultNavigationOnEvent(event: KeyboardEvent, element: GModelElement): void {
+    if (this.mode === NavigationMode.DEFAULT && this.matchesActivateDefaultNavigation(event)) {
+      this.navigator?.clean?.(element.root);
+      this.clean();
+      this.mode = NavigationMode.NONE;
+      this.tool.actionDispatcher.dispatchAll([
+        EnableDefaultToolsAction.create(),
+        ShowToastMessageAction.createWithTimeout({
+          id: Symbol.for(ElementNavigatorKeyListener.name),
+          message: t('a11y.navigation.off')
+        })
+      ]);
+    }
+  }
+
+  protected override triggerPositionNavigationOnEvent(event: KeyboardEvent, element: GModelElement): boolean {
     if (this.matchesActivatePositionNavigation(event)) {
       if (this.mode !== NavigationMode.POSITION) {
         this.clean();
@@ -52,8 +119,7 @@ class IvyElementNavigatorKeyListener extends ElementNavigatorKeyListener {
           EnableToolsAction.create([ElementNavigatorTool.ID, SearchAutocompletePaletteTool.ID, AccessibleKeyShortcutTool.ID]),
           ShowToastMessageAction.create({
             id: Symbol.for(ElementNavigatorKeyListener.name),
-            message:
-              "Position based Navigation On: Navigate nearest elements using arrow keys: (↑) for above, (↓) for below, (←) for previous, (→) for next element. Press 'ESC' to exit."
+            message: t('a11y.navigation.onPosition')
           })
         ]);
         this.navigator = this.tool.elementNavigator;
@@ -61,10 +127,23 @@ class IvyElementNavigatorKeyListener extends ElementNavigatorKeyListener {
       } else {
         this.resetPositionNavigationOnEvent(event, element);
       }
-
       return true;
     }
-
     return false;
+  }
+
+  protected resetPositionNavigationOnEvent(event: KeyboardEvent, element: GModelElement): void {
+    if (this.mode === NavigationMode.POSITION && this.matchesActivatePositionNavigation(event)) {
+      this.navigator?.clean?.(element.root);
+      this.clean();
+      this.mode = NavigationMode.NONE;
+      this.tool.actionDispatcher.dispatchAll([
+        EnableDefaultToolsAction.create(),
+        ShowToastMessageAction.createWithTimeout({
+          id: Symbol.for(ElementNavigatorKeyListener.name),
+          message: t('a11y.navigation.offPosition')
+        })
+      ]);
+    }
   }
 }

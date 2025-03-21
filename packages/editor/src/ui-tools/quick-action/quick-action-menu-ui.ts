@@ -6,6 +6,7 @@ import { createElement, createIcon } from '../../utils/ui-utils';
 import type { ShowMenuAction } from '../menu/menu';
 import { ItemMenu, SimpleMenu } from '../menu/menu';
 import { EditColorUi } from './color/edit-color-ui';
+import { t } from 'i18next';
 
 export interface ShowQuickActionMenuAction extends ShowMenuAction {
   kind: typeof ShowQuickActionMenuAction.KIND;
@@ -70,7 +71,7 @@ export class QuickActionMenu extends ItemMenu {
     if (this.action.isEditable) {
       const button = createElement('div', [ItemMenu.ITEM_BUTTON, 'new-color-btn']);
       button.appendChild(createElement('span', ['new-color-icon', 'ivy', `ivy-${IvyIcons.Plus}`]));
-      button.insertAdjacentText('beforeend', 'New Color');
+      button.insertAdjacentText('beforeend', t('label.colorNew'));
       button.onclick = () => this.editUi?.showEditUi();
       button.onmouseenter = () => this.focusButton(button);
       group.appendChild(button);
@@ -89,7 +90,7 @@ export class QuickActionMenu extends ItemMenu {
 
   private createEditButton(item: PaletteItem): HTMLElement {
     const editButton = createIcon(IvyIcons.Edit, ['color-edit-button']);
-    editButton.title = 'Edit Color';
+    editButton.title = t('label.colorEdit');
     editButton.onclick = (ev: MouseEvent) => {
       ev.stopPropagation();
       this.editUi?.showEditUi(item);
@@ -223,7 +224,7 @@ export class InfoQuickActionMenu extends SimpleMenu {
     const issueTitle = createElement('div', ['menu-issue-title']);
     issueTitle.appendChild(createIcon(this.ivyIconForSeverity(sIssue.severity)));
     const issueTitleSpan = createElement('span');
-    issueTitleSpan.textContent = sIssue.severity === 'error' ? 'Error' : 'Caution';
+    issueTitleSpan.textContent = sIssue.severity === 'error' ? t('label.error') : t('label.warning');
     issueTitle.appendChild(issueTitleSpan);
     issue.appendChild(issueTitle);
 

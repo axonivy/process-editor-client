@@ -10,17 +10,17 @@ import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
 import { PathContext } from '../../../../context/usePath';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { ValidationRow } from '../../common/path/validation/ValidationRow';
+import { useTranslation } from 'react-i18next';
 
 type Column = DatabaseColumn & {
   expression: string;
 };
 
 export const TableFields = () => {
+  const { t } = useTranslation();
   const { config, updateSql } = useQueryData();
-
   const { elementContext: context } = useEditorContext();
   const columnMetas = useMeta('meta/database/columns', { context, database: config.query.dbName, table: config.query.sql.table }, []).data;
-
   const [data, setData] = useState<Column[]>([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const TableFields = () => {
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Column' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.column')} />,
         cell: cell => (
           <>
             <span>{cell.getValue()}</span>
@@ -48,11 +48,11 @@ export const TableFields = () => {
       },
       {
         accessorKey: 'expression',
-        header: ({ column }) => <SortableHeader column={column} name='Value' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.value')} />,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.ivyType} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
-    []
+    [t]
   );
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -95,7 +95,7 @@ export const TableFields = () => {
   return (
     <PathContext path='sql'>
       <PathCollapsible
-        label='Fields'
+        label={t('part.db.fields')}
         path='fields'
         defaultOpen={config.query.sql.fields && Object.keys(config.query.sql.fields).length > 0}
       >

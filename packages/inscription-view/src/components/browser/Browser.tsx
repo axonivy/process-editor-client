@@ -11,6 +11,7 @@ import BrowserBody from './BrowserBody';
 import { useRoleBrowser, type RoleOptions } from './role/RoleBrowser';
 import { useConditionBuilder } from './conditionBuilder/useConditionBuilder';
 import { Button } from '@axonivy/ui-components';
+import { useTranslation } from 'react-i18next';
 
 export type BrowserValue = { cursorValue: string; firstLineValue?: string };
 
@@ -24,6 +25,7 @@ type BrowserProps = UseBrowserReturnValue & {
 };
 
 const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, roleOptions, initSearchFilter }: BrowserProps) => {
+  const { t } = useTranslation();
   const [active, setActive] = useState<BrowserType>(types[0]);
   const [disableApply, setDisableApply] = useState(false);
 
@@ -60,7 +62,7 @@ const Browser = ({ open, onOpenChange, types, accept, location, cmsOptions, role
     <>
       <Dialog open={open} onOpenChange={onOpenChange} modal={false}>
         <DialogTrigger asChild>
-          <Button icon={IvyIcons.ListSearch} aria-label='Browser' />
+          <Button icon={IvyIcons.ListSearch} aria-label={t('common:label.browser')} />
         </DialogTrigger>
         <BrowserBody
           activeTab={active}

@@ -6,6 +6,6 @@
     "types": ["node", "reflect-metadata"],
     "jsxFactory": "JSX.createElement"
   },
-  "include": ["src"],
+  "include": ["src", "src/translation/**/*.json"],
   "references": [{ "path": "../protocol/tsconfig.json" }]
 }

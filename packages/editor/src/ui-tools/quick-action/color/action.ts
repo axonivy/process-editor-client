@@ -7,6 +7,7 @@ import { ColorPaletteHandler } from './action-handler';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
 import { LaneTypes } from '../../../diagram/view-types';
+import { t } from 'i18next';
 
 @injectable()
 export class SelectColorQuickActionProvider implements QuickActionProvider {
@@ -30,7 +31,7 @@ export class SelectColorQuickActionProvider implements QuickActionProvider {
   quickAction(elementIds: string[], paletteItems: () => PaletteItem[]): QuickAction {
     return {
       icon: IvyIcons.ColorDrop,
-      title: 'Select color',
+      title: t('quickAction.color'),
       location: 'Middle',
       sorting: 'Z',
       action: ShowQuickActionMenuAction.create({

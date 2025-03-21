@@ -32,6 +32,8 @@
     "@axonivy/ui-icons": "~13.1.0-next",
     "@tanstack/react-query": "^5.64",
     "@tanstack/react-query-devtools": "^5.64",
+    "i18next": "^24.2.3",
+    "react-i18next": "^15.4.1",
     "react": "^18.2 || ^19.0"
   },
   "devDependencies": {

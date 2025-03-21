@@ -15,11 +15,17 @@ import {
 import { injectable } from 'inversify';
 import { ActivityTypes, EventTypes, GatewayTypes } from '../../diagram/view-types';
 import './search-palette.css';
+import { t } from 'i18next';
 
 @injectable()
 export class IvySearchAutocompletePalette extends SearchAutocompletePalette {
   protected getSuggestionProviders() {
     return [new RevealNodeAutocompleteSuggestionProvider(), new RevealEdgeElementAutocompleteSuggestionProvider()];
+  }
+
+  protected override initializeContents(containerElement: HTMLElement): void {
+    super.initializeContents(containerElement);
+    this.autocompleteWidget.inputField.placeholder = t('a11y.search.placeholder');
   }
 
   show(root: Readonly<GModelRoot>, ...contextElementIds: string[]): void {

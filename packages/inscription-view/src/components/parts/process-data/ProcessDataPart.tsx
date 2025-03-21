@@ -9,15 +9,17 @@ import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
 import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
+import { useTranslation } from 'react-i18next';
 
 export function useProcessDataPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useProcessDataData();
   const compareData = (data: ProcessDataData) => [data.data];
   const validations = useValidations(['data']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Process Data',
+    name: t('part.processData.title'),
     state,
     reset: { dirty, action: () => reset() },
     content: <ProcessDataPart />
@@ -25,6 +27,7 @@ export function useProcessDataPart(): PartProps {
 }
 
 const ProcessDataPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useProcessDataData();
   const { context } = useEditorContext();
   const dataClasses = [
@@ -34,14 +37,11 @@ const ProcessDataPart = () => {
   ];
 
   return (
-    <PathCollapsible label='Data Class' path='data' defaultOpen={config.data !== defaultConfig.data}>
+    <PathCollapsible label={t('part.processData.dataClass')} path='data' defaultOpen={config.data !== defaultConfig.data}>
       <ValidationFieldset>
         <DataClassSelector dataClass={config.data} onChange={change => update('data', change)} dataClasses={dataClasses} />
       </ValidationFieldset>
-      <Message
-        message='If the process data class changes, all already used fields must exist in the new data class. Otherwise existing mappings and scripts will be removed.'
-        variant='warning'
-      />
+      <Message message={t('part.processData.dataClassMessage')} variant='warning' />
     </PathCollapsible>
   );
 };

@@ -12,8 +12,10 @@ import { useAction } from '../../../../context/useAction';
 import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import { useTranslation } from 'react-i18next';
 
 export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
+  const { t } = useTranslation();
   const callData = useCallData();
   const targetData = useDialogCallData();
   const compareData = (callData: CallData, targetData: DialogCallData) => [callData.call, targetData.dialog];
@@ -26,7 +28,7 @@ export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
   return {
-    name: 'Dialog',
+    name: t('part.call.dialog.title'),
     state,
     reset: { dirty, action: () => targetData.resetData() },
     content: <DialogCallPart offline={options?.offline} />
@@ -34,6 +36,7 @@ export function useDialogCallPart(options?: { offline?: boolean }): PartProps {
 }
 
 const DialogCallPart = ({ offline }: { offline?: boolean }) => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useDialogCallData();
 
   const { context } = useEditorContext();
@@ -45,10 +48,15 @@ const DialogCallPart = ({ offline }: { offline?: boolean }) => {
   );
 
   const action = useAction('newHtmlDialog');
-  const createDialog: FieldsetControl = { label: 'Create new Html Dialog', icon: IvyIcons.Plus, action: () => action() };
+  const createDialog: FieldsetControl = { label: t('part.call.dialog.create'), icon: IvyIcons.Plus, action: () => action() };
   return (
     <>
-      <PathCollapsible label='Dialog' controls={[createDialog]} defaultOpen={config.dialog !== defaultConfig.dialog} path='dialog'>
+      <PathCollapsible
+        label={t('part.call.dialog.title')}
+        controls={[createDialog]}
+        defaultOpen={config.dialog !== defaultConfig.dialog}
+        path='dialog'
+      >
         <ValidationFieldset>
           <CallSelect
             start={config.dialog}

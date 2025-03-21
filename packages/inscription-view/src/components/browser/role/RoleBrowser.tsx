@@ -18,6 +18,7 @@ import { AddRolePopover } from './AddRolePopover';
 import BrowserTableRow from '../BrowserTableRow';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
 import { SearchTable } from '../../widgets/table/table/Table';
+import { useTranslation } from 'react-i18next';
 export const ROLE_BROWSER = 'role' as const;
 
 export type RoleOptions = {
@@ -25,10 +26,11 @@ export type RoleOptions = {
 };
 
 export const useRoleBrowser = (onDoubleClick: () => void, options?: RoleOptions): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: ROLE_BROWSER,
-    name: 'Role',
+    name: t('browser.role.title'),
     content: (
       <RoleBrowser value={value.cursorValue} onChange={setValue} onDoubleClick={onDoubleClick} showtaskRoles={options?.showTaskRoles} />
     ),
@@ -45,6 +47,7 @@ type RoleBrowserProps = {
 };
 
 const RoleBrowser = ({ value, showtaskRoles, onChange, onDoubleClick }: RoleBrowserProps) => {
+  const { t } = useTranslation();
   const { rolesAsTree: roleItems } = useRoles(showtaskRoles);
 
   const [showHelper, setShowHelper] = useState(false);
@@ -131,7 +134,7 @@ const RoleBrowser = ({ value, showtaskRoles, onChange, onDoubleClick }: RoleBrow
             table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)
           ) : (
             <TableRow>
-              <TableCell>No Columns found</TableCell>
+              <TableCell>{t('browser.empty')}</TableCell>
             </TableRow>
           )}
         </TableBody>

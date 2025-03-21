@@ -5,6 +5,7 @@ import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-a
 import { StartEventNode } from '../diagram/model';
 import { EventStartTypes } from '../diagram/view-types';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { t } from 'i18next';
 
 @injectable()
 export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
@@ -13,7 +14,7 @@ export class StarProcessQuickActionProvider extends SingleQuickActionProvider {
       const processStartUri = GArgument.getString(element, 'processStartUri') ?? '';
       return {
         icon: IvyIcons.Play,
-        title: 'Start Process (X)',
+        title: t('quickAction.startProcess', { hotkey: 'X' }),
         location: 'Left',
         sorting: 'A',
         action: StartProcessAction.create(element.id, processStartUri),
@@ -39,7 +40,7 @@ export class SearchProcessCallersActionProvider extends SingleQuickActionProvide
     if (element instanceof StartEventNode && this.isSearchViewAvailable(element.type)) {
       return {
         icon: IvyIcons.Search,
-        title: 'Search callers of this process (O)',
+        title: t('quickAction.searchCallers', { hotkey: 'O' }),
         location: 'Left',
         sorting: 'B',
         action: SearchProcessCallersAction.create(element.id),

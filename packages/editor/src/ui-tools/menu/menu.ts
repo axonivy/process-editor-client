@@ -5,6 +5,7 @@ import { ActivityTypes, EventIntermediateTypes, EventStartTypes } from '../../di
 import { IvyIcons } from '@axonivy/ui-icons';
 import { createElement, createIcon } from '../../utils/ui-utils';
 import { MenuIcons } from './icons';
+import { t } from 'i18next';
 
 export interface ShowMenuAction extends Action {
   paletteItems: () => MaybePromise<Array<PaletteItem>>;
@@ -46,7 +47,11 @@ export abstract class ItemMenu implements Menu {
   protected searchField?: HTMLInputElement;
   protected itemsDiv?: HTMLElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly action: ShowMenuAction, protected paletteItems: Array<PaletteItem>) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly action: ShowMenuAction,
+    protected paletteItems: Array<PaletteItem>
+  ) {
     this.paletteItemsCopy = JSON.parse(JSON.stringify(this.paletteItems));
   }
 
@@ -77,7 +82,7 @@ export abstract class ItemMenu implements Menu {
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';
-    this.searchField.placeholder = 'Search';
+    this.searchField.placeholder = t('common:label.search');
     this.searchField.onkeyup = ev => this.filterKeyUp(ev);
     this.searchField.onkeydown = ev => this.clearSearchInputOnEscape(ev);
     setTimeout(() => this.searchField?.focus(), 1);
@@ -157,7 +162,7 @@ export abstract class ItemMenu implements Menu {
     });
     if (this.paletteItems.length === 0) {
       const noResultsDiv = createElement('div');
-      noResultsDiv.innerText = 'No results found.';
+      noResultsDiv.innerText = t('label.empty');
       noResultsDiv.classList.add('no-result');
       itemsDiv.appendChild(noResultsDiv);
     }
@@ -179,7 +184,7 @@ export abstract class ItemMenu implements Menu {
     parent.appendChild(group);
 
     const groupHeader = createElement('div', ['menu-group-header']);
-    groupHeader.textContent = item.label;
+    groupHeader.textContent = t(`group.${item.label}`, { defaultValue: item.label });
     group.appendChild(groupHeader);
 
     const groupItems = createElement('div', ['menu-group-items']);

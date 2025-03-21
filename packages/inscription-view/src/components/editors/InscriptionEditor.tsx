@@ -14,6 +14,8 @@ import { ProcessOutline, type ProcessOutlineProps } from './ProcessOutline';
 import { useDataContext } from '../../context/useDataContext';
 import { useEditorContext } from '../../context/useEditorContext';
 import { useAction } from '../../context/useAction';
+import { useTranslation } from 'react-i18next';
+import { useKnownHotkeys } from '../../utils/useKnownHotkeys';
 
 export type KnownEditor = { editor: ReactNode; icon?: IvyIcons };
 
@@ -33,20 +35,22 @@ const inscriptionEditor = (type?: ElementType): ReactNode => {
 };
 
 const Header = ({ children }: { children?: ReactNode }) => {
+  const { t } = useTranslation();
   const { data } = useGeneralData();
   const validations = useDataContext().validations.filter(val => val.path.length === 0);
   const { type } = useEditorContext();
   const helpUrl = type.helpUrl;
   const action = useAction('openPage');
-  const title = type.id?.length === 0 ? 'Inscription' : `${type.shortLabel}${data.name?.length > 0 ? ` - ${data.name}` : ''}`;
+  const title = type.id?.length === 0 ? t('title.inscription') : `${type.shortLabel}${data.name?.length > 0 ? ` - ${data.name}` : ''}`;
   const icon = editors.get(type.id)?.icon;
-  useHotkeys('F1', () => action(helpUrl));
+  const { openHelp } = useKnownHotkeys();
+  useHotkeys(openHelp.hotkey, () => action(helpUrl));
   return (
     <>
       <SidebarHeader title={title} icon={icon} className='header'>
         {children}
         {helpUrl !== undefined && helpUrl !== '' && (
-          <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} aria-label={`Open Help for ${type.shortLabel}`} />
+          <Button icon={IvyIcons.Help} onClick={() => action(helpUrl)} title={openHelp.label} aria-label={openHelp.label} />
         )}
       </SidebarHeader>
       {validations.length > 0 && (

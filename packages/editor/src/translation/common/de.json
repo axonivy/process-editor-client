@@ -1,0 +1,25 @@
+{
+  "hotkey": {
+    "help": "Hilfe öffnen ({{hotkey}})"
+  },
+  "label": {
+    "apply": "Anwenden",
+    "attribute": "Attribut",
+    "browser": "Browser",
+    "cancel": "Abbrechen",
+    "category": "Kategorie",
+    "color": "Farbe",
+    "delete": "Löschen",
+    "description": "Beschreibung",
+    "details": "Details",
+    "mapping": "Zuordnung",
+    "name": "Name",
+    "role": "Rolle",
+    "save": "Speichern",
+    "search": "Suchen",
+    "settings": "Einstellungen",
+    "theme": "Thema",
+    "type": "Typ",
+    "value": "Wert"
+  }
+}

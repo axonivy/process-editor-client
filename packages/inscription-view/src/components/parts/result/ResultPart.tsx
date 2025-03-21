@@ -13,15 +13,17 @@ import MappingPart from '../common/mapping-tree/MappingPart';
 import { PathCollapsible } from '../common/path/PathCollapsible';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useResultData();
   const compareData = (data: ResultData) => [data.result];
   const validations = useValidations(['result']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Result',
+    name: t('part.result.title'),
     state,
     reset: { dirty, action: () => resetData() },
     content: <ResultPart {...props} />
@@ -29,6 +31,7 @@ export function useResultPart(props?: { hideParamDesc?: boolean }): PartProps {
 }
 
 const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useResultData();
 
   const { elementContext: context } = useEditorContext();
@@ -43,7 +46,7 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
   return (
     <PathContext path='result'>
       <ParameterTable
-        label='Result parameters'
+        label={t('part.result.paramter')}
         data={config.result.params}
         onChange={change => update('params', change)}
         hideDesc={hideParamDesc}
@@ -54,7 +57,12 @@ const ResultPart = ({ hideParamDesc }: { hideParamDesc?: boolean }) => {
         onChange={change => update('map', change)}
         browsers={['attr', 'func', 'type']}
       />
-      <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.result.code !== defaultConfig.result.code}>
+      <PathCollapsible
+        label={t('label.code')}
+        path='code'
+        controls={[maximizeCode]}
+        defaultOpen={config.result.code !== defaultConfig.result.code}
+      >
         <ValidationFieldset>
           <ScriptArea
             maximizeState={maximizeState}

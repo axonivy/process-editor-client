@@ -14,10 +14,12 @@ import { PathFieldset } from '../../../common/path/PathFieldset';
 import Combobox from '../../../../widgets/combobox/Combobox';
 import Select from '../../../../widgets/select/Select';
 import { ScriptInput } from '../../../../widgets/code-editor/ScriptInput';
+import { useTranslation } from 'react-i18next';
 
 type RestMethodItem = ComboboxItem & RestResource;
 
 export const RestMethodSelect = () => {
+  const { t } = useTranslation();
   const { config, update, updateTarget } = useRestRequestData();
   const { updateResource } = useUpdateRestResource();
 
@@ -42,7 +44,7 @@ export const RestMethodSelect = () => {
 
   const { openApi } = useOpenApi();
   return (
-    <PathFieldset label='Resource' path='path'>
+    <PathFieldset label={t('part.rest.resource')} path='path'>
       {items.length > 0 && openApi ? (
         <Combobox
           value={`${config.method}:${config.target.path}`}

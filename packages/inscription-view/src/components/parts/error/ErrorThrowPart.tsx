@@ -16,15 +16,17 @@ import ClassificationCombobox from '../common/classification/ClassificationCombo
 import { ScriptInput } from '../../widgets/code-editor/ScriptInput';
 import { ValidationFieldset } from '../common/path/validation/ValidationFieldset';
 import { ScriptArea } from '../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 export function useErrorThrowPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useErrorThrowData();
   const compareData = (data: ErrorThrowData) => [data];
   const validations = [...useValidations(['throws']), ...useValidations(['code'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Error',
+    name: t('part.error.title'),
     state,
     reset: { dirty, action: () => reset() },
     content: <ErrorThrowPart />
@@ -32,6 +34,7 @@ export function useErrorThrowPart(): PartProps {
 }
 
 const ErrorThrowPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update, updateThrows } = useErrorThrowData();
   const { context } = useEditorContext();
   const errorCodes = [
@@ -43,8 +46,8 @@ const ErrorThrowPart = () => {
 
   return (
     <>
-      <PathCollapsible label='Error' path='throws' defaultOpen={!deepEqual(config.throws, defaultConfig.throws)}>
-        <PathFieldset label='Error Code to throw' path='error'>
+      <PathCollapsible label={t('part.error.title')} path='throws' defaultOpen={!deepEqual(config.throws, defaultConfig.throws)}>
+        <PathFieldset label={t('part.error.codeToThrow')} path='error'>
           <ClassificationCombobox
             value={config.throws.error}
             onChange={change => updateThrows('error', change)}
@@ -52,7 +55,7 @@ const ErrorThrowPart = () => {
             icon={IvyIcons.Error}
           />
         </PathFieldset>
-        <PathFieldset label='Error Cause' path='cause'>
+        <PathFieldset label={t('part.error.cause')} path='cause'>
           <ScriptInput
             value={config.throws.cause}
             onChange={change => updateThrows('cause', change)}
@@ -61,7 +64,7 @@ const ErrorThrowPart = () => {
           />
         </PathFieldset>
       </PathCollapsible>
-      <PathCollapsible label='Code' path='code' controls={[maximizeCode]} defaultOpen={config.code !== defaultConfig.code}>
+      <PathCollapsible label={t('label.code')} path='code' controls={[maximizeCode]} defaultOpen={config.code !== defaultConfig.code}>
         <ValidationFieldset>
           <ScriptArea
             maximizeState={maximizeState}

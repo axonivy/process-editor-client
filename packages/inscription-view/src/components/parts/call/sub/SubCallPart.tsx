@@ -12,8 +12,10 @@ import { useAction } from '../../../../context/useAction';
 import type { FieldsetControl } from '../../../widgets/fieldset/fieldset-control';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { ValidationFieldset } from '../../common/path/validation/ValidationFieldset';
+import { useTranslation } from 'react-i18next';
 
 export function useSubCallPart(): PartProps {
+  const { t } = useTranslation();
   const callData = useCallData();
   const targetData = useProcessCallData();
   const compareData = (callData: CallData, targetData: ProcessCallData) => [callData.call, targetData.processCall];
@@ -25,10 +27,11 @@ export function useSubCallPart(): PartProps {
     [...subCallValidations, ...callValidations]
   );
   const dirty = usePartDirty(compareData(callData.initConfig, targetData.initConfig), compareData(callData.config, targetData.config));
-  return { name: 'Process', state, reset: { dirty, action: () => targetData.resetData() }, content: <SubCallPart /> };
+  return { name: t('part.call.title'), state, reset: { dirty, action: () => targetData.resetData() }, content: <SubCallPart /> };
 }
 
 const SubCallPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, update } = useProcessCallData();
 
   const { context } = useEditorContext();
@@ -40,11 +43,11 @@ const SubCallPart = () => {
   );
 
   const action = useAction('newProcess');
-  const createProcess: FieldsetControl = { label: 'Create new Sub Process', icon: IvyIcons.Plus, action: () => action() };
+  const createProcess: FieldsetControl = { label: t('part.call.sub.create'), icon: IvyIcons.Plus, action: () => action() };
   return (
     <>
       <PathCollapsible
-        label='Process start'
+        label={t('part.call.processStart')}
         controls={[createProcess]}
         defaultOpen={config.processCall !== defaultConfig.processCall}
         path='processCall'

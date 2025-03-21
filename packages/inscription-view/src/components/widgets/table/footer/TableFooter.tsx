@@ -5,7 +5,7 @@ export const TableShowMore = ({ colSpan, showMore, helpertext }: { colSpan: numb
   return (
     <TableRow>
       <TableHead colSpan={colSpan} className='show-more-rows'>
-        <Button icon={IvyIcons.Dots} onClick={showMore} aria-label='Show more rows'>
+        <Button icon={IvyIcons.Dots} onClick={showMore} aria-label={helpertext}>
           {helpertext}
         </Button>
       </TableHead>

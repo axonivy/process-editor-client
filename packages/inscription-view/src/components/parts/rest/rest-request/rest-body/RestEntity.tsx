@@ -9,6 +9,7 @@ import { PathFieldset } from '../../../common/path/PathFieldset';
 import { useEditorContext } from '../../../../../context/useEditorContext';
 import { useMeta } from '../../../../../context/useMeta';
 import { ScriptArea } from '../../../../widgets/code-editor/ScriptArea';
+import { useTranslation } from 'react-i18next';
 
 const useShowEntityTypeCombo = (types: string[], currentType: string) => {
   const resource = useRestResourceMeta();
@@ -16,6 +17,7 @@ const useShowEntityTypeCombo = (types: string[], currentType: string) => {
 };
 
 export const RestEntity = () => {
+  const { t } = useTranslation();
   const { config, updateEntity } = useRestRequestData();
   const { context } = useEditorContext();
   const variableInfo = useMeta('meta/rest/entityInfo', { context, fullQualifiedName: config.body.entity.type }, EMPTY_VAR_INFO).data;
@@ -25,7 +27,7 @@ export const RestEntity = () => {
   return (
     <PathContext path='entity'>
       {showEntityType && (
-        <PathFieldset label='Entity-Type' path='type'>
+        <PathFieldset label={t('part.rest.entityType')} path='type'>
           <RestEntityTypeCombobox value={config.body.entity.type} onChange={change => updateEntity('type', change)} items={entityTypes} />
         </PathFieldset>
       )}
@@ -35,7 +37,7 @@ export const RestEntity = () => {
         onChange={change => updateEntity('map', change)}
         variableInfo={variableInfo}
       />
-      <PathFieldset label='Code' path='code' controls={[maximizeCode]}>
+      <PathFieldset label={t('label.code')} path='code' controls={[maximizeCode]}>
         <ScriptArea
           maximizeState={maximizeState}
           value={config.body.entity.code}

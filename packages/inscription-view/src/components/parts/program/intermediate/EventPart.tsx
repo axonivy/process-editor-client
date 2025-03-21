@@ -1,5 +1,5 @@
 import type { EventData, IntermediateEventTimeoutAction } from '@axonivy/process-editor-inscription-protocol';
-import { EVENT_ACTION_TYPE, IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
+import { IVY_EXCEPTIONS, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import { usePartDirty, usePartState, type PartProps } from '../../../editors/part/usePart';
 import { useEventData } from './useEventData';
 import JavaClassSelector from '../JavaClassSelector';
@@ -10,32 +10,48 @@ import { ValidationFieldset } from '../../common/path/validation/ValidationField
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import { PathFieldset } from '../../common/path/PathFieldset';
 import ExceptionSelect from '../../common/exception-handler/ExceptionSelect';
-import Radio from '../../../widgets/radio/Radio';
+import Radio, { type RadioItemProps } from '../../../widgets/radio/Radio';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
 export function useEventPart(options?: { thirdParty?: boolean }): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, reset } = useEventData();
   const compareData = (data: EventData) => [data.javaClass, data.eventId, data.timeout];
   const validation = [...useValidations(['timeout']), ...useValidations(['eventId']), ...useValidations(['javaClass'])];
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Event',
+    name: t('part.program.event.title'),
     state,
     reset: { dirty, action: () => reset() },
     content: <EventPart thirdParty={options?.thirdParty} />
   };
 }
 
-const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
-  const { config, defaultConfig, update, updateTimeout } = useEventData();
+const useEventTypes = () => {
+  const { t } = useTranslation();
+  return useMemo<Array<RadioItemProps<IntermediateEventTimeoutAction>>>(
+    () => [
+      { label: t('part.program.event.type.nothing'), value: 'NOTHING' },
+      { label: t('part.program.event.type.destroyTask'), value: 'DESTROY_TASK' },
+      { label: t('part.program.event.type.continueWithoutEvent'), value: 'CONTINUE_WITHOUT_EVENT' }
+    ],
+    [t]
+  );
+};
 
+const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
+  const { t } = useTranslation();
+  const { config, defaultConfig, update, updateTimeout } = useEventData();
+  const items = useEventTypes();
   return (
     <>
       {(thirdParty === undefined || thirdParty === false) && (
         <JavaClassSelector javaClass={config.javaClass} onChange={change => update('javaClass', change)} type='INTERMEDIATE' />
       )}
 
-      <PathCollapsible label='Event ID' path='eventId' defaultOpen={config.eventId !== defaultConfig.eventId}>
+      <PathCollapsible label={t('part.program.event.id')} path='eventId' defaultOpen={config.eventId !== defaultConfig.eventId}>
         <ValidationFieldset>
           <ScriptInput
             value={config.eventId}
@@ -46,8 +62,8 @@ const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
         </ValidationFieldset>
       </PathCollapsible>
 
-      <PathCollapsible label='Expiry' path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
-        <PathFieldset label='Duration' path='duration'>
+      <PathCollapsible label={t('label.expiry')} path='timeout' defaultOpen={!deepEqual(config.timeout, defaultConfig.timeout)}>
+        <PathFieldset label={t('label.duration')} path='duration'>
           <ScriptInput
             value={config.timeout.duration}
             onChange={change => updateTimeout('duration', change)}
@@ -55,7 +71,7 @@ const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
             browsers={['attr', 'func', 'type']}
           />
         </PathFieldset>
-        <PathFieldset label='Error' path='error'>
+        <PathFieldset label={t('label.error')} path='error'>
           <ExceptionSelect
             value={config.timeout.error}
             onChange={change => updateTimeout('error', change)}
@@ -63,11 +79,11 @@ const EventPart = ({ thirdParty }: { thirdParty?: boolean }) => {
           />
         </PathFieldset>
 
-        <PathFieldset label='Action' path='action'>
+        <PathFieldset label={t('label.action')} path='action'>
           <Radio
             value={config.timeout.action}
             onChange={change => updateTimeout('action', change as IntermediateEventTimeoutAction)}
-            items={Object.entries(EVENT_ACTION_TYPE).map(([value, label]) => ({ label, value }))}
+            items={items}
             orientation='vertical'
           />
         </PathFieldset>

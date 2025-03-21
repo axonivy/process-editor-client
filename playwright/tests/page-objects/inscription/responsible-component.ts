@@ -1,8 +1,9 @@
-import type { RESPONSIBLE_TYPE, ValuesAsUnion } from '@axonivy/process-editor-inscription-protocol';
 import { ScriptInput } from './code-editor';
 import { Select } from './select';
 import type { Section } from './section';
 import type { Part } from './part';
+
+type ResponsibleTypes = 'Role from Attr.' | 'User from Attr.' | 'Member from Attr.' | 'Role' | 'Nobody & delete';
 
 export class ResponsibleComponent {
   typeSelect: Select;
@@ -16,7 +17,7 @@ export class ResponsibleComponent {
     this.select = new Select(part.page, locator, { nth: 1 });
   }
 
-  async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible = '') {
+  async fill(type: ResponsibleTypes, responsible = '') {
     await this.typeSelect.choose(type);
     switch (type) {
       case 'Role from Attr.':
@@ -30,7 +31,7 @@ export class ResponsibleComponent {
     }
   }
 
-  async expectFill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible = '') {
+  async expectFill(type: ResponsibleTypes, responsible = '') {
     await this.typeSelect.expectValue(type);
     switch (type) {
       case 'Role from Attr.':
@@ -66,12 +67,12 @@ export class ResponsibleSection extends ResponsibleComponent {
     this.select = this.section.select({ nth: 1 });
   }
 
-  override async fill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+  override async fill(type: ResponsibleTypes, responsible?: string) {
     await this.section.open();
     await super.fill(type, responsible);
   }
 
-  override async expectFill(type: ValuesAsUnion<typeof RESPONSIBLE_TYPE>, responsible?: string) {
+  override async expectFill(type: ResponsibleTypes, responsible?: string) {
     await super.expectFill(type, responsible);
   }
 

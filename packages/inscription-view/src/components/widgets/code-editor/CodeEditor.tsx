@@ -4,6 +4,7 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { useRef, Suspense, lazy } from 'react';
 import { useReadonly } from '@axonivy/ui-components';
 import { useEditorContext } from '../../../context/useEditorContext';
+import { useTranslation } from 'react-i18next';
 
 const Editor = lazy(async () => {
   const editor = await import('@monaco-editor/react');
@@ -22,6 +23,7 @@ export type CodeEditorProps = {
 };
 
 export const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, options, ...props }: CodeEditorProps) => {
+  const { t } = useTranslation();
   const { elementContext } = useEditorContext();
   const readonly = useReadonly();
   const placeholderElement = useRef<HTMLDivElement>(null);
@@ -48,7 +50,7 @@ export const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, opti
 
   return (
     <div className='code-editor'>
-      <Suspense fallback={<div className='code-input'>Loading Editor...</div>}>
+      <Suspense fallback={<div className='code-input'>{t('label.editorLoading')}</div>}>
         <Editor
           className='code-input'
           defaultValue={value}
@@ -67,7 +69,7 @@ export const CodeEditor = ({ value, onChange, context, macro, onMountFuncs, opti
       </Suspense>
 
       <div ref={placeholderElement} className={`monaco-placeholder ${monacoOptions.lineNumbers === 'on' ? 'with-lineNumbers' : ''}`}>
-        Press CTRL + SPACE for auto-completion
+        {t('label.editorPlaceholder')}
       </div>
     </div>
   );

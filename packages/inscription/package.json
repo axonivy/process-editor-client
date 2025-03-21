@@ -22,6 +22,7 @@
   "peerDependencies": {
     "@axonivy/jsonrpc": "~13.1.0-next",
     "@axonivy/ui-icons": "~13.1.0-next",
+    "i18next": "^24.2.3",
     "react": "^18.2 || ^19.0"
   },
   "devDependencies": {
