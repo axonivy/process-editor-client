@@ -5,6 +5,7 @@ import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-a
 import { isWithCustomIcon } from '../diagram/icon/model';
 import { ActivityTypes } from '../diagram/view-types';
 import { IvyIcons } from '@axonivy/ui-icons';
+import { t } from 'i18next';
 
 @injectable()
 export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
@@ -12,7 +13,7 @@ export class CustomIconQuickActionProvider extends SingleQuickActionProvider {
     if (isWithCustomIcon(element) && element.type !== ActivityTypes.COMMENT) {
       return {
         icon: IvyIcons.CustomImage,
-        title: 'Custom Icon',
+        title: t('quickAction.customIcon'),
         location: 'Middle',
         sorting: 'C',
         action: OpenDecoratorBrowserAction.create(element.id),

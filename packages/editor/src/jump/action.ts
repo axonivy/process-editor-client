@@ -16,6 +16,7 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-action/quick-action';
 import { isJumpable } from './model';
 import { JumpAction } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 @injectable()
 export class JumpActionHandler implements IActionHandler {
@@ -52,7 +53,7 @@ export class JumpQuickActionProvider extends SingleQuickActionProvider {
     if (isJumpable(element)) {
       return {
         icon: IvyIcons.SubStart,
-        title: 'Jump (J)',
+        title: t('quickAction.jump', { hotkey: 'J' }),
         location: 'Middle',
         sorting: 'A',
         action: JumpAction.create({ elementId: element.id }),

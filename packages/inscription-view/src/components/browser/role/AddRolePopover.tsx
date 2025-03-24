@@ -19,6 +19,7 @@ import { type Table } from '@tanstack/react-table';
 import { useRoles } from '../../parts/common/responsible/useRoles';
 import { isValidRowSelected, newNameExists, newNameIsValid } from './validate-role';
 import { useEditorContext } from '../../../context/useEditorContext';
+import { useTranslation } from 'react-i18next';
 
 export const AddRolePopover = ({
   value,
@@ -29,6 +30,7 @@ export const AddRolePopover = ({
   table: Table<RoleMeta>;
   setAddedRoleName: (value: string) => void;
 }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const { taskRoles } = useRoles();
   const [newRoleName, setNewRoleName] = useState('');
@@ -43,12 +45,12 @@ export const AddRolePopover = ({
     },
     {
       onSuccess: () => {
-        toast.info('Role successfully added');
+        toast.info(t('browser.role.addSuccess'));
         queryClient.invalidateQueries({ queryKey: ['meta/workflow/roleTree', context] });
         setOpen(false);
       },
       onError: error => {
-        toast.error('Failed to add new role', { description: error.message });
+        toast.error(t('browser.role.addFailed'), { description: error.message });
       }
     }
   );
@@ -64,18 +66,18 @@ export const AddRolePopover = ({
       <PopoverTrigger asChild>
         <Button
           icon={IvyIcons.Plus}
-          aria-label={`Add Role to ${value}`}
-          title={`Add Role to ${value}`}
+          aria-label={t('browser.role.add', { role: value })}
+          title={t('browser.role.add', { role: value })}
           disabled={!isValidRowSelected(table, taskRoles)}
         />
       </PopoverTrigger>
       <PopoverContent collisionPadding={5} style={{ zIndex: '10000' }}>
         <form onSubmit={event => event.preventDefault()}>
           <Flex direction='column' gap={2} alignItems='center'>
-            <BasicField label='New role name' style={{ width: '100%' }}>
+            <BasicField label={t('browser.role.newRole')} style={{ width: '100%' }}>
               <Input value={newRoleName} onChange={e => setNewRoleName(e.target.value)} />
             </BasicField>
-            {newNameExists(table, newRoleName) && <Message variant='error' message='A role with that name already exists' />}
+            {newNameExists(table, newRoleName) && <Message variant='error' message={t('browser.role.message.newRoleAlreadyExists')} />}
             <Button
               icon={IvyIcons.Plus}
               onClick={() => {
@@ -85,14 +87,14 @@ export const AddRolePopover = ({
                 });
                 setAddedRoleName(newRoleName);
               }}
-              aria-label='Add new Role'
-              title='Add new Role'
+              aria-label={t('browser.role.add', { role: value })}
+              title={t('browser.role.add', { role: value })}
               disabled={!newNameIsValid(table, newRoleName)}
               style={{ width: '100%' }}
               variant='primary'
               type='submit'
             >
-              Add Role to {value}
+              {t('browser.role.add', { role: value })}
             </Button>
           </Flex>
         </form>

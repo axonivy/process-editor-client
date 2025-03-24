@@ -3,6 +3,7 @@ import config from '@axonivy/eslint-config';
 
 export default tseslint.config(
   ...config.base,
+  ...config.i18n,
   // TypeScript recommended configs
   {
     name: 'typescript-eslint',

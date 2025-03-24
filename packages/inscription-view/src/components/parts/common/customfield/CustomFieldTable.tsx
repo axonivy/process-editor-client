@@ -13,6 +13,7 @@ import { useEditorContext } from '../../../../context/useEditorContext';
 import { useMeta } from '../../../../context/useMeta';
 import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
 import { useAction } from '../../../../context/useAction';
+import { useTranslation } from 'react-i18next';
 
 type CustomFieldTableProps = {
   data: WfCustomField[];
@@ -23,6 +24,7 @@ type CustomFieldTableProps = {
 const EMPTY_WFCUSTOMFIELD: WfCustomField = { name: '', type: 'STRING', value: '' } as const;
 
 const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
+  const { t } = useTranslation();
   const items = useMemo<SelectItem[]>(() => Object.entries(CUSTOM_FIELD_TYPE).map(([value, label]) => ({ label, value })), []);
 
   const { context } = useEditorContext();
@@ -33,7 +35,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
         cell: cell => (
           <ComboCell
             options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.name)).map(pcf => ({ value: pcf.name }))}
@@ -43,16 +45,16 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       },
       {
         accessorKey: 'type',
-        header: ({ column }) => <SortableHeader column={column} name='Type' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.type')} />,
         cell: cell => <SelectCell cell={cell} items={items} />
       },
       {
         accessorKey: 'value',
-        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.expression')} />,
         cell: cell => <ScriptCell cell={cell} type={CUSTOM_FIELD_TYPE[cell.row.original.type]} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],
-    [data, items, predefinedCustomField]
+    [data, items, predefinedCustomField, t]
   );
 
   const updateCustomFields = (data: Array<WfCustomField>, rowIndex: number, columnId: string) => {
@@ -85,7 +87,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     table.getSelectedRowModel().rows.length > 0
       ? [
           {
-            label: 'Open custom field configuration',
+            label: t('label.openCustomField'),
             icon: IvyIcons.GoToSource,
             action: () => action({ name: table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.name, type })
           },
@@ -93,7 +95,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
         ]
       : [];
   return (
-    <PathCollapsible path='customFields' label='Custom Fields' defaultOpen={data.length > 0} controls={tableActions}>
+    <PathCollapsible path='customFields' label={t('label.customFields')} defaultOpen={data.length > 0} controls={tableActions}>
       <div>
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />

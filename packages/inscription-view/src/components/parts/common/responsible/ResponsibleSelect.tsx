@@ -1,13 +1,14 @@
 import './ResponsibleSelect.css';
 import { useMemo } from 'react';
 import type { WfResponsible, WfResponsibleType, WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { RESPONSIBLE_TYPE, IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
+import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import type { DataUpdater } from '../../../../types/lambda';
 import RoleSelect from './RoleSelect';
 import { Field, Flex } from '@axonivy/ui-components';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import type { SelectItem } from '../../../widgets/select/Select';
 import Select from '../../../widgets/select/Select';
+import { useTranslation } from 'react-i18next';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
@@ -28,7 +29,6 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
     case 'USER_FROM_ATTRIBUTE':
       return (
         <ScriptInput
-          aria-label='activator'
           value={props.responsible?.activator ?? ''}
           onChange={change => props.updateResponsible('activator', change)}
           type={IVY_SCRIPT_TYPES.STRING}
@@ -38,7 +38,6 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
     case 'MEMBERS_FROM_ATTRIBUTE':
       return (
         <ScriptInput
-          aria-label='activator'
           value={props.responsible?.activator ?? ''}
           onChange={change => props.updateResponsible('activator', change)}
           type={IVY_SCRIPT_TYPES.STRING_LIST}
@@ -51,28 +50,34 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
   }
 };
 
-const DEFAULT_RESPONSIBLE_TYPE: SelectItem & { value: WfResponsibleType } = { label: 'Role', value: 'ROLE' };
+const useResponsibleItems = (optionFilter?: WfResponsibleType[]) => {
+  const { t } = useTranslation();
+  return useMemo(() => {
+    const items: Array<SelectItem<WfResponsibleType>> = [
+      { label: t('responsible.role'), value: 'ROLE' },
+      { label: t('responsible.roleFromAttr'), value: 'ROLE_FROM_ATTRIBUTE' },
+      { label: t('responsible.userFromAttr'), value: 'USER_FROM_ATTRIBUTE' },
+      { label: t('responsible.memberFromAttr'), value: 'MEMBERS_FROM_ATTRIBUTE' },
+      { label: t('responsible.delete'), value: 'DELETE_TASK' }
+    ];
+    return items.filter(responsible => !(optionFilter && optionFilter.includes(responsible.value)));
+  }, [optionFilter, t]);
+};
 
 export type ResponsibleSelectProps = ResponsibleProps & {
   optionFilter?: WfResponsibleType[];
 };
 
 const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: ResponsibleSelectProps) => {
-  const typeItems = useMemo<SelectItem[]>(
-    () =>
-      Object.entries(RESPONSIBLE_TYPE)
-        .filter(([value]) => !(optionFilter && optionFilter.includes(value as WfResponsibleType)))
-        .map(([value, label]) => ({ label, value })),
-    [optionFilter]
-  );
-  const selectedType = useMemo<SelectItem>(
-    () => typeItems.find(e => e.value === responsible?.type) ?? DEFAULT_RESPONSIBLE_TYPE,
-    [responsible?.type, typeItems]
-  );
+  const items = useResponsibleItems(optionFilter);
+  const selectedType = useMemo(() => {
+    const defaultResp = items.find(r => r.value === 'ROLE') ?? items[0];
+    return items.find(r => r.value === responsible?.type) ?? defaultResp;
+  }, [responsible?.type, items]);
 
   return (
     <Flex direction='row' gap={2} className='responsible-select'>
-      <Select items={typeItems} value={selectedType} onChange={item => updateResponsible('type', item.value as WfResponsibleType)} />
+      <Select items={items} value={selectedType} onChange={item => updateResponsible('type', item.value as WfResponsibleType)} />
       <Field>
         <ResponsibleActivator
           responsible={responsible}

@@ -3,15 +3,17 @@ import { usePartDirty, usePartState, type PartProps } from '../../../editors/par
 import { useProgramInterfaceData } from './useProgramInterfaceData';
 import JavaClassSelector from '../JavaClassSelector';
 import { useValidations } from '../../../../context/useValidation';
+import { useTranslation } from 'react-i18next';
 
 export function useProgramInterfaceStartPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetJavaClass } = useProgramInterfaceData();
   const compareData = (data: ProgramInterfaceStartData) => [data.javaClass];
   const validation = useValidations(['javaClass']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validation);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
   return {
-    name: 'Java Bean',
+    name: t('part.program.start.title'),
     state,
     reset: { dirty, action: () => resetJavaClass() },
     content: <ProgramInterfaceStartPart />

@@ -7,6 +7,7 @@ import { TypesPaletteHandler } from './action-handler';
 import { isUnwrapable } from '../../../wrap/model';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { ChangeActivityTypeOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 @injectable()
 export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProvider {
@@ -17,7 +18,7 @@ export class SelectActivityTypeQuickActionProvider extends SingleQuickActionProv
     if (isUnwrapable(element)) {
       return {
         icon: IvyIcons.ChangeType,
-        title: 'Select Activity Type',
+        title: t('quickAction.selectType'),
         location: 'Middle',
         sorting: 'Y',
         action: ShowQuickActionMenuAction.create({

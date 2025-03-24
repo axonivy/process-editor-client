@@ -7,25 +7,28 @@ import StartCustomFieldTable from '../common/customfield/StartCustomFieldTable';
 import { useValidations } from '../../../context/useValidation';
 import Checkbox from '../../widgets/checkbox/Checkbox';
 import { PathContext } from '../../../context/usePath';
+import { useTranslation } from 'react-i18next';
 
 export function useRequestPart(): PartProps {
+  const { t } = useTranslation();
   const { config, defaultConfig, initConfig, resetData } = useRequestData();
   const requestVal = useValidations(['request']);
   const permissionVal = useValidations(['permission']);
   const compareData = (data: RequestData) => [data];
   const state = usePartState(compareData(defaultConfig), compareData(config), [...requestVal, ...permissionVal]);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Request', state: state, reset: { dirty, action: () => resetData() }, content: <RequestPart /> };
+  return { name: t('part.request.title'), state: state, reset: { dirty, action: () => resetData() }, content: <RequestPart /> };
 }
 
 const RequestPart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateRequest, updatePermission } = useRequestData();
   return (
     <>
       <Checkbox
         value={config.request.isHttpRequestable}
         onChange={change => updateRequest('isHttpRequestable', change)}
-        label='Yes, this can be started with a HTTP-Request / -Link'
+        label={t('part.request.startPerHttp')}
         style={{ paddingInline: 'var(--size-2)' }}
       />
       {config.request.isHttpRequestable && (
@@ -35,7 +38,7 @@ const RequestPart = () => {
             <Checkbox
               value={config.request.isVisibleOnStartList}
               onChange={change => updateRequest('isVisibleOnStartList', change)}
-              label='Show on start list'
+              label={t('part.request.showOnStartList')}
               style={{ paddingInline: 'var(--size-2)' }}
             />
             {config.request.isVisibleOnStartList && (

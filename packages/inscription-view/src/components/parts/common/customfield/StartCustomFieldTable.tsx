@@ -12,6 +12,7 @@ import type { ComboboxItem } from '../../../widgets/combobox/Combobox';
 import { useMeta } from '../../../../context/useMeta';
 import { MacroCell } from '../../../widgets/table/cell/MacroCell';
 import { useAction } from '../../../../context/useAction';
+import { useTranslation } from 'react-i18next';
 
 type StartCustomFieldTableProps = {
   data: StartCustomStartField[];
@@ -21,6 +22,7 @@ type StartCustomFieldTableProps = {
 const EMPTY_STARTCUSTOMSTARTFIELD: StartCustomStartField = { name: '', value: '' } as const;
 
 const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) => {
+  const { t } = useTranslation();
   const { context } = useEditorContext();
   const predefinedCustomField: ComboboxItem[] = useMeta(
     'meta/workflow/customFields',
@@ -34,16 +36,16 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name='Name' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
         cell: cell => <ComboCell cell={cell} options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.value))} />
       },
       {
         accessorKey: 'value',
-        header: ({ column }) => <SortableHeader column={column} name='Expression' />,
+        header: ({ column }) => <SortableHeader column={column} name={t('label.expression')} />,
         cell: cell => <MacroCell cell={cell} placeholder={'Enter an Expression'} />
       }
     ],
-    [data, predefinedCustomField]
+    [data, predefinedCustomField, t]
   );
 
   const { table, rowSelection, setRowSelection, removeRowAction, showAddButton } = useResizableEditableTable({
@@ -59,7 +61,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
     table.getSelectedRowModel().rows.length > 0
       ? [
           {
-            label: 'Open custom field configuration',
+            label: t('label.openCustomField'),
             icon: IvyIcons.GoToSource,
             action: () => action({ name: table.getRowModel().rowsById[Object.keys(rowSelection)[0]].original.name, type: 'START' })
           },
@@ -68,7 +70,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
       : [];
 
   return (
-    <PathCollapsible path='customFields' controls={tableActions} label='Custom Fields' defaultOpen={data.length > 0}>
+    <PathCollapsible path='customFields' controls={tableActions} label={t('label.customFields')} defaultOpen={data.length > 0}>
       <div>
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />

@@ -1,22 +1,23 @@
 import {
   accessibilityModule,
+  AccessibleKeyShortcutTool,
   bindAsService,
   type BindingContext,
   configureActionHandler,
   configureMoveZoom,
-  configureShortcutHelpTool,
-  configureToastTool,
   DeselectKeyTool,
   EnableKeyboardGridAction,
   FeatureModule,
   FocusDomAction,
+  HideToastAction,
   KeyboardGrid,
   KeyboardGridCellSelectedAction,
   KeyboardGridKeyboardEventAction,
   LocalElementNavigator,
   PositionNavigator,
   ResizeElementAction,
-  ResizeKeyTool,
+  SetAccessibleKeyShortcutAction,
+  ShowToastMessageAction,
   TYPES
 } from '@eclipse-glsp/client';
 import { IvyResizeElementHandler } from './resize-key-tool/resize-key-handler';
@@ -29,6 +30,9 @@ import { JumpOutKeyListener } from './key-listener/jump-out';
 import { IvySearchAutocompletePaletteTool } from './search/search-tool';
 import { IvySearchAutocompletePalette } from './search/search-palette';
 import { IvyElementNavigatorTool } from './element-navigation/diagram-navigarion-tool';
+import { IvyResizeKeyTool } from './resize-key-tool/resize-key-tool';
+import { IvyToast } from './toast/toast-tool';
+import { IvyKeyShortcutUIExtension } from './key-shortcut/accessible-key-shortcut';
 
 export const ivyAccessibilityModule = new FeatureModule(
   (bind, unbind, isBound, rebind) => {
@@ -57,7 +61,13 @@ export const ivyKeyListenerModule = new FeatureModule((bind, unbind, isBound, re
 function configureResizeTools(context: BindingContext) {
   context.bind(IvyResizeElementHandler).toSelf().inSingletonScope();
   configureActionHandler(context, ResizeElementAction.KIND, IvyResizeElementHandler);
-  bindAsService(context, TYPES.IDefaultTool, ResizeKeyTool);
+  bindAsService(context, TYPES.IDefaultTool, IvyResizeKeyTool);
+}
+
+function configureShortcutHelpTool(context: BindingContext): void {
+  bindAsService(context, TYPES.IDefaultTool, AccessibleKeyShortcutTool);
+  bindAsService(context, TYPES.IUIExtension, IvyKeyShortcutUIExtension);
+  configureActionHandler(context, SetAccessibleKeyShortcutAction.KIND, IvyKeyShortcutUIExtension);
 }
 
 function configureViewKeyTools(context: BindingContext) {
@@ -88,4 +98,11 @@ function configureElementNavigationTool(context: BindingContext) {
   bindAsService(context, TYPES.IDefaultTool, IvyElementNavigatorTool);
   bindAsService(context, TYPES.IElementNavigator, PositionNavigator);
   bindAsService(context, TYPES.ILocalElementNavigator, LocalElementNavigator);
+}
+
+export function configureToastTool(context: BindingContext): void {
+  bindAsService(context, TYPES.IUIExtension, IvyToast);
+  context.bind(TYPES.IDiagramStartup).toService(IvyToast);
+  configureActionHandler(context, ShowToastMessageAction.KIND, IvyToast);
+  configureActionHandler(context, HideToastAction.KIND, IvyToast);
 }

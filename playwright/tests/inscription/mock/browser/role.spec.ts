@@ -44,7 +44,7 @@ async function applyRoleBrowser(page: Page, expectedSelection: string = '', rowT
     const popover = page.getByRole('dialog').nth(1);
     await expect(popover).toBeVisible();
     const addRoleInput = popover.getByLabel('New role name');
-    const addRoleButton = popover.getByRole('button', { name: 'Add new Role' });
+    const addRoleButton = popover.getByRole('button', { name: 'Add Role to Employee' });
     await addRoleInput.fill('test');
     await addRoleButton.click();
 

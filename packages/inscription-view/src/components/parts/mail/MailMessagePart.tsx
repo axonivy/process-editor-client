@@ -10,26 +10,29 @@ import { PathFieldset } from '../common/path/PathFieldset';
 import { MacroArea } from '../../widgets/code-editor/MacroArea';
 import Fieldset from '../../widgets/fieldset/Fieldset';
 import Select from '../../widgets/select/Select';
+import { useTranslation } from 'react-i18next';
 
 export function useMailMessagePart(): PartProps {
+  const { t } = useTranslation();
   const { config, initConfig, defaultConfig, resetMessage } = useMailData();
   const compareData = (data: MailData) => [data.message];
   const validations = useValidations(['message']);
   const state = usePartState(compareData(defaultConfig), compareData(config), validations);
   const dirty = usePartDirty(compareData(initConfig), compareData(config));
-  return { name: 'Content', state, reset: { dirty, action: () => resetMessage() }, content: <MailMessagePart /> };
+  return { name: t('part.mail.content.title'), state, reset: { dirty, action: () => resetMessage() }, content: <MailMessagePart /> };
 }
 
 const MailMessagePart = () => {
+  const { t } = useTranslation();
   const { config, defaultConfig, updateMessage } = useMailData();
   const typeItems = useMemo<SelectItem[]>(() => Object.values(MAIL_TYPE).map(value => ({ label: value, value })), []);
 
   return (
-    <ValidationCollapsible label='Content' defaultOpen={config.message.body !== defaultConfig.message.body}>
-      <PathFieldset label='Message' path='message'>
+    <ValidationCollapsible label={t('part.mail.content.title')} defaultOpen={config.message.body !== defaultConfig.message.body}>
+      <PathFieldset label={t('part.mail.content.message')} path='message'>
         <MacroArea value={config.message.body} onChange={change => updateMessage('body', change)} browsers={['attr', 'func', 'cms']} />
       </PathFieldset>
-      <Fieldset label='Type'>
+      <Fieldset label={t('part.mail.content.type')}>
         <Select
           value={{ value: config.message.contentType, label: config.message.contentType }}
           items={typeItems}

@@ -1,6 +1,7 @@
 import type { IActionDispatcher, PaletteItem } from '@eclipse-glsp/client';
 import { createElement } from '../../../utils/ui-utils';
 import { ChangeColorOperation } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 export class EditColorUi {
   private editUi: HTMLElement;
@@ -11,7 +12,11 @@ export class EditColorUi {
   private colorPickerDecorator?: HTMLElement;
   private deleteBtn?: HTMLButtonElement;
 
-  constructor(readonly actionDispatcher: IActionDispatcher, readonly elementIds: string[], containerElement: HTMLElement) {
+  constructor(
+    readonly actionDispatcher: IActionDispatcher,
+    readonly elementIds: string[],
+    containerElement: HTMLElement
+  ) {
     this.editUi = this.createEditUi(containerElement);
   }
 
@@ -45,10 +50,10 @@ export class EditColorUi {
 
   private createBody(): HTMLElement {
     const body = createElement('div', ['edit-color-body']);
-    const [nameDiv, nameInput] = this.createInput('Name', this.colorNameInput);
+    const [nameDiv, nameInput] = this.createInput(t('common:label.name'), this.colorNameInput);
     body.appendChild(nameDiv);
     this.colorNameInput = nameInput;
-    const [colorDiv, colorInput] = this.createInput('Color', this.colorInput, true);
+    const [colorDiv, colorInput] = this.createInput(t('common:label.color'), this.colorInput, true);
     body.appendChild(colorDiv);
     this.colorInput = colorInput;
     return body;
@@ -96,12 +101,12 @@ export class EditColorUi {
   private createFooter(): HTMLElement {
     const footer = createElement('footer', ['edit-color-footer']);
     this.deleteBtn = createElement('button', ['edit-color-delete']) as HTMLButtonElement;
-    this.deleteBtn.textContent = 'Delete';
+    this.deleteBtn.textContent = t('common:label.delete');
     this.deleteBtn.autofocus = true;
     this.deleteBtn.type = 'button';
     this.deleteBtn.onclick = () => this.deleteColor();
     const confirmBtn = createElement('button', ['edit-color-save']) as HTMLButtonElement;
-    confirmBtn.textContent = 'Save';
+    confirmBtn.textContent = t('common:label.save');
     confirmBtn.type = 'button';
     confirmBtn.onclick = () => this.validateInputsAndRun(() => this.changeColor());
     footer.appendChild(this.deleteBtn);

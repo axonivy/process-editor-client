@@ -5,6 +5,7 @@ import { type QuickAction, SingleQuickActionProvider } from '../ui-tools/quick-a
 import { isBreakable } from './model';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { SetBreakpointAction } from '@axonivy/process-editor-protocol';
+import { t } from 'i18next';
 
 @injectable()
 export class BreakpointQuickActionProvider extends SingleQuickActionProvider {
@@ -12,7 +13,7 @@ export class BreakpointQuickActionProvider extends SingleQuickActionProvider {
     if (isBreakable(element)) {
       return {
         icon: IvyIcons.Bug,
-        title: 'Toggle Breakpoint (B)',
+        title: t('quickAction.toggleBreakpoint', { hotkey: 'B' }),
         location: 'Left',
         sorting: 'C',
         action: SetBreakpointAction.create({ elementId: element.id }),

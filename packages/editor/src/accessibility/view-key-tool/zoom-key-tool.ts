@@ -16,6 +16,7 @@ import {
 } from '@eclipse-glsp/client';
 import { injectable } from 'inversify';
 import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';
+import { t } from 'i18next';
 
 @injectable()
 export class IvyZoomKeyTool extends ZoomKeyTool {
@@ -37,8 +38,8 @@ class IvyZoomKeyListener extends ZoomKeyListener {
       SetAccessibleKeyShortcutAction.create({
         token: this.token,
         keys: [
-          { shortcuts: ['+'], description: 'Zoom in to element or viewport', group: 'Viewport', position: 0 },
-          { shortcuts: ['-'], description: 'Zoom out to element or viewport', group: 'Viewport', position: 1 }
+          { shortcuts: ['+'], description: t('a11y.hotkeyDesc.zoomIn'), group: t('a11y.hotkeyGroup.viewport'), position: 0 },
+          { shortcuts: ['-'], description: t('a11y.hotkeyDesc.zoomOut'), group: t('a11y.hotkeyGroup.viewport'), position: 1 }
         ]
       })
     );

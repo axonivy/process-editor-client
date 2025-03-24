@@ -16,6 +16,7 @@ import {
   MoveKeyListener,
   MovementKeyTool,
   Point,
+  SetAccessibleKeyShortcutAction,
   SetUIExtensionVisibilityAction,
   SetViewportAction,
   toElementAndBounds,
@@ -24,6 +25,7 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable, optional } from 'inversify';
 import { QuickActionUI } from '../../ui-tools/quick-action/quick-action-ui';
+import { t } from 'i18next';
 
 @injectable()
 export class IvyMovementKeyTool extends MovementKeyTool {
@@ -45,6 +47,15 @@ class IvyMoveKeyListener extends MoveKeyListener {
     protected grid: Grid = { x: MoveKeyListener.defaultMoveX, y: MoveKeyListener.defaultMoveY }
   ) {
     super(tool, grid);
+  }
+
+  registerShortcutKey(): void {
+    this.tool.actionDispatcher.dispatchOnceModelInitialized(
+      SetAccessibleKeyShortcutAction.create({
+        token: this.token,
+        keys: [{ shortcuts: ['← ↑ → ↓'], description: t('a11y.hotkeyDesc.move'), group: t('a11y.hotkeyGroup.move'), position: 0 }]
+      })
+    );
   }
 
   keyDown(element: GModelElement, event: KeyboardEvent): Action[] {

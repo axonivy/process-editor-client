@@ -20,6 +20,7 @@ import { useMeta } from '../../../../context/useMeta';
 import type { SelectItem } from '../../../widgets/select/Select';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { focusNewCell } from '../../common/table/cellFocus-utils';
+import { useTranslation } from 'react-i18next';
 
 type OrderDirection = keyof typeof QUERY_ORDER;
 
@@ -31,6 +32,7 @@ type Column = {
 const EMPTY_COLUMN: Column = { name: '', sorting: 'ASCENDING' };
 
 export const TableSort = () => {
+  const { t } = useTranslation();
   const { config, updateSql } = useQueryData();
   const [data, setData] = useState<Column[]>([]);
 
@@ -55,12 +57,12 @@ export const TableSort = () => {
     () => [
       {
         accessorKey: 'name',
-        header: () => <span>Column</span>,
+        header: () => <span>{t('label.column')}</span>,
         cell: cell => <SelectCell cell={cell} items={columnItems.map(c => ({ label: c.name, value: c.name }))} />
       },
       {
         accessorKey: 'sorting',
-        header: () => <span>Direction</span>,
+        header: () => <span>{t('part.db.direction')}</span>,
         cell: cell => (
           <ReorderHandleWrapper>
             <SelectCell cell={cell} items={orderItems} />
@@ -68,7 +70,7 @@ export const TableSort = () => {
         )
       }
     ],
-    [columnItems, orderItems]
+    [columnItems, orderItems, t]
   );
 
   const updateOrderBy = (data: Column[]) => {
@@ -147,7 +149,7 @@ export const TableSort = () => {
     table.getSelectedRowModel().rows.length > 0
       ? [
           {
-            label: 'Remove row',
+            label: t('label.removeRow'),
             icon: IvyIcons.Trash,
             action: () => removeRow(table.getRowModel().rowsById[Object.keys(rowSelection)[0]].index)
           }
@@ -155,7 +157,7 @@ export const TableSort = () => {
       : [];
 
   return (
-    <PathCollapsible label='Sort' path='orderBy' defaultOpen={config.query.sql.orderBy?.length > 0} controls={tableActions}>
+    <PathCollapsible label={t('part.db.sort')} path='orderBy' defaultOpen={config.query.sql.orderBy?.length > 0} controls={tableActions}>
       <div>
         <Table>
           <TableResizableHeader headerGroups={table.getHeaderGroups()} onClick={() => setRowSelection({})} />

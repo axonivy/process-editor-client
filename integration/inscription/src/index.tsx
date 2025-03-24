@@ -7,6 +7,7 @@ import { URLParams } from './url-helper';
 import * as React from 'react';
 import { webSocketConnection, type Connection } from '@axonivy/jsonrpc';
 import { App, ClientContextProvider, initQueryClient, MonacoEditorUtil, QueryProvider } from '@axonivy/process-editor-inscription-view';
+import { initTranslation } from './i18n';
 
 export async function start(): Promise<void> {
   const server = URLParams.webSocketBase();
@@ -20,6 +21,7 @@ export async function start(): Promise<void> {
     throw new Error('root element not found');
   }
   const root = createRoot(rootElement);
+  initTranslation();
 
   root.render(
     <React.StrictMode>

@@ -16,8 +16,10 @@ import { InscriptionEditor, type InscriptionOutlineProps } from './components/ed
 import { useClient } from './context/useClient';
 import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from './context/useEditorContext';
 import { DataContextInstance } from './context/useDataContext';
+import { useTranslation } from 'react-i18next';
 
 function App({ outline, app, pmv, pid }: InscriptionElementContext & InscriptionOutlineProps) {
+  const { t } = useTranslation();
   const [context, setContext] = useState({ app, pmv, pid });
   const [initData, setInitData] = useState<Record<string, ElementData>>({});
   const [showOutline, setShowOutline] = useState(false);
@@ -97,7 +99,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
   if (isError) {
     return (
       <AppStateView>
-        <PanelMessage icon={IvyIcons.ErrorXMark} message={`An error occurred: ${error}`} />
+        <PanelMessage icon={IvyIcons.ErrorXMark} message={t('message.globalError', { error })} />
       </AppStateView>
     );
   }

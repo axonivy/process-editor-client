@@ -2,6 +2,7 @@ import { FocusDomAction, matchesKeystroke, SetAccessibleKeyShortcutAction } from
 import { ToggleInscriptionAction } from './action';
 import { injectable } from 'inversify';
 import { IvyGlobalKeyListenerTool } from '@axonivy/process-editor';
+import { t } from 'i18next';
 
 @injectable()
 export class IvyInscriptionGlobalKeyListenerTool extends IvyGlobalKeyListenerTool {
@@ -10,7 +11,9 @@ export class IvyInscriptionGlobalKeyListenerTool extends IvyGlobalKeyListenerToo
       this.actionDispatcher.dispatchAll([
         SetAccessibleKeyShortcutAction.create({
           token: 'Inscription',
-          keys: [{ shortcuts: ['3'], description: 'Focus on inscription', group: 'Inscription', position: 0 }]
+          keys: [
+            { shortcuts: ['3'], description: t('a11y.hotkeyDesc.focusInscription'), group: t('a11y.hotkeyGroup.inscription'), position: 0 }
+          ]
         })
       ]);
     });

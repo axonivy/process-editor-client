@@ -10,13 +10,15 @@ import BrowserTableRow from '../BrowserTableRow';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
 import { SearchTable } from '../../widgets/table/table/Table';
+import { useTranslation } from 'react-i18next';
 export const TABLE_COL_BROWSER_ID = 'tablecol' as const;
 
 export const useTableColBrowser = (onDoubleClick: () => void): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: TABLE_COL_BROWSER_ID,
-    name: 'Table Column',
+    name: t('browser.tableCol.title'),
     content: <TableColumnBrowser value={value.cursorValue} onChange={setValue} onDoubleClick={onDoubleClick} />,
     accept: () => value,
     icon: IvyIcons.Rule
@@ -30,6 +32,7 @@ type TableColumnBrowserProps = {
 };
 
 const TableColumnBrowser = ({ value, onChange, onDoubleClick }: TableColumnBrowserProps) => {
+  const { t } = useTranslation();
   const { elementContext: context } = useEditorContext();
   const { config } = useQueryData();
 
@@ -114,7 +117,7 @@ const TableColumnBrowser = ({ value, onChange, onDoubleClick }: TableColumnBrows
             table.getRowModel().rows.map(row => <BrowserTableRow key={row.id} row={row} onDoubleClick={onDoubleClick} />)
           ) : (
             <TableRow>
-              <TableCell>No Columns found</TableCell>
+              <TableCell>{t('browser.empty')}</TableCell>
             </TableRow>
           )}
         </TableBody>

@@ -10,6 +10,7 @@ import type { ThemeMode } from '@axonivy/process-editor-protocol';
 import type { Container } from 'inversify';
 import createContainer from './di.config';
 import './index.css';
+import { initTranslation } from './i18n';
 
 const urlParameters = getParameters();
 const filePath = urlParameters.path;
@@ -37,6 +38,7 @@ let container: Container;
 const wsProvider = new GLSPWebSocketProvider(webSocketUrl);
 wsProvider.listen({ onConnection: initialize, onReconnect: reconnect, logger: console });
 initMonaco();
+initTranslation();
 
 async function initialize(connectionProvider: MessageConnection, isReconnecting = false): Promise<void> {
   glspClient = new IvyBaseJsonrpcGLSPClient({ id, connectionProvider });

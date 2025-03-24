@@ -24,7 +24,8 @@
     "toastify-js": "1.12.0"
   },
   "peerDependencies": {
-    "@axonivy/ui-icons": "~13.1.0-next"
+    "@axonivy/ui-icons": "~13.1.0-next",
+    "i18next": "^24.2.3"
   },
   "devDependencies": {
     "@types/toastify-js": "^1.12.3",

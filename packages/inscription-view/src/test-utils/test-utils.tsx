@@ -36,6 +36,10 @@ import { DataContextInstance, type DataContext } from '../context/useDataContext
 import { ClientContextProvider, type ClientContext } from '../context/useClient';
 import { DEFAULT_EDITOR_CONTEXT, EditorContextInstance } from '../context/useEditorContext';
 import { OpenApiContextProvider } from '../context/useOpenApi';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import enTranslation from '../../../editor/src/translation/process-editor/en.json';
+import enCommonTranslation from '../../../editor/src/translation/common/en.json';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -80,6 +84,17 @@ type ContextHelperProps = {
 };
 
 const customizedDeepmerge = deepmergeCustom<unknown, { DeepMergeFilterValuesURI: DeepMergeNoFilteringURI }>({ filterValues: false });
+
+const initTranslation = () => {
+  if (i18n.isInitializing || i18n.isInitialized) return;
+  i18n.use(initReactI18next).init({
+    lng: 'en',
+    fallbackLng: 'en',
+    ns: ['process-editor'],
+    defaultNS: 'process-editor',
+    resources: { en: { 'process-editor': enTranslation, common: enCommonTranslation } }
+  });
+};
 
 const ContextHelper = (
   props: ContextHelperProps & {
@@ -192,6 +207,7 @@ const ContextHelper = (
   const editorRef = useRef(null);
   editorContext.editorRef = editorRef;
   const queryClient = new QueryClient();
+  initTranslation();
   return (
     <div ref={editorRef}>
       <ReadonlyProvider readonly={props.editor?.readonly ?? false}>

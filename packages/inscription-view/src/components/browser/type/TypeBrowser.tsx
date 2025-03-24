@@ -13,15 +13,17 @@ import { useMeta } from '../../../context/useMeta';
 import { ExpandableCell } from '../../widgets/table/cell/ExpandableCell';
 import Checkbox from '../../widgets/checkbox/Checkbox';
 import { SearchTable } from '../../widgets/table/table/Table';
+import { useTranslation } from 'react-i18next';
 export const TYPE_BROWSER_ID = 'type' as const;
 
 export type TypeBrowserObject = JavaType & { icon: IvyIcons };
 
 export const useTypeBrowser = (onDoubleClick: () => void, initSearchFilter: () => string, location: string): UseBrowserImplReturnValue => {
+  const { t } = useTranslation();
   const [value, setValue] = useState<BrowserValue>({ cursorValue: '' });
   return {
     id: TYPE_BROWSER_ID,
-    name: 'Type',
+    name: t('browser.type.title'),
     content: (
       <TypeBrowser
         value={value.cursorValue}
@@ -45,6 +47,7 @@ interface TypeBrowserProps {
 }
 
 const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, location }: TypeBrowserProps) => {
+  const { t } = useTranslation();
   const { context } = useEditorContext();
 
   const [allSearchActive, setAllSearchActive] = useState(false);
@@ -93,8 +96,8 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
         icon: dataClasses.find(dc => dc.fullQualifiedName === type.fullQualifiedName)
           ? IvyIcons.LetterD
           : type.fullQualifiedName.includes('ivy')
-          ? IvyIcons.Ivy
-          : IvyIcons.DataClass,
+            ? IvyIcons.Ivy
+            : IvyIcons.DataClass,
         ...type
       }));
       setTypes(mainFilter.length > 0 ? mappedAllTypes : []);
@@ -229,7 +232,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
       {!context.app.startsWith('ivy-dev-') && (
         <div className='browser-table-header'>
           <Checkbox
-            label='Search over all types'
+            label={t('browser.type.searchAllTypes')}
             value={allSearchActive}
             onChange={() => {
               setAllSearchActive(!allSearchActive);
@@ -256,14 +259,14 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
             </>
           ) : (
             <tr>
-              <TableCell>No type found, enter a fitting search term</TableCell>
+              <TableCell>{t('browser.type.empty')}</TableCell>
             </tr>
           )}
         </TableBody>
       </SearchTable>
       {isFetching && (
         <div className='loader-message'>
-          <p>loading more types...</p>
+          <p>{t('browser.type.loadingTypes')}</p>
         </div>
       )}
       {showHelper && (
@@ -272,7 +275,7 @@ const TypeBrowser = ({ value, onChange, onDoubleClick, initSearchFilter, locatio
           <span dangerouslySetInnerHTML={{ __html: `${doc}` }}></span>
         </pre>
       )}
-      <Checkbox label='Use Type as List' value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
+      <Checkbox label={t('browser.type.asList')} value={typeAsList} onChange={() => setTypeAsList(!typeAsList)} />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useAction } from '../../../context/useAction';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useMeta } from '../../../context/useMeta';
@@ -8,6 +9,7 @@ import { useWsRequestData } from './useWsRequestData';
 import { IvyIcons } from '@axonivy/ui-icons';
 
 export const WsClientSelect = () => {
+  const { t } = useTranslation();
   const { config, update } = useWsRequestData();
 
   const { context } = useEditorContext();
@@ -18,11 +20,11 @@ export const WsClientSelect = () => {
 
   const newAction = useAction('newWebServiceClient');
   const openAction = useAction('openConfig');
-  const openWsConfig: FieldsetControl = { label: 'Open WebService config', icon: IvyIcons.GoToSource, action: () => openAction() };
-  const createWsClient: FieldsetControl = { label: 'Create new WebService Client', icon: IvyIcons.Plus, action: () => newAction() };
+  const openWsConfig: FieldsetControl = { label: t('part.ws.clientOpen'), icon: IvyIcons.GoToSource, action: () => openAction() };
+  const createWsClient: FieldsetControl = { label: t('part.ws.clientCreate'), icon: IvyIcons.Plus, action: () => newAction() };
 
   return (
-    <PathFieldset label='Client' path='clientId' controls={[openWsConfig, createWsClient]}>
+    <PathFieldset label={t('part.ws.client')} path='clientId' controls={[openWsConfig, createWsClient]}>
       <Select value={selectedItem} onChange={item => update('clientId', item.value)} items={items} />
     </PathFieldset>
   );
