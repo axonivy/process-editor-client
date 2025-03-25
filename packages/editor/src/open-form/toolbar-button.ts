@@ -1,8 +1,9 @@
 import { inject, injectable } from 'inversify';
-import { ToolBarButtonLocation, type ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
+import { type ToolBarButtonProvider } from '../ui-tools/tool-bar/button';
 import { OpenFormEditorAction } from '@axonivy/process-editor-protocol';
 import { IvyIcons } from '@axonivy/ui-icons';
 import { EditorContextService, hasArgs, GArgument } from '@eclipse-glsp/client';
+import { ToolBarButtonLocation } from '@axonivy/process-editor-view';
 import { t } from 'i18next';
 
 @injectable()
@@ -15,6 +16,7 @@ export class OpenFormEditorButtonProvider implements ToolBarButtonProvider {
         return {
           icon: IvyIcons.File,
           title: t('toolbar.openFormEditor', { hotkey: 'F' }),
+          id: 'btn_open_form_editor',
           sorting: 'F',
           action: () => OpenFormEditorAction.create(),
           location: ToolBarButtonLocation.Right,

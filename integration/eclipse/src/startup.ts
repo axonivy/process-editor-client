@@ -1,4 +1,4 @@
-import type { ToolBar } from '@axonivy/process-editor';
+import type { ToolBarExtension } from '@axonivy/process-editor';
 import { IVY_TYPES } from '@axonivy/process-editor';
 import { EnableInscriptionAction } from '@axonivy/process-editor-inscription';
 import { EnableViewportAction, SwitchThemeAction, UpdatePaletteItems } from '@axonivy/process-editor-protocol';
@@ -15,7 +15,7 @@ export class EclipseDiagramStartup implements IDiagramStartup {
   protected actionDispatcher: IActionDispatcher;
 
   @inject(IVY_TYPES.ToolBar)
-  protected toolBar: ToolBar;
+  protected toolBar: ToolBarExtension;
 
   @inject(TYPES.IDiagramOptions)
   protected options: IvyDiagramOptions;
