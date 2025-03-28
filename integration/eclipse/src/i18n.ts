@@ -17,6 +17,9 @@ export const initTranslation = () => {
       resources: {
         en: { 'process-editor': enTranslation, common: enCommonTranslation },
         de: { 'process-editor': deTranslation, common: deCommonTranslation }
+      },
+      detection: {
+        order: ['querystring']
       }
     });
 };
