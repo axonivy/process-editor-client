@@ -4,8 +4,10 @@
     "local>axonivy/renovate-config:npm",
     "group:allNonMajor",
     "npm:unpublishSafe",
-    "schedule:earlyMondays"
+    "schedule:earlyMondays",
+    ":disableRateLimiting"
   ],
+  "timezone": "Europe/Zurich",
   "rebaseWhen": "conflicted",
   "packageRules": [
     {
