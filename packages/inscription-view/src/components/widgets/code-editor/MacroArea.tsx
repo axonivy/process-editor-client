@@ -22,7 +22,7 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
   useEffect(() => {
     console.log('offset:', areaRef.current?.offsetHeight);
     setMonacoInitHeight(areaRef.current?.offsetHeight);
-  }, []);
+  }, [areaRef]);
 
   return (
     // tabIndex is needed for safari to catch the focus when click on browser button
