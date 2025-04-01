@@ -2,8 +2,7 @@ import './ScriptArea.css';
 import type { CodeEditorAreaProps } from './ResizableCodeEditor';
 import { ResizableCodeEditor } from './ResizableCodeEditor';
 import { monacoAutoFocus, useMonacoEditor } from './useCodeEditor';
-import type { ElementRef } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { InputBadgeArea, useField } from '@axonivy/ui-components';
 import { badgePropsExpression } from '../../../utils/badgeproperties';
@@ -16,13 +15,8 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
   const { isFocusWithin, focusWithinProps, focusValue, browser } = useOnFocus(value, onChange);
   const { setEditor, modifyEditor, getSelectionRange } = useMonacoEditor({ modifyAction: value => `<%=${value}%>` });
   const path = usePath();
-  const areaRef = useRef<ElementRef<'output'>>(null);
+  const areaRef = useRef<HTMLOutputElement>(null);
   const { inputProps } = useField();
-  const [monacoInitHeight, setMonacoInitHeight] = useState<number | undefined>(undefined);
-  useEffect(() => {
-    console.log('offset:', areaRef.current?.offsetHeight);
-    setMonacoInitHeight(areaRef.current?.offsetHeight);
-  }, [areaRef]);
 
   return (
     // tabIndex is needed for safari to catch the focus when click on browser button
@@ -50,7 +44,7 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
                 location={path}
                 onMountFuncs={[setEditor, monacoAutoFocus, MonacoEditorUtil.keyActionEscShiftTab]}
                 macro={true}
-                initHeight={monacoInitHeight}
+                areaRef={areaRef}
               />
               <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
             </>
