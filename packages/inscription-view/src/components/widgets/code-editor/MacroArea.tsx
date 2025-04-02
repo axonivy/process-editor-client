@@ -44,7 +44,7 @@ export const MacroArea = ({ value, onChange, browsers, ...props }: CodeEditorAre
                 location={path}
                 onMountFuncs={[setEditor, monacoAutoFocus, MonacoEditorUtil.keyActionEscShiftTab]}
                 macro={true}
-                areaRef={areaRef}
+                initHeight={() => areaRef.current?.clientHeight ?? 90}
               />
               <Browser {...browser} types={browsers} accept={modifyEditor} location={path} />
             </>

@@ -15,12 +15,11 @@ export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'opti
 
 type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
   location: string;
-  initHeight?: number;
-  areaRef?: React.RefObject<HTMLOutputElement>;
+  initHeight?: () => number;
 };
 
-export const ResizableCodeEditor = ({ areaRef, initHeight, location, ...props }: ResizableCodeEditorProps) => {
-  const [height, setHeight] = useState(initHeight ? initHeight : areaRef?.current ? areaRef.current.offsetHeight : 90);
+export const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEditorProps) => {
+  const [height, setHeight] = useState(initHeight ? initHeight() : 90);
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
     onMoveStart() {
