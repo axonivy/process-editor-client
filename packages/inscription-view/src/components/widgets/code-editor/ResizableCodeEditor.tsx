@@ -15,11 +15,11 @@ export type CodeEditorAreaProps = Omit<ResizableCodeEditorProps, 'macro' | 'opti
 
 type ResizableCodeEditorProps = Omit<CodeEditorProps, 'height' | 'context'> & {
   location: string;
-  initHeight?: number;
+  initHeight?: () => number;
 };
 
 export const ResizableCodeEditor = ({ initHeight, location, ...props }: ResizableCodeEditorProps) => {
-  const [height, setHeight] = useState(initHeight ?? 90);
+  const [height, setHeight] = useState(initHeight ? initHeight() : 90);
   const [resizeActive, setResizeActive] = useState(false);
   const { moveProps } = useMove({
     onMoveStart() {
