@@ -41,10 +41,7 @@ const RequestPart = () => {
               label={t('part.request.showOnStartList')}
               style={{ paddingInline: 'var(--size-2)' }}
             />
-            {config.request.isVisibleOnStartList && (
-              <Information config={config.request} defaultConfig={defaultConfig.request} update={updateRequest} />
-            )}
-
+            <Information config={config.request} defaultConfig={defaultConfig.request} update={updateRequest} />
             <StartCustomFieldTable data={config.request.customFields} onChange={change => updateRequest('customFields', change)} />
           </PathContext>
           <Permission
