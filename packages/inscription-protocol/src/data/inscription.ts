@@ -66,7 +66,7 @@ export interface Inscription {
   restEntityInfoRequest: RestEntityInfoRequest;
   restResource: RestResource;
   restResourceRequest: RestResourceRequest;
-  roleMeta: RoleMeta;
+  roleMeta: RoleMeta[];
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
@@ -515,7 +515,7 @@ export interface ElementProgramStart {
 export interface StartPermission {
   anonymous: boolean;
   error: string;
-  role: string;
+  roles: string[];
 }
 export interface ElementWebServiceCall {
   output: ScriptMapCode;

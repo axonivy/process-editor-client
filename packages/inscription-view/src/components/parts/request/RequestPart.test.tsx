@@ -70,7 +70,7 @@ describe('RequestPart', () => {
       permission: {
         anonymous: false,
         error: '>> Ignore Exception',
-        role: 'Test'
+        roles: ['Test']
       }
     };
     renderPart(data);
@@ -94,7 +94,7 @@ describe('RequestPart', () => {
     assertState('configured', { request: { isHttpRequestable: true, customFields: [{ name: 'a', value: 'b' }] } });
     assertState('configured', { request: { isHttpRequestable: true }, permission: { anonymous: false } });
     assertState('configured', { request: { isHttpRequestable: true }, permission: { error: 'a' } });
-    assertState('configured', { request: { isHttpRequestable: true }, permission: { role: 'a' } });
+    assertState('configured', { request: { isHttpRequestable: true }, permission: { roles: ['a'] } });
 
     assertState('error', undefined, { path: 'permission.role', message: '', severity: 'ERROR' });
     assertState('warning', undefined, { path: 'request.name', message: '', severity: 'WARNING' });

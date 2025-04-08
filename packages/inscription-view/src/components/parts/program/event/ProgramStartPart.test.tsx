@@ -29,7 +29,7 @@ describe('StartPart', () => {
       permission: {
         anonymous: false,
         error: '>> Ignore Exception',
-        role: 'SYSTEM'
+        roles: ['SYSTEM']
       }
     });
     await ComboboxUtil.assertValue('Test', { nth: 0 });
@@ -56,7 +56,7 @@ describe('StartPart', () => {
 
   test('reset', () => {
     let data: DeepPartial<ElementData> = {
-      config: { javaClass: 'Test', permission: { error: 'bla', role: 'Tester' } }
+      config: { javaClass: 'Test', permission: { error: 'bla', roles: ['Tester'] } }
     };
     const view = renderHook(() => useProgramStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
@@ -66,6 +66,6 @@ describe('StartPart', () => {
     view.result.current.reset.action();
     expect(data.config?.javaClass).toEqual('');
     expect(data.config?.permission?.error).toEqual('ivy:security:forbidden');
-    expect(data.config?.permission?.role).toEqual('Everyone');
+    expect(data.config?.permission?.roles?.[0]).toEqual('Everyone');
   });
 });

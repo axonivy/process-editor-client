@@ -48,6 +48,12 @@ The simplest way to start the process editor is by download a [Axon Ivy Designer
 
 ---
 
+## Changing the protocol
+
+1. Change the schema in the core
+2. Run build core_json-schema
+3. Copy the URI of the schema protocol and run `npm run generate <URI>` in the root
+
 ## More information
 
 For more information about GLSP, please visit the [Eclipse GLSP Umbrella repository](https://github.com/eclipse-glsp/glsp) and the [Eclipse GLSP Website](https://www.eclipse.org/glsp/).

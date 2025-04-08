@@ -24,8 +24,11 @@ export const Permission = ({ anonymousFieldActive, config, defaultConfig, update
         <Checkbox label={t('label.allowAnonymous')} value={config.anonymous} onChange={change => updatePermission('anonymous', change)} />
       )}
       {(!anonymousFieldActive || (anonymousFieldActive && !config.anonymous)) && (
-        <PathFieldset label={t('common:label.role')} path='role'>
-          <RoleSelect value={config.role} onChange={change => updatePermission('role', change)} />
+        <PathFieldset label={t('common:label.role')} path='roles'>
+          <RoleSelect
+            value={config.roles && config.roles.length > 0 ? config.roles[0] : ''}
+            onChange={change => updatePermission('roles', change ? [change] : [])}
+          />
         </PathFieldset>
       )}
       <PathFieldset label={t('label.validationError')} path='error'>
