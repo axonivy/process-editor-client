@@ -115,7 +115,7 @@ export const DEFAULT_REQUEST_DATA: RequestData = {
   },
   permission: {
     anonymous: true,
-    role: 'Everybody',
+    roles: ['Everybody'] as string[],
     error: IVY_EXCEPTIONS.security
   }
 } as const;
@@ -132,7 +132,7 @@ export const DEFAULT_WEB_SERVICE_DATA: WebserviceStartData = {
   permission: {
     anonymous: true,
     error: IVY_EXCEPTIONS.security,
-    role: 'Everyone'
+    roles: ['Everyone'] as string[]
   },
   exception: {
     enabled: false,

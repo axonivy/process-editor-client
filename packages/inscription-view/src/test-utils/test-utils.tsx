@@ -83,7 +83,10 @@ type ContextHelperProps = {
   editor?: { title?: string; readonly?: boolean };
 };
 
-const customizedDeepmerge = deepmergeCustom<unknown, { DeepMergeFilterValuesURI: DeepMergeNoFilteringURI }>({ filterValues: false });
+const customizedDeepmerge = deepmergeCustom<unknown, { DeepMergeFilterValuesURI: DeepMergeNoFilteringURI }>({
+  filterValues: false,
+  mergeArrays: false
+});
 
 const initTranslation = () => {
   if (i18n.isInitializing || i18n.isInitialized) return;
