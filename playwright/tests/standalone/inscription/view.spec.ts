@@ -12,7 +12,7 @@ test('elements', async ({ page }) => {
   await view.expectHeaderText(/End/);
 
   await processEditor.resetSelection();
-  await view.expectClosed();
+  await view.expectHeaderText(/Business Process/);
 });
 
 test('undo', async ({ page }) => {

@@ -149,7 +149,6 @@ export class ProcessEditor {
   }
 
   async resetSelection() {
-    await this.toolbar().triggerToggleInscription();
     const graph = this.page.locator('#sprotty');
     await expect(graph).toBeVisible();
     const bounds = await graph.boundingBox();
