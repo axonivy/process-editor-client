@@ -109,4 +109,8 @@ export class Toolbar {
     await expect(this.toolbar.locator('.edit-buttons')).toBeHidden();
     await expect(this.toolbar.locator('.middle-buttons > span')).toBeHidden();
   }
+
+  async triggerToggleInscription() {
+    await this.toolbar.locator('#btn_inscription_toggle').click();
+  }
 }
