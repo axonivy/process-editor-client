@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { ProcessEditor } from '../../page-objects/editor/process-editor';
 import type { Inscription } from '../../page-objects/inscription/inscription-view';
 
@@ -12,7 +12,7 @@ test('elements', async ({ page }) => {
   await view.expectHeaderText(/End/);
 
   await processEditor.resetSelection();
-  await view.expectClosed();
+  await view.expectHeaderText(/Business Process/);
 });
 
 test('undo', async ({ page }) => {
@@ -77,6 +77,20 @@ test('hold accordion state', async ({ page }) => {
   await processEditor.startElement.select();
   await general.expectClosed();
   await task.expectOpen();
+});
+
+test('web service auth link', async ({ page }) => {
+  const editor = await ProcessEditor.openProcess(page, { file: '/processes/screenshot/ws.p.json', waitFor: '.sprotty-graph' });
+  const wsStart = editor.element('start:webserviceStart');
+  const view = await wsStart.inscribe();
+  const wsPart = view.accordion('Web Service');
+  await wsPart.open();
+  await expect(wsPart.currentLocator().getByText('Web service authentication on the')).toBeVisible();
+  const link = wsPart.currentLocator().locator('a', { hasText: 'process' });
+  await expect(link).toBeVisible();
+  await link.click();
+  await wsStart.expectNotSelected();
+  await view.expectHeaderText('Web Service Process');
 });
 
 async function changeName(view: Inscription, oldValue: string, value: string) {

@@ -86,7 +86,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
     onSuccess: (data: ValidationResult[]) => queryClient.setQueryData(queryKeys.validation(context), data)
   });
 
-  if (isPending) {
+  if (isPending || data?.context.pid !== pid) {
     return (
       <AppStateView>
         <Spinner size='large' />
@@ -111,7 +111,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
             elementContext: context,
             editorRef,
             type: data.type ?? DEFAULT_EDITOR_CONTEXT.type,
-            navigateTo: (pid: PID) => setContext(old => ({ ...old, pid }))
+            navigateTo: (pid: PID) => outline?.onClick?.(pid)
           }}
         >
           <DataContextInstance.Provider
