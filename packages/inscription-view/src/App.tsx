@@ -88,7 +88,7 @@ function App({ outline, app, pmv, pid }: InscriptionElementContext & Inscription
     onSuccess: (data: ValidationResult[]) => queryClient.setQueryData(queryKeys.validation(context), data)
   });
 
-  if (isPending) {
+  if (isPending || (data?.context && data?.context.pid !== context.pid)) {
     return (
       <AppStateView>
         <Spinner size='large' />
