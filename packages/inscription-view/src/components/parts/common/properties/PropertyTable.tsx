@@ -36,7 +36,7 @@ export const PropertyTable = ({ properties, update, knownProperties, hidePropert
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => <ComboCell cell={cell} options={knownPropertyItems} />
       },
       {

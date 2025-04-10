@@ -22,7 +22,7 @@ const MappingPart = ({ path, data, ...props }: MappingPartProps) => {
   const onlyInscribedFilter = useTableOnlyInscribed();
   return (
     <PathCollapsible
-      label={t('common:label.mapping')}
+      label={t('common.label.mapping')}
       controls={[globalFilter.control, onlyInscribedFilter.control]}
       path={path ?? 'map'}
       defaultOpen={Object.keys(data).length > 0}
@@ -38,7 +38,7 @@ export const MappingField = ({ path, data, ...props }: MappingPartProps) => {
   const onlyInscribedFilter = useTableOnlyInscribed();
   return (
     <PathContext path={path ?? 'map'}>
-      <Fieldset label={t('common:label.mapping')} controls={[globalFilter.control, onlyInscribedFilter.control]}>
+      <Fieldset label={t('common.label.mapping')} controls={[globalFilter.control, onlyInscribedFilter.control]}>
         <MappingTree data={data} {...props} globalFilter={globalFilter} onlyInscribedFilter={onlyInscribedFilter} />
       </Fieldset>
     </PathContext>

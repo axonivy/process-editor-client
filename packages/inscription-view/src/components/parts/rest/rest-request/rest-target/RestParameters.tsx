@@ -55,7 +55,7 @@ export const RestParameters = () => {
       },
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => <InputCell cell={cell} disabled={cell.row.original.known} />
       },
       {

@@ -82,7 +82,7 @@ export abstract class ItemMenu implements Menu {
 
     this.searchField = createElement('input', ['menu-search-input']) as HTMLInputElement;
     this.searchField.type = 'text';
-    this.searchField.placeholder = t('common:label.search');
+    this.searchField.placeholder = t('common.label.search');
     this.searchField.onkeyup = ev => this.filterKeyUp(ev);
     this.searchField.onkeydown = ev => this.clearSearchInputOnEscape(ev);
     setTimeout(() => this.searchField?.focus(), 1);

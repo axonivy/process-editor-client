@@ -12,7 +12,7 @@ export const SearchTable = forwardRef<HTMLTableElement, TableProps>(({ search, .
   const { t } = useTranslation();
   return (
     <Flex direction='column' gap={1}>
-      {search && <SearchInput placeholder={t('common:label.search')} {...search} />}
+      {search && <SearchInput placeholder={t('common.label.search')} {...search} />}
       <Table ref={forwardRef} {...props} />
     </Flex>
   );

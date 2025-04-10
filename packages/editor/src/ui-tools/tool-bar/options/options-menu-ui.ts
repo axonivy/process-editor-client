@@ -16,7 +16,7 @@ interface Option {
 class ThemeOption implements Option {
   constructor(
     public readonly icon = IvyIcons.DarkMode,
-    public readonly label = t('common:label.theme'),
+    public readonly label = t('common.label.theme'),
     public readonly action = (state: boolean) => SwitchThemeAction.create({ theme: state ? 'dark' : 'light' })
   ) {}
 }
@@ -63,7 +63,7 @@ export class ToolBarOptionsMenu implements Menu {
     const header = createElement('div', ['tool-bar-options-header']);
     header.appendChild(createIcon(IvyIcons.Settings));
     const label = document.createElement('label');
-    label.textContent = t('common:label.settings');
+    label.textContent = t('common.label.settings');
     header.appendChild(label);
     return header;
   }

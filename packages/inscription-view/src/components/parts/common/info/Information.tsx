@@ -54,20 +54,20 @@ const Information = <T extends InformationConfig>({ config, defaultConfig, updat
 
   return (
     <ValidationCollapsible
-      label={t('common:label.details')}
+      label={t('common.label.details')}
       defaultOpen={
         config.name !== defaultConfig.name || config.description !== defaultConfig.description || config.category !== defaultConfig.category
       }
       paths={['name', 'description', 'category']}
     >
-      <PathFieldset label={t('common:label.name')} path='name'>
+      <PathFieldset label={t('common.label.name')} path='name'>
         <MacroInput value={config.name} browsers={['attr', 'func', 'cms']} onChange={change => update('name', change)} />
       </PathFieldset>
-      <PathFieldset label={t('common:label.description')} path='description'>
+      <PathFieldset label={t('common.label.description')} path='description'>
         <MacroArea value={config.description} browsers={['attr', 'func', 'cms']} onChange={change => update('description', change)} />
       </PathFieldset>
       <PathFieldset
-        label={t('common:label.category')}
+        label={t('common.label.category')}
         path='category'
         controls={[{ label: t('label.openCMS'), icon: IvyIcons.Cms, action: () => openAction('/Categories/' + config.category + '/name') }]}
       >

@@ -17,7 +17,7 @@ const DocumentTable = ({ data, onChange }: { data: Document[]; onChange: (change
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => <InputCell cell={cell} placeholder={t('label.enterName')} />
       },
       {

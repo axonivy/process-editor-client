@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import i18n from 'i18next';
 import enTranslation from '../translation/process-editor/en.json';
-import enCommonTranslation from '../translation/common/en.json';
 
 const initTranslation = () => {
   if (i18n.isInitializing || i18n.isInitialized) return;
@@ -10,7 +9,7 @@ const initTranslation = () => {
     fallbackLng: 'en',
     ns: ['process-editor'],
     defaultNS: 'process-editor',
-    resources: { en: { 'process-editor': enTranslation, common: enCommonTranslation } }
+    resources: { en: { 'process-editor': enTranslation } }
   });
 };
 
