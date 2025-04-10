@@ -34,9 +34,11 @@ describe('StartPart', () => {
     });
     await ComboboxUtil.assertValue('Test', { nth: 0 });
     await CollapsableUtil.assertOpen('Permission');
-    expect(screen.getByRole('checkbox')).not.toBeChecked();
-    await SelectUtil.assertValue('SYSTEM', { index: 1 });
-    await SelectUtil.assertValue('>> Ignore Exception', { index: 2 });
+    expect(screen.getByLabelText('Allow anonymous')).not.toBeChecked();
+    const roles = screen.getAllByRole('gridcell');
+    expect(roles).toHaveLength(1);
+    expect(roles[0]).toHaveTextContent('SYSTEM');
+    await SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramStartData>, validation?: ValidationResult) {

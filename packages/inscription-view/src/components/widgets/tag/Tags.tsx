@@ -5,16 +5,13 @@ import { IvyIcons } from '@axonivy/ui-icons';
 import { useReadonly } from '@axonivy/ui-components';
 import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
-import { useEditorContext } from '../../../context/useEditorContext';
-import { useMeta } from '../../../context/useMeta';
+
 import { useTranslation } from 'react-i18next';
 
-const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => {
+const Tags = (props: { tags: string[]; availableTags: string[]; onChange: (tags: string[]) => void; customValues: boolean }) => {
   const { t } = useTranslation();
   const newTag = t('tags.new');
-  const { elementContext } = useEditorContext();
 
-  const { data } = useMeta('meta/workflow/tags', elementContext, []);
   const [dropDownTags, setDropDownTags] = useState<string[]>([]);
   const [addValue, setAddValue] = useState(newTag);
 
@@ -72,7 +69,7 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
     },
     onInputValueChange(change) {
       if (change.type !== useCombobox.stateChangeTypes.FunctionSelectItem) {
-        setDropDownTags(data.filter(tag => !props.tags.includes(tag)).filter(item => filter(item, change.inputValue)));
+        setDropDownTags(props.availableTags.filter(tag => !props.tags.includes(tag)).filter(item => filter(item, change.inputValue)));
         setAddValue(change.inputValue ?? '');
       }
     },
@@ -84,8 +81,8 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
   });
 
   useEffect(() => {
-    setDropDownTags(data.filter(tag => !props.tags.includes(tag)));
-  }, [data, props.tags]);
+    setDropDownTags(props.availableTags.filter(tag => !props.tags.includes(tag)));
+  }, [props.availableTags, props.tags]);
 
   const { keyboardProps } = useKeyboard({
     onKeyDown: e => {
@@ -100,27 +97,46 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
   return (
     <>
       <div className='tags'>
-        <div {...getToggleButtonProps()}>
-          <button
-            className={`tag ${isOpen || (!isOpen && addValue !== newTag) ? 'tag-remove-button' : 'tag-add'}`}
-            aria-label={t('tags.addNew')}
-            disabled={readonly}
-          >
-            <IvyIcon icon={IvyIcons.Close} />
-            <input
-              disabled={readonly}
-              className='new-tag-input'
-              {...getInputProps()}
-              onFocus={() => {
-                openMenu();
-                setAddValue('');
+        {props.tags.map((tag, index) => (
+          <div key={`${tag}-${index}`} className='added-tag' role='gridcell'>
+            <span>{tag}</span>
+            <button
+              className='tag-remove'
+              onClick={() => {
+                removeTag(tag);
               }}
-              ref={inputRef}
-              value={addValue}
-              aria-label={t('tags.newTag')}
-              style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
-            />
-          </button>
+              aria-label={t('tags.removeTag', { tag })}
+              {...keyboardProps}
+              disabled={readonly}
+            >
+              <IvyIcon icon={IvyIcons.Close} />
+            </button>
+          </div>
+        ))}
+        <div {...getToggleButtonProps()}>
+          {(dropDownTags.length > 0 || props.customValues) && (
+            <button
+              className={`tag ${isOpen || (!isOpen && addValue !== newTag) ? 'tag-remove-button' : 'tag-add'}`}
+              aria-label={t('tags.addNew')}
+              disabled={readonly}
+            >
+              <IvyIcon icon={IvyIcons.Close} />
+              <input
+                disabled={readonly}
+                hidden={!props.customValues}
+                className='new-tag-input'
+                {...getInputProps()}
+                onFocus={() => {
+                  openMenu();
+                  setAddValue('');
+                }}
+                ref={inputRef}
+                value={addValue}
+                aria-label={t('tags.newTag')}
+                style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
+              />
+            </button>
+          )}
           <ul {...getMenuProps()} className='combobox-menu'>
             {isOpen &&
               dropDownTags.map((item, index) => (
@@ -134,22 +150,6 @@ const Tags = (props: { tags: string[]; onChange: (tags: string[]) => void }) => 
               ))}
           </ul>
         </div>
-        {props.tags.map((tag, index) => (
-          <div key={`${tag}-${index}`} className='added-tag' role='gridcell'>
-            <button
-              className='tag-remove'
-              onClick={() => {
-                removeTag(tag);
-              }}
-              aria-label={t('tags.removeTag', { tag })}
-              {...keyboardProps}
-              disabled={readonly}
-            >
-              <IvyIcon icon={IvyIcons.Close} />
-            </button>
-            <span>{tag}</span>
-          </div>
-        ))}
       </div>
     </>
   );

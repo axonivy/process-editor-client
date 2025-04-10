@@ -41,10 +41,14 @@ npm run package
 
 ## Running the process editor
 
-The simplest way to start the process editor is by download a [Axon Ivy Designer](https://developer.axonivy.com/download/nightly) and open a process. This will launch the latest prebuild **process editor within the eclipse integration**.
+The simplest way to start the process editor is by download a
+[Axon Ivy Designer](https://developer.axonivy.com/download/nightly) and open a process.
+This will launch the latest prebuild **process editor within the eclipse integration**.
 
-- **Standalone**:
-  To start the Standalone integration you can start the Launch Standalone config directly inside the VS Code.
+- **Standalone**: To start the Standalone integration you can start the Launch
+  Standalone config directly inside the VS Code. If it can not open the browser you can
+  manually open the browser and modify the URL accordingly:
+  http://localhost:3000/?server=localhost:8081&app=designer&pmv=base&file=/processes/testRequestStart.p.json
 
 ---
 

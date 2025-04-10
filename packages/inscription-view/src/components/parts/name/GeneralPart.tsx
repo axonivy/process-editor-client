@@ -5,6 +5,8 @@ import Fieldset from '../../widgets/fieldset/Fieldset';
 import Textarea from '../../widgets/input/Textarea';
 import Tags from '../../widgets/tag/Tags';
 import DocumentTable from './document/DocumentTable';
+import { useEditorContext } from '../../../context/useEditorContext';
+import { useMeta } from '../../../context/useMeta';
 import { useGeneralData } from './useGeneralData';
 
 export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boolean }): PartProps {
@@ -24,6 +26,10 @@ export function useGeneralPart(options?: { hideTags?: boolean; disableName?: boo
 const GeneralPart = ({ hideTags, disableName }: { hideTags?: boolean; disableName?: boolean }) => {
   const { t } = useTranslation();
   const { data, update } = useGeneralData();
+
+  const { elementContext } = useEditorContext();
+  const dataTags = useMeta('meta/workflow/tags', elementContext, []).data;
+
   return (
     <>
       <Collapsible label={t('part.general.nameAndDescription')} defaultOpen={data.name !== '' || data.description !== ''}>
@@ -39,7 +45,7 @@ const GeneralPart = ({ hideTags, disableName }: { hideTags?: boolean; disableNam
 
       {!hideTags && (
         <Collapsible label={t('part.general.tags')} defaultOpen={data.tags !== undefined && data.tags.length > 0}>
-          <Tags tags={data.tags ?? []} onChange={change => update('tags', change)} />
+          <Tags tags={data.tags ?? []} availableTags={dataTags} customValues={true} onChange={change => update('tags', change)} />
         </Collapsible>
       )}
     </>

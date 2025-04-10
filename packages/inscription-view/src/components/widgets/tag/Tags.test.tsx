@@ -9,16 +9,15 @@ describe('Tags', () => {
   } {
     let tags: string[] = [];
     userEvent.setup();
-    const view = render(<Tags tags={['test', 'bla']} onChange={newTags => (tags = newTags)} />, {
-      wrapperProps: {
-        meta: {
-          tags: ['demo', 'deprecated']
-        }
-      }
-    });
+    const view = render(
+      <Tags tags={['test', 'bla']} availableTags={['demo', 'deprecated']} onChange={newTags => (tags = newTags)} customValues={true} />
+    );
     return {
       data: () => tags,
-      rerender: () => view.rerender(<Tags tags={tags} onChange={newTags => (tags = newTags)} />)
+      rerender: () =>
+        view.rerender(
+          <Tags tags={tags} availableTags={['demo', 'deprecated']} onChange={newTags => (tags = newTags)} customValues={true} />
+        )
     };
   }
 
@@ -78,17 +77,24 @@ describe('Tags', () => {
     const view = renderTags();
 
     await userEvent.tab();
-    expect(screen.getByRole('button', { name: /Add/i })).toHaveFocus();
-    await userEvent.tab();
-    expect(screen.getByRole('combobox')).toHaveFocus();
-    await userEvent.tab();
     expect(screen.getByRole('button', { name: /test/i })).toHaveFocus();
     await userEvent.keyboard('[Enter]');
+
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: /bla/i })).toHaveFocus();
+
+    await userEvent.tab();
+    expect(screen.getByRole('button', { name: /Add/i })).toHaveFocus();
+    await userEvent.tab();
+
+    expect(screen.getByRole('combobox')).toHaveFocus();
+    await userEvent.tab();
 
     view.rerender();
     await assertTags(['bla']);
     expect(view.data()).toHaveLength(1);
 
+    await userEvent.tab();
     await userEvent.tab();
     await userEvent.tab();
     expect(screen.getByRole('combobox')).toHaveFocus();
@@ -117,7 +123,9 @@ describe('Tags', () => {
   });
 
   test('tags support readonly mode', async () => {
-    render(<Tags tags={['test']} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    render(<Tags tags={['test']} availableTags={['demo', 'deprecated']} customValues={true} onChange={() => {}} />, {
+      wrapperProps: { editor: { readonly: true } }
+    });
 
     expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();
     expect(screen.getByRole('button', { name: /Add new tag/i })).toBeDisabled();
