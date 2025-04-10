@@ -40,9 +40,9 @@ describe('ResponsibleSelect', () => {
 
   test('select for role option', async () => {
     renderSelect({ type: 'ROLES', roles: ['Teamleader'] });
-    await SelectUtil.assertValue('Role', { index: 0 });
-    await SelectUtil.assertValue('Teamleader', { index: 1 });
-    await SelectUtil.assertOptionsCount(5, { index: 1 });
+    const roles = screen.getAllByRole('gridcell');
+    expect(roles).toHaveLength(1);
+    expect(roles[0]).toHaveTextContent('Teamleader');
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
 
