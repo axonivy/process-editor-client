@@ -1,5 +1,7 @@
 # Axon Ivy Process Editor Client
 
+[![translation-status](https://hosted.weblate.org/widget/axonivy/process-editor/svg-badge.svg)](https://hosted.weblate.org/engage/axonivy/)
+
 This repository contains the Axon Ivy (GLSP-based) process editor.
 
 ## Prerequisites
