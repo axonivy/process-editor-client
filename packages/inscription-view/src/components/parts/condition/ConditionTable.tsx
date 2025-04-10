@@ -40,7 +40,7 @@ const ConditionTable = ({ data, onChange }: { data: Condition[]; onChange: (chan
     () => [
       {
         accessorKey: 'fid',
-        header: () => <span>{t('common:label.type')}</span>,
+        header: () => <span>{t('common.label.type')}</span>,
         cell: cell => <ConditionTypeCell condition={cell.row.original} />
       },
       {

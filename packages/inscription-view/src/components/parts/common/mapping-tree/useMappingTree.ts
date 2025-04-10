@@ -22,7 +22,7 @@ export const useTableGlobalFilter = (): TableFilter<string> => {
     filter,
     setFilter,
     control: {
-      label: t('common:label.search'),
+      label: t('common.label.search'),
       icon: IvyIcons.Search,
       active,
       action: () => {

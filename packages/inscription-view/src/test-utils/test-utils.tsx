@@ -39,7 +39,6 @@ import { OpenApiContextProvider } from '../context/useOpenApi';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import enTranslation from '../../../editor/src/translation/process-editor/en.json';
-import enCommonTranslation from '../../../editor/src/translation/common/en.json';
 
 type ContextHelperProps = {
   data?: DeepPartial<ElementData>;
@@ -95,7 +94,7 @@ const initTranslation = () => {
     fallbackLng: 'en',
     ns: ['process-editor'],
     defaultNS: 'process-editor',
-    resources: { en: { 'process-editor': enTranslation, common: enCommonTranslation } }
+    resources: { en: { 'process-editor': enTranslation} }
   });
 };
 

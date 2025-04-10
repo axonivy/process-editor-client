@@ -35,7 +35,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => (
           <ComboCell
             options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.name)).map(pcf => ({ value: pcf.name }))}
@@ -45,7 +45,7 @@ const CustomFieldTable = ({ data, onChange, type }: CustomFieldTableProps) => {
       },
       {
         accessorKey: 'type',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.type')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.type')} />,
         cell: cell => <SelectCell cell={cell} items={items} />
       },
       {

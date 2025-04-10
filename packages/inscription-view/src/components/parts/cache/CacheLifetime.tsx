@@ -18,7 +18,7 @@ export const CacheLifetime = ({ description, config, updater, cacheMode, ...prop
   const { t } = useTranslation();
   return (
     <PathCollapsible defaultOpen={true} {...props}>
-      <PathFieldset label={t('common:label.name')} title={description} path='name'>
+      <PathFieldset label={t('common.label.name')} title={description} path='name'>
         <ScriptInput
           value={config.name}
           onChange={change => updater('name', change)}

@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { enTranslation, enCommonTranslation, deCommonTranslation, deTranslation } from '@axonivy/process-editor';
+import { enTranslation, deTranslation } from '@axonivy/process-editor';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const initTranslation = () => {
@@ -15,8 +15,8 @@ export const initTranslation = () => {
       ns: ['process-editor'],
       defaultNS: 'process-editor',
       resources: {
-        en: { 'process-editor': enTranslation, common: enCommonTranslation },
-        de: { 'process-editor': deTranslation, common: deCommonTranslation }
+        en: { 'process-editor': enTranslation},
+        de: { 'process-editor': deTranslation}
       },
       detection: {
         order: ['querystring']

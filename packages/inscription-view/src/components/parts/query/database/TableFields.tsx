@@ -48,7 +48,7 @@ export const TableFields = () => {
       },
       {
         accessorKey: 'expression',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.value')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.value')} />,
         cell: cell => <ScriptCell cell={cell} type={cell.row.original.ivyType} browsers={['attr', 'func', 'type', 'cms']} />
       }
     ],

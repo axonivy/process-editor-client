@@ -8,7 +8,7 @@ export const useKnownHotkeys = () => {
   const { t } = useTranslation();
   const openHelp = useMemo<KnownHotkey>(() => {
     const hotkey = 'F1';
-    return { hotkey, label: t('common:hotkey.help', { hotkey: hotkeyText(hotkey) }) };
+    return { hotkey, label: t('common.hotkey.help', { hotkey: hotkeyText(hotkey) }) };
   }, [t]);
   return { openHelp };
 };

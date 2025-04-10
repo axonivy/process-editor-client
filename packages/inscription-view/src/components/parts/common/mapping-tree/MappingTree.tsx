@@ -46,7 +46,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
       {
         accessorFn: row => row.attribute,
         id: 'attribute',
-        header: header => <ExpandableHeader header={header} name={t('common:label.attribute')} />,
+        header: header => <ExpandableHeader header={header} name={t('common.label.attribute')} />,
         cell: cell => (
           <ExpandableCell
             cell={cell}

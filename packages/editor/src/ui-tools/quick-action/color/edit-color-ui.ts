@@ -50,10 +50,10 @@ export class EditColorUi {
 
   private createBody(): HTMLElement {
     const body = createElement('div', ['edit-color-body']);
-    const [nameDiv, nameInput] = this.createInput(t('common:label.name'), this.colorNameInput);
+    const [nameDiv, nameInput] = this.createInput(t('common.label.name'), this.colorNameInput);
     body.appendChild(nameDiv);
     this.colorNameInput = nameInput;
-    const [colorDiv, colorInput] = this.createInput(t('common:label.color'), this.colorInput, true);
+    const [colorDiv, colorInput] = this.createInput(t('common.label.color'), this.colorInput, true);
     body.appendChild(colorDiv);
     this.colorInput = colorInput;
     return body;
@@ -101,12 +101,12 @@ export class EditColorUi {
   private createFooter(): HTMLElement {
     const footer = createElement('footer', ['edit-color-footer']);
     this.deleteBtn = createElement('button', ['edit-color-delete']) as HTMLButtonElement;
-    this.deleteBtn.textContent = t('common:label.delete');
+    this.deleteBtn.textContent = t('common.label.delete');
     this.deleteBtn.autofocus = true;
     this.deleteBtn.type = 'button';
     this.deleteBtn.onclick = () => this.deleteColor();
     const confirmBtn = createElement('button', ['edit-color-save']) as HTMLButtonElement;
-    confirmBtn.textContent = t('common:label.save');
+    confirmBtn.textContent = t('common.label.save');
     confirmBtn.type = 'button';
     confirmBtn.onclick = () => this.validateInputsAndRun(() => this.changeColor());
     footer.appendChild(this.deleteBtn);

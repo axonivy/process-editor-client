@@ -36,13 +36,13 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableAppl
           </TabRoot>
           <Flex alignItems='center' justifyContent='flex-end' gap={1}>
             <DialogClose asChild>
-              <Button aria-label={t('common:label.cancel')} size='large'>
-                {t('common:label.cancel')}
+              <Button aria-label={t('common.label.cancel')} size='large'>
+                {t('common.label.cancel')}
               </Button>
             </DialogClose>
             <DialogClose asChild>
-              <Button aria-label={t('common:label.apply')} onClick={onApply} size='large' variant='primary' disabled={disableApply}>
-                {t('common:label.apply')}
+              <Button aria-label={t('common.label.apply')} onClick={onApply} size='large' variant='primary' disabled={disableApply}>
+                {t('common.label.apply')}
               </Button>
             </DialogClose>
           </Flex>

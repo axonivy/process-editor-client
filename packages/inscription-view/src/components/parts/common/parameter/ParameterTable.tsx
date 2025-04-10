@@ -24,19 +24,19 @@ const ParameterTable = ({ data, onChange, hideDesc, label }: ParameterTableProps
     const colDef: ColumnDef<ScriptVariable, string>[] = [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => <InputCell cell={cell} placeholder={t('label.enterName')} />
       },
       {
         accessorKey: 'type',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.type')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.type')} />,
         cell: cell => <BrowserInputCell cell={cell} />
       }
     ];
     if (hideDesc === undefined || !hideDesc) {
       colDef.push({
         accessorKey: 'desc',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.description')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.description')} />,
         cell: cell => <InputCell cell={cell} placeholder={t('label.enterDesc')} />
       });
     }

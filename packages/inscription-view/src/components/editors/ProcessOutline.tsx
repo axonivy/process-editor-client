@@ -19,7 +19,7 @@ export const ProcessOutline = (props: ProcessOutlineProps) => {
     { id: processId, title: 'Process', type: 'PROCESS', info: processId, children: [] }
   ).data;
   const outline = useMemo(() => outlineNodes(outlineData), [outlineData]);
-  return <Outline outline={outline} options={{ searchPlaceholder: t('common:label.search') }} {...props} />;
+  return <Outline outline={outline} options={{ searchPlaceholder: t('common.label.search') }} {...props} />;
 };
 
 const iconForElement = (node: ProcessOutlineNode) => {

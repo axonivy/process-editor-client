@@ -36,7 +36,7 @@ const StartCustomFieldTable = ({ data, onChange }: StartCustomFieldTableProps) =
     () => [
       {
         accessorKey: 'name',
-        header: ({ column }) => <SortableHeader column={column} name={t('common:label.name')} />,
+        header: ({ column }) => <SortableHeader column={column} name={t('common.label.name')} />,
         cell: cell => <ComboCell cell={cell} options={predefinedCustomField.filter(pcf => !data.find(d => d.name === pcf.value))} />
       },
       {

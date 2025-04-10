@@ -99,7 +99,7 @@ export class OptionsButtonProvider implements ToolBarButtonProvider {
     const theme = handler ? () => handler.theme() : undefined;
     return {
       icon: IvyIcons.Settings,
-      title: t('common:label.settings'),
+      title: t('common.label.settings'),
       sorting: 'Y',
       action: () => ShowToolBarOptionsMenuAction.create({ customIconState, grid, theme }),
       id: 'btn_options_menu',

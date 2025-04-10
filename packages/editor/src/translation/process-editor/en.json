@@ -92,6 +92,31 @@
       "title": "Type"
     }
   },
+  "common": {
+    "hotkey": {
+      "help": "Open Help ({{hotkey}})"
+    },
+    "label": {
+      "apply": "Apply",
+      "attribute": "Attribute",
+      "browser": "Browser",
+      "cancel": "Cancel",
+      "category": "Category",
+      "color": "Color",
+      "delete": "Delete",
+      "description": "Description",
+      "details": "Details",
+      "mapping": "Mapping",
+      "name": "Name",
+      "roles": "Roles",
+      "save": "Save",
+      "search": "Search",
+      "settings": "Settings",
+      "theme": "Theme",
+      "type": "Type",
+      "value": "Value"
+    }
+  },
   "label": {
     "action": "Action",
     "allowAnonymous": "Allow anonymous",
