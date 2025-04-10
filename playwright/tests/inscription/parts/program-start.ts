@@ -3,6 +3,7 @@ import { NewPartTest, PartObject } from './part-tester';
 import type { Checkbox } from '../../page-objects/inscription/checkbox';
 import type { Section } from '../../page-objects/inscription/section';
 import type { Select } from '../../page-objects/inscription/select';
+import type { Tags } from '../../page-objects/inscription/tags';
 import type { Combobox } from '../../page-objects/inscription/combobox';
 
 class ProgramStart extends PartObject {
@@ -10,7 +11,7 @@ class ProgramStart extends PartObject {
   javaClass: Combobox;
   permissionSection: Section;
   anonymousAllow: Checkbox;
-  role: Select;
+  roles: Tags;
   error: Select;
 
   constructor(part: Part) {
@@ -20,7 +21,7 @@ class ProgramStart extends PartObject {
 
     this.permissionSection = part.section('Permission');
     this.anonymousAllow = this.permissionSection.checkbox('Allow anonymous');
-    this.role = this.permissionSection.select({ label: 'Role' });
+    this.roles = this.permissionSection.tags();
     this.error = this.permissionSection.select({ label: 'Violation error' });
   }
 
@@ -31,7 +32,7 @@ class ProgramStart extends PartObject {
     await this.permissionSection.toggle();
 
     await this.anonymousAllow.click();
-    await this.role.choose('Support');
+    await this.roles.chooseTags(['Support']);
     await this.error.choose('>> Ignore Exception');
   }
 
@@ -40,19 +41,18 @@ class ProgramStart extends PartObject {
 
     await this.permissionSection.expectIsOpen();
     await this.anonymousAllow.expectUnchecked();
-    await this.role.expectValue('Support');
+    await this.roles.expectTags(['Everybody', 'Support']);
     await this.error.expectValue('>> Ignore Exception');
   }
 
   async clear() {
-    await this.role.choose('Everybody');
+    await this.roles.clearTags(['Support']);
     await this.error.choose('ivy:security:forbidden');
     await this.anonymousAllow.click();
   }
 
   async assertClear() {
     await this.javaClass.expectValue('ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean');
-
     await this.permissionSection.expectIsClosed();
   }
 }

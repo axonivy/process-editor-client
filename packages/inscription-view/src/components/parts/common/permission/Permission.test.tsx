@@ -21,12 +21,15 @@ describe('Permission', () => {
       anonymousFieldActive: false,
       anonymous: true,
       error: 'bla error',
-      roles: ['Test']
+      roles: ['Test', 'Hero']
     };
     renderPart(data);
     await CollapsableUtil.assertOpen('Permission');
-    SelectUtil.assertValue('Test', { label: 'Role' });
-    SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
+    const roles = screen.getAllByRole('gridcell');
+    expect(roles).toHaveLength(2);
+    expect(roles[0]).toHaveTextContent('Test');
+    expect(roles[1]).toHaveTextContent('Hero');
+    await SelectUtil.assertValue('bla error', { label: 'Violation error' });
     expect(screen.queryByText('Anonymous')).not.toBeInTheDocument();
   });
 
@@ -50,7 +53,7 @@ describe('Permission', () => {
     };
     renderPart(data);
     expect(screen.getByText('Allow anonymous')).toBeInTheDocument();
-    expect(screen.getByText('Role')).toBeInTheDocument();
+    expect(screen.getByText('Roles')).toBeInTheDocument();
   });
 
   test('roleIsDisabled', async () => {

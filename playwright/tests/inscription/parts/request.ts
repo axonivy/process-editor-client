@@ -4,6 +4,7 @@ import type { Checkbox } from '../../page-objects/inscription/checkbox';
 import type { Section } from '../../page-objects/inscription/section';
 import type { Table } from '../../page-objects/inscription/table';
 import type { Select } from '../../page-objects/inscription/select';
+import type { Tags } from '../../page-objects/inscription/tags';
 import type { InfoComponent } from '../../page-objects/inscription/info-component';
 
 class Request extends PartObject {
@@ -14,7 +15,7 @@ class Request extends PartObject {
   customFields: Table;
   permissionSection: Section;
   anonym: Checkbox;
-  role: Select;
+  roles: Tags;
   error: Select;
 
   constructor(part: Part) {
@@ -26,7 +27,7 @@ class Request extends PartObject {
     this.customFields = this.customFieldSection.table(['combobox', 'expression']);
     this.permissionSection = part.section('Permission');
     this.anonym = this.permissionSection.checkbox('Allow anonymous');
-    this.role = this.permissionSection.select({ label: 'Role' });
+    this.roles = this.permissionSection.tags();
     this.error = this.permissionSection.select({ label: 'Violation error' });
   }
 
@@ -37,7 +38,7 @@ class Request extends PartObject {
     await customField.fill(['field', 'value']);
     await this.permissionSection.toggle();
     await this.anonym.click();
-    await this.role.choose('Support');
+    await this.roles.chooseTags(['Support']);
     await this.error.choose('>> Ignore Exception');
     await this.startList.click();
     await this.httpable.click();
@@ -53,7 +54,7 @@ class Request extends PartObject {
     await this.customFields.row(0).expectValues(['field', 'value']);
     await this.permissionSection.expectIsOpen();
     await this.anonym.expectUnchecked();
-    await this.role.expectValue('Support');
+    await this.roles.expectTags(['Everybody', 'Support']);
     await this.error.expectValue('>> Ignore Exception');
   }
 
@@ -62,7 +63,7 @@ class Request extends PartObject {
     await this.startList.expectChecked();
     await this.info.clear();
     await this.customFields.clear();
-    await this.role.choose('Everybody');
+    await this.roles.clearTags(['Support']);
     await this.anonym.click();
     await this.error.choose('ivy:security:forbidden');
   }

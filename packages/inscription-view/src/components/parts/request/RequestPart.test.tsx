@@ -22,11 +22,13 @@ describe('RequestPart', () => {
     expect(screen.getByLabelText('Name')).toHaveValue(data?.request?.name);
     expect(screen.getByLabelText('Description')).toHaveValue(data?.request?.description);
     expect(screen.getByLabelText('Category')).toHaveValue(data?.request?.category);
-    TableUtil.assertRows(['field value']);
+    await TableUtil.assertRows(['field value']);
     await CollapsableUtil.assertOpen('Permission');
     expect(screen.getByLabelText('Allow anonymous')).not.toBeChecked();
-    SelectUtil.assertValue('Test', { label: 'Role' });
-    SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
+    const roles = screen.getAllByRole('gridcell');
+    expect(roles).toHaveLength(1);
+    expect(roles[0]).toHaveTextContent('Test');
+    await SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
   }
 
   test('empty data', async () => {

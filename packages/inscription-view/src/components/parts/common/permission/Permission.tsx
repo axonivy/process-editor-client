@@ -1,6 +1,6 @@
 import type { StartPermission } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
-import RoleSelect from '../responsible/RoleSelect';
+import MultipleRoleSelect from '../role/MultipleRoleSelect';
 import { deepEqual } from '../../../../utils/equals';
 import { PathFieldset } from '../path/PathFieldset';
 import { PathCollapsible } from '../path/PathCollapsible';
@@ -24,11 +24,8 @@ export const Permission = ({ anonymousFieldActive, config, defaultConfig, update
         <Checkbox label={t('label.allowAnonymous')} value={config.anonymous} onChange={change => updatePermission('anonymous', change)} />
       )}
       {(!anonymousFieldActive || (anonymousFieldActive && !config.anonymous)) && (
-        <PathFieldset label={t('common:label.role')} path='roles'>
-          <RoleSelect
-            value={config.roles && config.roles.length > 0 ? config.roles[0] : ''}
-            onChange={change => updatePermission('roles', change ? [change] : [])}
-          />
+        <PathFieldset label={t('common:label.roles')} path='roles'>
+          <MultipleRoleSelect value={config.roles} onChange={change => updatePermission('roles', change)} />
         </PathFieldset>
       )}
       <PathFieldset label={t('label.validationError')} path='error'>

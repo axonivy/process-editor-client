@@ -17,9 +17,6 @@
   border: var(--basic-border);
 }
 
-.added-tag span {
-  margin-right: 5px;
-}
 .tag-add {
   border: var(--dashed-border);
   background: none;
@@ -46,16 +43,12 @@
 }
 
 .tag-remove-button .ivy,
-.tag-remove .ivy {
-  color: var(--N500);
-}
-
-.tag-remove-button .ivy,
 .tag-remove .ivy,
 .tag-add .ivy {
   text-align: center;
   font-size: 18px;
   line-height: 12px;
+  color: var(--N500);
 }
 
 .tag-remove:hover,
@@ -74,6 +67,7 @@
   outline: 0px;
   box-shadow: none;
   background: none;
+  font-size: 12px;
 }
 
 .tags .combobox-menu {
