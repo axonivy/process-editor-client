@@ -1,18 +1,14 @@
-import { useMemo } from 'react';
 import { useRoles } from './useRoles';
 import type { BrowserValue } from '../../../browser/Browser';
 import { Flex } from '@axonivy/ui-components';
-import type { SelectItem } from '../../../widgets/select/Select';
 import { useBrowser } from '../../../browser/useBrowser';
 import { usePath } from '../../../../context/usePath';
-import Select from '../../../widgets/select/Select';
 import Browser from '../../../browser/Browser';
-
-const DEFAULT_ROLE: SelectItem = { label: 'Everybody', value: 'Everybody' } as const;
+import Tags from '../../../widgets/tag/Tags';
 
 type RoleSelectProps = {
-  value?: string;
-  onChange: (change: string) => void;
+  value: string[];
+  onChange: (change: string[]) => void;
   showTaskRoles?: boolean;
 };
 
@@ -20,21 +16,16 @@ const RoleSelect = ({ value, onChange, showTaskRoles }: RoleSelectProps) => {
   const { roles: roleItems } = useRoles(showTaskRoles);
   const browser = useBrowser();
   const path = usePath();
-  const selectedRole = useMemo<SelectItem | undefined>(() => {
-    if (value) {
-      return roleItems.find(e => e.value === value) ?? { label: value, value };
-    }
-    return DEFAULT_ROLE;
-  }, [value, roleItems]);
+  const selectedRoles = value.length > 0 ? value : ['Everybody'];
 
   return (
     <Flex direction='row' alignItems='center' gap={1} className='role-select'>
-      <Select items={roleItems} value={selectedRole} onChange={item => onChange(item.value)} />
+      <Tags tags={selectedRoles} availableTags={roleItems.map(r => r.label)} customValues={false} onChange={change => onChange(change)} />
       <Browser
         {...browser}
         types={['role']}
         location={path}
-        accept={(change: BrowserValue) => onChange(change.cursorValue)}
+        accept={(change: BrowserValue) => onChange([...value, change.cursorValue])}
         roleOptions={{ showTaskRoles }}
       />
     </Flex>

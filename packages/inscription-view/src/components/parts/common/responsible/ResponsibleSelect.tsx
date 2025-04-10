@@ -3,25 +3,25 @@ import { useMemo } from 'react';
 import type { WfResponsible, WfResponsibleType, WfTask } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
 import type { DataUpdater } from '../../../../types/lambda';
-import RoleSelect from './RoleSelect';
 import { Field, Flex } from '@axonivy/ui-components';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import type { SelectItem } from '../../../widgets/select/Select';
 import Select from '../../../widgets/select/Select';
 import { useTranslation } from 'react-i18next';
+import RoleSelect from '../role/RoleSelect';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
 type ResponsibleProps = { responsible?: WfResponsible; updateResponsible: ResponsibleUpdater };
-type ActivatorProps = ResponsibleProps & { selectedType?: WfResponsibleType };
+type ResponsibleMemberProps = ResponsibleProps & { selectedType?: WfResponsibleType };
 
-const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
+const Responsible = ({ selectedType, ...props }: ResponsibleMemberProps) => {
   switch (selectedType) {
-    case 'ROLE':
+    case 'ROLES':
       return (
         <RoleSelect
-          value={props.responsible?.activator}
-          onChange={change => props.updateResponsible('activator', change)}
+          value={props.responsible?.roles ?? []}
+          onChange={change => props.updateResponsible('roles', change)}
           showTaskRoles={true}
         />
       );
@@ -29,8 +29,8 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
     case 'USER_FROM_ATTRIBUTE':
       return (
         <ScriptInput
-          value={props.responsible?.activator ?? ''}
-          onChange={change => props.updateResponsible('activator', change)}
+          value={props.responsible?.script ?? ''}
+          onChange={change => props.updateResponsible('script', change)}
           type={IVY_SCRIPT_TYPES.STRING}
           browsers={['attr', 'func', 'type']}
         />
@@ -38,8 +38,8 @@ const ResponsibleActivator = ({ selectedType, ...props }: ActivatorProps) => {
     case 'MEMBERS_FROM_ATTRIBUTE':
       return (
         <ScriptInput
-          value={props.responsible?.activator ?? ''}
-          onChange={change => props.updateResponsible('activator', change)}
+          value={props.responsible?.script ?? ''}
+          onChange={change => props.updateResponsible('script', change)}
           type={IVY_SCRIPT_TYPES.STRING_LIST}
           browsers={['attr', 'func', 'type']}
         />
@@ -54,7 +54,7 @@ const useResponsibleItems = (optionFilter?: WfResponsibleType[]) => {
   const { t } = useTranslation();
   return useMemo(() => {
     const items: Array<SelectItem<WfResponsibleType>> = [
-      { label: t('responsible.role'), value: 'ROLE' },
+      { label: t('responsible.roles'), value: 'ROLES' },
       { label: t('responsible.roleFromAttr'), value: 'ROLE_FROM_ATTRIBUTE' },
       { label: t('responsible.userFromAttr'), value: 'USER_FROM_ATTRIBUTE' },
       { label: t('responsible.memberFromAttr'), value: 'MEMBERS_FROM_ATTRIBUTE' },
@@ -71,7 +71,7 @@ export type ResponsibleSelectProps = ResponsibleProps & {
 const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: ResponsibleSelectProps) => {
   const items = useResponsibleItems(optionFilter);
   const selectedType = useMemo(() => {
-    const defaultResp = items.find(r => r.value === 'ROLE') ?? items[0];
+    const defaultResp = items.find(r => r.value === 'ROLES') ?? items[0];
     return items.find(r => r.value === responsible?.type) ?? defaultResp;
   }, [responsible?.type, items]);
 
@@ -79,7 +79,7 @@ const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: Res
     <Flex direction='row' gap={2} className='responsible-select'>
       <Select items={items} value={selectedType} onChange={item => updateResponsible('type', item.value as WfResponsibleType)} />
       <Field>
-        <ResponsibleActivator
+        <Responsible
           responsible={responsible}
           updateResponsible={updateResponsible}
           selectedType={selectedType?.value as WfResponsibleType}

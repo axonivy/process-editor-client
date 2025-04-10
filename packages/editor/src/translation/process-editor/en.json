@@ -429,7 +429,7 @@
   "responsible": {
     "delete": "Nobody & delete",
     "memberFromAttr": "Members from Attr.",
-    "role": "Role",
+    "roles": "Roles",
     "roleFromAttr": "Role from Attr.",
     "userFromAttr": "User from Attr."
   },

@@ -45,7 +45,7 @@ describe('TriggerPart', () => {
         delay: 'test',
         responsible: {
           type: 'ROLE_FROM_ATTRIBUTE',
-          activator: 'Test'
+          script: 'Test'
         }
       },
       case: {
@@ -80,7 +80,7 @@ describe('TriggerPart', () => {
           delay: 'test',
           responsible: {
             type: 'ROLE_FROM_ATTRIBUTE',
-            activator: 'Test'
+            script: 'Test'
           }
         },
         case: {
@@ -96,8 +96,8 @@ describe('TriggerPart', () => {
     view.result.current.reset.action();
     expect(data.config?.triggerable).toEqual(true);
     expect(data.config?.task?.delay).toEqual('init');
-    expect(data.config?.task?.responsible?.type).toEqual('ROLE');
-    expect(data.config?.task?.responsible?.activator).toEqual('Everybody');
+    expect(data.config?.task?.responsible?.type).toEqual('ROLES');
+    expect(data.config?.task?.responsible?.roles).toEqual(['Everybody']);
     expect(data.config?.case?.attachToBusinessCase).toEqual(true);
   });
 });

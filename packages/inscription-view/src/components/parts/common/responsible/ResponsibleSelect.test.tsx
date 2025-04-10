@@ -4,8 +4,12 @@ import { render, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ResponsibleSelect', () => {
-  function renderSelect(options?: { type?: WfResponsibleType; activator?: string; optionsFilter?: WfResponsibleType[] }) {
-    const responsible: WfResponsible = { type: options?.type as WfResponsibleType, activator: options?.activator ?? '' };
+  function renderSelect(options?: { type?: WfResponsibleType; script?: string; roles?: string[]; optionsFilter?: WfResponsibleType[] }) {
+    const responsible: WfResponsible = {
+      type: options?.type as WfResponsibleType,
+      script: options?.script ?? '',
+      roles: options?.roles ?? []
+    };
     const roleTree: RoleMeta = {
       id: 'Everybody',
       label: 'In this role is everyone',
@@ -24,7 +28,7 @@ describe('ResponsibleSelect', () => {
   }
 
   test('all options', async () => {
-    renderSelect({ type: 'ROLE', activator: 'bla' });
+    renderSelect({ type: 'ROLES', roles: ['bla'] });
     await SelectUtil.assertValue('Role', { index: 0 });
     await SelectUtil.assertOptionsCount(5, { index: 0 });
   });
@@ -35,7 +39,7 @@ describe('ResponsibleSelect', () => {
   });
 
   test('select for role option', async () => {
-    renderSelect({ type: 'ROLE', activator: 'Teamleader' });
+    renderSelect({ type: 'ROLES', roles: ['Teamleader'] });
     await SelectUtil.assertValue('Role', { index: 0 });
     await SelectUtil.assertValue('Teamleader', { index: 1 });
     await SelectUtil.assertOptionsCount(5, { index: 1 });
@@ -43,21 +47,21 @@ describe('ResponsibleSelect', () => {
   });
 
   test('input for role attr option', async () => {
-    renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', activator: 'role activator' });
+    renderSelect({ type: 'ROLE_FROM_ATTRIBUTE', script: 'role responsible' });
     await SelectUtil.assertValue('Role from Attr', { index: 0 });
-    expect(screen.getByRole('textbox')).toHaveValue('role activator');
+    expect(screen.getByRole('textbox')).toHaveValue('role responsible');
   });
 
   test('input for user attr option', async () => {
-    renderSelect({ type: 'USER_FROM_ATTRIBUTE', activator: 'user activator' });
+    renderSelect({ type: 'USER_FROM_ATTRIBUTE', script: 'user responsible' });
     await SelectUtil.assertValue('User from Attr', { index: 0 });
-    expect(screen.getByRole('textbox')).toHaveValue('user activator');
+    expect(screen.getByRole('textbox')).toHaveValue('user responsible');
   });
 
   test('input for members attr option', async () => {
-    renderSelect({ type: 'MEMBERS_FROM_ATTRIBUTE', activator: 'members activator' });
+    renderSelect({ type: 'MEMBERS_FROM_ATTRIBUTE', script: 'members responsible' });
     await SelectUtil.assertValue('Members from Attr', { index: 0 });
-    expect(screen.getByRole('textbox')).toHaveValue('members activator');
+    expect(screen.getByRole('textbox')).toHaveValue('members responsible');
   });
 
   test('nothing for delete option', async () => {

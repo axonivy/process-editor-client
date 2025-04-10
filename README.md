@@ -58,7 +58,7 @@ This will launch the latest prebuild **process editor within the eclipse integra
 
 1. Change the schema in the core
 2. Run build core_json-schema
-3. Copy the URI of the schema protocol and run `npm run generate <URI>` in the root
+3. Copy the URI of the schema protocol and run `npm run generate <URI>` in the directory `packages/inscription-protocol`
 
 ## More information
 
