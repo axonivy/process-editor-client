@@ -3,11 +3,12 @@ import { NewPartTest, PartObject } from './part-tester';
 import type { Checkbox } from '../../page-objects/inscription/checkbox';
 import type { Section } from '../../page-objects/inscription/section';
 import type { Select } from '../../page-objects/inscription/select';
+import type { Tags } from '../../page-objects/inscription/tags';
 import type { ScriptInput } from '../../page-objects/inscription/code-editor';
 
 class WebService extends PartObject {
   permissionSection: Section;
-  role: Select;
+  roles: Tags;
   error: Select;
   exceptionSection: Section;
   useExceptionHandling: Checkbox;
@@ -17,7 +18,7 @@ class WebService extends PartObject {
   constructor(part: Part) {
     super(part);
     this.permissionSection = part.section('Permission');
-    this.role = this.permissionSection.select({ label: 'Role' });
+    this.roles = this.permissionSection.tags();
     this.error = this.permissionSection.select({ label: 'Violation error' });
     this.exceptionSection = part.section('Exception');
     this.useExceptionHandling = this.exceptionSection.checkbox('Use exception handling');
@@ -27,7 +28,7 @@ class WebService extends PartObject {
 
   async fill() {
     await this.permissionSection.toggle();
-    await this.role.choose('Support');
+    await this.roles.chooseTags(['Support']);
     await this.error.choose('>> Ignore Exception');
 
     await this.exceptionSection.toggle();
@@ -38,7 +39,7 @@ class WebService extends PartObject {
 
   async assertFill() {
     await this.permissionSection.expectIsOpen();
-    await this.role.expectValue('Support');
+    await this.roles.expectTags(['Everybody', 'Support']);
     await this.error.expectValue('>> Ignore Exception');
 
     await this.exceptionSection.expectIsOpen();
@@ -48,7 +49,7 @@ class WebService extends PartObject {
   }
 
   async clear() {
-    await this.role.choose('Everybody');
+    await this.roles.clearTags(['Support']);
     await this.error.choose('ivy:security:forbidden');
 
     await this.useExceptionHandling.click();
