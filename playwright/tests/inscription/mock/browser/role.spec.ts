@@ -10,7 +10,9 @@ test('browser add role', async ({ page }) => {
   await assertCodeHidden(page);
   await task.section('Responsible').open();
   await applyRoleBrowser(page, 'Employee', 1);
-  await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
+  const roles = page.getByRole('gridcell');
+  await expect(roles.nth(0)).toHaveText('Everybody');
+  await expect(roles.nth(1)).toHaveText('Employee');
 });
 
 test('browser role open add role popover', async ({ page }) => {
@@ -20,7 +22,9 @@ test('browser role open add role popover', async ({ page }) => {
   await assertCodeHidden(page);
   await task.section('Responsible').open();
   await applyRoleBrowser(page, 'Employee', 1, undefined, true);
-  await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
+  const roles = page.getByRole('gridcell');
+  await expect(roles.nth(0)).toHaveText('Everybody');
+  await expect(roles.nth(1)).toHaveText('Employee');
 });
 
 test('browser add role doubleclick', async ({ page }) => {
@@ -30,7 +34,9 @@ test('browser add role doubleclick', async ({ page }) => {
   await assertCodeHidden(page);
   await task.section('Responsible').open();
   await applyRoleBrowser(page, undefined, 1, true);
-  await expect(page.getByRole('combobox').nth(1)).toHaveText('Employee');
+  const roles = page.getByRole('gridcell');
+  await expect(roles.nth(0)).toHaveText('Everybody');
+  await expect(roles.nth(1)).toHaveText('Employee');
 });
 
 async function applyRoleBrowser(page: Page, expectedSelection: string = '', rowToCheck: number, dblClick?: boolean, openPopover?: boolean) {
