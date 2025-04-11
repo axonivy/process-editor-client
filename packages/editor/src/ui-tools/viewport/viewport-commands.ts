@@ -26,7 +26,7 @@ import {
 } from '@eclipse-glsp/client';
 import { inject, injectable } from 'inversify';
 import { MulitlineEditLabel } from '../../diagram/model';
-import { ToolBar } from '../tool-bar/tool-bar';
+import { ToolBarExtension } from '../tool-bar/tool-bar';
 
 @injectable()
 export class OriginViewportCommand extends BoundsAwareViewportCommand {
@@ -100,7 +100,7 @@ export class IvyFitToScreenCommand extends FitToScreenCommand {
   }
 
   private toolBarHeight(): number {
-    const toolBar = document.querySelector('[id$="_' + ToolBar.ID + '"]');
+    const toolBar = document.querySelector('[id$="_' + ToolBarExtension.ID + '"]');
     return toolBar ? toolBar.getBoundingClientRect().height : 0;
   }
 

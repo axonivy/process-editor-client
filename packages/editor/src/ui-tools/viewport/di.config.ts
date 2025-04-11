@@ -17,7 +17,7 @@ import {
 
 import { EnableViewportAction, SetViewportZoomAction } from '@axonivy/process-editor-protocol';
 import { IvyScrollMouseListener } from './scroll';
-import { ViewportBar } from './viewport-bar';
+import { ViewportBarExtension } from './viewport-bar';
 import {
   IvyCenterCommand,
   IvyFitToScreenCommand,
@@ -46,10 +46,10 @@ const ivyViewportModule = new FeatureModule(
     configureActionHandler(context, EnableDefaultToolsAction.KIND, IvyScrollMouseListener);
 
     // Ivy extensions
-    bindAsService(context, TYPES.IUIExtension, ViewportBar);
-    configureActionHandler(context, EnableViewportAction.KIND, ViewportBar);
-    configureActionHandler(context, SetViewportAction.KIND, ViewportBar);
-    configureActionHandler(context, SetViewportZoomAction.KIND, ViewportBar);
+    bindAsService(context, TYPES.IUIExtension, ViewportBarExtension);
+    configureActionHandler(context, EnableViewportAction.KIND, ViewportBarExtension);
+    configureActionHandler(context, SetViewportAction.KIND, ViewportBarExtension);
+    configureActionHandler(context, SetViewportZoomAction.KIND, ViewportBarExtension);
 
     configureCommand(context, OriginViewportCommand);
     configureCommand(context, MoveIntoViewportCommand);

@@ -3,8 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["node", "reflect-metadata"],
-    "jsxFactory": "JSX.createElement"
+    "types": ["node", "reflect-metadata"]
   },
   "include": ["src", "src/translation/**/*.json"],
   "references": [{ "path": "../protocol/tsconfig.json" }]

@@ -1,0 +1,38 @@
+{
+  "name": "@axonivy/process-editor-view",
+  "version": "13.1.0-next",
+  "private": false,
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "author": "Axon Ivy AG",
+  "homepage": "https://developer.axonivy.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axonivy/process-editor-client"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "peerDependencies": {
+    "react": "^18.2 || ^19.0",
+    "@axonivy/ui-components": "~13.1.0-next",
+    "@axonivy/ui-icons": "~13.1.0-next"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.8",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "type": "module",
+  "module": "lib/index",
+  "types": "lib/index",
+  "source": "src/index",
+  "scripts": {
+    "clean": "rimraf lib *.tsbuildinfo",
+    "build": "tsc --build && tscp",
+    "package": "tsc && tscp",
+    "build:clean": "npm run clean && npm run build",
+    "type": "tsc --noEmit"
+  }
+}
