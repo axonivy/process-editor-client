@@ -20,7 +20,7 @@ const MultipleRoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSele
 
   return (
     <Flex direction='row' alignItems='center' gap={1} className='role-select'>
-      <Tags tags={selectedRoles} availableTags={roleItems.map(r => r.label)} customValues={false} onChange={change => onChange(change)} />
+      <Tags tags={selectedRoles} availableTags={roleItems} customValues={false} onChange={change => onChange(change)} />
       <Browser
         {...browser}
         types={['role']}

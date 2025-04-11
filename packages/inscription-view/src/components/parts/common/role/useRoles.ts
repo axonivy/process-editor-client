@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { EMPTY_ROLE, type RoleMeta } from '@axonivy/process-editor-inscription-protocol';
-import type { SelectItem } from '../../../widgets/select/Select';
 import { useEditorContext } from '../../../../context/useEditorContext';
 import { useMeta } from '../../../../context/useMeta';
 
 export const useRoles = (showTaskRoles = false) => {
-  const [roles, setRoles] = useState<SelectItem[]>([]);
+  const [roles, setRoles] = useState<string[]>([]);
   const [rolesAsTree, setRolesAsTree] = useState<RoleMeta[]>([]);
   const { context, elementContext } = useEditorContext();
   const roleTree = useMeta('meta/workflow/roleTree', context, EMPTY_ROLE).data;
   const taskRoles = useMeta('meta/workflow/taskRoles', elementContext, []).data;
 
   useEffect(() => {
-    const flatRoles: SelectItem[] = [];
+    const flatRoles: string[] = [];
     const treeRoles: RoleMeta[] = [];
     const addFlatRoles = (role: RoleMeta) => {
-      flatRoles.push({ label: role.id, value: role.id });
+      flatRoles.push(role.id);
       role.children.forEach(addFlatRoles);
     };
     if (showTaskRoles) {
