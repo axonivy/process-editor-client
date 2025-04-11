@@ -1,3 +1,4 @@
+import './MultipleRoleSelect.css';
 import { useRoles } from './useRoles';
 import type { BrowserValue } from '../../../browser/Browser';
 import { Flex } from '@axonivy/ui-components';
@@ -20,12 +21,17 @@ const MultipleRoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSele
 
   return (
     <Flex direction='row' alignItems='center' gap={1} className='role-select'>
-      <Tags tags={selectedRoles} availableTags={roleItems.map(r => r.label)} customValues={false} onChange={change => onChange(change)} />
+      <Tags tags={selectedRoles} availableTags={roleItems} customValues={false} onChange={change => onChange(change)} />
       <Browser
         {...browser}
         types={['role']}
         location={path}
-        accept={(change: BrowserValue) => onChange([...value, change.cursorValue])}
+        accept={(change: BrowserValue) => {
+          if (change.cursorValue) {
+            const uniqueValues = [...new Set([...value, change.cursorValue])];
+            onChange(uniqueValues);
+          }
+        }}
         roleOptions={{ showTaskRoles }}
       />
     </Flex>

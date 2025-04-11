@@ -1,0 +1,8 @@
+.role-select > button {
+  border: var(--basic-border);
+  padding: 12px 12px;
+  border-radius: 1rem;
+  font-size: 18px;
+  line-height: 12px;
+  color: var(--N500);
+}
