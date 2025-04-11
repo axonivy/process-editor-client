@@ -12,7 +12,7 @@ type MultipleRoleSelectProps = {
   showTaskRoles?: boolean;
 };
 
-const RoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSelectProps) => {
+const MultipleRoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSelectProps) => {
   const { roles: roleItems } = useRoles(showTaskRoles);
   const browser = useBrowser();
   const path = usePath();
@@ -32,4 +32,4 @@ const RoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSelectProps)
   );
 };
 
-export default RoleSelect;
+export default MultipleRoleSelect;
