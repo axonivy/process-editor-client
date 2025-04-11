@@ -2,8 +2,9 @@ import type { WfResponsible, WfPriority, WfTask, WfCustomField } from '../data/i
 import type { TaskData, CaseData } from '../data/part-data';
 
 const DEFAULT_RESPONSIBLE: WfResponsible = {
-  type: 'ROLE',
-  activator: 'Everybody'
+  type: 'ROLES',
+  script: '',
+  roles: ['Everybody']
 } as const;
 
 const DEFAULT_PRIORITY: WfPriority = {

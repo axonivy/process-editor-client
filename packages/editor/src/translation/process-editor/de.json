@@ -429,8 +429,8 @@
   "responsible": {
     "delete": "Niemand & löschen",
     "memberFromAttr": "Mitglieder aus Attribut",
-    "role": "Rolle",
     "roleFromAttr": "Rolle aus Attribut",
+    "roles": "Rollen",
     "userFromAttr": "Benutzer aus Attribut"
   },
   "tags": {

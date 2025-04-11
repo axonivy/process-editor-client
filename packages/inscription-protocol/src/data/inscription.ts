@@ -12,7 +12,7 @@ export type WfFieldType = "STRING" | "TEXT" | "NUMBER" | "TIMESTAMP";
 export type WorkflowType = "START" | "TASK" | "CASE";
 export type WfLevel = "EXCEPTION" | "HIGH" | "NORMAL" | "LOW" | "SCRIPT";
 export type WfResponsibleType =
-  | "ROLE"
+  | "ROLES"
   | "ROLE_FROM_ATTRIBUTE"
   | "USER_FROM_ATTRIBUTE"
   | "MEMBERS_FROM_ATTRIBUTE"
@@ -66,11 +66,11 @@ export interface Inscription {
   restEntityInfoRequest: RestEntityInfoRequest;
   restResource: RestResource;
   restResourceRequest: RestResourceRequest;
-  roleMeta: RoleMeta[];
+  roleMeta: RoleMeta;
   schemaKey: SchemaKey;
   scriptingDataArgs: ScriptingDataArgs;
   signalCodeRequest: SignalCodeRequest;
-  string: string[];
+  string: string;
   typeSearchRequest: TypeSearchRequest;
   validationResult: ValidationResult[];
   variableInfo: VariableInfo;
@@ -398,7 +398,8 @@ export interface WfPriority {
   script: string;
 }
 export interface WfResponsible {
-  activator: string;
+  roles: string[];
+  script: string;
   type: WfResponsibleType;
 }
 export interface WfNotification {

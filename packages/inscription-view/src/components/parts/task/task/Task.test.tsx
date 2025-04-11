@@ -50,7 +50,7 @@ describe('Task', () => {
       name: 'task',
       description: 'desc',
       category: 'cat',
-      responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'bla' },
+      responsible: { type: 'ROLE_FROM_ATTRIBUTE', script: 'bla', roles: [] },
       priority: { level: 'EXCEPTION', script: '' },
       skipTasklist: true,
       notification: { suppress: true, template: 'Default' },

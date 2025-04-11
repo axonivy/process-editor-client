@@ -11,7 +11,7 @@ import {
   type ExpandedState,
   getExpandedRowModel
 } from '@tanstack/react-table';
-import { useRoles } from '../../parts/common/responsible/useRoles';
+import { useRoles } from '../../parts/common/role/useRoles';
 import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
 import { Flex, TableBody, TableCell, TableRow, useTableKeyHandler } from '@axonivy/ui-components';
 import { AddRolePopover } from './AddRolePopover';

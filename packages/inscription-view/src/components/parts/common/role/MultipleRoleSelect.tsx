@@ -1,4 +1,4 @@
-import { useRoles } from '../responsible/useRoles';
+import { useRoles } from './useRoles';
 import type { BrowserValue } from '../../../browser/Browser';
 import { Flex } from '@axonivy/ui-components';
 import { useBrowser } from '../../../browser/useBrowser';
