@@ -1,3 +1,4 @@
+import './MultipleRoleSelect.css';
 import { useRoles } from './useRoles';
 import type { BrowserValue } from '../../../browser/Browser';
 import { Flex } from '@axonivy/ui-components';
