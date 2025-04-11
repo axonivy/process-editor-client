@@ -101,8 +101,6 @@ function configureElementNavigationTool(context: BindingContext) {
 }
 
 export function configureToastTool(context: BindingContext): void {
-  bindAsService(context, TYPES.IUIExtension, IvyToast);
-  context.bind(TYPES.IDiagramStartup).toService(IvyToast);
   configureActionHandler(context, ShowToastMessageAction.KIND, IvyToast);
   configureActionHandler(context, HideToastAction.KIND, IvyToast);
 }
