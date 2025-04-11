@@ -2,19 +2,20 @@ import { ScriptInput } from './code-editor';
 import { Select } from './select';
 import type { Section } from './section';
 import type { Part } from './part';
+import { Tags } from './tags';
 
-type ResponsibleTypes = 'Role from Attr.' | 'User from Attr.' | 'Member from Attr.' | 'Role' | 'Nobody & delete';
+type ResponsibleTypes = 'Role from Attr.' | 'User from Attr.' | 'Member from Attr.' | 'Roles' | 'Nobody & delete';
 
 export class ResponsibleComponent {
   typeSelect: Select;
   script: ScriptInput;
-  select: Select;
+  tags: Tags;
 
   constructor(part: Part | Section) {
     const locator = part.currentLocator().locator('.responsible-select').first();
     this.typeSelect = new Select(part.page, locator, { nth: 0 });
     this.script = new ScriptInput(part.page, locator);
-    this.select = new Select(part.page, locator, { nth: 1 });
+    this.tags = new Tags(part.page, locator);
   }
 
   async fill(type: ResponsibleTypes, responsible = '') {
@@ -24,8 +25,8 @@ export class ResponsibleComponent {
       case 'User from Attr.':
         await this.script.fill(responsible);
         break;
-      case 'Role':
-        await this.select.choose(responsible);
+      case 'Roles':
+        await this.tags.chooseTags([responsible]);
         break;
       case 'Nobody & delete':
     }
@@ -38,21 +39,21 @@ export class ResponsibleComponent {
       case 'User from Attr.':
         await this.script.expectValue(responsible);
         break;
-      case 'Role':
-        await this.select.expectValue(responsible);
+      case 'Roles':
+        await this.tags.expectTags([responsible]);
         break;
       case 'Nobody & delete':
     }
   }
 
   async clear() {
-    await this.typeSelect.choose('Role');
-    await this.select.choose('Everybody');
+    await this.typeSelect.choose('Roles');
+    await this.tags.clearTags([]);
   }
 
   async expectEmpty() {
-    await this.typeSelect.expectValue('Role');
-    await this.select.expectValue('Everybody');
+    await this.typeSelect.expectValue('Roles');
+    await this.tags.expectTags(['Everybody']);
   }
 }
 
@@ -64,7 +65,6 @@ export class ResponsibleSection extends ResponsibleComponent {
     this.section = part.section('Responsible');
     this.typeSelect = this.section.select({ nth: 0 });
     this.script = this.section.scriptInput();
-    this.select = this.section.select({ nth: 1 });
   }
 
   override async fill(type: ResponsibleTypes, responsible?: string) {

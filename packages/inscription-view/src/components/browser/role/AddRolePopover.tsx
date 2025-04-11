@@ -16,7 +16,7 @@ import { useFunction } from '../../../context/useFunction';
 import { useQueryClient } from '@tanstack/react-query';
 import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
 import { type Table } from '@tanstack/react-table';
-import { useRoles } from '../../parts/common/responsible/useRoles';
+import { useRoles } from '../../parts/common/role/useRoles';
 import { isValidRowSelected, newNameExists, newNameIsValid } from './validate-role';
 import { useEditorContext } from '../../../context/useEditorContext';
 import { useTranslation } from 'react-i18next';

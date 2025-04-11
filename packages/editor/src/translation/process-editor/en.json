@@ -429,8 +429,8 @@
   "responsible": {
     "delete": "Nobody & delete",
     "memberFromAttr": "Members from Attr.",
-    "role": "Role",
     "roleFromAttr": "Role from Attr.",
+    "roles": "Roles",
     "userFromAttr": "User from Attr."
   },
   "tags": {

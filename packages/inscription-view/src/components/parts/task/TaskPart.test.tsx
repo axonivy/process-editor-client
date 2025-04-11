@@ -38,7 +38,7 @@ describe('TaskPart', () => {
     assertState('configured', { name: 'name' });
     assertState('configured', { description: 'desc' });
     assertState('configured', { category: 'cat' });
-    assertState('configured', { responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: '' } });
+    assertState('configured', { responsible: { type: 'ROLE_FROM_ATTRIBUTE', script: '' } });
     assertState('configured', { priority: { level: 'LOW', script: '' } });
 
     assertState('configured', { skipTasklist: true });
@@ -59,7 +59,7 @@ describe('TaskPart', () => {
           name: 'name',
           description: 'desc',
           category: 'cat',
-          responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: '' },
+          responsible: { type: 'ROLE_FROM_ATTRIBUTE', script: '' },
           priority: { level: 'LOW', script: '' },
           skipTasklist: true,
           notification: { suppress: true },

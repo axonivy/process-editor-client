@@ -22,7 +22,7 @@ describe('ExpiryPart', () => {
       timeout: 'timeout',
       error: 'f0',
       priority: { level: 'HIGH', script: '' },
-      responsible: { type: 'ROLE_FROM_ATTRIBUTE', activator: 'asdf' }
+      responsible: { type: 'ROLE_FROM_ATTRIBUTE', script: 'asdf', roles: [] }
     });
     expect(screen.getByLabelText('Timeout')).toHaveValue('timeout');
     await SelectUtil.assertValue('f0', { label: 'Error' });
