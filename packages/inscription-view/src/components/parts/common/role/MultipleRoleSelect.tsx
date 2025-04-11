@@ -25,7 +25,12 @@ const MultipleRoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSele
         {...browser}
         types={['role']}
         location={path}
-        accept={(change: BrowserValue) => onChange([...value, change.cursorValue])}
+        accept={(change: BrowserValue) => {
+          if (change.cursorValue) {
+            const uniqueValues = [...new Set([...value, change.cursorValue])];
+            onChange(uniqueValues);
+          }
+        }}
         roleOptions={{ showTaskRoles }}
       />
     </Flex>
