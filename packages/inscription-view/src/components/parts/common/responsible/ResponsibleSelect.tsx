@@ -1,4 +1,3 @@
-import './ResponsibleSelect.css';
 import { useMemo } from 'react';
 import type { WfResponsible, WfResponsibleType, WfTask } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_SCRIPT_TYPES } from '@axonivy/process-editor-inscription-protocol';
@@ -76,7 +75,7 @@ const ResponsibleSelect = ({ responsible, updateResponsible, optionFilter }: Res
   }, [responsible?.type, items]);
 
   return (
-    <Flex direction='row' gap={2} className='responsible-select'>
+    <Flex direction='column' gap={2} className='responsible-select'>
       <Select items={items} value={selectedType} onChange={item => updateResponsible('type', item.value as WfResponsibleType)} />
       <Field>
         <Responsible

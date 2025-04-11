@@ -1,6 +1,0 @@
-.responsible-select > :first-child:has(~ *) {
-  flex: 0 0 10rem;
-}
-.responsible-select > * {
-  width: 100%;
-}
