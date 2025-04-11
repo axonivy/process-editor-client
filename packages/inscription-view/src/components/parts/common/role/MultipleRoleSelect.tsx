@@ -6,13 +6,13 @@ import { usePath } from '../../../../context/usePath';
 import Browser from '../../../browser/Browser';
 import Tags from '../../../widgets/tag/Tags';
 
-type RoleSelectProps = {
+type MultipleRoleSelectProps = {
   value: string[];
   onChange: (change: string[]) => void;
   showTaskRoles?: boolean;
 };
 
-const RoleSelect = ({ value, onChange, showTaskRoles }: RoleSelectProps) => {
+const RoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSelectProps) => {
   const { roles: roleItems } = useRoles(showTaskRoles);
   const browser = useBrowser();
   const path = usePath();
