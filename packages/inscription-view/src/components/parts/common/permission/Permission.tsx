@@ -1,6 +1,6 @@
 import type { StartPermission } from '@axonivy/process-editor-inscription-protocol';
 import { IVY_EXCEPTIONS } from '@axonivy/process-editor-inscription-protocol';
-import RoleSelect from '../role/RoleSelect';
+import MultipleRoleSelect from '../role/MultipleRoleSelect';
 import { deepEqual } from '../../../../utils/equals';
 import { PathFieldset } from '../path/PathFieldset';
 import { PathCollapsible } from '../path/PathCollapsible';
@@ -25,7 +25,7 @@ export const Permission = ({ anonymousFieldActive, config, defaultConfig, update
       )}
       {(!anonymousFieldActive || (anonymousFieldActive && !config.anonymous)) && (
         <PathFieldset label={t('common.label.roles')} path='roles'>
-          <RoleSelect value={config.roles} onChange={change => updatePermission('roles', change)} />
+          <MultipleRoleSelect value={config.roles} onChange={change => updatePermission('roles', change)} />
         </PathFieldset>
       )}
       <PathFieldset label={t('label.validationError')} path='error'>

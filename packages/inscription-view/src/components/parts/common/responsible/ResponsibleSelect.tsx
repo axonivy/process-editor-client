@@ -8,7 +8,7 @@ import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
 import type { SelectItem } from '../../../widgets/select/Select';
 import Select from '../../../widgets/select/Select';
 import { useTranslation } from 'react-i18next';
-import RoleSelect from '../role/RoleSelect';
+import MultipleRoleSelect from '../role/MultipleRoleSelect';
 
 export type ResponsibleUpdater = DataUpdater<WfTask['responsible']>;
 
@@ -19,7 +19,7 @@ const Responsible = ({ selectedType, ...props }: ResponsibleMemberProps) => {
   switch (selectedType) {
     case 'ROLES':
       return (
-        <RoleSelect
+        <MultipleRoleSelect
           value={props.responsible?.roles ?? []}
           onChange={change => props.updateResponsible('roles', change)}
           showTaskRoles={true}
