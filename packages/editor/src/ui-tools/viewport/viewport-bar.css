@@ -7,19 +7,19 @@
   font-size: 13px;
   user-select: none;
 }
-.ivy-viewport-bar .viewport-bar {
+.viewport-bar {
   background: var(--glsp-tool-bg);
   border-radius: var(--border-r2, 5px);
   box-shadow: var(--glsp-box-shadow);
   padding: var(--size-1, 0.25rem);
   font-size: 1.5em;
 }
-.ivy-viewport-bar .viewport-bar-tools {
+.viewport-bar .viewport-bar-tools {
   display: flex;
   align-items: center;
   gap: var(--size-1, 0.25rem);
 }
-.ivy-viewport-bar .viewport-bar-tools button {
+.viewport-bar .viewport-bar-tools button {
   height: 30px;
   width: 30px;
   cursor: pointer;
@@ -29,16 +29,16 @@
   border: none;
   background: transparent;
 }
-.ivy-viewport-bar .viewport-bar-tools button i {
+.viewport-bar .viewport-bar-tools button i {
   color: var(--body, var(--glsp-tool-button));
   text-align: center;
   font-size: 16px;
 }
-.ivy-viewport-bar .viewport-bar-tools button:hover {
+.viewport-bar .viewport-bar-tools button:hover {
   background: var(--glsp-tool-button-active-bg);
   border-radius: var(--border-r2, 5px);
 }
-.ivy-viewport-bar .viewport-bar-tools label {
+.viewport-bar .viewport-bar-tools label {
   font-size: 0.75em;
   padding: 0 0.5rem;
   border-left: 1px solid var(--glsp-tool-border);
