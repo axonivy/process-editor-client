@@ -22,7 +22,10 @@
   background-color: var(--glsp-editor-selected);
   border: none;
 }
-body .ui-select-content,
-body .ui-popover-content {
-  z-index: 1010;
+body {
+  .ui-select-content,
+  .ui-popover-content,
+  .ui-tooltip-content {
+    z-index: 1010;
+  }
 }
