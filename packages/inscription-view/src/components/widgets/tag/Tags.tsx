@@ -8,7 +8,13 @@ import { useKeyboard } from 'react-aria';
 
 import { useTranslation } from 'react-i18next';
 
-const Tags = (props: { tags: string[]; availableTags: string[]; onChange: (tags: string[]) => void; customValues: boolean }) => {
+const Tags = (props: {
+  tags: string[];
+  availableTags: string[];
+  onChange: (tags: string[]) => void;
+  customValues: boolean;
+  allowSpaces: boolean;
+}) => {
   const { t } = useTranslation();
   const newTag = t('tags.new');
 
@@ -31,8 +37,10 @@ const Tags = (props: { tags: string[]; availableTags: string[]; onChange: (tags:
 
   const addTag = (tag: string) => {
     if (tag.length > 0 && !props.tags.find(t => t === tag)) {
-      const tagWithoutSpaces = tag.replace(/\s/g, '');
-      props.onChange([...props.tags, tagWithoutSpaces]);
+      if (!props.allowSpaces) {
+        tag = tag.replace(/\s/g, '');
+      }
+      props.onChange([...props.tags, tag]);
     }
     closeMenu();
     selectItem('');

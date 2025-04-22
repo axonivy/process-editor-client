@@ -45,7 +45,13 @@ const GeneralPart = ({ hideTags, disableName }: { hideTags?: boolean; disableNam
 
       {!hideTags && (
         <Collapsible label={t('part.general.tags')} defaultOpen={data.tags !== undefined && data.tags.length > 0}>
-          <Tags tags={data.tags ?? []} availableTags={dataTags} customValues={true} onChange={change => update('tags', change)} />
+          <Tags
+            tags={data.tags ?? []}
+            availableTags={dataTags}
+            customValues={true}
+            onChange={change => update('tags', change)}
+            allowSpaces={false}
+          />
         </Collapsible>
       )}
     </>
