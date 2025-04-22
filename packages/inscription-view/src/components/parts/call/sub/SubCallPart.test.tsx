@@ -1,6 +1,6 @@
 import { useSubCallPart } from './SubCallPart';
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
+import { customRender, screen, TableUtil, customRenderHook, CollapsableUtil } from 'test-utils';
 import type { CallData, ElementData, ProcessCallData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('SubCallPart', () => {
   function renderPart(data?: CallData & ProcessCallData) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(dialog: string, map: RegExp[], code: string) {
@@ -34,7 +34,7 @@ describe('SubCallPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<CallData & ProcessCallData>) {
-    const { result } = renderHook(() => useSubCallPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useSubCallPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -49,7 +49,7 @@ describe('SubCallPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { processCall: 'process', call: { code: 'code', map: { key: 'value' } } }
     };
-    const view = renderHook(() => useSubCallPart(), {
+    const view = customRenderHook(() => useSubCallPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { processCall: 'init' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

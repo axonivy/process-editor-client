@@ -94,7 +94,7 @@ const initTranslation = () => {
     fallbackLng: 'en',
     ns: ['process-editor'],
     defaultNS: 'process-editor',
-    resources: { en: { 'process-editor': enTranslation} }
+    resources: { en: { 'process-editor': enTranslation } }
   });
 };
 
@@ -243,8 +243,8 @@ const customRenderHook = <
 
 export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';
-export { customRender as render };
-export { customRenderHook as renderHook };
+export { customRender };
+export { customRenderHook };
 export * from './table-utils';
 export * from './select-utils';
 export * from './combobox-utils';

@@ -1,7 +1,7 @@
 import type { RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import { RestHeaders } from './RestHeaders';
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, render, screen, TableUtil, userEvent } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, customRender, screen, TableUtil, userEvent } from 'test-utils';
 import { describe, test } from 'vitest';
 
 describe('RestHeaders', () => {
@@ -9,7 +9,9 @@ describe('RestHeaders', () => {
     const restHeaders = ['Type'];
     const restContentTypes = ['app/json', 'app/xml', 'other type'];
     const restResource: DeepPartial<RestResource> = { headers: [{ name: 'api_key' }] };
-    render(<RestHeaders />, { wrapperProps: { data: data && { config: data }, meta: { restHeaders, restContentTypes, restResource } } });
+    customRender(<RestHeaders />, {
+      wrapperProps: { data: data && { config: data }, meta: { restHeaders, restContentTypes, restResource } }
+    });
   }
 
   test('empty', async () => {

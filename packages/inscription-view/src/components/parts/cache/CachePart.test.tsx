@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { customRender, customRenderHook, screen } from 'test-utils';
 import type { CacheData, ElementData, ValidationResult } from '@axonivy/process-editor-inscription-protocol';
 import { useCachePart } from './CachePart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('CachePart', () => {
   function renderPart(data?: CacheData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -46,7 +46,7 @@ describe('CachePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<CacheData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useCachePart(), {
+    const { result } = customRenderHook(() => useCachePart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -72,7 +72,7 @@ describe('CachePart', () => {
         }
       }
     };
-    const view = renderHook(() => useCachePart(), {
+    const view = customRenderHook(() => useCachePart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

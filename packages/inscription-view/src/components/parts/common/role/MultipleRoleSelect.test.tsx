@@ -1,4 +1,4 @@
-import { render, screen } from 'test-utils';
+import { customRender, screen } from 'test-utils';
 import MultipleRoleSelect from './MultipleRoleSelect';
 import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
@@ -13,7 +13,7 @@ describe('MultipleRoleSelect', () => {
         { id: 'Teamleader', label: '', children: [] }
       ]
     };
-    render(<MultipleRoleSelect value={roles} onChange={() => {}} />, {
+    customRender(<MultipleRoleSelect value={roles} onChange={() => {}} />, {
       wrapperProps: { meta: { roleTree } }
     });
   }

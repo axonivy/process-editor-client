@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, render, renderHook } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, customRender, customRenderHook } from 'test-utils';
 import type { ElementData, ErrorCatchData } from '@axonivy/process-editor-inscription-protocol';
 import { useErrorCatchPart } from './ErrorCatchPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('ErrorCatchPart', () => {
   function renderPart(data?: ErrorCatchData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data }, meta: { eventCodes: [{ eventCode: 'test', process: '', project: '', usage: 1 }] } }
     });
   }
@@ -33,7 +33,7 @@ describe('ErrorCatchPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<ErrorCatchData>) {
-    const { result } = renderHook(() => useErrorCatchPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useErrorCatchPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -46,7 +46,7 @@ describe('ErrorCatchPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { errorCode: 'error' }
     };
-    const view = renderHook(() => useErrorCatchPart(), {
+    const view = customRenderHook(() => useErrorCatchPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { errorCode: 'init' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

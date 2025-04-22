@@ -1,4 +1,4 @@
-import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen, TableUtil } from 'test-utils';
 import type { GeneralData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useGeneralPart } from './GeneralPart';
@@ -11,7 +11,7 @@ const Part = (props: { hideTags?: boolean; disableName?: boolean }) => {
 
 describe('NamePart', () => {
   function renderPart(data?: Partial<GeneralData>, hideTags?: boolean, disableName?: boolean) {
-    render(<Part hideTags={hideTags} disableName={disableName} />, { wrapperProps: { data } });
+    customRender(<Part hideTags={hideTags} disableName={disableName} />, { wrapperProps: { data } });
   }
 
   async function assertMainPart(name: string, description: string) {
@@ -44,7 +44,7 @@ describe('NamePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<GeneralData>) {
-    const { result } = renderHook(() => useGeneralPart(), { wrapperProps: { data } });
+    const { result } = customRenderHook(() => useGeneralPart(), { wrapperProps: { data } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -58,7 +58,7 @@ describe('NamePart', () => {
 
   test('reset', () => {
     let data = { name: 'name', description: 'description', docs: [{ name: 'doc', url: 'url' }], tags: ['tag1'] };
-    const view = renderHook(() => useGeneralPart(), {
+    const view = customRenderHook(() => useGeneralPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { name: 'initName' } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

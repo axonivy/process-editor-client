@@ -1,4 +1,4 @@
-import { CollapsableUtil, SelectUtil, render, screen } from 'test-utils';
+import { CollapsableUtil, SelectUtil, customRender, screen } from 'test-utils';
 import { Permission } from './Permission';
 import { describe, test, expect } from 'vitest';
 
@@ -6,7 +6,7 @@ const defaultConfig = { anonymous: true, error: 'ivy:security:forbidden', roles:
 
 describe('Permission', () => {
   function renderPart(data: PermissionTestData) {
-    render(
+    customRender(
       <Permission
         anonymousFieldActive={data.anonymousFieldActive}
         config={{ anonymous: data.anonymous, error: data.error, roles: data.roles }}

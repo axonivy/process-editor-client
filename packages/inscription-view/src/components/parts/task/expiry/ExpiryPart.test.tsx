@@ -1,11 +1,11 @@
 import ExpiryPart from './ExpiryPart';
-import { render, screen, SelectUtil, userEvent } from 'test-utils';
+import { customRender, screen, SelectUtil, userEvent } from 'test-utils';
 import type { WfExpiry } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
 
 describe('ExpiryPart', () => {
   function renderExpiryPart(data?: WfExpiry) {
-    render(<ExpiryPart />, { wrapperProps: { data: data && { config: { task: { expiry: data } } } } });
+    customRender(<ExpiryPart />, { wrapperProps: { data: data && { config: { task: { expiry: data } } } } });
   }
 
   test('expiry part only render empty timeout input', async () => {

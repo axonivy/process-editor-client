@@ -1,12 +1,12 @@
 import type { DeepPartial } from 'test-utils';
-import { render, SelectUtil } from 'test-utils';
+import { customRender, SelectUtil } from 'test-utils';
 import { EMPTY_VAR_INFO, type WsRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { WsOperationSelect } from './WsOperationSelect';
 import { describe, test } from 'vitest';
 
 describe('WsOperationSelect', () => {
   function renderPart(data?: DeepPartial<WsRequestData>) {
-    render(<WsOperationSelect />, {
+    customRender(<WsOperationSelect />, {
       wrapperProps: {
         data: data && { config: data },
         meta: {

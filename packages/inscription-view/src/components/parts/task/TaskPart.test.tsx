@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { renderHook, screen, render, cloneObject } from 'test-utils';
+import { customRenderHook, screen, customRender, cloneObject } from 'test-utils';
 import type { WfTask, TaskData, ElementData } from '@axonivy/process-editor-inscription-protocol';
 import { DEFAULT_TASK } from '@axonivy/process-editor-inscription-protocol';
 import type { TaskPartProps } from './TaskPart';
@@ -14,7 +14,7 @@ const Part = () => {
 
 describe('TaskPart', () => {
   function renderEmptyPart() {
-    render(<Part />, { wrapperProps: { defaultData: { task: undefined } } });
+    customRender(<Part />, { wrapperProps: { defaultData: { task: undefined } } });
   }
 
   function assertState(
@@ -24,7 +24,7 @@ describe('TaskPart', () => {
     type?: TaskPartProps['type']
   ) {
     const data = taskData ? { config: taskData } : task ? { config: { task } } : undefined;
-    const { result } = renderHook(() => useTaskPart({ type }), { wrapperProps: { data } });
+    const { result } = customRenderHook(() => useTaskPart({ type }), { wrapperProps: { data } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -71,7 +71,7 @@ describe('TaskPart', () => {
         persistOnStart: true
       }
     };
-    const view = renderHook(() => useTaskPart(), {
+    const view = customRenderHook(() => useTaskPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { task: { name: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

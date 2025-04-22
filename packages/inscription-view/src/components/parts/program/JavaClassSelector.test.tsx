@@ -1,11 +1,11 @@
-import { CollapsableUtil, SelectUtil, render } from 'test-utils';
+import { CollapsableUtil, SelectUtil, customRender } from 'test-utils';
 import type { ProgramStartData } from '@axonivy/process-editor-inscription-protocol';
 import JavaClassSelector from './JavaClassSelector';
 import { describe, test } from 'vitest';
 
 describe('StartPart', () => {
   function renderPart(data?: Partial<ProgramStartData>) {
-    render(<JavaClassSelector javaClass={data?.javaClass ?? ''} onChange={() => {}} type='START' />, {
+    customRender(<JavaClassSelector javaClass={data?.javaClass ?? ''} onChange={() => {}} type='START' />, {
       wrapperProps: {
         data: data && { config: data },
         meta: {

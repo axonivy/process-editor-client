@@ -1,6 +1,6 @@
 import ResponsibleSelect from './ResponsibleSelect';
 import type { RoleMeta, WfResponsible, WfResponsibleType } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen, SelectUtil } from 'test-utils';
+import { customRender, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ResponsibleSelect', () => {
@@ -22,7 +22,7 @@ describe('ResponsibleSelect', () => {
       { id: 'CREATOR', label: 'CREATOR', children: [] },
       { id: 'SYSTEM', label: 'SYSTEM', children: [] }
     ];
-    render(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
+    customRender(<ResponsibleSelect responsible={responsible} updateResponsible={() => {}} optionFilter={options?.optionsFilter} />, {
       wrapperProps: { meta: { roleTree, taskRoles } }
     });
   }

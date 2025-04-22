@@ -2,7 +2,7 @@ import type { RestRequestData, RestResource } from '@axonivy/process-editor-insc
 import { HTTP_METHOD } from '@axonivy/process-editor-inscription-protocol';
 import { RestMethodSelect } from './RestMethodSelect';
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, SelectUtil, render, screen } from 'test-utils';
+import { ComboboxUtil, SelectUtil, customRender, screen } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import { OpenApiContextProvider } from '../../../../../context/useOpenApi';
 
@@ -12,7 +12,7 @@ describe('RestMethodSelect', () => {
       { method: { httpMethod: 'GET' }, path: '/pet', doc: 'Get a random pet' },
       { method: { httpMethod: 'DELETE' }, path: '/pet/{petId}', doc: 'Delete a pet with given id' }
     ];
-    render(
+    customRender(
       <OpenApiContextProvider>
         <RestMethodSelect />
       </OpenApiContextProvider>,

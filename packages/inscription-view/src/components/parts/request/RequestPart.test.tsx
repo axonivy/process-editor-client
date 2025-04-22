@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, renderHook, TableUtil, SelectUtil, CollapsableUtil } from 'test-utils';
+import { customRender, screen, customRenderHook, TableUtil, SelectUtil, CollapsableUtil } from 'test-utils';
 import type { ElementData, ValidationResult, RequestData } from '@axonivy/process-editor-inscription-protocol';
 import { useRequestPart } from './RequestPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('RequestPart', () => {
   function renderPart(data?: DeepPartial<RequestData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(data?: DeepPartial<RequestData>) {
@@ -80,7 +80,7 @@ describe('RequestPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<RequestData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useRequestPart(), {
+    const { result } = customRenderHook(() => useRequestPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -104,7 +104,7 @@ describe('RequestPart', () => {
 
   test('reset', () => {
     let data: DeepPartial<ElementData> = { config: { request: { isHttpRequestable: false, name: 'bla' } } };
-    const view = renderHook(() => useRequestPart(), {
+    const view = customRenderHook(() => useRequestPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { request: { name: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

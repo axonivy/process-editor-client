@@ -1,12 +1,12 @@
 import type { DeepPartial } from 'test-utils';
-import { render, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
+import { customRender, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
 import type { RestRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { RestProperties } from './RestProperties';
 import { describe, test } from 'vitest';
 
 describe('RestProperties', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {
-    render(<RestProperties />, {
+    customRender(<RestProperties />, {
       wrapperProps: { data: data && { config: data }, meta: { restProperties: ['username', 'rester', '132'] } }
     });
   }

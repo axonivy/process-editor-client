@@ -1,15 +1,15 @@
-import { CollapsableUtil, SelectUtil, TableUtil, render } from 'test-utils';
+import { CollapsableUtil, SelectUtil, TableUtil, customRender } from 'test-utils';
 import { TableSort } from './TableSort';
 import { describe, test } from 'vitest';
 
 describe('TableSort', () => {
   test('empty', async () => {
-    render(<TableSort />);
+    customRender(<TableSort />);
     await CollapsableUtil.assertClosed('Sort');
   });
 
   test('data', async () => {
-    render(<TableSort />, {
+    customRender(<TableSort />, {
       wrapperProps: {
         data: { config: { query: { sql: { orderBy: ['test'] } } } },
         meta: {

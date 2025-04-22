@@ -1,6 +1,6 @@
 import { useDialogCallPart } from './DialogCallPart';
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
+import { customRender, screen, TableUtil, customRenderHook, CollapsableUtil } from 'test-utils';
 import type { CallData, DialogCallData, ElementData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('DialogCallPart', () => {
   function renderPart(data?: CallData & DialogCallData) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(dialog: string, map: RegExp[], code: string) {
@@ -34,7 +34,7 @@ describe('DialogCallPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<CallData & DialogCallData>) {
-    const { result } = renderHook(() => useDialogCallPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useDialogCallPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -49,7 +49,7 @@ describe('DialogCallPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { dialog: 'dialog', call: { code: 'code', map: { key: 'value' } } }
     };
-    const view = renderHook(() => useDialogCallPart(), {
+    const view = customRenderHook(() => useDialogCallPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { dialog: 'init' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

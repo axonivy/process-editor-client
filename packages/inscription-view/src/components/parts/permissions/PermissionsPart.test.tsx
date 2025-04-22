@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, PermissionsData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { usePermissionsPart } from './PermissionsPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('PermissionsPart', () => {
   function renderPart(data?: PermissionsData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -32,7 +32,7 @@ describe('PermissionsPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<PermissionsData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => usePermissionsPart(), {
+    const { result } = customRenderHook(() => usePermissionsPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -55,7 +55,7 @@ describe('PermissionsPart', () => {
         }
       }
     };
-    const view = renderHook(() => usePermissionsPart(), {
+    const view = customRenderHook(() => usePermissionsPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

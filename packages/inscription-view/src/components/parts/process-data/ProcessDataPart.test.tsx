@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, ProcessDataData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useProcessDataPart } from './ProcessDataPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('ProcessDataPart', () => {
   function renderPart(data?: ProcessDataData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -30,7 +30,7 @@ describe('ProcessDataPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProcessDataData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useProcessDataPart(), {
+    const { result } = customRenderHook(() => useProcessDataPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -51,7 +51,7 @@ describe('ProcessDataPart', () => {
         data: 'screenshot.project.Order'
       }
     };
-    const view = renderHook(() => useProcessDataPart(), {
+    const view = customRenderHook(() => useProcessDataPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

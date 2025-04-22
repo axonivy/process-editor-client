@@ -1,5 +1,5 @@
 import CallSelect from './CallSelect';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import type { CallableStart } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
 import { IvyIcons } from '@axonivy/ui-icons';
@@ -36,7 +36,7 @@ describe('CallSelect', () => {
         }
       }
     ];
-    render(<CallSelect start={selected} starts={items} onChange={() => {}} startIcon={IvyIcons.ActivitiesGroup} />);
+    customRender(<CallSelect start={selected} starts={items} onChange={() => {}} startIcon={IvyIcons.ActivitiesGroup} />);
   }
 
   test('deprecated option', async () => {

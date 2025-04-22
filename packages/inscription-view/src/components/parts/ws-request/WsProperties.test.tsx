@@ -1,12 +1,14 @@
 import type { DeepPartial } from 'test-utils';
-import { render, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
+import { customRender, CollapsableUtil, TableUtil, ComboboxUtil, userEvent, screen } from 'test-utils';
 import type { WsRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { WsProperties } from './WsProperties';
 import { describe, test } from 'vitest';
 
 describe('WsProperties', () => {
   function renderPart(data?: DeepPartial<WsRequestData>) {
-    render(<WsProperties />, { wrapperProps: { data: data && { config: data }, meta: { wsProperties: ['Super', 'soaper', '132'] } } });
+    customRender(<WsProperties />, {
+      wrapperProps: { data: data && { config: data }, meta: { wsProperties: ['Super', 'soaper', '132'] } }
+    });
   }
 
   test('empty', async () => {
