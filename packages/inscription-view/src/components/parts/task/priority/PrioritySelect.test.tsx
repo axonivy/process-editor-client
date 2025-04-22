@@ -1,12 +1,12 @@
 import PrioritySelect from './PrioritySelect';
 import type { WfPriority, WfLevel } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen, SelectUtil } from 'test-utils';
+import { customRender, screen, SelectUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('PrioritySelect', () => {
   function renderSelect(options?: { level?: string; script?: string }) {
     const priority: WfPriority = { level: options?.level as WfLevel, script: options?.script ?? '' };
-    render(<PrioritySelect priority={priority} updatePriority={() => {}} />);
+    customRender(<PrioritySelect priority={priority} updatePriority={() => {}} />);
   }
 
   test('priority select will render with default option', async () => {

@@ -1,5 +1,5 @@
 import type { StartCustomStartField } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen, userEvent, TableUtil } from 'test-utils';
+import { customRender, screen, userEvent, TableUtil } from 'test-utils';
 import StartCustomFieldTable from './StartCustomFieldTable';
 import { describe, test, expect } from 'vitest';
 
@@ -13,7 +13,7 @@ describe('StartCustomFieldTable', () => {
     rerender: () => void;
   } {
     let data: StartCustomStartField[] = customFields;
-    const view = render(<StartCustomFieldTable data={data} onChange={change => (data = change)} />);
+    const view = customRender(<StartCustomFieldTable data={data} onChange={change => (data = change)} />);
     return {
       data: () => data,
       rerender: () => view.rerender(<StartCustomFieldTable data={data} onChange={change => (data = change)} />)
@@ -71,7 +71,7 @@ describe('StartCustomFieldTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<StartCustomFieldTable data={customFields} onChange={() => {}} />, {
+    customRender(<StartCustomFieldTable data={customFields} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     TableUtil.assertReadonly();

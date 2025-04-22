@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, renderHook, CollapsableUtil, SelectUtil } from 'test-utils';
+import { customRender, screen, customRenderHook, CollapsableUtil, SelectUtil } from 'test-utils';
 import type { ElementData, ValidationResult, TriggerData } from '@axonivy/process-editor-inscription-protocol';
 import { useTriggerPart } from './TriggerPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('TriggerPart', () => {
   function renderPart(data?: DeepPartial<TriggerData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(triggerable: boolean, responsible: string, delay: string) {
@@ -57,7 +57,7 @@ describe('TriggerPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<TriggerData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useTriggerPart(), {
+    const { result } = customRenderHook(() => useTriggerPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -88,7 +88,7 @@ describe('TriggerPart', () => {
         }
       }
     };
-    const view = renderHook(() => useTriggerPart(), {
+    const view = customRenderHook(() => useTriggerPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { triggerable: true, task: { delay: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

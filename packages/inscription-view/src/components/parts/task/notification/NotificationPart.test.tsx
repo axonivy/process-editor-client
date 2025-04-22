@@ -1,11 +1,11 @@
 import type { WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { SelectUtil, render, screen, userEvent } from 'test-utils';
+import { SelectUtil, customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import NotificationPart from './NotificationPart';
 
 describe('NotificationPart', () => {
   function renderTaskPart(data?: Partial<WfTask>) {
-    render(<NotificationPart />, { wrapperProps: { data: data && { config: { task: data } } } });
+    customRender(<NotificationPart />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 
   test('empty', async () => {

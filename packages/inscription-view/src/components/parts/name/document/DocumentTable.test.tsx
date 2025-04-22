@@ -1,6 +1,6 @@
 import type { Document } from '@axonivy/process-editor-inscription-protocol';
 import DocumentTable from './DocumentTable';
-import { CollapsableUtil, render, screen, TableUtil, userEvent } from 'test-utils';
+import { CollapsableUtil, customRender, screen, TableUtil, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('DocumentTable', () => {
@@ -13,7 +13,7 @@ describe('DocumentTable', () => {
     rerender: () => void;
   } {
     let data: Document[] = [];
-    const view = render(<DocumentTable data={documents} onChange={change => (data = change)} />);
+    const view = customRender(<DocumentTable data={documents} onChange={change => (data = change)} />);
     return {
       data: () => data,
       rerender: () => view.rerender(<DocumentTable data={data} onChange={change => (data = change)} />)
@@ -72,7 +72,7 @@ describe('DocumentTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<DocumentTable data={documents} onChange={() => {}} />, {
+    customRender(<DocumentTable data={documents} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     TableUtil.assertReadonly();

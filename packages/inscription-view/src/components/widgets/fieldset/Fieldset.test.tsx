@@ -1,6 +1,6 @@
 import type { FieldsetProps } from './Fieldset';
 import Fieldset from './Fieldset';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import { IvyIcons } from '@axonivy/ui-icons';
 import type { FieldsetControl } from './fieldset-control';
 import { describe, test, expect } from 'vitest';
@@ -8,7 +8,7 @@ import { Input } from '@axonivy/ui-components';
 
 describe('Fieldset', () => {
   function renderFieldset(props: FieldsetProps) {
-    render(
+    customRender(
       <Fieldset {...props}>
         <Input />
       </Fieldset>

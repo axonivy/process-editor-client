@@ -1,12 +1,12 @@
 import type { RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { TableUtil, render, screen } from 'test-utils';
+import { TableUtil, customRender, screen } from 'test-utils';
 import { RestForm } from './RestForm';
 import { describe, test, expect } from 'vitest';
 
 describe('RestForm', () => {
   function renderPart(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {
-    render(<RestForm />, { wrapperProps: { data: data && { config: data }, meta: { restResource } } });
+    customRender(<RestForm />, { wrapperProps: { data: data && { config: data }, meta: { restResource } } });
   }
 
   test('empty', async () => {

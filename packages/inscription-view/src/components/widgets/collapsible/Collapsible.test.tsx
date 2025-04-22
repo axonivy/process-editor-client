@@ -1,5 +1,5 @@
 import Collapsible from './Collapsible';
-import { CollapsableUtil, render, screen, userEvent } from 'test-utils';
+import { CollapsableUtil, customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import type { ValidationMessage } from '../message/Message';
 
@@ -7,7 +7,7 @@ describe('Collapsible', () => {
   const COLLAPSE_DATA = /collapsible data/i;
 
   function renderCollapsible(open: boolean, options?: { validations: Array<ValidationMessage> }) {
-    render(
+    customRender(
       <Collapsible label='Test' defaultOpen={open} validations={options?.validations}>
         <p>collapsible data</p>
       </Collapsible>

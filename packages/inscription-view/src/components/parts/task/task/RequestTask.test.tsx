@@ -1,11 +1,11 @@
 import type { WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import RequestTask from './RequestTask';
 import { describe, test, expect } from 'vitest';
 
 describe('RequestTask', () => {
   function renderTask(data?: Partial<WfTask>) {
-    render(<RequestTask />, { wrapperProps: { data: data && { config: { task: data } } } });
+    customRender(<RequestTask />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 
   test('persist option', async () => {

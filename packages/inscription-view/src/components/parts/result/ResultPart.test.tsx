@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen, TableUtil } from 'test-utils';
 import type { ElementData, ResultData, VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import { useResultPart } from './ResultPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('ResultPart', () => {
   function renderPart(data?: DeepPartial<ResultData>, outScripting?: VariableInfo) {
-    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { outScripting } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data }, meta: { outScripting } } });
   }
 
   async function assertMainPart(params: RegExp[], map: RegExp[], code: string) {
@@ -48,7 +48,7 @@ describe('ResultPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ResultData>) {
-    const { result } = renderHook(() => useResultPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useResultPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -65,7 +65,7 @@ describe('ResultPart', () => {
         result: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
       }
     };
-    const view = renderHook(() => useResultPart(), {
+    const view = customRenderHook(() => useResultPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { result: { code: 'initcode' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

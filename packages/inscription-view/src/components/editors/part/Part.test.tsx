@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import Part from './Part';
 import type { PartProps, PartStateFlag } from './usePart';
 import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
@@ -38,7 +38,7 @@ describe('Part', () => {
     rerender: () => void;
   } {
     const part = partProps;
-    const view = render(<Part parts={[part]} />);
+    const view = customRender(<Part parts={[part]} />);
     return {
       data: () => part,
       rerender: () => view.rerender(<Part parts={[part]} />)

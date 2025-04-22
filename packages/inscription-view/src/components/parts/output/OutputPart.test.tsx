@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
+import { customRender, screen, TableUtil, customRenderHook, CollapsableUtil } from 'test-utils';
 import { useOutputPart } from './OutputPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import type { ElementData, OutputData } from '@axonivy/process-editor-inscription-protocol';
@@ -12,7 +12,7 @@ const Part = (props: { showSudo?: boolean }) => {
 
 describe('OutputPart', () => {
   function renderPart(data?: Partial<OutputData>, showSudo?: boolean) {
-    render(<Part showSudo={showSudo} />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part showSudo={showSudo} />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(map: RegExp[], code: string) {
@@ -38,7 +38,7 @@ describe('OutputPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<OutputData>, showSudo?: boolean) {
-    const { result } = renderHook(() => useOutputPart({ showSudo }), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useOutputPart({ showSudo }), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -54,7 +54,7 @@ describe('OutputPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { output: { map: { key: 'value' }, code: 'code' } }
     };
-    const view = renderHook(() => useOutputPart(), {
+    const view = customRenderHook(() => useOutputPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { output: { code: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
@@ -68,7 +68,7 @@ describe('OutputPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { output: { map: { key: 'value' }, code: 'code' }, sudo: true }
     };
-    const view = renderHook(() => useOutputPart({ showSudo: true }), {
+    const view = customRenderHook(() => useOutputPart({ showSudo: true }), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { sudo: false } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

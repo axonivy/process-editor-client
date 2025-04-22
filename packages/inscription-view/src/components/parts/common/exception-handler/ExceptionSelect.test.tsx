@@ -1,5 +1,5 @@
 import ExceptionSelect from './ExceptionSelect';
-import { render, SelectUtil } from 'test-utils';
+import { customRender, SelectUtil } from 'test-utils';
 import { describe, test } from 'vitest';
 
 describe('ExceptionSelect', () => {
@@ -8,7 +8,7 @@ describe('ExceptionSelect', () => {
       { id: 'error1', label: 'this is error1' },
       { id: 'bla', label: 'blablabla' }
     ];
-    render(<ExceptionSelect value={options?.error ?? ''} onChange={() => {}} staticExceptions={['test123']} />, {
+    customRender(<ExceptionSelect value={options?.error ?? ''} onChange={() => {}} staticExceptions={['test123']} />, {
       wrapperProps: { meta: { expiryErrors } }
     });
   }

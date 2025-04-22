@@ -1,4 +1,4 @@
-import { TableUtil, render, screen, userEvent } from 'test-utils';
+import { TableUtil, customRender, screen, userEvent } from 'test-utils';
 import { useCmsBrowser } from './CmsBrowser';
 import { describe, test, expect } from 'vitest';
 import type { BrowserValue } from '../Browser';
@@ -19,7 +19,7 @@ const Browser = (props: { location: string; accept: (value: BrowserValue) => voi
 
 describe('CmsBrowser', () => {
   function renderBrowser(options?: { location?: string; accept?: (value: BrowserValue) => void }) {
-    render(<Browser location={options?.location ?? 'something'} accept={options?.accept ?? (() => {})} />, {
+    customRender(<Browser location={options?.location ?? 'something'} accept={options?.accept ?? (() => {})} />, {
       wrapperProps: {
         meta: {
           contentObject: [

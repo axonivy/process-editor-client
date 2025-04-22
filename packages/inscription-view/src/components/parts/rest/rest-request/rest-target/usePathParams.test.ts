@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { renderHook, waitFor } from 'test-utils';
+import { customRenderHook, waitFor } from 'test-utils';
 import { useFindPathParams, useTargetPathSplit } from './usePathParams';
 import type { RestRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test, expect } from 'vitest';
@@ -20,7 +20,7 @@ describe('useTargetPathSplit', () => {
 
 describe('useFindPathParams', () => {
   function findParts(data?: DeepPartial<RestRequestData>, restClientUri?: string) {
-    const { result } = renderHook(() => useFindPathParams(), {
+    const { result } = customRenderHook(() => useFindPathParams(), {
       wrapperProps: { data: data && { config: data }, meta: { restClientUri } }
     });
     return result;

@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { MailData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useMailAttachmentPart } from './MailAttachmentPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('MailAttachmentPart', () => {
   function renderPart(data?: DeepPartial<MailData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   test('empty data', async () => {
@@ -28,7 +28,7 @@ describe('MailAttachmentPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<MailData>) {
-    const { result } = renderHook(() => useMailAttachmentPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useMailAttachmentPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -39,7 +39,7 @@ describe('MailAttachmentPart', () => {
 
   test('reset', () => {
     let data = { config: { attachments: ['s', 'bla'] } };
-    const view = renderHook(() => useMailAttachmentPart(), {
+    const view = customRenderHook(() => useMailAttachmentPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { attachments: ['init'] } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

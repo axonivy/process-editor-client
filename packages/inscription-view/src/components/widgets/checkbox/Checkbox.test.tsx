@@ -1,5 +1,5 @@
 import Checkbox from './Checkbox';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Checkbox', () => {
@@ -9,7 +9,7 @@ describe('Checkbox', () => {
   } {
     let value = false;
     userEvent.setup();
-    const view = render(<Checkbox label='test checkbox' value={value} onChange={(change: boolean) => (value = change)} />);
+    const view = customRender(<Checkbox label='test checkbox' value={value} onChange={(change: boolean) => (value = change)} />);
     return {
       data: () => value,
       rerender: () => view.rerender(<Checkbox label='test checkbox' value={value} onChange={(change: boolean) => (value = change)} />)
@@ -61,12 +61,12 @@ describe('Checkbox', () => {
   });
 
   test('readonly mode', () => {
-    render(<Checkbox label='test checkbox' value={true} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    customRender(<Checkbox label='test checkbox' value={true} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
     expect(screen.getByRole('checkbox')).toBeDisabled();
   });
 
   test('disabled mode', () => {
-    render(<Checkbox label='test checkbox' value={true} onChange={() => {}} disabled={true} />, {
+    customRender(<Checkbox label='test checkbox' value={true} onChange={() => {}} disabled={true} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getByRole('checkbox')).toBeDisabled();

@@ -1,12 +1,12 @@
 import type { InputType, RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen, waitFor } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen, waitFor } from 'test-utils';
 import { RestBody, useBodyTypes } from './RestBody';
 import { describe, test, expect } from 'vitest';
 
 describe('RestBody', () => {
   function renderPart(data?: DeepPartial<RestRequestData>) {
-    render(<RestBody />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<RestBody />, { wrapperProps: { data: data && { config: data } } });
   }
 
   test('empty', async () => {
@@ -38,7 +38,7 @@ describe('RestBody', () => {
 
 describe('useBodyTypes', () => {
   function renderTypesHook(currentType: InputType, restResource?: DeepPartial<RestResource>) {
-    return renderHook(() => useBodyTypes(currentType), { wrapperProps: { meta: { restResource } } });
+    return customRenderHook(() => useBodyTypes(currentType), { wrapperProps: { meta: { restResource } } });
   }
 
   test('no openapi', async () => {

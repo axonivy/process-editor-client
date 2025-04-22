@@ -1,6 +1,6 @@
 import type { ScriptVariable } from '@axonivy/process-editor-inscription-protocol';
 import ParameterTable from './ParameterTable';
-import { render, screen, userEvent, TableUtil, CollapsableUtil } from 'test-utils';
+import { customRender, screen, userEvent, TableUtil, CollapsableUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('ParameterTable', () => {
@@ -13,7 +13,7 @@ describe('ParameterTable', () => {
     rerender: () => void;
   } {
     let data: ScriptVariable[] = customFields;
-    const view = render(<ParameterTable label='Input parameters' data={data} onChange={change => (data = change)} />);
+    const view = customRender(<ParameterTable label='Input parameters' data={data} onChange={change => (data = change)} />);
     return {
       data: () => data,
       rerender: () => view.rerender(<ParameterTable label='Input parameters' data={data} onChange={change => (data = change)} />)
@@ -77,7 +77,7 @@ describe('ParameterTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<ParameterTable label='Input parameters' data={customFields} onChange={() => {}} />, {
+    customRender(<ParameterTable label='Input parameters' data={customFields} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     await CollapsableUtil.toggle('Input parameters');
@@ -86,7 +86,7 @@ describe('ParameterTable', () => {
   });
 
   test('table hide description column', async () => {
-    render(<ParameterTable label='Input parameters' data={customFields} onChange={() => {}} hideDesc={true} />);
+    customRender(<ParameterTable label='Input parameters' data={customFields} onChange={() => {}} hideDesc={true} />);
     await CollapsableUtil.toggle('Input parameters');
     TableUtil.assertHeaders(['Name', 'Type']);
   });
