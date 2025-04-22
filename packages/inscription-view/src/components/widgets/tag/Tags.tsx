@@ -7,6 +7,8 @@ import { useCombobox } from 'downshift';
 import { useKeyboard } from 'react-aria';
 
 import { useTranslation } from 'react-i18next';
+import { Popover, PopoverAnchor, PopoverContent } from '@axonivy/ui-components';
+import { Flex } from '@axonivy/ui-components';
 
 const Tags = (props: {
   tags: string[];
@@ -104,61 +106,69 @@ const Tags = (props: {
 
   return (
     <>
-      <div className='tags'>
-        {props.tags.map((tag, index) => (
-          <div key={`${tag}-${index}`} className='added-tag' role='gridcell'>
-            <span>{tag}</span>
-            <button
-              className='tag-remove'
-              onClick={() => {
-                removeTag(tag);
-              }}
-              aria-label={t('tags.removeTag', { tag })}
-              {...keyboardProps}
-              disabled={readonly}
-            >
-              <IvyIcon icon={IvyIcons.Close} />
-            </button>
-          </div>
-        ))}
-        <div {...getToggleButtonProps()}>
-          {(dropDownTags.length > 0 || props.customValues) && (
-            <button
-              className={`tag ${isOpen || (!isOpen && addValue !== newTag) ? 'tag-remove-button' : 'tag-add'}`}
-              aria-label={t('tags.addNew')}
-              disabled={readonly}
-            >
-              <IvyIcon icon={IvyIcons.Close} />
-              <input
-                disabled={readonly}
-                hidden={!props.customValues}
-                className='new-tag-input'
-                {...getInputProps()}
-                onFocus={() => {
-                  openMenu();
-                  setAddValue('');
+      <Popover open={isOpen}>
+        <div className='tags'>
+          {props.tags.map((tag, index) => (
+            <div key={`${tag}-${index}`} className='added-tag' role='gridcell'>
+              <span>{tag}</span>
+              <button
+                className='tag-remove'
+                onClick={() => {
+                  removeTag(tag);
                 }}
-                ref={inputRef}
-                value={addValue}
-                aria-label={t('tags.newTag')}
-                style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
-              />
-            </button>
-          )}
-          <ul {...getMenuProps()} className='combobox-menu'>
-            {isOpen &&
-              dropDownTags.map((item, index) => (
-                <li
-                  className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${selectedItem === item ? 'selected' : ''}`}
-                  key={`${item}${index}`}
-                  {...getItemProps({ item, index })}
+                aria-label={t('tags.removeTag', { tag })}
+                {...keyboardProps}
+                disabled={readonly}
+              >
+                <IvyIcon icon={IvyIcons.Close} />
+              </button>
+            </div>
+          ))}
+
+          <div {...getToggleButtonProps()}>
+            <PopoverAnchor asChild>
+              {(dropDownTags.length > 0 || props.customValues) && (
+                <button
+                  className={`tag ${isOpen || (!isOpen && addValue !== newTag) ? 'tag-remove-button' : 'tag-add'}`}
+                  aria-label={t('tags.addNew')}
+                  disabled={readonly}
                 >
-                  <span>{item}</span>
-                </li>
-              ))}
-          </ul>
+                  <IvyIcon icon={IvyIcons.Close} />
+                  <input
+                    disabled={readonly}
+                    hidden={!props.customValues}
+                    className='new-tag-input'
+                    {...getInputProps()}
+                    onFocus={() => {
+                      openMenu();
+                      setAddValue('');
+                    }}
+                    ref={inputRef}
+                    value={addValue}
+                    aria-label={t('tags.newTag')}
+                    style={{ width: inputValue.length * 8 > 28 ? inputValue.length * 8 : 28 }}
+                  />
+                </button>
+              )}
+            </PopoverAnchor>
+
+            <div {...getMenuProps()} className='combobox-menu'>
+              <PopoverContent onOpenAutoFocus={e => e.preventDefault()} hidden={dropDownTags.length === 0}>
+                {dropDownTags.map((item, index) => (
+                  <Flex
+                    gap={2}
+                    className={`combobox-menu-entry ${highlightedIndex === index ? 'hover' : ''} ${selectedItem === item ? 'selected' : ''}`}
+                    key={`${item}${index}`}
+                    {...getItemProps({ item, index })}
+                  >
+                    <span>{item}</span>
+                  </Flex>
+                ))}
+              </PopoverContent>
+            </div>
+          </div>
         </div>
-      </div>
+      </Popover>
     </>
   );
 };

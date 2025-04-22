@@ -21,7 +21,7 @@ export class Tags {
     for (let i = 0; i < tags.length; i++) {
       const newTagBtn = this.locator.getByRole('button', { name: 'Add new tag' });
       await newTagBtn.click();
-      const roleOption = this.locator.getByRole('option', { name: tags[i] });
+      const roleOption = this.page.getByRole('option', { name: tags[i] });
       await roleOption.click();
     }
   }
