@@ -1,5 +1,5 @@
 import type { VariableInfo } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import MappingPart from './MappingPart';
 import { describe, test, expect } from 'vitest';
 
@@ -58,7 +58,7 @@ describe('MappingPart', () => {
   } {
     userEvent.setup();
     let data = initData ?? { 'param.procurementRequest': 'in' };
-    render(
+    customRender(
       <MappingPart
         browsers={['attr', 'func', 'type']}
         data={data}
@@ -158,7 +158,7 @@ describe('MappingPart', () => {
   });
 
   test('tree support readonly mode', async () => {
-    render(
+    customRender(
       <MappingPart browsers={['attr', 'func', 'type']} data={{ bla: 'unknown value' }} variableInfo={variableInfo} onChange={() => {}} />,
       {
         wrapperProps: { editor: { readonly: true } }

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { ComboboxItem } from './Combobox';
 import Combobox from './Combobox';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import type { BrowserType } from '../../browser/useBrowser';
 
@@ -17,7 +17,7 @@ describe('Combobox', () => {
     } = {}
   ) {
     const items: ComboboxItem[] = [{ value: 'test' }, { value: 'bla' }];
-    render(
+    customRender(
       <Combobox
         items={items}
         itemFilter={options.itemFilter}
@@ -119,7 +119,7 @@ describe('Combobox', () => {
   });
 
   test('combobox support readonly mode', async () => {
-    render(<Combobox items={[{ value: 'test' }]} value={'test'} onChange={() => {}} />, {
+    customRender(<Combobox items={[{ value: 'test' }]} value={'test'} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
 

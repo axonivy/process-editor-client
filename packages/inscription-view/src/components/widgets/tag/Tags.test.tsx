@@ -1,5 +1,5 @@
 import Tags from './Tags';
-import { render, screen, userEvent, waitFor } from 'test-utils';
+import { customRender, screen, userEvent, waitFor } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Tags', () => {
@@ -9,7 +9,7 @@ describe('Tags', () => {
   } {
     let tags: string[] = [];
     userEvent.setup();
-    const view = render(
+    const view = customRender(
       <Tags tags={['test', 'bla']} availableTags={['demo', 'deprecated']} onChange={newTags => (tags = newTags)} customValues={true} />
     );
     return {
@@ -123,7 +123,7 @@ describe('Tags', () => {
   });
 
   test('tags support readonly mode', async () => {
-    render(<Tags tags={['test']} availableTags={['demo', 'deprecated']} customValues={true} onChange={() => {}} />, {
+    customRender(<Tags tags={['test']} availableTags={['demo', 'deprecated']} customValues={true} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
 

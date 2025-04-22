@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { WebServiceProcessData, ElementData, ValidationResult } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useWebServiceProcessPart } from './WebServiceProcessPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('WebServiceProcessPart', () => {
   function renderPart(data?: WebServiceProcessData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -33,7 +33,7 @@ describe('WebServiceProcessPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<WebServiceProcessData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useWebServiceProcessPart(), {
+    const { result } = customRenderHook(() => useWebServiceProcessPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -57,7 +57,7 @@ describe('WebServiceProcessPart', () => {
         wsTypeName: 'Test'
       }
     };
-    const view = renderHook(() => useWebServiceProcessPart(), {
+    const view = customRenderHook(() => useWebServiceProcessPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

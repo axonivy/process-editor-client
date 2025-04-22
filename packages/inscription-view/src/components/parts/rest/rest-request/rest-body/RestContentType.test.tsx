@@ -1,12 +1,12 @@
 import type { RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, render, screen, waitFor } from 'test-utils';
+import { ComboboxUtil, customRender, screen, waitFor } from 'test-utils';
 import { RestContentType } from './RestContentType';
 import { describe, test, expect } from 'vitest';
 
 describe('RestContentType', () => {
   function renderPart(data?: DeepPartial<RestRequestData>, restResource?: DeepPartial<RestResource>) {
-    render(<RestContentType />, {
+    customRender(<RestContentType />, {
       wrapperProps: { data: data && { config: data }, meta: { restContentTypes: ['test', 'other'], restResource } }
     });
   }

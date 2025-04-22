@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, renderHook, userEvent } from 'test-utils';
+import { customRender, screen, customRenderHook, userEvent } from 'test-utils';
 import type { TaskData, ElementData } from '@axonivy/process-editor-inscription-protocol';
 import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -16,7 +16,7 @@ describe('MultiTasksPart', () => {
   function renderPart(data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: {
         data: data && { config: data },
         defaultData,
@@ -49,7 +49,7 @@ describe('MultiTasksPart', () => {
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<TaskData>) {
     data = addDefaultTaskData(data);
     const defaultData = createDefaultTaskData(data);
-    const { result } = renderHook(() => useMultiTasksPart(), { wrapperProps: { data: data && { config: data }, defaultData } });
+    const { result } = customRenderHook(() => useMultiTasksPart(), { wrapperProps: { data: data && { config: data }, defaultData } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -71,7 +71,7 @@ describe('MultiTasksPart', () => {
     const initTaskData = {
       tasks: [DEFAULT_TASK, DEFAULT_TASK]
     };
-    const view = renderHook(() => useMultiTasksPart(), {
+    const view = customRenderHook(() => useMultiTasksPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: initTaskData } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

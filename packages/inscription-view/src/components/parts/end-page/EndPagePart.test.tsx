@@ -1,4 +1,4 @@
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { EndPageData } from '@axonivy/process-editor-inscription-protocol';
 import { useEndPagePart } from './EndPagePart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -11,7 +11,7 @@ const Part = () => {
 
 describe('EndPagePart', () => {
   function renderPart(data?: EndPageData) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertPage(page: string) {
@@ -29,7 +29,7 @@ describe('EndPagePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: EndPageData) {
-    const { result } = renderHook(() => useEndPagePart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useEndPagePart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -40,7 +40,7 @@ describe('EndPagePart', () => {
 
   test('reset', () => {
     let data = { config: { page: 'bla' } };
-    const view = renderHook(() => useEndPagePart(), {
+    const view = customRenderHook(() => useEndPagePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { page: 'init' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

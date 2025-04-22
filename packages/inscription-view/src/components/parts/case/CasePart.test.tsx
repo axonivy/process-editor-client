@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, screen, TableUtil, renderHook, CollapsableUtil } from 'test-utils';
+import { customRender, screen, TableUtil, customRenderHook, CollapsableUtil } from 'test-utils';
 import type { WfCase, CaseData, ElementData } from '@axonivy/process-editor-inscription-protocol';
 import { useCasePart } from './CasePart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('CasePart', () => {
   function renderPart(data?: CaseData) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(name: string, description: string, category: string) {
@@ -44,7 +44,7 @@ describe('CasePart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<WfCase>) {
-    const { result } = renderHook(() => useCasePart(), { wrapperProps: { data: data && { config: { case: data } } } });
+    const { result } = customRenderHook(() => useCasePart(), { wrapperProps: { data: data && { config: { case: data } } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -68,7 +68,7 @@ describe('CasePart', () => {
         }
       }
     };
-    const view = renderHook(() => useCasePart(), {
+    const view = customRenderHook(() => useCasePart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { case: { name: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

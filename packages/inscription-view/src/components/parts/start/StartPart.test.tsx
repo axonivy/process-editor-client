@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen, TableUtil } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen, TableUtil } from 'test-utils';
 import type { ElementData, StartData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('StartPart', () => {
   function renderPart(data?: DeepPartial<StartData>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data } } });
   }
 
   async function assertMainPart(signature: string, params: RegExp[], map: RegExp[], code: string) {
@@ -45,7 +45,7 @@ describe('StartPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<StartData>) {
-    const { result } = renderHook(() => useStartPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useStartPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -64,7 +64,7 @@ describe('StartPart', () => {
         input: { code: 'code', map: { key: 'value' }, params: [{ name: 'param', type: 'String', desc: 'desc' }] }
       }
     };
-    const view = renderHook(() => useStartPart(), {
+    const view = customRenderHook(() => useStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { signature: 'initSig' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

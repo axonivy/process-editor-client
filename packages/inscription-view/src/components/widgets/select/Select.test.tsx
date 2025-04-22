@@ -1,6 +1,6 @@
 import type { SelectItem } from './Select';
 import Select from './Select';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Select', () => {
@@ -15,7 +15,7 @@ describe('Select', () => {
   } {
     let value = items[0];
     userEvent.setup();
-    const view = render(<Select items={items} value={items[0]} onChange={(change: SelectItem) => (value = change)} />);
+    const view = customRender(<Select items={items} value={items[0]} onChange={(change: SelectItem) => (value = change)} />);
     return {
       data: () => value,
       rerender: () => view.rerender(<Select items={items} value={value} onChange={(change: SelectItem) => (value = change)} />)
@@ -85,12 +85,12 @@ describe('Select', () => {
   });
 
   test('select support readonly mode', () => {
-    render(<Select items={items} value={items[0]} onChange={() => {}} disabled={true} />);
+    customRender(<Select items={items} value={items[0]} onChange={() => {}} disabled={true} />);
     expect(screen.getByRole('combobox')).toBeDisabled();
   });
 
   test('select support readonly mode', () => {
-    render(<Select items={items} value={items[0]} onChange={() => {}} />, {
+    customRender(<Select items={items} value={items[0]} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getByRole('combobox')).toBeDisabled();

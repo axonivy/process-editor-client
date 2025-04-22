@@ -1,10 +1,10 @@
-import { CollapsableUtil, TableUtil, render, screen } from 'test-utils';
+import { CollapsableUtil, TableUtil, customRender, screen } from 'test-utils';
 import { TableReadFields } from './TableReadFields';
 import { describe, test, expect } from 'vitest';
 
 describe('TableReadFields', () => {
   test('all', async () => {
-    render(<TableReadFields />);
+    customRender(<TableReadFields />);
     await CollapsableUtil.assertClosed('Fields');
     await CollapsableUtil.toggle('Fields');
     expect(screen.getByRole('checkbox')).toBeChecked();
@@ -12,7 +12,7 @@ describe('TableReadFields', () => {
   });
 
   test('data', async () => {
-    render(<TableReadFields />, {
+    customRender(<TableReadFields />, {
       wrapperProps: {
         data: { config: { query: { sql: { select: ['test'] } } } },
         meta: {

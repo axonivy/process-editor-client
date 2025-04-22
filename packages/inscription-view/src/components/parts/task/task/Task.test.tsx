@@ -1,11 +1,11 @@
 import Task from './Task';
 import type { WfTask } from '@axonivy/process-editor-inscription-protocol';
-import { CollapsableUtil, render, screen, SelectUtil, userEvent } from 'test-utils';
+import { CollapsableUtil, customRender, screen, SelectUtil, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Task', () => {
   function renderTask(data?: Partial<WfTask>) {
-    render(<Task />, { wrapperProps: { data: data && { config: { task: data } } } });
+    customRender(<Task />, { wrapperProps: { data: data && { config: { task: data } } } });
   }
 
   async function assertMainPart(name: string, description: string, category: string, responsible: string, priority: string, code?: string) {

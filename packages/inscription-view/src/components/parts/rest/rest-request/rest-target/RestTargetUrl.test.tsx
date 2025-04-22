@@ -1,13 +1,13 @@
 import type { RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import { RestTargetUrl } from './RestTargetUrl';
 import type { DeepPartial } from 'test-utils';
-import { render, screen } from 'test-utils';
+import { customRender, screen } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('RestTargetUrl', () => {
   const REST_CLIENT_URI = 'http://127.0.0.1:8081/designer/{ivy.var.myVar}/v1';
   async function renderTargetUrl(data?: DeepPartial<RestRequestData>, restResources?: DeepPartial<RestResource[]>) {
-    render(<RestTargetUrl />, {
+    customRender(<RestTargetUrl />, {
       wrapperProps: { data: data && { config: data }, meta: { restClientUri: REST_CLIENT_URI, restResources } }
     });
     await screen.findByText(/127.0.0.1:8081/);

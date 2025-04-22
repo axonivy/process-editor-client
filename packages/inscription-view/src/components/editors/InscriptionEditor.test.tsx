@@ -1,11 +1,11 @@
 import type { ValidationResult } from '@axonivy/process-editor-inscription-protocol';
-import { render, screen } from 'test-utils';
+import { customRender, screen } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 import { InscriptionEditor } from './InscriptionEditor';
 
 describe('Editor', () => {
   const renderEditor = (options: { headerState?: ValidationResult[] } = {}) =>
-    render(<InscriptionEditor showOutline={false} setShowOutline={() => {}} />, {
+    customRender(<InscriptionEditor showOutline={false} setShowOutline={() => {}} />, {
       wrapperProps: { validations: options.headerState, editor: { title: 'Test Editor' } }
     });
 

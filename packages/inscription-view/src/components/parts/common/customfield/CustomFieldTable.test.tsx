@@ -1,6 +1,6 @@
 import type { WfCustomField } from '@axonivy/process-editor-inscription-protocol';
 import CustomFieldTable from './CustomFieldTable';
-import { render, screen, userEvent, TableUtil } from 'test-utils';
+import { customRender, screen, userEvent, TableUtil } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('CustomFieldTable', () => {
@@ -13,7 +13,7 @@ describe('CustomFieldTable', () => {
     rerender: () => void;
   } {
     let data: WfCustomField[] = customFields;
-    const view = render(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />);
+    const view = customRender(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />);
     return {
       data: () => data,
       rerender: () => view.rerender(<CustomFieldTable data={data} onChange={change => (data = change)} type='CASE' />)
@@ -73,7 +73,7 @@ describe('CustomFieldTable', () => {
   });
 
   test('table support readonly mode', async () => {
-    render(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, {
+    customRender(<CustomFieldTable data={customFields} onChange={() => {}} type='CASE' />, {
       wrapperProps: { editor: { readonly: true } }
     });
     TableUtil.assertReadonly();

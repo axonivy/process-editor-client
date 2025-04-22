@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, RestRequestData, RestResource } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useRestRequestPart } from './RestRequestPart';
@@ -17,7 +17,7 @@ const Control = () => {
 
 describe('RestRequestPart', () => {
   function renderPart(data?: DeepPartial<RestRequestData>, restResources?: DeepPartial<RestResource[]>) {
-    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { restResources } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data }, meta: { restResources } } });
   }
 
   test('empty', async () => {
@@ -41,7 +41,7 @@ describe('RestRequestPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<RestRequestData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useRestRequestPart(), {
+    const { result } = customRenderHook(() => useRestRequestPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -64,7 +64,7 @@ describe('RestRequestPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { code: 'code', method: 'DELETE', target: { clientId: '123', headers: { myHeader: 'a' } }, body: { mediaType: 'type' } }
     };
-    const view = renderHook(() => useRestRequestPart(), {
+    const view = customRenderHook(() => useRestRequestPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { method: 'PUT' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);
@@ -78,7 +78,7 @@ describe('RestRequestPart', () => {
   });
 
   async function renderControl() {
-    render(<Control />, { wrapperProps: { data: { config: { target: { clientId: 'client' } } }, meta: { restResources: [{}] } } });
+    customRender(<Control />, { wrapperProps: { data: { config: { target: { clientId: 'client' } } }, meta: { restResources: [{}] } } });
     await screen.findByText('OpenAPI');
   }
 

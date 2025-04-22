@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, render, renderHook } from 'test-utils';
+import { CollapsableUtil, customRender, customRenderHook } from 'test-utils';
 import type { DbErrorData, ValidationResult } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../../editors/part/usePart';
 import { describe, test, expect } from 'vitest';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('DbErrorPart', () => {
   function renderPart(data?: DeepPartial<DbErrorData>) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -23,7 +23,7 @@ describe('DbErrorPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<DbErrorData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useDbErrorPart(), {
+    const { result } = customRenderHook(() => useDbErrorPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -39,7 +39,7 @@ describe('DbErrorPart', () => {
 
   test('reset', () => {
     let data = { config: { exceptionHandler: 'bla' } };
-    const view = renderHook(() => useDbErrorPart(), {
+    const view = customRenderHook(() => useDbErrorPart(), {
       wrapperProps: {
         data,
         setData: newData => (data = newData),
