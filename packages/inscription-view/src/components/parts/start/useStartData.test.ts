@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { renderHook } from 'test-utils';
+import { customRenderHook } from 'test-utils';
 import type { ElementData, StartData } from '@axonivy/process-editor-inscription-protocol';
 import { useStartData } from './useStartData';
 import { describe, test, expect } from 'vitest';
@@ -7,7 +7,9 @@ import { describe, test, expect } from 'vitest';
 describe('useStartData', () => {
   function renderDataHook(startData: StartData, options?: { name?: string; synchParams?: boolean }) {
     let data: DeepPartial<ElementData> = { name: options?.name ?? 'test()', config: startData };
-    const view = renderHook(() => useStartData(options?.synchParams), { wrapperProps: { data, setData: newData => (data = newData) } });
+    const view = customRenderHook(() => useStartData(options?.synchParams), {
+      wrapperProps: { data, setData: newData => (data = newData) }
+    });
     return { view, data: () => data };
   }
 

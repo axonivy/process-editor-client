@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import type { RadioItemProps } from './Radio';
 import Radio from './Radio';
 import { describe, test, expect } from 'vitest';
@@ -15,7 +15,7 @@ describe('Radio', () => {
   } {
     let value = items[0].value;
     userEvent.setup();
-    const view = render(<Radio items={items} value={items[0].value} onChange={change => (value = change)} />);
+    const view = customRender(<Radio items={items} value={items[0].value} onChange={change => (value = change)} />);
     return {
       data: () => value,
       rerender: () => view.rerender(<Radio items={items} value={value} onChange={change => (value = change)} />)
@@ -41,7 +41,7 @@ describe('Radio', () => {
   });
 
   test('readonly mode', () => {
-    render(<Radio items={items} value={items[0].value} onChange={() => {}} />, {
+    customRender(<Radio items={items} value={items[0].value} onChange={() => {}} />, {
       wrapperProps: { editor: { readonly: true } }
     });
     expect(screen.getByRole('radiogroup')).toHaveAttribute('data-disabled');

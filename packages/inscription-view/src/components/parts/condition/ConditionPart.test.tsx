@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, TableUtil, renderHook, screen, CollapsableUtil } from 'test-utils';
+import { customRender, TableUtil, customRenderHook, screen, CollapsableUtil } from 'test-utils';
 import type { ConditionData, ConnectorRef, ElementData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../editors/part/usePart';
 import { useConditionPart } from './ConditionPart';
@@ -15,7 +15,7 @@ describe('ConditionPart', () => {
     const connectors: DeepPartial<ConnectorRef[]> = [];
     connectors.push({ pid: 'something-f1', target: { name: 'db', type: { id: 'Database' } }, source: { pid: '' } });
     connectors.push({ pid: 'something-f8', target: { name: 'end', type: { id: 'TaskEnd' } }, source: { pid: '' } });
-    render(<Part />, { wrapperProps: { data: data && { config: data }, meta: { connectors } } });
+    customRender(<Part />, { wrapperProps: { data: data && { config: data }, meta: { connectors } } });
   }
 
   async function assertMainPart(map: RegExp[]) {
@@ -42,7 +42,7 @@ describe('ConditionPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<ConditionData>) {
-    const { result } = renderHook(() => useConditionPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useConditionPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -53,7 +53,7 @@ describe('ConditionPart', () => {
 
   test('reset', () => {
     let data: DeepPartial<ElementData> = { config: { conditions: { f1: 'test' } } };
-    const view = renderHook(() => useConditionPart(), {
+    const view = customRenderHook(() => useConditionPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { conditions: { f1: 'init' } } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

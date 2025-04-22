@@ -1,7 +1,7 @@
 import type { RestRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { RestClientSelect } from './RestClientSelect';
 import type { DeepPartial } from 'test-utils';
-import { render, SelectUtil } from 'test-utils';
+import { customRender, SelectUtil } from 'test-utils';
 import { describe, test } from 'vitest';
 
 describe('RestClientSelect', () => {
@@ -10,7 +10,7 @@ describe('RestClientSelect', () => {
       { clientId: '0', name: 'fake' },
       { clientId: '1234', name: 'personService' }
     ];
-    render(<RestClientSelect />, { wrapperProps: { data: data && { config: data }, meta: { restClients } } });
+    customRender(<RestClientSelect />, { wrapperProps: { data: data && { config: data }, meta: { restClients } } });
   }
 
   test('render', async () => {

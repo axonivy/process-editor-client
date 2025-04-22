@@ -1,10 +1,12 @@
-import { CollapsableUtil, render, screen } from 'test-utils';
+import { CollapsableUtil, customRender, screen } from 'test-utils';
 import { Exception } from './Exception';
 import { describe, test, expect } from 'vitest';
 
 describe('Exception', () => {
   test('data', async () => {
-    render(<Exception />, { wrapperProps: { data: { config: { exception: { enabled: false, condition: '0===0', message: 'hallo' } } } } });
+    customRender(<Exception />, {
+      wrapperProps: { data: { config: { exception: { enabled: false, condition: '0===0', message: 'hallo' } } } }
+    });
     await CollapsableUtil.assertOpen('Exception');
     expect(screen.getByLabelText('Use exception handling')).not.toBeChecked();
     expect(screen.getByLabelText('Condition')).toHaveValue('0===0');
@@ -12,7 +14,7 @@ describe('Exception', () => {
   });
 
   test('closed if empty', async () => {
-    render(<Exception />);
+    customRender(<Exception />);
     await CollapsableUtil.assertClosed('Exception');
   });
 });

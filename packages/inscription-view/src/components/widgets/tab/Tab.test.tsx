@@ -1,6 +1,6 @@
 import type { Tab } from './Tab';
 import { Tabs } from './Tab';
-import { render, screen, userEvent } from 'test-utils';
+import { customRender, screen, userEvent } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Tabs', () => {
@@ -19,7 +19,7 @@ describe('Tabs', () => {
   ];
 
   function renderTabs() {
-    render(<Tabs tabs={tabs} />);
+    customRender(<Tabs tabs={tabs} />);
   }
 
   test('render', () => {

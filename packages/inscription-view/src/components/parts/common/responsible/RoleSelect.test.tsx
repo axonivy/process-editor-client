@@ -1,4 +1,4 @@
-import { render, SelectUtil } from 'test-utils';
+import { customRender, SelectUtil } from 'test-utils';
 import RoleSelect from './RoleSelect';
 import type { RoleMeta } from '@axonivy/process-editor-inscription-protocol';
 import { describe, test } from 'vitest';
@@ -13,7 +13,7 @@ describe('RoleSelect', () => {
         { id: 'Teamleader', label: '', children: [] }
       ]
     };
-    render(<RoleSelect value={activator} onChange={() => {}} />, {
+    customRender(<RoleSelect value={activator} onChange={() => {}} />, {
       wrapperProps: { meta: { roleTree } }
     });
   }

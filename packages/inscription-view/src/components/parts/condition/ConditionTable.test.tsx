@@ -1,4 +1,4 @@
-import { cloneObject, render, screen, userEvent } from 'test-utils';
+import { cloneObject, customRender, screen, userEvent } from 'test-utils';
 import type { Condition } from './condition';
 import ConditionTable from './ConditionTable';
 import type { InscriptionType } from '@axonivy/process-editor-inscription-protocol';
@@ -15,7 +15,7 @@ describe('ConditionTable', () => {
     data: () => Condition[];
   } {
     let data: Condition[] = cloneObject(conditions);
-    render(<ConditionTable data={data} onChange={change => (data = change)} />);
+    customRender(<ConditionTable data={data} onChange={change => (data = change)} />);
     return {
       data: () => data
     };

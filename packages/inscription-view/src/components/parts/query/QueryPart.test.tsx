@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, SelectUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ValidationResult, QueryData } from '@axonivy/process-editor-inscription-protocol';
 import { useQueryPart } from './QueryPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('QueryPart', () => {
   function renderPart(data?: DeepPartial<QueryData>) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: {
         data: data && { config: data },
         meta: {
@@ -121,7 +121,7 @@ describe('QueryPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<QueryData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useQueryPart(), {
+    const { result } = customRenderHook(() => useQueryPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -137,7 +137,7 @@ describe('QueryPart', () => {
 
   test('reset', () => {
     let data = { config: { exceptionHandler: 'bla', query: { dbName: 'init', sql: { stmt: 'update' } } } };
-    const view = renderHook(() => useQueryPart(), {
+    const view = customRenderHook(() => useQueryPart(), {
       wrapperProps: {
         data,
         setData: newData => (data = newData),

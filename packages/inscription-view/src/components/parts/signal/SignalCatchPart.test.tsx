@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ElementData, SignalCatchData } from '@axonivy/process-editor-inscription-protocol';
 import { useSignalCatchPart } from './SignalCatchPart';
 import type { PartStateFlag } from '../../editors/part/usePart';
@@ -12,7 +12,7 @@ const Part = (props: { makroSupport?: boolean }) => {
 
 describe('SignalCatchPart', () => {
   function renderPart(data?: Partial<SignalCatchData>, makroSupport?: boolean) {
-    render(<Part makroSupport={makroSupport} />, { wrapperProps: { data: data && { config: data } } });
+    customRender(<Part makroSupport={makroSupport} />, { wrapperProps: { data: data && { config: data } } });
   }
 
   test('empty data', async () => {
@@ -33,7 +33,7 @@ describe('SignalCatchPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: Partial<SignalCatchData>) {
-    const { result } = renderHook(() => useSignalCatchPart(), { wrapperProps: { data: data && { config: data } } });
+    const { result } = customRenderHook(() => useSignalCatchPart(), { wrapperProps: { data: data && { config: data } } });
     expect(result.current.state.state).toEqual(expectedState);
   }
 
@@ -47,7 +47,7 @@ describe('SignalCatchPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { signalCode: 'error', attachToBusinessCase: false }
     };
-    const view = renderHook(() => useSignalCatchPart(), {
+    const view = customRenderHook(() => useSignalCatchPart(), {
       wrapperProps: { data, setData: newData => (data = newData), initData: { config: { signalCode: 'init' } } }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

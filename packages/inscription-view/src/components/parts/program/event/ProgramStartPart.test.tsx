@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { CollapsableUtil, ComboboxUtil, SelectUtil, render, renderHook, screen } from 'test-utils';
+import { CollapsableUtil, ComboboxUtil, SelectUtil, customRender, customRenderHook, screen } from 'test-utils';
 import type { ElementData, ValidationResult, ProgramStartData } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../../editors/part/usePart';
 import { useProgramStartPart } from './ProgramStartPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('StartPart', () => {
   function renderPart(data?: ProgramStartData) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: { data: data && { config: data } }
     });
   }
@@ -40,7 +40,7 @@ describe('StartPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ProgramStartData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useProgramStartPart(), {
+    const { result } = customRenderHook(() => useProgramStartPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -58,7 +58,7 @@ describe('StartPart', () => {
     let data: DeepPartial<ElementData> = {
       config: { javaClass: 'Test', permission: { error: 'bla', role: 'Tester' } }
     };
-    const view = renderHook(() => useProgramStartPart(), {
+    const view = customRenderHook(() => useProgramStartPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

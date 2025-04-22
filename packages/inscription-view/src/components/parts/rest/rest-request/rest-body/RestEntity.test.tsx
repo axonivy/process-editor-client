@@ -1,6 +1,6 @@
 import type { RestRequestData, VariableInfo } from '@axonivy/process-editor-inscription-protocol';
 import type { DeepPartial } from 'test-utils';
-import { ComboboxUtil, TableUtil, render, screen } from 'test-utils';
+import { ComboboxUtil, TableUtil, customRender, screen } from 'test-utils';
 import { RestEntity } from './RestEntity';
 import { describe, test, expect } from 'vitest';
 
@@ -17,7 +17,7 @@ describe('RestEntity', () => {
       ],
       types: {}
     };
-    render(<RestEntity />, { wrapperProps: { data: data && { config: data }, meta: { restEntityInfo } } });
+    customRender(<RestEntity />, { wrapperProps: { data: data && { config: data }, meta: { restEntityInfo } } });
   }
 
   test('empty', async () => {

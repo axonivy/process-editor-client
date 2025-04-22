@@ -1,12 +1,12 @@
 import type { DeepPartial } from 'test-utils';
-import { render, SelectUtil } from 'test-utils';
+import { customRender, SelectUtil } from 'test-utils';
 import type { WsRequestData } from '@axonivy/process-editor-inscription-protocol';
 import { WsPortSelect } from './WsPortSelect';
 import { describe, test } from 'vitest';
 
 describe('WsPortSelect', () => {
   function renderPart(data?: DeepPartial<WsRequestData>) {
-    render(<WsPortSelect />, { wrapperProps: { data: data && { config: data }, meta: { wsPorts: ['Super', 'soaper', '132'] } } });
+    customRender(<WsPortSelect />, { wrapperProps: { data: data && { config: data }, meta: { wsPorts: ['Super', 'soaper', '132'] } } });
   }
 
   test('empty', async () => {

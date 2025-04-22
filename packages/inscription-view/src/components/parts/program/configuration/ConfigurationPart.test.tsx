@@ -1,5 +1,5 @@
 import type { DeepPartial } from 'test-utils';
-import { render, renderHook, screen } from 'test-utils';
+import { customRender, customRenderHook, screen } from 'test-utils';
 import type { ConfigurationData, ElementData, ValidationResult } from '@axonivy/process-editor-inscription-protocol';
 import type { PartStateFlag } from '../../../editors/part/usePart';
 import { useConfigurationPart } from './ConfigurationPart';
@@ -12,7 +12,7 @@ const Part = () => {
 
 describe('ConfigurationPart', () => {
   function renderPart(data?: DeepPartial<ConfigurationData>) {
-    render(<Part />, {
+    customRender(<Part />, {
       wrapperProps: {
         data: data && { config: data },
         meta: {
@@ -27,7 +27,7 @@ describe('ConfigurationPart', () => {
   }
 
   test('empty data', async () => {
-    render(<Part />);
+    customRender(<Part />);
     expect(screen.getByTitle('No configuration needed')).toBeInTheDocument();
   });
 
@@ -40,7 +40,7 @@ describe('ConfigurationPart', () => {
   });
 
   function assertState(expectedState: PartStateFlag, data?: DeepPartial<ConfigurationData>, validation?: ValidationResult) {
-    const { result } = renderHook(() => useConfigurationPart(), {
+    const { result } = customRenderHook(() => useConfigurationPart(), {
       wrapperProps: { data: data && { config: data }, validations: validation && [validation] }
     });
     expect(result.current.state.state).toEqual(expectedState);
@@ -59,7 +59,7 @@ describe('ConfigurationPart', () => {
         userConfig: { directory: '/tmp/myDir' }
       }
     };
-    const view = renderHook(() => useConfigurationPart(), {
+    const view = customRenderHook(() => useConfigurationPart(), {
       wrapperProps: { data, setData: newData => (data = newData) }
     });
     expect(view.result.current.reset.dirty).toEqual(true);

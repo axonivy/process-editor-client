@@ -1,5 +1,5 @@
 import Tags from './Tags';
-import { render, screen, userEvent, waitFor } from 'test-utils';
+import { customRender, screen, userEvent, waitFor } from 'test-utils';
 import { describe, test, expect } from 'vitest';
 
 describe('Tags', () => {
@@ -9,7 +9,7 @@ describe('Tags', () => {
   } {
     let tags: string[] = [];
     userEvent.setup();
-    const view = render(<Tags tags={['test', 'bla']} onChange={newTags => (tags = newTags)} />, {
+    const view = customRender(<Tags tags={['test', 'bla']} onChange={newTags => (tags = newTags)} />, {
       wrapperProps: {
         meta: {
           tags: ['demo', 'deprecated']
@@ -117,7 +117,7 @@ describe('Tags', () => {
   });
 
   test('tags support readonly mode', async () => {
-    render(<Tags tags={['test']} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
+    customRender(<Tags tags={['test']} onChange={() => {}} />, { wrapperProps: { editor: { readonly: true } } });
 
     expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();
     expect(screen.getByRole('button', { name: /Add new tag/i })).toBeDisabled();

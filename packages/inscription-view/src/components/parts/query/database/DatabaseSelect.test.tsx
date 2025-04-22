@@ -1,10 +1,10 @@
-import { SelectUtil, render } from 'test-utils';
+import { SelectUtil, customRender } from 'test-utils';
 import { DatabaseSelect } from './DatabaseSelect';
 import { describe, test } from 'vitest';
 
 describe('DatabaseSelect', () => {
   test('data', async () => {
-    render(<DatabaseSelect />, {
+    customRender(<DatabaseSelect />, {
       wrapperProps: { data: { config: { query: { dbName: 'test' } } }, meta: { databases: ['ivy', 'test', 'db'] } }
     });
     await SelectUtil.assertValue('test');

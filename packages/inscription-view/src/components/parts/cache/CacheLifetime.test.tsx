@@ -1,10 +1,10 @@
-import { render, screen } from 'test-utils';
+import { customRender, screen } from 'test-utils';
 import { CacheLifetime } from './CacheLifetime';
 import { describe, test, expect } from 'vitest';
 
 describe('CacheLifetime', () => {
   test('data', async () => {
-    render(
+    customRender(
       <CacheLifetime
         path='group'
         label='Group'
@@ -21,7 +21,7 @@ describe('CacheLifetime', () => {
   });
 
   test('input does not exist', async () => {
-    render(
+    customRender(
       <CacheLifetime
         path='group'
         label='Group'
