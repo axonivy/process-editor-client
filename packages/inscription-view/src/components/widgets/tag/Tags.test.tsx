@@ -10,13 +10,25 @@ describe('Tags', () => {
     let tags: string[] = [];
     userEvent.setup();
     const view = customRender(
-      <Tags tags={['test', 'bla']} availableTags={['demo', 'deprecated']} onChange={newTags => (tags = newTags)} customValues={true} />
+      <Tags
+        tags={['test', 'bla']}
+        availableTags={['demo', 'deprecated']}
+        onChange={newTags => (tags = newTags)}
+        customValues={true}
+        allowSpaces={false}
+      />
     );
     return {
       data: () => tags,
       rerender: () =>
         view.rerender(
-          <Tags tags={tags} availableTags={['demo', 'deprecated']} onChange={newTags => (tags = newTags)} customValues={true} />
+          <Tags
+            tags={tags}
+            availableTags={['demo', 'deprecated']}
+            onChange={newTags => (tags = newTags)}
+            customValues={true}
+            allowSpaces={false}
+          />
         )
     };
   }
@@ -123,9 +135,12 @@ describe('Tags', () => {
   });
 
   test('tags support readonly mode', async () => {
-    customRender(<Tags tags={['test']} availableTags={['demo', 'deprecated']} customValues={true} onChange={() => {}} />, {
-      wrapperProps: { editor: { readonly: true } }
-    });
+    customRender(
+      <Tags tags={['test']} availableTags={['demo', 'deprecated']} customValues={true} onChange={() => {}} allowSpaces={false} />,
+      {
+        wrapperProps: { editor: { readonly: true } }
+      }
+    );
 
     expect(screen.getByRole('button', { name: /test/i })).toBeDisabled();
     expect(screen.getByRole('button', { name: /Add new tag/i })).toBeDisabled();
