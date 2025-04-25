@@ -17,7 +17,6 @@ import ch.ivyteam.ivy.process.extension.ui.ExtensionUiBuilder;
 import ch.ivyteam.ivy.process.extension.ui.IUiFieldEditor;
 import ch.ivyteam.ivy.process.extension.ui.UiEditorExtension;
 import ch.ivyteam.ivy.process.intermediateevent.AbstractProcessIntermediateEventBean;
-import ch.ivyteam.util.PropertiesUtil;
 
 public class ErpPrintJob extends AbstractProcessIntermediateEventBean {
 
@@ -27,14 +26,14 @@ public class ErpPrintJob extends AbstractProcessIntermediateEventBean {
 
   @Override
   public void poll() {
-    Properties configs = PropertiesUtil.createProperties(getConfiguration());
+    Properties configs = ErpInvoice.createProperties(getConfiguration());
     int seconds = Integer.parseInt(configs.getProperty(Config.INTERVAL, "60"));
     getEventBeanRuntime().setPollTimeInterval(TimeUnit.SECONDS.toMillis(seconds));
 
     String path = configs.getProperty(Config.PATH, "");
     try (Stream<Path> csv = Files.list(Path.of(path)).filter(f -> f.startsWith("erp-print"))) {
       List<Path> reports = csv.collect(Collectors.toList());
-      for(Path report : reports) {
+      for (Path report : reports) {
         String fileName = report.getFileName().toString();
         String eventId = StringUtils.substringBefore(fileName, ".pdf");
         continueProcess(report.toFile(), eventId);
@@ -48,7 +47,7 @@ public class ErpPrintJob extends AbstractProcessIntermediateEventBean {
     try {
       getEventBeanRuntime().fireProcessIntermediateEventEx(eventId, report, "");
     } catch (PersistencyException ex) {
-      getEventBeanRuntime().getRuntimeLogLogger().error("Failed to resume process with event"+ eventId, ex);
+      getEventBeanRuntime().getRuntimeLogLogger().error("Failed to resume process with event" + eventId, ex);
     }
   }
 

@@ -1,6 +1,7 @@
 package com.axonivy.wf.custom;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -10,12 +11,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import ch.ivyteam.ivy.environment.Ivy;
 import ch.ivyteam.ivy.process.eventstart.AbstractProcessStartEventBean;
 import ch.ivyteam.ivy.process.extension.ui.ExtensionUiBuilder;
 import ch.ivyteam.ivy.process.extension.ui.IUiFieldEditor;
 import ch.ivyteam.ivy.process.extension.ui.UiEditorExtension;
 import ch.ivyteam.ivy.request.RequestException;
-import ch.ivyteam.util.PropertiesUtil;
 
 public class ErpInvoice extends AbstractProcessStartEventBean {
 
@@ -25,7 +26,7 @@ public class ErpInvoice extends AbstractProcessStartEventBean {
 
   @Override
   public void poll() {
-    Properties configs = PropertiesUtil.createProperties(getConfiguration());
+    Properties configs = createProperties(getConfiguration());
     int seconds = Integer.parseInt(configs.getProperty(Config.INTERVAL, "60"));
     getEventBeanRuntime().setPollTimeInterval(TimeUnit.SECONDS.toMillis(seconds));
 
@@ -36,6 +37,21 @@ public class ErpInvoice extends AbstractProcessStartEventBean {
     } catch (IOException ex) {
       getEventBeanRuntime().getRuntimeLogLogger().error("Failed to check ERP for updates", ex);
     }
+  }
+
+  static Properties createProperties(String propertyString) {
+    if (propertyString == null || propertyString.length() == 0) {
+      return new Properties();
+    }
+
+    try (var reader = new StringReader(propertyString)) {
+      var properties = new Properties();
+      properties.load(reader);
+      return properties;
+    } catch (Exception ex) {
+      Ivy.log().warn("Could create a Properties object from the string: " + propertyString, ex);
+    }
+    return new Properties();
   }
 
   private void startProcess(String firingReason, Map<String, Object> parameters) {
