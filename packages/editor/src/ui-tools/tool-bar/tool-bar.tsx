@@ -35,7 +35,8 @@ import { UpdatePaletteItems } from '@axonivy/process-editor-protocol';
 import { ReactUIExtension } from '../../utils/react-ui-extension';
 import { SModelRootImpl } from 'sprotty';
 import React from 'react';
-import { Toolbar, Flex, ToolbarContainer, Separator, Button, cn } from '@axonivy/ui-components';
+import { Toolbar, Flex, ToolbarContainer, Separator, Button, cn, IvyIcon } from '@axonivy/ui-components';
+import { IvyIcons } from '@axonivy/ui-icons';
 
 export type ToolBarButtonClickEvent = {
   source: ToolBarButton;
@@ -106,11 +107,11 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
             </ToolbarContainer>
           )}
         </Flex>
-        <Flex className='middle-buttons'>
-          <Flex gap={1}>{middle.map(btn => this.renderToolbarButton(btn, activeButtonId))}</Flex>
+        <Flex className='middle-buttons' gap={1}>
+          {middle.map(btn => this.renderToolbarButton(btn, activeButtonId))}
         </Flex>
-        <Flex className='right-buttons'>
-          <Flex gap={1}>{right.map(btn => this.renderToolbarButton(btn, activeButtonId))}</Flex>
+        <Flex className='right-buttons' gap={1}>
+          {right.map(btn => this.renderToolbarButton(btn, activeButtonId))}
         </Flex>
       </Toolbar>
     );
@@ -126,15 +127,32 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
   }
 
   protected renderToolbarButton(button: ToolBarButton, activeButtonId: string): React.ReactNode {
+    if (!button.showTitle) {
+      return (
+        <Button
+          key={button.id}
+          id={button.id}
+          className={cn('tool-bar-button', activeButtonId === button.id ? 'clicked' : '')}
+          title={button.title}
+          icon={button.icon}
+          onClick={evt => this.handleToolbarButtonClicked({ source: button, reference: evt.currentTarget })}
+        />
+      );
+    }
     return (
-      <Button
-        key={button.id}
-        id={button.id}
-        className={cn('tool-bar-button', activeButtonId === button.id ? 'clicked' : '')}
-        title={button.title}
-        icon={button.icon}
-        onClick={evt => this.handleToolbarButtonClicked({ source: button, reference: evt.currentTarget })}
-      />
+      <span className='tool-bar-title-button'>
+        <label>{button.title}</label>
+        <Button
+          key={button.id}
+          id={button.id}
+          className={cn('tool-bar-button', activeButtonId === button.id ? 'clicked' : '')}
+          title={button.title}
+          icon={button.icon}
+          onClick={evt => this.handleToolbarButtonClicked({ source: button, reference: evt.currentTarget })}
+        >
+          {!button.isNotMenu && <IvyIcon icon={IvyIcons.Chevron} />}
+        </Button>
+      </span>
     );
   }
 
