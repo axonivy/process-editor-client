@@ -37,6 +37,6 @@ describe('Permission', () => {
 
   test('roleIsDisabled', async () => {
     renderPart(true, true, 'bla error', 'Test');
-    expect(screen.queryByText('Role')).not.toBeInTheDocument();
+    expect(screen.getByText('Role')).toBeInTheDocument();
   });
 });

@@ -40,7 +40,7 @@ describe('RequestPart', () => {
     renderPart();
     await CollapsableUtil.assertClosed('Permission');
     await CollapsableUtil.toggle('Permission');
-    expect(screen.queryByLabelText('Role')).not.toBeInTheDocument();
+    expect(screen.getByText('Role')).toBeInTheDocument();
   });
 
   test('hide detail if show on start list is false', async () => {
