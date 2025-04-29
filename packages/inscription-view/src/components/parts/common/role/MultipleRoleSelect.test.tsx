@@ -13,7 +13,7 @@ describe('MultipleRoleSelect', () => {
         { id: 'Teamleader', label: '', children: [] }
       ]
     };
-    customRender(<MultipleRoleSelect value={roles} onChange={() => {}} />, {
+    customRender(<MultipleRoleSelect value={roles} onChange={() => {}} defaultRoles={['Everybody']} />, {
       wrapperProps: { meta: { roleTree } }
     });
   }

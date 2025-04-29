@@ -9,15 +9,16 @@ import Tags from '../../../widgets/tag/Tags';
 
 type MultipleRoleSelectProps = {
   value: string[];
+  defaultRoles: string[];
   onChange: (change: string[]) => void;
   showTaskRoles?: boolean;
 };
 
-const MultipleRoleSelect = ({ value, onChange, showTaskRoles }: MultipleRoleSelectProps) => {
+const MultipleRoleSelect = ({ value, defaultRoles, onChange, showTaskRoles }: MultipleRoleSelectProps) => {
   const { roles: roleItems } = useRoles(showTaskRoles);
   const browser = useBrowser();
   const path = usePath();
-  const selectedRoles = value.length > 0 ? value : ['Everybody'];
+  const selectedRoles = value.length > 0 ? value : defaultRoles;
 
   return (
     <Flex direction='row' alignItems='center' gap={1} className='role-select'>
