@@ -21,6 +21,7 @@ const Responsible = ({ selectedType, ...props }: ResponsibleMemberProps) => {
         <MultipleRoleSelect
           value={props.responsible?.roles ?? []}
           onChange={change => props.updateResponsible('roles', change)}
+          defaultRoles={['Everybody']}
           showTaskRoles={true}
         />
       );

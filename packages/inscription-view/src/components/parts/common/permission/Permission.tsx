@@ -25,7 +25,7 @@ export const Permission = ({ anonymousFieldActive, config, defaultConfig, update
       )}
       {(!anonymousFieldActive || (anonymousFieldActive && !config.anonymous)) && (
         <PathFieldset label={t('common.label.roles')} path='roles'>
-          <MultipleRoleSelect value={config.roles} onChange={change => updatePermission('roles', change)} />
+          <MultipleRoleSelect value={config.roles} onChange={change => updatePermission('roles', change)} defaultRoles={[]} />
         </PathFieldset>
       )}
       <PathFieldset label={t('label.validationError')} path='error'>
