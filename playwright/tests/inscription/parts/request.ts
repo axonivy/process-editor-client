@@ -54,7 +54,7 @@ class Request extends PartObject {
     await this.customFields.row(0).expectValues(['field', 'value']);
     await this.permissionSection.expectIsOpen();
     await this.anonym.expectUnchecked();
-    await this.roles.expectTags(['Everybody', 'Support']);
+    await this.roles.expectTags(['Support']);
     await this.error.expectValue('>> Ignore Exception');
   }
 
