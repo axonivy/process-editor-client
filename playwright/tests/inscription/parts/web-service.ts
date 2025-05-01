@@ -39,7 +39,7 @@ class WebService extends PartObject {
 
   async assertFill() {
     await this.permissionSection.expectIsOpen();
-    await this.roles.expectTags(['Everybody', 'Support']);
+    await this.roles.expectTags(['Support']);
     await this.error.expectValue('>> Ignore Exception');
 
     await this.exceptionSection.expectIsOpen();

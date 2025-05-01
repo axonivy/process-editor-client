@@ -41,7 +41,7 @@ class ProgramStart extends PartObject {
 
     await this.permissionSection.expectIsOpen();
     await this.anonymousAllow.expectUnchecked();
-    await this.roles.expectTags(['Everybody', 'Support']);
+    await this.roles.expectTags(['Support']);
     await this.error.expectValue('>> Ignore Exception');
   }
 
