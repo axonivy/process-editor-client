@@ -19,8 +19,8 @@ describe('Permission', () => {
   test('data', async () => {
     renderPart(false, true, 'bla error', 'Test');
     await CollapsableUtil.assertOpen('Permission');
-    SelectUtil.assertValue('Test', { label: 'Role' });
-    SelectUtil.assertValue('>> Ignore Exception', { label: 'Violation error' });
+    await SelectUtil.assertValue('Test', { label: 'Role' });
+    await SelectUtil.assertValue('bla error', { label: 'Violation error' });
     expect(screen.queryByText('Anonymous')).not.toBeInTheDocument();
   });
 

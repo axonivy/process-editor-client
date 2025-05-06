@@ -12,12 +12,12 @@ describe('NotificationPart', () => {
     renderTaskPart();
     await userEvent.click(screen.getByRole('button', { name: /Notification/ }));
     expect(screen.getByLabelText('Suppress')).not.toBeChecked();
-    SelectUtil.assertValue('Default', { label: 'Template' });
+    await SelectUtil.assertValue('Default', { label: 'Template' });
   });
 
   test('configured', async () => {
     renderTaskPart({ notification: { suppress: true, template: 'Customer' } });
     expect(screen.getByLabelText('Suppress')).toBeChecked();
-    SelectUtil.assertValue('Customer', { label: 'Template' });
+    await SelectUtil.assertValue('Customer', { label: 'Template' });
   });
 });
