@@ -6,6 +6,7 @@
   border-bottom: var(--basic-border, 1px solid var(--glsp-border));
   z-index: 10;
   container: toolbar / inline-size;
+  position: relative;
 }
 .tool-bar-header .middle-buttons {
   z-index: 10;
