@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import { resolve } from 'path';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -34,5 +34,11 @@ export default defineConfig(() => ({
       '@axonivy/process-editor-protocol': resolve(__dirname, '../../packages/protocol/src')
     }
   },
-  base: './'
+  base: './',
+  test: {
+    name: 'viewer',
+    include: ['src/**/*.test.ts?(x)'],
+    globals: true,
+    css: false
+  }
 }));
