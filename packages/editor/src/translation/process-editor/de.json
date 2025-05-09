@@ -18,7 +18,7 @@
     },
     "hotkeyGroup": {
       "graph": "Graph",
-      "inscription": "Inscription",
+      "inscription": "Inskription",
       "move": "Bewegen",
       "navigation": "Navigation",
       "resize": "Grössenänderung",
@@ -87,7 +87,7 @@
     "type": {
       "asList": "Typ als Liste verwenden",
       "empty": "Kein Typ gefunden, geben Sie einen passenden Suchbegriff ein",
-      "loadingTypes": "Lade mehr Typen...",
+      "loadingTypes": "Lade weitere Typen...",
       "searchAllTypes": "Über alle Typen suchen",
       "title": "Typ"
     }
@@ -184,9 +184,9 @@
         "invalidate": "Cache ungültig machen",
         "invalidateMode": "Verwenden Sie dies, wenn Sie eine Operation aufrufen, die Daten ändert",
         "noCache": "Nicht zwischenspeichern",
-        "noCacheMode": "Verwendet überhaupt kein Caching."
+        "noCacheMode": "Verwendet kein Caching."
       },
-      "scope": "Geltungsbereich",
+      "scope": "Scope",
       "scopeMode": {
         "application": "Applikation",
         "applicationDesc": "Verwenden Sie diese Option, um globale Daten zu cachen.",
@@ -274,7 +274,7 @@
       }
     },
     "output": {
-      "disablePermission": "Berechtigungsprüfungen deaktivieren (Dieses Skript als SYSTEM ausführen)",
+      "disablePermission": "Berechtigungsprüfungen deaktivieren (Dieses Skriptschritt als SYSTEM ausführen)",
       "title": "Ausgabe"
     },
     "permission": {
@@ -300,7 +300,7 @@
         "title": "Ereignis",
         "type": {
           "continueWithoutEvent": "Ohne Warten fortfahren",
-          "destroyTask": "Aufgabe löschen",
+          "destroyTask": "Task löschen",
           "nothing": "Nichts tun"
         }
       },
@@ -319,7 +319,7 @@
     "rest": {
       "accept": "Akzeptieren",
       "acceptProperties": "Akzeptiere-Eigenschaften",
-      "body": "Körper",
+      "body": "Body",
       "client": "Client",
       "contentType": "Inhaltstyp",
       "entityType": "Entitätstyp",
@@ -331,7 +331,7 @@
       "openApi": "OpenAPI",
       "parameters": "Parameter",
       "properties": "Eigenschaften",
-      "readBodyType": "Körper als Typ lesen (Ergebnisvariable)",
+      "readBodyType": "Body als Typ lesen (Ergebnisvariable)",
       "resource": "Ressource",
       "restConfigCreate": "Neuen Rest-Client erstellen",
       "restConfigOpen": "Rest-Konfiguration öffnen",
@@ -343,7 +343,7 @@
       "title": "Ergebnis"
     },
     "signal": {
-      "attachBusinessCase": "An den Geschäftsvorfall anhängen, der diesen Prozess signalisiert hat",
+      "attachBusinessCase": "An den Business Case anhängen, der diesen Prozess signalisiert hat",
       "code": "Signalcode",
       "empty": "<< Leer >>",
       "emptyDesc": "Empfängt jedes Signal",
@@ -356,25 +356,25 @@
     },
     "task": {
       "delay": "Verzögerung",
-      "noTaskMessage": "Es ist kein (Aufgaben-)Ausgabefluss verbunden.",
+      "noTaskMessage": "Es ist kein (Task) Ausgabefluss verbunden.",
       "notification": "Benachrichtigung",
       "options": "Optionen",
-      "persist": "Aufgabe bei Erstellung speichern",
-      "persistDisabled": "Aufgabe bei Erstellung speichern (Funktioniert nur, wenn anonyme Benutzer nicht erlaubt sind)",
+      "persist": "Task bei Erstellung speichern",
+      "persistDisabled": "Task bei Erstellung speichern (Funktioniert nur, wenn anonyme Benutzer nicht erlaubt sind)",
       "priority": "Priorität",
-      "skipTasklist": "Aufgabenliste überspringen",
+      "skipTasklist": "Taskliste überspringen",
       "suppress": "Unterdrücken",
-      "task": "Aufgabe",
-      "tasks": "Aufgaben",
+      "task": "Task",
+      "tasks": "Tasks",
       "template": "Vorlage"
     },
     "trigger": {
-      "attachBusinessCase": "An den Geschäftsvorfall anhängen, der diesen Prozess ausgelöst hat",
+      "attachBusinessCase": "An den Business Case anhängen, der diesen Prozess ausgelöst hat",
       "startTriggerable": "Ja, dies kann mit einer Trigger-Aktivität gestartet werden",
       "title": "Trigger"
     },
     "ws": {
-      "authMessage": "Webdienst-Authentifizierung auf dem <a>Prozess</a>",
+      "authMessage": "Webdienst-Authentifizierung auf dem <a>process</a>",
       "client": "Client",
       "clientCreate": "Neuen WebService-Client erstellen",
       "clientOpen": "WebService-Konfiguration öffnen",
@@ -384,7 +384,7 @@
       "port": "Port",
       "properties": "Eigenschaften",
       "request": "Anfrage",
-      "title": "Webdienst"
+      "title": "Webservice"
     },
     "wsprocess": {
       "auth": {
@@ -394,7 +394,7 @@
       },
       "authentication": "Authentifizierung",
       "qualifiedName": "Qualifizierter Name",
-      "title": "Webdienst-Prozess"
+      "title": "Webservice-Prozess"
     }
   },
   "priority": {
@@ -418,7 +418,7 @@
     "jump": "Springen ({{hotkey}})",
     "openForm": "Formular öffnen ({{hotkey}})",
     "reconnect": "Erneut verbinden ({{hotkey}})",
-    "searchCallers": "Anrufer dieses Prozesses suchen ({{hotkey}})",
+    "searchCallers": "Aufrufer dieses Prozesses suchen ({{hotkey}})",
     "selectType": "Aktivitätstyp auswählen",
     "startProcess": "Prozess starten ({{hotkey}})",
     "straighten": "Gerade machen ({{hotkey}})",
@@ -440,7 +440,7 @@
     "removeTag": "Tag {{tag}} entfernen"
   },
   "title": {
-    "inscription": "Inscription"
+    "inscription": "Inskription"
   },
   "tool": {
     "jumpOut": "Herausspringen ({{hotkey}})"
@@ -450,7 +450,7 @@
     "allElements": "Alle Elemente",
     "artifacts": "Artefakte",
     "customIcon": "Benutzerdefiniertes Symbol",
-    "details": "Inscription",
+    "details": "Inskription",
     "events": "Ereignisse",
     "extensions": "Erweiterungen",
     "gateways": "Gateways",
