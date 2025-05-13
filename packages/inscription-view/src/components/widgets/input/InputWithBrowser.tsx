@@ -1,4 +1,4 @@
-import Input, { type InputProps } from './Input';
+import { Input, type InputProps } from './Input';
 import type { BrowserValue } from '../../browser/Browser';
 import type { CmsTypeFilter } from '../../browser/cms/CmsBrowser';
 import { InputGroup } from '@axonivy/ui-components';

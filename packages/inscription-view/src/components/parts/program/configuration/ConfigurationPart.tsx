@@ -8,7 +8,7 @@ import { useValidations } from '../../../../context/useValidation';
 import { useEditorContext } from '../../../../context/useEditorContext';
 import { useMeta } from '../../../../context/useMeta';
 import { ScriptInput } from '../../../widgets/code-editor/ScriptInput';
-import Input from '../../../widgets/input/Input';
+import { Input } from '../../../widgets/input/Input';
 import { PathCollapsible } from '../../common/path/PathCollapsible';
 import { useTranslation } from 'react-i18next';
 

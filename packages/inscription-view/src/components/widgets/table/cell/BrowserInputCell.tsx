@@ -2,7 +2,7 @@ import type { CellContext } from '@tanstack/react-table';
 import { Flex, useEditCell } from '@axonivy/ui-components';
 import { useBrowser } from '../../../browser/useBrowser';
 import { usePath } from '../../../../context/usePath';
-import Input from '../../input/Input';
+import { Input } from '../../input/Input';
 import Browser from '../../../browser/Browser';
 
 type BrowserInputCellProps<TData> = {
