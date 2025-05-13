@@ -26,7 +26,7 @@
   "peerDependencies": {
     "@axonivy/ui-components": "~13.1.0-next",
     "@axonivy/ui-icons": "~13.1.0-next",
-    "i18next": "^24.2.3",
+    "i18next": "^24.2.3 || ^25.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
