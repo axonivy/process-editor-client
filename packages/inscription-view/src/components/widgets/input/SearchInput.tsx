@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ComponentProps } from 'react';
 import { SearchInput as Search } from '@axonivy/ui-components';
-import type { InputProps } from './Input';
 
-const SearchInput = (props: InputProps) => {
+const SearchInput = (props: ComponentProps<typeof Search>) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

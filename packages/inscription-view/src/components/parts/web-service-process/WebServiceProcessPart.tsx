@@ -5,7 +5,7 @@ import { useWebServiceProcessData } from './useWebServiceProcessData';
 import { useValidations } from '../../../context/useValidation';
 import { ValidationCollapsible } from '../common/path/validation/ValidationCollapsible';
 import { PathFieldset } from '../common/path/PathFieldset';
-import Input from '../../widgets/input/Input';
+import { Input } from '../../widgets/input/Input';
 import Radio, { type RadioItemProps } from '../../widgets/radio/Radio';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';

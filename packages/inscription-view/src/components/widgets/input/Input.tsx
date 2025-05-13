@@ -1,22 +1,8 @@
-import { forwardRef, useEffect, useState } from 'react';
-import { Input as InputPrimitive, type InputProps as InputPrimitiveProps } from '@axonivy/ui-components';
+import { type ComponentProps } from 'react';
+import { BasicInput } from '@axonivy/ui-components';
 
-export type InputProps = Omit<InputPrimitiveProps, 'value' | 'onChange' | 'ref'> & {
-  value?: string;
+export type InputProps = Omit<ComponentProps<typeof BasicInput>, 'onChange'> & {
   onChange: (change: string) => void;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ value, onChange, ...props }, forwardedRef) => {
-  const [currentValue, setCurrentValue] = useState(value ?? '');
-  useEffect(() => {
-    setCurrentValue(value ?? '');
-  }, [value]);
-  const updateValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const update = event.target.value;
-    setCurrentValue(update);
-    onChange(update);
-  };
-  return <InputPrimitive ref={forwardedRef} value={currentValue} onChange={updateValue} {...props} />;
-});
-
-export default Input;
+export const Input = ({ onChange, ...props }: InputProps) => <BasicInput onChange={e => onChange(e.target.value)} {...props} />;

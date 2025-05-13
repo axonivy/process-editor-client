@@ -6,7 +6,7 @@ import { useOnFocus } from '../../../components/browser/useOnFocus';
 import { useField } from '@axonivy/ui-components';
 import { usePath } from '../../../context/usePath';
 import Browser from '../../browser/Browser';
-import Input from '../input/Input';
+import { Input } from '../input/Input';
 
 export const ScriptInput = ({
   value,

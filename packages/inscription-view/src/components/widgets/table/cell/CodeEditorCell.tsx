@@ -10,7 +10,7 @@ import { usePath } from '../../../../context/usePath';
 import { MaximizedCodeEditorBrowser } from '../../../browser/MaximizedCodeEditorBrowser';
 import { SingleLineCodeEditor } from '../../code-editor/SingleLineCodeEditor';
 import Browser from '../../../browser/Browser';
-import Input from '../../input/Input';
+import { Input } from '../../input/Input';
 import { focusAdjacentTabIndexMonaco } from '../../../../utils/focus';
 
 type CodeEditorCellProps<TData> = {
