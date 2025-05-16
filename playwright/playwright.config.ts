@@ -46,14 +46,12 @@ export default defineConfig({
     {
       name: 'screenshots-process',
       use: { ...devices['Desktop Chrome'], viewport: { width: 1000, height: 500 }, colorScheme: 'light', baseURL: STANDALONE_URL },
-      testDir: './tests/screenshots/editor',
-      retries: 0
+      testDir: './tests/screenshots/editor'
     },
     {
       name: 'screenshots-inscription',
       use: { ...devices['Desktop Chrome'], viewport: { width: 500, height: 1000 }, colorScheme: 'light', baseURL: INSCRIPTION_URL },
-      testDir: './tests/screenshots/inscription',
-      retries: 0
+      testDir: './tests/screenshots/inscription'
     }
   ]
 });
