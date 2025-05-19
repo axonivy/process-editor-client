@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "16C51F1EE34D5EF5",
   "config" : {
     "data" : "screenshot.project.Order"
@@ -48,7 +48,9 @@
           "expiry" : {
             "timeout" : "ivy.cal.getWorkDayIn(5).getDurationFromNow()",
             "responsible" : {
-              "activator" : "CREATOR"
+              "roles" : [
+                "CREATOR"
+              ]
             },
             "priority" : {
               "level" : "HIGH"
@@ -204,7 +206,9 @@
       "visual" : {
         "at" : { "x" : 1072, "y" : 384 },
         "size" : { "width" : 208, "height" : 30 },
-        "description" : "Discount is calculated on basis of unit price and quantity"
+        "description" : "Discount is calculated on basis of unit price and quantity",
+        "color" : "",
+        "icon" : ""
       },
       "connect" : [
         { "id" : "f26", "to" : "f19" }
