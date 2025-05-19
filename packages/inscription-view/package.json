@@ -31,7 +31,7 @@
     "@tanstack/react-query-devtools": "^5.64",
     "@tanstack/react-table": "^8.20",
     "downshift": "^9.0",
-    "i18next": "^24.2.3",
+    "i18next": "^24.2.3 || ^25.0.0",
     "react-i18next": "^15.4.1",
     "react": "^19.0"
   },
