@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "167C7307A5664620",
   "config" : {
     "data" : "screenshot.project.Data"
@@ -35,12 +35,16 @@
             "description" : "We need to renew our licence.",
             "category" : "Dossier",
             "responsible" : {
-              "activator" : "Secretary"
+              "roles" : [
+                "Secretary"
+              ]
             },
             "expiry" : {
               "timeout" : "ivy.cal.getWorkDayIn(5).getDurationFromNow()",
               "responsible" : {
-                "activator" : "IT-Manager"
+                "roles" : [
+                  "IT-Manager"
+                ]
               },
               "priority" : {
                 "level" : "HIGH"
@@ -172,7 +176,9 @@
           "expiry" : {
             "timeout" : "ivy.cal.getWorkDayIn(5).toDuration()",
             "responsible" : {
-              "activator" : "IT-Manager"
+              "roles" : [
+                "IT-Manager"
+              ]
             },
             "priority" : {
               "level" : "HIGH"

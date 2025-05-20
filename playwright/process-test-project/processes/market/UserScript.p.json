@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "193E3B0AD20672E7",
   "config" : {
     "data" : "market.UserScriptData"
@@ -49,7 +49,11 @@
         "- Finds users by ID"
       ],
       "visual" : {
-        "at" : { "x" : 240, "y" : 160 }
+        "at" : { "x" : 240, "y" : 160 },
+        "size" : { "width" : 140, "height" : 60 },
+        "description" : "",
+        "color" : "",
+        "icon" : ""
       },
       "connect" : [
         { "id" : "f6", "to" : "f3" }
