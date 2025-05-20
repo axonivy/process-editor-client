@@ -1,37 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.axonivy.ivy.api</groupId>
+    <artifactId>ivy-project-parent</artifactId>
+    <version>13.1.0-SNAPSHOT</version>
+    <relativePath></relativePath>
+  </parent>
   <groupId>process.test.project</groupId>
   <artifactId>process-test-project</artifactId>
   <version>13.1.0-SNAPSHOT</version>
   <packaging>iar-integration-test</packaging>
-
   <properties>
-    <engine.page.url>https://product.ivyteam.io/</engine.page.url>
-    <project.build.plugin.version>13.1.1-SNAPSHOT</project.build.plugin.version>
     <engine.test.app>process-test-project</engine.test.app>
+    <project.build.plugin.version>13.1.1-SNAPSHOT</project.build.plugin.version>
+    <engine.page.url>https://product.ivyteam.io/</engine.page.url>
     <webtest.cmd>webtest</webtest.cmd>
   </properties>
-
+  <dependencies>
+    <dependency>
+      <groupId>com.axonivy.ivy.api</groupId>
+      <artifactId>ivy-api</artifactId>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>maven.axonivy.com</id>
+      <url>https://maven.axonivy.com</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>central.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </pluginRepository>
+  </pluginRepositories>
   <build>
     <plugins>
       <plugin>
         <groupId>com.axonivy.ivy.ci</groupId>
         <artifactId>project-build-plugin</artifactId>
-        <version>${project.build.plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
           <useLatestMinor>true</useLatestMinor>
           <engineListPageUrl>${engine.page.url}</engineListPageUrl>
           <deployToEngineApplication>${engine.test.app}</deployToEngineApplication>
-          <additionalVmOptions>
-            -Dglsp.test.mode=true -Ddev.mode=true
-          </additionalVmOptions>
+          <additionalVmOptions>-Dglsp.test.mode=true -Ddev.mode=true</additionalVmOptions>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -64,17 +97,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central.snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 </project>

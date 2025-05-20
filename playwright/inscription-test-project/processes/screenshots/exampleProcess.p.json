@@ -1,5 +1,5 @@
 {
-  "$schema" : "https://json-schema.axonivy.com/process/12.0.0/process.json",
+  "$schema" : "https://json-schema.axonivy.com/process/13.1.2/process.json",
   "id" : "1562D1CBAC49CCF8",
   "config" : {
     "data" : "com.axonivy.CreditDossier"
@@ -23,7 +23,9 @@
         },
         "permission" : {
           "anonymous" : false,
-          "role" : "Secretary",
+          "roles" : [
+            "Secretary"
+          ],
           "error" : ">> Ignore Exception"
         },
         "triggerable" : true,
@@ -31,7 +33,9 @@
           "name" : "Call Manager",
           "category" : "Personal/Tasks",
           "responsible" : {
-            "activator" : "FacilityManager"
+            "roles" : [
+              "FacilityManager"
+            ]
           },
           "priority" : {
             "level" : "HIGH"
@@ -41,7 +45,7 @@
             "timeout" : "ivy.cal.getWorkDayIn(3).getDurationFromNow()",
             "responsible" : {
               "type" : "USER_FROM_ATTRIBUTE",
-              "activator" : "\"Supervisor\""
+              "script" : "\"Supervisor\""
             }
           },
           "customFields" : [
