@@ -18,7 +18,7 @@ body {
 }
 .sprotty-graph {
   background: var(--glsp-editor-background);
-  font-size: 10pt;
+  font-size: 12px;
   height: 100%;
 }
 
@@ -28,6 +28,7 @@ body {
   text-anchor: middle;
   cursor: default;
   fill: var(--glsp-editor-foreground);
+  font-size: 12px;
 }
 .pool > .sprotty-node,
 .lane > .sprotty-node {
