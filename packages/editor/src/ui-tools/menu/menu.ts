@@ -184,7 +184,7 @@ export abstract class ItemMenu implements Menu {
     parent.appendChild(group);
 
     const groupHeader = createElement('div', ['menu-group-header']);
-    groupHeader.textContent = t(`group.${item.label}`, { defaultValue: item.label });
+    groupHeader.textContent = item.label;
     group.appendChild(groupHeader);
 
     const groupItems = createElement('div', ['menu-group-items']);

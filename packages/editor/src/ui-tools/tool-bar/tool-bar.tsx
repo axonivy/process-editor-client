@@ -140,10 +140,9 @@ export class ToolBar extends ReactUIExtension implements IActionHandler, IEditMo
       );
     }
     return (
-      <span className='tool-bar-title-button'>
+      <span key={button.id} className='tool-bar-title-button'>
         <label>{button.title}</label>
         <Button
-          key={button.id}
           id={button.id}
           className={cn('tool-bar-button', activeButtonId === button.id ? 'clicked' : '')}
           title={button.title}
