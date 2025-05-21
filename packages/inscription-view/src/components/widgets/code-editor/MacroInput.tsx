@@ -35,7 +35,7 @@ export const MacroInput = ({ value, onChange, browsers, ...props }: MacroInputPr
         <InputBadge
           badgeProps={badgePropsExpression}
           value={value}
-          style={{ overflow: 'hidden' }}
+          // style={{ overflow: 'hidden' }}
           tabIndex={0}
           {...inputProps}
           {...props}
