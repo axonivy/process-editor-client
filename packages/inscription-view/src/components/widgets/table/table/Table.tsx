@@ -1,7 +1,6 @@
 import './Table.css';
 import { type ComponentProps } from 'react';
-import { Flex, Table } from '@axonivy/ui-components';
-import SearchInput from '../../input/SearchInput';
+import { Flex, SearchInput, Table } from '@axonivy/ui-components';
 import { useTranslation } from 'react-i18next';
 
 type TableProps = ComponentProps<typeof Table> & {

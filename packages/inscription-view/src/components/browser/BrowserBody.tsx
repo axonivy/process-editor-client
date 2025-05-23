@@ -14,6 +14,10 @@ interface ReusableBrowserDialogProps {
   disableApply?: boolean;
 }
 
+const focusFirstInput = () => {
+  document.querySelector<HTMLElement>('.browser-content .ui-input')?.focus();
+};
+
 const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableApply }: ReusableBrowserDialogProps) => {
   const { t } = useTranslation();
   const { editorRef } = useEditorContext();
@@ -24,6 +28,11 @@ const BrowserBody = ({ open, tabs, activeTab, onTabsChange, onApply, disableAppl
         className={`browser-dialog ${!open ? 'browser-content-exit' : ''}`}
         onInteractOutside={e => {
           e.preventDefault();
+        }}
+        onOpenAutoFocus={e => e.preventDefault()}
+        ref={dialog => {
+          dialog?.addEventListener('animationend', () => focusFirstInput());
+          return () => dialog?.removeEventListener('animationend', () => focusFirstInput());
         }}
       >
         <div className='browser-content'>
