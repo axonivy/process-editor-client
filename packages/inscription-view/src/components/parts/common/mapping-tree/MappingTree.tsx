@@ -11,7 +11,7 @@ import {
 import { MappingTreeData } from './mapping-tree-data';
 import type { MappingPartProps } from './MappingPart';
 import type { TableFilter } from './useMappingTree';
-import { calcFullPathId } from './useMappingTree';
+import { calcFullPathId, expandState } from './useMappingTree';
 import { ValidationRow } from '../path/validation/ValidationRow';
 import { ExpandableHeader, TableBody, TableCell, TableResizableHeader } from '@axonivy/ui-components';
 import { ScriptCell } from '../../../widgets/table/cell/ScriptCell';
@@ -27,6 +27,7 @@ type MappingTreeProps = MappingPartProps & {
 const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribedFilter, browsers }: MappingTreeProps) => {
   const { t } = useTranslation();
   const [tree, setTree] = useState<MappingTreeData[]>([]);
+  const [updateExpanded, setUpdateExpanded] = useState(true);
   const [expanded, setExpanded] = useState<ExpandedState>({ 0: true });
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -34,7 +35,10 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     const treeData = MappingTreeData.of(variableInfo);
     Object.entries(data).forEach(mapping => MappingTreeData.update(variableInfo, treeData, mapping[0].split('.'), mapping[1]));
     setTree(treeData);
-  }, [data, variableInfo]);
+    if (updateExpanded) {
+      setExpanded(expandState(treeData));
+    }
+  }, [data, updateExpanded, variableInfo]);
 
   const loadChildren = useCallback<(row: MappingTreeData) => void>(
     row => setTree(tree => MappingTreeData.loadChildrenFor(variableInfo, row.type, tree)),
@@ -97,6 +101,7 @@ const MappingTree = ({ data, variableInfo, onChange, globalFilter, onlyInscribed
     meta: {
       updateData: (rowId: string, columnId: string, value: string) => {
         const rowIndex = rowId.split('.').map(parseFloat);
+        setUpdateExpanded(false);
         onChange(MappingTreeData.to(MappingTreeData.updateDeep(tree, rowIndex, columnId, value)));
       }
     }
